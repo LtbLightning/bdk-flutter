@@ -98,17 +98,20 @@ class Bdk {
                                  details: error ))
         }
     }
-    //
-    //
-    //        func broadcastTx(arguments:[String:Any], result: @escaping FlutterResult ) {
-    //            try {
-    //                val transaction: String = BdkFunctions.broadcastTx(recipient, amount, null)
-    //                Log.i(TAG, "Successfully broadcast $amount")
-    //                result.success(transaction)
-    //            } catch (error: Throwable) {
-    //                return result.error("Broadcast Transaction Error", error.message, error.cause)
-    //            }
-    //        }
+           func broadcastTx(arguments:[String:Any], result: @escaping FlutterResult ) {
+               let recipient = arguments["recipient"]  ?? ""
+               let amount  = arguments["amount"]  ?? 0
+                         
+               do{
+                   let responseObject =   try bdkFunctions.broadcastTx(recipient as! String, amount: amount as! NSNumber)
+                   print(responseObject)
+
+                   return result(responseObject)
+               } catch let error {
+                   print(error)
+                   result("Broadcast Error")
+               }
+           }
     //
     //
     //            fun getConfirmedTransactions(result: FlutterResult) {
@@ -139,9 +142,9 @@ class Bdk {
         switch (method) {
         case "getWallet":  self.getNewAddress(result: result)
         case "walletExists":  result(bdkFunctions.getNewAddress().isEmpty)
-            //        case "unlockWallet":  result("unlock " + UIDevice.current.systemVersion)
         case "createWallet":  self.createWallet(arguments: arguments, result: result)
         case "restoreWallet":  self.restoreWallet(arguments: arguments, result: result)
+         case"broadcastTx":     self.broadcastTx( arguments: arguments, result:result)
         case "getBalance":  self.getBalance(result: result)
         case "getPendingTransactions":  try? bdkFunctions.pendingTransactionsList()
         case "getConfirmedTransactions":  try? bdkFunctions.confirmedTransactionsList()

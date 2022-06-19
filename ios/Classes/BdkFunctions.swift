@@ -237,7 +237,7 @@ class BdkFunctions: NSObject {
                try wallet.sign(psbt: psbt)
                try blockChain.broadcast(psbt: psbt)
                let txid = psbt.txid()
-               return txid;
+               return  txid;
            }   catch {
                throw error
            }

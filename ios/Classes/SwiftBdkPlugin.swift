@@ -5,7 +5,11 @@ import UIKit
 
 public class SwiftBdkPlugin: NSObject, FlutterPlugin {
     
+    
   public static func register(with registrar: FlutterPluginRegistrar) {
+     
+      
+
      
     let channel = FlutterMethodChannel(name: "bdk_flutter",
                                        binaryMessenger: registrar.messenger(),
