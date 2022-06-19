@@ -1,0 +1,4 @@
+enum Blockchain {
+ ELECTRUM,
+ ESPLORA
+}

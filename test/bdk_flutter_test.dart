@@ -1,3 +1,5 @@
+import 'package:bdk_flutter/enums/blockchain_enum.dart';
+import 'package:bdk_flutter/enums/network_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/bdk_flutter_platform_interface.dart';
@@ -7,7 +9,6 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockBdkFlutterPlatform
     with MockPlatformInterfaceMixin
     implements BdkFlutterPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 
@@ -15,7 +16,15 @@ class MockBdkFlutterPlatform
   Future<String?> getNewAddress() => Future.value('42');
 
   @override
-  Future<Map<String, dynamic>?> createWallet({String? password, required String? mnemonic}) {
+  Future<Map<String, dynamic>?> createWallet(
+      {String? password,
+      required String mnemonic,
+      Network? network,
+      Blockchain? blockChain,
+      String? blockChainConfigUrl,
+      String? blockChainSocket5,
+      String? retry,
+      String? timeOut}) {
     // TODO: implement createWallet
     throw UnimplementedError();
   }
@@ -57,14 +66,22 @@ class MockBdkFlutterPlatform
   }
 
   @override
-  Future broadcastTransaction({required String recipient, required  double
-  amount}) {
+  Future broadcastTransaction(
+      {required String recipient, required double amount}) {
     // TODO: implement broadcastTransaction
     throw UnimplementedError();
   }
 
   @override
-  Future restoreWallet({String? password, required String mnemonic}) {
+  Future restoreWallet(
+      {String? password,
+      required String mnemonic,
+      Network? network,
+      Blockchain? blockChain,
+      String? blockChainConfigUrl,
+      String? blockChainSocket5,
+      String? retry,
+      String? timeOut}) {
     // TODO: implement restoreWallet
     throw UnimplementedError();
   }
@@ -75,13 +92,12 @@ class MockBdkFlutterPlatform
     throw UnimplementedError();
   }
 
-  
   @override
   Future<List?> getConfirmedTransactions() {
     // TODO: implement getConfirmedTransactions
     throw UnimplementedError();
   }
-  
+
   @override
   Future<List?> getPendingTransactions() {
     // TODO: implement getPendingTransactions

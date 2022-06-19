@@ -1,3 +1,5 @@
+import 'package:bdk_flutter/enums/blockchain_enum.dart';
+import 'package:bdk_flutter/enums/network_enum.dart';
 
 import 'bdk_flutter_platform_interface.dart';
 
@@ -5,40 +7,76 @@ class BdkFlutter {
   Future<String?> getPlatformVersion() {
     return BdkFlutterPlatform.instance.getPlatformVersion();
   }
+
   Future<String?> getNewAddress() {
     return BdkFlutterPlatform.instance.getNewAddress();
   }
+
   Future<String?> genSeed() {
     return BdkFlutterPlatform.instance.genSeed();
   }
+
   Future<bool?> walletExists() {
     return BdkFlutterPlatform.instance.walletExists();
   }
 
- Future<bool?> unlockWallet() {
+  Future<bool?> unlockWallet() {
     return BdkFlutterPlatform.instance.unlockWallet();
   }
- Future<bool?> resetWallet() {
+
+  Future<bool?> resetWallet() {
     return BdkFlutterPlatform.instance.resetWallet();
   }
 
   Future<String?> getBalance() async {
     return BdkFlutterPlatform.instance.getBalance();
   }
-   sync()  {
+
+  sync() {
     return BdkFlutterPlatform.instance.sync();
   }
-   Future<String?> getWallet() async {
+
+  Future<String?> getWallet() async {
     return BdkFlutterPlatform.instance.getWallet();
   }
-  Future<dynamic> restoreWallet({String? password, required String mnemonic}) {
-    return BdkFlutterPlatform.instance.restoreWallet(password:password,
-        mnemonic:mnemonic);
+
+  Future<dynamic> restoreWallet({
+    String? password,
+    required String mnemonic,
+    Network? network,
+    Blockchain? blockChain,
+    String? blockChainConfigUrl,
+    String? blockChainSocket5,
+  }) {
+    return BdkFlutterPlatform.instance.restoreWallet(
+        password: password,
+        mnemonic: mnemonic,
+        network: network,
+        blockChain: blockChain,
+        blockChainConfigUrl: blockChainConfigUrl,
+        blockChainSocket5: blockChainConfigUrl);
   }
-  Future<dynamic> createWallet({String? password, required String mnemonic}) {
-    return BdkFlutterPlatform.instance.createWallet(password:password,
-        mnemonic:mnemonic);
+
+  Future<dynamic> createWallet(
+      {String? password,
+      required String mnemonic,
+      Network? network,
+      String? blockChainConfigUrl,
+      Blockchain? blockChain,
+      String? blockChainSocket5,
+      String? retry,
+      String? timeOut}) {
+    return BdkFlutterPlatform.instance.createWallet(
+        password: password,
+        mnemonic: mnemonic,
+        network: network,
+        blockChain: blockChain,
+        blockChainConfigUrl: blockChainConfigUrl,
+        blockChainSocket5: blockChainConfigUrl,
+        timeOut: timeOut,
+        retry: retry);
   }
+
   Future<List<dynamic>?> getPendingTransactions() {
     return BdkFlutterPlatform.instance.getPendingTransactions();
   }
@@ -46,10 +84,10 @@ class BdkFlutter {
   Future<List<dynamic>?> getConfirmedTransactions() {
     return BdkFlutterPlatform.instance.getConfirmedTransactions();
   }
-  Future<dynamic> broadcastTransaction({required String recipient, required
-  double amount}) {
-    return BdkFlutterPlatform.instance.broadcastTransaction(recipient:recipient,
-        amount:amount);
+
+  Future<dynamic> broadcastTransaction(
+      {required String recipient, required double amount}) {
+    return BdkFlutterPlatform.instance
+        .broadcastTransaction(recipient: recipient, amount: amount);
   }
-  
 }

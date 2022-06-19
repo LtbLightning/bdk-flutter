@@ -1,3 +1,5 @@
+import 'package:bdk_flutter/enums/blockchain_enum.dart';
+import 'package:bdk_flutter/enums/network_enum.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'bdk_flutter_method_channel.dart';
@@ -56,11 +58,25 @@ abstract class BdkFlutterPlatform extends PlatformInterface {
   }
 
   Future<dynamic> createWallet(
-      {String? password, required String? mnemonic}) async {
+      {String? password,
+      required String mnemonic,
+      Network? network,
+      String? blockChainConfigUrl,
+      Blockchain? blockChain,
+      String? blockChainSocket5,
+      String? retry,
+      String? timeOut}) async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<dynamic> restoreWallet({String? password, required String mnemonic}) {
+  Future<dynamic> restoreWallet({
+    String? password,
+    required String mnemonic,
+    Network? network,
+    String? blockChainConfigUrl,
+    Blockchain? blockChain,
+    String? blockChainSocket5,
+  }) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
