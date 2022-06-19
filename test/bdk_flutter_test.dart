@@ -75,9 +75,16 @@ class MockBdkFlutterPlatform
     throw UnimplementedError();
   }
 
+  
   @override
-  Future<List?> getTransactions() {
-    // TODO: implement getTransactions
+  Future<List?> getConfirmedTransactions() {
+    // TODO: implement getConfirmedTransactions
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List?> getPendingTransactions() {
+    // TODO: implement getPendingTransactions
     throw UnimplementedError();
   }
 }

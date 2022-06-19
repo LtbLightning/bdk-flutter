@@ -26,43 +26,60 @@ abstract class BdkFlutterPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
-  Future<String?>  getNewAddress() async {
+
+  Future<String?> getNewAddress() async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   Future<String?> genSeed() async {
-     throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
   Future<bool?> walletExists() async {
-     throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   Future<bool?> unlockWallet() async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   Future<bool?> resetWallet() async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   Future<String?> getWallet() async {
     throw UnimplementedError(' getWallet() has not been implemented.');
   }
+
   Future<String?> getBalance() async {
     throw UnimplementedError(' getBalance() has not been implemented.');
   }
-  Future<dynamic> createWallet({String? password, required String? mnemonic})
-  async{
+
+  Future<dynamic> createWallet(
+      {String? password, required String? mnemonic}) async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   Future<dynamic> restoreWallet({String? password, required String mnemonic}) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
-  Future<dynamic> broadcastTransaction({required String recipient, required  double
-  amount}) {
+
+  Future<dynamic> broadcastTransaction(
+      {required String recipient, required double amount}) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
   sync() async {
     throw UnimplementedError(' getWallet() has not been implemented.');
   }
-  Future<List<dynamic>?>getTransactions() async {
-    throw UnimplementedError(' getWallet() has not been implemented.');
+
+  Future<List<dynamic>?> getPendingTransactions() async {
+    throw UnimplementedError(
+        'getPendingTransactions has not been implemented.');
+  }
+
+  Future<List<dynamic>?> getConfirmedTransactions() async {
+    throw UnimplementedError(
+        'getConfirmedTransactions has not been implemented.');
   }
 }

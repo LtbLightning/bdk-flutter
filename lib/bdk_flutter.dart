@@ -39,8 +39,12 @@ class BdkFlutter {
     return BdkFlutterPlatform.instance.createWallet(password:password,
         mnemonic:mnemonic);
   }
-  Future<List<dynamic>?> getTransactions() {
-    return BdkFlutterPlatform.instance.getTransactions();
+  Future<List<dynamic>?> getPendingTransactions() {
+    return BdkFlutterPlatform.instance.getPendingTransactions();
+  }
+
+  Future<List<dynamic>?> getConfirmedTransactions() {
+    return BdkFlutterPlatform.instance.getConfirmedTransactions();
   }
   Future<dynamic> broadcastTransaction({required String recipient, required
   double amount}) {
