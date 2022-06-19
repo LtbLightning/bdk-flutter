@@ -18,6 +18,7 @@ class BdkFunctions: NSObject {
         config: ElectrumConfig(url: "ssl://electrum.blockstream.info:60002", socks5: nil, retry: 5, timeout: nil, stopGap: 10))
     var wallet: Wallet
      let defaultNodeNetwork = "testnet"
+    var blockChain: Blockchain
     let defaultDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)"
     let defaultChangeDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)"
     
@@ -26,11 +27,12 @@ class BdkFunctions: NSObject {
     override init() {
         
     
-    
+        self.blockChain = try! Blockchain(config: blockchainConfig)
         
         self.wallet = try! Wallet.init(descriptor: defaultDescriptor, changeDescriptor: defaultChangeDescriptor, network: Network.testnet, databaseConfig: databaseConfig)
                
-        try? self.wallet.sync(blockchain: Blockchain.init(config: blockchainConfig), progress: BdkProgress())
+        try? self.wallet.sync(blockchain: blockChain, progress: BdkProgress())
+       
     }
     
     func sync(config:BlockchainConfig?) {
@@ -228,17 +230,19 @@ class BdkFunctions: NSObject {
         return []
     }
     
-    
-    //    func broadcastTx(_ recipient: String, amount: NSNumber) {
-    //            do {
-    //                let psbt: PartiallySignedBitcoinTransaction =  try PartiallySignedBitcoinTransaction(wallet: wallet, recipient: recipient, amount: UInt64(truncating: amount), feeRate: nil)
-    //                try wallet.sign(psbt: psbt)
-    //                let transaction = wallet.getNetwork()
-    //                print("Broadcast success", transaction)
-    //
-    //            }   catch let error {
-    //
-    //            }
-    //        }
-}
+    func broadcastTx(_ recipient: String, amount: NSNumber)  throws -> String {
+           do {
+               let txBuilder = TxBuilder().addRecipient(address: recipient, amount: UInt64(truncating: amount))
+               let psbt = try txBuilder.finish(wallet: wallet)
+               try wallet.sign(psbt: psbt)
+               try blockChain.broadcast(psbt: psbt)
+               let txid = psbt.txid()
+               return txid;
+           }   catch {
+               throw error
+           }
+       }
+
+   }
+
 
