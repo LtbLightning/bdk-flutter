@@ -47,14 +47,14 @@ object Bdk {
     }
 
     fun createWallet(
-        mnemonic: String, password: String?, network: String?,
-        blockChainConfigUrl: String, blockChainSocket5: String?,
-        retry: String?, timeOut: String?, blockChain: String?, result: Result
+            mnemonic: String, password: String?, network: String?,
+            blockChainConfigUrl: String, blockChainSocket5: String?,
+            retry: String?, timeOut: String?, blockChain: String?, result: Result
     ) {
         return try {
             val responseObject = BdkFunctions.createWallet(
-                mnemonic, password, network,
-                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
+                    mnemonic, password, network,
+                    blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
             )
             Log.i(responseObject.toString(), "Progress Log Create Wallet Success")
             result.success(responseObject)
@@ -65,14 +65,14 @@ object Bdk {
     }
 
     fun restoreWallet(
-        mnemonic: String, password: String?, network: String?,
-        blockChainConfigUrl: String, blockChainSocket5: String?,
-        retry: String?, timeOut: String?, blockChain: String?, result: Result
+            mnemonic: String, password: String?, network: String?,
+            blockChainConfigUrl: String, blockChainSocket5: String?,
+            retry: String?, timeOut: String?, blockChain: String?, result: Result
     ) {
         try {
             val responseObject = BdkFunctions.restoreWallet(
-                mnemonic, password, network,
-                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
+                    mnemonic, password, network,
+                    blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
             )
             Log.i(responseObject.toString(), "Progress Log Restore Success")
             result.success(responseObject)
@@ -90,6 +90,15 @@ object Bdk {
             result.success(transaction)
         } catch (error: Throwable) {
             return result.error("Broadcast Transaction Error", error.message, error.cause)
+        }
+    }
+    fun createAndSign(recipient: String, amount: Double, result: Result) {
+        try {
+            val psbt: String = BdkFunctions.createPartiallySignedBitcoinTransaction(recipient, amount)
+            Log.i(TAG, "Successfully Psbt $psbt")
+            result.success(psbt)
+        } catch (error: Throwable) {
+            return result.error("Psbt Error", error.message, error.cause)
         }
     }
 
@@ -124,5 +133,28 @@ object Bdk {
             return result.error("Progress Log resetWallet Error", error.localizedMessage, error)
         }
     }
+
+//    private fun handleWalletExists(result: Result) {
+//        result.success(null == getWallet(result))
+//    }
+//    fun handleMethodCall(@NonNull method: String, @NonNull result: Result, arguments: Map<String, Any>?) {
+//        when (method) {
+//            "genSeed" -> genSeed(null, result)
+//            "getWallet" -> getWallet(result)
+//            "walletExists" -> handleWalletExists(result)
+//            "createWallet" -> handleCreateWallet(call, result)
+//            "restoreWallet" -> handleRestoreWallet(call, result)
+//            "resetWallet" -> Bdk.resetWallet(result)
+//            "getBalance" -> Bdk.getBalance(result)
+//            "getPendingTransactions" -> Bdk.getPendingTransactions(result)
+//            "getConfirmedTransactions" -> Bdk.getConfirmedTransactions(result)
+//            "sync" -> Bdk.sync()
+//            "broadcastTx" -> handleBroadcastTx(call, result)
+//            "getNewAddress" -> Bdk.getNewAddress(result)
+//            else -> {
+//                result.notImplemented()
+//            }
+//        }
+
 
 }

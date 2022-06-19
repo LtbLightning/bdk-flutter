@@ -17,6 +17,9 @@ class BdkWallet {
   Future<String?> genSeed() {
     return BdkFlutterPlatform.instance.genSeed();
   }
+  Future<String?> createAndSign ({required String recipient, required double amount}) {
+    return BdkFlutterPlatform.instance.createAndSign( amount:amount, recipient: recipient);
+  }
 
   Future<bool?> walletExists() {
     return BdkFlutterPlatform.instance.walletExists();
@@ -61,13 +64,13 @@ class BdkWallet {
 
   Future<dynamic> createWallet(
       {String? password,
-      required String mnemonic,
-      Network? network,
-      String? blockChainConfigUrl,
-      Blockchain? blockChain,
-      String? blockChainSocket5,
-      String? retry,
-      String? timeOut}) {
+        required String mnemonic,
+        Network? network,
+        String? blockChainConfigUrl,
+        Blockchain? blockChain,
+        String? blockChainSocket5,
+        String? retry,
+        String? timeOut}) {
     return BdkFlutterPlatform.instance.createWallet(
         password: password,
         mnemonic: mnemonic,

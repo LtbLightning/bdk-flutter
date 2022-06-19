@@ -40,12 +40,22 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
             "sync" -> Bdk.sync()
             "broadcastTx" -> handleBroadcastTx(call, result)
             "getNewAddress" -> Bdk.getNewAddress(result)
+            "createAndSign" -> handleCreateAndSign( call,result)
             else -> {
                 result.notImplemented()
             }
         }
     }
-
+    private fun handleCreateAndSign(call: MethodCall, result: Result){
+        @Suppress("DEPRECATION")
+        DdoAsync {
+            val recipient = call.argument<String>("recipient").toString()
+            val amount = call.argument<Double>("amount")?.toDouble()
+            if (amount != null) {
+                Bdk.createAndSign(recipient, amount, result)
+            }
+        }.execute()
+    }
     private fun handleBroadcastTx(call: MethodCall, result: Result) {
 
         @Suppress("DEPRECATION")

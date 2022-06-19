@@ -100,6 +100,12 @@ class MockBdkFlutterPlatform
     // TODO: implement getPendingTransactions
     throw UnimplementedError();
   }
+
+  @override
+  Future<String?> createAndSign({required String recipient, required double amount}) {
+    // TODO: implement createAndSign
+    throw UnimplementedError();
+  }
 }
 
 void main() {

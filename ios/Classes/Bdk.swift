@@ -2,8 +2,6 @@
 //  Bdk.swift
 //  bdk_flutter
 //
-//  Created by SamBaby on 2022-06-09.
-//
 
 import Foundation
 class Bdk {

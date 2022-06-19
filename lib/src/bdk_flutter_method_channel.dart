@@ -15,7 +15,7 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
   @override
   Future<String?> getPlatformVersion() async {
     final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
+    await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
@@ -36,6 +36,12 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
     final response = await methodChannel.invokeMethod<String>('getWallet');
     return response;
   }
+  @override
+  Future<String?> createAndSign({required String recipient, required double amount}) async {
+    Map<String, dynamic> arguments = {"recipient": recipient, "amount": amount};
+    final response = await methodChannel.invokeMethod<String>('createAndSign', arguments );
+    return response;
+  }
 
   @override
   Future<bool?> walletExists() async {
@@ -52,13 +58,13 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
   @override
   createWallet(
       {String? password,
-      required String mnemonic,
-      Network? network,
-      Blockchain? blockChain,
-      String? blockChainConfigUrl,
-      String? blockChainSocket5,
-      String? retry,
-      String? timeOut}) async {
+        required String mnemonic,
+        Network? network,
+        Blockchain? blockChain,
+        String? blockChainConfigUrl,
+        String? blockChainSocket5,
+        String? retry,
+        String? timeOut}) async {
     Map<String, dynamic> arguments = {
       "password": password,
       "mnemonic": mnemonic,
@@ -70,7 +76,7 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
       "blockChain": blockChain.toString(),
     };
     final response =
-        await methodChannel.invokeMethod('createWallet', arguments);
+    await methodChannel.invokeMethod('createWallet', arguments);
     return response;
   }
 
@@ -83,7 +89,7 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
   @override
   Future<List<dynamic>?> getConfirmedTransactions() async {
     final response =
-        await methodChannel.invokeMethod('getConfirmedTransactions');
+    await methodChannel.invokeMethod('getConfirmedTransactions');
     return response;
   }
 
@@ -112,7 +118,7 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
       "blockChain": blockChain.toString(),
     };
     final response =
-        await methodChannel.invokeMethod('restoreWallet', arguments);
+    await methodChannel.invokeMethod('restoreWallet', arguments);
     return response;
   }
 

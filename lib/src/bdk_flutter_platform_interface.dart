@@ -56,16 +56,19 @@ abstract class BdkFlutterPlatform extends PlatformInterface {
   Future<String?> getBalance() async {
     throw UnimplementedError(' getBalance() has not been implemented.');
   }
+  Future<String?> createAndSign({required String recipient, required double amount}) async {
+    throw UnimplementedError(' createAndSign() has not been implemented.');
+  }
 
   Future<dynamic> createWallet(
       {String? password,
-      required String mnemonic,
-      Network? network,
-      String? blockChainConfigUrl,
-      Blockchain? blockChain,
-      String? blockChainSocket5,
-      String? retry,
-      String? timeOut}) async {
+        required String mnemonic,
+        Network? network,
+        String? blockChainConfigUrl,
+        Blockchain? blockChain,
+        String? blockChainSocket5,
+        String? retry,
+        String? timeOut}) async {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
