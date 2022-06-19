@@ -1,7 +1,6 @@
 import 'dart:collection';
-
-import 'package:bdk_flutter/enums/blockchain_enum.dart';
-import 'package:bdk_flutter/enums/network_enum.dart';
+import 'package:bdk_flutter/src/enums/blockchain_enum.dart';
+import 'package:bdk_flutter/src/enums/network_enum.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 

@@ -1,9 +1,6 @@
-import 'package:bdk_flutter/enums/blockchain_enum.dart';
-import 'package:bdk_flutter/enums/network_enum.dart';
+import 'package:bdk_flutter/src/bdk_flutter_method_channel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/bdk_flutter_platform_interface.dart';
-import 'package:bdk_flutter/bdk_flutter_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockBdkFlutterPlatform
@@ -113,7 +110,7 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    BdkFlutter bdkFlutterPlugin = BdkFlutter();
+    BdkWallet bdkFlutterPlugin = BdkWallet();
     MockBdkFlutterPlatform fakePlatform = MockBdkFlutterPlatform();
     BdkFlutterPlatform.instance = fakePlatform;
 

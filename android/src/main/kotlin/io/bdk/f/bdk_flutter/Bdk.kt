@@ -54,7 +54,7 @@ object Bdk {
         return try {
             val responseObject = BdkFunctions.createWallet(
                 mnemonic, password, network,
-                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain
+                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
             )
             Log.i(responseObject.toString(), "Progress Log Create Wallet Success")
             result.success(responseObject)
@@ -72,7 +72,7 @@ object Bdk {
         try {
             val responseObject = BdkFunctions.restoreWallet(
                 mnemonic, password, network,
-                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain
+                blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
             )
             Log.i(responseObject.toString(), "Progress Log Restore Success")
             result.success(responseObject)

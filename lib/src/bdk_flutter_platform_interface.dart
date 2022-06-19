@@ -1,5 +1,5 @@
-import 'package:bdk_flutter/enums/blockchain_enum.dart';
-import 'package:bdk_flutter/enums/network_enum.dart';
+import 'package:bdk_flutter/src/enums/blockchain_enum.dart';
+import 'package:bdk_flutter/src/enums/network_enum.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'bdk_flutter_method_channel.dart';

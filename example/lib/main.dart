@@ -1,5 +1,3 @@
-import 'package:bdk_flutter/enums/blockchain_enum.dart';
-import 'package:bdk_flutter/enums/network_enum.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -19,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   String walletBalance = 'error';
   String wallet = '';
   String address = '';
-  final _bdkFlutterPlugin = BdkFlutter();
+  final _bdkFlutterPlugin = BdkWallet();
 
   @override
   void initState() {

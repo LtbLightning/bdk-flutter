@@ -1,6 +1,7 @@
+import 'package:bdk_flutter/src/bdk_flutter_method_channel.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bdk_flutter/bdk_flutter_method_channel.dart';
+
 
 void main() {
   MethodChannelBdkFlutter platform = MethodChannelBdkFlutter();
