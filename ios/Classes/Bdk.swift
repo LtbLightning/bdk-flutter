@@ -11,46 +11,46 @@ class Bdk {
         print("Wallet Syncing")
         bdkFunctions.sync(config: nil)
     }
-    
+
     func getNewAddress(result: FlutterResult) {
         print("Getting new address")
         let address = bdkFunctions.getNewAddress()
         return  result(address)
-        
+
     }
-    
+
     func getWallet(result: FlutterResult) {
-        
+
         return result(bdkFunctions.getNewAddress())
     }
-    
+
     func getBalance(result: FlutterResult) {
         do{
             return  try result(bdkFunctions.getBalance())
-            
+
         } catch let error {
             result(FlutterError( code: "Get Balance Error",
                                  message: error.localizedDescription,
                                  details: error ))
         }
-        
-        
-        
+
+
+
     }
-    
+
     func genSeed( result: @escaping FlutterResult) {
         do{
             return  try result(bdkFunctions.genSeed(password:nil))
-            
+
         } catch let error {
             result(FlutterError( code: "Generate Seed Error",
                                  message: error.localizedDescription,
                                  details: error ))
         }
-        
-        
+
+
     }
-    
+
     func createWallet(
         arguments:Dictionary<String,Any?>, result: @escaping FlutterResult
     ) {
@@ -63,10 +63,10 @@ class Bdk {
         let timeOut = arguments["timeOut"] ?? ""
         let blockChain = arguments["blockChain"]  ?? ""
         let walletDescriptor = arguments["walletDescriptor"]  ?? ""
-        
+
         do{
             let responseObject =   try bdkFunctions.createWallet(mnemonic: (mnemonic as? String), password: password as? String, network: network as? String, blockChainConfigUrl: blockChainConfigUrl as? String, blockChainSocket5: blockChainSocket5 as? String, retry: (retry as? String), timeOut:timeOut as? String, blockChain: (blockChain as? String), walletDescriptor: walletDescriptor as? String)
-            
+
             return result(responseObject)
         } catch let error {
             result(FlutterError( code: "Create Wallet Error",
@@ -74,7 +74,7 @@ class Bdk {
                                  details: error ))
         }
     }
-    
+
     func restoreWallet(
         arguments:Dictionary<String,Any?>, result: @escaping FlutterResult
     ) {
@@ -87,10 +87,10 @@ class Bdk {
         let timeOut = arguments["timeOut"] ?? ""
         let blockChain = arguments["blockChain"]  ?? ""
         let walletDescriptor = arguments["walletDescriptor"]  ?? ""
-        
+
         do{
             let responseObject =   try bdkFunctions.restoreWallet(mnemonic: (mnemonic as? String), password: password as? String, network: network as? String, blockChainConfigUrl: blockChainConfigUrl as? String, blockChainSocket5: blockChainSocket5 as? String, retry: (retry as? String), timeOut:timeOut as? String, blockChain: (blockChain as? String), walletDescriptor: walletDescriptor as? String)
-            
+
             return result(responseObject)
         } catch let error {
             result(FlutterError( code: "Retore Wallet Error",
@@ -132,8 +132,8 @@ class Bdk {
     //                }
     //            }
     //
-    
-    
+
+
     func handleMethodCalls(arguments:[String:Any], result: @escaping FlutterResult, method:String ) {
         print(arguments)
         switch (method) {

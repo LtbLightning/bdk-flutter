@@ -16,7 +16,7 @@ public class SwiftBdkPlugin: NSObject, FlutterPlugin {
   }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-            let bdk = Bdk()
+           let bdk = Bdk()
           let args = call.arguments as? Dictionary<String,Any?> ?? [:]
             
         bdk.handleMethodCalls(arguments: args as [String : Any], result: result, method: call.method)

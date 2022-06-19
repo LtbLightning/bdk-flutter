@@ -10,7 +10,7 @@ let TAG = "BDK-F"
 
 
 class BdkFunctions: NSObject {
-    
+
      let databaseConfig = DatabaseConfig.memory
      let  defaultBlockChainConfigUrl:String = "ssl://electrum.blockstream.info:60002"
      let defaultBlockChain = "ELECTRUM"
@@ -21,25 +21,25 @@ class BdkFunctions: NSObject {
     var blockChain: Blockchain
     let defaultDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)"
     let defaultChangeDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)"
-    
-    
-    
+
+
+
     override init() {
-        
-    
+
+
         self.blockChain = try! Blockchain(config: blockchainConfig)
-        
+
         self.wallet = try! Wallet.init(descriptor: defaultDescriptor, changeDescriptor: defaultChangeDescriptor, network: Network.testnet, databaseConfig: databaseConfig)
-               
+
         try? self.wallet.sync(blockchain: blockChain, progress: BdkProgress())
-       
+
     }
-    
+
     func sync(config:BlockchainConfig?) {
         try? self.wallet.sync(blockchain: Blockchain.init(config: config ?? blockchainConfig), progress: BdkProgress())
     }
-    
-    
+
+
     private func _seed(
         recover: Bool = false,
         mnemonic: String?,
@@ -52,7 +52,7 @@ class BdkFunctions: NSObject {
             throw error
         }
     }
-    
+
     private func setNetwork(networkStr: String?)-> Network {
         switch (networkStr) {
         case "TESTNET" : return  Network.testnet
@@ -60,14 +60,14 @@ class BdkFunctions: NSObject {
         case  "REGTEST": return  Network.regtest
         case  "SIGNET":return Network.signet
         default : return Network.testnet
-            
+
         }
     }
     func createDefaultDescriptor(keys: ExtendedKeyInfo)-> String {
         return "wpkh(" + keys.xprv + "/84'/1'/0'/0/*)"
     }
-    
-    
+
+
     func createChangeDescriptorFromDescriptor(descriptor: String)->String{
         guard let range = descriptor.range(of: "/84'/1'/0'/0/*") else { return "/84'/1'/0'/0/*" }
         return descriptor.replacingCharacters(in: range , with: "/84'/1'/0'/1/*")
@@ -109,28 +109,28 @@ class BdkFunctions: NSObject {
                                                             )
         )
         default: return blockchainConfig
-            
-            
+
+
         }
     }
-        
-        
+
+
         func genSeed(password: String? = nil) throws -> ExtendedKeyInfo {
             do {
                 let seed = try _seed(recover: false, mnemonic: "" )
                 return seed
-                
+
             } catch {
                 throw error
             }
         }
-        
-        
+
+
     func createWallet(mnemonic: String? = "", password: String? = nil, network:String?, blockChainConfigUrl: String?, blockChainSocket5: String?,retry: String?, timeOut: String?, blockChain: String?, walletDescriptor: String? ) throws -> [String: Any?] {
             do {
                 let keys: ExtendedKeyInfo = try _seed(recover: false, mnemonic: mnemonic, password: password)
                try createRestoreWallet(keys: keys, network: network!, blockChainConfigUrl: blockChainConfigUrl, blockChainSocket5: blockChainSocket5, retry:retry, timeOut: timeOut, blockChain: blockChain ?? defaultBlockChain, walletDescriptor: walletDescriptor)
-                
+
                 let responseObject = [
                     "address": self.wallet.getNewAddress() ,
                     "balance": try! self.wallet.getBalance()
@@ -141,14 +141,14 @@ class BdkFunctions: NSObject {
                 throw error
             }
         }
-        
+
         func restoreWallet(mnemonic: String? = "", password: String? = nil, network:String?, blockChainConfigUrl: String?, blockChainSocket5: String?,retry: String?, timeOut: String?, blockChain: String?, walletDescriptor: String? ) throws -> [String: Any?] {
             do {
                 let keys: ExtendedKeyInfo = try _seed(recover:  true, mnemonic: mnemonic, password: password)
                 let wallet = try createRestoreWallet(keys: keys, network: network!, blockChainConfigUrl: blockChainConfigUrl!, blockChainSocket5: blockChainSocket5!, retry:retry!, timeOut: timeOut!, blockChain: blockChain ?? defaultBlockChain, walletDescriptor: walletDescriptor)
                 let responseObject = [
                     "address": wallet.getNewAddress() ,
-                    "balance": try! wallet.getBalance() 
+                    "balance": try! wallet.getBalance()
                 ] as [String : Any]
                 return responseObject
             }
@@ -156,20 +156,20 @@ class BdkFunctions: NSObject {
                 throw error
             }
         }
-        
-        
+
+
         func getWalletName()-> String{
             return self.wallet.getNewAddress() }
-        
+
         func getNewAddress() -> String{
-            
+
             return self.wallet.getNewAddress()
         }
-        
+
         func getNetwork() -> Network{
             return self.wallet.getNetwork()
         }
-        
+
         func getBalance() throws -> String {
             do {
                 try! self.wallet.sync(blockchain: Blockchain.init(config: blockchainConfig), progress: BdkProgress())
@@ -180,14 +180,14 @@ class BdkFunctions: NSObject {
                 throw error
             }
         }
-        
-        
-    
+
+
+
     func confirmedTransactionsList() throws -> Array<[String: Any?]> {
         return []
     }
-    
-    
+
+
     func pendingTransactionsList() throws -> Array<[String: Any?]> {
         //            do {
         //                let wallet_transactions: Transaction = try wallet.getTransactions()
@@ -226,10 +226,10 @@ class BdkFunctions: NSObject {
         //            } catch (error: Throwable) {
         //                throw(error)
         //            }
-        
+
         return []
     }
-    
+
     func broadcastTx(_ recipient: String, amount: NSNumber)  throws -> String {
            do {
                let txBuilder = TxBuilder().addRecipient(address: recipient, amount: UInt64(truncating: amount))
