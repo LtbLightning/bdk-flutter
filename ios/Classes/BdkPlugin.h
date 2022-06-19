@@ -2,3 +2,4 @@
 
 @interface BdkPlugin : NSObject<FlutterPlugin>
 @end
+

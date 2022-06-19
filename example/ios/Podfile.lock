@@ -1,0 +1,22 @@
+PODS:
+  - bdk_flutter (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - bdk_flutter (from `.symlinks/plugins/bdk_flutter/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  bdk_flutter:
+    :path: ".symlinks/plugins/bdk_flutter/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  bdk_flutter: b797fa52207d68c91c2ab0ef6292d657ed68a3e1
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.3

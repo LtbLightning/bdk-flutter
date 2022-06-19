@@ -107,7 +107,7 @@ object BdkFunctions {
             throw(error)
         }
     }
-
+// please remove this
     fun getWallet(): String {
         try {
             return this.wallet.toString()
