@@ -44,7 +44,7 @@ abstract class BdkFlutterPlatform extends PlatformInterface {
   }
 
   Future<bool?> resetWallet() async {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('resetWallet() has not been implemented.');
   }
 
   Future<String?> getWallet() async {

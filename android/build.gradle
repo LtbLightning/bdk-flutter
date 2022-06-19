@@ -1,6 +1,5 @@
 group 'io.bdk.f.bdk_flutter'
 version '1.0-SNAPSHOT'
-
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
@@ -9,10 +8,11 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:7.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 
 allprojects {
     repositories {

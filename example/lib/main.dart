@@ -23,6 +23,7 @@ class _MyAppState extends State<MyApp> {
  void initState() {
    super.initState();
    initPlatformState();
+    restoreWallet() ;
   // getNewAddress();
  }
 
@@ -48,6 +49,13 @@ class _MyAppState extends State<MyApp> {
 
    });
  }
+ restoreWallet() async {
+   await _bdkFlutterPlugin.restoreWallet( mnemonic: "pole account coconut skull draw more coyote sure neutral board large hello", password:"test")
+       .then((i) => print(i));
+   setState(() {
+
+   });
+ }
  sync() async {
    await _bdkFlutterPlugin.sync()
        .then((i) => print(i));
@@ -65,8 +73,20 @@ class _MyAppState extends State<MyApp> {
          print(i);
    });
  }
- getTransactions() async {
+ getConfirmedTransactions() async {
    await _bdkFlutterPlugin.getConfirmedTransactions()
+       .then((i) {
+    print("confirmed result $i");
+   });
+ }
+ getPendingTransactions() async {
+   await _bdkFlutterPlugin.getPendingTransactions()
+       .then((i) {
+     print("pending result $i");
+   });
+ }
+  resetWallet() async {
+   await _bdkFlutterPlugin.resetWallet()
        .then((i) {
      print(i);
    });
@@ -74,8 +94,7 @@ class _MyAppState extends State<MyApp> {
 
 
  sendBit() async {
-   await _bdkFlutterPlugin.broadcastTransaction(recipient: 'tb1ql7w62elx9ucw'
-       '4pj5lgw4l028hmuw80sndtntxt', amount:  9000)
+   await _bdkFlutterPlugin.broadcastTransaction(recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0', amount:  1000)
        .then((i) {
      setState(() {
        initPlatformState();
@@ -102,11 +121,15 @@ class _MyAppState extends State<MyApp> {
              TextButton(onPressed: () => getNewAddress(),
                  child: const Text('Press to create new Address')),
              TextButton(onPressed: () => sendBit(),
-                 child: const Text('Press to  send 0.00001 satoshi')),
+                 child: const Text('Press to  send 1200 satoshi')),
              TextButton(onPressed: () => sync(),
                  child: const Text('Press to  sync')),
-             TextButton(onPressed: () => getTransactions(),
-                 child: const Text('Get Transactions')),
+             TextButton(onPressed: () => getConfirmedTransactions(),
+                 child: const Text('Get ConfirmedTransactions')),
+                  TextButton(onPressed: () => getPendingTransactions(),
+                 child: const Text('getPendingTransactions')),
+                 TextButton(onPressed: () => resetWallet(),
+                 child: const Text('Reset Wallet')),
            ],
          ),
        ),

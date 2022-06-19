@@ -1,5 +1,4 @@
 package io.bdk.f.bdk_flutter
-
 import android.os.AsyncTask
 import androidx.annotation.NonNull
 
@@ -20,10 +19,6 @@ class DdoAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
 }
 
 class BdkPlugin : FlutterPlugin, MethodCallHandler {
- /// The MethodChannel that will the communication between Flutter and native Android
- ///
- /// This local reference serves to register the plugin with the Flutter Engine and unregister it
- /// when the Flutter Engine is detached from the Activity
  private lateinit var channel: MethodChannel
 
  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -33,19 +28,18 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
 
  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
    when (call.method) {
-     "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
      "genSeed" -> Bdk.genSeed(null, result)
      "getWallet" -> Bdk.getWallet(result)
      "walletExists" -> handleWalletExists(result)
      "unlockWallet" -> handleUnlockWallet(call, result)
      "createWallet" -> handleCreateWallet(call, result)
      "restoreWallet" -> handleRestoreWallet(call, result)
-     "resetWallet" -> handleResetWallet(call, result)
+     "resetWallet" -> Bdk.resetWallet(result)
      "getBalance" -> Bdk.getBalance(result)
      "getPendingTransactions" -> Bdk.getPendingTransactions(result)
      "getConfirmedTransactions" -> Bdk.getConfirmedTransactions(result)
-     "sync" -> Bdk.sync();
-     "broadcastTx" -> handleBroadcastTx(call, result)
+     "sync" -> Bdk.sync()
+       "broadcastTx" -> handleBroadcastTx(call, result)
      "getNewAddress" -> Bdk.getNewAddress(result)
      else -> {
        result.notImplemented()
@@ -58,8 +52,8 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
    @Suppress("DEPRECATION")
    DdoAsync {
      val recipient = call.argument<String>("recipient").toString()
-     val amount = call.argument<Double>("amount")?.toDouble();
-     if (amount != null) {
+     val amount = call.argument<Double>("amount")?.toDouble()
+       if (amount != null) {
        Bdk.broadcastTx(recipient, amount, result)
      }
    }.execute()

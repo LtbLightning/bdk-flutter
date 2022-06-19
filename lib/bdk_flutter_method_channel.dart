@@ -36,14 +36,10 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
    final response = await methodChannel.invokeMethod<bool>('walletExists');
    return response;
  }
- @override
- Future<bool?> unlockWallet() async {
-   final response = await methodChannel.invokeMethod<bool>('unlockWallet');
-   return response;
- }
+
  @override
  Future<bool?> resetWallet() async {
-   final response = await methodChannel.invokeMethod<bool>('resetWallet');
+   final response = await methodChannel.invokeMethod('resetWallet');
    return response;
  }
  @override
