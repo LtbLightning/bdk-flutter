@@ -21,12 +21,7 @@ class BdkFunctions: NSObject {
     var blockChain: Blockchain
     let defaultDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)"
     let defaultChangeDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)"
-
-
-
     override init() {
-
-
         self.blockChain = try! Blockchain(config: blockchainConfig)
 
         self.wallet = try! Wallet.init(descriptor: defaultDescriptor, changeDescriptor: defaultChangeDescriptor, network: Network.testnet, databaseConfig: databaseConfig)
@@ -133,7 +128,7 @@ class BdkFunctions: NSObject {
 
                 let responseObject = [
                     "address": self.wallet.getNewAddress() ,
-                    "balance": try! String(self.wallet.getBalance()),
+                    "balance": try! self.wallet.getBalance(),
                     "mnemonic": mnemonic ?? "",
                 ] as [String : Any]
                 return responseObject
@@ -149,7 +144,7 @@ class BdkFunctions: NSObject {
                 let wallet = try createRestoreWallet(keys: keys, network: network!, blockChainConfigUrl: blockChainConfigUrl!, blockChainSocket5: blockChainSocket5!, retry:retry!, timeOut: timeOut!, blockChain: blockChain ?? defaultBlockChain, walletDescriptor: walletDescriptor)
                 let responseObject = [
                     "address": wallet.getNewAddress() ,
-                    "balance": try! String(wallet.getBalance()),
+                    "balance": try! wallet.getBalance(),
                     "mnemonic": mnemonic ?? "",
                 ] as [String : Any]
                 return responseObject
