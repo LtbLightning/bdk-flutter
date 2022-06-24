@@ -32,8 +32,8 @@ class MethodChannelBdkFlutter extends BdkFlutterPlatform {
   }
 
   @override
-  Future<String?> getWallet() async {
-    final response = await methodChannel.invokeMethod<String>('getWallet');
+  Future<dynamic> getWallet() async {
+    final response = await methodChannel.invokeMethod<dynamic>('getWallet');
     return response;
   }
   @override

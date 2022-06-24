@@ -10,11 +10,28 @@ object Bdk {
 
     fun getWallet(result: Result) {
         try {
-            val wallet: Map<String, Any?> = BdkFunctions.getWallet()
+            val wallet  = BdkFunctions.getWallet()
             Log.i(wallet.toString(), "Progress Log Get Wallet")
             result.success(wallet)
         } catch (error: Throwable) {
             return result.error("Get Wallet Error", error.localizedMessage, error)
+        }
+    }
+    fun restoreWallet(
+            mnemonic: String, password: String?, network: String?,
+            blockChainConfigUrl: String, blockChainSocket5: String?,
+            retry: String?, timeOut: String?, blockChain: String?, result: Result
+    ) {
+        try {
+            val responseObject = BdkFunctions.restoreWallet(
+                    mnemonic, password, network,
+                    blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
+            )
+            Log.i(responseObject.toString(), " Progress Log Restore Success")
+            result.success(responseObject)
+        } catch (error: Throwable) {
+            Log.i(error.toString(), "Progress Log Restore Failure")
+            return result.error("Restore Wallet Error", error.localizedMessage, error)
         }
     }
 
@@ -64,23 +81,7 @@ object Bdk {
 
     }
 
-    fun restoreWallet(
-            mnemonic: String, password: String?, network: String?,
-            blockChainConfigUrl: String, blockChainSocket5: String?,
-            retry: String?, timeOut: String?, blockChain: String?, result: Result
-    ) {
-        try {
-            val responseObject = BdkFunctions.restoreWallet(
-                    mnemonic, password, network,
-                    blockChainConfigUrl, blockChainSocket5, retry, timeOut, blockChain, null
-            )
-            Log.i(responseObject.toString(), "Progress Log Restore Success")
-            result.success(responseObject)
-        } catch (error: Throwable) {
-            Log.i(error.toString(), "Progress Log Restore Failure")
-            return result.error("Restore Wallet Error", error.localizedMessage, error)
-        }
-    }
+
 
 
     fun broadcastTx(recipient: String, amount: Double, result: Result) {

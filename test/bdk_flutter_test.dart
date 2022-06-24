@@ -38,11 +38,6 @@ class MockBdkFlutterPlatform
     throw UnimplementedError();
   }
 
-  @override
-  Future<String?> getWallet() {
-    // TODO: implement getWallet
-    throw UnimplementedError();
-  }
 
   @override
   Future<bool?> resetWallet() {
@@ -106,6 +101,12 @@ class MockBdkFlutterPlatform
     // TODO: implement createAndSign
     throw UnimplementedError();
   }
+
+  @override
+  Future<Map<String, dynamic>> getWallet() {
+    // TODO: implement getWallet
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -120,6 +121,6 @@ void main() {
     MockBdkFlutterPlatform fakePlatform = MockBdkFlutterPlatform();
     BdkFlutterPlatform.instance = fakePlatform;
 
-    expect(await bdkFlutterPlugin.getPlatformVersion(), '42');
+
   });
 }

@@ -6,9 +6,6 @@ import 'package:bdk_flutter/src/enums/network_enum.dart';
 import 'bdk_flutter_platform_interface.dart';
 
 class BdkWallet {
-  Future<String?> getPlatformVersion() {
-    return BdkFlutterPlatform.instance.getPlatformVersion();
-  }
 
   Future<String?> getNewAddress() {
     return BdkFlutterPlatform.instance.getNewAddress();
@@ -41,7 +38,9 @@ class BdkWallet {
     return BdkFlutterPlatform.instance.sync();
   }
 
-  Future<dynamic?> getWallet() async {
+  Future<dynamic> getWallet() async {
+    var res = BdkFlutterPlatform.instance.getWallet();
+    print(res);
     return BdkFlutterPlatform.instance.getWallet();
   }
 
