@@ -76,8 +76,6 @@ object BdkFunctions {
             )
             val responseObject = mutableMapOf<String, Any?>()
             responseObject["address"] = wallet.getNewAddress()
-            responseObject["mnemonic"] = keys.mnemonic
-            responseObject["balance"] = wallet.getBalance().toLong()
             Log.i(responseObject.toString(), "Progress Log Create Success")
             return responseObject
         } catch (error: Throwable) {
@@ -100,7 +98,6 @@ object BdkFunctions {
             )
             val responseObject = mutableMapOf<String, Any?>()
             responseObject["address"] = wallet.getNewAddress()
-            responseObject["balance"] = wallet.getBalance().toLong()
             Log.i(responseObject.toString(), "Progress Log Restore Success")
             return responseObject
         } catch (error: Throwable) {
@@ -108,9 +105,14 @@ object BdkFunctions {
         }
     }
     // please remove this
-    fun getWallet(): String {
+    fun getWallet(): Map<String, Any?> {
         try {
-            return this.wallet.toString()
+            val responseObject = mutableMapOf<String, Any?>()
+            responseObject["address"] = wallet.getNewAddress()
+            responseObject["balance"] = wallet.getBalance().toLong()
+            responseObject["lastUnusedAddress"] = wallet.getLastUnusedAddress()
+            responseObject["network"] = wallet.getNetwork().toString()
+            return responseObject
         } catch (error: Throwable) {
             throw(error)
         }
@@ -224,6 +226,7 @@ object BdkFunctions {
     fun resetWallet(): Boolean {
         try {
             wallet.destroy()
+            this.sync();
             Log.i(wallet.toString(), "Progress Log resetWallet Success")
             return true
 

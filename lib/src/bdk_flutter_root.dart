@@ -41,7 +41,7 @@ class BdkWallet {
     return BdkFlutterPlatform.instance.sync();
   }
 
-  Future<String?> getWallet() async {
+  Future<dynamic?> getWallet() async {
     return BdkFlutterPlatform.instance.getWallet();
   }
 

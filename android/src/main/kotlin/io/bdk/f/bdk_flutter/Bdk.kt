@@ -10,8 +10,8 @@ object Bdk {
 
     fun getWallet(result: Result) {
         try {
-            val wallet: String = BdkFunctions.getWallet()
-            Log.i(wallet, "Progress Log Get Wallet")
+            val wallet: Map<String, Any?> = BdkFunctions.getWallet()
+            Log.i(wallet.toString(), "Progress Log Get Wallet")
             result.success(wallet)
         } catch (error: Throwable) {
             return result.error("Get Wallet Error", error.localizedMessage, error)
@@ -126,7 +126,7 @@ object Bdk {
 
     fun resetWallet(result: Result) {
         try {
-            Log.i(BdkFunctions.getWallet(), "Progress Log resetWallet Success")
+            Log.i(BdkFunctions.resetWallet().toString(), "Progress Log resetWallet Success")
             result.success(BdkFunctions.resetWallet())
 
         } catch (error: Throwable) {
