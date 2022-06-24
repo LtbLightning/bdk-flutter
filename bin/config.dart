@@ -8,13 +8,10 @@ import 'package:archive/archive_io.dart';
 var fileUrl = 'https://github.com/bitcoindevkit/bdk-swift/releases/download/0.3.0/bdkFFI.xcframework.zip';
 final appDataDir = Directory.current;
 final destinationDir = Directory("${appDataDir.path}/ios/Assets");
-
-
-
 /// installs (if necessary) and runs mailhog
 void main() {
 
-  install();
+  //install();
   run();
 
 }

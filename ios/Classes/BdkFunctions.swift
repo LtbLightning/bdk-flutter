@@ -133,7 +133,8 @@ class BdkFunctions: NSObject {
 
                 let responseObject = [
                     "address": self.wallet.getNewAddress() ,
-                    "balance": try! self.wallet.getBalance()
+                    "balance": try! String(self.wallet.getBalance()),
+                    "mnemonic": mnemonic ?? "",
                 ] as [String : Any]
                 return responseObject
             }
@@ -148,7 +149,8 @@ class BdkFunctions: NSObject {
                 let wallet = try createRestoreWallet(keys: keys, network: network!, blockChainConfigUrl: blockChainConfigUrl!, blockChainSocket5: blockChainSocket5!, retry:retry!, timeOut: timeOut!, blockChain: blockChain ?? defaultBlockChain, walletDescriptor: walletDescriptor)
                 let responseObject = [
                     "address": wallet.getNewAddress() ,
-                    "balance": try! wallet.getBalance()
+                    "balance": try! String(wallet.getBalance()),
+                    "mnemonic": mnemonic ?? "",
                 ] as [String : Any]
                 return responseObject
             }

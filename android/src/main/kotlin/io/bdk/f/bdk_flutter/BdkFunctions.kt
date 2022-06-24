@@ -77,7 +77,7 @@ object BdkFunctions {
             val responseObject = mutableMapOf<String, Any?>()
             responseObject["address"] = wallet.getNewAddress()
             responseObject["mnemonic"] = keys.mnemonic
-            responseObject["balance"] = wallet.getBalance().toLong()
+            responseObject["balance"] = wallet.getBalance().toString()
             Log.i(responseObject.toString(), "Progress Log Create Success")
             return responseObject
         } catch (error: Throwable) {
