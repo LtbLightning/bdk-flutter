@@ -55,7 +55,6 @@
 //     return 0;
 //   }
 // }
-
 //
 // String get binaryPath => join(assetDirectoryPath, binaryZipName);
 //

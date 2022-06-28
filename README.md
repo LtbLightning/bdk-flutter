@@ -42,19 +42,26 @@ bdk_flutter:
       url: https://github.com/LtbLightning/bdk-flutter.git
       ref: main
 ```
-From Github (copy and paste the following code to pubsepc.yaml):
 
-[IOS Only] Install pods:
+Download Binaries:
 
-First, download and extract the zip file https://github.com/bitcoindevkit/bdk-swift/releases/download/0.3.0/bdkFFI.xcframework.zip into the folder ios folder, where the plugin is installed.
+Navigate to the folder, where the plugin is installed.
 
-For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/
+For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/ios  
+
+(Mac OS) & run the following command
+
+```bash
+/bin/zsh config.sh
+```
+Once installed navigate back to your project ios folder and pod install
 
 ```bash
 cd ios && pod install
 ```
 
-Run the follwing script before using the script for the proper fuction of the IOS side
+Run the following script
+
 ```bash
 dart run bin/config.dart
 ```
