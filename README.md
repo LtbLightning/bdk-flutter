@@ -1,7 +1,8 @@
 ## Bdk-Flutter
 
 A Flutter  version of the Bitcon Development Kit (https://bitcoindevkit.org/)
-Bdk-Flutter is a flutter version of Bitcoin Development Kit 
+Bdk-Flutter is a flutter version of Bitcoin Development Kit
+
 ## Table of Contents
 
 - [Requirements](#requirements)
@@ -95,7 +96,7 @@ BdkWallet.walletExists() OR BdkWallet.genSeed()
 | [sync()](#sync)                                | -                                                                                          |
 | [broadcastTx()](#broadcastTx)                  | address (recipient wallet address), amount*(sats)                                          |
 | [createP2SHP2WPKHDescriptor()](#createP2SHP2WPKHDescriptor)| mnemonic, password                                                             |
-| [createP2PKHDescriptor()](# createP2PKHDescriptor)| mnemonic, password                                                                     |
+| [createP2PKHDescriptor()](#createP2PKHDescriptor)| mnemonic, password                                                                     |
 | [createP2SH2of2MultisigDescriptor()](#createP2SH2of2MultisigDescriptor)| mnemonic, password, recipientPublicKey                             |
 
 ---
@@ -108,7 +109,6 @@ Generate random 12 words seed.
 const response = await BdkRn.genSeed();
 // daring erase travel point pull loud peanut apart attack lobster cross surprise
 ```
-
 ---
 
 ### walletExists()
@@ -119,7 +119,6 @@ Check if wallet already exists or not.
 const response = await BdkWallet.walletExists();
 // true | false
 ```
-
 ---
 
 ### unlockWallet()
@@ -130,7 +129,6 @@ Unlock wallet if already exists (Completely optional, since wallet is unlocked b
 const response = await BdkWallet.unlockWallet();
 // true | false
 ```
-
 ---
 
 ### createWallet()
@@ -154,7 +152,6 @@ Returned response example:
     "address": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
 }
 ```
-
 ---
 
 ### restoreWallet()
@@ -175,7 +172,6 @@ Returned response example:
     "balance": "0" // in sats
 }
 ```
-
 ---
 
 ### resetWallet()
@@ -186,7 +182,6 @@ Wipe out everything from app either created new wallet or restored existing one.
 const response = await BdkWallet.resetWallet();
 // true | false
 ```
-
 ---
 
 ### getNewAddress()
@@ -197,7 +192,6 @@ Create new address for wallet.
 const response = await BdkWallet.getNewAddress();
 // tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
 ```
-
 ---
 
 ### getLastUnusedAddress()
@@ -208,7 +202,6 @@ Returns the last unused address of the wallet.
 const response = await BdkWallet.getLastUnusedAddress();
 // tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
 ```
-
 ---
 
 ### getBalance()
@@ -281,8 +274,7 @@ const response = await BdkWallet.sync;
 }
 ```
 
-
-
+---
 
 ### broadcastTx()
 
@@ -301,14 +293,13 @@ const response = await BdkWallet.broadcastTx(address, amount);
  "1162badd3d98b97b1c6bb7fc160b7789163c0fcaef99ad841ad8febeb1395864", // transaction id
  
 ```
-
 ---
 
 ### createP2SHP2WPKHDescriptor()
 
 mnemonic is required param. password is optional but must applied if passed
 
-Returns a .
+Returns P2SHP2WPKH Descriptor 
 
 ```dart
 const response = await BdkWallet.createP2SHP2WPKHDescriptor((mnemonic, password);
@@ -327,7 +318,26 @@ Returned response example:
 
 mnemonic is required param. password is optional but must applied if passed
 
-Restore existing wallet and return new wallet address and current balance.
+Returns P2PKH Descriptor
+
+```dart
+const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
+```
+
+Returned response example:
+
+```dart
+ "pkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
+```
+
+---
+
+### createP2SH2of2MultisigDescriptor()
+
+mnemonic, passowrd and recipientPublicKey is required param.
+
+Returns P2SH2of2Multisig Descriptor for multi-sig transaction
+
 
 ```dart
 const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
