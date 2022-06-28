@@ -46,6 +46,10 @@ From Github (copy and paste the following code to pubsepc.yaml):
 
 [IOS Only] Install pods:
 
+First, download and extract the zip file https://github.com/bitcoindevkit/bdk-swift/releases/download/0.3.0/bdkFFI.xcframework.zip into the folder ios folder, where the plugin is installed.
+
+For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/
+
 ```bash
 cd ios && pod install
 ```
