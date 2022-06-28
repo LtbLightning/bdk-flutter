@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_ios/ios"
 
 SPEC CHECKSUMS:
-  bdk_flutter: ac73cfd15184faff5640e2ccd65cf631303e7e1c
+  bdk_flutter: 51023bce1de4352de0a863679c22554a98611c58
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
 

@@ -22,5 +22,7 @@ A new Flutter project.
   s.swift_version = '5.0'
   s.ios.vendored_frameworks = "bdkFFI.xcframework"
   s.preserve_paths = 'bdkFFI.xcframework/**/*'
-  s.vendored_frameworks = "bdkFFI.xcframework"
+#   s.dependency 'BitcoinDevKit', '0.2.0'
+
+
 end

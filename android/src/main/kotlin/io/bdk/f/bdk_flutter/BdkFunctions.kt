@@ -111,7 +111,6 @@ object BdkFunctions {
             responseObject["address"] = wallet.getNewAddress()
             responseObject["balance"] = wallet.getBalance().toLong()
             responseObject["lastUnusedAddress"] = wallet.getLastUnusedAddress()
-            responseObject["network"] = wallet.getNetwork().toString()
             return responseObject
         } catch (error: Throwable) {
             throw(error)

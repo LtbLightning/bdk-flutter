@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     try {
-      walletBalance = (await _bdkFlutterPlugin.getBalance())!;
+      //walletBalance = (await _bdkFlutterPlugin.getBalance())!;
        final wallet = await _bdkFlutterPlugin.getWallet();
       print(" test${wallet["address"].toString()}");
       setState(() {});

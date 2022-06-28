@@ -9,10 +9,8 @@ final appDataDir = Directory.current;
 final destinationDir = Directory("${appDataDir.path}/ios/Assets");
 /// installs (if necessary) and runs mailhog
 void main() {
-
   //install();
   run();
-
 }
 
 Future<void> run() async {
@@ -20,13 +18,12 @@ Future<void> run() async {
   await Process.run('adb' , ['shell' ,'pm', 'grant', 'io.bdk.f.bdk_flutter', 'android.permission.ACCESS_FINE_LOCATION']);
   print(green('Starting Bdk Config'));
   print(orange('Access bdk at: https://github.com/bitcoindevkit/bdk-swift'));
-
 }
 
 void install() {
-  if (!exists(assetDirectoryPath)) {
-    createDir(assetDirectoryPath, recursive: true);
-  }
+  // if (!exists(assetDirectoryPath)) {
+  //   createDir(assetDirectoryPath, recursive: true);
+  // }
 
   if (!exists(binaryPath)) {
     try {
