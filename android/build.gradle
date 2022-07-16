@@ -46,6 +46,8 @@ android {
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // bitcoindevkit
+    implementation 'org.bitcoindevkit:bdk-android:0.5.2'
     implementation 'androidx.databinding:databinding-runtime:7.2.1'
     testImplementation  'junit:junit:4.13.2'
 }
