@@ -7,10 +7,12 @@ edition = "2021"
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-cbindgen = "0.15.0"
-
+flutter_rust_bridge_codegen = "1.36.0"
 [dependencies]
 bdk = { version = "0.19", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled"] }
-#bip39 = "1.0.1"
-#secp256k1 = "0.22.1"
+lazy_static = "1.4.0"
 flutter_rust_bridge = "1.36.0"
+serde_json = "1.0.39"
+serde_derive = "1.0.89"
+serde = "1.0.89"
+chrono = "0.4.6"

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -22,16 +24,18 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _bdkFlutterPlugin.getPlatformVersion();
+   _bdkFlutterPlugin.generateSeed(Network.REGTEST);
+    _bdkFlutterPlugin.getNetwork();
    // initPlatformState();
- //   restoreWallet();
+   restoreWallet();
   }
 
   Future<void> initPlatformState() async {
     try {
       walletBalance = (await _bdkFlutterPlugin.getBalance())!;
-      final wallet = await _bdkFlutterPlugin.getWallet();
-      //print(" test${wallet["address"].toString()}");
+      final resp = await _bdkFlutterPlugin.getWallet();
+      final respStr =  json.decode(resp);
+      print(respStr["data"]);
       setState(() {});
     } catch (e) {
       print(e);
@@ -42,9 +46,9 @@ class _MyAppState extends State<MyApp> {
   createWallet() async {
     await _bdkFlutterPlugin
         .createWallet(
-            mnemonic: "test",
+            mnemonic: "convince apology front mad rude come nose enact warfare invite foil fluid",
             password: "test",
-            network: Network.TESTNET,
+            network: Network.REGTEST,
             blockChain: Blockchain.ELECTRUM,
             blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
         .then((i) => print(i));
@@ -54,12 +58,10 @@ class _MyAppState extends State<MyApp> {
   restoreWallet() async {
     await _bdkFlutterPlugin
         .restoreWallet(
-            mnemonic:
-                "pole account coconut skull draw more coyote sure neutral board large hello",
+            network: Network.REGTEST,
+            mnemonic: "convince apology front mad rude come nose enact warfare invite foil fluid",
             password: "test",
-            network: Network.TESTNET,
-            blockChain: Blockchain.ELECTRUM,
-            blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
+            )
         .then((i) => print(i));
     setState(() {});
   }

@@ -12,11 +12,6 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'dart:ffi' as ffi;
 
 abstract class Rust {
-  Future<ExtendedKeyInfo> generateExtendedKey(
-      {required String network, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGenerateExtendedKeyConstMeta;
-
   Future<String> createDescriptor({required String xprv, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorConstMeta;
@@ -24,41 +19,17 @@ abstract class Rust {
   Future<String> createChangeDescriptor({required String xprv, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateChangeDescriptorConstMeta;
-}
 
-class ExtendedKeyInfo {
-  final String mnemonic;
-  final String xprv;
-  final String fingerprint;
+  Future<String> handleRust(
+      {required String function, required String arguments, dynamic hint});
 
-  ExtendedKeyInfo({
-    required this.mnemonic,
-    required this.xprv,
-    required this.fingerprint,
-  });
+  FlutterRustBridgeTaskConstMeta get kHandleRustConstMeta;
 }
 
 class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   factory RustImpl(ffi.DynamicLibrary dylib) => RustImpl.raw(RustWire(dylib));
 
   RustImpl.raw(RustWire inner) : super(inner);
-
-  Future<ExtendedKeyInfo> generateExtendedKey(
-          {required String network, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_generate_extended_key(port_, _api2wire_String(network)),
-        parseSuccessData: _wire2api_extended_key_info,
-        constMeta: kGenerateExtendedKeyConstMeta,
-        argValues: [network],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGenerateExtendedKeyConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "generate_extended_key",
-        argNames: ["network"],
-      );
 
   Future<String> createDescriptor({required String xprv, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
@@ -92,6 +63,25 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["xprv"],
       );
 
+  Future<String> handleRust(
+          {required String function,
+          required String arguments,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_handle_rust(
+            port_, _api2wire_String(function), _api2wire_String(arguments)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kHandleRustConstMeta,
+        argValues: [function, arguments],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kHandleRustConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "handle_rust",
+        argNames: ["function", "arguments"],
+      );
+
   // Section: api2wire
   ffi.Pointer<wire_uint_8_list> _api2wire_String(String raw) {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
@@ -114,17 +104,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 // Section: wire2api
 String _wire2api_String(dynamic raw) {
   return raw as String;
-}
-
-ExtendedKeyInfo _wire2api_extended_key_info(dynamic raw) {
-  final arr = raw as List<dynamic>;
-  if (arr.length != 3)
-    throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-  return ExtendedKeyInfo(
-    mnemonic: _wire2api_String(arr[0]),
-    xprv: _wire2api_String(arr[1]),
-    fingerprint: _wire2api_String(arr[2]),
-  );
 }
 
 int _wire2api_u8(dynamic raw) {
@@ -155,23 +134,6 @@ class RustWire implements FlutterRustBridgeWireBase {
       ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
           lookup)
       : _lookup = lookup;
-
-  void wire_generate_extended_key(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> network,
-  ) {
-    return _wire_generate_extended_key(
-      port_,
-      network,
-    );
-  }
-
-  late final _wire_generate_extended_keyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_generate_extended_key');
-  late final _wire_generate_extended_key = _wire_generate_extended_keyPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_create_descriptor(
     int port_,
@@ -206,6 +168,26 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>)>>('wire_create_change_descriptor');
   late final _wire_create_change_descriptor = _wire_create_change_descriptorPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_handle_rust(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> function,
+    ffi.Pointer<wire_uint_8_list> arguments,
+  ) {
+    return _wire_handle_rust(
+      port_,
+      function,
+      arguments,
+    );
+  }
+
+  late final _wire_handle_rustPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_handle_rust');
+  late final _wire_handle_rust = _wire_handle_rustPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,

@@ -47,7 +47,7 @@ init:
 # ##############################################################################
 
 ## all: Compile iOS, Android and bindings targets
-all: ios android bindings
+all: ios android
 
 ## ios: Compile the iOS universal library
 ios: target/universal/release/libexample.a
@@ -110,11 +110,12 @@ ndk-home:
 	fi
 
 ## bindings: Generate the .h file for iOS
-bindings: target/bindings.h
+bindings: target/bridge_generated.h
 
-target/bindings.h: $(SOURCES)
-	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
-	flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/bridge_generated.dart --c-output ios/Classes/bridge_generated.h
+target/bridge_generated.h: $(SOURCES)
+#	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
+	 @echo "[MOVED UP] $@"
+	 flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/bridge_generated.dart --c-output ios/Classes/bridge_generated.h
 	@echo "[DONE] $@"
 
 # ##############################################################################
@@ -125,7 +126,7 @@ target/bindings.h: $(SOURCES)
 .PHONY: clean
 clean:
 	cargo clean
-	rm -f target/bindings.h target/bindings.src.h
+	rm -f target/bridge_generated.h
 
 ## test:
 .PHONY: test

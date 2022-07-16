@@ -18,21 +18,6 @@ use flutter_rust_bridge::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_generate_extended_key(port_: i64, network: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "generate_extended_key",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_network = network.wire2api();
-            move |task_callback| Ok(generate_extended_key(api_network))
-        },
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_create_descriptor(port_: i64, xprv: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -58,6 +43,26 @@ pub extern "C" fn wire_create_change_descriptor(port_: i64, xprv: *mut wire_uint
         move || {
             let api_xprv = xprv.wire2api();
             move |task_callback| Ok(create_change_descriptor(api_xprv))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_handle_rust(
+    port_: i64,
+    function: *mut wire_uint_8_list,
+    arguments: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "handle_rust",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_function = function.wire2api();
+            let api_arguments = arguments.wire2api();
+            move |task_callback| Ok(handle_rust(api_function, api_arguments))
         },
     )
 }
@@ -140,18 +145,6 @@ impl<T> NewWithNullPtr for *mut T {
 }
 
 // Section: impl IntoDart
-
-impl support::IntoDart for ExtendedKeyInfo {
-    fn into_dart(self) -> support::DartCObject {
-        vec![
-            self.mnemonic.into_dart(),
-            self.xprv.into_dart(),
-            self.fingerprint.into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for ExtendedKeyInfo {}
 
 // Section: executor
 
