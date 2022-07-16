@@ -11,15 +11,9 @@ public class SwiftBdkPlugin: NSObject, FlutterPlugin {
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
    public func dummyMethodToEnforceBundling() {
-       // This will never be executed
-       rust_greeting("");
+      dummy_method_to_enforce_bundling();
      }
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-//            let bdk = Bdk()
-//           let args = call.arguments as? Dictionary<String,Any?> ?? [:]
-//
-//         bdk.handleMethodCalls(arguments: args as [String : Any], result: result, method: call.method)
-            
         }
 }
 

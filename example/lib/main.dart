@@ -23,8 +23,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _bdkFlutterPlugin.getPlatformVersion();
-    initPlatformState();
-    restoreWallet();
+   // initPlatformState();
+ //   restoreWallet();
   }
 
   Future<void> initPlatformState() async {

@@ -114,9 +114,8 @@ bindings: target/bindings.h
 
 target/bindings.h: $(SOURCES)
 	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
+	flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/bridge_generated.dart --c-output ios/Classes/bridge_generated.h
 	@echo "[DONE] $@"
-
-## :
 
 # ##############################################################################
 # # OTHER

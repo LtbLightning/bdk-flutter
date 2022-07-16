@@ -1,6 +1,3 @@
-#import <Flutter/Flutter.h>
-@interface BdkPlugin : NSObject<FlutterPlugin>
-@end
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>

@@ -24,7 +24,4 @@ A new Flutter project.
   s.source_files = 'Classes/**/*'
    s.static_framework = true
    s.vendored_libraries = "librust.a"
-#   s.dependency 'BitcoinDevKit', '0.2.0'
-
-
 end

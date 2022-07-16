@@ -3,43 +3,35 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:convert' show utf8  ;
+import 'package:bdk_flutter/bridge_generated.dart';
 import 'package:bdk_flutter/src/enums/blockchain_enum.dart';
 import 'package:bdk_flutter/src/enums/network_enum.dart';
 import 'package:ffi/ffi.dart';
 
 import 'bdk_flutter_platform_interface.dart';
-import 'loader.dart';
 
-typedef RustType = Pointer<Utf8> Function(
-    Pointer<Utf8> syncBalance,
-    );
-typedef DartType = Pointer<Utf8> Function();
+
 
 class BdkWallet {
-  bool isChecked = false;
-   getPlatformVersion()  {
-  final func = nativeLib.lookupFunction<RustType, RustType>("rust_greeting");
-// Prepare the parameters
-     final nameStr = "John Smith";
-     final Pointer<Utf8> namePtr = nameStr.toNativeUtf8();
-     print("- Calling rust_greeting with argument:  $namePtr");
-
-// Call rust_greeting
-     final Pointer<Utf8> resultPtr = func(namePtr);
-     print("- Result pointer:  $resultPtr");
-
-// Handle the result pointer
-     final String greetingStr = resultPtr.toDartString();
-     print("- Response string:  $greetingStr");
+  final path = 'librust.so';
+  late final dylib = Platform.isIOS
+      ? DynamicLibrary.process()
+      : Platform.isMacOS
+      ? DynamicLibrary.executable()
+      : DynamicLibrary.open(path);
+  late final api = RustImpl(dylib);
 
 
+   getPlatformVersion()  async {
+    print( await generateSeed(Network.REGTEST));
   }
   Future<String?> getNewAddress() {
     return BdkFlutterPlatform.instance.getNewAddress();
   }
 
-  Future<String?> genSeed() {
-    return BdkFlutterPlatform.instance.genSeed();
+  Future<String?> generateSeed(Network network) async {
+    final seed= await  api.generateExtendedKey(network: network.name);
+    return seed.mnemonic;
   }
   Future<String?> createAndSign ({required String recipient, required double amount}) {
     return BdkFlutterPlatform.instance.createAndSign( amount:amount, recipient: recipient);
