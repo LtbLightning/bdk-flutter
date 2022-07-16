@@ -51,13 +51,22 @@ class BdkWallet {
     print(resp);
     return resp;
   }
-  Future<dynamic> restoreWallet({
-    String? password,
-    required String mnemonic,
-    required Network network,
-  }) async {
-    var arguments = {"network": network.name.toString(), "mnemonic":mnemonic};
-    var resp= await  api.handleRust(function: "restore", arguments: json.encode(arguments));
+  Future<dynamic> restoreWallet(
+      {String? password,
+        required String mnemonic,
+        required Network network,
+        String? blockChainConfigUrl,
+        Blockchain? blockChain,
+        String? socket5,
+      }) async {
+    var arguments = {
+      "network": network.name.toString(),
+      "mnemonic":mnemonic,
+      "blockchain_type": blockChain!.name,
+      "url":blockChainConfigUrl,
+      "socket5": socket5};
+    var jStr = json.encode(arguments);
+    var resp= await api.handleRust(function: "create_or_restore", arguments: jStr );
     return resp;
   }
 
@@ -69,20 +78,34 @@ class BdkWallet {
         Blockchain? blockChain,
         String? socket5,
       }) async {
-    var arguments = {"network": network.name.toString(), "mnemonic":mnemonic};
-    var resp= await  api.handleRust(function: "create", arguments: json.encode(arguments));
+
+    var arguments = {
+      "network": network.name.toString(),
+      "mnemonic":mnemonic,
+      "blockchain_type": blockChain!.name,
+      "url":blockChainConfigUrl,
+      "socket5": socket5};
+    var resp= await  api.handleRust(function: "create_or_restore", arguments: json.encode(arguments));
     return resp;
   }
 
-  Future<List<dynamic>?> getPendingTransactions() {
-    return BdkFlutterPlatform.instance.getPendingTransactions();
+  Future<String> getPendingTransactions() async {
+    var arg = {"":""};
+    var resp= await  api.handleRust(function: "get_transactions", arguments: json.encode(arg));
+    print(resp);
+    return resp;
   }
 
   Future<List<dynamic>?> getConfirmedTransactions() {
     return BdkFlutterPlatform.instance.getConfirmedTransactions();
   }
-  sync() {
-    return BdkFlutterPlatform.instance.sync();
+  Future<dynamic> sync() async {
+    print("Syncing Wallet");
+    var arg = {"":""};
+    var resp= await  api.handleRust(function: "sync", arguments: json.encode(arg));
+    print(resp);
+    print("Sync Completed");
+    return resp;
   }
   Future<dynamic> broadcastTransaction(
       {required String recipient, required double amount}) {

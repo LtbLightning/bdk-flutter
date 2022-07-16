@@ -24,10 +24,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-   _bdkFlutterPlugin.generateSeed(Network.REGTEST);
+    _bdkFlutterPlugin.generateSeed(Network.REGTEST);
     _bdkFlutterPlugin.getNetwork();
-   // initPlatformState();
-   restoreWallet();
+    // initPlatformState();
+    restoreWallet();
   }
 
   Future<void> initPlatformState() async {
@@ -46,11 +46,11 @@ class _MyAppState extends State<MyApp> {
   createWallet() async {
     await _bdkFlutterPlugin
         .createWallet(
-            mnemonic: "convince apology front mad rude come nose enact warfare invite foil fluid",
-            password: "test",
-            network: Network.REGTEST,
-            blockChain: Blockchain.ELECTRUM,
-            blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
+        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+        password: "test",
+        network: Network.TESTNET,
+        blockChain: Blockchain.ELECTRUM,
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
         .then((i) => print(i));
     setState(() {});
   }
@@ -58,11 +58,15 @@ class _MyAppState extends State<MyApp> {
   restoreWallet() async {
     await _bdkFlutterPlugin
         .restoreWallet(
-            network: Network.REGTEST,
-            mnemonic: "convince apology front mad rude come nose enact warfare invite foil fluid",
-            password: "test",
-            )
+        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+        password: "test",
+        network: Network.TESTNET,
+        blockChain: Blockchain.ELECTRUM,
+        socket5: "",
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002"
+    )
         .then((i) => print(i));
+
     setState(() {});
   }
 
@@ -104,8 +108,8 @@ class _MyAppState extends State<MyApp> {
     //  https://testnet-faucet.mempool.co/ address
     await _bdkFlutterPlugin
         .broadcastTransaction(
-            recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0',
-            amount: 1000)
+        recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0',
+        amount: 1000)
         .then((i) {
       setState(() {
         initPlatformState();

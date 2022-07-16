@@ -1,5 +1,5 @@
 #![allow(unused_variables)]
-use std::ffi::{CString, CStr};
+
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
@@ -13,11 +13,18 @@ use bdk::database::any::{AnyDatabase, SledDbConfiguration, SqliteDbConfiguration
 use bdk::database::{AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{DerivableKey, ExtendedKey, GeneratableKey, GeneratedKey};
-use bdk::miniscript::BareCtx;
+use bdk::miniscript::{BareCtx, MiniscriptKey};
+use bdk::template::Bip84;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{BlockTime, descriptor, doctest_wallet, Error, FeeRate, KeychainKind, SignOptions, SyncOptions as BdkSyncOptions, Wallet as BdkWallet};
+use bdk::{
+    descriptor, doctest_wallet, BlockTime, Error, FeeRate, KeychainKind, SignOptions,
+    SyncOptions as BdkSyncOptions, Wallet as BdkWallet,
+};
+use std::any::Any;
+use std::borrow::BorrowMut;
 use std::convert::{From, TryFrom};
+use std::ffi::{CStr, CString};
 use std::fmt;
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -25,12 +32,11 @@ use std::ops::Deref;
 use std::os::raw::c_char;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
-use bdk::template::Bip84;
 
 extern crate chrono;
 use chrono::{DateTime, Local};
-use serde_json::Value;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 type BdkError = Error;
 
@@ -51,24 +57,19 @@ pub enum BlockchainConfig {
     Esplora { config: EsploraConfig },
 }
 
-
 #[derive(Serialize, Deserialize)]
 pub struct ResponseWallet {
     balance: String,
-    address:String,
-    mnemonic:String,
-
+    address: String,
+    mnemonic: String,
 }
 #[repr(C)]
 pub struct ExtendedKeyInfo {
     pub mnemonic: String,
-    pub  xprv: String,
-    pub  fingerprint: String,
+    pub xprv: String,
+    pub fingerprint: String,
 }
 
-struct ProgressHolder {
-    progress: Box<dyn Progress>,
-}
 #[repr(C)]
 pub struct AddressInfo {
     pub index: u32,
@@ -90,7 +91,7 @@ pub struct EsploraConfig {
     pub stop_gap: u64,
     pub timeout: Option<u64>,
 }
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
 pub struct TransactionDetails {
     pub fee: Option<u64>,
@@ -98,7 +99,7 @@ pub struct TransactionDetails {
     pub sent: u64,
     pub txid: String,
 }
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
 pub enum Transaction {
     Unconfirmed {
@@ -113,13 +114,16 @@ pub enum Transaction {
 struct Wallet {
     wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
+
 struct Blockchain {
     blockchain_mutex: Mutex<AnyBlockchain>,
 }
 struct PartiallySignedBitcoinTransaction {
     internal: Mutex<PartiallySignedTransaction>,
 }
-
+struct ProgressHolder {
+    progress: Box<dyn Progress>,
+}
 pub trait Progress: Send + Sync + 'static {
     fn update(&self, progress: f32, message: Option<String>);
 }
@@ -130,6 +134,7 @@ impl BdkProgress for ProgressHolder {
         Ok(())
     }
 }
+
 impl fmt::Debug for ProgressHolder {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("ProgressHolder").finish_non_exhaustive()
@@ -179,6 +184,14 @@ impl From<&bdk::TransactionDetails> for Transaction {
 }
 
 impl Blockchain {
+    fn default() -> Result<Self, BdkError> {
+        let blockchain = blockchain_init(
+            "ELECTRUM".to_string(),
+            None,
+            "ssl://electrum.blockstream.info:60002".to_string(),
+        );
+        Ok(blockchain)
+    }
     fn new(blockchain_config: BlockchainConfig) -> Result<Self, BdkError> {
         let any_blockchain_config = match blockchain_config {
             BlockchainConfig::Electrum { config } => {
@@ -235,12 +248,12 @@ impl PartiallySignedBitcoinTransaction {
     }
 }
 
-impl Wallet{
-    fn default() -> Result<Self, BdkError>{
+impl Wallet {
+    fn default() -> Result<Self, BdkError> {
         let key = generate_extended_key(Network::Testnet);
-        let default_descriptor =create_descriptor(key.mnemonic.clone()).clone();
+        let default_descriptor = create_descriptor(key.mnemonic.clone()).clone();
         let default_change_descriptor = create_change_descriptor(default_descriptor.clone());
-        let database_config =DatabaseConfig::Memory;
+        let database_config = DatabaseConfig::Memory;
         let default_database_config = match database_config {
             DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
             DatabaseConfig::Sled { config } => AnyDatabaseConfig::Sled(config),
@@ -321,34 +334,30 @@ impl Wallet{
     }
 }
 
-fn generate_extended_key(
-    network: Network,
-) -> ExtendedKeyInfo {
-    let mnemonic_gen: GeneratedKey<_, BareCtx> = Mnemonic::generate((WordCount::Words12, Language::English)).unwrap();
+fn generate_extended_key(network: Network) -> ExtendedKeyInfo {
+    let mnemonic_gen: GeneratedKey<_, BareCtx> =
+        Mnemonic::generate((WordCount::Words12, Language::English)).unwrap();
     let mnemonic = mnemonic_gen.clone().into_key();
-    let xkey:ExtendedKey<BareCtx> = mnemonic_gen.into_extended_key().unwrap();
+    let xkey: ExtendedKey<BareCtx> = mnemonic_gen.into_extended_key().unwrap();
     let xprv = xkey.into_xprv(network).unwrap();
     let fingerprint = xprv.fingerprint(&Secp256k1::new());
-    return  ExtendedKeyInfo {
+    return ExtendedKeyInfo {
         mnemonic: mnemonic.to_string(),
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
-    }
+    };
 }
 
-fn restore_extended_key(
-    network: Network,
-    mnemonic: String,
-) -> ExtendedKeyInfo {
+fn restore_extended_key(network: Network, mnemonic: String) -> ExtendedKeyInfo {
     let mnemonic_parse = Mnemonic::parse(mnemonic.clone()).unwrap();
-    let xkey:ExtendedKey<BareCtx> = mnemonic_parse.into_extended_key().unwrap();
+    let xkey: ExtendedKey<BareCtx> = mnemonic_parse.into_extended_key().unwrap();
     let xprv = xkey.into_xprv(network).unwrap();
     let fingerprint = xprv.fingerprint(&Secp256k1::new());
-    return   ExtendedKeyInfo {
+    return ExtendedKeyInfo {
         mnemonic: mnemonic.clone(),
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
-    }
+    };
 }
 
 pub fn create_descriptor(xprv: String) -> String {
@@ -363,64 +372,69 @@ pub fn create_change_descriptor(xprv: String) -> String {
 ============== UTILS ===================
 */
 fn config_network(network: &str) -> Network {
-    return match network{
+    return match network {
         "SIGNET" => Network::Signet,
         "TESTNET" => Network::Testnet,
         "REGTEST" => Network::Regtest,
         "BITCOIN" => Network::Bitcoin,
-        _=> Network::Testnet,
-    }
-}
-fn config_blockchain(url: &str, socks5: String) -> AnyBlockchainConfig {
-    return match url{
-        "ELECTRUM" =>   AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
-            retry: 10,
-            socks5: Option::from(socks5),
-            timeout: None,
-            url:String::from(url),
-            stop_gap: 10,
-        }),
-        "ESPLORA" =>AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
-            concurrency: None,
-            stop_gap: 10,
-            timeout: None,
-            base_url:String::from(url),
-            proxy: None
-        }),
-        _ =>   AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
-            retry:10,
-            socks5: Option::from(socks5),
-            timeout: None,
-            url:String::from(url),
-            stop_gap: 10,
-        })
-    }
+        _ => Network::Testnet,
+    };
 }
 
+fn config_blockchain(blockchain: &str, url: String, socks5: Option<String>) -> BlockchainConfig {
+    return match blockchain {
+        "ELECTRUM" => BlockchainConfig::Electrum {
+            config: ElectrumConfig {
+                url,
+                socks5,
+                retry: 0,
+                timeout: None,
+                stop_gap: 0,
+            },
+        },
+        "ESPLORA" => BlockchainConfig::Esplora {
+            config: EsploraConfig {
+                concurrency: None,
+                stop_gap: 10,
+                timeout: None,
+                base_url: url,
+                proxy: None,
+            },
+        },
+        _ => BlockchainConfig::Electrum {
+            config: ElectrumConfig {
+                url,
+                socks5,
+                retry: 0,
+                timeout: None,
+                stop_gap: 0,
+            },
+        },
+    };
+}
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct BridgeResult {
     result: String,
-    data: Vec<String>
+    data: Vec<String>,
 }
 
 impl Default for BridgeResult {
     fn default() -> BridgeResult {
         BridgeResult {
             result: "".to_string(),
-            data: vec!["".to_string()]
-
+            data: vec!["".to_string()],
         }
     }
 }
 
 impl BridgeResult {
-    fn new(result: &'static str, data: String) -> BridgeResult {
-        BridgeResult {
-            result: result.to_string(),
-            data: vec![data.to_string()]
-        }
-    }
+    // fn new(result: &'static str, data: String) -> BridgeResult {
+    //     BridgeResult {
+    //         result: result.to_string(),
+    //         data: vec![data.to_string()]
+    //     }
+    // }
 
     fn err<E: std::fmt::Debug>(desc: &'static str, err: E) -> BridgeResult {
         //this should write a log of every error
@@ -428,156 +442,180 @@ impl BridgeResult {
             .write(true)
             .append(true)
             .create(true)
-            .open("log.txt").expect("failed to open log");
+            .open("log.txt")
+            .expect("failed to open log");
         let local: DateTime<Local> = Local::now();
-        file.write(format!("{} ///{}: {:?}\n", local.date(), desc, err).as_bytes()).expect("failed to write log");
+        file.write(format!("{} ///{}: {:?}\n", local.date(), desc, err).as_bytes())
+            .expect("failed to write log");
         BridgeResult {
             result: "Err()".to_string(),
-            data: vec![format!("{}: {:?}", desc, err)]
+            data: vec![format!("{}: {:?}", desc, err)],
         }
     }
 
     fn ok<D: std::string::ToString>(data: D) -> BridgeResult {
         BridgeResult {
             result: "Ok()".to_string(),
-            data: vec![data.to_string()]
+            data: vec![data.to_string()],
         }
     }
 }
-
-fn create_wallet(data: &String, mut wallet_obj: Wallet) -> BridgeResult {
-    #[derive(Deserialize)]
-    struct Arguments {
-        network: String,
-        mnemonic:String,
-        // arguments for creating the block chain with create wallet
-    }
-    let  arguments: Arguments = match serde_json::from_str(&data) {
-        Ok(data) => data,
-        Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err)
-    };
-    let node_network = self::config_network(arguments.network.as_str());
-    let key = restore_extended_key(node_network, arguments.mnemonic);
-    let wallet_descriptor:String = create_descriptor(key.xprv.clone());
-    let change_descriptor:String = create_change_descriptor(key.xprv.clone());
-    wallet_obj = Wallet::new(
-        wallet_descriptor,
-        Some(change_descriptor),
-        node_network, DatabaseConfig::Memory).unwrap();
-    let response = ResponseWallet {
-        balance: wallet_obj.get_balance().unwrap().clone().to_string(),
-        address: wallet_obj.get_address(AddressIndex::New).unwrap().address.clone(),
-        mnemonic: key.mnemonic.clone()
-    };
-    // Serialize it to a JSON string.
-    let response_str = serde_json::to_string(&response).unwrap();
-    return  BridgeResult::ok(response_str);
-}
-fn restore_wallet(data: &String, mut wallet_obj: Wallet) -> BridgeResult {
-    #[derive(Deserialize)]
-    struct Arguments {
-        network: String,
-        mnemonic:String,
-    }
-    let  arguments: Arguments = match serde_json::from_str(&data) {
-        Ok(data) => data,
-        Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err)
-    };
-    let node_network = self::config_network(arguments.network.as_str());
-    let key = restore_extended_key(node_network, arguments.mnemonic);
-    let wallet_descriptor:String = create_descriptor(key.xprv.clone());
-    let change_descriptor:String = create_change_descriptor(key.xprv.clone());
-    wallet_obj = Wallet::new(
-        wallet_descriptor,
-        Some(change_descriptor),
-        node_network, DatabaseConfig::Memory).unwrap();
-    let response = ResponseWallet {
-        balance: wallet_obj.get_balance().unwrap().clone().to_string(),
-        address: wallet_obj.get_address(AddressIndex::New).unwrap().address.clone(),
-        mnemonic: key.mnemonic.clone()
-    };
-    // Serialize it to a JSON string.
-    let response_str = serde_json::to_string(&response).unwrap();
-    return  BridgeResult::ok(response_str);
-}
-fn  get_balance( wallet_obj: Wallet) -> BridgeResult {
-    let response = wallet_obj.get_balance().unwrap();
-    let response_str = serde_json::to_string(&response).unwrap();
-    return  BridgeResult::ok(response_str);
-}
-
-fn  generate_mnemonic(data: &String, mut wallet_obj: Wallet) -> BridgeResult {
+fn generate_mnemonic(data: &String, mut wallet_obj: Wallet) -> BridgeResult {
     #[derive(Deserialize)]
     struct Arguments {
         network: String,
     }
-    let  arguments: Arguments = match serde_json::from_str(&data) {
+    let arguments: Arguments = match serde_json::from_str(&data) {
         Ok(data) => data,
-        Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err)
+        Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err),
     };
     let node_network = self::config_network(arguments.network.as_str());
     let response = generate_extended_key(node_network);
     let response_str = serde_json::to_string(&response.mnemonic.clone().to_string()).unwrap();
-    return  BridgeResult::ok(response_str);
+    return BridgeResult::ok(response_str);
 }
-fn  get_wallet(wallet_obj: Wallet) -> BridgeResult {
+fn create_or_restore_wallet(
+    data: &String,
+    mut wallet_obj: Wallet,
+    mut blockchain_obj: Blockchain,
+) -> BridgeResult {
+    #[derive(Deserialize)]
+    struct Arguments {
+        network: String,
+        mnemonic: String,
+        blockchain_type: String,
+        url: String,
+        socket5: String,
+    }
+    let arguments: Arguments = match serde_json::from_str(&data) {
+        Ok(data) => data,
+        Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err),
+    };
+    let node_network = self::config_network(arguments.network.as_str());
+    let key = restore_extended_key(node_network, arguments.mnemonic);
+    let wallet_descriptor: String = create_descriptor(key.xprv.clone());
+    let change_descriptor: String = create_change_descriptor(key.xprv.clone());
+    wallet_obj = Wallet::new(
+        wallet_descriptor,
+        Some(change_descriptor),
+        node_network,
+        DatabaseConfig::Memory,
+    )
+    .unwrap();
+    //  let socket5_url = if arguments.socket5.is_empty() || arguments.socket5=="" {  None} else { Some(arguments.socket5)};
+    blockchain_obj = blockchain_init(arguments.blockchain_type, None, arguments.url.to_string());
     let response = ResponseWallet {
         balance: wallet_obj.get_balance().unwrap().clone().to_string(),
-        address: wallet_obj.get_address(AddressIndex::New).unwrap().address.clone(),
+        address: wallet_obj
+            .get_address(AddressIndex::New)
+            .unwrap()
+            .address
+            .clone(),
+        mnemonic: key.mnemonic.clone(),
+    };
+    // wallet_obj.sync(&blockchain_obj, None);
+    // Serialize it to a JSON string.
+    let response_str = serde_json::to_string(&response).unwrap();
+    return BridgeResult::ok(response_str);
+}
+fn blockchain_init(blockchain: String, socket5: Option<String>, url: String) -> Blockchain {
+    let config: BlockchainConfig = config_blockchain(&*blockchain, url, socket5);
+    return Blockchain::new(config).unwrap();
+}
+
+fn get_balance(wallet_obj: Wallet) -> BridgeResult {
+    let response = wallet_obj.get_balance().unwrap();
+    let response_str = serde_json::to_string(&response).unwrap();
+    return BridgeResult::ok(response_str);
+}
+
+fn get_wallet(wallet_obj: Wallet) -> BridgeResult {
+    let response = ResponseWallet {
+        balance: wallet_obj.get_balance().unwrap().clone().to_string(),
+        address: wallet_obj
+            .get_address(AddressIndex::New)
+            .unwrap()
+            .address
+            .clone(),
         mnemonic: "Mnemonic seed is pivate!!!!!!!".parse().unwrap(),
     };
     // Serialize it to a JSON string.
     let response_str = serde_json::to_string(&response).unwrap();
-    return  BridgeResult::ok(response_str);
+    return BridgeResult::ok(response_str);
 }
-fn  get_new_address(wallet_obj: Wallet) -> BridgeResult {
+fn get_new_address(wallet_obj: Wallet) -> BridgeResult {
     let response = wallet_obj.get_address(AddressIndex::New);
     // Serialize it to a JSON string.
     let response_str = serde_json::to_string(&response.unwrap().address).unwrap();
-    return  BridgeResult::ok(response_str);
+    return BridgeResult::ok(response_str);
 }
-fn  get_network(wallet_obj: Wallet) -> BridgeResult {
+fn get_network(wallet_obj: Wallet) -> BridgeResult {
     let response = wallet_obj.get_network();
     // Serialize it to a JSON string.
     let response_str = serde_json::to_string(&response.to_string()).unwrap();
-    return  BridgeResult::ok(response_str);
+    return BridgeResult::ok(response_str);
+}
+fn get_transactions(wallet_obj: Wallet) -> BridgeResult {
+    let response: Vec<Transaction> = wallet_obj.get_transactions().unwrap();
+    // Serialize it to a JSON string.
+    let response_str = serde_json::to_string(&response.to_owned()).unwrap();
+    return BridgeResult::ok(response_str);
 }
 
+fn sync_wallet(wallet_obj: Wallet, blockchain_obj: Blockchain) -> BridgeResult {
+    // return match wallet_obj.sync(&blockchain_obj, None) {
+    //     Ok(_) => BridgeResult::ok("Wallet successfully synced"),
+    //     Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err),
+    // };
+
+    let res = wallet_obj.sync(&blockchain_obj, None);
+    BridgeResult::ok("es")
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::api::{sync_wallet, Blockchain, BridgeResult, Wallet};
+    use bdk::blockchain::{GetHeight, WalletSync};
+    use std::any::Any;
+    use std::borrow::Borrow;
+
+    #[test]
+    fn sync() {
+        let wallet: Wallet = Wallet::default().unwrap();
+        let blockchain: Blockchain = Blockchain::default().unwrap();
+        let res = sync_wallet(wallet, blockchain);
+        assert_eq!(BridgeResult::ok(res.result), BridgeResult::ok("es"));
+    }
+}
 /*
 ==============  C HEADER FUNCTIONS==========
 */
 fn handle_functions(function: String, arguments: String) -> String {
-    let  wallet:Wallet = Wallet::default().unwrap();
+    let wallet: Wallet = Wallet::default().unwrap();
+    let blockchain: Blockchain = Blockchain::default().unwrap();
     //return error for bad function here, return error for bad args in each function after deserialization
     let result = match function.as_str() {
-        "generate_seed" =>  generate_mnemonic(&arguments, wallet),
-        "create" => create_wallet(&arguments, wallet),
-        "restore" => restore_wallet(&arguments, wallet),
-        "get_balance" => get_balance( wallet),
-        "get_wallet" =>get_wallet( wallet),
-        "get_network" =>get_network( wallet),
-        "get_new_address" =>get_new_address( wallet),
-
-        _ => BridgeResult::err("cannot find rust function branch matching {}", function)
+        "generate_seed" => generate_mnemonic(&arguments, wallet),
+        "create_or_restore" => create_or_restore_wallet(&arguments, wallet, blockchain),
+        "get_balance" => get_balance(wallet),
+        "get_wallet" => get_wallet(wallet),
+        "get_network" => get_network(wallet),
+        "get_new_address" => get_new_address(wallet),
+        "get_transactions" => get_transactions(wallet),
+        "sync" => sync_wallet(wallet, blockchain),
+        _ => BridgeResult::err("cannot find rust function branch matching {}", function),
     };
     let output = match serde_json::to_string(&result) {
         Ok(output) => output,
-        Err(_) => "{'result' : 'Err()', 'data': 'failed exit encoding!!!'}".to_string()
+        Err(_) => "{'result' : 'Err()', 'data': 'failed exit encoding!!!'}".to_string(),
     };
     output
 }
 
-
-pub fn handle_rust(function: String, arguments:  String) -> String {
+pub fn handle_rust(function: String, arguments: String) -> String {
     let output = handle_functions(function, arguments);
-    return  output;
+    return output;
 }
 /*
 ============== TEST ==========
 */
-
-
-
-
-
-
