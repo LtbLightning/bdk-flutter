@@ -117,7 +117,6 @@ object BdkFunctions {
         }
     }
 
-
     fun getNewAddress(): String {
         try {
             Log.i(wallet.getNewAddress(), "Progress Log Address")
@@ -248,16 +247,20 @@ object BdkFunctions {
     private fun createDefaultDescriptor(keys: ExtendedKeyInfo): String {
         return "wpkh(" + keys.xprv + "/84'/1'/0'/0/*)"
     }
+
+
     // Generate a SegWit P2SH address descriptor
     private fun createP2SHP2WPKHDescriptor(mnemonic: String = "", password: String? = null): String {
         val keys: ExtendedKeyInfo = seed(true, mnemonic, password)
         return "sh(wpkh(" + keys.xprv + "/84'/1'/0'/0/*))"
     }
+
     //Generate a Static P2PKH descriptor
     private fun createP2PKHDescriptor(mnemonic: String = "", password: String? = null): String {
         val keys: ExtendedKeyInfo = seed(true, mnemonic, password)
         return "pkh(" + keys.xprv + "/84'/1'/0'/0/*)"
     }
+
     //Generate a SegWit 2-of-2 P2SH multisig address descriptor
     private fun createP2SH2of2MultisigDescriptor(mnemonic: String = "", password: String? = null, recipientPublicKey:String): String {
         val keys: ExtendedKeyInfo = seed(true, mnemonic, password)
@@ -270,12 +273,9 @@ object BdkFunctions {
         return "sh(multi(2" + keys.xprv +"," +recipientPublicKey1+ "," + recipientPublicKey2 +","  +recipientPublicKey3+"/84'/1'/0'/0/*))"
     }
 
-
-
-
     //    private fun createChangeDescriptor(keys: ExtendedKeyInfo): String {
-//        return "wpkh(" + keys.xprv + "/84'/1'/0'/1/*)"
-//    }
+   //        return "wpkh(" + keys.xprv + "/84'/1'/0'/1/*)" }
+
     private fun createChangeDescriptorFromDescriptor(descriptor: String):String{
         return descriptor.replace("/84'/1'/0'/0/*","/84'/1'/0'/1/*")
     }

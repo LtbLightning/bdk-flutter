@@ -44,6 +44,15 @@ object Bdk {
             return result.error("Get address Error", error.localizedMessage, error)
         }
     }
+    fun getLastUnusedAddress(result: Result) {
+        try {
+            val address: String = BdkFunctions.getLastUnusedAddress()
+            Log.i(address, "Progress Log Last Unused Address")
+            result.success(address)
+        } catch (error: Throwable) {
+            return result.error("Get Last Unused Address Error", error.localizedMessage, error)
+        }
+    }
 
     fun getBalance(result: Result) {
         try {
@@ -134,28 +143,5 @@ object Bdk {
             return result.error("Progress Log resetWallet Error", error.localizedMessage, error)
         }
     }
-
-//    private fun handleWalletExists(result: Result) {
-//        result.success(null == getWallet(result))
-//    }
-//    fun handleMethodCall(@NonNull method: String, @NonNull result: Result, arguments: Map<String, Any>?) {
-//        when (method) {
-//            "genSeed" -> genSeed(null, result)
-//            "getWallet" -> getWallet(result)
-//            "walletExists" -> handleWalletExists(result)
-//            "createWallet" -> handleCreateWallet(call, result)
-//            "restoreWallet" -> handleRestoreWallet(call, result)
-//            "resetWallet" -> Bdk.resetWallet(result)
-//            "getBalance" -> Bdk.getBalance(result)
-//            "getPendingTransactions" -> Bdk.getPendingTransactions(result)
-//            "getConfirmedTransactions" -> Bdk.getConfirmedTransactions(result)
-//            "sync" -> Bdk.sync()
-//            "broadcastTx" -> handleBroadcastTx(call, result)
-//            "getNewAddress" -> Bdk.getNewAddress(result)
-//            else -> {
-//                result.notImplemented()
-//            }
-//        }
-
 
 }

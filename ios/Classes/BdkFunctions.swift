@@ -10,17 +10,23 @@ let TAG = "BDK-F"
 
 
 class BdkFunctions: NSObject {
-
+     var wallet: Wallet
+     var blockChain: Blockchain
      let databaseConfig = DatabaseConfig.memory
      let  defaultBlockChainConfigUrl:String = "ssl://electrum.blockstream.info:60002"
      let defaultBlockChain = "ELECTRUM"
      let blockchainConfig = BlockchainConfig.electrum(
-        config: ElectrumConfig(url: "ssl://electrum.blockstream.info:60002", socks5: nil, retry: 5, timeout: nil, stopGap: 10))
-    var wallet: Wallet
-     let defaultNodeNetwork = "testnet"
-    var blockChain: Blockchain
+                                            config: ElectrumConfig(
+                                                                  url: "ssl://electrum.blockstream.info:60002",
+                                                                  socks5: nil,
+                                                                  retry: 5,
+                                                                  timeout: nil,
+                                                                  stopGap: 10))
+    let defaultNodeNetwork = "testnet"
     let defaultDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)"
     let defaultChangeDescriptor = "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)"
+    
+    
     override init() {
         self.blockChain = try! Blockchain(config: blockchainConfig)
 
@@ -30,6 +36,7 @@ class BdkFunctions: NSObject {
 
     }
 
+    
     func sync(config:BlockchainConfig?) {
         try? self.wallet.sync(blockchain: Blockchain.init(config: config ?? blockchainConfig), progress: BdkProgress())
     }
@@ -58,19 +65,22 @@ class BdkFunctions: NSObject {
 
         }
     }
-    func createDefaultDescriptor(keys: ExtendedKeyInfo)-> String {
-        return "wpkh(" + keys.xprv + "/84'/1'/0'/0/*)"
-    }
+    
+    
+    private func createDefaultDescriptor(keys: ExtendedKeyInfo)-> String {
+            return ("wpkh(" + keys.xprv + "/84'/1'/0'/0/*)")
+        }
 
-
-    func createChangeDescriptorFromDescriptor(descriptor: String)->String{
-        guard let range = descriptor.range(of: "/84'/1'/0'/0/*") else { return "/84'/1'/0'/0/*" }
-        return descriptor.replacingCharacters(in: range , with: "/84'/1'/0'/1/*")
-    }
+        private func createDefaultChangeDescriptor(keys: ExtendedKeyInfo)-> String {
+            return ("wpkh(" + keys.xprv + "/84'/1'/0'/1/*)")
+        }
+    
+    
     private  func createRestoreWallet(keys: ExtendedKeyInfo, network:String, blockChainConfigUrl: String?, blockChainSocket5: String?,retry: String?, timeOut: String?, blockChain: String?, walletDescriptor: String?) throws -> Wallet {
         do{
             let descriptor: String = walletDescriptor ?? createDefaultDescriptor(keys: keys)
-//            let changeDescriptor: String=createChangeDescriptorFromDescriptor(descriptor:descriptor)
+            let changeDescriptor: String = createDefaultChangeDescriptor(keys: keys)
+            print(keys.xprv )
             let config: BlockchainConfig = createDatabaseConfig(blockChainConfigUrl: blockChainConfigUrl, blockChainSocket5: blockChainSocket5, retry: retry, timeOut: timeOut, blockChain: blockChain)
             let walletNetwork: Network = setNetwork(networkStr: network)
             self.wallet = try Wallet.init(
@@ -84,6 +94,8 @@ class BdkFunctions: NSObject {
             throw error
         }
     }
+    
+    
     private func createDatabaseConfig(
         blockChainConfigUrl: String?, blockChainSocket5: String?,
         retry: String?, timeOut: String?, blockChain: String?
@@ -110,7 +122,7 @@ class BdkFunctions: NSObject {
     }
 
 
-        func genSeed(password: String? = nil) throws -> ExtendedKeyInfo {
+    func genSeed(password: String? = nil) throws -> ExtendedKeyInfo {
             do {
                 let seed = try _seed(recover: false, mnemonic: "" )
                 return seed
@@ -138,6 +150,7 @@ class BdkFunctions: NSObject {
             }
         }
 
+    
         func restoreWallet(mnemonic: String? = "", password: String? = nil, network:String?, blockChainConfigUrl: String?, blockChainSocket5: String?,retry: String?, timeOut: String?, blockChain: String?, walletDescriptor: String? ) throws -> [String: Any?] {
             do {
                 let keys: ExtendedKeyInfo = try _seed(recover:  true, mnemonic: mnemonic, password: password)
@@ -154,37 +167,53 @@ class BdkFunctions: NSObject {
             }
         }
 
-
-        func getWalletName()-> String{
-            return self.wallet.getNewAddress() }
-
-        func getNewAddress() -> String{
-
-            return self.wallet.getNewAddress()
+    
+    func getWallet()throws -> [String: Any?]{
+        do {
+           
+            let responseObject = [
+                "address": wallet.getNewAddress() ,
+                "balance": try self.getBalance()
+            ] as [String : Any]
+            return responseObject
         }
+        catch {
+            throw error
+        }
+    }
+        
 
-        func getNetwork() -> Network{
+    func getNewAddress() -> String{
+        return self.wallet.getNewAddress()
+    }
+    func getLastUnusedAddress() -> String{
+        return self.wallet.getLastUnusedAddress()
+    }
+    
+    func getNetwork() -> Network{
             return self.wallet.getNetwork()
-        }
+    }
 
-        func getBalance() throws -> String {
-            do {
-                try! self.wallet.sync(blockchain: Blockchain.init(config: blockchainConfig), progress: BdkProgress())
-                let balance = try self.wallet.getBalance()
-                return String(balance)
+    
+ func getBalance() throws -> String {
+     do {
+        
+         try! self.wallet.sync(blockchain: Blockchain.init(config: blockchainConfig), progress: BdkProgress())
+                
+         let balance = try self.wallet.getBalance()
+         return String(balance)
             }
             catch {
                 throw error
             }
         }
-
-
-
+    
+    /// Todo the following functions correct
     func confirmedTransactionsList() throws -> Array<[String: Any?]> {
         return []
     }
-
-
+    
+    
     func pendingTransactionsList() throws -> Array<[String: Any?]> {
         //            do {
         //                let wallet_transactions: Transaction = try wallet.getTransactions()
@@ -227,6 +256,7 @@ class BdkFunctions: NSObject {
         return []
     }
 
+    
     func broadcastTx(_ recipient: String, amount: NSNumber)  throws -> String {
            do {
                let txBuilder = TxBuilder().addRecipient(address: recipient, amount: UInt64(truncating: amount))
@@ -239,7 +269,6 @@ class BdkFunctions: NSObject {
                throw error
            }
        }
-
    }
 
 

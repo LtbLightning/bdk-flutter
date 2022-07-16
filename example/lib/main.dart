@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String walletBalance = 'error';
-  var  wallet = {};
+  var wallet = {};
   String address = '';
   final _bdkFlutterPlugin = BdkWallet();
 
@@ -28,9 +28,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     try {
-      //walletBalance = (await _bdkFlutterPlugin.getBalance())!;
-       final wallet = await _bdkFlutterPlugin.getWallet();
-      print(" test${wallet["address"].toString()}");
+      walletBalance = (await _bdkFlutterPlugin.getBalance())!;
+      final wallet = await _bdkFlutterPlugin.getWallet();
+      //print(" test${wallet["address"].toString()}");
       setState(() {});
     } catch (e) {
       print(e);

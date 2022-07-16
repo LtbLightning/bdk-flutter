@@ -40,7 +40,8 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
             "sync" -> Bdk.sync()
             "broadcastTx" -> handleBroadcastTx(call, result)
             "getNewAddress" -> Bdk.getNewAddress(result)
-            "createAndSign" -> handleCreateAndSign( call,result)
+            "getLastUnusedAddress" -> Bdk.getLastUnusedAddress(result)
+            "createAndSign" -> handleCreateAndSign(call,result)
             else -> {
                 result.notImplemented()
             }
@@ -112,12 +113,12 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
         // TODO
         @Suppress("DEPRECATION")
         DdoAsync {
-            Bdk.resetWallet(result)
+            Bdk.getWallet(result)
         }.execute()
     }
 
     private fun handleWalletExists(result: Result) {
-        result.success(null == Bdk.getWallet(result))
+        result.success(null != Bdk.getWallet(result))
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

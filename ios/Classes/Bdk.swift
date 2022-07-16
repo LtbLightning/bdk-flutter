@@ -12,18 +12,35 @@ class Bdk {
         bdkFunctions.sync(config: nil)
     }
 
+    
     func getNewAddress(result: FlutterResult) {
         print("Getting new address")
         let address = bdkFunctions.getNewAddress()
         return  result(address)
 
     }
+    
+    
+    func getLastUnusedAddress(result: FlutterResult) {
+        print("Getting new address")
+        let address = bdkFunctions.getLastUnusedAddress()
+        return  result(address)
 
-    func getWallet(result: FlutterResult) {
-
-        return result(bdkFunctions.getNewAddress())
     }
 
+    
+    func getWallet(result: FlutterResult) {
+        do{
+            return  try result(bdkFunctions.getWallet())
+
+        } catch let error {
+            result(FlutterError( code: "Get Balance Error",
+                                 message: error.localizedDescription,
+                                 details: error ))
+        }
+    }
+
+    
     func getBalance(result: FlutterResult) {
         do{
             return  try result(bdkFunctions.getBalance())
@@ -33,10 +50,8 @@ class Bdk {
                                  message: error.localizedDescription,
                                  details: error ))
         }
-
-
-
     }
+    
 
     func genSeed( result: @escaping FlutterResult) {
         do{
@@ -47,8 +62,6 @@ class Bdk {
                                  message: error.localizedDescription,
                                  details: error ))
         }
-
-
     }
 
     func createWallet(
@@ -89,7 +102,15 @@ class Bdk {
         let walletDescriptor = arguments["walletDescriptor"]  ?? ""
 
         do{
-            let responseObject =   try bdkFunctions.restoreWallet(mnemonic: (mnemonic as? String), password: password as? String, network: network as? String, blockChainConfigUrl: blockChainConfigUrl as? String, blockChainSocket5: blockChainSocket5 as? String, retry: (retry as? String), timeOut:timeOut as? String, blockChain: (blockChain as? String), walletDescriptor: walletDescriptor as? String)
+            let responseObject =   try bdkFunctions.restoreWallet(
+                mnemonic: (mnemonic as? String),
+                password: password as? String,
+                network: network as? String,
+                blockChainConfigUrl: blockChainConfigUrl as? String,
+                blockChainSocket5: blockChainSocket5 as? String, retry: (retry as? String),
+                timeOut:timeOut as? String,
+                blockChain: (blockChain as? String),
+                walletDescriptor: walletDescriptor as? String)
 
             return result(responseObject)
         } catch let error {
@@ -98,12 +119,13 @@ class Bdk {
                                  details: error ))
         }
     }
-           func broadcastTx(arguments:[String:Any], result: @escaping FlutterResult ) {
+           
+    func broadcastTx(arguments:[String:Any], result: @escaping FlutterResult ) {
                let recipient = arguments["recipient"]  ?? ""
                let amount  = arguments["amount"]  ?? 0
                          
                do{
-                   let responseObject =   try bdkFunctions.broadcastTx(recipient as! String, amount: amount as! NSNumber)
+                   let responseObject =  try bdkFunctions.broadcastTx(recipient as! String, amount: amount as! NSNumber)
                    print(responseObject)
 
                    return result(responseObject)
@@ -140,16 +162,21 @@ class Bdk {
     func handleMethodCalls(arguments:[String:Any], result: @escaping FlutterResult, method:String ) {
         print(arguments)
         switch (method) {
-        case "getWallet":  self.getNewAddress(result: result)
-        case "walletExists":  result(bdkFunctions.getNewAddress().isEmpty)
+        case "genSeed" : self.genSeed(result:result)
+        case "getWallet":  self.getWallet(result: result)
+        case "walletExists":  result(true)
+        case "unlockWallet":  self.getWallet(result: result)
+        case "resetWallet":  self.getWallet(result: result)
         case "createWallet":  self.createWallet(arguments: arguments, result: result)
         case "restoreWallet":  self.restoreWallet(arguments: arguments, result: result)
-         case"broadcastTx":     self.broadcastTx( arguments: arguments, result:result)
+        case "getNewAddress":  self.getNewAddress(result: result)
+        case "getLastUnusedAddress":  self.getLastUnusedAddress(result: result)
         case "getBalance":  self.getBalance(result: result)
         case "getPendingTransactions":  try? bdkFunctions.pendingTransactionsList()
         case "getConfirmedTransactions":  try? bdkFunctions.confirmedTransactionsList()
+        case"broadcastTx":     self.broadcastTx( arguments: arguments, result:result)
         case "sync":  self.sync()
-        case "getNewAddress":  self.getNewAddress(result: result)
+        
         default :  result("No method Found for" + method)
         }
     }
