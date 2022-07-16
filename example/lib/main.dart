@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -22,15 +24,18 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _bdkFlutterPlugin.generateSeed(Network.REGTEST);
+    _bdkFlutterPlugin.getNetwork();
+    // initPlatformState();
     restoreWallet();
   }
 
   Future<void> initPlatformState() async {
     try {
       walletBalance = (await _bdkFlutterPlugin.getBalance())!;
-      final wallet = await _bdkFlutterPlugin.getWallet();
-      //print(" test${wallet["address"].toString()}");
+      final resp = await _bdkFlutterPlugin.getWallet();
+      final respStr =  json.decode(resp);
+      print(respStr["data"]);
       setState(() {});
     } catch (e) {
       print(e);
@@ -41,11 +46,11 @@ class _MyAppState extends State<MyApp> {
   createWallet() async {
     await _bdkFlutterPlugin
         .createWallet(
-            mnemonic: "test",
-            password: "test",
-            network: Network.TESTNET,
-            blockChain: Blockchain.ELECTRUM,
-            blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
+        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+        password: "test",
+        network: Network.TESTNET,
+        blockChain: Blockchain.ELECTRUM,
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
         .then((i) => print(i));
     setState(() {});
   }
@@ -53,13 +58,15 @@ class _MyAppState extends State<MyApp> {
   restoreWallet() async {
     await _bdkFlutterPlugin
         .restoreWallet(
-            mnemonic:
-                "pole account coconut skull draw more coyote sure neutral board large hello",
-            password: "test",
-            network: Network.TESTNET,
-            blockChain: Blockchain.ELECTRUM,
-            blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
+        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+        password: "test",
+        network: Network.TESTNET,
+        blockChain: Blockchain.ELECTRUM,
+        socket5: "",
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002"
+    )
         .then((i) => print(i));
+
     setState(() {});
   }
 
@@ -101,8 +108,8 @@ class _MyAppState extends State<MyApp> {
     //  https://testnet-faucet.mempool.co/ address
     await _bdkFlutterPlugin
         .broadcastTransaction(
-            recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0',
-            amount: 1000)
+        recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0',
+        amount: 1000)
         .then((i) {
       setState(() {
         initPlatformState();

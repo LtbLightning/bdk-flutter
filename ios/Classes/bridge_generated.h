@@ -1,6 +1,3 @@
-#import <Flutter/Flutter.h>
-@interface BdkPlugin : NSObject<FlutterPlugin>
-@end
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -22,7 +19,7 @@ typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
 
 void wire_create_descriptor(int64_t port_, struct wire_uint_8_list *xprv);
 
-void wire_create_change_descriptor(int64_t port_, struct wire_uint_8_list *descriptor);
+void wire_create_change_descriptor(int64_t port_, struct wire_uint_8_list *xprv);
 
 void wire_handle_rust(int64_t port_,
                       struct wire_uint_8_list *function,

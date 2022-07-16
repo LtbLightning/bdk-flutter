@@ -1,6 +1,6 @@
 name: bdk_flutter
 description: A new Flutter project.
-version: 0.0.2
+version: 0.0.3
 homepage:
 
 environment:
@@ -8,16 +8,17 @@ environment:
   flutter: ">=2.5.0"
 
 
-scripts:
-  binary-install: dart bin/config.dart
+
 
 dependencies:
   flutter:
     sdk: flutter
   archive: ^3.3.0
   path_provider: ^2.0.11
+  flutter_rust_bridge: ^1.37.1
   plugin_platform_interface: ^2.0.2
   yaml: ^3.1.0
+  ffi: ^1.2.1
 
 
 dev_dependencies:
