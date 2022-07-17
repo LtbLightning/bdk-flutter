@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getConfirmedTransactions() async {
-    await _bdkFlutterPlugin.getConfirmedTransactions().then((i) {
+    await _bdkFlutterPlugin.getBalance().then((i) {
       print("confirmed result $i");
     });
   }

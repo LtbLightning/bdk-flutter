@@ -12,14 +12,6 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'dart:ffi' as ffi;
 
 abstract class Rust {
-  Future<String> createDescriptor({required String xprv, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kCreateDescriptorConstMeta;
-
-  Future<String> createChangeDescriptor({required String xprv, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kCreateChangeDescriptorConstMeta;
-
   Future<String> handleRust(
       {required String function, required String arguments, dynamic hint});
 
@@ -30,38 +22,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   factory RustImpl(ffi.DynamicLibrary dylib) => RustImpl.raw(RustWire(dylib));
 
   RustImpl.raw(RustWire inner) : super(inner);
-
-  Future<String> createDescriptor({required String xprv, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_create_descriptor(port_, _api2wire_String(xprv)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kCreateDescriptorConstMeta,
-        argValues: [xprv],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateDescriptorConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_descriptor",
-        argNames: ["xprv"],
-      );
-
-  Future<String> createChangeDescriptor({required String xprv, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_create_change_descriptor(port_, _api2wire_String(xprv)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kCreateChangeDescriptorConstMeta,
-        argValues: [xprv],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateChangeDescriptorConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_change_descriptor",
-        argNames: ["xprv"],
-      );
 
   Future<String> handleRust(
           {required String function,
@@ -134,40 +94,6 @@ class RustWire implements FlutterRustBridgeWireBase {
       ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
           lookup)
       : _lookup = lookup;
-
-  void wire_create_descriptor(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> xprv,
-  ) {
-    return _wire_create_descriptor(
-      port_,
-      xprv,
-    );
-  }
-
-  late final _wire_create_descriptorPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_create_descriptor');
-  late final _wire_create_descriptor = _wire_create_descriptorPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_create_change_descriptor(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> xprv,
-  ) {
-    return _wire_create_change_descriptor(
-      port_,
-      xprv,
-    );
-  }
-
-  late final _wire_create_change_descriptorPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_create_change_descriptor');
-  late final _wire_create_change_descriptor = _wire_create_change_descriptorPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_handle_rust(
     int port_,

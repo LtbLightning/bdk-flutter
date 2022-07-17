@@ -18,36 +18,6 @@ use flutter_rust_bridge::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor(port_: i64, xprv: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_descriptor",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_xprv = xprv.wire2api();
-            move |task_callback| Ok(create_descriptor(api_xprv))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_change_descriptor(port_: i64, xprv: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_change_descriptor",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_xprv = xprv.wire2api();
-            move |task_callback| Ok(create_change_descriptor(api_xprv))
-        },
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_handle_rust(
     port_: i64,
     function: *mut wire_uint_8_list,

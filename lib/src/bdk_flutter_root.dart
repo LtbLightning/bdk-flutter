@@ -100,11 +100,8 @@ class BdkWallet {
     return BdkFlutterPlatform.instance.getConfirmedTransactions();
   }
   Future<dynamic> sync() async {
-    print("Syncing Wallet");
     var arg = {"":""};
     var resp= await  api.handleRust(function: "sync", arguments: json.encode(arg));
-    print(resp);
-    print("Sync Completed");
     return resp;
   }
   Future<dynamic> broadcastTransaction(
