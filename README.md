@@ -43,29 +43,6 @@ bdk_flutter:
       ref: main
 ```
 
-Download Binaries:
-
-Navigate to the folder, where the plugin is installed.
-
-For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/ios  
-
-(Mac OS) & run the following command
-
-```bash
-/bin/zsh config.sh
-```
-Once installed navigate back to your project ios folder and pod install
-
-```bash
-cd ios && pod install
-```
-
-Run the following script
-
-```bash
-dart run bin/config.dart
-```
-
 ## Sample application
 * **BDK Flutter Demo App:** The [BDK Wallet Demo App](https://github.com/LtbLightning/bdk-flutter-app.git) 
 is a simple testnet Bitcoin wallet built as a reference app for bdk-flutter.
