@@ -15,6 +15,14 @@ import 'dart:ffi' as ffi;
 part 'bridge_generated.freezed.dart';
 
 abstract class Rust {
+  Future<void> walletInit(
+      {required String descriptor,
+      required String changeDescriptor,
+      required String network,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
+
   Future<ExtendedKeyInfo> generateKey(
       {required String nodeNetwork, dynamic hint});
 
@@ -25,39 +33,35 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kRestoreKeyConstMeta;
 
+  Future<void> syncWallet({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta;
+
+  Future<int> getBalance({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
+
+  Future<String> getNewAddress({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta;
+
+  Future<String> getLastUnusedAddress({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta;
+
+  Future<List<Transaction>> getTransactions({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta;
+
   Future<String> createTransaction(
       {required String recipient,
       required int amount,
       required double feeRate,
-      required WalletObj wallet,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta;
 
-  Future<void> syncWallet({required WalletObj wallet, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta;
-
-  Future<int> getBalance({required WalletObj wallet, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
-
-  Future<String> getNewAddress({required WalletObj wallet, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta;
-
-  Future<String> getLastUnusedAddress(
-      {required WalletObj wallet, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta;
-
-  Future<List<Transaction>> getTransactions(
-      {required WalletObj wallet, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta;
-
-  Future<int> signAndBroadcast(
-      {required WalletObj wallet, required String psbtStr, dynamic hint});
+  Future<String> signAndBroadcast({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
 }
@@ -109,22 +113,33 @@ class TransactionDetails {
   });
 }
 
-class WalletObj {
-  final String descriptor;
-  final String changeDescriptor;
-  final String network;
-
-  WalletObj({
-    required this.descriptor,
-    required this.changeDescriptor,
-    required this.network,
-  });
-}
-
 class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   factory RustImpl(ffi.DynamicLibrary dylib) => RustImpl.raw(RustWire(dylib));
 
   RustImpl.raw(RustWire inner) : super(inner);
+
+  Future<void> walletInit(
+          {required String descriptor,
+          required String changeDescriptor,
+          required String network,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_wallet_init(
+            port_,
+            _api2wire_String(descriptor),
+            _api2wire_String(changeDescriptor),
+            _api2wire_String(network)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kWalletInitConstMeta,
+        argValues: [descriptor, changeDescriptor, network],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "wallet_init",
+        argNames: ["descriptor", "changeDescriptor", "network"],
+      );
 
   Future<ExtendedKeyInfo> generateKey(
           {required String nodeNetwork, dynamic hint}) =>
@@ -162,141 +177,122 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["nodeNetwork", "mnemonic"],
       );
 
-  Future<String> createTransaction(
-          {required String recipient,
-          required int amount,
-          required double feeRate,
-          required WalletObj wallet,
-          dynamic hint}) =>
+  Future<void> syncWallet({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_transaction(
-            port_,
-            _api2wire_String(recipient),
-            _api2wire_u64(amount),
-            _api2wire_f32(feeRate),
-            _api2wire_box_autoadd_wallet_obj(wallet)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kCreateTransactionConstMeta,
-        argValues: [recipient, amount, feeRate, wallet],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_transaction",
-        argNames: ["recipient", "amount", "feeRate", "wallet"],
-      );
-
-  Future<void> syncWallet({required WalletObj wallet, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_sync_wallet(
-            port_, _api2wire_box_autoadd_wallet_obj(wallet)),
+        callFfi: (port_) => inner.wire_sync_wallet(port_),
         parseSuccessData: _wire2api_unit,
         constMeta: kSyncWalletConstMeta,
-        argValues: [wallet],
+        argValues: [],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sync_wallet",
-        argNames: ["wallet"],
+        argNames: [],
       );
 
-  Future<int> getBalance({required WalletObj wallet, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_balance(
-            port_, _api2wire_box_autoadd_wallet_obj(wallet)),
+  Future<int> getBalance({dynamic hint}) => executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_balance(port_),
         parseSuccessData: _wire2api_u64,
         constMeta: kGetBalanceConstMeta,
-        argValues: [wallet],
+        argValues: [],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_balance",
-        argNames: ["wallet"],
+        argNames: [],
       );
 
-  Future<String> getNewAddress({required WalletObj wallet, dynamic hint}) =>
+  Future<String> getNewAddress({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_new_address(
-            port_, _api2wire_box_autoadd_wallet_obj(wallet)),
+        callFfi: (port_) => inner.wire_get_new_address(port_),
         parseSuccessData: _wire2api_String,
         constMeta: kGetNewAddressConstMeta,
-        argValues: [wallet],
+        argValues: [],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_new_address",
-        argNames: ["wallet"],
+        argNames: [],
       );
 
-  Future<String> getLastUnusedAddress(
-          {required WalletObj wallet, dynamic hint}) =>
+  Future<String> getLastUnusedAddress({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_last_unused_address(
-            port_, _api2wire_box_autoadd_wallet_obj(wallet)),
+        callFfi: (port_) => inner.wire_get_last_unused_address(port_),
         parseSuccessData: _wire2api_String,
         constMeta: kGetLastUnusedAddressConstMeta,
-        argValues: [wallet],
+        argValues: [],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_last_unused_address",
-        argNames: ["wallet"],
+        argNames: [],
       );
 
-  Future<List<Transaction>> getTransactions(
-          {required WalletObj wallet, dynamic hint}) =>
+  Future<List<Transaction>> getTransactions({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_transactions(
-            port_, _api2wire_box_autoadd_wallet_obj(wallet)),
+        callFfi: (port_) => inner.wire_get_transactions(port_),
         parseSuccessData: _wire2api_list_transaction,
         constMeta: kGetTransactionsConstMeta,
-        argValues: [wallet],
+        argValues: [],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_transactions",
-        argNames: ["wallet"],
+        argNames: [],
       );
 
-  Future<int> signAndBroadcast(
-          {required WalletObj wallet, required String psbtStr, dynamic hint}) =>
+  Future<String> createTransaction(
+          {required String recipient,
+          required int amount,
+          required double feeRate,
+          dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_sign_and_broadcast(
+        callFfi: (port_) => inner.wire_create_transaction(
             port_,
-            _api2wire_box_autoadd_wallet_obj(wallet),
-            _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_usize,
+            _api2wire_String(recipient),
+            _api2wire_u64(amount),
+            _api2wire_f32(feeRate)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCreateTransactionConstMeta,
+        argValues: [recipient, amount, feeRate],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_transaction",
+        argNames: ["recipient", "amount", "feeRate"],
+      );
+
+  Future<String> signAndBroadcast({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_sign_and_broadcast(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_String,
         constMeta: kSignAndBroadcastConstMeta,
-        argValues: [wallet, psbtStr],
+        argValues: [psbtStr],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sign_and_broadcast",
-        argNames: ["wallet", "psbtStr"],
+        argNames: ["psbtStr"],
       );
 
   // Section: api2wire
   ffi.Pointer<wire_uint_8_list> _api2wire_String(String raw) {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
-  }
-
-  ffi.Pointer<wire_WalletObj> _api2wire_box_autoadd_wallet_obj(WalletObj raw) {
-    final ptr = inner.new_box_autoadd_wallet_obj_0();
-    _api_fill_to_wire_wallet_obj(raw, ptr.ref);
-    return ptr;
   }
 
   double _api2wire_f32(double raw) {
@@ -319,16 +315,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   // Section: api_fill_to_wire
 
-  void _api_fill_to_wire_box_autoadd_wallet_obj(
-      WalletObj apiObj, ffi.Pointer<wire_WalletObj> wireObj) {
-    _api_fill_to_wire_wallet_obj(apiObj, wireObj.ref);
-  }
-
-  void _api_fill_to_wire_wallet_obj(WalletObj apiObj, wire_WalletObj wireObj) {
-    wireObj.descriptor = _api2wire_String(apiObj.descriptor);
-    wireObj.change_descriptor = _api2wire_String(apiObj.changeDescriptor);
-    wireObj.network = _api2wire_String(apiObj.network);
-  }
 }
 
 // Section: wire2api
@@ -426,10 +412,6 @@ void _wire2api_unit(dynamic raw) {
   return;
 }
 
-int _wire2api_usize(dynamic raw) {
-  return raw as int;
-}
-
 // ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_positional_boolean_parameters, annotate_overrides, constant_identifier_names
 
 // AUTO GENERATED FILE, DO NOT EDIT.
@@ -450,6 +432,31 @@ class RustWire implements FlutterRustBridgeWireBase {
       ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
           lookup)
       : _lookup = lookup;
+
+  void wire_wallet_init(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> descriptor,
+    ffi.Pointer<wire_uint_8_list> change_descriptor,
+    ffi.Pointer<wire_uint_8_list> network,
+  ) {
+    return _wire_wallet_init(
+      port_,
+      descriptor,
+      change_descriptor,
+      network,
+    );
+  }
+
+  late final _wire_wallet_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_wallet_init');
+  late final _wire_wallet_init = _wire_wallet_initPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_generate_key(
     int port_,
@@ -488,148 +495,113 @@ class RustWire implements FlutterRustBridgeWireBase {
       void Function(
           int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_sync_wallet(
+    int port_,
+  ) {
+    return _wire_sync_wallet(
+      port_,
+    );
+  }
+
+  late final _wire_sync_walletPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_sync_wallet');
+  late final _wire_sync_wallet =
+      _wire_sync_walletPtr.asFunction<void Function(int)>();
+
+  void wire_get_balance(
+    int port_,
+  ) {
+    return _wire_get_balance(
+      port_,
+    );
+  }
+
+  late final _wire_get_balancePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_balance');
+  late final _wire_get_balance =
+      _wire_get_balancePtr.asFunction<void Function(int)>();
+
+  void wire_get_new_address(
+    int port_,
+  ) {
+    return _wire_get_new_address(
+      port_,
+    );
+  }
+
+  late final _wire_get_new_addressPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_new_address');
+  late final _wire_get_new_address =
+      _wire_get_new_addressPtr.asFunction<void Function(int)>();
+
+  void wire_get_last_unused_address(
+    int port_,
+  ) {
+    return _wire_get_last_unused_address(
+      port_,
+    );
+  }
+
+  late final _wire_get_last_unused_addressPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_last_unused_address');
+  late final _wire_get_last_unused_address =
+      _wire_get_last_unused_addressPtr.asFunction<void Function(int)>();
+
+  void wire_get_transactions(
+    int port_,
+  ) {
+    return _wire_get_transactions(
+      port_,
+    );
+  }
+
+  late final _wire_get_transactionsPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_transactions');
+  late final _wire_get_transactions =
+      _wire_get_transactionsPtr.asFunction<void Function(int)>();
+
   void wire_create_transaction(
     int port_,
     ffi.Pointer<wire_uint_8_list> recipient,
     int amount,
     double fee_rate,
-    ffi.Pointer<wire_WalletObj> wallet,
   ) {
     return _wire_create_transaction(
       port_,
       recipient,
       amount,
       fee_rate,
-      wallet,
     );
   }
 
   late final _wire_create_transactionPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Uint64,
-              ffi.Float,
-              ffi.Pointer<wire_WalletObj>)>>('wire_create_transaction');
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Uint64, ffi.Float)>>('wire_create_transaction');
   late final _wire_create_transaction = _wire_create_transactionPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>, int, double,
-          ffi.Pointer<wire_WalletObj>)>();
-
-  void wire_sync_wallet(
-    int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
-  ) {
-    return _wire_sync_wallet(
-      port_,
-      wallet,
-    );
-  }
-
-  late final _wire_sync_walletPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_WalletObj>)>>('wire_sync_wallet');
-  late final _wire_sync_wallet = _wire_sync_walletPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_WalletObj>)>();
-
-  void wire_get_balance(
-    int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
-  ) {
-    return _wire_get_balance(
-      port_,
-      wallet,
-    );
-  }
-
-  late final _wire_get_balancePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_WalletObj>)>>('wire_get_balance');
-  late final _wire_get_balance = _wire_get_balancePtr
-      .asFunction<void Function(int, ffi.Pointer<wire_WalletObj>)>();
-
-  void wire_get_new_address(
-    int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
-  ) {
-    return _wire_get_new_address(
-      port_,
-      wallet,
-    );
-  }
-
-  late final _wire_get_new_addressPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_WalletObj>)>>('wire_get_new_address');
-  late final _wire_get_new_address = _wire_get_new_addressPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_WalletObj>)>();
-
-  void wire_get_last_unused_address(
-    int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
-  ) {
-    return _wire_get_last_unused_address(
-      port_,
-      wallet,
-    );
-  }
-
-  late final _wire_get_last_unused_addressPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_WalletObj>)>>('wire_get_last_unused_address');
-  late final _wire_get_last_unused_address = _wire_get_last_unused_addressPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_WalletObj>)>();
-
-  void wire_get_transactions(
-    int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
-  ) {
-    return _wire_get_transactions(
-      port_,
-      wallet,
-    );
-  }
-
-  late final _wire_get_transactionsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_WalletObj>)>>('wire_get_transactions');
-  late final _wire_get_transactions = _wire_get_transactionsPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_WalletObj>)>();
+      void Function(int, ffi.Pointer<wire_uint_8_list>, int, double)>();
 
   void wire_sign_and_broadcast(
     int port_,
-    ffi.Pointer<wire_WalletObj> wallet,
     ffi.Pointer<wire_uint_8_list> psbt_str,
   ) {
     return _wire_sign_and_broadcast(
       port_,
-      wallet,
       psbt_str,
     );
   }
 
   late final _wire_sign_and_broadcastPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_WalletObj>,
+          ffi.Void Function(ffi.Int64,
               ffi.Pointer<wire_uint_8_list>)>>('wire_sign_and_broadcast');
-  late final _wire_sign_and_broadcast = _wire_sign_and_broadcastPtr.asFunction<
-      void Function(
-          int, ffi.Pointer<wire_WalletObj>, ffi.Pointer<wire_uint_8_list>)>();
-
-  ffi.Pointer<wire_WalletObj> new_box_autoadd_wallet_obj_0() {
-    return _new_box_autoadd_wallet_obj_0();
-  }
-
-  late final _new_box_autoadd_wallet_obj_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_WalletObj> Function()>>(
-          'new_box_autoadd_wallet_obj_0');
-  late final _new_box_autoadd_wallet_obj_0 = _new_box_autoadd_wallet_obj_0Ptr
-      .asFunction<ffi.Pointer<wire_WalletObj> Function()>();
+  late final _wire_sign_and_broadcast = _wire_sign_and_broadcastPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -680,14 +652,6 @@ class wire_uint_8_list extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
-}
-
-class wire_WalletObj extends ffi.Struct {
-  external ffi.Pointer<wire_uint_8_list> descriptor;
-
-  external ffi.Pointer<wire_uint_8_list> change_descriptor;
-
-  external ffi.Pointer<wire_uint_8_list> network;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<

@@ -1,33 +1,32 @@
+import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/enums/network_enum.dart';
 import 'bridge_generated.dart';
 import 'loader.dart';
 
 class BdkWallet {
-  final String descriptor;
-  final String changeDescriptor;
-  final Network network;
-  BdkWallet({required this.descriptor, required this.changeDescriptor, required this.network});
-
+  Future<void> init(String descriptor, String changeDescriptor, Network network) async {
+    await loaderApi.walletInit(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
+  }
   Future<String> getNewAddress() async {
-    final obj = WalletObj(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
-    var res = await loaderApi.getNewAddress(wallet: obj);
+    var res = await loaderApi.getNewAddress();
+    return res.toString();
+  }
+  Future<String> getBalance() async {
+    var res = await loaderApi.getBalance();
+    return res.toString();
+  }
+  Future<String> getLastUnusedAddress() async {
+    var res = await loaderApi.getLastUnusedAddress();
     return res.toString();
   }
 
-  Future<int> getBalance() async {
-    final obj = WalletObj(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
-    var res = await loaderApi.getBalance(wallet: obj);
-    return res;
-  }
-
   sync() async {
-    final obj = WalletObj(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
-    await  loaderApi.syncWallet(wallet: obj);
+    print("Syncing Wallet");
+    await loaderApi.syncWallet();
   }
 
   Future<List<Transaction>> getAllTransactions() async{
-    final obj = WalletObj(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
-    final res = await loaderApi.getTransactions(wallet: obj);
+    final res = await loaderApi.getTransactions();
     return res;
   }
   Future<List<Transaction>> getPendingTransactions() async {
@@ -52,14 +51,11 @@ class BdkWallet {
     }
     return confirmed;
   }
-  Future<String> createTransaction() async{
-    final obj = WalletObj(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
-    final res = await loaderApi.createTransaction(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1, wallet: obj);
-    await loaderApi.signAndBroadcast(wallet: obj, psbtStr: res);
-    return res;
+  Future<String> broadcastTransaction({required String recipient, required int amount, required double feeRate}) async{
+    final res = await loaderApi.createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
+    final txid= await loaderApi.signAndBroadcast(psbtStr: res);
+    return txid;
   }
-
-
 }
 
 Future<String> generateSeed(Network network) async {

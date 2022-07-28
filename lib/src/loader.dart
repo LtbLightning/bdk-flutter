@@ -1,6 +1,5 @@
 import 'dart:ffi';
 import 'dart:io';
-
 import 'bridge_generated.dart';
 
 final dylib = Platform.isIOS

@@ -1,5 +1,3 @@
-
-
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
@@ -10,19 +8,22 @@ use bdk::blockchain::Progress as BdkProgress;
 use bdk::blockchain::{electrum::ElectrumBlockchainConfig, esplora::EsploraBlockchainConfig};
 use bdk::database::any::{AnyDatabase, SledDbConfiguration, SqliteDbConfiguration};
 use bdk::database::{AnyDatabaseConfig, ConfigurableDatabase, MemoryDatabase};
+use bdk::electrum_client::Client;
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{DerivableKey, ExtendedKey, GeneratableKey, GeneratedKey};
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions as BdkSyncOptions, SyncOptions, Wallet as BdkWallet};
+use bdk::{
+    BlockTime, Error, FeeRate, SignOptions, SyncOptions as BdkSyncOptions, SyncOptions,
+    Wallet as BdkWallet,
+};
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 use std::fmt;
 use std::os::raw::c_char;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
-use bdk::electrum_client::Client;
 
 type BdkError = Error;
 #[derive(Serialize, Deserialize)]
@@ -99,10 +100,10 @@ pub struct BlockConfirmationTime {
     pub height: u32,
     pub timestamp: u64,
 }
-fn set_block_time( time:BlockTime) -> BlockConfirmationTime{
-    BlockConfirmationTime{
+fn set_block_time(time: BlockTime) -> BlockConfirmationTime {
+    BlockConfirmationTime {
         height: time.height,
-        timestamp: time.timestamp
+        timestamp: time.timestamp,
     }
 }
 impl From<&bdk::TransactionDetails> for Transaction {
@@ -123,20 +124,30 @@ pub struct Wallet {
     pub(crate) wallet_mutex: Mutex<BdkWallet<MemoryDatabase>>,
 }
 impl Wallet {
+    pub fn default() -> Wallet {
+        let res = Mutex::new(BdkWallet::new(
+            "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
+            None,
+            Network::Testnet,
+            MemoryDatabase::default(),
+        ).unwrap());
+        Wallet { wallet_mutex: res }
+    }
     pub fn new(
         descriptor: String,
         change_descriptor: Option<String>,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let res = Mutex::new(BdkWallet::new(
-            &descriptor,
-            change_descriptor.as_ref(),
-            network,
-            MemoryDatabase::default(),
-        ).unwrap());
-        Ok(Wallet {
-            wallet_mutex: res,
-        })
+        let res = Mutex::new(
+            BdkWallet::new(
+                &descriptor,
+                change_descriptor.as_ref(),
+                network,
+                MemoryDatabase::default(),
+            )
+            .unwrap(),
+        );
+        Ok(Wallet { wallet_mutex: res })
     }
     pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<MemoryDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
@@ -161,7 +172,7 @@ impl Wallet {
         let transactions = self.get_wallet().list_transactions(true).unwrap();
         Ok(transactions.iter().map(Transaction::from).collect())
     }
-    pub(crate)  fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
+    pub(crate) fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
         let mut psbt = psbt.internal.lock().unwrap();
         self.get_wallet().sign(&mut psbt, SignOptions::default())
     }
@@ -171,19 +182,19 @@ pub struct PartiallySignedBitcoinTransaction {
     pub(crate) internal: Mutex<PartiallySignedTransaction>,
 }
 impl PartiallySignedBitcoinTransaction {
-    pub(crate)   fn new(psbt_base64: String) -> Result<Self, Error> {
+    pub(crate) fn new(psbt_base64: String) -> Result<Self, Error> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
         Ok(PartiallySignedBitcoinTransaction {
             internal: Mutex::new(psbt),
         })
     }
 
-    pub(crate)  fn serialize(&self) -> String {
+    pub(crate) fn serialize(&self) -> String {
         let psbt = self.internal.lock().unwrap().clone();
         psbt.to_string()
     }
 
-    pub(crate)   fn txid(&self) -> String {
+    pub(crate) fn txid(&self) -> String {
         let tx = self.internal.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
         txid.to_hex()
@@ -212,7 +223,7 @@ pub struct TxBuilder {
 }
 
 impl TxBuilder {
-    pub(crate)  fn new() -> Self {
+    pub(crate) fn new() -> Self {
         TxBuilder {
             recipients: Vec::new(),
             fee_rate: None,
@@ -223,7 +234,7 @@ impl TxBuilder {
         }
     }
 
-    pub(crate)   fn add_recipient(&self, recipient: String, amount: u64) -> Arc<Self> {
+    pub(crate) fn add_recipient(&self, recipient: String, amount: u64) -> Arc<Self> {
         let mut recipients = self.recipients.to_vec();
         recipients.append(&mut vec![(recipient, amount)]);
         Arc::new(TxBuilder {
@@ -232,28 +243,28 @@ impl TxBuilder {
         })
     }
 
-    pub(crate)  fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
+    pub(crate) fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
         Arc::new(TxBuilder {
             fee_rate: Some(sat_per_vb),
             ..self.clone()
         })
     }
 
-    pub(crate)  fn drain_wallet(&self) -> Arc<Self> {
+    pub(crate) fn drain_wallet(&self) -> Arc<Self> {
         Arc::new(TxBuilder {
             drain_wallet: true,
             ..self.clone()
         })
     }
 
-    pub(crate)   fn drain_to(&self, address: String) -> Arc<Self> {
+    pub(crate) fn drain_to(&self, address: String) -> Arc<Self> {
         Arc::new(TxBuilder {
             drain_to: Some(address),
             ..self.clone()
         })
     }
 
-    pub(crate)   fn enable_rbf(&self) -> Arc<Self> {
+    pub(crate) fn enable_rbf(&self) -> Arc<Self> {
         Arc::new(TxBuilder {
             rbf: Some(RbfValue::Default),
             ..self.clone()
@@ -274,7 +285,10 @@ impl TxBuilder {
         })
     }
 
-    pub(crate)  fn finish(&self, wallet: &Wallet) -> Result<Arc<PartiallySignedBitcoinTransaction>, Error> {
+    pub(crate) fn finish(
+        &self,
+        wallet: &Wallet,
+    ) -> Result<Arc<PartiallySignedBitcoinTransaction>, Error> {
         let wallet = wallet.get_wallet();
         let mut tx_builder = wallet.build_tx();
         for (address, amount) in &self.recipients {

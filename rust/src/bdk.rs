@@ -1,5 +1,5 @@
 use crate::ffi::{
-    generate_extended_key, restore_extended_key, AddressIndex, ExtendedKeyInfo,
+    generate_extended_key, restore_extended_key, AddressIndex, AddressInfo, ExtendedKeyInfo,
     PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet,
 };
 use anyhow::{anyhow, Result};
@@ -9,13 +9,10 @@ use bdk::bitcoin::{base64, Network};
 use bdk::blockchain::{Blockchain, ElectrumBlockchain, GetTx};
 use bdk::electrum_client::Client;
 use bdk::wallet::tx_builder;
-use bdk::Error;
+use bdk::{descriptor, Error};
 use flutter_rust_bridge::*;
-use lazy_static::lazy_static;
 use std::borrow::Borrow;
 use std::sync::Arc;
-use std::sync::RwLock;
-
 
 fn config_network(network: String) -> Network {
     return match network.as_str() {
@@ -25,28 +22,6 @@ fn config_network(network: String) -> Network {
         "BITCOIN" => Network::Bitcoin,
         _ => Network::Testnet,
     };
-}
-lazy_static! {
-    static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
-    // static ref BLOCKCHAIN: RwLock<ElectrumBlockchain> = RwLock::new(blockchain_init());
-}
-fn blockchain_init() -> ElectrumBlockchain {
-    let blockchain =
-        ElectrumBlockchain::from(Client::new("ssl://electrum.blockstream.info:60002").unwrap());
-    return blockchain;
-}
-pub fn wallet_init(descriptor:String,change_descriptor:String,network:String ) {
-    let node_network = config_network(network.clone());
-    let blockchain_obj = blockchain_init();
-    let wallet = Wallet::new(
-        descriptor.clone(),
-        Some(change_descriptor.clone()),
-        node_network,
-    )
-        .unwrap();
-    wallet.sync(blockchain_obj);
-    let mut new_wallet = WALLET.write().unwrap();
-    *new_wallet = wallet
 }
 pub fn generate_key(node_network: String) -> ExtendedKeyInfo {
     let node_network = config_network(node_network);
@@ -58,65 +33,88 @@ pub fn restore_key(node_network: String, mnemonic: String) -> ExtendedKeyInfo {
     let response = restore_extended_key(node_network, mnemonic);
     return response;
 }
-
-pub fn sync_wallet() {
-    let res = WALLET.read().unwrap();
-    let blockchain = blockchain_init();
-    res.sync(blockchain);
-}
-pub fn get_balance() -> u64 {
-    let res = WALLET.read().unwrap();
-    let balance = res.get_balance().unwrap();
-    balance
-}
-pub fn get_new_address() -> String {
-    let res = WALLET.read().unwrap();
-    let address = res.get_address(AddressIndex::New).unwrap().address;
-    address
-}
-pub fn get_last_unused_address() -> String {
-    let res = WALLET.read().unwrap();
-    res.get_address(AddressIndex::New).unwrap().address
-}
-pub fn get_transactions() -> Vec<Transaction> {
-    let res = WALLET.read().unwrap();
-    let response: Vec<Transaction> = res.get_transactions().unwrap();
-    return  response;
-}
-pub fn  create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
-    let res = WALLET.read().unwrap();
-    let tx_builder = TxBuilder::new();
-    let x =  tx_builder.
-        add_recipient(recipient,amount).fee_rate(fee_rate).finish(&res);
-   x.unwrap().serialize()
-}
-pub fn sign_and_broadcast( psbt_str:String) -> String {
-    let wallet = WALLET.read().unwrap();
-    let blockchain= blockchain_init();
-    let  psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    wallet.sign(&psbt);
-    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-    blockchain.broadcast(&tx).unwrap();
-    tx.txid().to_string()
+pub struct WalletBdk {
+    pub descriptor: String,
+    pub change_descriptor: String,
+    pub network: String,
 }
 
-
-
-#[cfg(test)]
-mod tests {
-    use crate::api::{wallet_init, WalletObj, WALLET};
-    #[test]
-    fn init_wallet() {
-        wallet_init(
-             "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)".to_string(),
-             "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)".to_string(),
-            "TESTNET".to_string()
-        );
-        let res = WALLET.read().unwrap();
-        let balance = res.get_balance().unwrap();
-        assert_eq!(balance, 4);
+impl WalletBdk {
+    pub fn init(descriptor: String, change_descriptor: String, node_network: String) -> WalletBdk {
+        WalletBdk {
+            descriptor,
+            change_descriptor,
+            network: node_network,
+        }
+    }
+    fn get_wallet(&self) -> Wallet {
+        let network = config_network(self.network.clone());
+        Wallet::new(
+            self.descriptor.clone(),
+            Some(self.change_descriptor.clone()),
+            network,
+        )
+        .unwrap()
+    }
+    fn get_blockchain(&self) -> ElectrumBlockchain {
+        let blockchain =
+            ElectrumBlockchain::from(Client::new("ssl://electrum.blockstream.info:60002").unwrap());
+        return blockchain;
+    }
+    pub fn get_new_address(&self) -> String {
+        self.get_wallet()
+            .get_address(AddressIndex::New)
+            .unwrap()
+            .address
+    }
+    pub fn sync(&self) {
+        let blockchain = self.get_blockchain();
+        self.get_wallet().sync(blockchain)
+    }
+    pub fn get_last_unused_address(&self) -> String {
+        self.get_wallet()
+            .get_address(AddressIndex::New)
+            .unwrap()
+            .address
     }
 }
+
+// pub fn  create_transaction(recipient: String, amount: u64, fee_rate: f32, wallet:WalletObj) -> String {
+//     let wallet_obj = wallet_init(wallet);
+//     let tx_builder = TxBuilder::new();
+//     let x =  tx_builder.
+//         add_recipient(recipient,amount).fee_rate(fee_rate).finish(&wallet_obj);
+//     x.unwrap().serialize()
+//     //  PartiallySignedBitcoinTransaction::new(t).unwrap()
+// }
+//
+// pub fn get_balance(wallet:WalletObj) -> u64 {
+//     let wallet_obj =  wallet_init(wallet);
+//     wallet_obj.get_balance().unwrap()
+// }
+// pub fn get_new_address(wallet:WalletObj) -> String {
+//     let wallet_obj =  wallet_init(wallet);
+//     wallet_obj.get_address(AddressIndex::New).unwrap().address
+// }
+// pub fn get_last_unused_address(wallet:WalletObj) -> String {
+//     let wallet_obj =  wallet_init(wallet);
+//     wallet_obj.get_address(AddressIndex::New).unwrap().address
+// }
+// pub fn get_transactions(wallet:WalletObj) -> Vec<Transaction> {
+//     let wallet =  wallet_init(wallet);
+//     let response: Vec<Transaction> = wallet.get_transactions().unwrap();
+//     return  response;
+// }
+// pub fn sign_and_broadcast(wallet:WalletObj, psbt_str:String) -> String {
+//     let blockchain = blockchain_init();
+//     let wallet =  wallet_init(wallet);
+//     let  psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+//     wallet.sign(&psbt);
+//     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
+//     blockchain.broadcast(&tx).unwrap();
+//     blockchain.get_tx();
+//     tx.txid().to_string()
+// }
 
 //
 // #[derive(Serialize, Deserialize, PartialEq, Debug)]

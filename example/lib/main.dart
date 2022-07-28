@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -17,24 +16,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  late BdkWallet bdkWallet = BdkWallet(
-      descriptor: "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-      changeDescriptor:"wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)",
-      network: Network.TESTNET);
+ BdkWallet bdkWallet = BdkWallet();
 
   @override
   void initState() {
     restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
     super.initState();
   }
-
-
-
-
-
-
-  BdkWallet createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  {
-    bdkWallet = BdkWallet(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network);
+   createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  async {
+    bdkWallet.init(descriptor, changeDescriptor, network);
     bdkWallet.sync();
     return bdkWallet;
   }
@@ -48,8 +38,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
+    bdkWallet.sync();
   }
-
   getNewAddress() async {
     await bdkWallet.getNewAddress().then((value) => print(value));
   }
@@ -70,15 +60,8 @@ class _MyAppState extends State<MyApp> {
     print(res.toString());
   }
 
-  resetWallet() async {
-    // await _bdkFlutterPlugin.resetWallet().then((i) {
-    //   print(i);
-    // });
-  }
-
   sendBit() async {
-    //  https://testnet-faucet.mempool.co/ address
-    await bdkWallet.createTransaction();
+    await bdkWallet.broadcastTransaction(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
   }
 
   @override
@@ -92,7 +75,6 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(bdkWallet.network.name),
               TextButton(
                   onPressed: () => getNewAddress(),
                   child: const Text('Press to create new Address')),

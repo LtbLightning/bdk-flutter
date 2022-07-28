@@ -1,7 +1,7 @@
-use std::env;
 use lib_flutter_rust_bridge_codegen::{
     config_parse, frb_codegen, get_symbols_if_no_duplicates, RawOpts,
 };
+use std::env;
 
 /// Path of input Rust code
 const RUST_INPUT: &str = "src/api.rs";
@@ -19,7 +19,6 @@ fn main() {
         // Path of output generated Dart code
         dart_output: vec![DART_OUTPUT.to_string()],
         // for other options use defaults
-
         dart_decl_output: None,
         c_output: None,
         rust_crate_dir: None,
@@ -31,7 +30,7 @@ fn main() {
         llvm_compiler_opts: None,
         dart_root: None,
         no_build_runner: true,
-        verbose: true
+        verbose: true,
     };
     // get opts from raw opts
     let configs = config_parse(raw_opts);
