@@ -1,3 +1,5 @@
+
+
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
@@ -7,41 +9,22 @@ use bdk::blockchain::ElectrumBlockchain;
 use bdk::blockchain::Progress as BdkProgress;
 use bdk::blockchain::{electrum::ElectrumBlockchainConfig, esplora::EsploraBlockchainConfig};
 use bdk::database::any::{AnyDatabase, SledDbConfiguration, SqliteDbConfiguration};
-use bdk::database::{AnyDatabaseConfig, ConfigurableDatabase};
+use bdk::database::{AnyDatabaseConfig, ConfigurableDatabase, MemoryDatabase};
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{DerivableKey, ExtendedKey, GeneratableKey, GeneratedKey};
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{
-    BlockTime, Error, SignOptions, SyncOptions as BdkSyncOptions, SyncOptions, Wallet as BdkWallet,
-};
+use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions as BdkSyncOptions, SyncOptions, Wallet as BdkWallet};
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 use std::fmt;
 use std::os::raw::c_char;
 use std::str::FromStr;
-use std::sync::{Mutex, MutexGuard};
+use std::sync::{Arc, Mutex, MutexGuard};
+use bdk::electrum_client::Client;
 
 type BdkError = Error;
-
-#[repr(C)]
-pub enum AddressIndex {
-    New,
-    LastUnused,
-}
-#[repr(C)]
-pub enum DatabaseConfig {
-    Memory,
-    Sled { config: SledDbConfiguration },
-    Sqlite { config: SqliteDbConfiguration },
-}
-#[repr(C)]
-pub enum BlockchainConfig {
-    Electrum { config: ElectrumConfig },
-    Esplora { config: EsploraConfig },
-}
-
 #[derive(Serialize, Deserialize)]
 pub struct ResponseWallet {
     pub balance: String,
@@ -56,76 +39,23 @@ pub struct ExtendedKeyInfo {
 }
 
 #[repr(C)]
+pub enum AddressIndex {
+    New,
+    LastUnused,
+}
+impl From<AddressIndex> for BdkAddressIndex {
+    fn from(x: AddressIndex) -> BdkAddressIndex {
+        match x {
+            AddressIndex::New => BdkAddressIndex::New,
+            AddressIndex::LastUnused => BdkAddressIndex::LastUnused,
+        }
+    }
+}
+#[repr(C)]
 pub struct AddressInfo {
     pub index: u32,
     pub address: String,
 }
-#[repr(C)]
-pub struct ElectrumConfig {
-    pub url: String,
-    pub socks5: Option<String>,
-    pub retry: u8,
-    pub timeout: Option<u8>,
-    pub stop_gap: u64,
-}
-#[repr(C)]
-pub struct EsploraConfig {
-    pub base_url: String,
-    pub proxy: Option<String>,
-    pub concurrency: Option<u8>,
-    pub stop_gap: u64,
-    pub timeout: Option<u64>,
-}
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[repr(C)]
-pub struct TransactionDetails {
-    pub fee: Option<u64>,
-    pub received: u64,
-    pub sent: u64,
-    pub txid: String,
-}
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[repr(C)]
-pub enum Transaction {
-    Unconfirmed {
-        details: TransactionDetails,
-    },
-    Confirmed {
-        details: TransactionDetails,
-        confirmation: BlockTime,
-    },
-}
-
-pub struct Wallet {
-    wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
-}
-
-struct Blockchain {
-    blockchain_mutex: Mutex<AnyBlockchain>,
-}
-struct PartiallySignedBitcoinTransaction {
-    internal: Mutex<PartiallySignedTransaction>,
-}
-struct ProgressHolder {
-    progress: Box<dyn Progress>,
-}
-pub trait Progress: Send + Sync + 'static {
-    fn update(&self, progress: f32, message: Option<String>);
-}
-
-impl BdkProgress for ProgressHolder {
-    fn update(&self, progress: f32, message: Option<String>) -> Result<(), Error> {
-        self.progress.update(progress, message);
-        Ok(())
-    }
-}
-
-impl fmt::Debug for ProgressHolder {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("ProgressHolder").finish_non_exhaustive()
-    }
-}
-
 impl From<BdkAddressInfo> for AddressInfo {
     fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
         AddressInfo {
@@ -135,15 +65,14 @@ impl From<BdkAddressInfo> for AddressInfo {
     }
 }
 
-impl From<AddressIndex> for BdkAddressIndex {
-    fn from(x: AddressIndex) -> BdkAddressIndex {
-        match x {
-            AddressIndex::New => BdkAddressIndex::New,
-            AddressIndex::LastUnused => BdkAddressIndex::LastUnused,
-        }
-    }
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[repr(C)]
+pub struct TransactionDetails {
+    pub fee: Option<u64>,
+    pub received: u64,
+    pub sent: u64,
+    pub txid: String,
 }
-
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
@@ -154,12 +83,34 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
         }
     }
 }
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[repr(C)]
+pub enum Transaction {
+    Unconfirmed {
+        details: TransactionDetails,
+    },
+    Confirmed {
+        details: TransactionDetails,
+        confirmation: BlockConfirmationTime,
+    },
+}
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct BlockConfirmationTime {
+    pub height: u32,
+    pub timestamp: u64,
+}
+fn set_block_time( time:BlockTime) -> BlockConfirmationTime{
+    BlockConfirmationTime{
+        height: time.height,
+        timestamp: time.timestamp
+    }
+}
 impl From<&bdk::TransactionDetails> for Transaction {
     fn from(x: &bdk::TransactionDetails) -> Transaction {
         match x.confirmation_time.clone() {
             Some(block_time) => Transaction::Confirmed {
                 details: TransactionDetails::from(x),
-                confirmation: block_time,
+                confirmation: set_block_time(block_time),
             },
             None => Transaction::Unconfirmed {
                 details: TransactionDetails::from(x),
@@ -168,96 +119,198 @@ impl From<&bdk::TransactionDetails> for Transaction {
     }
 }
 
+pub struct Wallet {
+    pub(crate) wallet_mutex: Mutex<BdkWallet<MemoryDatabase>>,
+}
+impl Wallet {
+    pub fn new(
+        descriptor: String,
+        change_descriptor: Option<String>,
+        network: Network,
+    ) -> Result<Self, BdkError> {
+        let res = Mutex::new(BdkWallet::new(
+            &descriptor,
+            change_descriptor.as_ref(),
+            network,
+            MemoryDatabase::default(),
+        ).unwrap());
+        Ok(Wallet {
+            wallet_mutex: res,
+        })
+    }
+    pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<MemoryDatabase>> {
+        self.wallet_mutex.lock().expect("wallet")
+    }
+    pub(crate) fn get_network(&self) -> Network {
+        self.get_wallet().network()
+    }
+    pub(crate) fn sync(&self, blockchain: ElectrumBlockchain) {
+        self.get_wallet()
+            .sync(&blockchain, SyncOptions::default())
+            .unwrap();
+    }
+    pub(crate) fn get_balance(&self) -> Result<u64, BdkError> {
+        self.get_wallet().get_balance()
+    }
+    pub(crate) fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
+        self.get_wallet()
+            .get_address(address_index.into())
+            .map(AddressInfo::from)
+    }
+    pub(crate) fn get_transactions(&self) -> Result<Vec<Transaction>, Error> {
+        let transactions = self.get_wallet().list_transactions(true).unwrap();
+        Ok(transactions.iter().map(Transaction::from).collect())
+    }
+    pub(crate)  fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
+        let mut psbt = psbt.internal.lock().unwrap();
+        self.get_wallet().sign(&mut psbt, SignOptions::default())
+    }
+}
+
+pub struct PartiallySignedBitcoinTransaction {
+    pub(crate) internal: Mutex<PartiallySignedTransaction>,
+}
 impl PartiallySignedBitcoinTransaction {
-    fn new(psbt_base64: String) -> Result<Self, Error> {
+    pub(crate)   fn new(psbt_base64: String) -> Result<Self, Error> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
         Ok(PartiallySignedBitcoinTransaction {
             internal: Mutex::new(psbt),
         })
     }
 
-    fn serialize(&self) -> String {
+    pub(crate)  fn serialize(&self) -> String {
         let psbt = self.internal.lock().unwrap().clone();
         psbt.to_string()
     }
 
-    fn txid(&self) -> String {
+    pub(crate)   fn txid(&self) -> String {
         let tx = self.internal.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
         txid.to_hex()
     }
 }
-
-impl Wallet {
-    pub(crate) fn default() -> Result<Self, BdkError> {
-        let database_config = DatabaseConfig::Memory;
-        let default_database_config = match database_config {
-            DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
-            DatabaseConfig::Sled { config } => AnyDatabaseConfig::Sled(config),
-            DatabaseConfig::Sqlite { config } => AnyDatabaseConfig::Sqlite(config),
-        };
-        let database = AnyDatabase::from_config(&default_database_config).unwrap();
-        let wallet_mutex = Mutex::new(BdkWallet::new(
-            "wpkh(tprv8ZgxMBicQKsPe73PBRSmNbTfbcsZnwWhz5eVmhHpi31HW29Z7mc9B4cWGRQzopNUzZUT391DeDJxL2PefNunWyLgqCKRMDkU1s2s8bAfoSk/84'/0'/0'/0/*)",
-            None,
-            Network::Testnet,
-            database,
-        ).unwrap());
-        Ok(Wallet { wallet_mutex })
-    }
-    pub(crate) fn new(
-        descriptor: String,
-        change_descriptor: Option<String>,
-        network: Network,
-        database_config: DatabaseConfig,
-    ) -> Result<Self, BdkError> {
-        let any_database_config = match database_config {
-            DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
-            DatabaseConfig::Sled { config } => AnyDatabaseConfig::Sled(config),
-            DatabaseConfig::Sqlite { config } => AnyDatabaseConfig::Sqlite(config),
-        };
-        let database = AnyDatabase::from_config(&any_database_config)?;
-        let wallet_mutex = Mutex::new(BdkWallet::new(
-            &descriptor,
-            change_descriptor.as_ref(),
-            network,
-            database,
-        )?);
-        Ok(Wallet { wallet_mutex })
-    }
-
-    fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
-        self.wallet_mutex.lock().expect("wallet")
-    }
-
-    pub(crate) fn get_network(&self) -> Network {
-        self.get_wallet().network()
-    }
-    pub(crate) fn sync(&self, blockchain: ElectrumBlockchain) -> Result<(), BdkError> {
-        self.get_wallet().sync(&blockchain, SyncOptions::default())
-    }
-
-    pub(crate) fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
-        self.get_wallet()
-            .get_address(address_index.into())
-            .map(AddressInfo::from)
-    }
-
-    pub(crate) fn get_balance(&self) -> Result<u64, Error> {
-        self.get_wallet().get_balance()
-    }
-
-    fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
-        let mut psbt = psbt.internal.lock().unwrap();
-        self.get_wallet().sign(&mut psbt, SignOptions::default())
-    }
-
-    pub(crate) fn get_transactions(&self) -> Result<Vec<Transaction>, Error> {
-        let transactions = self.get_wallet().list_transactions(true)?;
-        Ok(transactions.iter().map(Transaction::from).collect())
-    }
+fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
+    Address::from_str(address)
+        .map(|x| x.script_pubkey())
+        .map_err(|e| BdkError::Generic(e.to_string()))
 }
 
+#[derive(Clone, Debug)]
+enum RbfValue {
+    Default,
+    Value(u32),
+}
+
+#[derive(Clone, Debug)]
+pub struct TxBuilder {
+    recipients: Vec<(String, u64)>,
+    fee_rate: Option<f32>,
+    drain_wallet: bool,
+    drain_to: Option<String>,
+    rbf: Option<RbfValue>,
+    data: Vec<u8>,
+}
+
+impl TxBuilder {
+    pub(crate)  fn new() -> Self {
+        TxBuilder {
+            recipients: Vec::new(),
+            fee_rate: None,
+            drain_wallet: false,
+            drain_to: None,
+            rbf: None,
+            data: Vec::new(),
+        }
+    }
+
+    pub(crate)   fn add_recipient(&self, recipient: String, amount: u64) -> Arc<Self> {
+        let mut recipients = self.recipients.to_vec();
+        recipients.append(&mut vec![(recipient, amount)]);
+        Arc::new(TxBuilder {
+            recipients,
+            ..self.clone()
+        })
+    }
+
+    pub(crate)  fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            fee_rate: Some(sat_per_vb),
+            ..self.clone()
+        })
+    }
+
+    pub(crate)  fn drain_wallet(&self) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            drain_wallet: true,
+            ..self.clone()
+        })
+    }
+
+    pub(crate)   fn drain_to(&self, address: String) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            drain_to: Some(address),
+            ..self.clone()
+        })
+    }
+
+    pub(crate)   fn enable_rbf(&self) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            rbf: Some(RbfValue::Default),
+            ..self.clone()
+        })
+    }
+
+    fn enable_rbf_with_sequence(&self, nsequence: u32) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            rbf: Some(RbfValue::Value(nsequence)),
+            ..self.clone()
+        })
+    }
+
+    fn add_data(&self, data: Vec<u8>) -> Arc<Self> {
+        Arc::new(TxBuilder {
+            data,
+            ..self.clone()
+        })
+    }
+
+    pub(crate)  fn finish(&self, wallet: &Wallet) -> Result<Arc<PartiallySignedBitcoinTransaction>, Error> {
+        let wallet = wallet.get_wallet();
+        let mut tx_builder = wallet.build_tx();
+        for (address, amount) in &self.recipients {
+            tx_builder.add_recipient(to_script_pubkey(address)?, *amount);
+        }
+        if let Some(sat_per_vb) = self.fee_rate {
+            tx_builder.fee_rate(FeeRate::from_sat_per_vb(sat_per_vb));
+        }
+        if self.drain_wallet {
+            tx_builder.drain_wallet();
+        }
+        if let Some(address) = &self.drain_to {
+            tx_builder.drain_to(to_script_pubkey(address)?);
+        }
+        if let Some(rbf) = &self.rbf {
+            match *rbf {
+                RbfValue::Default => {
+                    tx_builder.enable_rbf();
+                }
+                RbfValue::Value(nsequence) => {
+                    tx_builder.enable_rbf_with_sequence(nsequence);
+                }
+            }
+        }
+        if !&self.data.is_empty() {
+            tx_builder.add_data(&self.data.as_slice());
+        }
+
+        tx_builder
+            .finish()
+            .map(|(psbt, _)| PartiallySignedBitcoinTransaction {
+                internal: Mutex::new(psbt),
+            })
+            .map(Arc::new)
+    }
+}
 pub fn generate_extended_key(network: Network) -> ExtendedKeyInfo {
     let mnemonic_gen: GeneratedKey<_, BareCtx> =
         Mnemonic::generate((WordCount::Words12, Language::English)).unwrap();
@@ -283,10 +336,8 @@ pub fn restore_extended_key(network: Network, mnemonic: String) -> ExtendedKeyIn
         fingerprint: fingerprint.to_string(),
     };
 }
-pub fn create_descriptor(xprv: String) -> String {
-    return "wpkh([c258d2e4/84h/1h/0h]".to_owned() + &*xprv + "/84'/1'/0'/0/*)";
-}
-
-pub fn create_change_descriptor(xprv: String) -> String {
-    return "wpkh([c258d2e4/84h/1h/0h]".to_owned() + &*xprv + "/84'/1'/0'/1/*)";
+fn blockchain_init() -> ElectrumBlockchain {
+    let blockchain =
+        ElectrumBlockchain::from(Client::new("ssl://electrum.blockstream.info:60002").unwrap());
+    return blockchain;
 }

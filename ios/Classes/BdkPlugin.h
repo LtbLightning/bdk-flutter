@@ -20,13 +20,36 @@ typedef int64_t DartPort;
 
 typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
 
-void wire_create_descriptor(int64_t port_, struct wire_uint_8_list *xprv);
+void wire_generate_key(int64_t port_, struct wire_uint_8_list *node_network);
 
-void wire_create_change_descriptor(int64_t port_, struct wire_uint_8_list *descriptor);
+void wire_restore_key(int64_t port_,
+                      struct wire_uint_8_list *node_network,
+                      struct wire_uint_8_list *mnemonic);
 
-void wire_handle_rust(int64_t port_,
-                      struct wire_uint_8_list *function,
-                      struct wire_uint_8_list *arguments);
+void wire_sync_wallet(int64_t port_,
+                      struct wire_uint_8_list *descriptor,
+                      struct wire_uint_8_list *change_descriptor,
+                      struct wire_uint_8_list *network);
+
+void wire_get_balance(int64_t port_,
+                      struct wire_uint_8_list *descriptor,
+                      struct wire_uint_8_list *change_descriptor,
+                      struct wire_uint_8_list *network);
+
+void wire_get_new_address(int64_t port_,
+                          struct wire_uint_8_list *descriptor,
+                          struct wire_uint_8_list *change_descriptor,
+                          struct wire_uint_8_list *network);
+
+void wire_get_last_unused_address(int64_t port_,
+                                  struct wire_uint_8_list *descriptor,
+                                  struct wire_uint_8_list *change_descriptor,
+                                  struct wire_uint_8_list *network);
+
+void wire_init(int64_t port_,
+               struct wire_uint_8_list *descriptor,
+               struct wire_uint_8_list *change_descriptor,
+               struct wire_uint_8_list *network);
 
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
 
@@ -36,9 +59,13 @@ void store_dart_post_cobject(DartPostCObjectFnType ptr);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
-    dummy_var ^= ((int64_t) (void*) wire_create_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_create_change_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_handle_rust);
+    dummy_var ^= ((int64_t) (void*) wire_generate_key);
+    dummy_var ^= ((int64_t) (void*) wire_restore_key);
+    dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
+    dummy_var ^= ((int64_t) (void*) wire_get_balance);
+    dummy_var ^= ((int64_t) (void*) wire_get_new_address);
+    dummy_var ^= ((int64_t) (void*) wire_get_last_unused_address);
+    dummy_var ^= ((int64_t) (void*) wire_init);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);

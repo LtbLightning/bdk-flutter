@@ -15,24 +15,170 @@ use flutter_rust_bridge::*;
 
 // Section: imports
 
+use crate::ffi::BlockConfirmationTime;
+use crate::ffi::ExtendedKeyInfo;
+use crate::ffi::Transaction;
+use crate::ffi::TransactionDetails;
+
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_handle_rust(
-    port_: i64,
-    function: *mut wire_uint_8_list,
-    arguments: *mut wire_uint_8_list,
-) {
+pub extern "C" fn wire_generate_key(port_: i64, node_network: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "handle_rust",
+            debug_name: "generate_key",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_function = function.wire2api();
-            let api_arguments = arguments.wire2api();
-            move |task_callback| Ok(handle_rust(api_function, api_arguments))
+            let api_node_network = node_network.wire2api();
+            move |task_callback| Ok(generate_key(api_node_network))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_restore_key(
+    port_: i64,
+    node_network: *mut wire_uint_8_list,
+    mnemonic: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "restore_key",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_network = node_network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            move |task_callback| Ok(restore_key(api_node_network, api_mnemonic))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_transaction(
+    port_: i64,
+    recipient: *mut wire_uint_8_list,
+    amount: u64,
+    fee_rate: f32,
+    wallet: *mut wire_WalletObj,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_transaction",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_recipient = recipient.wire2api();
+            let api_amount = amount.wire2api();
+            let api_fee_rate = fee_rate.wire2api();
+            let api_wallet = wallet.wire2api();
+            move |task_callback| {
+                Ok(create_transaction(
+                    api_recipient,
+                    api_amount,
+                    api_fee_rate,
+                    api_wallet,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sync_wallet(port_: i64, wallet: *mut wire_WalletObj) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sync_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Ok(sync_wallet(api_wallet))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_balance(port_: i64, wallet: *mut wire_WalletObj) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_balance",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Ok(get_balance(api_wallet))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_new_address(port_: i64, wallet: *mut wire_WalletObj) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_new_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Ok(get_new_address(api_wallet))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_last_unused_address(port_: i64, wallet: *mut wire_WalletObj) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_last_unused_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Ok(get_last_unused_address(api_wallet))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_transactions(port_: i64, wallet: *mut wire_WalletObj) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_transactions",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Ok(get_transactions(api_wallet))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sign_and_broadcast(
+    port_: i64,
+    wallet: *mut wire_WalletObj,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sign_and_broadcast",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(sign_and_broadcast(api_wallet, api_psbt_str))
         },
     )
 }
@@ -46,11 +192,24 @@ pub struct wire_uint_8_list {
     len: i32,
 }
 
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_WalletObj {
+    descriptor: *mut wire_uint_8_list,
+    change_descriptor: *mut wire_uint_8_list,
+    network: *mut wire_uint_8_list,
+}
+
 // Section: wrapper structs
 
 // Section: static checks
 
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_wallet_obj_0() -> *mut wire_WalletObj {
+    support::new_leak_box_ptr(wire_WalletObj::new_with_null_ptr())
+}
 
 #[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
@@ -87,6 +246,25 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
     }
 }
 
+impl Wire2Api<WalletObj> for *mut wire_WalletObj {
+    fn wire2api(self) -> WalletObj {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<WalletObj>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<f32> for f32 {
+    fn wire2api(self) -> f32 {
+        self
+    }
+}
+
+impl Wire2Api<u64> for u64 {
+    fn wire2api(self) -> u64 {
+        self
+    }
+}
+
 impl Wire2Api<u8> for u8 {
     fn wire2api(self) -> u8 {
         self
@@ -98,6 +276,16 @@ impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
         unsafe {
             let wrap = support::box_from_leak_ptr(self);
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+
+impl Wire2Api<WalletObj> for wire_WalletObj {
+    fn wire2api(self) -> WalletObj {
+        WalletObj {
+            descriptor: self.descriptor.wire2api(),
+            change_descriptor: self.change_descriptor.wire2api(),
+            network: self.network.wire2api(),
         }
     }
 }
@@ -114,7 +302,62 @@ impl<T> NewWithNullPtr for *mut T {
     }
 }
 
+impl NewWithNullPtr for wire_WalletObj {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            descriptor: core::ptr::null_mut(),
+            change_descriptor: core::ptr::null_mut(),
+            network: core::ptr::null_mut(),
+        }
+    }
+}
+
 // Section: impl IntoDart
+
+impl support::IntoDart for BlockConfirmationTime {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.height.into_dart(), self.timestamp.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for BlockConfirmationTime {}
+
+impl support::IntoDart for ExtendedKeyInfo {
+    fn into_dart(self) -> support::DartCObject {
+        vec![
+            self.mnemonic.into_dart(),
+            self.xprv.into_dart(),
+            self.fingerprint.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for ExtendedKeyInfo {}
+
+impl support::IntoDart for Transaction {
+    fn into_dart(self) -> support::DartCObject {
+        match self {
+            Self::Unconfirmed { details } => vec![0.into_dart(), details.into_dart()],
+            Self::Confirmed {
+                details,
+                confirmation,
+            } => vec![1.into_dart(), details.into_dart(), confirmation.into_dart()],
+        }
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Transaction {}
+impl support::IntoDart for TransactionDetails {
+    fn into_dart(self) -> support::DartCObject {
+        vec![
+            self.fee.into_dart(),
+            self.received.into_dart(),
+            self.sent.into_dart(),
+            self.txid.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TransactionDetails {}
 
 // Section: executor
 

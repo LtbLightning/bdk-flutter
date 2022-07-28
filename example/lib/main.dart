@@ -16,105 +16,69 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String walletBalance = 'error';
-  var wallet = {};
-  String address = '';
-  final _bdkFlutterPlugin = BdkWallet();
+
+  late BdkWallet bdkWallet = BdkWallet(
+      descriptor: "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
+      changeDescriptor:"wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)",
+      network: Network.TESTNET);
 
   @override
   void initState() {
+    restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
     super.initState();
-    _bdkFlutterPlugin.generateSeed(Network.REGTEST);
-    _bdkFlutterPlugin.getNetwork();
-    // initPlatformState();
-    restoreWallet();
   }
 
-  Future<void> initPlatformState() async {
-    try {
-      walletBalance = (await _bdkFlutterPlugin.getBalance())!;
-      final resp = await _bdkFlutterPlugin.getWallet();
-      final respStr =  json.decode(resp);
-      print(respStr["data"]);
-      setState(() {});
-    } catch (e) {
-      print(e);
-      walletBalance = 'Error Balance';
-    }
+
+
+
+
+
+  BdkWallet createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  {
+    bdkWallet = BdkWallet(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network);
+    bdkWallet.sync();
+    return bdkWallet;
   }
-
-  createWallet() async {
-    await _bdkFlutterPlugin
-        .createWallet(
-        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
-        password: "test",
-        network: Network.TESTNET,
-        blockChain: Blockchain.ELECTRUM,
-        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002")
-        .then((i) => print(i));
-    setState(() {});
-  }
-
-  restoreWallet() async {
-    await _bdkFlutterPlugin
-        .restoreWallet(
-        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
-        password: "test",
-        network: Network.TESTNET,
-        blockChain: Blockchain.ELECTRUM,
-        socket5: "",
-        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002"
-    )
-        .then((i) => print(i));
-
-    setState(() {});
+  restoreWallet(String mnemonic, Network network) async {
+    var  key = await restoreExtendedKey(network, mnemonic);
+    var descriptor = createDescriptor(key.xprv);
+    var changeDescriptor = createChangeDescriptor(key.xprv);
+    createOrRestoreWallet(descriptor, changeDescriptor, network);
+    bdkWallet.sync();
+    return bdkWallet;
   }
 
   sync() async {
-    await _bdkFlutterPlugin.sync().then((i) => print(i));
-    setState(() {
-      initPlatformState();
-    });
   }
 
   getNewAddress() async {
-    await _bdkFlutterPlugin.getNewAddress().then((i) {
-      setState(() {
-        address = i.toString();
-      });
-      print(i);
-    });
+    await bdkWallet.getNewAddress().then((value) => print(value));
   }
 
   getConfirmedTransactions() async {
-    await _bdkFlutterPlugin.getBalance().then((i) {
-      print("confirmed result $i");
-    });
+    final res =  await bdkWallet.getConfirmedTransactions();
+    for (var e in res) {
+      print(e.details.txid);
+    }
   }
 
   getPendingTransactions() async {
-    await _bdkFlutterPlugin.getPendingTransactions().then((i) {
-      print("pending result $i");
-    });
+    final res =  await bdkWallet.getPendingTransactions();
+    res.map((e) => print(e.details.txid));
+  }
+  getBalance() async {
+    final res =  await bdkWallet.getBalance();
+    print(res.toString());
   }
 
   resetWallet() async {
-    await _bdkFlutterPlugin.resetWallet().then((i) {
-      print(i);
-    });
+    // await _bdkFlutterPlugin.resetWallet().then((i) {
+    //   print(i);
+    // });
   }
 
   sendBit() async {
     //  https://testnet-faucet.mempool.co/ address
-    await _bdkFlutterPlugin
-        .broadcastTransaction(
-        recipient: 'tb1qfzrcgp0tdqe2dnsdc6m9nkacsprdaspagpadr0',
-        amount: 1000)
-        .then((i) {
-      setState(() {
-        initPlatformState();
-      });
-    });
+    await bdkWallet.createTransaction();
   }
 
   @override
@@ -128,12 +92,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(wallet.toString()),
-              Text('Balance: $walletBalance\n'),
-              Text('Address: $address\n'),
-              TextButton(
-                  onPressed: () => createWallet(),
-                  child: const Text('Press to create new Wallet')),
+              Text(bdkWallet.network.name),
               TextButton(
                   onPressed: () => getNewAddress(),
                   child: const Text('Press to create new Address')),
@@ -149,8 +108,8 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getPendingTransactions(),
                   child: const Text('getPendingTransactions')),
               TextButton(
-                  onPressed: () => resetWallet(),
-                  child: const Text('Reset Wallet')),
+                  onPressed: () =>  getBalance(),
+                  child: const Text('get Balance')),
             ],
           ),
         ),
