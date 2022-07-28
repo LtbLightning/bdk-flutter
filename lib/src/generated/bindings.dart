@@ -27,12 +27,19 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
   Future<ExtendedKeyInfo> generateKey(
-      {required String nodeNetwork, dynamic hint});
+      {required String nodeNetwork,
+      required String wordCount,
+      required int entropy,
+      String? password,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateKeyConstMeta;
 
   Future<ExtendedKeyInfo> restoreKey(
-      {required String nodeNetwork, required String mnemonic, dynamic hint});
+      {required String nodeNetwork,
+      required String mnemonic,
+      String? password,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kRestoreKeyConstMeta;
 
@@ -165,39 +172,51 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       );
 
   Future<ExtendedKeyInfo> generateKey(
-          {required String nodeNetwork, dynamic hint}) =>
+          {required String nodeNetwork,
+          required String wordCount,
+          required int entropy,
+          String? password,
+          dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_generate_key(port_, _api2wire_String(nodeNetwork)),
+        callFfi: (port_) => inner.wire_generate_key(
+            port_,
+            _api2wire_String(nodeNetwork),
+            _api2wire_String(wordCount),
+            _api2wire_u8(entropy),
+            _api2wire_opt_String(password)),
         parseSuccessData: _wire2api_extended_key_info,
         constMeta: kGenerateKeyConstMeta,
-        argValues: [nodeNetwork],
+        argValues: [nodeNetwork, wordCount, entropy, password],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kGenerateKeyConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "generate_key",
-        argNames: ["nodeNetwork"],
+        argNames: ["nodeNetwork", "wordCount", "entropy", "password"],
       );
 
   Future<ExtendedKeyInfo> restoreKey(
           {required String nodeNetwork,
           required String mnemonic,
+          String? password,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_restore_key(
-            port_, _api2wire_String(nodeNetwork), _api2wire_String(mnemonic)),
+            port_,
+            _api2wire_String(nodeNetwork),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password)),
         parseSuccessData: _wire2api_extended_key_info,
         constMeta: kRestoreKeyConstMeta,
-        argValues: [nodeNetwork, mnemonic],
+        argValues: [nodeNetwork, mnemonic, password],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kRestoreKeyConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "restore_key",
-        argNames: ["nodeNetwork", "mnemonic"],
+        argNames: ["nodeNetwork", "mnemonic", "password"],
       );
 
   Future<void> syncWallet({dynamic hint}) =>
@@ -320,6 +339,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   double _api2wire_f32(double raw) {
     return raw;
+  }
+
+  ffi.Pointer<wire_uint_8_list> _api2wire_opt_String(String? raw) {
+    return raw == null ? ffi.nullptr : _api2wire_String(raw);
   }
 
   int _api2wire_u64(int raw) {
@@ -499,39 +522,55 @@ class RustWire implements FlutterRustBridgeWireBase {
   void wire_generate_key(
     int port_,
     ffi.Pointer<wire_uint_8_list> node_network,
+    ffi.Pointer<wire_uint_8_list> word_count,
+    int entropy,
+    ffi.Pointer<wire_uint_8_list> password,
   ) {
     return _wire_generate_key(
       port_,
       node_network,
+      word_count,
+      entropy,
+      password,
     );
   }
 
   late final _wire_generate_keyPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_generate_key');
-  late final _wire_generate_key = _wire_generate_keyPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Uint8,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_generate_key');
+  late final _wire_generate_key = _wire_generate_keyPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_restore_key(
     int port_,
     ffi.Pointer<wire_uint_8_list> node_network,
     ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
   ) {
     return _wire_restore_key(
       port_,
       node_network,
       mnemonic,
+      password,
     );
   }
 
   late final _wire_restore_keyPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_restore_key');
   late final _wire_restore_key = _wire_restore_keyPtr.asFunction<
-      void Function(
-          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_sync_wallet(
     int port_,

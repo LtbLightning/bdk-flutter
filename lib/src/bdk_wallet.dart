@@ -1,5 +1,7 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:bdk_flutter/src/enums/entropy.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'enums/word_count.dart';
 import 'generated/bindings.dart';
 import 'utils/loader.dart';
 
@@ -28,7 +30,7 @@ class BdkWallet {
             url: blockChainConfigUrl);
         sync();
       } else {
-        var key = await restoreExtendedKey(network, mnemonic!.toString());
+        var key = await restoreExtendedKey(network:network, mnemonic:mnemonic!.toString());
         var descriptor = createDescriptor(key.xprv);
         var changeDescriptor = createChangeDescriptor(key.xprv);
         await loaderApi.walletInit(
@@ -119,21 +121,32 @@ class BdkWallet {
   }
 }
 
-Future<String> generateSeed(Network network) async {
+Future<String> generateMnemonic({required Network network, required WordCount wordCount, required Entropy entropy}) async {
   try{
-    var res = await loaderApi.generateKey(nodeNetwork: network.name.toString());
+    var res = await generateExtendedKey(network: network, wordCount: wordCount, entropy: entropy);
     return res.mnemonic.toString();
   } on FfiException catch(e) {
     print(e.message);
     return e.message.toString();
   }
 }
-Future<ExtendedKeyInfo> generateExtendedKey(Network network) async {
-  var res = await loaderApi.generateKey(nodeNetwork: network.name.toString());
+Future<String> createXprv({required Network network, required WordCount wordCount, required Entropy entropy}) async {
+  try{
+    var res = await generateExtendedKey(network: network, wordCount: wordCount, entropy: entropy);
+    return res.xprv.toString();
+  } on FfiException catch(e) {
+    print(e.message);
+    return e.message.toString();
+  }
+}
+
+Future<ExtendedKeyInfo> generateExtendedKey({required Network network, required WordCount wordCount, String ? password, required Entropy entropy}) async {
+  var res = await loaderApi.generateKey(nodeNetwork: network.name.toString(), wordCount: wordCount.name.toString(), password: password.toString(), entropy: 15);
   return res;
 }
-Future<ExtendedKeyInfo> restoreExtendedKey(Network network, String mnemonic) async {
-  var res = await loaderApi.restoreKey(nodeNetwork: network.name.toString(), mnemonic: mnemonic);
+Future<ExtendedKeyInfo> restoreExtendedKey(
+    {required Network network, required String mnemonic, String ? password}) async {
+  var res = await loaderApi.restoreKey(nodeNetwork: network.name.toString(), mnemonic: mnemonic, password: password );
   return res;
 }
 String createDescriptor( String xprv){

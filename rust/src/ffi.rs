@@ -1,13 +1,8 @@
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
-use bdk::bitcoin::{Address, Network, Script, Txid};
-use bdk::blockchain::any::{AnyBlockchain, AnyBlockchainConfig};
-use bdk::blockchain::Blockchain as BdkBlockchain;
-use bdk::blockchain::{
-    electrum::ElectrumBlockchainConfig, esplora::EsploraBlockchainConfig, ConfigurableBlockchain,
-};
-use bdk::database::any::{SledDbConfiguration, SqliteDbConfiguration};
+use bdk::bitcoin::{Address, Network, Script};
+use bdk::blockchain::any::AnyBlockchain;
 use bdk::database::MemoryDatabase;
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{DerivableKey, ExtendedKey, GeneratableKey, GeneratedKey};
@@ -15,8 +10,7 @@ use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
 use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet};
-use std::borrow::Borrow;
-use std::convert::{From, TryFrom};
+use std::convert::From;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
@@ -118,80 +112,6 @@ impl From<&bdk::TransactionDetails> for Transaction {
     }
 }
 
-pub struct ElectrumConfig {
-    pub url: String,
-    pub socks5: Option<String>,
-    pub retry: u8,
-    pub timeout: Option<u8>,
-    pub stop_gap: u64,
-}
-
-pub struct EsploraConfig {
-    pub base_url: String,
-    pub proxy: Option<String>,
-    pub concurrency: Option<u8>,
-    pub stop_gap: u64,
-    pub timeout: Option<u64>,
-}
-
-pub enum BlockchainConfig {
-    Electrum { config: ElectrumConfig },
-    Esplora { config: EsploraConfig },
-}
-pub struct Blockchain {
-    pub(crate) blockchain_mutex: Mutex<AnyBlockchain>,
-}
-
-impl Blockchain {
-    pub(crate) fn default() -> Blockchain {
-        let config = BlockchainConfig::Electrum {
-            config: ElectrumConfig {
-                url: "ssl://electrum.blockstream.info:60002".to_string(),
-                retry: 0,
-                timeout: None,
-                stop_gap: 0,
-                socks5: None,
-            },
-        };
-        let res = Blockchain::new(config).unwrap();
-        res
-    }
-    pub(crate) fn new(blockchain_config: BlockchainConfig) -> Result<Self, BdkError> {
-        let any_blockchain_config = match blockchain_config {
-            BlockchainConfig::Electrum { config } => {
-                AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
-                    retry: config.retry,
-                    socks5: config.socks5,
-                    timeout: config.timeout,
-                    url: config.url,
-                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
-                })
-            }
-            BlockchainConfig::Esplora { config } => {
-                AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
-                    base_url: config.base_url,
-                    proxy: config.proxy,
-                    concurrency: config.concurrency,
-                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
-                    timeout: config.timeout,
-                })
-            }
-        };
-        let blockchain = AnyBlockchain::from_config(&any_blockchain_config).unwrap();
-        Ok(Self {
-            blockchain_mutex: Mutex::new(blockchain),
-        })
-    }
-
-    pub(crate) fn get_blockchain(&self) -> MutexGuard<AnyBlockchain> {
-        self.blockchain_mutex.lock().expect("blockchain")
-    }
-
-    pub(crate) fn broadcast(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<(), Error> {
-        let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-        self.get_blockchain().broadcast(&tx)
-    }
-}
 pub struct Wallet {
     pub(crate) wallet_mutex: Mutex<BdkWallet<MemoryDatabase>>,
 }
@@ -217,7 +137,7 @@ impl Wallet {
                 network,
                 MemoryDatabase::default(),
             )
-            .unwrap(),
+                .unwrap(),
         );
         Ok(Wallet { wallet_mutex: res })
     }
@@ -394,28 +314,37 @@ impl TxBuilder {
             .map(Arc::new)
     }
 }
-pub fn generate_extended_key(network: Network) -> ExtendedKeyInfo {
-    let mnemonic_gen: GeneratedKey<_, BareCtx> =
-        Mnemonic::generate((WordCount::Words12, Language::English)).unwrap();
-    let mnemonic = mnemonic_gen.clone().into_key();
-    let xkey: ExtendedKey<BareCtx> = mnemonic_gen.into_extended_key().unwrap();
+pub fn generate_extended_key(
+    network: Network,
+    word_count: WordCount,
+    entropy: u8,
+    password: Option<String>,
+) -> Result<ExtendedKeyInfo, Error> {
+    let entropy_ar = [entropy; 32];
+    let mnemonic: GeneratedKey<_, BareCtx> =
+        Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
+    let mnemonic: Mnemonic = mnemonic.into_key();
+    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key()?;
+    let xprv = xkey.into_xprv(network).unwrap();
+    Ok(ExtendedKeyInfo {
+        mnemonic: mnemonic.to_string(),
+        xprv: xprv.to_string(),
+        fingerprint: xprv.fingerprint(&Secp256k1::new()).to_string(),
+    })
+}
+
+pub fn restore_extended_key(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> Result<ExtendedKeyInfo, Error> {
+    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
+    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
     let xprv = xkey.into_xprv(network).unwrap();
     let fingerprint = xprv.fingerprint(&Secp256k1::new());
-    return ExtendedKeyInfo {
+    Ok(ExtendedKeyInfo {
         mnemonic: mnemonic.to_string(),
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
-    };
-}
-
-pub fn restore_extended_key(network: Network, mnemonic: String) -> ExtendedKeyInfo {
-    let mnemonic_parse = Mnemonic::parse(mnemonic.clone()).unwrap();
-    let xkey: ExtendedKey<BareCtx> = mnemonic_parse.into_extended_key().unwrap();
-    let xprv = xkey.into_xprv(network).unwrap();
-    let fingerprint = xprv.fingerprint(&Secp256k1::new());
-    return ExtendedKeyInfo {
-        mnemonic: mnemonic.clone(),
-        xprv: xprv.to_string(),
-        fingerprint: fingerprint.to_string(),
-    };
+    })
 }

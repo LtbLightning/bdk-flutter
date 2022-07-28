@@ -1,20 +1,20 @@
+use std::ops::Deref;
 use crate::ffi::{
-    generate_extended_key, restore_extended_key, AddressIndex, Blockchain, BlockchainConfig,
-    ElectrumConfig, EsploraConfig, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction,
+    generate_extended_key, restore_extended_key, AddressIndex,
+    ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction,
     TxBuilder, Wallet,
 };
-use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::{base64, Network};
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::blockchain::{
     AnyBlockchain, AnyBlockchainConfig, Blockchain as BdkBlockChain, ConfigurableBlockchain,
-    ElectrumBlockchain, ElectrumBlockchainConfig, EsploraBlockchain,
+    ElectrumBlockchainConfig
 };
-use bdk::electrum_client::Client;
 use bdk::wallet::tx_builder;
 use lazy_static::lazy_static;
 use std::sync::RwLock;
+use bdk::keys::bip39::WordCount;
 
 lazy_static! {
     static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
@@ -27,6 +27,13 @@ fn config_network(network: String) -> Network {
         "REGTEST" => Network::Regtest,
         "BITCOIN" => Network::Bitcoin,
         _ => Network::Testnet,
+    };
+}
+fn config_word_count(word_count: String) -> WordCount {
+    return match word_count.as_str() {
+        "Words12" => WordCount::Words12,
+        "Words24" => WordCount::Words24,
+        _ => WordCount::Words12
     };
 }
 fn default_blockchain() -> AnyBlockchain {
@@ -101,21 +108,22 @@ pub fn wallet_init(
     let mut new_wallet = WALLET.write().unwrap();
     *new_wallet = wallet;
 }
-pub fn generate_key(node_network: String) -> ExtendedKeyInfo {
+pub fn generate_key(node_network: String, word_count:String, entropy:u8, password: Option<String>,) -> ExtendedKeyInfo {
+    let word_count = config_word_count(word_count);
     let node_network = config_network(node_network);
-    let response = generate_extended_key(node_network);
-    return response;
+    let response = generate_extended_key(node_network, word_count,entropy, password);
+    return response.unwrap();
 }
-pub fn restore_key(node_network: String, mnemonic: String) -> ExtendedKeyInfo {
+pub fn restore_key(node_network: String, mnemonic: String, password:Option<String>) -> ExtendedKeyInfo {
     let node_network = config_network(node_network);
-    let response = restore_extended_key(node_network, mnemonic);
-    return response;
+    let response = restore_extended_key(node_network, mnemonic, password);
+    return response.unwrap();
 }
 
 pub fn sync_wallet() {
     let wallet = WALLET.read().unwrap();
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
-    // wallet.sync(&blockchain_obj.get_blockchain());
+    wallet.sync(blockchain_obj.deref());
 }
 pub fn get_balance() -> u64 {
     let res = WALLET.read().unwrap();

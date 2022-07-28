@@ -20,10 +20,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
+    //restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
+     generateKeys();
     super.initState();
   }
-  createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  async {
+
+  generateKeys() async{
+   var extendedKey =  await  generateExtendedKey(network: Network.REGTEST, wordCount:  WordCount.Words12, entropy: Entropy.Entropy160);
+   var xprv = await  createXprv(network: Network.TESTNET, wordCount:  WordCount.Words12, entropy: Entropy.Entropy192);
+   var mnemonic = await generateMnemonic(network: Network.TESTNET, wordCount:  WordCount.Words12, entropy: Entropy.Entropy192);
+   print("Extended key Fingerprint ${extendedKey.fingerprint}");
+   print("private key  $xprv");
+   print("mnemonic $mnemonic");
+
+  }
+
+  restoreWallet(String mnemonic, Network network) async {
+    var  key = await restoreExtendedKey(network:network, mnemonic:mnemonic);
+    var descriptor = createDescriptor(key.xprv);
+    var changeDescriptor = createChangeDescriptor(key.xprv);
     bdkWallet.createWallet(
         descriptor:descriptor,
         changeDescriptor:changeDescriptor,
@@ -31,14 +46,6 @@ class _MyAppState extends State<MyApp> {
         network: network,
         blockChainConfigUrl: "",
         blockchain: Blockchain.ELECTRUM);
-    bdkWallet.sync();
-    return bdkWallet;
-  }
-  restoreWallet(String mnemonic, Network network) async {
-    var  key = await restoreExtendedKey(network, mnemonic);
-    var descriptor = createDescriptor(key.xprv);
-    var changeDescriptor = createChangeDescriptor(key.xprv);
-    createOrRestoreWallet(descriptor, changeDescriptor, network);
     bdkWallet.sync();
     return bdkWallet;
   }
