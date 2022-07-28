@@ -15,7 +15,7 @@ import 'dart:ffi' as ffi;
 part 'bindings.freezed.dart';
 
 abstract class Rust {
-  Future<void> walletInit(
+  Future<BdkFlutterWallet> walletInit(
       {required String descriptor,
       required String changeDescriptor,
       required String network,
@@ -25,6 +25,10 @@ abstract class Rust {
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
+
+  Future<BdkFlutterWallet> getWallet({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta;
 
   Future<String> generateMnemonicSeed(
       {required String wordCount, required String entropy, dynamic hint});
@@ -70,6 +74,16 @@ abstract class Rust {
   Future<String> signAndBroadcast({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
+}
+
+class BdkFlutterWallet {
+  final int balance;
+  final String address;
+
+  BdkFlutterWallet({
+    required this.balance,
+    required this.address,
+  });
 }
 
 class BlockConfirmationTime {
@@ -124,7 +138,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   RustImpl.raw(RustWire inner) : super(inner);
 
-  Future<void> walletInit(
+  Future<BdkFlutterWallet> walletInit(
           {required String descriptor,
           required String changeDescriptor,
           required String network,
@@ -141,7 +155,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
             _api2wire_String(blockchain),
             _api2wire_String(url),
             _api2wire_String(socks5OrProxy)),
-        parseSuccessData: _wire2api_unit,
+        parseSuccessData: _wire2api_bdk_flutter_wallet,
         constMeta: kWalletInitConstMeta,
         argValues: [
           descriptor,
@@ -165,6 +179,21 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
           "url",
           "socks5OrProxy"
         ],
+      );
+
+  Future<BdkFlutterWallet> getWallet({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_wallet(port_),
+        parseSuccessData: _wire2api_bdk_flutter_wallet,
+        constMeta: kGetWalletConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_wallet",
+        argNames: [],
       );
 
   Future<String> generateMnemonicSeed(
@@ -356,6 +385,16 @@ String _wire2api_String(dynamic raw) {
   return raw as String;
 }
 
+BdkFlutterWallet _wire2api_bdk_flutter_wallet(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return BdkFlutterWallet(
+    balance: _wire2api_u64(arr[0]),
+    address: _wire2api_String(arr[1]),
+  );
+}
+
 BlockConfirmationTime _wire2api_block_confirmation_time(dynamic raw) {
   final arr = raw as List<dynamic>;
   if (arr.length != 2)
@@ -506,6 +545,20 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_wallet(
+    int port_,
+  ) {
+    return _wire_get_wallet(
+      port_,
+    );
+  }
+
+  late final _wire_get_walletPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_wallet');
+  late final _wire_get_wallet =
+      _wire_get_walletPtr.asFunction<void Function(int)>();
 
   void wire_generate_mnemonic_seed(
     int port_,

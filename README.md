@@ -43,8 +43,6 @@ bdk_flutter:
 ```
 
 
-
-
 ## Sample application
 * **BDK Flutter Demo App:** The [BDK Wallet Demo App](https://github.com/LtbLightning/bdk-flutter-app.git) 
 is a simple testnet Bitcoin wallet built as a reference app for bdk-flutter.

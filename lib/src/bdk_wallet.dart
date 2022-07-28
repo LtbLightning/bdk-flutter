@@ -30,7 +30,6 @@ class BdkWallet {
             blockchain: blockchain.name.toString(),
             socks5OrProxy: socks5OrProxy.toString(),
             url: blockChainConfigUrl);
-        sync();
       } else {
         var key = await createExtendedKey(network:network, mnemonic:mnemonic!.toString());
         var descriptor = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
@@ -45,6 +44,13 @@ class BdkWallet {
       }
     } on FfiException catch(e) {
       print(e.message);
+    }
+  }
+  Future<BdkFlutterWallet> getWallet() async {
+   try{
+     return   await loaderApi.getWallet();
+    } on FfiException catch(e) {
+       rethrow  ;
     }
   }
   Future<String> getNewAddress() async {

@@ -60,7 +60,7 @@ impl From<BdkAddressInfo> for AddressInfo {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
-pub(crate) struct TransactionDetails {
+pub struct TransactionDetails {
     pub fee: Option<u64>,
     pub received: u64,
     pub sent: u64,
@@ -78,7 +78,7 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
-pub(crate) enum Transaction {
+pub  enum Transaction {
     Unconfirmed {
         details: TransactionDetails,
     },

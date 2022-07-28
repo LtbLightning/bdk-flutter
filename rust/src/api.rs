@@ -91,8 +91,11 @@ fn config_blockchain(blockchain: &str, url: String, socks5_or_proxy: Option<Stri
         }
     };
 }
-
-fn blockchain_init(blockchain: &str, url: String, socks5: Option<String>) {
+pub struct  BdkFlutterWallet{
+    pub balance:u64,
+    pub address:String,
+}
+fn blockchain_init(blockchain: &str, url: String, socks5: Option<String>)  {
     let blockchain = config_blockchain(blockchain, url, socks5);
     let mut new_blockchain = BLOCKCHAIN.write().unwrap();
     *new_blockchain = blockchain;
@@ -104,7 +107,7 @@ pub fn wallet_init(
     blockchain: String,
     url: String,
     socks5_or_proxy: String,
-) {
+)  -> BdkFlutterWallet{
     let node_network = config_network(network.clone());
     let optional_socks5_or_proxy = if socks5_or_proxy.is_empty() { None} else {Some(socks5_or_proxy)};
     blockchain_init(blockchain.as_str(), url, optional_socks5_or_proxy);
@@ -118,7 +121,22 @@ pub fn wallet_init(
     wallet.sync(blockchain_obj.deref());
     let mut new_wallet = WALLET.write().unwrap();
     *new_wallet = wallet;
+    BdkFlutterWallet{
+        balance: get_balance(),
+        address: get_new_address(),
+    }
 }
+
+pub fn get_wallet() -> BdkFlutterWallet {
+    let wallet = WALLET.read().unwrap();
+    let blockchain_obj = BLOCKCHAIN.read().unwrap();
+    wallet.sync(blockchain_obj.deref());
+    BdkFlutterWallet{
+        balance: get_balance(),
+        address: get_new_address(),
+    }
+}
+
 pub fn generate_mnemonic_seed(word_count:String, entropy:String) -> String{
     let entropy_u8 = config_entropy(entropy);
     let word_count = config_word_count(word_count);

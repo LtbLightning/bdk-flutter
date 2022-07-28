@@ -60,6 +60,18 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_wallet(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_wallet()),
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_generate_mnemonic_seed(
     port_: i64,
     word_count: *mut wire_uint_8_list,
@@ -288,6 +300,13 @@ impl<T> NewWithNullPtr for *mut T {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for BdkFlutterWallet {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.balance.into_dart(), self.address.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for BdkFlutterWallet {}
 
 impl support::IntoDart for BlockConfirmationTime {
     fn into_dart(self) -> support::DartCObject {
