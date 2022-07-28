@@ -110,12 +110,12 @@ ndk-home:
 	fi
 
 ## bindings: Generate the .h file for iOS
-bindings: target/bridge_generated.h
+bindings: target/bindings.h
 
-target/bridge_generated.h: $(SOURCES)
+target/bindings.h: $(SOURCES)
 #	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
 	 @echo "[MOVED UP] $@"
-	 flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/bridge_generated.dart --c-output ios/Classes/bridge_generated.h
+	 flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/src/generated/bindings.dart --c-output ios/Classes/bindings.h
 	@echo "[DONE] $@"
 
 # ##############################################################################

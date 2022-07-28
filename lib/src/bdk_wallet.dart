@@ -31,9 +31,9 @@ class BdkWallet {
             socks5OrProxy: socks5OrProxy.toString(),
             url: blockChainConfigUrl);
       } else {
-        var key = await createExtendedKey(network:network, mnemonic:mnemonic!.toString());
+        var key = await createExtendedKey(network:network, mnemonic:mnemonic!.toString(), password: password);
         var descriptor = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
-        var changeDescriptor = createChangeDescriptor(key.xprv);
+        var changeDescriptor = createChangeDescriptor(descriptor);
         await loaderApi.walletInit(
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor.toString(),
@@ -64,7 +64,6 @@ class BdkWallet {
   Future<String> getBalance() async {
     try{
       var res = await loaderApi.getBalance();
-      print(res.toString());
       return res.toString();
     } on FfiException catch(e) {
       print(e.message);
@@ -80,6 +79,7 @@ class BdkWallet {
       return e.message.toString();
     }
   }
+
 
   sync() async {
     try{
@@ -118,9 +118,9 @@ class BdkWallet {
   }
   Future<String> broadcastTransaction({required String recipient, required int amount, required double feeRate}) async{
     try  {
-      final res = await loaderApi.createTransaction(
-          recipient: recipient, amount: amount, feeRate: feeRate);
+      final res = await loaderApi.createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
       final txid = await loaderApi.signAndBroadcast(psbtStr: res);
+      print(txid);
       return txid;
     }on FfiException catch(e) {
       print(e.message);

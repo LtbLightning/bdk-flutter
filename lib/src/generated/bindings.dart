@@ -15,7 +15,7 @@ import 'dart:ffi' as ffi;
 part 'bindings.freezed.dart';
 
 abstract class Rust {
-  Future<BdkFlutterWallet> walletInit(
+  Future<void> walletInit(
       {required String descriptor,
       required String changeDescriptor,
       required String network,
@@ -138,7 +138,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   RustImpl.raw(RustWire inner) : super(inner);
 
-  Future<BdkFlutterWallet> walletInit(
+  Future<void> walletInit(
           {required String descriptor,
           required String changeDescriptor,
           required String network,
@@ -155,7 +155,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
             _api2wire_String(blockchain),
             _api2wire_String(url),
             _api2wire_String(socks5OrProxy)),
-        parseSuccessData: _wire2api_bdk_flutter_wallet,
+        parseSuccessData: _wire2api_unit,
         constMeta: kWalletInitConstMeta,
         argValues: [
           descriptor,

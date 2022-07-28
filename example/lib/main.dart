@@ -17,36 +17,34 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   BdkWallet bdkWallet = BdkWallet();
-
+   late BdkFlutterWallet wallet;
   @override
   void initState() {
-    //restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
-     generateKeys();
+   restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
+
+    // generateKeys();
     super.initState();
   }
 
-  generateKeys() async{
-
-   var xprv = await  createXprv(network: Network.TESTNET, mnemonic: "school alcohol coral light army gather adapt blossom school alcohol coral lens", password: "password");
-   var mnemonic = await generateMnemonic(entropy: Entropy.Entropy192);
-   print("private key  $xprv");
-   print("mnemonic $mnemonic");
-
-  }
+  // generateKeys() async{
+  //  var xprv = await  createXprv(network: Network.TESTNET, mnemonic: "school alcohol coral light army gather adapt blossom school alcohol coral lens", password: "password");
+  //  var mnemonic = await generateMnemonic(entropy: Entropy.Entropy128);
+  //  print("private key  $xprv");
+  //  print("mnemonic $mnemonic");
+  // }
 
   restoreWallet(String mnemonic, Network network) async {
     var  key = await createExtendedKey(network:network, mnemonic:mnemonic);
     var descriptor = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
-    var changeDescriptor = createChangeDescriptor(key.xprv);
+    var changeDescriptor = createChangeDescriptor(descriptor);
     bdkWallet.createWallet(
         descriptor:descriptor,
         changeDescriptor:changeDescriptor,
         useDescriptors: true,
         network: network,
-        blockChainConfigUrl: "",
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
         blockchain: Blockchain.ELECTRUM);
-    bdkWallet.sync();
-    return bdkWallet;
+    getNewAddress();
   }
 
   sync() async {
@@ -58,12 +56,18 @@ class _MyAppState extends State<MyApp> {
 
   Future<List<Transaction>> getConfirmedTransactions() async {
     final res =  await bdkWallet.getConfirmedTransactions();
+    for (var e in res) {
+    print( e.details.txid);
+    }
     return res;
   }
 
   getPendingTransactions() async {
     final res =  await bdkWallet.getPendingTransactions();
-    res.map((e) => print(e.details.txid));
+    if(res.isEmpty) print("No Pending Transactions");
+    for (var e in res) {
+      print( e.details.txid);
+    }
   }
   getBalance() async {
     final res =  await bdkWallet.getBalance();
@@ -85,6 +89,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               TextButton(
                   onPressed: () => getNewAddress(),
                   child: const Text('Press to create new Address')),

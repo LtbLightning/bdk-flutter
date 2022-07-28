@@ -10,6 +10,7 @@ use bdk::blockchain::{
 use bdk::wallet::tx_builder;
 use lazy_static::lazy_static;
 use std::sync::RwLock;
+use bdk::bitcoin::consensus::deserialize;
 use bdk::keys::bip39::WordCount;
 
 lazy_static! {
@@ -107,7 +108,7 @@ pub fn wallet_init(
     blockchain: String,
     url: String,
     socks5_or_proxy: String,
-)  -> BdkFlutterWallet{
+)  {
     let node_network = config_network(network.clone());
     let optional_socks5_or_proxy = if socks5_or_proxy.is_empty() { None} else {Some(socks5_or_proxy)};
     blockchain_init(blockchain.as_str(), url, optional_socks5_or_proxy);
@@ -121,10 +122,6 @@ pub fn wallet_init(
     wallet.sync(blockchain_obj.deref());
     let mut new_wallet = WALLET.write().unwrap();
     *new_wallet = wallet;
-    BdkFlutterWallet{
-        balance: get_balance(),
-        address: get_new_address(),
-    }
 }
 
 pub fn get_wallet() -> BdkFlutterWallet {
@@ -183,6 +180,7 @@ pub fn get_transactions() -> Vec<Transaction> {
 }
 pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
     let res = WALLET.read().unwrap();
+    sync_wallet();
     let tx_builder = TxBuilder::new();
     let x = tx_builder
         .add_recipient(recipient, amount)
@@ -193,6 +191,8 @@ pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> Stri
 pub fn sign_and_broadcast(psbt_str: String) -> String {
     let wallet = WALLET.read().unwrap();
     let blockchain = BLOCKCHAIN.read().unwrap();
+    wallet.sync(&blockchain);
+ //  let psbt= deserialize(&base64::decode(&psbt_str).unwrap()).unwrap();
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
     wallet.sign(&psbt).unwrap();
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
@@ -207,6 +207,8 @@ mod tests {
         AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
         EsploraBlockchain,
     };
+    use crate::ffi::AddressIndex;
+
     #[test]
     fn init_wallet() {
         wallet_init(
@@ -218,6 +220,8 @@ mod tests {
             "".to_string() );
         let wallet = WALLET.read().unwrap();
         let balance = wallet.get_balance().unwrap();
+        let address = wallet.get_address(AddressIndex::New).unwrap();
+        assert_eq!(address.address,"test");
         assert_eq!(balance, 2450110);
     }
 }
