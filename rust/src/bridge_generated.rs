@@ -28,6 +28,9 @@ pub extern "C" fn wire_wallet_init(
     descriptor: *mut wire_uint_8_list,
     change_descriptor: *mut wire_uint_8_list,
     network: *mut wire_uint_8_list,
+    blockchain: *mut wire_uint_8_list,
+    url: *mut wire_uint_8_list,
+    socks5_or_proxy: *mut wire_uint_8_list,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -39,11 +42,17 @@ pub extern "C" fn wire_wallet_init(
             let api_descriptor = descriptor.wire2api();
             let api_change_descriptor = change_descriptor.wire2api();
             let api_network = network.wire2api();
+            let api_blockchain = blockchain.wire2api();
+            let api_url = url.wire2api();
+            let api_socks5_or_proxy = socks5_or_proxy.wire2api();
             move |task_callback| {
                 Ok(wallet_init(
                     api_descriptor,
                     api_change_descriptor,
                     api_network,
+                    api_blockchain,
+                    api_url,
+                    api_socks5_or_proxy,
                 ))
             }
         },

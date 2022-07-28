@@ -2,28 +2,26 @@ use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
 use bdk::bitcoin::{Address, Network, Script, Txid};
-use bdk::blockchain::any::AnyBlockchain;
-use bdk::blockchain::ElectrumBlockchain;
-use bdk::blockchain::Progress as BdkProgress;
-use bdk::blockchain::{electrum::ElectrumBlockchainConfig, esplora::EsploraBlockchainConfig};
-use bdk::database::any::{AnyDatabase, SledDbConfiguration, SqliteDbConfiguration};
-use bdk::database::{AnyDatabaseConfig, ConfigurableDatabase, MemoryDatabase};
-use bdk::electrum_client::Client;
+use bdk::blockchain::any::{AnyBlockchain, AnyBlockchainConfig};
+use bdk::blockchain::Blockchain as BdkBlockchain;
+use bdk::blockchain::{
+    electrum::ElectrumBlockchainConfig, esplora::EsploraBlockchainConfig, ConfigurableBlockchain,
+};
+use bdk::database::any::{SledDbConfiguration, SqliteDbConfiguration};
+use bdk::database::MemoryDatabase;
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{DerivableKey, ExtendedKey, GeneratableKey, GeneratedKey};
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{
-    BlockTime, Error, FeeRate, SignOptions, SyncOptions as BdkSyncOptions, SyncOptions,
-    Wallet as BdkWallet,
-};
-use serde::{Deserialize, Serialize};
-use std::convert::From;
-use std::fmt;
-use std::os::raw::c_char;
+use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet};
+use std::borrow::Borrow;
+use std::convert::{From, TryFrom};
+use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
+
+use serde::{Deserialize, Serialize};
 
 type BdkError = Error;
 #[derive(Serialize, Deserialize)]
@@ -77,10 +75,10 @@ pub struct TransactionDetails {
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
-            fee: x.fee,
+            fee: x.clone().fee,
             txid: x.txid.to_string(),
-            received: x.received,
-            sent: x.sent,
+            received: x.clone().received,
+            sent: x.clone().sent,
         }
     }
 }
@@ -120,11 +118,85 @@ impl From<&bdk::TransactionDetails> for Transaction {
     }
 }
 
+pub struct ElectrumConfig {
+    pub url: String,
+    pub socks5: Option<String>,
+    pub retry: u8,
+    pub timeout: Option<u8>,
+    pub stop_gap: u64,
+}
+
+pub struct EsploraConfig {
+    pub base_url: String,
+    pub proxy: Option<String>,
+    pub concurrency: Option<u8>,
+    pub stop_gap: u64,
+    pub timeout: Option<u64>,
+}
+
+pub enum BlockchainConfig {
+    Electrum { config: ElectrumConfig },
+    Esplora { config: EsploraConfig },
+}
+pub struct Blockchain {
+    pub(crate) blockchain_mutex: Mutex<AnyBlockchain>,
+}
+
+impl Blockchain {
+    pub(crate) fn default() -> Blockchain {
+        let config = BlockchainConfig::Electrum {
+            config: ElectrumConfig {
+                url: "ssl://electrum.blockstream.info:60002".to_string(),
+                retry: 0,
+                timeout: None,
+                stop_gap: 0,
+                socks5: None,
+            },
+        };
+        let res = Blockchain::new(config).unwrap();
+        res
+    }
+    pub(crate) fn new(blockchain_config: BlockchainConfig) -> Result<Self, BdkError> {
+        let any_blockchain_config = match blockchain_config {
+            BlockchainConfig::Electrum { config } => {
+                AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
+                    retry: config.retry,
+                    socks5: config.socks5,
+                    timeout: config.timeout,
+                    url: config.url,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                })
+            }
+            BlockchainConfig::Esplora { config } => {
+                AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
+                    base_url: config.base_url,
+                    proxy: config.proxy,
+                    concurrency: config.concurrency,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                    timeout: config.timeout,
+                })
+            }
+        };
+        let blockchain = AnyBlockchain::from_config(&any_blockchain_config).unwrap();
+        Ok(Self {
+            blockchain_mutex: Mutex::new(blockchain),
+        })
+    }
+
+    pub(crate) fn get_blockchain(&self) -> MutexGuard<AnyBlockchain> {
+        self.blockchain_mutex.lock().expect("blockchain")
+    }
+
+    pub(crate) fn broadcast(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<(), Error> {
+        let tx = psbt.internal.lock().unwrap().clone().extract_tx();
+        self.get_blockchain().broadcast(&tx)
+    }
+}
 pub struct Wallet {
     pub(crate) wallet_mutex: Mutex<BdkWallet<MemoryDatabase>>,
 }
 impl Wallet {
-    pub fn default() -> Wallet {
+    pub(crate) fn default() -> Wallet {
         let res = Mutex::new(BdkWallet::new(
             "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
             None,
@@ -133,7 +205,7 @@ impl Wallet {
         ).unwrap());
         Wallet { wallet_mutex: res }
     }
-    pub fn new(
+    pub(crate) fn new(
         descriptor: String,
         change_descriptor: Option<String>,
         network: Network,
@@ -155,9 +227,10 @@ impl Wallet {
     pub(crate) fn get_network(&self) -> Network {
         self.get_wallet().network()
     }
-    pub(crate) fn sync(&self, blockchain: ElectrumBlockchain) {
+    pub(crate) fn sync(&self, blockchain: &AnyBlockchain) {
+        // let bl =   Blockchain{ blockchain_mutex: blockchain.blockchain_mutex };
         self.get_wallet()
-            .sync(&blockchain, SyncOptions::default())
+            .sync(blockchain, SyncOptions::default())
             .unwrap();
     }
     pub(crate) fn get_balance(&self) -> Result<u64, BdkError> {
@@ -271,14 +344,14 @@ impl TxBuilder {
         })
     }
 
-    fn enable_rbf_with_sequence(&self, nsequence: u32) -> Arc<Self> {
+    pub(crate) fn enable_rbf_with_sequence(&self, nsequence: u32) -> Arc<Self> {
         Arc::new(TxBuilder {
             rbf: Some(RbfValue::Value(nsequence)),
             ..self.clone()
         })
     }
 
-    fn add_data(&self, data: Vec<u8>) -> Arc<Self> {
+    pub(crate) fn add_data(&self, data: Vec<u8>) -> Arc<Self> {
         Arc::new(TxBuilder {
             data,
             ..self.clone()
@@ -313,10 +386,6 @@ impl TxBuilder {
                 }
             }
         }
-        if !&self.data.is_empty() {
-            tx_builder.add_data(&self.data.as_slice());
-        }
-
         tx_builder
             .finish()
             .map(|(psbt, _)| PartiallySignedBitcoinTransaction {
@@ -349,9 +418,4 @@ pub fn restore_extended_key(network: Network, mnemonic: String) -> ExtendedKeyIn
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
     };
-}
-fn blockchain_init() -> ElectrumBlockchain {
-    let blockchain =
-        ElectrumBlockchain::from(Client::new("ssl://electrum.blockstream.info:60002").unwrap());
-    return blockchain;
 }

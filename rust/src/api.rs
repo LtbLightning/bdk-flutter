@@ -1,22 +1,25 @@
 use crate::ffi::{
-    generate_extended_key, restore_extended_key, AddressIndex, ExtendedKeyInfo,
-    PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet,
+    generate_extended_key, restore_extended_key, AddressIndex, Blockchain, BlockchainConfig,
+    ElectrumConfig, EsploraConfig, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction,
+    TxBuilder, Wallet,
 };
-use anyhow::{anyhow, Result};
-use bdk::bitcoin::consensus::deserialize;
-use bdk::bitcoin::hashes::serde_macros::serde_details::SerdeHash;
+use std::ops::Deref;
+// use anyhow::{anyhow, Result};
 use bdk::bitcoin::{base64, Network};
-use bdk::blockchain::{Blockchain, ElectrumBlockchain, GetTx};
+use bdk::blockchain::esplora::EsploraBlockchainConfig;
+use bdk::blockchain::{
+    AnyBlockchain, AnyBlockchainConfig, Blockchain as BdkBlockChain, ConfigurableBlockchain,
+    ElectrumBlockchain, ElectrumBlockchainConfig, EsploraBlockchain,
+};
 use bdk::electrum_client::Client;
 use bdk::wallet::tx_builder;
-use bdk::Error;
-use flutter_rust_bridge::*;
 use lazy_static::lazy_static;
-use std::borrow::Borrow;
-use std::sync::Arc;
 use std::sync::RwLock;
 
-
+lazy_static! {
+    static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
+    static ref BLOCKCHAIN: RwLock<AnyBlockchain> = RwLock::new(default_blockchain());
+}
 fn config_network(network: String) -> Network {
     return match network.as_str() {
         "SIGNET" => Network::Signet,
@@ -26,27 +29,77 @@ fn config_network(network: String) -> Network {
         _ => Network::Testnet,
     };
 }
-lazy_static! {
-    static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
-    // static ref BLOCKCHAIN: RwLock<ElectrumBlockchain> = RwLock::new(blockchain_init());
+fn default_blockchain() -> AnyBlockchain {
+    let config = AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
+        url: "ssl://electrum.blockstream.info:60002".into(),
+        retry: 2,
+        socks5: None,
+        timeout: None,
+        stop_gap: 20,
+    });
+    return AnyBlockchain::from_config(&config).unwrap();
 }
-fn blockchain_init() -> ElectrumBlockchain {
-    let blockchain =
-        ElectrumBlockchain::from(Client::new("ssl://electrum.blockstream.info:60002").unwrap());
-    return blockchain;
+fn config_blockchain(blockchain: &str, url: String, socks5_or_proxy: Option<String>) -> AnyBlockchain {
+    return match blockchain {
+        "ELECTRUM" => {
+            let config = AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
+                url: url.into(),
+                retry: 2,
+                socks5:None,
+                timeout: None,
+                stop_gap: 20,
+            });
+            AnyBlockchain::from_config(&config).unwrap()
+        }
+        "ESPLORA" => {
+            let config = AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
+                base_url: url.to_string(),
+                proxy: None,
+                timeout: None,
+                stop_gap: 20,
+                concurrency: None,
+            });
+            AnyBlockchain::from_config(&config).unwrap()
+        }
+        &_ => {
+            let config = AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
+                url: url.into(),
+                retry: 2,
+                socks5: None,
+                timeout: None,
+                stop_gap: 20,
+            });
+            AnyBlockchain::from_config(&config).unwrap()
+        }
+    };
 }
-pub fn wallet_init(descriptor:String,change_descriptor:String,network:String ) {
+
+fn blockchain_init(blockchain: &str, url: String, socks5: Option<String>) {
+    let blockchain = config_blockchain(blockchain, url, socks5);
+    let mut new_blockchain = BLOCKCHAIN.write().unwrap();
+    *new_blockchain = blockchain;
+}
+pub fn wallet_init(
+    descriptor: String,
+    change_descriptor: String,
+    network: String,
+    blockchain: String,
+    url: String,
+    socks5_or_proxy: String,
+) {
     let node_network = config_network(network.clone());
-    let blockchain_obj = blockchain_init();
+    let optional_socks5_or_proxy = if socks5_or_proxy.is_empty() { None} else {Some(socks5_or_proxy)};
+    blockchain_init(blockchain.as_str(), url, optional_socks5_or_proxy);
     let wallet = Wallet::new(
         descriptor.clone(),
         Some(change_descriptor.clone()),
         node_network,
     )
-        .unwrap();
-    wallet.sync(blockchain_obj);
+    .unwrap();
+    let blockchain_obj = BLOCKCHAIN.read().unwrap();
+    wallet.sync(blockchain_obj.deref());
     let mut new_wallet = WALLET.write().unwrap();
-    *new_wallet = wallet
+    *new_wallet = wallet;
 }
 pub fn generate_key(node_network: String) -> ExtendedKeyInfo {
     let node_network = config_network(node_network);
@@ -60,9 +113,9 @@ pub fn restore_key(node_network: String, mnemonic: String) -> ExtendedKeyInfo {
 }
 
 pub fn sync_wallet() {
-    let res = WALLET.read().unwrap();
-    let blockchain = blockchain_init();
-    res.sync(blockchain);
+    let wallet = WALLET.read().unwrap();
+    let blockchain_obj = BLOCKCHAIN.read().unwrap();
+    // wallet.sync(&blockchain_obj.get_blockchain());
 }
 pub fn get_balance() -> u64 {
     let res = WALLET.read().unwrap();
@@ -78,43 +131,50 @@ pub fn get_last_unused_address() -> String {
     let res = WALLET.read().unwrap();
     res.get_address(AddressIndex::New).unwrap().address
 }
+
 pub fn get_transactions() -> Vec<Transaction> {
     let res = WALLET.read().unwrap();
     let response: Vec<Transaction> = res.get_transactions().unwrap();
-    return  response;
+    return response;
 }
-pub fn  create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
+pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
     let res = WALLET.read().unwrap();
     let tx_builder = TxBuilder::new();
-    let x =  tx_builder.
-        add_recipient(recipient,amount).fee_rate(fee_rate).finish(&res);
-   x.unwrap().serialize()
+    let x = tx_builder
+        .add_recipient(recipient, amount)
+        .fee_rate(fee_rate)
+        .finish(&res);
+    x.unwrap().serialize()
 }
-pub fn sign_and_broadcast( psbt_str:String) -> String {
+pub fn sign_and_broadcast(psbt_str: String) -> String {
     let wallet = WALLET.read().unwrap();
-    let blockchain= blockchain_init();
-    let  psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    wallet.sign(&psbt);
+    let blockchain = BLOCKCHAIN.read().unwrap();
+    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    wallet.sign(&psbt).unwrap();
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
     blockchain.broadcast(&tx).unwrap();
     tx.txid().to_string()
 }
 
-
-
 #[cfg(test)]
 mod tests {
-    use crate::api::{wallet_init, WalletObj, WALLET};
+    use crate::api::{wallet_init, BLOCKCHAIN, WALLET};
+    use bdk::blockchain::{
+        AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
+        EsploraBlockchain,
+    };
     #[test]
     fn init_wallet() {
         wallet_init(
-             "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)".to_string(),
-             "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)".to_string(),
-            "TESTNET".to_string()
-        );
-        let res = WALLET.read().unwrap();
-        let balance = res.get_balance().unwrap();
-        assert_eq!(balance, 4);
+            "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)".to_string(),
+            "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)".to_string(),
+            "TESTNET".to_string(),
+            "ELECTRUM".to_string(),
+            "ssl://electrum.blockstream.info:60002".to_string(),
+            "".to_string() );
+        let wallet = WALLET.read().unwrap();
+        let balance = wallet.get_balance().unwrap();
+        assert_eq!(balance, 2450110);
     }
 }
 
@@ -158,50 +218,4 @@ mod tests {
 //             data: vec![data.to_string()],
 //         }
 //     }
-// }
-
-// fn generate_mnemonic(data: &String, wallet_obj: Wallet) -> BridgeResult {
-//     #[derive(Deserialize)]
-//     struct Arguments {
-//         network: String,
-//     }
-//     let arguments: Arguments = match serde_json::from_str(&data) {
-//         Ok(data) => data,
-//         Err(err) => return BridgeResult::err("failed to parse arguments\n, {}", err),
-//     };
-//     let node_network = self::config_network(arguments.network.to_string());
-//     let response = generate_extended_key(node_network);
-//     let response_str = serde_json::to_string(&response.mnemonic.clone().to_string()).unwrap();
-//     return BridgeResult::ok(response_str);
-// }
-// fn config_blockchain(blockchain: &str, url: String, socks5: Option<String>) -> BlockchainConfig {
-//     return match blockchain {
-//         "ELECTRUM" => BlockchainConfig::Electrum {
-//             config: ElectrumConfig {
-//                 url,
-//                 socks5,
-//                 retry: 0,
-//                 timeout: None,
-//                 stop_gap: 0,
-//             },
-//         },
-//         "ESPLORA" => BlockchainConfig::Esplora {
-//             config: EsploraConfig {
-//                 concurrency: None,
-//                 stop_gap: 10,
-//                 timeout: None,
-//                 base_url: url,
-//                 proxy: None,
-//             },
-//         },
-//         _ => BlockchainConfig::Electrum {
-//             config: ElectrumConfig {
-//                 url,
-//                 socks5,
-//                 retry: 0,
-//                 timeout: None,
-//                 stop_gap: 0,
-//             },
-//         },
-//     };
 // }

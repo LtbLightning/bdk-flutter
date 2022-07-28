@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
-import 'bridge_generated.dart';
+import '../generated/bindings.dart';
+
 
 final dylib = Platform.isIOS
     ? DynamicLibrary.process()

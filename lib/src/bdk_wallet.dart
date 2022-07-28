@@ -1,33 +1,88 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/src/enums/network_enum.dart';
-import 'bridge_generated.dart';
-import 'loader.dart';
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'generated/bindings.dart';
+import 'utils/loader.dart';
 
 class BdkWallet {
-  Future<void> init(String descriptor, String changeDescriptor, Network network) async {
-    await loaderApi.walletInit(descriptor: descriptor, changeDescriptor: changeDescriptor, network: network.name.toString());
+  Future<void> createWallet({
+    String? mnemonic,
+    String? password,
+    bool useDescriptors = false,
+    String? descriptor,
+    String? changeDescriptor,
+    required Network network,
+    required String blockChainConfigUrl,
+    String?  socks5OrProxy,
+    required Blockchain blockchain,
+    String? retry,
+    String? timeOut
+  }) async {
+    try{
+      if (useDescriptors) {
+        await loaderApi.walletInit(
+            descriptor: descriptor.toString(),
+            changeDescriptor: changeDescriptor.toString(),
+            network: network.name.toString(),
+            blockchain: blockchain.name.toString(),
+            socks5OrProxy: socks5OrProxy.toString(),
+            url: blockChainConfigUrl);
+        sync();
+      } else {
+        var key = await restoreExtendedKey(network, mnemonic!.toString());
+        var descriptor = createDescriptor(key.xprv);
+        var changeDescriptor = createChangeDescriptor(key.xprv);
+        await loaderApi.walletInit(
+            descriptor: descriptor.toString(),
+            changeDescriptor: changeDescriptor.toString(),
+            network: network.name.toString(),
+            blockchain: blockchain.name.toString(),
+            url: blockChainConfigUrl,
+            socks5OrProxy: socks5OrProxy.toString());
+      }
+    } on FfiException catch(e) {
+   print(e.message);
+    }
   }
   Future<String> getNewAddress() async {
-    var res = await loaderApi.getNewAddress();
-    return res.toString();
+    try{
+      var res = await loaderApi.getNewAddress();
+      return res.toString();
+    }  on FfiException catch(e) {
+        return e.message.toString();
+  }
   }
   Future<String> getBalance() async {
-    var res = await loaderApi.getBalance();
-    return res.toString();
+    try{
+      var res = await loaderApi.getBalance();
+      print(res.toString());
+      return res.toString();
+    } on FfiException catch(e) {
+      print(e.message);
+      return e.message.toString();
+    }
   }
   Future<String> getLastUnusedAddress() async {
-    var res = await loaderApi.getLastUnusedAddress();
-    return res.toString();
+   try {
+      var res = await loaderApi.getLastUnusedAddress();
+      return res.toString();
+    } on FfiException catch(e) {
+     print(e.message);
+     return e.message.toString();
+   }
   }
 
   sync() async {
-    print("Syncing Wallet");
-    await loaderApi.syncWallet();
+    try{
+      print("Syncing Wallet");
+      await loaderApi.syncWallet();
+    } on FfiException catch(e) {
+      print(e.message);
+    }
   }
 
   Future<List<Transaction>> getAllTransactions() async{
-    final res = await loaderApi.getTransactions();
-    return res;
+      final res = await loaderApi.getTransactions();
+      return res;
   }
   Future<List<Transaction>> getPendingTransactions() async {
     List<Transaction>  unConfirmed = [];
@@ -52,15 +107,26 @@ class BdkWallet {
     return confirmed;
   }
   Future<String> broadcastTransaction({required String recipient, required int amount, required double feeRate}) async{
-    final res = await loaderApi.createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
-    final txid= await loaderApi.signAndBroadcast(psbtStr: res);
-    return txid;
+  try  {
+      final res = await loaderApi.createTransaction(
+          recipient: recipient, amount: amount, feeRate: feeRate);
+      final txid = await loaderApi.signAndBroadcast(psbtStr: res);
+      return txid;
+    }on FfiException catch(e) {
+    print(e.message);
+    return e.message.toString();
+  }
   }
 }
 
 Future<String> generateSeed(Network network) async {
-  var res = await loaderApi.generateKey(nodeNetwork: network.name.toString());
-  return res.mnemonic.toString();
+  try{
+    var res = await loaderApi.generateKey(nodeNetwork: network.name.toString());
+    return res.mnemonic.toString();
+  } on FfiException catch(e) {
+    print(e.message);
+    return e.message.toString();
+  }
 }
 Future<ExtendedKeyInfo> generateExtendedKey(Network network) async {
   var res = await loaderApi.generateKey(nodeNetwork: network.name.toString());

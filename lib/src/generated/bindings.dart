@@ -12,13 +12,16 @@ import 'dart:typed_data';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'dart:ffi' as ffi;
 
-part 'bridge_generated.freezed.dart';
+part 'bindings.freezed.dart';
 
 abstract class Rust {
   Future<void> walletInit(
       {required String descriptor,
       required String changeDescriptor,
       required String network,
+      required String blockchain,
+      required String url,
+      required String socks5OrProxy,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
@@ -122,23 +125,43 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
           {required String descriptor,
           required String changeDescriptor,
           required String network,
+          required String blockchain,
+          required String url,
+          required String socks5OrProxy,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_wallet_init(
             port_,
             _api2wire_String(descriptor),
             _api2wire_String(changeDescriptor),
-            _api2wire_String(network)),
+            _api2wire_String(network),
+            _api2wire_String(blockchain),
+            _api2wire_String(url),
+            _api2wire_String(socks5OrProxy)),
         parseSuccessData: _wire2api_unit,
         constMeta: kWalletInitConstMeta,
-        argValues: [descriptor, changeDescriptor, network],
+        argValues: [
+          descriptor,
+          changeDescriptor,
+          network,
+          blockchain,
+          url,
+          socks5OrProxy
+        ],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "wallet_init",
-        argNames: ["descriptor", "changeDescriptor", "network"],
+        argNames: [
+          "descriptor",
+          "changeDescriptor",
+          "network",
+          "blockchain",
+          "url",
+          "socks5OrProxy"
+        ],
       );
 
   Future<ExtendedKeyInfo> generateKey(
@@ -438,12 +461,18 @@ class RustWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> descriptor,
     ffi.Pointer<wire_uint_8_list> change_descriptor,
     ffi.Pointer<wire_uint_8_list> network,
+    ffi.Pointer<wire_uint_8_list> blockchain,
+    ffi.Pointer<wire_uint_8_list> url,
+    ffi.Pointer<wire_uint_8_list> socks5_or_proxy,
   ) {
     return _wire_wallet_init(
       port_,
       descriptor,
       change_descriptor,
       network,
+      blockchain,
+      url,
+      socks5_or_proxy,
     );
   }
 
@@ -453,10 +482,19 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Int64,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_wallet_init');
   late final _wire_wallet_init = _wire_wallet_initPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_generate_key(
     int port_,

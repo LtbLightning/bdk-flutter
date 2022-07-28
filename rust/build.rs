@@ -6,7 +6,7 @@ use std::env;
 /// Path of input Rust code
 const RUST_INPUT: &str = "src/api.rs";
 /// Path of output generated Dart code
-const DART_OUTPUT: &str = "../lib/src/bridge_generated.dart";
+const DART_OUTPUT: &str = "../lib/src/generated/bindings.dart";
 
 fn main() {
     // Tell Cargo that if the input Rust code changes, to rerun this build script.

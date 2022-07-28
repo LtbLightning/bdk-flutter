@@ -16,15 +16,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
- BdkWallet bdkWallet = BdkWallet();
+  BdkWallet bdkWallet = BdkWallet();
 
   @override
   void initState() {
     restoreWallet("puppy interest whip tonight dad never sudden response push zone pig patch", Network.TESTNET);
     super.initState();
   }
-   createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  async {
-    bdkWallet.init(descriptor, changeDescriptor, network);
+  createOrRestoreWallet(String descriptor, String changeDescriptor, Network network)  async {
+    bdkWallet.createWallet(
+        descriptor:descriptor,
+        changeDescriptor:changeDescriptor,
+        useDescriptors: true,
+        network: network,
+        blockChainConfigUrl: "",
+        blockchain: Blockchain.ELECTRUM);
     bdkWallet.sync();
     return bdkWallet;
   }
