@@ -60,7 +60,7 @@ impl From<BdkAddressInfo> for AddressInfo {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
-pub struct TransactionDetails {
+pub(crate) struct TransactionDetails {
     pub fee: Option<u64>,
     pub received: u64,
     pub sent: u64,
@@ -78,7 +78,7 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
-pub enum Transaction {
+pub(crate) enum Transaction {
     Unconfirmed {
         details: TransactionDetails,
     },
@@ -88,7 +88,7 @@ pub enum Transaction {
     },
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct BlockConfirmationTime {
+pub(crate) struct BlockConfirmationTime {
     pub height: u32,
     pub timestamp: u64,
 }
@@ -314,24 +314,28 @@ impl TxBuilder {
             .map(Arc::new)
     }
 }
-pub fn generate_extended_key(
-    network: Network,
-    word_count: WordCount,
-    entropy: u8,
-    password: Option<String>,
-) -> Result<ExtendedKeyInfo, Error> {
+pub fn generate_mnemonic( word_count: WordCount,
+                          entropy: u8, ) -> Mnemonic{
     let entropy_ar = [entropy; 32];
-    let mnemonic: GeneratedKey<_, BareCtx> =
-        Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
+    let mnemonic: GeneratedKey<_, BareCtx> = Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
     let mnemonic: Mnemonic = mnemonic.into_key();
-    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key()?;
-    let xprv = xkey.into_xprv(network).unwrap();
-    Ok(ExtendedKeyInfo {
-        mnemonic: mnemonic.to_string(),
-        xprv: xprv.to_string(),
-        fingerprint: xprv.fingerprint(&Secp256k1::new()).to_string(),
-    })
+    mnemonic
 }
+// pub fn generate_extended_key(
+//     network: Network,
+//     word_count: WordCount,
+//     entropy: u8,
+//     password: Option<String>,
+// ) -> Result<ExtendedKeyInfo, Error> {
+//     let mnemonic: Mnemonic = generate_mnemonic(word_count, entropy);
+//     let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key()?;
+//     let xprv = xkey.into_xprv(network).unwrap();
+//     Ok(ExtendedKeyInfo {
+//         mnemonic: mnemonic.to_string(),
+//         xprv: xprv.to_string(),
+//         fingerprint: xprv.fingerprint(&Secp256k1::new()).to_string(),
+//     })
+// }
 
 pub fn restore_extended_key(
     network: Network,

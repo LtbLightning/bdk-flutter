@@ -1,9 +1,5 @@
 use std::ops::Deref;
-use crate::ffi::{
-    generate_extended_key, restore_extended_key, AddressIndex,
-    ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction,
-    TxBuilder, Wallet,
-};
+use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic};
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::{base64, Network};
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
@@ -32,8 +28,23 @@ fn config_network(network: String) -> Network {
 fn config_word_count(word_count: String) -> WordCount {
     return match word_count.as_str() {
         "Words12" => WordCount::Words12,
+        "Words15" => WordCount::Words15,
+        "Words18" => WordCount::Words18,
+        "Words21" => WordCount::Words21,
         "Words24" => WordCount::Words24,
         _ => WordCount::Words12
+    };
+}
+fn config_entropy(entropy: String) -> u8 {
+    return match entropy.as_str() {
+        "Entropy32" => 32,
+        "Entropy64"=> 64,
+        "Entropy96"=>96,
+        "Entropy128"=>128,
+        "Entropy160"=>160,
+        "Entropy192"=>192,
+        "Entropy224"=>224,
+        _ => 128
     };
 }
 fn default_blockchain() -> AnyBlockchain {
@@ -102,19 +113,26 @@ pub fn wallet_init(
         Some(change_descriptor.clone()),
         node_network,
     )
-    .unwrap();
+        .unwrap();
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
     wallet.sync(blockchain_obj.deref());
     let mut new_wallet = WALLET.write().unwrap();
     *new_wallet = wallet;
 }
-pub fn generate_key(node_network: String, word_count:String, entropy:u8, password: Option<String>,) -> ExtendedKeyInfo {
+pub fn generate_mnemonic_seed(word_count:String, entropy:String) -> String{
+    let entropy_u8 = config_entropy(entropy);
     let word_count = config_word_count(word_count);
-    let node_network = config_network(node_network);
-    let response = generate_extended_key(node_network, word_count,entropy, password);
-    return response.unwrap();
+    let mnemonic = generate_mnemonic(word_count,entropy_u8 );
+    mnemonic.to_string()
 }
-pub fn restore_key(node_network: String, mnemonic: String, password:Option<String>) -> ExtendedKeyInfo {
+// pub fn generate_key(node_network: String, word_count:String, entropy:String, password: Option<String>,) -> ExtendedKeyInfo {
+//     let entropy_u8 = config_entropy(entropy);
+//     let word_count = config_word_count(word_count);
+//     let node_network = config_network(node_network);
+//     let response = generate_extended_key(node_network, word_count,entropy_u8, password);
+//     return response.unwrap();
+// }
+pub fn create_key(node_network: String, mnemonic: String, password:Option<String>) -> ExtendedKeyInfo {
     let node_network = config_network(node_network);
     let response = restore_extended_key(node_network, mnemonic, password);
     return response.unwrap();

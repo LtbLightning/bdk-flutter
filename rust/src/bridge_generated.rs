@@ -60,38 +60,27 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_key(
+pub extern "C" fn wire_generate_mnemonic_seed(
     port_: i64,
-    node_network: *mut wire_uint_8_list,
     word_count: *mut wire_uint_8_list,
-    entropy: u8,
-    password: *mut wire_uint_8_list,
+    entropy: *mut wire_uint_8_list,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_key",
+            debug_name: "generate_mnemonic_seed",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_node_network = node_network.wire2api();
             let api_word_count = word_count.wire2api();
             let api_entropy = entropy.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| {
-                Ok(generate_key(
-                    api_node_network,
-                    api_word_count,
-                    api_entropy,
-                    api_password,
-                ))
-            }
+            move |task_callback| Ok(generate_mnemonic_seed(api_word_count, api_entropy))
         },
     )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_restore_key(
+pub extern "C" fn wire_create_key(
     port_: i64,
     node_network: *mut wire_uint_8_list,
     mnemonic: *mut wire_uint_8_list,
@@ -99,7 +88,7 @@ pub extern "C" fn wire_restore_key(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "restore_key",
+            debug_name: "create_key",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -107,7 +96,7 @@ pub extern "C" fn wire_restore_key(
             let api_node_network = node_network.wire2api();
             let api_mnemonic = mnemonic.wire2api();
             let api_password = password.wire2api();
-            move |task_callback| Ok(restore_key(api_node_network, api_mnemonic, api_password))
+            move |task_callback| Ok(create_key(api_node_network, api_mnemonic, api_password))
         },
     )
 }

@@ -6,5 +6,4 @@ enum Entropy{
   Entropy160,
   Entropy192,
   Entropy224,
-  Entropy256,
 }

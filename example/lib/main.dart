@@ -26,18 +26,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateKeys() async{
-   var extendedKey =  await  generateExtendedKey(network: Network.REGTEST, wordCount:  WordCount.Words12, entropy: Entropy.Entropy160);
-   var xprv = await  createXprv(network: Network.TESTNET, wordCount:  WordCount.Words12, entropy: Entropy.Entropy192);
-   var mnemonic = await generateMnemonic(network: Network.TESTNET, wordCount:  WordCount.Words12, entropy: Entropy.Entropy192);
-   print("Extended key Fingerprint ${extendedKey.fingerprint}");
+
+   var xprv = await  createXprv(network: Network.TESTNET, mnemonic: "school alcohol coral light army gather adapt blossom school alcohol coral lens", password: "password");
+   var mnemonic = await generateMnemonic(entropy: Entropy.Entropy192);
    print("private key  $xprv");
    print("mnemonic $mnemonic");
 
   }
 
   restoreWallet(String mnemonic, Network network) async {
-    var  key = await restoreExtendedKey(network:network, mnemonic:mnemonic);
-    var descriptor = createDescriptor(key.xprv);
+    var  key = await createExtendedKey(network:network, mnemonic:mnemonic);
+    var descriptor = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
     var changeDescriptor = createChangeDescriptor(key.xprv);
     bdkWallet.createWallet(
         descriptor:descriptor,
@@ -57,11 +56,9 @@ class _MyAppState extends State<MyApp> {
     await bdkWallet.getNewAddress().then((value) => print(value));
   }
 
-  getConfirmedTransactions() async {
+  Future<List<Transaction>> getConfirmedTransactions() async {
     final res =  await bdkWallet.getConfirmedTransactions();
-    for (var e in res) {
-      print(e.details.txid);
-    }
+    return res;
   }
 
   getPendingTransactions() async {
