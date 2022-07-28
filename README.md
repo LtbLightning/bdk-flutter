@@ -1,8 +1,7 @@
 ## Bdk-Flutter
 
 A Flutter  version of the Bitcon Development Kit (https://bitcoindevkit.org/)
-Bdk-Flutter is a flutter version of Bitcoin Development Kit
-
+The Bdk-Flutter is a flutter version of wrapper for the native Android and iOS Bitcon Development Kit SDK 
 ## Table of Contents
 
 - [Requirements](#requirements)
@@ -42,6 +41,29 @@ bdk_flutter:
       url: https://github.com/LtbLightning/bdk-flutter.git
       ref: main
 ```
+
+Download Binaries:
+
+Navigate to the folder, where the plugin is installed.
+
+For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/ios  
+
+(Mac OS) & run the following command
+
+```bash
+/bin/zsh config.sh
+```
+Once installed navigate back to your project ios folder and pod install
+
+```bash
+cd ios && pod install
+```
+
+Run the follwing script before using the script for the proper fuction of the IOS side
+```bash
+dart run bin/config.dart
+```
+
 
 ## Sample application
 * **BDK Flutter Demo App:** The [BDK Wallet Demo App](https://github.com/LtbLightning/bdk-flutter-app.git) 
