@@ -44,7 +44,7 @@ bdk_flutter:
 
 ## Sample application
 * **BDK Flutter Demo App:** The [BDK Wallet Demo App](https://github.com/LtbLightning/bdk-flutter-app.git) 
-is a simple testnet Bitcoin wallet built as a reference app for bdk-flutter.
+is a simple testnet Bitcoin app built as a reference app for bdk-flutter.
 
 ## Usage
 
@@ -78,9 +78,8 @@ Following methods can be used with this module. All methods can be called by Bdk
 | [getPendingTransactions()](#getbalance)        | -                                                                                          |
 | [sync()](#sync)                                | -                                                                                          |
 | [broadcastTx()](#broadcastTx)                  | address (recipient wallet address), amount*(sats)                                          |
-| [createP2SHP2WPKHDescriptor()](#createP2SHP2WPKHDescriptor)| mnemonic, password                                                             |
-| [createP2PKHDescriptor()](#createP2PKHDescriptor)| mnemonic, password                                                                     |
-| [createP2SH2of2MultisigDescriptor()](#createP2SH2of2MultisigDescriptor)| mnemonic, password, recipientPublicKey                             |
+| [createHDescriptor()](#createDescriptor)       | xprv,  keyInfo,   descriptor                                                               |
+
 
 ---
 
@@ -92,10 +91,16 @@ can be in multiples of 32 from 128 to 256, 128 is used as default. A word count 
 parameter and can be in multiples of 3 from 12 to 24. 12 is used as default.
 
 ```dart
-const response = await BdkWallet.generateMnemonic()
-// daring erase travel point pull loud peanut apart attack lobster cross surprise actress dolphin gift journey mystery save
-const response = await BdkWallet.generateMnemonic(WordCount.Words12,Entropy.Entropy128)
-// daring erase travel point pull loud peanut apart attack lobster cross surprise actress dolphin gift journey mystery save
+const response = await generateMnemonic()
+
+const response = await generateMnemonic(entropy: Entropy.Entropy128)
+
+
+```
+
+Returned response example:
+```dart
+"daring erase travel point pull loud peanut apart attack lobster cross surprise actress dolphin gift journey mystery save"
 ```
 ---
 
@@ -107,15 +112,19 @@ ExtendedKeyInfo creates a key object which encapsulates the mnemonic and adds a 
 The extended key info object is required to be passed as an argument in some bdk methods.
 
 ```dart
-const response = await BdkWallet.generateExtendedKey(network: Network.TESTNET
-                                                     mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
-                                                     password: ''
-                                                    );
-// {
-// 		fingerprint: 'ZgUK9QXJRYCwnCtYL',
-//		mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
-//		xpriv: 'tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw'
-// }
+const response = await generateExtendedKey(network: Network.TESTNET
+                                           mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
+                                           password: ''
+                                           );
+```
+
+Returned response example:
+```dart
+ {
+ 		fingerprint: 'ZgUK9QXJRYCwnCtYL',
+		mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
+		xpriv: 'tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw'
+ }
 ```
 ---
 
@@ -124,8 +133,14 @@ Create descriptor using mnemonic phrase and password.
 
 ```dart
 
-const response = await BdkWallet.createXprv({ network: Network.TESTNET, mnemonic: '', password: '' });
-// tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw
+const response = await createXprv({ network: Network.TESTNET, mnemonic: '', password: '' });
+
+```
+
+```
+Returned response example:
+```dart
+"tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw"
 ```
 ---
 
@@ -135,11 +150,27 @@ Create new wallet.
 
 User can specify their custom  mnemonic (OR can generate from genSeed() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
 If any of the values are not specefied, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generate automatically and empty password will be applied to createWallet.
-In case of a multi-sig wallet, you can generate a custom descriptor using createP2SH2of2MultisigDescriptor() or createP2SH3of4MultisigDescriptor() and use it as descriptor for your wallet
-Return the new address after successful of createWallet.
+In case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Decriptor.P2SH2of2Multisig or Decriptor.P2SH3of4Multisig type and use it as descriptor for your wallet
+
 
 ```dart
-const response = await BdkWallet.createWallet(mnemonic, password, useDescriptor, descriptor, changeDescriptor, network, blockChainConfigUrl, socks5OrProxy, retry, timeOut );
+const response  =  await BdkWallet().createWallet(
+                                                    descriptor:descriptor,
+                                                    changeDescriptor:changeDescriptor,
+                                                    useDescriptors: true,
+                                                    network: network,
+                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+                                                    blockchain: Blockchain.ELECTRUM
+                                                    );
+                                                
+const response  =  await BdkWallet().createWallet(
+                                                    mnemonic: mnemonic,
+                                                    password: password,
+                                                    useDescriptors: false,
+                                                    network: network,
+                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+                                                    blockchain: Blockchain.ELECTRUM
+                                                    );                                                
 ```
 
 ---
@@ -150,7 +181,11 @@ Create new address for wallet.
 
 ```dart
 const response = await BdkWallet.getNewAddress();
-// tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
+
+```
+Returned response example:
+```dart
+"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
 ```
 ---
 
@@ -160,7 +195,12 @@ Returns the last unused address of the wallet.
 
 ```dart
 const response = await BdkWallet.getLastUnusedAddress();
-// tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
+
+```
+
+Returned response example:
+```dart
+"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
 ```
 ---
 
@@ -169,9 +209,10 @@ const response = await BdkWallet.getLastUnusedAddress();
 Get balace of wallet.
 
 ```dart
-const response = await BdkRn.getBalance();
+const response = await BdkWallet.getBalance();
 ```
 
+Returned response example:
 ```dart
  "8369", // balance in sats
 ```
@@ -213,14 +254,13 @@ Returned response example:
     "sent": "0" // in sats
     "fees": "0" // in sats
     "txid": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-    "confirmation_time": 0
 }
 ```
 ---
 
 ### sync()
 
-Sync the wallet.
+Syncs the wallet.
 
 
 ```dart
@@ -255,61 +295,24 @@ const response = await BdkWallet.broadcastTx(address, amount);
 ```
 ---
 
-### createP2SHP2WPKHDescriptor()
 
-mnemonic is required param. password is optional but must applied if passed
+### createDescriptor()
+Both xprv and exteded key info, is option, but need atleast one of them.
 
-Returns P2SHP2WPKH Descriptor
+Returns P2WPKH Descriptor
 
 ```dart
-const response = await BdkWallet.createP2SHP2WPKHDescriptor((mnemonic, password);
+const response = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
 ```
 
 Returned response example:
 
 ```dart
- "sh(wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*))",
+ "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
 ```
 
 ---
 
-
-### createP2PKHDescriptor()
-
-mnemonic is required param. password is optional but must applied if passed
-
-Returns P2PKH Descriptor
-
-```dart
-const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
-```
-
-Returned response example:
-
-```dart
- "pkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-```
-
----
-
-### createP2SH2of2MultisigDescriptor()
-
-mnemonic, passowrd and recipientPublicKey is required param.
-
-Returns P2SH2of2Multisig Descriptor for multi-sig transaction
-
-
-```dart
-const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
-```
-
-Returned response example:
-
-```dart
- "pkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-```
-
----
 
 _Note: Caution this is pre-Alpha at this stage
 Please consider reviewing, experimenting and contributing ⚡️_
