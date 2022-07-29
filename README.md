@@ -1,12 +1,15 @@
 ## Bdk-Flutter
 
-A Flutter  version of the Bitcon Development Kit (https://bitcoindevkit.org/)
-Bdk-Flutter is a flutter version of Bitcoin Development Kit
+A Flutter  library for building Bitcoin Applications. 
+Bdk-Flutter is a flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/) and currently suports development for iOS and Android platforms.
+
 
 ## Table of Contents
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Building Binary Files](#building-binary-files)
+- [Library API](#library-api)
 - [Usage](#usage)
 - [Library API](#library-api)
 
@@ -17,10 +20,10 @@ Bdk-Flutter is a flutter version of Bitcoin Development Kit
 
 * Flutter version 2.0 or higher
 * Dart version 2.12 or higher
-  
+
 ### Android
 
-* Android minSdkVersion is API 23 or higher. 
+* Android minSdkVersion is API 23 or higher.
 * Android Target SDK version: API 29.
 * Android SDK build tools: 26.0.3
 * Android Gradle Plugin: 3.0.0 or greater.
@@ -31,6 +34,7 @@ Bdk-Flutter is a flutter version of Bitcoin Development Kit
 * Xcode version: 10 or greater.
 * iOS Base SDK: 12 or greater.
 * Deployment target: iOS 12.0 or greater.
+
 
 ## Installation
 
@@ -43,33 +47,15 @@ bdk_flutter:
       ref: main
 ```
 
-Download Binaries:
+## Building Binary Files
 
-Navigate to the folder, where the plugin is installed.
-
-For eg: /flutter/.pub-cache/git/bdk-flutter-b4f12feada4f3703bdbe3ebccf60af2588251826/ios  
-
-(Mac OS) & run the following command
-
-```bash
-/bin/zsh config.sh
 ```
-Once installed navigate back to your project ios folder and pod install
-
-```bash
-cd ios && pod install
-```
-
-Run the following script
-
-```bash
-dart run bin/config.dart
+Please build your app in an android device or an emulator, after including the dependency in your pubspec.yaml, to build the necessary rust ffi bindings for flutter. This will build and configure the necassry files for both Android and iOS.
 ```
 
 ## Sample application
 * **BDK Flutter Demo App:** The [BDK Wallet Demo App](https://github.com/LtbLightning/bdk-flutter-app.git) 
-is a simple testnet Bitcoin wallet built as a reference app for bdk-flutter.
-
+is a simple testnet Bitcoin app built as a reference app for bdk-flutter.
 
 ## Usage
 
@@ -79,26 +65,24 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 ## Library API
 
-All methods work in iOS: ✅ 
+All methods work in iOS: ✅
 
 All methods work in Android: ✅
 
 **All methods return response as follows:**
 
 
-Following methods can be used with this module. All methods can be called by BdkWallet object.
+The following methods can be used with this module. All methods can be called by the BdkWallet object.
 
-BdkWallet.walletExists() OR BdkWallet.genSeed()
+
 
 | Method                                         | Request Parameters                                                                         |
 | ---------------------------------              | ------------------------------------------------------------------------------------------ |
-| [genSeed()](#genseed)                          | -                                                                                          |
-| [walletExists()](#walletexists)                | -                                                                                          |
-| [unlockWallet()](#unlockwallet)                | -                                                                                          |
-| [getWallet()](#getWallet)                      | -                                                                                          |
-| [createWallet()](#createwallet)                | mnemonic, password, network, blockChainConfigUrl, blockChainSocket5, blockChain, walletDescriptor|      
-| [restoreWallet()](#restorewallet)              | mnemonic, password                                                                         |
-| [resetWallet()](#resetwallet)                  | -                                                                                          | 
+| [generateMnemonic()](#generateMnemonic)        | - wordCount, entropy                                                                       |
+| [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
+| [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
+| [createHDescriptor()](#createDescriptor)       | xprv,  keyInfo,   descriptor                                                               |
+| [createWallet()](#createwallet)                | - mnemonic, password, useDescriptor, descriptor, changeDescriptor, network, blockChainConfigUrl,                                                            socks5OrProxy, retry, timeOut                                                            |                                                                                                                                                        
 | [getNewAddress()](#getnewaddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
 | [getBalance()](#getbalance)                    | -                                                                                          |    
@@ -106,104 +90,134 @@ BdkWallet.walletExists() OR BdkWallet.genSeed()
 | [getPendingTransactions()](#getbalance)        | -                                                                                          |
 | [sync()](#sync)                                | -                                                                                          |
 | [broadcastTx()](#broadcastTx)                  | address (recipient wallet address), amount*(sats)                                          |
-| [createP2SHP2WPKHDescriptor()](#createP2SHP2WPKHDescriptor)| mnemonic, password                                                             |
-| [createP2PKHDescriptor()](#createP2PKHDescriptor)| mnemonic, password                                                                     |
-| [createP2SH2of2MultisigDescriptor()](#createP2SH2of2MultisigDescriptor)| mnemonic, password, recipientPublicKey                             |
+
 
 ---
 
-### genSeed()
-
-Generate random 12 words seed.
+### generateMnemonic()
+Generate a random mnemonic seed phrase. Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic 
+This will generate a mnemonic sentence from the English word list. The required entropy can be specified as the entropy parameter and 
+can be in multiples of 32 from 128 to 256, 128 is used as default. A word count or length can be specified instead as the length 
+parameter and can be in multiples of 3 from 12 to 24. 12 is used as default.
 
 ```dart
-const response = await BdkRn.genSeed();
-// daring erase travel point pull loud peanut apart attack lobster cross surprise
+const response = await generateMnemonic()
+
+const response = await generateMnemonic(entropy: Entropy.Entropy128)
+
+```
+
+Returned response example:
+```dart
+"daring erase travel point pull loud peanut apart attack lobster cross surprise actress dolphin gift journey mystery save"
 ```
 ---
 
-### walletExists()
 
-Check if wallet already exists or not.
+### createExtendedKey()
+This method will create an extendedKeyInfo object using the specified mnemonic seed phrase and password 
+ExtendedKeyInfo creates a key object which encapsulates the mnemonic and adds a private key using the mnemonic and password.
 
-```js
-const response = await BdkWallet.walletExists();
-// true | false
-```
----
-
-### unlockWallet()
-
-Unlock wallet if already exists (Completely optional, since wallet is unlocked by ifself).
+The extended key info object is required to be passed as an argument in some bdk methods.
 
 ```dart
-const response = await BdkWallet.unlockWallet();
-// true | false
+const response = await generateExtendedKey(network: Network.TESTNET
+                                           mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
+                                           password: ''
+                                           );
+```
+
+Returned response example:
+```dart
+ {
+ 		fingerprint: 'ZgUK9QXJRYCwnCtYL',
+		mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
+		xpriv: 'tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw'
+ }
 ```
 ---
+
+
+### createXprv()
+Create descriptor using mnemonic phrase and password.
+
+```dart
+
+const response = await createXprv({ network: Network.TESTNET, mnemonic: '', password: '' });
+
+```
+
+```
+Returned response example:
+```dart
+"tprv8ZgxMBicQKsPd3G66kPkZEuJZgUK9QXJRYCwnCtYLJjEZmw8xFjCxGoyx533AL83XFcSQeuVmVeJbZai5RTBxDp71Abd2FPSyQumRL79BKw"
+```
+---
+
+
+### createDescriptor()
+Both xprv and extended key info are optional but need at least one of them.
+
+Returns P2WPKH Descriptor
+
+```dart
+const response = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
+```
+
+Returned response example:
+
+```dart
+ "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
+```
+
+---
+
 
 ### createWallet()
 
 Create new wallet.
 
-User can specify their custom  mnemonic (OR can generate from genSeed() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
-If any of the values are not specefied, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generate automatically and empty password will be applied to createWallet. 
-In case of a multi-sig wallet, you can generate a custom descriptor using createP2SH2of2MultisigDescriptor() or createP2SH3of4MultisigDescriptor() and use it as descriptor for your wallet
-Return the new address after successful of createWallet.
+User can specify their custom mnemonic (OR can generate from generateMnemonic() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
+If any of the values are not specified, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generated automatically and an empty password will be applied to createWallet.
+In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.P2SH2of2Multisig or Descriptor.P2SH3of4Multisig type.
+
 
 ```dart
-const response = await BdkWallet.createWallet(mnemonic, password, network, blockChainConfigUrl, blockChainSocket5, retry,
-                    timeOut, blockChain, walletDescriptor );
+const response  =  await BdkWallet().createWallet(
+                                                    descriptor:descriptor,
+                                                    changeDescriptor:changeDescriptor,
+                                                    useDescriptors: true,
+                                                    network: network,
+                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+                                                    blockchain: Blockchain.ELECTRUM
+                                                    );
+                                                
+const response  =  await BdkWallet().createWallet(
+                                                    mnemonic: mnemonic,
+                                                    password: password,
+                                                    useDescriptors: false,
+                                                    network: network,
+                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+                                                    blockchain: Blockchain.ELECTRUM
+                                                    );                                                
 ```
 
-Returned response example:
-
-```dart
-{
-    "address": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-}
-```
 ---
 
-### restoreWallet()
-
-mnemonic is required param. password is optional but must applied if passed while restoreWallet.
-
-Restore existing wallet and return new wallet address and current balance.
-
-```dart
-const response = await BdkWallet.restoreWallet(mnemonic, password);
-```
-
-Returned response example:
-
-```dart
-{
-    "address": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-    "balance": "0" // in sats
-}
-```
----
-
-### resetWallet()
-
-Wipe out everything from app either created new wallet or restored existing one.
-
-```dart
-const response = await BdkWallet.resetWallet();
-// true | false
-```
----
 
 ### getNewAddress()
-
-Create new address for wallet.
+Create a new address for the wallet.
 
 ```dart
 const response = await BdkWallet.getNewAddress();
-// tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
+
+```
+Returned response example:
+```dart
+"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
 ```
 ---
+
 
 ### getLastUnusedAddress()
 
@@ -211,23 +225,32 @@ Returns the last unused address of the wallet.
 
 ```dart
 const response = await BdkWallet.getLastUnusedAddress();
-// tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw
+
+```
+
+Returned response example:
+```dart
+"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
 ```
 ---
 
+
 ### getBalance()
 
-Get balace of wallet.
+Get the balance of your wallet.
 
 ```dart
-const response = await BdkRn.getBalance();
+const response = await BdkWallet.getBalance();
 ```
 
+Returned response example:
 ```dart
  "8369", // balance in sats
 ```
 
 ---
+
+
 ### getPendingTransactions()
 
 Returns a list of transactions that are not confirmed.
@@ -248,6 +271,7 @@ Returned response example:
 ```
 ---
 
+
 ### confirmedTransactionsList()
 
 Returns a list of transactions that are confirmed.
@@ -264,14 +288,14 @@ Returned response example:
     "sent": "0" // in sats
     "fees": "0" // in sats
     "txid": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-    "confirmation_time": 0
 }
 ```
 ---
 
+
 ### sync()
 
-Sync the wallet.
+Syncs the wallet.
 
 
 ```dart
@@ -287,9 +311,10 @@ const response = await BdkWallet.sync;
 
 ---
 
+
 ### broadcastTx()
 
-Used to send sats to given address.
+Send bitcoin (*sats) to a given address.
 
 Required params: address, amount
 
@@ -306,63 +331,8 @@ const response = await BdkWallet.broadcastTx(address, amount);
 ```
 ---
 
-### createP2SHP2WPKHDescriptor()
-
-mnemonic is required param. password is optional but must applied if passed
-
-Returns P2SHP2WPKH Descriptor 
-
-```dart
-const response = await BdkWallet.createP2SHP2WPKHDescriptor((mnemonic, password);
-```
-
-Returned response example:
-
-```dart
- "sh(wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*))",
-```
-
----
-
-
-### createP2PKHDescriptor()
-
-mnemonic is required param. password is optional but must applied if passed
-
-Returns P2PKH Descriptor
-
-```dart
-const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
-```
-
-Returned response example:
-
-```dart
- "pkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-```
-
----
-
-### createP2SH2of2MultisigDescriptor()
-
-mnemonic, passowrd and recipientPublicKey is required param.
-
-Returns P2SH2of2Multisig Descriptor for multi-sig transaction
-
-
-```dart
-const response = await BdkWallet.createP2PKHDescriptor(mnemonic, password);
-```
-
-Returned response example:
-
-```dart
- "pkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-```
-
----
 
 _Note: Caution this is pre-Alpha at this stage
-Please consider reviewing, experimenting and contributing ⚡️_
+Please consider reviewing, experimenting, and contributing ⚡️_
 
 Thanks for taking a look!

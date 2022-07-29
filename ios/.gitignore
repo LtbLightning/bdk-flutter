@@ -36,4 +36,4 @@ Icon?
 /Flutter/Generated.xcconfig
 /Flutter/ephemeral/
 /Flutter/flutter_export_environment.sh
-/ios/bdkFFI.xcframework/
+/ios/Classes/bindings.h

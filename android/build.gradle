@@ -47,9 +47,24 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // bitcoindevkit
-    implementation 'org.bitcoindevkit:bdk-android:0.5.2'
+//    implementation 'org.bitcoindevkit:bdk-android:0.5.2'
     implementation 'androidx.databinding:databinding-runtime:7.2.1'
     testImplementation  'junit:junit:4.13.2'
-
-
+}
+[
+        new Tuple2('Debug', ''),
+        new Tuple2('Profile', '--release'),
+        new Tuple2('Release', '--release')
+].each {
+    def taskPostfix = it.first
+    def profileMode = it.second
+    tasks.whenTaskAdded { task ->
+        if (task.name == "javaPreCompile$taskPostfix") {
+            task.dependsOn "cargoBuild$taskPostfix"
+        }
+    }
+    tasks.register("cargoBuild$taskPostfix", Exec) {
+        commandLine 'sh', '-c', """cd ../rust && \\ 
+          ANDROID_NDK_HOME="$ANDROID_NDK"  find . -type f -name makefile -execdir make all \\;"""
+    }
 }

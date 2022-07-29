@@ -1,0 +1,21 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+[build-dependencies]
+flutter_rust_bridge_codegen = { version =  "1.38.0" }
+[dependencies]
+bdk = { version = "0.19", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled"] }
+lazy_static = "1.4.0"
+anyhow = { version = "1.0.58", features = ["backtrace"] }
+flutter_rust_bridge = { version =  "1.38.0" }
+serde_json = "1.0.39"
+serde_derive = "1.0.89"
+serde = "1.0.89"
+chrono = "0.4.6"
+
+

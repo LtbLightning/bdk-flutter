@@ -2,26 +2,20 @@ PODS:
   - bdk_flutter (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - path_provider_ios (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - bdk_flutter (from `.symlinks/plugins/bdk_flutter/ios`)
   - Flutter (from `Flutter`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
 EXTERNAL SOURCES:
   bdk_flutter:
     :path: ".symlinks/plugins/bdk_flutter/ios"
   Flutter:
     :path: Flutter
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
 
 SPEC CHECKSUMS:
-  bdk_flutter: 51023bce1de4352de0a863679c22554a98611c58
+  bdk_flutter: c0d5e857f2162fc3611606ec4d74e7035a88c8b1
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

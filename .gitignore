@@ -10,6 +10,7 @@
 _DelSyncFiles
 .svn/
 migrate_working_dir/
+.vscode/settings.json
 
 # IntelliJ related
 *.iml
@@ -29,3 +30,4 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+
