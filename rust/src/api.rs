@@ -1,16 +1,14 @@
 use std::ops::Deref;
 use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic};
 // use anyhow::{anyhow, Result};
-use bdk::bitcoin::{base64, Network};
+use bdk::bitcoin::Network;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::blockchain::{
     AnyBlockchain, AnyBlockchainConfig, Blockchain as BdkBlockChain, ConfigurableBlockchain,
     ElectrumBlockchainConfig
 };
-use bdk::wallet::tx_builder;
 use lazy_static::lazy_static;
 use std::sync::RwLock;
-use bdk::bitcoin::consensus::deserialize;
 use bdk::keys::bip39::WordCount;
 
 lazy_static! {
@@ -58,7 +56,8 @@ fn default_blockchain() -> AnyBlockchain {
     });
     return AnyBlockchain::from_config(&config).unwrap();
 }
-fn config_blockchain(blockchain: &str, url: String, socks5_or_proxy: Option<String>) -> AnyBlockchain {
+fn config_blockchain(blockchain: &str, url: String, _socks5_or_proxy: Option<String>) -> AnyBlockchain {
+
     return match blockchain {
         "ELECTRUM" => {
             let config = AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {

@@ -1,4 +1,4 @@
-use bdk::bitcoin::hashes::hex::ToHex;
+//use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
 use bdk::bitcoin::{Address, Network, Script};
@@ -11,7 +11,6 @@ use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
 use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet};
 use std::convert::From;
-use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
 
@@ -88,7 +87,7 @@ pub  enum Transaction {
     },
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub(crate) struct BlockConfirmationTime {
+pub struct BlockConfirmationTime {
     pub height: u32,
     pub timestamp: u64,
 }
@@ -144,9 +143,9 @@ impl Wallet {
     pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<MemoryDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }
-    pub(crate) fn get_network(&self) -> Network {
-        self.get_wallet().network()
-    }
+    // pub(crate) fn get_network(&self) -> Network {
+    //     self.get_wallet().network()
+    // }
     pub(crate) fn sync(&self, blockchain: &AnyBlockchain) {
         // let bl =   Blockchain{ blockchain_mutex: blockchain.blockchain_mutex };
         self.get_wallet()
@@ -187,11 +186,11 @@ impl PartiallySignedBitcoinTransaction {
         psbt.to_string()
     }
 
-    pub(crate) fn txid(&self) -> String {
-        let tx = self.internal.lock().unwrap().clone().extract_tx();
-        let txid = tx.txid();
-        txid.to_hex()
-    }
+    // pub(crate) fn txid(&self) -> String {
+    //     let tx = self.internal.lock().unwrap().clone().extract_tx();
+    //     let txid = tx.txid();
+    //     txid.to_hex()
+    // }
 }
 fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
     Address::from_str(address)
@@ -202,7 +201,7 @@ fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
 #[derive(Clone, Debug)]
 enum RbfValue {
     Default,
-    Value(u32),
+   Value(u32),
 }
 
 #[derive(Clone, Debug)]
@@ -242,41 +241,41 @@ impl TxBuilder {
             ..self.clone()
         })
     }
-
-    pub(crate) fn drain_wallet(&self) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            drain_wallet: true,
-            ..self.clone()
-        })
-    }
-
-    pub(crate) fn drain_to(&self, address: String) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            drain_to: Some(address),
-            ..self.clone()
-        })
-    }
-
-    pub(crate) fn enable_rbf(&self) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            rbf: Some(RbfValue::Default),
-            ..self.clone()
-        })
-    }
-
-    pub(crate) fn enable_rbf_with_sequence(&self, nsequence: u32) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            rbf: Some(RbfValue::Value(nsequence)),
-            ..self.clone()
-        })
-    }
-
-    pub(crate) fn add_data(&self, data: Vec<u8>) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            data,
-            ..self.clone()
-        })
-    }
+    //
+    // pub(crate) fn drain_wallet(&self) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         drain_wallet: true,
+    //         ..self.clone()
+    //     })
+    // }
+    //
+    // pub(crate) fn drain_to(&self, address: String) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         drain_to: Some(address),
+    //         ..self.clone()
+    //     })
+    // }
+    //
+    // pub(crate) fn enable_rbf(&self) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         rbf: Some(RbfValue::Default),
+    //         ..self.clone()
+    //     })
+    // }
+    //
+    // pub(crate) fn enable_rbf_with_sequence(&self, nsequence: u32) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         rbf: Some(RbfValue::Value(nsequence)),
+    //         ..self.clone()
+    //     })
+    // }
+    //
+    // pub(crate) fn add_data(&self, data: Vec<u8>) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         data,
+    //         ..self.clone()
+    //     })
+    // }
 
     pub(crate) fn finish(
         &self,

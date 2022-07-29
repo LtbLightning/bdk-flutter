@@ -26,12 +26,12 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  // generateKeys() async{
-  //  var xprv = await  createXprv(network: Network.TESTNET, mnemonic: "school alcohol coral light army gather adapt blossom school alcohol coral lens", password: "password");
-  //  var mnemonic = await generateMnemonic(entropy: Entropy.Entropy128);
-  //  print("private key  $xprv");
-  //  print("mnemonic $mnemonic");
-  // }
+  generateKeys() async{
+   var xprv = await  createXprv(network: Network.TESTNET, mnemonic: "school alcohol coral light army gather adapt blossom school alcohol coral lens", password: "password");
+   var mnemonic = await generateMnemonic(entropy: Entropy.Entropy128);
+   print("private key  $xprv");
+   print("mnemonic $mnemonic");
+  }
 
   restoreWallet(String mnemonic, Network network) async {
     var  key = await createExtendedKey(network:network, mnemonic:mnemonic);
@@ -47,6 +47,8 @@ class _MyAppState extends State<MyApp> {
     getNewAddress();
   }
 
+
+
   sync() async {
     bdkWallet.sync();
   }
@@ -55,7 +57,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<List<Transaction>> getConfirmedTransactions() async {
-    final res =  await bdkWallet.getConfirmedTransactions();
+    final res =  await BdkWallet().getConfirmedTransactions();
     for (var e in res) {
     print( e.details.txid);
     }
@@ -63,7 +65,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getPendingTransactions() async {
-    final res =  await bdkWallet.getPendingTransactions();
+    final res =  await BdkWallet().getPendingTransactions();
     if(res.isEmpty) print("No Pending Transactions");
     for (var e in res) {
       print( e.details.txid);

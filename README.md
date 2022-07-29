@@ -2,10 +2,14 @@
 
 A Flutter  version of the Bitcon Development Kit (https://bitcoindevkit.org/)
 The Bdk-Flutter is a flutter version of wrapper for the native Android and iOS Bitcon Development Kit SDK
+
+
 ## Table of Contents
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Building Binary Files](#building-binary-files)
+- [Library API](#library-api)
 - [Usage](#usage)
 - [Library API](#library-api)
 
@@ -31,6 +35,7 @@ The Bdk-Flutter is a flutter version of wrapper for the native Android and iOS B
 * iOS Base SDK: 12 or greater.
 * Deployment target: iOS 12.0 or greater.
 
+
 ## Installation
 
 From Github (copy and paste the following code to pubsepc.yaml):
@@ -40,6 +45,12 @@ bdk_flutter:
     git:
       url: https://github.com/LtbLightning/bdk-flutter.git
       ref: main
+```
+
+## Building Binary Files
+
+```
+Please run your app in an android device or an emulator for the plugin to build the necessary files.
 ```
 
 ## Sample application
@@ -61,7 +72,7 @@ All methods work in Android: ✅
 **All methods return response as follows:**
 
 
-Following methods can be used with this module. All methods can be called by BdkWallet object.
+The following methods can be used with this module. All methods can be called by the BdkWallet object.
 
 
 
@@ -70,6 +81,7 @@ Following methods can be used with this module. All methods can be called by Bdk
 | [generateMnemonic()](#generateMnemonic)        | - wordCount, entropy                                                                       |
 | [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
+| [createHDescriptor()](#createDescriptor)       | xprv,  keyInfo,   descriptor                                                               |
 | [createWallet()](#createwallet)                | - mnemonic, password, useDescriptor, descriptor, changeDescriptor, network, blockChainConfigUrl,                                                            socks5OrProxy, retry, timeOut                                                            |                                                                                                                                                        
 | [getNewAddress()](#getnewaddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
@@ -78,23 +90,20 @@ Following methods can be used with this module. All methods can be called by Bdk
 | [getPendingTransactions()](#getbalance)        | -                                                                                          |
 | [sync()](#sync)                                | -                                                                                          |
 | [broadcastTx()](#broadcastTx)                  | address (recipient wallet address), amount*(sats)                                          |
-| [createHDescriptor()](#createDescriptor)       | xprv,  keyInfo,   descriptor                                                               |
 
 
 ---
 
 ### generateMnemonic()
-
-Generate random mnemonic seed phrase. Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic 
-This will generate a mnemonic sentence from the english word list. The required entropy can be specified as the entropy parameter and 
-can be in multiples of 32 from 128 to 256, 128 is used as default. A word count or length for can be specified instead as the length 
+Generate a random mnemonic seed phrase. Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic 
+This will generate a mnemonic sentence from the English word list. The required entropy can be specified as the entropy parameter and 
+can be in multiples of 32 from 128 to 256, 128 is used as default. A word count or length can be specified instead as the length 
 parameter and can be in multiples of 3 from 12 to 24. 12 is used as default.
 
 ```dart
 const response = await generateMnemonic()
 
 const response = await generateMnemonic(entropy: Entropy.Entropy128)
-
 
 ```
 
@@ -104,9 +113,9 @@ Returned response example:
 ```
 ---
 
-### createExtendedKey()
 
-This method will create a extendedKeyInfo object using the specified mnemonic seed phrase and password 
+### createExtendedKey()
+This method will create an extendedKeyInfo object using the specified mnemonic seed phrase and password 
 ExtendedKeyInfo creates a key object which encapsulates the mnemonic and adds a private key using the mnemonic and password.
 
 The extended key info object is required to be passed as an argument in some bdk methods.
@@ -128,6 +137,7 @@ Returned response example:
 ```
 ---
 
+
 ### createXprv()
 Create descriptor using mnemonic phrase and password.
 
@@ -144,13 +154,32 @@ Returned response example:
 ```
 ---
 
+
+### createDescriptor()
+Both xprv and extended key info are optional but need at least one of them.
+
+Returns P2WPKH Descriptor
+
+```dart
+const response = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
+```
+
+Returned response example:
+
+```dart
+ "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
+```
+
+---
+
+
 ### createWallet()
 
 Create new wallet.
 
-User can specify their custom  mnemonic (OR can generate from genSeed() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
-If any of the values are not specefied, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generate automatically and empty password will be applied to createWallet.
-In case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Decriptor.P2SH2of2Multisig or Decriptor.P2SH3of4Multisig type and use it as descriptor for your wallet
+User can specify their custom mnemonic (OR can generate from generateMnemonic() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
+If any of the values are not specified, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generated automatically and an empty password will be applied to createWallet.
+In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.P2SH2of2Multisig or Descriptor.P2SH3of4Multisig type.
 
 
 ```dart
@@ -175,9 +204,9 @@ const response  =  await BdkWallet().createWallet(
 
 ---
 
-### getNewAddress()
 
-Create new address for wallet.
+### getNewAddress()
+Create a new address for the wallet.
 
 ```dart
 const response = await BdkWallet.getNewAddress();
@@ -188,6 +217,7 @@ Returned response example:
 "tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
 ```
 ---
+
 
 ### getLastUnusedAddress()
 
@@ -204,9 +234,10 @@ Returned response example:
 ```
 ---
 
+
 ### getBalance()
 
-Get balace of wallet.
+Get the balance of your wallet.
 
 ```dart
 const response = await BdkWallet.getBalance();
@@ -218,6 +249,8 @@ Returned response example:
 ```
 
 ---
+
+
 ### getPendingTransactions()
 
 Returns a list of transactions that are not confirmed.
@@ -237,6 +270,7 @@ Returned response example:
 }
 ```
 ---
+
 
 ### confirmedTransactionsList()
 
@@ -258,6 +292,7 @@ Returned response example:
 ```
 ---
 
+
 ### sync()
 
 Syncs the wallet.
@@ -276,9 +311,10 @@ const response = await BdkWallet.sync;
 
 ---
 
+
 ### broadcastTx()
 
-Used to send sats to given address.
+Send bitcoin (*sats) to a given address.
 
 Required params: address, amount
 
@@ -296,25 +332,7 @@ const response = await BdkWallet.broadcastTx(address, amount);
 ---
 
 
-### createDescriptor()
-Both xprv and exteded key info, is option, but need atleast one of them.
-
-Returns P2WPKH Descriptor
-
-```dart
-const response = createDescriptor( xprv: key.xprv, descriptor: Descriptor.P2WPKH);
-```
-
-Returned response example:
-
-```dart
- "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-```
-
----
-
-
 _Note: Caution this is pre-Alpha at this stage
-Please consider reviewing, experimenting and contributing ⚡️_
+Please consider reviewing, experimenting, and contributing ⚡️_
 
 Thanks for taking a look!
