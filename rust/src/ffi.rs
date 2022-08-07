@@ -198,19 +198,21 @@ fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
         .map_err(|e| BdkError::Generic(e.to_string()))
 }
 
-#[derive(Clone, Debug)]
-enum RbfValue {
-    Default,
-   Value(u32),
-}
+// #[allow(dead_code)]
+// #[derive(Clone, Debug)]
+// enum RbfValue {
+//     Default,
+//    Value(u32),
+// }
 
+#[allow(dead_code)]
 #[derive(Clone, Debug)]
 pub struct TxBuilder {
     recipients: Vec<(String, u64)>,
     fee_rate: Option<f32>,
     drain_wallet: bool,
     drain_to: Option<String>,
-    rbf: Option<RbfValue>,
+   // rbf: Option<RbfValue>,
     data: Vec<u8>,
 }
 
@@ -221,7 +223,7 @@ impl TxBuilder {
             fee_rate: None,
             drain_wallet: false,
             drain_to: None,
-            rbf: None,
+          //  rbf: None,
             data: Vec::new(),
         }
     }
@@ -295,16 +297,16 @@ impl TxBuilder {
         if let Some(address) = &self.drain_to {
             tx_builder.drain_to(to_script_pubkey(address)?);
         }
-        if let Some(rbf) = &self.rbf {
-            match *rbf {
-                RbfValue::Default => {
-                    tx_builder.enable_rbf();
-                }
-                RbfValue::Value(nsequence) => {
-                    tx_builder.enable_rbf_with_sequence(nsequence);
-                }
-            }
-        }
+        // if let Some(rbf) = &self.rbf {
+        //     match *rbf {
+        //         RbfValue::Default => {
+        //             tx_builder.enable_rbf();
+        //         }
+        //         RbfValue::Value(nsequence) => {
+        //             tx_builder.enable_rbf_with_sequence(nsequence);
+        //         }
+        //     }
+        // }
         tx_builder
             .finish()
             .map(|(psbt, _)| PartiallySignedBitcoinTransaction {

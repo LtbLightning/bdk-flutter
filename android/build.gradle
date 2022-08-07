@@ -64,7 +64,12 @@ dependencies {
         }
     }
     tasks.register("cargoBuild$taskPostfix", Exec) {
-        commandLine 'sh', '-c', """cd ../rust && \\ 
-          ANDROID_NDK_HOME="$ANDROID_NDK"  find . -type f -name makefile -execdir make all \\;"""
+        workingDir "../rust"
+        if (org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem.isWindows()) {
+            commandLine 'cmd', '/C', "makefile.sh"
+        } else {
+           commandLine 'sh', '-c', " sh build.sh"
+         //   commandLine 'sh', '-c', """ find . -type f -name makefile -execdir make all \\;"""
+        }
     }
 }
