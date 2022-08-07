@@ -1,7 +1,5 @@
 ## Bdk-Flutter
-
-A Flutter  library for building Bitcoin Applications. 
-Bdk-Flutter is a flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/) and currently suports development for iOS and Android platforms.
+A Flutter library of the Bitcoin Development Kit (https://bitcoindevkit.org/)
 
 
 ## Table of Contents
@@ -50,7 +48,7 @@ bdk_flutter:
 ## Building Binary Files
 
 ```
-Please build your app in an android device or an emulator, after including the dependency in your pubspec.yaml, to build the necessary rust ffi bindings for flutter. This will build and configure the necassry files for both Android and iOS.
+Please re-built your app in an android device or an emulator, after including the dependency in your pubspec.yaml, to build the necessary files.
 ```
 
 ## Sample application
