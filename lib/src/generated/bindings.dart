@@ -35,14 +35,6 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGenerateMnemonicSeedConstMeta;
 
-  Future<String> getXpub(
-      {required String nodeNetwork,
-      required String mnemonic,
-      String? password,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta;
-
   Future<ExtendedKeyInfo> createKey(
       {required String nodeNetwork,
       required String mnemonic,
@@ -227,29 +219,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "generate_mnemonic_seed",
         argNames: ["wordCount", "entropy"],
-      );
-
-  Future<String> getXpub(
-          {required String nodeNetwork,
-          required String mnemonic,
-          String? password,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_xpub(
-            port_,
-            _api2wire_String(nodeNetwork),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetXpubConstMeta,
-        argValues: [nodeNetwork, mnemonic, password],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_xpub",
-        argNames: ["nodeNetwork", "mnemonic", "password"],
       );
 
   Future<ExtendedKeyInfo> createKey(
@@ -650,31 +619,6 @@ class RustWire implements FlutterRustBridgeWireBase {
       _wire_generate_mnemonic_seedPtr.asFunction<
           void Function(int, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_get_xpub(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> node_network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-  ) {
-    return _wire_get_xpub(
-      port_,
-      node_network,
-      mnemonic,
-      password,
-    );
-  }
-
-  late final _wire_get_xpubPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_xpub');
-  late final _wire_get_xpub = _wire_get_xpubPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_create_key(
     int port_,

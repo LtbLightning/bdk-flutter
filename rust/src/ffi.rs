@@ -344,22 +344,12 @@ pub fn restore_extended_key(
     password: Option<String>,
 ) -> Result<ExtendedKeyInfo, Error> {
     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
-    let xprv =  xkey.into_xprv(network).unwrap();
+    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
+    let xprv = xkey.into_xprv(network).unwrap();
     let fingerprint = xprv.fingerprint(&Secp256k1::new());
     Ok(ExtendedKeyInfo {
         mnemonic: mnemonic.to_string(),
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
     })
-}
-pub fn get_public_key(
-    network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> String {
-    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
-    let xpub =  xkey.into_xpub(network, &Secp256k1::new());
-   return  xpub.public_key.to_string()
 }

@@ -92,28 +92,6 @@ pub extern "C" fn wire_generate_mnemonic_seed(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_xpub(
-    port_: i64,
-    node_network: *mut wire_uint_8_list,
-    mnemonic: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_xpub",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_node_network = node_network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| Ok(get_xpub(api_node_network, api_mnemonic, api_password))
-        },
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_create_key(
     port_: i64,
     node_network: *mut wire_uint_8_list,
