@@ -77,7 +77,7 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]
-pub  enum Transaction {
+pub enum Transaction {
     Unconfirmed {
         details: TransactionDetails,
     },
@@ -136,7 +136,7 @@ impl Wallet {
                 network,
                 MemoryDatabase::default(),
             )
-                .unwrap(),
+            .unwrap(),
         );
         Ok(Wallet { wallet_mutex: res })
     }
@@ -212,7 +212,7 @@ pub struct TxBuilder {
     fee_rate: Option<f32>,
     drain_wallet: bool,
     drain_to: Option<String>,
-   // rbf: Option<RbfValue>,
+    // rbf: Option<RbfValue>,
     data: Vec<u8>,
 }
 
@@ -223,7 +223,7 @@ impl TxBuilder {
             fee_rate: None,
             drain_wallet: false,
             drain_to: None,
-          //  rbf: None,
+            //  rbf: None,
             data: Vec::new(),
         }
     }
@@ -243,14 +243,14 @@ impl TxBuilder {
             ..self.clone()
         })
     }
-    //
+
     // pub(crate) fn drain_wallet(&self) -> Arc<Self> {
     //     Arc::new(TxBuilder {
     //         drain_wallet: true,
     //         ..self.clone()
     //     })
     // }
-    //
+
     // pub(crate) fn drain_to(&self, address: String) -> Arc<Self> {
     //     Arc::new(TxBuilder {
     //         drain_to: Some(address),
@@ -315,10 +315,10 @@ impl TxBuilder {
             .map(Arc::new)
     }
 }
-pub fn generate_mnemonic( word_count: WordCount,
-                          entropy: u8, ) -> Mnemonic{
+pub fn generate_mnemonic(word_count: WordCount, entropy: u8) -> Mnemonic {
     let entropy_ar = [entropy; 32];
-    let mnemonic: GeneratedKey<_, BareCtx> = Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
+    let mnemonic: GeneratedKey<_, BareCtx> =
+        Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
     let mnemonic: Mnemonic = mnemonic.into_key();
     mnemonic
 }
@@ -344,12 +344,22 @@ pub fn restore_extended_key(
     password: Option<String>,
 ) -> Result<ExtendedKeyInfo, Error> {
     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
-    let xprv = xkey.into_xprv(network).unwrap();
+    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
+    let xprv =  xkey.into_xprv(network).unwrap();
     let fingerprint = xprv.fingerprint(&Secp256k1::new());
     Ok(ExtendedKeyInfo {
         mnemonic: mnemonic.to_string(),
         xprv: xprv.to_string(),
         fingerprint: fingerprint.to_string(),
     })
+}
+pub fn get_public_key(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> String {
+    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
+    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
+    let xpub =  xkey.into_xpub(network, &Secp256k1::new());
+   return  xpub.public_key.to_string()
 }

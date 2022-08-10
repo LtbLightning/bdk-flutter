@@ -53,6 +53,10 @@ void wire_create_transaction(int64_t port_,
 
 void wire_sign_and_broadcast(int64_t port_, struct wire_uint_8_list *psbt_str);
 
+void wire_sign(int64_t port_, struct wire_uint_8_list *psbt_str);
+
+void wire_broadcast(int64_t port_, struct wire_uint_8_list *psbt_str);
+
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
 
 void free_WireSyncReturnStruct(struct WireSyncReturnStruct val);
@@ -72,6 +76,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_transactions);
     dummy_var ^= ((int64_t) (void*) wire_create_transaction);
     dummy_var ^= ((int64_t) (void*) wire_sign_and_broadcast);
+    dummy_var ^= ((int64_t) (void*) wire_sign);
+    dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);

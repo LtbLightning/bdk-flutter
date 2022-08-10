@@ -92,6 +92,28 @@ pub extern "C" fn wire_generate_mnemonic_seed(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_xpub(
+    port_: i64,
+    node_network: *mut wire_uint_8_list,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_xpub",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_network = node_network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            move |task_callback| Ok(get_xpub(api_node_network, api_mnemonic, api_password))
+        },
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_create_key(
     port_: i64,
     node_network: *mut wire_uint_8_list,
@@ -206,6 +228,36 @@ pub extern "C" fn wire_sign_and_broadcast(port_: i64, psbt_str: *mut wire_uint_8
         move || {
             let api_psbt_str = psbt_str.wire2api();
             move |task_callback| Ok(sign_and_broadcast(api_psbt_str))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sign(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sign",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(sign(api_psbt_str))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "broadcast",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(broadcast(api_psbt_str))
         },
     )
 }
