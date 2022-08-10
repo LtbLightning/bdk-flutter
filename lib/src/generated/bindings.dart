@@ -35,6 +35,14 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGenerateMnemonicSeedConstMeta;
 
+  Future<String> getXpub(
+      {required String nodeNetwork,
+      required String mnemonic,
+      String? password,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta;
+
   Future<ExtendedKeyInfo> createKey(
       {required String nodeNetwork,
       required String mnemonic,
@@ -74,6 +82,14 @@ abstract class Rust {
   Future<String> signAndBroadcast({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
+
+  Future<void> sign({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSignConstMeta;
+
+  Future<String> broadcast({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
 }
 
 class BdkFlutterWallet {
@@ -213,6 +229,29 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["wordCount", "entropy"],
       );
 
+  Future<String> getXpub(
+          {required String nodeNetwork,
+          required String mnemonic,
+          String? password,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_xpub(
+            port_,
+            _api2wire_String(nodeNetwork),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetXpubConstMeta,
+        argValues: [nodeNetwork, mnemonic, password],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_xpub",
+        argNames: ["nodeNetwork", "mnemonic", "password"],
+      );
+
   Future<ExtendedKeyInfo> createKey(
           {required String nodeNetwork,
           required String mnemonic,
@@ -346,6 +385,37 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sign_and_broadcast",
+        argNames: ["psbtStr"],
+      );
+
+  Future<void> sign({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_sign(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kSignConstMeta,
+        argValues: [psbtStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kSignConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "sign",
+        argNames: ["psbtStr"],
+      );
+
+  Future<String> broadcast({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_broadcast(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kBroadcastConstMeta,
+        argValues: [psbtStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "broadcast",
         argNames: ["psbtStr"],
       );
 
@@ -581,6 +651,31 @@ class RustWire implements FlutterRustBridgeWireBase {
           void Function(int, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_get_xpub(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> node_network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
+  ) {
+    return _wire_get_xpub(
+      port_,
+      node_network,
+      mnemonic,
+      password,
+    );
+  }
+
+  late final _wire_get_xpubPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_xpub');
+  late final _wire_get_xpub = _wire_get_xpubPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
   void wire_create_key(
     int port_,
     ffi.Pointer<wire_uint_8_list> node_network,
@@ -712,6 +807,40 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(ffi.Int64,
               ffi.Pointer<wire_uint_8_list>)>>('wire_sign_and_broadcast');
   late final _wire_sign_and_broadcast = _wire_sign_and_broadcastPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_sign(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+  ) {
+    return _wire_sign(
+      port_,
+      psbt_str,
+    );
+  }
+
+  late final _wire_signPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_sign');
+  late final _wire_sign = _wire_signPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_broadcast(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+  ) {
+    return _wire_broadcast(
+      port_,
+      psbt_str,
+    );
+  }
+
+  late final _wire_broadcastPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_broadcast');
+  late final _wire_broadcast = _wire_broadcastPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
