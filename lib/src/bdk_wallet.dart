@@ -1,4 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'utils/loader.dart';
 
@@ -16,13 +17,12 @@ class BdkWallet {
         String? timeOut}) async {
     try {
       if ((mnemonic == null || mnemonic.isEmpty ) && (descriptor == null || descriptor.isEmpty)) {
-        throw Exception("Missing both mnemonic and descriptor");
+        throw WalletException(message: "Missing both mnemonic and descriptor");
       } else if((mnemonic != null )&& (descriptor != null || descriptor!.isNotEmpty))
       {
-        throw Exception("Provided both mnemonic and descriptor");
+        throw WalletException(message: "Provided both mnemonic and descriptor");
       }
       if (descriptor != null && changeDescriptor!=null) {
-
         await loaderApi.walletInit(
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor.toString(),
@@ -47,7 +47,7 @@ class BdkWallet {
             socks5OrProxy: socks5OrProxy.toString());
       }
     } on FfiException catch (e) {
-      print(e.message);
+      throw WalletException(message: e.message);
     }
   }
 
@@ -55,7 +55,7 @@ class BdkWallet {
     try {
       return await loaderApi.getWallet();
     } on FfiException catch (e) {
-      rethrow;
+      throw WalletException(message: e.message);
     }
   }
 
@@ -64,7 +64,7 @@ class BdkWallet {
       var res = await loaderApi.getNewAddress();
       return res.toString();
     } on FfiException catch (e) {
-      return e.message.toString();
+      throw WalletException(message: e.message);
     }
   }
 
@@ -73,8 +73,7 @@ class BdkWallet {
       var res = await loaderApi.getBalance();
       return res.toString();
     } on FfiException catch (e) {
-      print(e.message);
-      return e.message.toString();
+      throw WalletException(message: e.message);
     }
   }
 
@@ -83,8 +82,7 @@ class BdkWallet {
       var res = await loaderApi.getLastUnusedAddress();
       return res.toString();
     } on FfiException catch (e) {
-      print(e.message);
-      return e.message.toString();
+      throw WalletException(message: e.message);
     }
   }
 
@@ -93,39 +91,52 @@ class BdkWallet {
       print("Syncing Wallet");
       await loaderApi.syncWallet();
     } on FfiException catch (e) {
-      print(e.message);
+      throw WalletException(message: e.message);
     }
   }
 
   Future<List<Transaction>> getTransactions() async {
-    final res = await loaderApi.getTransactions();
-    return res;
+    try {
+      final res = await loaderApi.getTransactions();
+      return res;
+    } on FfiException catch (e) {
+      throw WalletException(message: e.message);
+    }
+
   }
 
   Future<List<Transaction>> getPendingTransactions() async {
-    List<Transaction> unConfirmed = [];
-    final res = await getTransactions();
-    for (var e in res) {
-      e.maybeMap(
-          orElse: () {},
-          unconfirmed: (e) {
-            unConfirmed.add(e);
-          });
+    try {
+      List<Transaction> unConfirmed = [];
+      final res = await getTransactions();
+      for (var e in res) {
+        e.maybeMap(
+            orElse: () {},
+            unconfirmed: (e) {
+              unConfirmed.add(e);
+            });
+      }
+      return unConfirmed;
+    } on WalletException catch (e) {
+      rethrow;
     }
-    return unConfirmed;
   }
 
   Future<List<Transaction>> getConfirmedTransactions() async {
-    List<Transaction> confirmed = [];
-    final res = await getTransactions();
-    for (var e in res) {
-      e.maybeMap(
-          orElse: () {},
-          confirmed: (e) {
-            confirmed.add(e);
-          });
+    try {
+      List<Transaction> confirmed = [];
+      final res = await getTransactions();
+      for (var e in res) {
+        e.maybeMap(
+            orElse: () {},
+            confirmed: (e) {
+              confirmed.add(e);
+            });
+      }
+      return confirmed;
+    } on WalletException catch (e) {
+      rethrow;
     }
-    return confirmed;
   }
 
   Future<String> createPartiallySignedTransaction(
@@ -135,11 +146,9 @@ class BdkWallet {
     try {
       final res = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
-
       return res;
     } on FfiException catch (e) {
-      print(e.message);
-      return e.message.toString();
+      throw BroadcastException(message: e.message);
     }
   }
 
@@ -147,7 +156,7 @@ class BdkWallet {
     try {
       await loaderApi.sign(psbtStr: psbt);
     } on FfiException catch (e) {
-      print(e.message);
+      throw BroadcastException(message: e.message);
     }
   }
 
@@ -156,8 +165,7 @@ class BdkWallet {
       final txid = await loaderApi.broadcast(psbtStr: psbt);
       return txid;
     } on FfiException catch (e) {
-      print(e.message);
-      return e.message.toString();
+      throw BroadcastException(message: e.message);
     }
   }
 
@@ -166,8 +174,7 @@ class BdkWallet {
       final txid = await loaderApi.signAndBroadcast(psbtStr: psbt);
       return txid;
     } on FfiException catch (e) {
-      print(e.message);
-      return e.message.toString();
+      throw BroadcastException(message: e.message);
     }
   }
 }
@@ -180,8 +187,7 @@ Future<String> generateMnemonic(
         wordCount: wordCount.name.toString(), entropy: entropy.name.toString());
     return res;
   } on FfiException catch (e) {
-    print(e.message);
-    return e.message.toString();
+    throw KeyException(message: e.message);
   }
 }
 
@@ -193,9 +199,8 @@ Future<String> createXprv(
     var res = await createExtendedKey(
         network: network, mnemonic: mnemonic, password: password.toString());
     return res.xprv.toString();
-  } on FfiException catch (e) {
-    print(e.message);
-    return e.message.toString();
+  } on KeyException  {
+    rethrow;
   }
 }
 
@@ -203,28 +208,33 @@ Future<ExtendedKeyInfo> createExtendedKey(
     {required Network network,
       required String mnemonic,
       String? password = ''}) async {
-  var res = await loaderApi.createKey(
-      nodeNetwork: network.name.toString(),
-      mnemonic: mnemonic,
-      password: password.toString());
-  return res;
+  try {
+    var res = await loaderApi.createKey(
+        nodeNetwork: network.name.toString(),
+        mnemonic: mnemonic,
+        password: password.toString());
+    return res;
+  } on FfiException catch (e) {
+    throw KeyException(message:  e.message);
+  }
 }
+
 String createChangeDescriptor({required String descriptor}) {
   return descriptor.replaceAll("/84'/1'/0'/0/*", "/84'/1'/0'/1/*");
 }
 
-Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys, int? threshold = 4}) async {
+Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
   if ((mnemonic == null ) && (xprv == null )) {
-    throw Exception("Missing both mnemonic and xprv");
+    throw KeyException(message:"Missing both mnemonic and xprv");
   }
   if((mnemonic != null  ) && (xprv != null ))
   {
-    throw Exception("Provided both mnemonic and xprv");
+    throw KeyException(message:"Provided both mnemonic and xprv");
+  }
+  if(mnemonic != null ) {
+    if(network ==null) throw KeyException(message:"Network is required, when using mnemonic");
   }
 
-  if(mnemonic != null ) {
-    if(network ==null) throw Exception("Network is required, when using mnemonic");
-  }
   var xprvStr = xprv ?? (await createXprv(network: network!, mnemonic: mnemonic.toString()));
   switch (type) {
     case Descriptor.P2PKH:
@@ -236,15 +246,17 @@ Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemoni
     case Descriptor.P2SHP2WSHP2PKH:
       return "sh(wsh(pkh($xprvStr/84'/1'/0'/0/*)))";
     case Descriptor.MULTI:
-      return "sh(wsh(pkh($xprvStr/84'/1'/0'/0/*)))";
+      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(),xprv: xprv.toString());;
     default:
       return "wpkh($xprvStr/84'/1'/0'/0/*)";
   }
 }
 
-String _createMutliSigDescriptor(
-    {List<String>? publicKeys, int? threshold = 4,}){
-  return '';
+String _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String xprv}){
+  if( publicKeys == null ) {
+    throw KeyException(message: "Public keys must not be empty ");
+  }
+  return "wsh(thresh($threshold,$xprv/84'/1'/0'/0/*,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
 }
 
 

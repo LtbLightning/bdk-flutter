@@ -1,7 +1,4 @@
-use crate::ffi::{
-    generate_mnemonic, restore_extended_key, AddressIndex, ExtendedKeyInfo,
-    PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet,
-};
+use crate::ffi::{generate_mnemonic, restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -13,7 +10,6 @@ use bdk::blockchain::{
 use bdk::keys::bip39::WordCount;
 use lazy_static::lazy_static;
 use std::sync::RwLock;
-
 lazy_static! {
     static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
     static ref BLOCKCHAIN: RwLock<AnyBlockchain> = RwLock::new(default_blockchain());
@@ -133,7 +129,7 @@ pub fn wallet_init(
         Some(change_descriptor.clone()),
         node_network,
     )
-    .unwrap();
+        .unwrap();
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
     wallet.sync(blockchain_obj.deref());
     let mut new_wallet = WALLET.write().unwrap();
@@ -155,6 +151,13 @@ pub fn generate_mnemonic_seed(word_count: String, entropy: String) -> String {
     let word_count = config_word_count(word_count);
     let mnemonic = generate_mnemonic(word_count, entropy_u8);
     mnemonic.to_string()
+}
+pub fn get_xpub( node_network: String,
+                 mnemonic: String,
+                 password: Option<String>) -> String {
+    let node_network = config_network(node_network);
+    let response = get_public_key(node_network, mnemonic, password);
+    return response;
 }
 
 // pub fn generate_key(node_network: String, word_count:String, entropy:String, password: Option<String>,) -> ExtendedKeyInfo {
@@ -252,7 +255,7 @@ pub fn sign(psbt_str: String) {
     // let mut new_wallet = WALLET.write().unwrap();
     // new_wallet = wallet;
 }
-pub fn broadcast(psbt_str: String) -> String {
+pub fn broadcast(psbt_str: String) ->String {
     let wallet = WALLET.read().unwrap();
     let blockchain = BLOCKCHAIN.read().unwrap();
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
@@ -260,30 +263,18 @@ pub fn broadcast(psbt_str: String) -> String {
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
     blockchain.broadcast(&tx).unwrap();
     wallet.sync(&blockchain);
-    tx.txid().to_string()
+    let res = tx.txid().to_string();
+   res
+    //  tx.txid().to_string()
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::api::{
-        broadcast, create_transaction, wallet_init, BLOCKCHAIN, WALLET,
-    };
-    // #[test]
-    // fn init_wallet() {
-    //     wallet_init(
-    //         "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/0/*)".to_string(),
-    //         "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)".to_string(),
-    //         "TESTNET".to_string(),
-    //         "ELECTRUM".to_string(),
-    //         "ssl://electrum.blockstream.info:60002".to_string(),
-    //         "".to_string());
-    //     let wallet = WALLET.read().unwrap();
-    //     let balance = wallet.get_balance().unwrap();
-    //     let address = wallet.get_address(AddressIndex::New).unwrap();
-    //     assert_eq!(balance, 387152);
-    // }
-    #[test]
-    fn create_transaction_() {
+    use bdk::bitcoin::{Address, Network};
+    use crate::api::{broadcast, create_transaction, wallet_init, get_balance, get_transactions, WALLET};
+    use crate::ffi::PartiallySignedBitcoinTransaction;
+
+    fn test_init_wallet() {
         wallet_init(
             "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/0/*)".to_string(),
             "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)".to_string(),
@@ -291,50 +282,34 @@ mod tests {
             "ELECTRUM".to_string(),
             "ssl://electrum.blockstream.info:60002".to_string(),
             "".to_string());
+    }
+    #[test]
+    fn get_wallet_balance_test() {
+        test_init_wallet();
+        let wallet = WALLET.read().unwrap();
+        assert_eq!(get_balance(), 387152);
+    }
+    #[test]
+    fn create_broadcast_transaction_test() {
+        test_init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1200, 1.0);
-        // sign(psbt.clone());
-        let txid = broadcast(psbt);
-        assert_eq!(txid, "387152");
+        let res = broadcast(psbt);
+        assert_eq!(res.is_empty(), false);
+    }
+    #[test]
+    fn create_transaction_test() {
+        test_init_wallet();
+        let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1200, 1.0);
+        let x = PartiallySignedBitcoinTransaction::new(psbt).unwrap();
+        let script =  x.internal.lock().unwrap().unsigned_tx.output.get(0).cloned().unwrap().script_pubkey;
+        let output_address = Address::from_script(
+            &script,
+            Network::Testnet).unwrap().to_string();
+        assert_eq!(output_address, "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string());
+    }
+    #[test]
+    fn get_transactions_test() {
+        test_init_wallet();
+        assert_eq!(get_transactions().is_empty(), false);
     }
 }
-
-// #[derive(Serialize, Deserialize, PartialEq, Debug)]
-// pub struct BridgeResult {
-//     result: String,
-//     data: Vec<String>,
-// }
-//
-// impl Default for BridgeResult {
-//     fn default() -> BridgeResult {
-//         BridgeResult {
-//             result: "".to_string(),
-//             data: vec!["".to_string()],
-//         }
-//     }
-// }
-//
-// impl BridgeResult {
-//     fn err<E: std::fmt::Debug>(desc: &'static str, err: E) -> BridgeResult {
-//         //this should write a log of every error
-//         let mut file = OpenOptions::new()
-//             .write(true)
-//             .append(true)
-//             .create(true)
-//             .open("log.txt")
-//             .expect("failed to open log");
-//         let local: DateTime<Local> = Local::now();
-//         file.write(format!("{} ///{}: {:?}\n", local.date(), desc, err).as_bytes())
-//             .expect("failed to write log");
-//         BridgeResult {
-//             result: "Err()".to_string(),
-//             data: vec![format!("{}: {:?}", desc, err)],
-//         }
-//     }
-//
-//     fn ok<D: std::string::ToString>(data: D) -> BridgeResult {
-//         BridgeResult {
-//             result: "Ok()".to_string(),
-//             data: vec![data.to_string()],
-//         }
-//     }
-// }

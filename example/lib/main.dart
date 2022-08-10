@@ -21,22 +21,22 @@ class _MyAppState extends State<MyApp> {
     restoreWallet(
         "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
-
      generateKeys();
     super.initState();
   }
 
   generateKeys() async {
-    var xprv = await createXprv(
-        network: Network.TESTNET,
+
+    var key = await createExtendedKey(network: Network.TESTNET,
         mnemonic:
-            "school alcohol coral light army gather adapt blossom school alcohol coral lens",
+        "school alcohol coral light army gather adapt blossom school alcohol coral lens",
         password: "password");
-    var mnemonic = await generateMnemonic(entropy: Entropy.Entropy128);
-    var descriptor = await createDescriptor(xprv: xprv );
-    var changeDescriptor = await createChangeDescriptor(descriptor:descriptor );
-    print("private key  $xprv");
-    print("mnemonic $mnemonic");
+    var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.MULTI, threshold:2,
+        publicKeys: ["mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt",
+          "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt","mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt"]
+    );
+    var changeDescriptor = createChangeDescriptor(descriptor:descriptor );
+    // print("public key  $xprv");
     print("descriptor $descriptor");
     print("changeDescriptor $changeDescriptor");
   }
