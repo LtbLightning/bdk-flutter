@@ -127,7 +127,7 @@ The extended key info object is required to be passed as an argument in some bdk
 
 ```dart
 
-const response = await generateExtendedKey(network: Network.TESTNET
+final response = await generateExtendedKey(network: Network.TESTNET
                                            mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
                                            password: ''
                                            );
@@ -151,7 +151,7 @@ Create descriptor using mnemonic phrase and password.
 
 ```dart
 
-const response = await createXprv({ network: Network.TESTNET, mnemonic: '', password: '' });
+final response = await createXprv({ network: Network.TESTNET, mnemonic: '', password: '' });
 
 ```
 Returned response example:
@@ -174,7 +174,7 @@ Returns P2WPKH Descriptor
 
 ```dart
 
-const response = createDescriptor( xprv: xprv, descriptor: Descriptor.P2WPKH);
+final response = createDescriptor( xprv: xprv, descriptor: Descriptor.P2WPKH);
 
 ```
 Returned response example:
@@ -191,7 +191,7 @@ Returns the changeDescriptor from the descriptor provided.
 
 ```dart
 
-const response = createChangeDescriptor(descriptor:
+final response = createChangeDescriptor(descriptor:
 "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/84'/1'/0'/0/*)";
 
 ```
@@ -213,16 +213,8 @@ If any of the values are not specified, the default values will be used instead 
 In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.P2SH2of2Multisig or Descriptor.P2SH3of4Multisig type.
 
 ```dart
-
-const response  =  await BdkWallet().createWallet(
-                                                    descriptor:descriptor,
-                                                    changeDescriptor:changeDescriptor,
-                                                    network: Network.TESTNET,
-                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002" ,
-                                                    blockchain: Blockchain.ELECTRUM
-                                                    );
                                                 
-const response  =  await BdkWallet().createWallet(
+final response  =  await BdkWallet().createWallet(
                                                     mnemonic: mnemonic,
                                                     password: password,
                                                     network: Network.TESTNET,
@@ -240,7 +232,7 @@ Create a new address for the wallet.
 
 ```dart
 
-const response = await BdkWallet().getNewAddress();
+final response = await BdkWallet().getNewAddress();
 
 ```
 Returned response example:
@@ -257,7 +249,7 @@ Returns the last unused address of the wallet.
 
 ```dart
 
-const response = await BdkWallet().getLastUnusedAddress();
+final response = await BdkWallet().getLastUnusedAddress();
 
 ```
 
@@ -275,7 +267,7 @@ Get the balance of your wallet.
 
 ```dart
 
-const response = await BdkWallet().getBalance();
+final response = await BdkWallet().getBalance();
 
 ```
 Returned response example:
@@ -292,7 +284,7 @@ Returns a list of all the transactions made.
 
 ```dart
 
-const response = await BdkWallet().getTransactions();
+final response = await BdkWallet().getTransactions();
 
 ```
 Returned response example:
@@ -316,7 +308,7 @@ Returns the list of unconfirmed transactions.
 
 ```dart
 
-const response = await BdkWallet().getPendingTransactions();
+final response = await BdkWallet().getPendingTransactions();
 
 ```
 Returned response example:
@@ -340,8 +332,6 @@ Returns the list of confirmed transactions.
 
 ```dart
 
-const response = await BdkWallet().getConfirmedTransactions();
-
 ```
 Returned response example:
 ```dart
@@ -364,7 +354,9 @@ Syncs the wallet.
 
 ```dart
 
-const response = await BdkWallet().syncWallet();
+
+final response = await BdkWallet().syncWallet();
+
 ```
 ---
 
