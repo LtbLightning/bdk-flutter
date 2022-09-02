@@ -16,22 +16,21 @@ A Flutter version of the Bitcoin Development Kit (https://bitcoindevkit.org/)
 
 ### Flutter
 
-* Flutter version 2.0 or higher
-* Dart version 2.12 or higher
+* Flutter version :  3.0 or higher
+* Dart version    :  2.17.1 or higher
 
 ### Android
 
-* Android minSdkVersion is API 23 or higher.
-* Android Target SDK version: API 29.
-* Android SDK build tools: 26.0.3
-* Android Gradle Plugin: 3.0.0 or greater.
+* Android minSdkVersion.     : API 23 or higher.
+* Android Target SDK version : API 29.
+* Android Gradle Plugin      : 3.0.0 or greater.
 
 
 ### iOS
 
-* Xcode version: 10 or greater.
-* iOS Base SDK: 12 or greater.
-* Deployment target: iOS 12.0 or greater.
+* iOS Base SDK      : 12 or greater.
+* Deployment target : iOS 12.0 or greater.
+* Cocoapods         : 1.11.3 or greater
 
 
 ## Installation
@@ -90,10 +89,10 @@ The following methods can be used with this module. All methods can be called by
 | [getPendingTransactions()](#getPendingTransactions)| -                                                                                      |
 | [getConfirmedTransactions()](#getConfirmedTransactions)| -                                                                                  |
 | [syncWallet()](#syncWallet)                    | -                                                                                          | 
-| [createPartiallySignedTransaction()](#createPartiallySignedTransaction)| - address (recipient wallet address), amount*(sats) , feeRate      |
+| [createTransaction()](#createTransaction)      | - address (recipient wallet address), amount*(sats) , feeRate                              |
 | [signTransaction()](#signTransaction)          | - psbt                                                                                     |
-| [broadcastTransaction()](#broadcastTransaction)| - psbt                                                                                     |
-| [signAndBroadcast()](#signAndBroadcast)        | - psbt                                                                                     |         
+| [broadcastTransaction()](#broadcastTransaction)| - psbt                                                                                     |  
+| [quickSend()](#quickSend)                      | - address (recipient wallet address), amount*(sats) , feeRate                              |
 
 ---
 
@@ -369,13 +368,13 @@ final response = await BdkWallet().syncWallet();
 ---
 
 
-### createPartiallySignedTransaction()
+### createTransaction()
 Create a Partially Signed Bitcoin Transaction.<br />
 Required params: address, amount, feeRate
 
 ```dart
 
-final psbt =  await BdkWallet().createPartiallySignedTransaction(recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', amount: 2000, feeRate: 1);
+final psbt =  await BdkWallet().createTransaction(recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', amount: 2000, feeRate: 1);
 
 ```
 Returned response example:
@@ -420,15 +419,14 @@ Returned response example:
 ---
 
 
-### signAndBroadcast()
-Sign and broadcast  to the given address.<br />
-Required params: psbt (Partially Signed Transaction - Unsigned)
+### quickSend()
+Create a Partially Signed Bitcoin Transaction, Sign the transaction and Broadcast  to the given address.<br />
+.<br />
+Required params: address, amount, feeRate
 
 ```dart
 
-var psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
-
-final response = await BdkWallet().signAndBroadcast(psbt:psbt);
+final response = await BdkWallet().quickSend(recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', amount: 2000, feeRate: 1);
 
 ```
 Returned response example:
