@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   BdkWallet bdkWallet = BdkWallet();
-  late BdkFlutterWallet wallet;
+  late ResponseWallet wallet;
   @override
   void initState() {
     restoreWallet(

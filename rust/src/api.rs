@@ -1,4 +1,4 @@
-use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey};
+use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -96,10 +96,6 @@ fn config_blockchain(
     };
 }
 
-pub struct BdkFlutterWallet {
-    pub balance: u64,
-    pub address: String,
-}
 
 fn blockchain_init(blockchain: &str, url: String, socks5: Option<String>) {
     let blockchain = config_blockchain(blockchain, url, socks5);
@@ -134,12 +130,12 @@ pub fn wallet_init(
     *new_wallet = wallet;
 }
 
-pub fn get_wallet() -> BdkFlutterWallet {
+pub fn get_wallet() -> ResponseWallet {
     let wallet = WALLET.read().unwrap();
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
     wallet.sync(blockchain_obj.deref());
-    BdkFlutterWallet {
-        balance: get_balance(),
+    ResponseWallet {
+        balance: get_balance().to_string(),
         address: get_new_address(),
     }
 }
@@ -273,7 +269,7 @@ pub fn broadcast(psbt_str: String) ->String {
 mod tests {
     use bdk::bitcoin::{Address, Network};
     use crate::api::{broadcast, create_transaction, wallet_init, get_transactions, generate_seed_from_entropy, generate_seed_from_word_count};
-    use crate::ffi:: PartiallySignedBitcoinTransaction;
+    use crate::ffi::{gen_big_rand, gen_big_rand_2, PartiallySignedBitcoinTransaction};
 
     fn test_init_wallet() {
         wallet_init(
@@ -319,4 +315,11 @@ mod tests {
         let mnemonic= generate_seed_from_entropy("Entropy256".to_string());
         assert_eq!(mnemonic.to_string(), " mnemonic string fail" )
     }
+    #[test]
+    fn generate_entropy_function_comparison_test(){
+        let rand= gen_big_rand(32);
+        let rand2= gen_big_rand_2(32);
+        assert_eq!(rand, rand2 )
+    }
+
 }
