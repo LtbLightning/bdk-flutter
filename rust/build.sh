@@ -8,6 +8,6 @@ FILE=target
                 do
                 unzip -P pcp9100 "$file" -d $PWD/
                 rm "target.zip"
-                rm -r "__MACOSX"
+            #    rm -r "__MACOSX"
                 done
     fi

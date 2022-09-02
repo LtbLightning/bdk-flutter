@@ -106,8 +106,8 @@ parameter and can be in multiples of 3 from 12 to 24. 12 is used as default.
 
 ```dart
 
-const response = await generateMnemonic()
-const response = await generateMnemonic(entropy: Entropy.Entropy128)
+final response = await generateMnemonic()
+final response = await generateMnemonic(entropy: Entropy.Entropy128)
 
 ```
 Returned response example:
@@ -213,6 +213,14 @@ If any of the values are not specified, the default values will be used instead 
 In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.P2SH2of2Multisig or Descriptor.P2SH3of4Multisig type.
 
 ```dart
+
+final response  =  await BdkWallet().createWallet(
+                                                    descriptor:descriptor,
+                                                    changeDescriptor:changeDescriptor,
+                                                    network: Network.TESTNET,
+                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002" ,
+                                                    blockchain: Blockchain.ELECTRUM
+                                                    );
                                                 
 final response  =  await BdkWallet().createWallet(
                                                     mnemonic: mnemonic,
@@ -332,6 +340,8 @@ Returns the list of confirmed transactions.
 
 ```dart
 
+final response = await BdkWallet().getConfirmedTransactions();
+
 ```
 Returned response example:
 ```dart
@@ -354,9 +364,7 @@ Syncs the wallet.
 
 ```dart
 
-
 final response = await BdkWallet().syncWallet();
-
 ```
 ---
 
@@ -386,7 +394,7 @@ Required params: psbt (Partially Signed Transaction - Unsigned)
 
 var  psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt from createPartiallySignedTransaction()
 
-const response = await BdkWallet().signTransaction(psbt:psbt);
+final response = await BdkWallet().signTransaction(psbt:psbt);
 
 ```
 ---
@@ -400,7 +408,7 @@ Required params: psbt (Partially Signed Transaction - Signed)
 
 var psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-const response = await BdkWallet().broadcastTransaction(psbt:psbt);
+final response = await BdkWallet().broadcastTransaction(psbt:psbt);
 
 ```
 Returned response example:
@@ -420,7 +428,7 @@ Required params: psbt (Partially Signed Transaction - Unsigned)
 
 var psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-const response = await BdkWallet().signAndBroadcast(psbt:psbt);
+final response = await BdkWallet().signAndBroadcast(psbt:psbt);
 
 ```
 Returned response example:

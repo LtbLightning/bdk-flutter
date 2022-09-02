@@ -1,4 +1,4 @@
-use crate::ffi::{generate_mnemonic, restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key};
+use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -35,16 +35,14 @@ fn config_word_count(word_count: String) -> WordCount {
     };
 }
 
-fn config_entropy(entropy: String) -> u8 {
+fn config_entropy(entropy: String) -> usize {
     return match entropy.as_str() {
-        "Entropy32" => 32,
-        "Entropy64" => 64,
-        "Entropy96" => 96,
-        "Entropy128" => 128,
-        "Entropy160" => 160,
-        "Entropy192" => 192,
-        "Entropy224" => 224,
-        _ => 128,
+        "Entropy128" => 16,
+        "Entropy160" => 20,
+        "Entropy192" => 24,
+        "Entropy224" => 28,
+        "Entropy256" => 32,
+        _ => 16,
     };
 }
 
@@ -146,10 +144,16 @@ pub fn get_wallet() -> BdkFlutterWallet {
     }
 }
 
-pub fn generate_mnemonic_seed(word_count: String, entropy: String) -> String {
+pub fn generate_seed_from_entropy( entropy: String) -> String {
     let entropy_u8 = config_entropy(entropy);
+    let mnemonic = generate_mnemonic_from_entropy( entropy_u8);
+    mnemonic.to_string()
+}
+
+pub fn generate_seed_from_word_count(word_count: String) -> String {
+   // let entropy_u8 = config_entropy(entropy);
     let word_count = config_word_count(word_count);
-    let mnemonic = generate_mnemonic(word_count, entropy_u8);
+    let mnemonic = generate_mnemonic_from_word_count(word_count);
     mnemonic.to_string()
 }
 pub fn get_xpub( node_network: String,
@@ -159,14 +163,11 @@ pub fn get_xpub( node_network: String,
     let response = get_public_key(node_network, mnemonic, password);
     return response;
 }
+pub fn get_xpub_from_address( address:String) -> String {
+    let response = to_script_pubkey(&*address).unwrap();
+    return response.to_string();
+}
 
-// pub fn generate_key(node_network: String, word_count:String, entropy:String, password: Option<String>,) -> ExtendedKeyInfo {
-//     let entropy_u8 = config_entropy(entropy);
-//     let word_count = config_word_count(word_count);
-//     let node_network = config_network(node_network);
-//     let response = generate_extended_key(node_network, word_count,entropy_u8, password);
-//     return response.unwrap();
-// }
 pub fn create_key(
     node_network: String,
     mnemonic: String,
@@ -271,8 +272,8 @@ pub fn broadcast(psbt_str: String) ->String {
 #[cfg(test)]
 mod tests {
     use bdk::bitcoin::{Address, Network};
-    use crate::api::{broadcast, create_transaction, wallet_init, get_balance, get_transactions, WALLET};
-    use crate::ffi::PartiallySignedBitcoinTransaction;
+    use crate::api::{broadcast, create_transaction, wallet_init, get_transactions, generate_seed_from_entropy, generate_seed_from_word_count};
+    use crate::ffi:: PartiallySignedBitcoinTransaction;
 
     fn test_init_wallet() {
         wallet_init(
@@ -283,12 +284,7 @@ mod tests {
             "ssl://electrum.blockstream.info:60002".to_string(),
             "".to_string());
     }
-    #[test]
-    fn get_wallet_balance_test() {
-        test_init_wallet();
-        let wallet = WALLET.read().unwrap();
-        assert_eq!(get_balance(), 387152);
-    }
+
     #[test]
     fn create_broadcast_transaction_test() {
         test_init_wallet();
@@ -311,5 +307,16 @@ mod tests {
     fn get_transactions_test() {
         test_init_wallet();
         assert_eq!(get_transactions().is_empty(), false);
+    }
+
+    #[test]
+     fn generate_mnemonic_word_count_test(){
+        let mnemonic= generate_seed_from_word_count("Words18".to_string());
+        assert_eq!(mnemonic.split(" ").count(), 18)
+    }
+    #[test]
+    fn generate_mnemonic_with_entropy_test(){
+        let mnemonic= generate_seed_from_entropy("Entropy256".to_string());
+        assert_eq!(mnemonic.to_string(), " mnemonic string fail" )
     }
 }

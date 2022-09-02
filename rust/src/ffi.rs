@@ -1,5 +1,6 @@
-//use bdk::bitcoin::hashes::hex::ToHex;
+
 use bdk::bitcoin::secp256k1::Secp256k1;
+//use bdk::bitcoin::secp256k1::rand as bdk_rand;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
 use bdk::bitcoin::{Address, Network, Script};
 use bdk::blockchain::any::AnyBlockchain;
@@ -13,9 +14,7 @@ use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWall
 use std::convert::From;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
-
 use serde::{Deserialize, Serialize};
-
 type BdkError = Error;
 #[derive(Serialize, Deserialize)]
 pub struct ResponseWallet {
@@ -192,18 +191,13 @@ impl PartiallySignedBitcoinTransaction {
     //     txid.to_hex()
     // }
 }
-fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
+pub(crate) fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
     Address::from_str(address)
         .map(|x| x.script_pubkey())
         .map_err(|e| BdkError::Generic(e.to_string()))
 }
 
-// #[allow(dead_code)]
-// #[derive(Clone, Debug)]
-// enum RbfValue {
-//     Default,
-//    Value(u32),
-// }
+
 
 #[allow(dead_code)]
 #[derive(Clone, Debug)]
@@ -315,28 +309,17 @@ impl TxBuilder {
             .map(Arc::new)
     }
 }
-pub fn generate_mnemonic(word_count: WordCount, entropy: u8) -> Mnemonic {
-    let entropy_ar = [entropy; 32];
-    let mnemonic: GeneratedKey<_, BareCtx> =
-        Mnemonic::generate_with_entropy((word_count, Language::English), entropy_ar).unwrap();
-    let mnemonic: Mnemonic = mnemonic.into_key();
+
+pub fn generate_mnemonic_from_entropy(entropy: usize) -> Mnemonic {
+    let entropy_rand = gen_big_rand(entropy);
+    let mnemonic: Mnemonic = Mnemonic::from_entropy_in( Language::English,entropy_rand.as_slice()).unwrap();
     mnemonic
 }
-// pub fn generate_extended_key(
-//     network: Network,
-//     word_count: WordCount,
-//     entropy: u8,
-//     password: Option<String>,
-// ) -> Result<ExtendedKeyInfo, Error> {
-//     let mnemonic: Mnemonic = generate_mnemonic(word_count, entropy);
-//     let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key()?;
-//     let xprv = xkey.into_xprv(network).unwrap();
-//     Ok(ExtendedKeyInfo {
-//         mnemonic: mnemonic.to_string(),
-//         xprv: xprv.to_string(),
-//         fingerprint: xprv.fingerprint(&Secp256k1::new()).to_string(),
-//     })
-// }
+pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
+    let mnemonic_gen: GeneratedKey<_, BareCtx> = Mnemonic::generate((word_count, Language::English)).unwrap();
+    let mnemonic = mnemonic_gen.clone().into_key();
+    mnemonic
+}
 
 pub fn restore_extended_key(
     network: Network,
@@ -362,4 +345,12 @@ pub fn get_public_key(
     let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
     let xpub =  xkey.into_xpub(network, &Secp256k1::new());
    return  xpub.public_key.to_string()
+}
+pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
+    let mut data = vec![0u8; bit_size];
+    for digit in &mut data {
+        // swap  digits with random values
+        *digit = rand::random();
+    }
+    data
 }

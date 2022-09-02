@@ -21,22 +21,25 @@ class _MyAppState extends State<MyApp> {
     restoreWallet(
         "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
-     generateKeys();
+    generateKeys();
     super.initState();
   }
 
   generateKeys() async {
-
     var key = await createExtendedKey(network: Network.TESTNET,
         mnemonic:
         "school alcohol coral light army gather adapt blossom school alcohol coral lens",
         password: "password");
     var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.MULTI, threshold:2,
-        publicKeys: ["mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt",
-          "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt","mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt"]
+        publicKeys: ["tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*"]
     );
     var changeDescriptor = createChangeDescriptor(descriptor:descriptor );
-    // print("public key  $xprv");
+    var mnemonicWithCount = await generateMnemonic(wordCount: WordCount.Words15);
+    var mnemonicWithEntropy = await generateMnemonic(entropy: Entropy.Entropy192);
+    var mnemonicDefault = await generateMnemonic();
+    print("mnemonicWithCount: $mnemonicWithCount ");
+    print("mnemonicWithEntropy: $mnemonicWithEntropy ");
+    print("mnemonicDefault: $mnemonicDefault");
     print("descriptor $descriptor");
     print("changeDescriptor $changeDescriptor");
   }
@@ -59,7 +62,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getNewAddress() async {
-    await bdkWallet.getNewAddress().then((value) => print(value));
+    final res =   await bdkWallet.getNewAddress();
+    print(res);
+    return res;
   }
 
   Future<List<Transaction>> getConfirmedTransactions() async {
@@ -82,13 +87,17 @@ class _MyAppState extends State<MyApp> {
     final res = await bdkWallet.getBalance();
     print(res.toString());
   }
+  getXpubFromAddress() async {
 
+    final res = await getXpub(
+      network: Network.TESTNET,
+      mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+    );
+    print(res.toString());
+  }
   sendBit() async {
-   final psbt =  await BdkWallet().createPartiallySignedTransaction(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
-   print(psbt);
-   final txid = await  bdkWallet.signAndBroadcast(psbt: psbt);
-   print(txid);
-
+    final txid =  await BdkWallet().quickSend(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
+    print(txid);
   }
 
   @override
@@ -119,6 +128,9 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
+              TextButton(
+                  onPressed: () => getXpubFromAddress(),
+                  child: const Text('get Public Key')),
             ],
           ),
         ),

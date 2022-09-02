@@ -72,21 +72,34 @@ pub extern "C" fn wire_get_wallet(port_: i64) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_mnemonic_seed(
+pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "generate_seed_from_entropy",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_entropy = entropy.wire2api();
+            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_generate_seed_from_word_count(
     port_: i64,
     word_count: *mut wire_uint_8_list,
-    entropy: *mut wire_uint_8_list,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_mnemonic_seed",
+            debug_name: "generate_seed_from_word_count",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_word_count = word_count.wire2api();
-            let api_entropy = entropy.wire2api();
-            move |task_callback| Ok(generate_mnemonic_seed(api_word_count, api_entropy))
+            move |task_callback| Ok(generate_seed_from_word_count(api_word_count))
         },
     )
 }
@@ -109,6 +122,21 @@ pub extern "C" fn wire_get_xpub(
             let api_mnemonic = mnemonic.wire2api();
             let api_password = password.wire2api();
             move |task_callback| Ok(get_xpub(api_node_network, api_mnemonic, api_password))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_xpub_from_address(port_: i64, address: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_xpub_from_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_address = address.wire2api();
+            move |task_callback| Ok(get_xpub_from_address(api_address))
         },
     )
 }

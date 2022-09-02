@@ -139,7 +139,7 @@ class BdkWallet {
     }
   }
 
-  Future<String> createPartiallySignedTransaction(
+  Future<String> createTransaction(
       {required String recipient,
         required int amount,
         required double feeRate}) async {
@@ -169,9 +169,13 @@ class BdkWallet {
     }
   }
 
-  Future<String> signAndBroadcast({required String psbt}) async {
+  Future<String> quickSend({required String recipient,
+    required int amount,
+    required double feeRate}) async {
     try {
-      final txid = await loaderApi.signAndBroadcast(psbtStr: psbt);
+      final psbt = await createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
+      await signTransaction(psbt: psbt);
+      final txid = await broadcastTransaction(psbt: psbt);
       return txid;
     } on FfiException catch (e) {
       throw BroadcastException(message: e.message);
@@ -180,12 +184,24 @@ class BdkWallet {
 }
 
 Future<String> generateMnemonic(
-    {WordCount wordCount = WordCount.Words12,
-      Entropy entropy = Entropy.Entropy128}) async {
+    {WordCount ? wordCount ,
+      Entropy? entropy }) async {
   try {
-    var res = await loaderApi.generateMnemonicSeed(
-        wordCount: wordCount.name.toString(), entropy: entropy.name.toString());
-    return res;
+    if((wordCount != null  ) && (entropy != null ))
+    {
+      var res = await loaderApi.generateSeedFromEntropy(entropy: entropy.name.toString());
+      return res;
+    } else if( wordCount != null ) {
+      var res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount.name.toString());
+      return res;
+    } else if(entropy != null )
+    {
+      var res = await loaderApi.generateSeedFromEntropy(entropy: entropy.name.toString());
+      return res;
+    } else{
+      var res = await loaderApi.generateSeedFromEntropy(entropy: Entropy.Entropy128.name.toString());
+      return res;
+    }
   } on FfiException catch (e) {
     throw KeyException(message: e.message);
   }
@@ -196,9 +212,21 @@ Future<String> createXprv(
       required String mnemonic,
       String? password = ''}) async {
   try {
-    var res = await createExtendedKey(
-        network: network, mnemonic: mnemonic, password: password.toString());
+    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString());
     return res.xprv.toString();
+  } on KeyException  {
+    rethrow;
+  }
+}
+Future<String> getXpub({
+  required Network network,
+  required String mnemonic,
+  String? password = ''}) async {
+  try {
+    var res = await loaderApi.getXpub( nodeNetwork: network.name.toString(),
+        mnemonic: mnemonic,
+        password: password.toString());
+    return res.toString();
   } on KeyException  {
     rethrow;
   }

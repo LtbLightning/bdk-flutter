@@ -10,14 +10,13 @@ enum Descriptor{
  P2SHP2WSHP2PKH,
  MULTI
 }
+/// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
 enum Entropy{
- Entropy32,
- Entropy64,
- Entropy96,
- Entropy128,
- Entropy160,
- Entropy192,
- Entropy224,
+ Entropy128, //16
+ Entropy160, // 20
+ Entropy192, //24
+ Entropy224, //28
+ Entropy256, // 32
 }
 enum Network {
  TESTNET,
