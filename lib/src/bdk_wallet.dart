@@ -1,4 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'utils/loader.dart';
@@ -17,10 +18,10 @@ class BdkWallet {
         String? timeOut}) async {
     try {
       if ((mnemonic == null || mnemonic.isEmpty ) && (descriptor == null || descriptor.isEmpty)) {
-        throw WalletException(message: "Missing both mnemonic and descriptor");
+        throw WalletException(message: "Missing both mnemonic and descriptor.");
       } else if((mnemonic != null )&& (descriptor != null || descriptor!.isNotEmpty))
       {
-        throw WalletException(message: "Provided both mnemonic and descriptor");
+        throw WalletException(message: "Provided both mnemonic and descriptor.");
       }
       if (descriptor != null && changeDescriptor!=null) {
         await loaderApi.walletInit(
@@ -51,7 +52,7 @@ class BdkWallet {
     }
   }
 
-  Future<BdkFlutterWallet> getWallet() async {
+  Future<ResponseWallet> getWallet() async {
     try {
       return await loaderApi.getWallet();
     } on FfiException catch (e) {
@@ -144,6 +145,7 @@ class BdkWallet {
         required int amount,
         required double feeRate}) async {
     try {
+      if(amount==0) throw BroadcastException(message: "Amount should be greater 0");
       final res = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
       return res;
@@ -173,6 +175,7 @@ class BdkWallet {
     required int amount,
     required double feeRate}) async {
     try {
+      if(amount==0) throw BroadcastException(message: "Amount should be greater 0");
       final psbt = await createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
       await signTransaction(psbt: psbt);
       final txid = await broadcastTransaction(psbt: psbt);
@@ -184,7 +187,7 @@ class BdkWallet {
 }
 
 Future<String> generateMnemonic(
-    {WordCount ? wordCount ,
+      {WordCount ? wordCount ,
       Entropy? entropy }) async {
   try {
     if((wordCount != null  ) && (entropy != null ))
@@ -253,14 +256,14 @@ String createChangeDescriptor({required String descriptor}) {
 
 Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
   if ((mnemonic == null ) && (xprv == null )) {
-    throw KeyException(message:"Missing both mnemonic and xprv");
+    throw KeyException(message:"Missing both mnemonic and xprv.");
   }
   if((mnemonic != null  ) && (xprv != null ))
   {
-    throw KeyException(message:"Provided both mnemonic and xprv");
+    throw KeyException(message:"Provided both mnemonic and xprv.");
   }
   if(mnemonic != null ) {
-    if(network ==null) throw KeyException(message:"Network is required, when using mnemonic");
+    if(network ==null) throw KeyException(message:"Network is required, when using mnemonic.");
   }
 
   var xprvStr = xprv ?? (await createXprv(network: network!, mnemonic: mnemonic.toString()));
@@ -282,8 +285,9 @@ Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemoni
 
 String _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String xprv}){
   if( publicKeys == null ) {
-    throw KeyException(message: "Public keys must not be empty ");
+    throw KeyException(message: "Public keys must not be empty.");
   }
+  if (threshold == 0 || threshold > publicKeys.length + 1) throw KeyException(message: "Threshold value is invalid.'");
   return "wsh(thresh($threshold,$xprv/84'/1'/0'/0/*,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
 }
 

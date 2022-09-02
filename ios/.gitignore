@@ -37,3 +37,4 @@ Icon?
 /Flutter/ephemeral/
 /Flutter/flutter_export_environment.sh
 /ios/Classes/bindings.h
+librust.a

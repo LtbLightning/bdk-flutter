@@ -20,7 +20,6 @@ type BdkError = Error;
 pub struct ResponseWallet {
     pub balance: String,
     pub address: String,
-    pub mnemonic: String,
 }
 #[repr(C)]
 pub struct ExtendedKeyInfo {
@@ -135,7 +134,7 @@ impl Wallet {
                 network,
                 MemoryDatabase::default(),
             )
-            .unwrap(),
+                .unwrap(),
         );
         Ok(Wallet { wallet_mutex: res })
     }
@@ -344,9 +343,16 @@ pub fn get_public_key(
     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
     let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
     let xpub =  xkey.into_xpub(network, &Secp256k1::new());
-   return  xpub.public_key.to_string()
+    return  xpub.public_key.to_string()
 }
 pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
+    let mut rng = rand::thread_rng();
+    let mut entropy = vec![0u8; bit_size];
+    rand::RngCore::fill_bytes(&mut rng, &mut entropy);
+
+    entropy
+}
+pub fn gen_big_rand_2(bit_size: usize) -> Vec<u8> {
     let mut data = vec![0u8; bit_size];
     for digit in &mut data {
         // swap  digits with random values
@@ -354,3 +360,5 @@ pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
     }
     data
 }
+
+

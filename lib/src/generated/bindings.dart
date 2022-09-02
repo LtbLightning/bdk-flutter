@@ -26,7 +26,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
-  Future<BdkFlutterWallet> getWallet({dynamic hint});
+  Future<ResponseWallet> getWallet({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta;
 
@@ -101,16 +101,6 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
 }
 
-class BdkFlutterWallet {
-  final int balance;
-  final String address;
-
-  BdkFlutterWallet({
-    required this.balance,
-    required this.address,
-  });
-}
-
 class BlockConfirmationTime {
   final int height;
   final int timestamp;
@@ -130,6 +120,16 @@ class ExtendedKeyInfo {
     required this.mnemonic,
     required this.xprv,
     required this.fingerprint,
+  });
+}
+
+class ResponseWallet {
+  final String balance;
+  final String address;
+
+  ResponseWallet({
+    required this.balance,
+    required this.address,
   });
 }
 
@@ -206,10 +206,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         ],
       );
 
-  Future<BdkFlutterWallet> getWallet({dynamic hint}) =>
+  Future<ResponseWallet> getWallet({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_get_wallet(port_),
-        parseSuccessData: _wire2api_bdk_flutter_wallet,
+        parseSuccessData: _wire2api_response_wallet,
         constMeta: kGetWalletConstMeta,
         argValues: [],
         hint: hint,
@@ -497,16 +497,6 @@ String _wire2api_String(dynamic raw) {
   return raw as String;
 }
 
-BdkFlutterWallet _wire2api_bdk_flutter_wallet(dynamic raw) {
-  final arr = raw as List<dynamic>;
-  if (arr.length != 2)
-    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return BdkFlutterWallet(
-    balance: _wire2api_u64(arr[0]),
-    address: _wire2api_String(arr[1]),
-  );
-}
-
 BlockConfirmationTime _wire2api_block_confirmation_time(dynamic raw) {
   final arr = raw as List<dynamic>;
   if (arr.length != 2)
@@ -547,6 +537,16 @@ List<Transaction> _wire2api_list_transaction(dynamic raw) {
 
 int? _wire2api_opt_box_autoadd_u64(dynamic raw) {
   return raw == null ? null : _wire2api_box_autoadd_u64(raw);
+}
+
+ResponseWallet _wire2api_response_wallet(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return ResponseWallet(
+    balance: _wire2api_String(arr[0]),
+    address: _wire2api_String(arr[1]),
+  );
 }
 
 Transaction _wire2api_transaction(dynamic raw) {

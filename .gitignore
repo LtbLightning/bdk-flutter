@@ -32,3 +32,9 @@ migrate_working_dir/
 build/
 rust/target/
 rust/__MACOSX/
+*.so
+*.a
+android/src/main/jniLibs/arm64-v8a/librust.so
+android/src/main/jniLibs/x86/librust.so
+android/src/main/jniLibs/armeabi-v7a/librust.so
+ios/librust.a
