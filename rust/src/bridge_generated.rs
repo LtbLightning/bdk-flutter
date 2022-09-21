@@ -15,6 +15,7 @@ use flutter_rust_bridge::*;
 
 // Section: imports
 
+use crate::ffi::Balance;
 use crate::ffi::BlockConfirmationTime;
 use crate::ffi::ExtendedKeyInfo;
 use crate::ffi::ResponseWallet;
@@ -382,6 +383,21 @@ impl<T> NewWithNullPtr for *mut T {
 
 // Section: impl IntoDart
 
+impl support::IntoDart for Balance {
+    fn into_dart(self) -> support::DartCObject {
+        vec![
+            self.immature.into_dart(),
+            self.trusted_pending.into_dart(),
+            self.untrusted_pending.into_dart(),
+            self.confirmed.into_dart(),
+            self.spendable.into_dart(),
+            self.total.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Balance {}
+
 impl support::IntoDart for BlockConfirmationTime {
     fn into_dart(self) -> support::DartCObject {
         vec![self.height.into_dart(), self.timestamp.into_dart()].into_dart()
@@ -428,6 +444,7 @@ impl support::IntoDart for TransactionDetails {
             self.received.into_dart(),
             self.sent.into_dart(),
             self.txid.into_dart(),
+            self.confirmation_time.into_dart(),
         ]
         .into_dart()
     }

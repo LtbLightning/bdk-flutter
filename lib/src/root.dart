@@ -249,13 +249,17 @@ Future<ExtendedKeyInfo> createExtendedKey(
       required String mnemonic,
       String? password = ''}) async {
   try {
-    if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.invalidMnemonic("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
+    if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.badWordCount("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     var res = await loaderApi.createKey(
         nodeNetwork: network.name.toString(),
         mnemonic: mnemonic,
         password: password.toString());
     return res;
   } on FfiException catch (e) {
+    if(e.message.contains("UnknownWord")){
+     final message = e.message.split("value:").last;
+      throw  KeyException.invalidMnemonic(message);
+    }
     throw KeyException.unexpected(e.message);
   }
 }

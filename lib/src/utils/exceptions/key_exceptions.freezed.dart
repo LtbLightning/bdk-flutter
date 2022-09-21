@@ -23,9 +23,10 @@ mixin _$KeyException {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,9 +36,10 @@ mixin _$KeyException {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +49,10 @@ mixin _$KeyException {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,9 +64,10 @@ mixin _$KeyException {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,9 +78,10 @@ mixin _$KeyException {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -87,9 +92,10 @@ mixin _$KeyException {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -184,9 +190,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return insufficientCoreVariables(e);
   }
@@ -199,9 +206,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return insufficientCoreVariables?.call(e);
   }
@@ -214,9 +222,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (insufficientCoreVariables != null) {
@@ -234,9 +243,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return insufficientCoreVariables(this);
   }
@@ -250,9 +260,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return insufficientCoreVariables?.call(this);
   }
@@ -266,9 +277,10 @@ class _$InsufficientCoreVariables implements InsufficientCoreVariables {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (insufficientCoreVariables != null) {
@@ -358,9 +370,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return invalidPublicKey(e);
   }
@@ -373,9 +386,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return invalidPublicKey?.call(e);
   }
@@ -388,9 +402,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidPublicKey != null) {
@@ -408,9 +423,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return invalidPublicKey(this);
   }
@@ -424,9 +440,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return invalidPublicKey?.call(this);
   }
@@ -440,9 +457,10 @@ class _$InvalidPublicKey implements InvalidPublicKey {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidPublicKey != null) {
@@ -507,9 +525,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return invalidThresholdValue();
   }
@@ -522,9 +541,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return invalidThresholdValue?.call();
   }
@@ -537,9 +557,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidThresholdValue != null) {
@@ -557,9 +578,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return invalidThresholdValue(this);
   }
@@ -573,9 +595,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return invalidThresholdValue?.call(this);
   }
@@ -589,9 +612,10 @@ class _$InvalidhresholdValue implements InvalidhresholdValue {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidThresholdValue != null) {
@@ -676,9 +700,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return repetitiousArguments(e);
   }
@@ -691,9 +716,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return repetitiousArguments?.call(e);
   }
@@ -706,9 +732,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (repetitiousArguments != null) {
@@ -726,9 +753,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return repetitiousArguments(this);
   }
@@ -742,9 +770,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return repetitiousArguments?.call(this);
   }
@@ -758,9 +787,10 @@ class _$RepetitiousArguments implements RepetitiousArguments {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (repetitiousArguments != null) {
@@ -848,9 +878,10 @@ class _$Unexpected implements Unexpected {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return unexpected(e);
   }
@@ -863,9 +894,10 @@ class _$Unexpected implements Unexpected {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return unexpected?.call(e);
   }
@@ -878,9 +910,10 @@ class _$Unexpected implements Unexpected {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -898,9 +931,10 @@ class _$Unexpected implements Unexpected {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return unexpected(this);
   }
@@ -914,9 +948,10 @@ class _$Unexpected implements Unexpected {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return unexpected?.call(this);
   }
@@ -930,9 +965,10 @@ class _$Unexpected implements Unexpected {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -948,179 +984,6 @@ abstract class Unexpected implements KeyException {
   String get e;
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$InvalidMnemonicCopyWith<$Res> {
-  factory _$$InvalidMnemonicCopyWith(
-          _$InvalidMnemonic value, $Res Function(_$InvalidMnemonic) then) =
-      __$$InvalidMnemonicCopyWithImpl<$Res>;
-  $Res call({String e});
-}
-
-/// @nodoc
-class __$$InvalidMnemonicCopyWithImpl<$Res>
-    extends _$KeyExceptionCopyWithImpl<$Res>
-    implements _$$InvalidMnemonicCopyWith<$Res> {
-  __$$InvalidMnemonicCopyWithImpl(
-      _$InvalidMnemonic _value, $Res Function(_$InvalidMnemonic) _then)
-      : super(_value, (v) => _then(v as _$InvalidMnemonic));
-
-  @override
-  _$InvalidMnemonic get _value => super._value as _$InvalidMnemonic;
-
-  @override
-  $Res call({
-    Object? e = freezed,
-  }) {
-    return _then(_$InvalidMnemonic(
-      e == freezed
-          ? _value.e
-          : e // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$InvalidMnemonic implements InvalidMnemonic {
-  const _$InvalidMnemonic(this.e);
-
-  @override
-  final String e;
-
-  @override
-  String toString() {
-    return 'KeyException.invalidMnemonic(e: $e)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InvalidMnemonic &&
-            const DeepCollectionEquality().equals(other.e, e));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(e));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$InvalidMnemonicCopyWith<_$InvalidMnemonic> get copyWith =>
-      __$$InvalidMnemonicCopyWithImpl<_$InvalidMnemonic>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreVariables,
-    required TResult Function(String e) invalidPublicKey,
-    required TResult Function() invalidThresholdValue,
-    required TResult Function(String e) repetitiousArguments,
-    required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
-    required TResult Function(String e) invalidXprv,
-    required TResult Function() invalidNetwork,
-  }) {
-    return invalidMnemonic(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreVariables,
-    TResult Function(String e)? invalidPublicKey,
-    TResult Function()? invalidThresholdValue,
-    TResult Function(String e)? repetitiousArguments,
-    TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
-    TResult Function(String e)? invalidXprv,
-    TResult Function()? invalidNetwork,
-  }) {
-    return invalidMnemonic?.call(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreVariables,
-    TResult Function(String e)? invalidPublicKey,
-    TResult Function()? invalidThresholdValue,
-    TResult Function(String e)? repetitiousArguments,
-    TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
-    TResult Function(String e)? invalidXprv,
-    TResult Function()? invalidNetwork,
-    required TResult orElse(),
-  }) {
-    if (invalidMnemonic != null) {
-      return invalidMnemonic(e);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreVariables value)
-        insufficientCoreVariables,
-    required TResult Function(InvalidPublicKey value) invalidPublicKey,
-    required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
-    required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
-    required TResult Function(InvalidXprv value) invalidXprv,
-    required TResult Function(InvalidNetwork value) invalidNetwork,
-  }) {
-    return invalidMnemonic(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InsufficientCoreVariables value)?
-        insufficientCoreVariables,
-    TResult Function(InvalidPublicKey value)? invalidPublicKey,
-    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
-    TResult Function(InvalidXprv value)? invalidXprv,
-    TResult Function(InvalidNetwork value)? invalidNetwork,
-  }) {
-    return invalidMnemonic?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreVariables value)?
-        insufficientCoreVariables,
-    TResult Function(InvalidPublicKey value)? invalidPublicKey,
-    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
-    TResult Function(InvalidXprv value)? invalidXprv,
-    TResult Function(InvalidNetwork value)? invalidNetwork,
-    required TResult orElse(),
-  }) {
-    if (invalidMnemonic != null) {
-      return invalidMnemonic(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InvalidMnemonic implements KeyException {
-  const factory InvalidMnemonic(final String e) = _$InvalidMnemonic;
-
-  String get e;
-  @JsonKey(ignore: true)
-  _$$InvalidMnemonicCopyWith<_$InvalidMnemonic> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1193,9 +1056,10 @@ class _$InvalidXprv implements InvalidXprv {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return invalidXprv(e);
   }
@@ -1208,9 +1072,10 @@ class _$InvalidXprv implements InvalidXprv {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return invalidXprv?.call(e);
   }
@@ -1223,9 +1088,10 @@ class _$InvalidXprv implements InvalidXprv {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidXprv != null) {
@@ -1243,9 +1109,10 @@ class _$InvalidXprv implements InvalidXprv {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return invalidXprv(this);
   }
@@ -1259,9 +1126,10 @@ class _$InvalidXprv implements InvalidXprv {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return invalidXprv?.call(this);
   }
@@ -1275,9 +1143,10 @@ class _$InvalidXprv implements InvalidXprv {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidXprv != null) {
@@ -1342,9 +1211,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     required TResult Function() invalidThresholdValue,
     required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function(String e) invalidMnemonic,
     required TResult Function(String e) invalidXprv,
     required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
   }) {
     return invalidNetwork();
   }
@@ -1357,9 +1227,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
   }) {
     return invalidNetwork?.call();
   }
@@ -1372,9 +1243,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     TResult Function()? invalidThresholdValue,
     TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function(String e)? invalidMnemonic,
     TResult Function(String e)? invalidXprv,
     TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidNetwork != null) {
@@ -1392,9 +1264,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
     required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonic value) invalidMnemonic,
     required TResult Function(InvalidXprv value) invalidXprv,
     required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
   }) {
     return invalidNetwork(this);
   }
@@ -1408,9 +1281,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
   }) {
     return invalidNetwork?.call(this);
   }
@@ -1424,9 +1298,10 @@ class _$InvalidNetwork implements InvalidNetwork {
     TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
     TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonic value)? invalidMnemonic,
     TResult Function(InvalidXprv value)? invalidXprv,
     TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
     required TResult orElse(),
   }) {
     if (invalidNetwork != null) {
@@ -1438,4 +1313,361 @@ class _$InvalidNetwork implements InvalidNetwork {
 
 abstract class InvalidNetwork implements KeyException {
   const factory InvalidNetwork() = _$InvalidNetwork;
+}
+
+/// @nodoc
+abstract class _$$BadWordCountCopyWith<$Res> {
+  factory _$$BadWordCountCopyWith(
+          _$BadWordCount value, $Res Function(_$BadWordCount) then) =
+      __$$BadWordCountCopyWithImpl<$Res>;
+  $Res call({String e});
+}
+
+/// @nodoc
+class __$$BadWordCountCopyWithImpl<$Res>
+    extends _$KeyExceptionCopyWithImpl<$Res>
+    implements _$$BadWordCountCopyWith<$Res> {
+  __$$BadWordCountCopyWithImpl(
+      _$BadWordCount _value, $Res Function(_$BadWordCount) _then)
+      : super(_value, (v) => _then(v as _$BadWordCount));
+
+  @override
+  _$BadWordCount get _value => super._value as _$BadWordCount;
+
+  @override
+  $Res call({
+    Object? e = freezed,
+  }) {
+    return _then(_$BadWordCount(
+      e == freezed
+          ? _value.e
+          : e // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BadWordCount implements BadWordCount {
+  const _$BadWordCount(this.e);
+
+  @override
+  final String e;
+
+  @override
+  String toString() {
+    return 'KeyException.badWordCount(e: $e)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BadWordCount &&
+            const DeepCollectionEquality().equals(other.e, e));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(e));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$BadWordCountCopyWith<_$BadWordCount> get copyWith =>
+      __$$BadWordCountCopyWithImpl<_$BadWordCount>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String e) insufficientCoreVariables,
+    required TResult Function(String e) invalidPublicKey,
+    required TResult Function() invalidThresholdValue,
+    required TResult Function(String e) repetitiousArguments,
+    required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidXprv,
+    required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
+  }) {
+    return badWordCount(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String e)? insufficientCoreVariables,
+    TResult Function(String e)? invalidPublicKey,
+    TResult Function()? invalidThresholdValue,
+    TResult Function(String e)? repetitiousArguments,
+    TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidXprv,
+    TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
+  }) {
+    return badWordCount?.call(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String e)? insufficientCoreVariables,
+    TResult Function(String e)? invalidPublicKey,
+    TResult Function()? invalidThresholdValue,
+    TResult Function(String e)? repetitiousArguments,
+    TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidXprv,
+    TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
+    required TResult orElse(),
+  }) {
+    if (badWordCount != null) {
+      return badWordCount(e);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsufficientCoreVariables value)
+        insufficientCoreVariables,
+    required TResult Function(InvalidPublicKey value) invalidPublicKey,
+    required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
+    required TResult Function(RepetitiousArguments value) repetitiousArguments,
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidXprv value) invalidXprv,
+    required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
+  }) {
+    return badWordCount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsufficientCoreVariables value)?
+        insufficientCoreVariables,
+    TResult Function(InvalidPublicKey value)? invalidPublicKey,
+    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
+    TResult Function(RepetitiousArguments value)? repetitiousArguments,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidXprv value)? invalidXprv,
+    TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
+  }) {
+    return badWordCount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsufficientCoreVariables value)?
+        insufficientCoreVariables,
+    TResult Function(InvalidPublicKey value)? invalidPublicKey,
+    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
+    TResult Function(RepetitiousArguments value)? repetitiousArguments,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidXprv value)? invalidXprv,
+    TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
+    required TResult orElse(),
+  }) {
+    if (badWordCount != null) {
+      return badWordCount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BadWordCount implements KeyException {
+  const factory BadWordCount(final String e) = _$BadWordCount;
+
+  String get e;
+  @JsonKey(ignore: true)
+  _$$BadWordCountCopyWith<_$BadWordCount> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnknownWordCopyWith<$Res> {
+  factory _$$UnknownWordCopyWith(
+          _$UnknownWord value, $Res Function(_$UnknownWord) then) =
+      __$$UnknownWordCopyWithImpl<$Res>;
+  $Res call({String e});
+}
+
+/// @nodoc
+class __$$UnknownWordCopyWithImpl<$Res> extends _$KeyExceptionCopyWithImpl<$Res>
+    implements _$$UnknownWordCopyWith<$Res> {
+  __$$UnknownWordCopyWithImpl(
+      _$UnknownWord _value, $Res Function(_$UnknownWord) _then)
+      : super(_value, (v) => _then(v as _$UnknownWord));
+
+  @override
+  _$UnknownWord get _value => super._value as _$UnknownWord;
+
+  @override
+  $Res call({
+    Object? e = freezed,
+  }) {
+    return _then(_$UnknownWord(
+      e == freezed
+          ? _value.e
+          : e // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnknownWord implements UnknownWord {
+  const _$UnknownWord(this.e);
+
+  @override
+  final String e;
+
+  @override
+  String toString() {
+    return 'KeyException.invalidMnemonic(e: $e)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnknownWord &&
+            const DeepCollectionEquality().equals(other.e, e));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(e));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$UnknownWordCopyWith<_$UnknownWord> get copyWith =>
+      __$$UnknownWordCopyWithImpl<_$UnknownWord>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String e) insufficientCoreVariables,
+    required TResult Function(String e) invalidPublicKey,
+    required TResult Function() invalidThresholdValue,
+    required TResult Function(String e) repetitiousArguments,
+    required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidXprv,
+    required TResult Function() invalidNetwork,
+    required TResult Function(String e) badWordCount,
+    required TResult Function(String e) invalidMnemonic,
+  }) {
+    return invalidMnemonic(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String e)? insufficientCoreVariables,
+    TResult Function(String e)? invalidPublicKey,
+    TResult Function()? invalidThresholdValue,
+    TResult Function(String e)? repetitiousArguments,
+    TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidXprv,
+    TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
+  }) {
+    return invalidMnemonic?.call(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String e)? insufficientCoreVariables,
+    TResult Function(String e)? invalidPublicKey,
+    TResult Function()? invalidThresholdValue,
+    TResult Function(String e)? repetitiousArguments,
+    TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidXprv,
+    TResult Function()? invalidNetwork,
+    TResult Function(String e)? badWordCount,
+    TResult Function(String e)? invalidMnemonic,
+    required TResult orElse(),
+  }) {
+    if (invalidMnemonic != null) {
+      return invalidMnemonic(e);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsufficientCoreVariables value)
+        insufficientCoreVariables,
+    required TResult Function(InvalidPublicKey value) invalidPublicKey,
+    required TResult Function(InvalidhresholdValue value) invalidThresholdValue,
+    required TResult Function(RepetitiousArguments value) repetitiousArguments,
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidXprv value) invalidXprv,
+    required TResult Function(InvalidNetwork value) invalidNetwork,
+    required TResult Function(BadWordCount value) badWordCount,
+    required TResult Function(UnknownWord value) invalidMnemonic,
+  }) {
+    return invalidMnemonic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsufficientCoreVariables value)?
+        insufficientCoreVariables,
+    TResult Function(InvalidPublicKey value)? invalidPublicKey,
+    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
+    TResult Function(RepetitiousArguments value)? repetitiousArguments,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidXprv value)? invalidXprv,
+    TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
+  }) {
+    return invalidMnemonic?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsufficientCoreVariables value)?
+        insufficientCoreVariables,
+    TResult Function(InvalidPublicKey value)? invalidPublicKey,
+    TResult Function(InvalidhresholdValue value)? invalidThresholdValue,
+    TResult Function(RepetitiousArguments value)? repetitiousArguments,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidXprv value)? invalidXprv,
+    TResult Function(InvalidNetwork value)? invalidNetwork,
+    TResult Function(BadWordCount value)? badWordCount,
+    TResult Function(UnknownWord value)? invalidMnemonic,
+    required TResult orElse(),
+  }) {
+    if (invalidMnemonic != null) {
+      return invalidMnemonic(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnknownWord implements KeyException {
+  const factory UnknownWord(final String e) = _$UnknownWord;
+
+  String get e;
+  @JsonKey(ignore: true)
+  _$$UnknownWordCopyWith<_$UnknownWord> get copyWith =>
+      throw _privateConstructorUsedError;
 }

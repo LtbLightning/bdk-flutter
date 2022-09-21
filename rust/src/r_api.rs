@@ -1,4 +1,4 @@
-use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet};
+use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet, Balance};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -135,7 +135,7 @@ pub fn get_wallet() -> ResponseWallet {
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
     wallet.sync(blockchain_obj.deref());
     ResponseWallet {
-        balance: get_balance().to_string(),
+        balance: get_balance(),
         address: get_new_address(),
     }
 }
@@ -180,7 +180,7 @@ pub fn sync_wallet() {
     wallet.sync(blockchain_obj.deref());
 }
 
-pub fn get_balance() -> u64 {
+pub fn get_balance() -> Balance {
     let res = WALLET.read().unwrap();
     let balance = res.get_balance().unwrap();
     balance
