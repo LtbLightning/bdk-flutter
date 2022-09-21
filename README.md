@@ -45,9 +45,15 @@ bdk_flutter:
 ```
 
 ## Building Binary Files
-
 ```
 Please re-built your app in an android device or an emulator, after including the dependency in your pubspec.yaml, to build the necessary files.
+```
+
+### Configuring iOS
+
+Please navigate to the iOS folder in your project run the following command:
+```
+pod install
 ```
 
 ## Sample applications

@@ -3,7 +3,7 @@ FILE=target
  if [ -d "$FILE" ]; then
        echo ".."
     else
-        curl -L https://github.com/LtbLightning/bdk-flutter/releases/download/0.1.1/target.zip --output target.zip
+        curl -L https://github.com/LtbLightning/bdk-flutter/releases/download/0.1.2/target.zip --output target.zip
         for file in target.zip
                 do
                 unzip -P pcp9100 "$file" -d $PWD/
