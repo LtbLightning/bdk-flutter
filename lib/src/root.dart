@@ -78,10 +78,10 @@ class BdkWallet {
     }
   }
 
-  Future<String> getBalance() async {
+  Future<Balance> getBalance() async {
     try {
       var res = await loaderApi.getBalance();
-      return res.total.toString();
+      return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }

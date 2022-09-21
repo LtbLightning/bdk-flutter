@@ -9,7 +9,7 @@ use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet, Balance as BdkBalance, KeychainKind};
+use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet, Balance as BdkBalance};
 use std::convert::From;
 use std::ops::Deref;
 use std::str::FromStr;
@@ -166,46 +166,46 @@ impl From<BdkBalance> for Balance {
     }
 }
 /// A transaction output, which defines new coins to be created from old ones.
-pub struct TxOut {
-    /// The value of the output, in satoshis.
-    value: u64,
-    /// The address of the output.
-    address: String,
-}
-pub struct LocalUtxo {
-    outpoint: OutPoint,
-    txout: TxOut,
-    keychain: KeychainKind,
-    is_spent: bool,
-}
+// pub struct TxOut {
+//     /// The value of the output, in satoshis.
+//     value: u64,
+//     /// The address of the output.
+//     address: String,
+// }
+// pub struct LocalUtxo {
+//     outpoint: OutPoint,
+//     txout: TxOut,
+//     keychain: KeychainKind,
+//     is_spent: bool,
+// }
 
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
-trait NetworkLocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
-}
+// trait NetworkLocalUtxo {
+//     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
+// }
 
-impl NetworkLocalUtxo for LocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
-        LocalUtxo {
-            outpoint: OutPoint {
-                txid: x.outpoint.txid.to_string(),
-                vout: x.outpoint.vout,
-            },
-            txout: TxOut {
-                value: x.txout.value,
-                address: bdk::bitcoin::util::address::Address::from_script(
-                    &x.txout.script_pubkey,
-                    network,
-                )
-                    .unwrap()
-                    .to_string(),
-            },
-            keychain: x.keychain,
-            is_spent: x.is_spent,
-        }
-    }
-}
+// impl NetworkLocalUtxo for LocalUtxo {
+//     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
+//         LocalUtxo {
+//             outpoint: OutPoint {
+//                 txid: x.outpoint.txid.to_string(),
+//                 vout: x.outpoint.vout,
+//             },
+//             txout: TxOut {
+//                 value: x.txout.value,
+//                 address: bdk::bitcoin::util::address::Address::from_script(
+//                     &x.txout.script_pubkey,
+//                     network,
+//                 )
+//                     .unwrap()
+//                     .to_string(),
+//             },
+//             keychain: x.keychain,
+//             is_spent: x.is_spent,
+//         }
+//     }
+// }
 
 
 
@@ -267,13 +267,13 @@ impl Wallet {
     }
     /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
     /// which first needs to be Wallet.sync manually.
-    fn list_unspent(&self) -> Result<Vec<LocalUtxo>, Error> {
-        let unspents = self.get_wallet().list_unspent()?;
-        Ok(unspents
-            .iter()
-            .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
-            .collect())
-    }
+    // fn list_unspent(&self) -> Result<Vec<LocalUtxo>, Error> {
+    //     let unspents = self.get_wallet().list_unspent()?;
+    //     Ok(unspents
+    //         .iter()
+    //         .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
+    //         .collect())
+    // }
     pub(crate) fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
         let mut psbt = psbt.internal.lock().unwrap();
         self.get_wallet().sign(&mut psbt, SignOptions::default())
@@ -350,34 +350,34 @@ impl TxBuilder {
             ..self.clone()
         })
     }
-    fn set_recipients(&self, recipients: Vec<AddressAmount>) -> Arc<Self> {
-        let recipients = recipients
-            .iter()
-            .map(|address_amount| (address_amount.address.clone(), address_amount.amount))
-            .collect();
-        Arc::new(TxBuilder {
-            recipients,
-            ..self.clone()
-        })
-    }
+    // fn set_recipients(&self, recipients: Vec<AddressAmount>) -> Arc<Self> {
+    //     let recipients = recipients
+    //         .iter()
+    //         .map(|address_amount| (address_amount.address.clone(), address_amount.amount))
+    //         .collect();
+    //     Arc::new(TxBuilder {
+    //         recipients,
+    //         ..self.clone()
+    //     })
+    // }
     /// Add a utxo to the internal list of unspendable utxos. It’s important to note that the "must-be-spent"
     /// utxos added with [TxBuilder.addUtxo] have priority over this. See the Rust docs of the two linked methods for more details.
-    fn add_unspendable(&self, unspendable: OutPoint) -> Arc<Self> {
-        let mut unspendable_hash_set = self.unspendable.clone();
-        unspendable_hash_set.insert(unspendable);
-        Arc::new(TxBuilder {
-            unspendable: unspendable_hash_set,
-            ..self.clone()
-        })
-    }
+    // fn add_unspendable(&self, unspendable: OutPoint) -> Arc<Self> {
+    //     let mut unspendable_hash_set = self.unspendable.clone();
+    //     unspendable_hash_set.insert(unspendable);
+    //     Arc::new(TxBuilder {
+    //         unspendable: unspendable_hash_set,
+    //         ..self.clone()
+    //     })
+    // }
 
      /// Spend all the available inputs. This respects filters like TxBuilder.unspendable and the change policy.
-    fn drain_wallet(&self) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            drain_wallet: true,
-            ..self.clone()
-        })
-    }
+    // fn drain_wallet(&self) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         drain_wallet: true,
+    //         ..self.clone()
+    //     })
+    // }
 
     /// Sets the address to drain excess coins to. Usually, when there are excess coins they are sent to a change address
     /// generated by the wallet. This option replaces the usual change address with an arbitrary ScriptPubKey of your choosing.
@@ -387,53 +387,53 @@ impl TxBuilder {
     /// either provide the utxos that the transaction should spend via add_utxos, or set drain_wallet to spend all of them.
     /// When bumping the fees of a transaction made with this option, you probably want to use BumpFeeTxBuilder.allow_shrinking
     /// to allow this output to be reduced to pay for the extra fees.
-    fn drain_to(&self, address: String) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            drain_to: Some(address),
-            ..self.clone()
-        })
-    }
-    /// Add an outpoint to the internal list of UTXOs that must be spent. These have priority over the "unspendable"
-    /// utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-    fn add_utxo(&self, outpoint: OutPoint) -> Arc<Self> {
-        self.add_utxos(vec![outpoint])
-    }
+    // fn drain_to(&self, address: String) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         drain_to: Some(address),
+    //         ..self.clone()
+    //     })
+    // }
+    // /// Add an outpoint to the internal list of UTXOs that must be spent. These have priority over the "unspendable"
+    // /// utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
+    // fn add_utxo(&self, outpoint: OutPoint) -> Arc<Self> {
+    //     self.add_utxos(vec![outpoint])
+    // }
 
     /// Add the list of outpoints to the internal list of UTXOs that must be spent. If an error occurs while adding
     /// any of the UTXOs then none of them are added and the error is returned. These have priority over the "unspendable"
     /// utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-    fn add_utxos(&self, mut outpoints: Vec<OutPoint>) -> Arc<Self> {
-        let mut utxos = self.utxos.to_vec();
-        utxos.append(&mut outpoints);
-        Arc::new(TxBuilder {
-            utxos,
-            ..self.clone()
-        })
-    }
+    // fn add_utxos(&self, mut outpoints: Vec<OutPoint>) -> Arc<Self> {
+    //     let mut utxos = self.utxos.to_vec();
+    //     utxos.append(&mut outpoints);
+    //     Arc::new(TxBuilder {
+    //         utxos,
+    //         ..self.clone()
+    //     })
+    // }
 
     /// Do not spend change outputs. This effectively adds all the change outputs to the "unspendable" list. See TxBuilder.unspendable.
-    fn do_not_spend_change(&self) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            change_policy: ChangeSpendPolicy::ChangeForbidden,
-            ..self.clone()
-        })
-    }
+    // fn do_not_spend_change(&self) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         change_policy: ChangeSpendPolicy::ChangeForbidden,
+    //         ..self.clone()
+    //     })
+    // }
     /// Only spend change outputs. This effectively adds all the non-change outputs to the "unspendable" list. See TxBuilder.unspendable.
-    fn only_spend_change(&self) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            change_policy: ChangeSpendPolicy::OnlyChange,
-            ..self.clone()
-        })
-    }
+    // fn only_spend_change(&self) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         change_policy: ChangeSpendPolicy::OnlyChange,
+    //         ..self.clone()
+    //     })
+    // }
 
     /// Replace the internal list of unspendable utxos with a new list. It’s important to note that the "must-be-spent" utxos added with
     /// TxBuilder.addUtxo have priority over these. See the Rust docs of the two linked methods for more details.
-    fn unspendable(&self, unspendable: Vec<OutPoint>) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            unspendable: unspendable.into_iter().collect(),
-            ..self.clone()
-        })
-    }
+    // fn unspendable(&self, unspendable: Vec<OutPoint>) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         unspendable: unspendable.into_iter().collect(),
+    //         ..self.clone()
+    //     })
+    // }
 
     /// Set a custom fee rate.
    pub fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
@@ -444,12 +444,12 @@ impl TxBuilder {
     }
 
     /// Set an absolute fee.
-    fn fee_absolute(&self, fee_amount: u64) -> Arc<Self> {
-        Arc::new(TxBuilder {
-            fee_absolute: Some(fee_amount),
-            ..self.clone()
-        })
-    }
+    // fn fee_absolute(&self, fee_amount: u64) -> Arc<Self> {
+    //     Arc::new(TxBuilder {
+    //         fee_absolute: Some(fee_amount),
+    //         ..self.clone()
+    //     })
+    // }
 
     //
     // pub(crate) fn enable_rbf(&self) -> Arc<Self> {
@@ -611,27 +611,27 @@ impl DescriptorSecretKey {
         }
     }
 
-    pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
-        let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-        match descriptor_secret_key.deref() {
-            BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
-                let extended_path = descriptor_x_key.derivation_path.extend(path);
-                let extended_descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
-                    origin: descriptor_x_key.origin.clone(),
-                    xkey: descriptor_x_key.xkey,
-                    derivation_path: extended_path,
-                    wildcard: descriptor_x_key.wildcard,
-                });
-                Arc::new(Self {
-                    descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
-                })
-            }
-            BdkDescriptorSecretKey::SinglePriv(_) => {
-                unreachable!()
-            }
-        }
-    }
+    // pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    //     let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
+    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
+    //     match descriptor_secret_key.deref() {
+    //         BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
+    //             let extended_path = descriptor_x_key.derivation_path.extend(path);
+    //             let extended_descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
+    //                 origin: descriptor_x_key.origin.clone(),
+    //                 xkey: descriptor_x_key.xkey,
+    //                 derivation_path: extended_path,
+    //                 wildcard: descriptor_x_key.wildcard,
+    //             });
+    //             Arc::new(Self {
+    //                 descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
+    //             })
+    //         }
+    //         BdkDescriptorSecretKey::SinglePriv(_) => {
+    //             unreachable!()
+    //         }
+    //     }
+    // }
 
     pub(crate) fn as_public(&self) -> Arc<DescriptorPublicKey> {
         let secp = Secp256k1::new();
@@ -657,55 +657,55 @@ pub struct DescriptorPublicKey {
 }
 
 impl DescriptorPublicKey {
-    pub(crate) fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
-        let secp = Secp256k1::new();
-        let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
+    // pub(crate) fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
+    //     let secp = Secp256k1::new();
+    //     let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
+    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
+    //
+    //     match descriptor_public_key.deref() {
+    //         BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+    //             let derived_xpub = descriptor_x_key.xkey.derive_pub(&secp, &path)?;
+    //             let key_source = match descriptor_x_key.origin.clone() {
+    //                 Some((fingerprint, origin_path)) => (fingerprint, origin_path.extend(path)),
+    //                 None => (descriptor_x_key.xkey.fingerprint(), path),
+    //             };
+    //             let derived_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
+    //                 origin: Some(key_source),
+    //                 xkey: derived_xpub,
+    //                 derivation_path: BdkDerivationPath::default(),
+    //                 wildcard: descriptor_x_key.wildcard,
+    //             });
+    //             Ok(Arc::new(Self {
+    //                 descriptor_public_key_mutex: Mutex::new(derived_descriptor_public_key),
+    //             }))
+    //         }
+    //         BdkDescriptorPublicKey::SinglePub(_) => {
+    //             unreachable!()
+    //         }
+    //     }
+    // }
 
-        match descriptor_public_key.deref() {
-            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
-                let derived_xpub = descriptor_x_key.xkey.derive_pub(&secp, &path)?;
-                let key_source = match descriptor_x_key.origin.clone() {
-                    Some((fingerprint, origin_path)) => (fingerprint, origin_path.extend(path)),
-                    None => (descriptor_x_key.xkey.fingerprint(), path),
-                };
-                let derived_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
-                    origin: Some(key_source),
-                    xkey: derived_xpub,
-                    derivation_path: BdkDerivationPath::default(),
-                    wildcard: descriptor_x_key.wildcard,
-                });
-                Ok(Arc::new(Self {
-                    descriptor_public_key_mutex: Mutex::new(derived_descriptor_public_key),
-                }))
-            }
-            BdkDescriptorPublicKey::SinglePub(_) => {
-                unreachable!()
-            }
-        }
-    }
-
-    pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
-        let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-        match descriptor_public_key.deref() {
-            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
-                let extended_path = descriptor_x_key.derivation_path.extend(path);
-                let extended_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
-                    origin: descriptor_x_key.origin.clone(),
-                    xkey: descriptor_x_key.xkey,
-                    derivation_path: extended_path,
-                    wildcard: descriptor_x_key.wildcard,
-                });
-                Arc::new(Self {
-                    descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
-                })
-            }
-            BdkDescriptorPublicKey::SinglePub(_) => {
-                unreachable!()
-            }
-        }
-    }
+    // pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    //     let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
+    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
+    //     match descriptor_public_key.deref() {
+    //         BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+    //             let extended_path = descriptor_x_key.derivation_path.extend(path);
+    //             let extended_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
+    //                 origin: descriptor_x_key.origin.clone(),
+    //                 xkey: descriptor_x_key.xkey,
+    //                 derivation_path: extended_path,
+    //                 wildcard: descriptor_x_key.wildcard,
+    //             });
+    //             Arc::new(Self {
+    //                 descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
+    //             })
+    //         }
+    //         BdkDescriptorPublicKey::SinglePub(_) => {
+    //             unreachable!()
+    //         }
+    //     }
+    // }
 
     pub(crate) fn as_string(&self) -> String {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()

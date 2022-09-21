@@ -1,5 +1,5 @@
-use std::borrow::Borrow;
-use crate::ffi::{ AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet, Balance, DescriptorSecretKey, DerivationPath, DescriptorPublicKey};
+
+use crate::ffi::{ AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy,  ResponseWallet, Balance, DescriptorSecretKey, DerivationPath};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;

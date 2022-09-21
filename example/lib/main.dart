@@ -30,16 +30,18 @@ class _MyAppState extends State<MyApp> {
         mnemonic:
         "school alcohol coral light army gather adapt blossom school alcohol coral lens",
         password: "password");
-    var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.MULTI, threshold:2,
-        publicKeys: ["tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*"]
-    );
+    var descriptor = await createDescriptor(
+      network: Network.TESTNET,
+        mnemonic:
+    "school alcohol coral light army gather adapt blossom school alcohol coral lens",
+        password: "password");
     var changeDescriptor = createChangeDescriptor(descriptor:descriptor );
     var mnemonicWithCount = await generateMnemonic(wordCount: WordCount.Words15);
     var mnemonicWithEntropy = await generateMnemonic(entropy: Entropy.Entropy192);
     var mnemonicDefault = await generateMnemonic();
-    print("mnemonicWithCount: $mnemonicWithCount ");
-    print("mnemonicWithEntropy: $mnemonicWithEntropy ");
-    print("mnemonicDefault: $mnemonicDefault");
+    // print("mnemonicWithCount: $mnemonicWithCount ");
+    // print("mnemonicWithEntropy: $mnemonicWithEntropy ");
+    // print("mnemonicDefault: $mnemonicDefault");
     print("descriptor $descriptor");
     print("changeDescriptor $changeDescriptor");
   }
@@ -85,7 +87,7 @@ class _MyAppState extends State<MyApp> {
 
   getBalance() async {
     final res = await bdkWallet.getBalance();
-    print(res.toString());
+    print(res.total.toString());
   }
   getXpubFromAddress() async {
 

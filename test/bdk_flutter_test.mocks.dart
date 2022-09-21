@@ -25,6 +25,11 @@ class _FakeResponseWallet_0 extends _i1.SmartFake
       : super(parent, parentInvocation);
 }
 
+class _FakeBalance_1 extends _i1.SmartFake implements _i2.Balance {
+  _FakeBalance_1(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
+}
+
 /// A class which mocks [BdkWallet].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -84,9 +89,11 @@ class MockBdkWallet extends _i1.Mock implements _i2.BdkWallet {
       (super.noSuchMethod(Invocation.method(#getNewAddress, []),
           returnValue: _i3.Future<String>.value('')) as _i3.Future<String>);
   @override
-  _i3.Future<String> getBalance() =>
+  _i3.Future<_i2.Balance> getBalance() =>
       (super.noSuchMethod(Invocation.method(#getBalance, []),
-          returnValue: _i3.Future<String>.value('')) as _i3.Future<String>);
+              returnValue: _i3.Future<_i2.Balance>.value(
+                  _FakeBalance_1(this, Invocation.method(#getBalance, []))))
+          as _i3.Future<_i2.Balance>);
   @override
   _i3.Future<String> getLastUnusedAddress() =>
       (super.noSuchMethod(Invocation.method(#getLastUnusedAddress, []),
