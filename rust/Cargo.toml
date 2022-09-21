@@ -9,8 +9,7 @@ crate-type = ["staticlib", "cdylib"]
 [build-dependencies]
 flutter_rust_bridge_codegen = { version =  "1.38.0" }
 [dependencies]
-bdk = { version = "0.19", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled"] }
-
+bdk = { version = "0.22.0", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled"] }
 rand = "0.8"
 num-bigint = { version = "0.4", features = ["rand"] }
 lazy_static = "1.4.0"

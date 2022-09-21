@@ -4,10 +4,10 @@ use lib_flutter_rust_bridge_codegen::{
 use std::env;
 
 /// Path of input Rust code
-const RUST_INPUT: &str = "src/api.rs";
+const RUST_INPUT: &str = "src/r_api.rs";
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/src/generated/bindings.dart";
-
+const C_OUTPUT: &str = "../ios/Classes/bindings.h";
 fn main() {
     // Tell Cargo that if the input Rust code changes, to rerun this build script.
     println!("cargo:rerun-if-changed={}", RUST_INPUT);
@@ -20,7 +20,7 @@ fn main() {
         dart_output: vec![DART_OUTPUT.to_string()],
         // for other options use defaults
         dart_decl_output: None,
-        c_output: None,
+        c_output: Some(vec![C_OUTPUT.to_string()]),
         rust_crate_dir: None,
         rust_output: None,
         class_name: None,

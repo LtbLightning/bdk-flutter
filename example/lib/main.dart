@@ -8,7 +8,6 @@ void main() {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -21,40 +20,103 @@ class _MyAppState extends State<MyApp> {
     restoreWallet(
         "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
-    generateKeys();
+    // restoreWalletFromDescriptors();
+    // generateDescriptors();
     super.initState();
   }
-
-  generateKeys() async {
-    var key = await createExtendedKey(network: Network.TESTNET,
-        mnemonic:
-        "school alcohol coral light army gather adapt blossom school alcohol coral lens",
-        password: "password");
-    var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.MULTI, threshold:2,
-        publicKeys: ["tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*"]
-    );
-    var changeDescriptor = createChangeDescriptor(descriptor:descriptor );
+  generateMnemonicKeys() async{
     var mnemonicWithCount = await generateMnemonic(wordCount: WordCount.Words15);
     var mnemonicWithEntropy = await generateMnemonic(entropy: Entropy.Entropy192);
     var mnemonicDefault = await generateMnemonic();
     print("mnemonicWithCount: $mnemonicWithCount ");
     print("mnemonicWithEntropy: $mnemonicWithEntropy ");
     print("mnemonicDefault: $mnemonicDefault");
-    print("descriptor $descriptor");
-    print("changeDescriptor $changeDescriptor");
   }
 
+  generateDescriptors() async {
+    var aliceDescriptor = await createDescriptorsFromMnemonic(
+        mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
+        network: Network.TESTNET,
+        type: Descriptor.MULTI,
+        publicKeys: [
+          "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*",
+          "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*"
+        ],
+        threshold: 1,
+        descriptorPath: 'm/0',
+        changeDescriptorPath:'m/1'
+    );
+
+    var bobDescriptor = await createDescriptorsFromMnemonic(
+        mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love",
+        network: Network.TESTNET,
+        type: Descriptor.MULTI,
+        publicKeys: [
+          "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*",
+          "tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*"
+        ],
+        threshold: 1,
+        descriptorPath: 'm/0',
+        changeDescriptorPath:'m/1'
+    );
+
+    var daveDescriptor = await createDescriptorsFromMnemonic(
+        mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog",
+        network: Network.TESTNET,
+        type: Descriptor.MULTI,
+        publicKeys: [
+          "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*",
+          "tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*"
+        ],
+        threshold: 1,
+        descriptorPath: 'm/0',
+        changeDescriptorPath:'m/1'
+    );
+
+    print("Alice Descriptor: ${aliceDescriptor.descriptor}");
+    print("Alice ChangeDescriptor: ${aliceDescriptor.changeDescriptor}");
+    print("Bob Descriptor: ${bobDescriptor.descriptor}");
+    print("Bob ChangeDescriptor: ${bobDescriptor.changeDescriptor}");
+    print("Dave Descriptor: ${daveDescriptor.descriptor}");
+    print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
+  }
+
+  restoreWalletFromDescriptors() async {
+    var aliceWallet = await bdkWallet.createWallet(
+        descriptor: "wsh(multi(1,[d91e6add/0]tprv8dAegvLT1CZ6rzZPQLjnWJQvB8W6yXecQQ9gLbJKyuYRFGoAR1niu1DjdpERVZGPcuu1ZxkAjDnwxJWCQ24AoqzAoyUrFeuzAiYc5RwbkkE/*,"
+            "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,"
+            "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*))",
+
+        changeDescriptor: "wsh(multi(1,[d91e6add/1]tprv8dAegvLT1CZ6tzXM9HEND19DKkQKHQihXLrubw2a2AYz8cJb49BqN36peiQBhmY2LHw36oHm8tjCmU49tVA7MSGe6n8Ku68TfUshoKZwRNe/*,"
+            "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,"
+            "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*))",
+        network: Network.TESTNET,
+        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+        blockchain: Blockchain.ELECTRUM);
+
+    // var bobWallet = await bdkWallet.createWallet(
+    //     descriptor: "wsh(multi(1,[04f28e3e/0]tprv8bcCYCRz5Z3jpfScYvdKgecYJ5WPL6ji9sdjMqhTJA7ze66vAQDQWSTeuM5irB7ydbX1cB7v75NDrH1JiARQJMnzx1b55hvycsq23jWprje/*,tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
+    //     changeDescriptor: "wsh(multi(1,[04f28e3e/1]tprv8bcCYCRz5Z3jt5PkL3F4j3rFdWrmbT3MehW6Du6zP3ZjpZRx36RUtzAhc1QDBQEGtVgvmEVhYDMukEeCGHMG8zZ5CaN7ARwTwk3mFC8e5pM/*,tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
+    //     network: Network.TESTNET,
+    //     blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+    //     blockchain: Blockchain.ELECTRUM);
+
+    // var daveWallet = await bdkWallet.createWallet(
+    //     descriptor: "wsh(multi(1,[f20279dc/0]tprv8dMG977nxe1x19vutKKBaARhk1sc2SqLdBgHdwpmczdtBUhK6hqDipjHqgqUkgZ3PtGjvKiwNDjriBmQKj9JgPEmsYmFaJpHqqRg6i2TNav/*,tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
+    //     changeDescriptor: "wsh(multi(1,[f20279dc/1]tprv8dMG977nxe1x4xSD7kxthnbUVammyMGCW3Xu22kZsgPeVcABDaUEPDwqwqJ1n6p9RkLPUY6xs1kXb4x7RYxhUF1asdCqiLqW56Q9maWiTxh/*,tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
+    //     network: Network.TESTNET,
+    //     blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
+    //     blockchain: Blockchain.ELECTRUM);
+  }
   restoreWallet(String mnemonic, Network network) async {
-    var key = await createExtendedKey(network: network, mnemonic: mnemonic);
-    var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.P2WPKH);
-    var changeDescriptor =  createChangeDescriptor(descriptor:descriptor);
-    bdkWallet.createWallet(
-        descriptor: descriptor,
-        changeDescriptor: changeDescriptor,
+    var  keys = await createDescriptorsFromMnemonic(mnemonic: mnemonic, network: network, type: Descriptor.P2WPKH, descriptorPath: 'm/0',changeDescriptorPath:'m/1' );
+    var resWallet = await bdkWallet.createWallet(
+        descriptor: keys.descriptor,
+        changeDescriptor:  keys.changeDescriptor,
         network: network,
         blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
         blockchain: Blockchain.ELECTRUM);
-    getNewAddress();
+    print(resWallet.balance.total);
   }
 
   sync() async {
@@ -87,14 +149,17 @@ class _MyAppState extends State<MyApp> {
     final res = await bdkWallet.getBalance();
     print(res.toString());
   }
-  getXpubFromAddress() async {
 
-    final res = await getXpub(
-      network: Network.TESTNET,
-      mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
-    );
-    print(res.toString());
+  getXpubFromMnemonic() async {
+    // var aliceKey = await  createExtendedKey(network: Network.TESTNET, mnemonic:  "puppy interest whip tonight dad never sudden response push zone pig patch");
+    // var bobKey = await  createExtendedKey(network: Network.TESTNET, mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love");
+    // var daveKey = await createExtendedKey(network: Network.TESTNET, mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog");
+    //
+    // print("Bob: ${bobKey.xprv}");
+    // print("Dave: ${daveKey.xprv}");
+    // print("Alice: ${aliceKey.xprv}");
   }
+
   sendBit() async {
     final txid =  await BdkWallet().quickSend(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
     print(txid);
@@ -103,9 +168,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          elevation: 0,
+          title: const Text('Bdk Flutter',
+            style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 20,
+                fontWeight: FontWeight.w900),),
         ),
         body: Center(
           child: Column(
@@ -117,6 +188,7 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () => sendBit(),
                   child: const Text('Press to  send 1200 satoshi')),
+
               TextButton(
                   onPressed: () => sync(), child: const Text('Press to  sync')),
               TextButton(
@@ -129,7 +201,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
               TextButton(
-                  onPressed: () => getXpubFromAddress(),
+                  onPressed: () => getXpubFromMnemonic(),
                   child: const Text('get Public Key')),
             ],
           ),
@@ -138,3 +210,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
