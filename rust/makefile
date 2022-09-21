@@ -59,7 +59,7 @@ target/universal/release/libexample.a:
 	@echo "[DONE] $@"
 
 ## macos: Compile the macOS libraries
-macos: target/x86_64-apple-darwin/release/libexample.dylib target/aarch64-apple-darwin/release/libexample.dylib
+macos: target/x86_64-apple-darwin/release/libexample.dylib target/aarch64-apple-darwin/release/libexample.dylib target/universal/release/libexample.dylib
 
 target/x86_64-apple-darwin/release/libexample.dylib: $(SOURCES)
 	@if [ $$(uname) == "Darwin" ] ; then \
@@ -74,6 +74,8 @@ target/aarch64-apple-darwin/release/libexample.dylib: $(SOURCES)
 		else echo "Skipping macOS compilation on $$(uname)" ; \
 	fi
 	@echo "[DONE] $@"
+#
+
 
 ## android: Compile the android targets (arm64, armv7 and i686)
 android: target/aarch64-linux-android/release/libexample.so target/armv7-linux-androideabi/release/libexample.so target/i686-linux-android/release/libexample.so target/x86_64-linux-android/release/libexample.so

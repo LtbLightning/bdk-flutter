@@ -1,11 +1,14 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:flutter/material.dart';
+import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
+import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
+import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
+import 'package:bdk_flutter/src/utils/validators.dart';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'utils/loader.dart';
 
 class BdkWallet {
-  Future<void> createWallet(
+  Future<ResponseWallet> createWallet(
       {String? mnemonic,
         String? password,
         String? descriptor,
@@ -18,10 +21,14 @@ class BdkWallet {
         String? timeOut}) async {
     try {
       if ((mnemonic == null || mnemonic.isEmpty ) && (descriptor == null || descriptor.isEmpty)) {
-        throw WalletException(message: "Missing both mnemonic and descriptor.");
-      } else if((mnemonic != null )&& (descriptor != null || descriptor!.isNotEmpty))
+        throw const WalletException.insufficientCoreArguments("Requires a mnemonic or a descriptor");
+      }
+      if((mnemonic != null )&& (descriptor != null ))
       {
-        throw WalletException(message: "Provided both mnemonic and descriptor.");
+        throw const WalletException.repetitiousArguments("Provided both mnemonic and descriptor.");
+      }
+      if (blockChainConfigUrl.isEmpty||blockChainConfigUrl == null ) {
+        throw const WalletException.invalidBlockchainUrl();
       }
       if (descriptor != null && changeDescriptor!=null) {
         await loaderApi.walletInit(
@@ -32,6 +39,7 @@ class BdkWallet {
             socks5OrProxy: socks5OrProxy.toString(),
             url: blockChainConfigUrl);
       } else {
+
         var key = await createExtendedKey(
             network: network,
             mnemonic: mnemonic.toString(),
@@ -39,7 +47,6 @@ class BdkWallet {
         var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.P2WPKH);
         var changeDescriptor = createChangeDescriptor(descriptor:descriptor);
         await loaderApi.walletInit(
-
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor.toString(),
             network: network.name.toString(),
@@ -47,8 +54,10 @@ class BdkWallet {
             url: blockChainConfigUrl,
             socks5OrProxy: socks5OrProxy.toString());
       }
+      final res = await loaderApi.getWallet();
+      return res;
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected( e.message);
     }
   }
 
@@ -56,7 +65,7 @@ class BdkWallet {
     try {
       return await loaderApi.getWallet();
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -65,7 +74,7 @@ class BdkWallet {
       var res = await loaderApi.getNewAddress();
       return res.toString();
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected( e.message);
     }
   }
 
@@ -74,7 +83,7 @@ class BdkWallet {
       var res = await loaderApi.getBalance();
       return res.toString();
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -83,7 +92,7 @@ class BdkWallet {
       var res = await loaderApi.getLastUnusedAddress();
       return res.toString();
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -92,7 +101,7 @@ class BdkWallet {
       print("Syncing Wallet");
       await loaderApi.syncWallet();
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -101,7 +110,7 @@ class BdkWallet {
       final res = await loaderApi.getTransactions();
       return res;
     } on FfiException catch (e) {
-      throw WalletException(message: e.message);
+      throw WalletException.unexpected(e.message);
     }
 
   }
@@ -145,12 +154,12 @@ class BdkWallet {
         required int amount,
         required double feeRate}) async {
     try {
-      if(amount==0) throw BroadcastException(message: "Amount should be greater 0");
+      if(amount<100) throw const BroadcastException.insufficientAmount( "The minimum amount should be greater 100");
       final res = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
       return res;
     } on FfiException catch (e) {
-      throw BroadcastException(message: e.message);
+      throw BroadcastException.unexpected(e.message);
     }
   }
 
@@ -158,7 +167,7 @@ class BdkWallet {
     try {
       await loaderApi.sign(psbtStr: psbt);
     } on FfiException catch (e) {
-      throw BroadcastException(message: e.message);
+      throw BroadcastException.unexpected( e.message);
     }
   }
 
@@ -167,7 +176,7 @@ class BdkWallet {
       final txid = await loaderApi.broadcast(psbtStr: psbt);
       return txid;
     } on FfiException catch (e) {
-      throw BroadcastException(message: e.message);
+      throw BroadcastException.unexpected(e.message);
     }
   }
 
@@ -175,19 +184,19 @@ class BdkWallet {
     required int amount,
     required double feeRate}) async {
     try {
-      if(amount==0) throw BroadcastException(message: "Amount should be greater 0");
+      if(amount<100) throw const BroadcastException.insufficientAmount( "The minimum amount should be greater 100");
       final psbt = await createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
       await signTransaction(psbt: psbt);
       final txid = await broadcastTransaction(psbt: psbt);
       return txid;
     } on FfiException catch (e) {
-      throw BroadcastException(message: e.message);
+      throw BroadcastException.unexpected( e.message);
     }
   }
 }
 
 Future<String> generateMnemonic(
-      {WordCount ? wordCount ,
+    {WordCount ? wordCount ,
       Entropy? entropy }) async {
   try {
     if((wordCount != null  ) && (entropy != null ))
@@ -206,7 +215,7 @@ Future<String> generateMnemonic(
       return res;
     }
   } on FfiException catch (e) {
-    throw KeyException(message: e.message);
+    throw KeyException.unexpected(e.message);
   }
 }
 
@@ -230,8 +239,8 @@ Future<String> getXpub({
         mnemonic: mnemonic,
         password: password.toString());
     return res.toString();
-  } on KeyException  {
-    rethrow;
+  } on FfiException catch (e) {
+    throw KeyException.unexpected(e.message);
   }
 }
 
@@ -240,15 +249,17 @@ Future<ExtendedKeyInfo> createExtendedKey(
       required String mnemonic,
       String? password = ''}) async {
   try {
+    if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.invalidMnemonic("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     var res = await loaderApi.createKey(
         nodeNetwork: network.name.toString(),
         mnemonic: mnemonic,
         password: password.toString());
     return res;
   } on FfiException catch (e) {
-    throw KeyException(message:  e.message);
+    throw KeyException.unexpected(e.message);
   }
 }
+
 
 String createChangeDescriptor({required String descriptor}) {
   return descriptor.replaceAll("/84'/1'/0'/0/*", "/84'/1'/0'/1/*");
@@ -256,14 +267,14 @@ String createChangeDescriptor({required String descriptor}) {
 
 Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
   if ((mnemonic == null ) && (xprv == null )) {
-    throw KeyException(message:"Missing both mnemonic and xprv.");
+    throw const KeyException.insufficientCoreVariables("Require a mnemonic or xprv.");
   }
   if((mnemonic != null  ) && (xprv != null ))
   {
-    throw KeyException(message:"Provided both mnemonic and xprv.");
+    throw const KeyException.repetitiousArguments("Provided both mnemonic and xprv.");
   }
   if(mnemonic != null ) {
-    if(network ==null) throw KeyException(message:"Network is required, when using mnemonic.");
+    if(network ==null) throw const KeyException.invalidNetwork();
   }
 
   var xprvStr = xprv ?? (await createXprv(network: network!, mnemonic: mnemonic.toString()));
@@ -285,9 +296,9 @@ Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemoni
 
 String _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String xprv}){
   if( publicKeys == null ) {
-    throw KeyException(message: "Public keys must not be empty.");
+    throw const KeyException.invalidPublicKey("Public key must not be null");
   }
-  if (threshold == 0 || threshold > publicKeys.length + 1) throw KeyException(message: "Threshold value is invalid.'");
+  if (threshold == 0 || threshold > publicKeys.length + 1) throw const KeyException.invalidThresholdValue();
   return "wsh(thresh($threshold,$xprv/84'/1'/0'/0/*,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
 }
 

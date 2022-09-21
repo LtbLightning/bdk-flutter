@@ -307,12 +307,12 @@ mod tests {
 
     #[test]
      fn generate_mnemonic_word_count_test(){
-        let mnemonic= generate_seed_from_word_count("Words18".to_string());
-        assert_eq!(mnemonic.split(" ").count(), 18)
+        let mnemonic= generate_seed_from_word_count("Words24".to_string());
+        assert_eq!(mnemonic.split(" ").count(), 24)
     }
     #[test]
     fn generate_mnemonic_with_entropy_test(){
         let mnemonic= generate_seed_from_entropy("Entropy256".to_string());
-        assert_eq!(mnemonic.to_string(), " mnemonic string fail" )
+        assert_eq!(mnemonic.split(" ").count(), 24)
     }
 }
