@@ -81,7 +81,7 @@ class BdkWallet {
   Future<String> getBalance() async {
     try {
       var res = await loaderApi.getBalance();
-      return res.toString();
+      return res.total.toString();
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -222,38 +222,39 @@ Future<String> generateMnemonic(
 Future<String> createXprv(
     {required Network network,
       required String mnemonic,
+      String? path,
       String? password = ''}) async {
   try {
-    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString());
+    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString(),path: path);
     return res.xprv.toString();
   } on KeyException  {
     rethrow;
   }
 }
-Future<String> getXpub({
-  required Network network,
-  required String mnemonic,
-  String? password = ''}) async {
+Future<String> createXpub(
+    {required Network network,
+      required String mnemonic,
+      String? path,
+      String? password = ''}) async {
   try {
-    var res = await loaderApi.getXpub( nodeNetwork: network.name.toString(),
-        mnemonic: mnemonic,
-        password: password.toString());
-    return res.toString();
-  } on FfiException catch (e) {
-    throw KeyException.unexpected(e.message);
+    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString(),path: path);
+    return res.xpub;
+  } on KeyException  {
+    rethrow;
   }
 }
-
 Future<ExtendedKeyInfo> createExtendedKey(
     {required Network network,
       required String mnemonic,
+      String?path,
       String? password = ''}) async {
   try {
     if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.badWordCount("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     var res = await loaderApi.createKey(
         nodeNetwork: network.name.toString(),
         mnemonic: mnemonic,
-        password: password.toString());
+        password: password,
+        path: path?? "m/0");
     return res;
   } on FfiException catch (e) {
     if(e.message.contains("UnknownWord")){
@@ -269,7 +270,7 @@ String createChangeDescriptor({required String descriptor}) {
   return descriptor.replaceAll("/84'/1'/0'/0/*", "/84'/1'/0'/1/*");
 }
 
-Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
+Future<String> createDescriptor({String? xprv, String? path, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
   if ((mnemonic == null ) && (xprv == null )) {
     throw const KeyException.insufficientCoreVariables("Require a mnemonic or xprv.");
   }
@@ -281,20 +282,20 @@ Future<String> createDescriptor({String? xprv, Descriptor? type, String? mnemoni
     if(network ==null) throw const KeyException.invalidNetwork();
   }
 
-  var xprvStr = xprv ?? (await createXprv(network: network!, mnemonic: mnemonic.toString()));
+  var xprvStr = xprv ?? (await createXprv(network: network!, password:password, mnemonic: mnemonic.toString()));
   switch (type) {
     case Descriptor.P2PKH:
-      return "pkh($xprvStr/84'/1'/0'/0/*)";
+      return "pkh($xprvStr)";
     case Descriptor.P2WPKH:
-      return "wpkh($xprvStr/84'/1'/0'/0/*)";
+      return "wpkh($xprvStr)";
     case Descriptor.P2SHP2WPKH:
-      return "sh(wpkh($xprvStr/84'/1'/0'/0/*))";
+      return "sh(wpkh($xprvStr))";
     case Descriptor.P2SHP2WSHP2PKH:
-      return "sh(wsh(pkh($xprvStr/84'/1'/0'/0/*)))";
+      return "sh(wsh(pkh($xprvStr)))";
     case Descriptor.MULTI:
       return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(),xprv: xprv.toString());;
     default:
-      return "wpkh($xprvStr/84'/1'/0'/0/*)";
+      return "wpkh($xprvStr)";
   }
 }
 
@@ -303,7 +304,7 @@ String _createMultiSigDescriptor({required List<String>? publicKeys, int thresho
     throw const KeyException.invalidPublicKey("Public key must not be null");
   }
   if (threshold == 0 || threshold > publicKeys.length + 1) throw const KeyException.invalidThresholdValue();
-  return "wsh(thresh($threshold,$xprv/84'/1'/0'/0/*,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
+  return "wsh(thresh($threshold,$xprv,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
 }
 
 

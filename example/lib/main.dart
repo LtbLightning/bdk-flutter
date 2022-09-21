@@ -89,7 +89,8 @@ class _MyAppState extends State<MyApp> {
   }
   getXpubFromAddress() async {
 
-    final res = await getXpub(
+    final res = await createXpub(
+      path: "m/0",
       network: Network.TESTNET,
       mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
     );

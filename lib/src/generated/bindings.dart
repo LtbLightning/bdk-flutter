@@ -30,36 +30,6 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta;
 
-  Future<String> generateSeedFromEntropy(
-      {required String entropy, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
-
-  Future<String> generateSeedFromWordCount(
-      {required String wordCount, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
-
-  Future<String> getXpub(
-      {required String nodeNetwork,
-      required String mnemonic,
-      String? password,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta;
-
-  Future<String> getXpubFromAddress({required String address, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubFromAddressConstMeta;
-
-  Future<ExtendedKeyInfo> createKey(
-      {required String nodeNetwork,
-      required String mnemonic,
-      String? password,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
-
   Future<void> syncWallet({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta;
@@ -99,6 +69,25 @@ abstract class Rust {
   Future<String> broadcast({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
+
+  Future<String> generateSeedFromEntropy(
+      {required String entropy, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
+
+  Future<String> generateSeedFromWordCount(
+      {required String wordCount, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
+
+  Future<ExtendedKeyInfo> createKey(
+      {required String nodeNetwork,
+      required String mnemonic,
+      required String path,
+      String? password,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
 }
 
 class Balance {
@@ -142,12 +131,12 @@ class BlockConfirmationTime {
 class ExtendedKeyInfo {
   final String mnemonic;
   final String xprv;
-  final String fingerprint;
+  final String xpub;
 
   ExtendedKeyInfo({
     required this.mnemonic,
     required this.xprv,
-    required this.fingerprint,
+    required this.xpub,
   });
 }
 
@@ -249,102 +238,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_wallet",
         argNames: [],
-      );
-
-  Future<String> generateSeedFromEntropy(
-          {required String entropy, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_generate_seed_from_entropy(
-            port_, _api2wire_String(entropy)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGenerateSeedFromEntropyConstMeta,
-        argValues: [entropy],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "generate_seed_from_entropy",
-        argNames: ["entropy"],
-      );
-
-  Future<String> generateSeedFromWordCount(
-          {required String wordCount, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_generate_seed_from_word_count(
-            port_, _api2wire_String(wordCount)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGenerateSeedFromWordCountConstMeta,
-        argValues: [wordCount],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "generate_seed_from_word_count",
-        argNames: ["wordCount"],
-      );
-
-  Future<String> getXpub(
-          {required String nodeNetwork,
-          required String mnemonic,
-          String? password,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_xpub(
-            port_,
-            _api2wire_String(nodeNetwork),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetXpubConstMeta,
-        argValues: [nodeNetwork, mnemonic, password],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_xpub",
-        argNames: ["nodeNetwork", "mnemonic", "password"],
-      );
-
-  Future<String> getXpubFromAddress({required String address, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_get_xpub_from_address(port_, _api2wire_String(address)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetXpubFromAddressConstMeta,
-        argValues: [address],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetXpubFromAddressConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_xpub_from_address",
-        argNames: ["address"],
-      );
-
-  Future<ExtendedKeyInfo> createKey(
-          {required String nodeNetwork,
-          required String mnemonic,
-          String? password,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_key(
-            port_,
-            _api2wire_String(nodeNetwork),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_extended_key_info,
-        constMeta: kCreateKeyConstMeta,
-        argValues: [nodeNetwork, mnemonic, password],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_key",
-        argNames: ["nodeNetwork", "mnemonic", "password"],
       );
 
   Future<void> syncWallet({dynamic hint}) =>
@@ -492,6 +385,65 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["psbtStr"],
       );
 
+  Future<String> generateSeedFromEntropy(
+          {required String entropy, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_generate_seed_from_entropy(
+            port_, _api2wire_String(entropy)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGenerateSeedFromEntropyConstMeta,
+        argValues: [entropy],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "generate_seed_from_entropy",
+        argNames: ["entropy"],
+      );
+
+  Future<String> generateSeedFromWordCount(
+          {required String wordCount, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_generate_seed_from_word_count(
+            port_, _api2wire_String(wordCount)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGenerateSeedFromWordCountConstMeta,
+        argValues: [wordCount],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "generate_seed_from_word_count",
+        argNames: ["wordCount"],
+      );
+
+  Future<ExtendedKeyInfo> createKey(
+          {required String nodeNetwork,
+          required String mnemonic,
+          required String path,
+          String? password,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_create_key(
+            port_,
+            _api2wire_String(nodeNetwork),
+            _api2wire_String(mnemonic),
+            _api2wire_String(path),
+            _api2wire_opt_String(password)),
+        parseSuccessData: _wire2api_extended_key_info,
+        constMeta: kCreateKeyConstMeta,
+        argValues: [nodeNetwork, mnemonic, path, password],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_key",
+        argNames: ["nodeNetwork", "mnemonic", "path", "password"],
+      );
+
   // Section: api2wire
   ffi.Pointer<wire_uint_8_list> _api2wire_String(String raw) {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
@@ -572,7 +524,7 @@ ExtendedKeyInfo _wire2api_extended_key_info(dynamic raw) {
   return ExtendedKeyInfo(
     mnemonic: _wire2api_String(arr[0]),
     xprv: _wire2api_String(arr[1]),
-    fingerprint: _wire2api_String(arr[2]),
+    xpub: _wire2api_String(arr[2]),
   );
 }
 
@@ -725,109 +677,6 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_get_wallet =
       _wire_get_walletPtr.asFunction<void Function(int)>();
 
-  void wire_generate_seed_from_entropy(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> entropy,
-  ) {
-    return _wire_generate_seed_from_entropy(
-      port_,
-      entropy,
-    );
-  }
-
-  late final _wire_generate_seed_from_entropyPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_generate_seed_from_entropy');
-  late final _wire_generate_seed_from_entropy =
-      _wire_generate_seed_from_entropyPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_generate_seed_from_word_count(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> word_count,
-  ) {
-    return _wire_generate_seed_from_word_count(
-      port_,
-      word_count,
-    );
-  }
-
-  late final _wire_generate_seed_from_word_countPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_generate_seed_from_word_count');
-  late final _wire_generate_seed_from_word_count =
-      _wire_generate_seed_from_word_countPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_get_xpub(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> node_network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-  ) {
-    return _wire_get_xpub(
-      port_,
-      node_network,
-      mnemonic,
-      password,
-    );
-  }
-
-  late final _wire_get_xpubPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_xpub');
-  late final _wire_get_xpub = _wire_get_xpubPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_get_xpub_from_address(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> address,
-  ) {
-    return _wire_get_xpub_from_address(
-      port_,
-      address,
-    );
-  }
-
-  late final _wire_get_xpub_from_addressPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_xpub_from_address');
-  late final _wire_get_xpub_from_address = _wire_get_xpub_from_addressPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_create_key(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> node_network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-  ) {
-    return _wire_create_key(
-      port_,
-      node_network,
-      mnemonic,
-      password,
-    );
-  }
-
-  late final _wire_create_keyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_create_key');
-  late final _wire_create_key = _wire_create_keyPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
-
   void wire_sync_wallet(
     int port_,
   ) {
@@ -969,6 +818,74 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_broadcast');
   late final _wire_broadcast = _wire_broadcastPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_generate_seed_from_entropy(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> entropy,
+  ) {
+    return _wire_generate_seed_from_entropy(
+      port_,
+      entropy,
+    );
+  }
+
+  late final _wire_generate_seed_from_entropyPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_generate_seed_from_entropy');
+  late final _wire_generate_seed_from_entropy =
+      _wire_generate_seed_from_entropyPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_generate_seed_from_word_count(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> word_count,
+  ) {
+    return _wire_generate_seed_from_word_count(
+      port_,
+      word_count,
+    );
+  }
+
+  late final _wire_generate_seed_from_word_countPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_generate_seed_from_word_count');
+  late final _wire_generate_seed_from_word_count =
+      _wire_generate_seed_from_word_countPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_create_key(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> node_network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> path,
+    ffi.Pointer<wire_uint_8_list> password,
+  ) {
+    return _wire_create_key(
+      port_,
+      node_network,
+      mnemonic,
+      path,
+      password,
+    );
+  }
+
+  late final _wire_create_keyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_create_key');
+  late final _wire_create_key = _wire_create_keyPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,

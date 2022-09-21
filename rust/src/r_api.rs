@@ -1,4 +1,5 @@
-use crate::ffi::{restore_extended_key, AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, get_public_key, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet, Balance};
+use std::borrow::Borrow;
+use crate::ffi::{ AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, to_script_pubkey, ResponseWallet, Balance, DescriptorSecretKey, DerivationPath, DescriptorPublicKey};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -9,7 +10,8 @@ use bdk::blockchain::{
 };
 use bdk::keys::bip39::WordCount;
 use lazy_static::lazy_static;
-use std::sync::RwLock;
+use std::sync::{Arc, RwLock};
+use bdk::Error;
 lazy_static! {
     static ref WALLET: RwLock<Wallet> = RwLock::new(Wallet::default());
     static ref BLOCKCHAIN: RwLock<AnyBlockchain> = RwLock::new(default_blockchain());
@@ -140,40 +142,6 @@ pub fn get_wallet() -> ResponseWallet {
     }
 }
 
-pub fn generate_seed_from_entropy( entropy: String) -> String {
-    let entropy_u8 = config_entropy(entropy);
-    let mnemonic = generate_mnemonic_from_entropy( entropy_u8);
-    mnemonic.to_string()
-}
-
-pub fn generate_seed_from_word_count(word_count: String) -> String {
-   // let entropy_u8 = config_entropy(entropy);
-    let word_count = config_word_count(word_count);
-    let mnemonic = generate_mnemonic_from_word_count(word_count);
-    mnemonic.to_string()
-}
-pub fn get_xpub( node_network: String,
-                 mnemonic: String,
-                 password: Option<String>) -> String {
-    let node_network = config_network(node_network);
-    let response = get_public_key(node_network, mnemonic, password);
-    return response;
-}
-pub fn get_xpub_from_address( address:String) -> String {
-    let response = to_script_pubkey(&*address).unwrap();
-    return response.to_string();
-}
-
-pub fn create_key(
-    node_network: String,
-    mnemonic: String,
-    password: Option<String>,
-) -> ExtendedKeyInfo {
-    let node_network = config_network(node_network);
-    let response = restore_extended_key(node_network, mnemonic, password);
-    return response.unwrap();
-}
-
 pub fn sync_wallet() {
     let wallet = WALLET.read().unwrap();
     let blockchain_obj = BLOCKCHAIN.read().unwrap();
@@ -264,17 +232,94 @@ pub fn broadcast(psbt_str: String) ->String {
    res
     //  tx.txid().to_string()
 }
+pub fn generate_seed_from_entropy( entropy: String) -> String {
+    let entropy_u8 = config_entropy(entropy);
+    let mnemonic = generate_mnemonic_from_entropy( entropy_u8);
+    mnemonic.to_string()
+}
+
+pub fn generate_seed_from_word_count(word_count: String) -> String {
+    let word_count = config_word_count(word_count);
+    let mnemonic = generate_mnemonic_from_word_count(word_count);
+    mnemonic.to_string()
+}
+
+pub fn create_key(
+    node_network: String,
+    mnemonic: String,
+    path:String,
+    password: Option<String>,
+) -> ExtendedKeyInfo {
+    let descriptor_secret = get_descriptor_secret_key( mnemonic.clone(), node_network,password);
+    let derived_secret = derive_dsk(&descriptor_secret, path.as_str()).unwrap();
+    let response = ExtendedKeyInfo{
+        mnemonic,
+        xprv: derived_secret.as_string(),
+        xpub: derived_secret.as_public().as_string()
+    };
+    return response
+}
+
+fn get_descriptor_secret_key(mnemonic:String, network:String, password:Option<String>) -> DescriptorSecretKey {
+    let node_network = config_network(network);
+    DescriptorSecretKey::new(node_network, mnemonic, password).unwrap()
+}
+fn derive_dsk(
+    key: &DescriptorSecretKey,
+    path: &str,
+) -> Result<Arc<DescriptorSecretKey>, Error> {
+    let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
+    key.derive(path)
+}
+// fn extend_dsk(key: &DescriptorSecretKey, path: &str) -> Arc<DescriptorSecretKey> {
+//     let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
+//     key.extend(path)
+// }
+
+// fn extend_dpk(key: &DescriptorPublicKey, path: &str) -> Arc<DescriptorPublicKey> {
+//     let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
+//     key.extend(path)
+// }
 
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
+    use std::sync::Arc;
     use bdk::bitcoin::{Address, Network};
-    use crate::ffi::PartiallySignedBitcoinTransaction;
-    use crate::r_api::{broadcast, create_transaction, generate_seed_from_entropy, generate_seed_from_word_count, get_transactions, wallet_init};
+    use bdk::miniscript::psbt::InputError::NonEmptyRedeemScript;
+
+    use crate::ffi::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, PartiallySignedBitcoinTransaction};
+    use crate::r_api::{broadcast, config_network, create_transaction,  derive_dsk, generate_seed_from_entropy, generate_seed_from_word_count, get_descriptor_secret_key, get_transactions, wallet_init};
+   #[test]
+    fn test_derive_hardened_path_using_public() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   "testnet".to_string(),None);
+        let derived_sk = &derive_dsk(&master_dsk, "m/44/0/0/0/0").unwrap();
+       assert_eq!(derived_sk.as_public().as_string(),"[d1d04177/44/0/0/0/0]tpubDH97TH9B3jVk4DodNDKD1HvaXcVU87j4SgGnGWTQq1pRZXCBeZufq3f9xPYQF14sAnL1Pb7WvQ5fZzbSCubTL5LhGFw3tu3DtPomnkKdA9F/*");
+    }
+
+    #[test]
+    fn test_derive_hardened_path_using_private() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   "testnet".to_string(),None);
+        let derived_sk = &derive_dsk(&master_dsk, "m").unwrap();
+        assert_eq!(derived_sk.as_string(),"[d1d04177]tprv8kT5Js6vuMp5AkmqUZecbtGTxayXxnY9sNfzyzR7Qk22j2wR2B65eZ3HnFDFEqULi6kNMhtZLexeD4qoh4kpEoF1LkmPMViwHJRYXPL6EP3/*");
+    }
+
+    #[test]
+    fn test_generate_descriptor_secret_key() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   "testnet".to_string(),None);
+        assert_eq!(master_dsk.as_string(), "tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*");
+        assert_eq!(master_dsk.as_public().as_string(), "tpubD6NzVbkrYhZ4WywdEfYbbd62yuvqLjAZuPsNyvzCNV85JekAEMbKHWSHLF9h3j45SxewXDcLv328B1SEZrxg4iwGfmdt1pDFjZiTkGiFqGa/*");
+    }
+
+
 
     fn test_init_wallet() {
         wallet_init(
-            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/0/*)".to_string(),
-            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)".to_string(),
+            "wpkh([d1d04177]tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*)".to_string(),
+            "wpkh([d1d04177]tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*)".to_string(),
             "TESTNET".to_string(),
             "ELECTRUM".to_string(),
             "ssl://electrum.blockstream.info:60002".to_string(),

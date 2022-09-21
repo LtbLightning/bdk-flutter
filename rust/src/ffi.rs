@@ -32,7 +32,7 @@ pub struct ResponseWallet {
 pub struct ExtendedKeyInfo {
     pub mnemonic: String,
     pub xprv: String,
-    pub fingerprint: String,
+    pub xpub:String
 }
 
 #[repr(C)]
@@ -535,27 +535,27 @@ pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
     mnemonic
 }
 
-pub fn restore_extended_key(
-    network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> Result<ExtendedKeyInfo, Error> {
-    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
-    let xprv =  xkey.into_xprv(network).unwrap();
-    let fingerprint = xprv.fingerprint(&Secp256k1::new());
-    Ok(ExtendedKeyInfo {
-        mnemonic: mnemonic.to_string(),
-        xprv: xprv.to_string(),
-        fingerprint: fingerprint.to_string(),
-    })
-}
-struct DerivationPath {
+// pub fn restore_extended_key(
+//     network: Network,
+//     mnemonic: String,
+//     password: Option<String>,
+// ) -> Result<ExtendedKeyInfo, Error> {
+//     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
+//     let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
+//     let xprv =  xkey.into_xprv(network).unwrap();
+//     let fingerprint = xprv.fingerprint(&Secp256k1::new());
+//     Ok(ExtendedKeyInfo {
+//         mnemonic: mnemonic.to_string(),
+//         xprv: xprv.to_string(),
+//         fingerprint: fingerprint.to_string(),
+//     })
+// }
+pub struct DerivationPath {
     derivation_path_mutex: Mutex<BdkDerivationPath>,
 }
 
 impl DerivationPath {
-    fn new(path: String) -> Result<Self, BdkError> {
+    pub(crate) fn new(path: String) -> Result<Self, BdkError> {
         BdkDerivationPath::from_str(&path)
             .map(|x| DerivationPath {
                 derivation_path_mutex: Mutex::new(x),
@@ -564,12 +564,12 @@ impl DerivationPath {
     }
 }
 
-struct DescriptorSecretKey {
+pub struct DescriptorSecretKey {
     descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
 }
 
 impl DescriptorSecretKey {
-    fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
+    pub(crate) fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
         let mnemonic = Mnemonic::parse_in(Language::English, mnemonic)
             .map_err(|e| BdkError::Generic(e.to_string()))?;
         let xkey: ExtendedKey = (mnemonic, password).into_extended_key()?;
@@ -584,7 +584,7 @@ impl DescriptorSecretKey {
         })
     }
 
-    fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
+    pub(crate) fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
@@ -611,7 +611,7 @@ impl DescriptorSecretKey {
         }
     }
 
-    fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
         match descriptor_secret_key.deref() {
@@ -633,7 +633,7 @@ impl DescriptorSecretKey {
         }
     }
 
-    fn as_public(&self) -> Arc<DescriptorPublicKey> {
+    pub(crate) fn as_public(&self) -> Arc<DescriptorPublicKey> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
             .descriptor_secret_key_mutex
@@ -646,16 +646,18 @@ impl DescriptorSecretKey {
         })
     }
 
-    fn as_string(&self) -> String {
+   pub  fn as_string(&self) -> String {
         self.descriptor_secret_key_mutex.lock().unwrap().to_string()
     }
 }
-struct DescriptorPublicKey {
+
+
+pub struct DescriptorPublicKey {
     descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
 }
 
 impl DescriptorPublicKey {
-    fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
+    pub(crate) fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
@@ -683,7 +685,7 @@ impl DescriptorPublicKey {
         }
     }
 
-    fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
         let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
         match descriptor_public_key.deref() {
@@ -705,26 +707,15 @@ impl DescriptorPublicKey {
         }
     }
 
-    fn as_string(&self) -> String {
+    pub(crate) fn as_string(&self) -> String {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()
     }
 }
 
-pub fn get_public_key(
-    network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> String {
-    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
-    let xpub =  xkey.into_xpub(network, &Secp256k1::new());
-    return  xpub.public_key.to_string()
-}
 pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
     let mut rng = rand::thread_rng();
     let mut entropy = vec![0u8; bit_size];
     rand::RngCore::fill_bytes(&mut rng, &mut entropy);
-
     entropy
 }
 
