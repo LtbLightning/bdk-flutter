@@ -69,7 +69,7 @@ dependencies {
             commandLine 'cmd', '/C', "build.sh"
         } else {
      commandLine 'sh', '-c', " sh build.sh"
-     //commandLine 'sh', '-c', """  ANDROID_NDK_HOME="$ANDROID_NDK" find . -type f -name makefile -execdir make all \\;"""
+    // commandLine 'sh', '-c', """  ANDROID_NDK_HOME="$ANDROID_NDK" find . -type f -name makefile -execdir make all \\;"""
         }
     }
 }
