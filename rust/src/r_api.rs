@@ -268,8 +268,8 @@ pub fn broadcast(psbt_str: String) ->String {
 #[cfg(test)]
 mod tests {
     use bdk::bitcoin::{Address, Network};
-    use crate::api::{broadcast, create_transaction, wallet_init, get_transactions, generate_seed_from_entropy, generate_seed_from_word_count};
-    use crate::ffi::{gen_big_rand, gen_big_rand_2, PartiallySignedBitcoinTransaction};
+    use crate::ffi::PartiallySignedBitcoinTransaction;
+    use crate::r_api::{broadcast, create_transaction, generate_seed_from_entropy, generate_seed_from_word_count, get_transactions, wallet_init};
 
     fn test_init_wallet() {
         wallet_init(
@@ -315,11 +315,4 @@ mod tests {
         let mnemonic= generate_seed_from_entropy("Entropy256".to_string());
         assert_eq!(mnemonic.to_string(), " mnemonic string fail" )
     }
-    #[test]
-    fn generate_entropy_function_comparison_test(){
-        let rand= gen_big_rand(32);
-        let rand2= gen_big_rand_2(32);
-        assert_eq!(rand, rand2 )
-    }
-
 }

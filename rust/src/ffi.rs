@@ -352,13 +352,5 @@ pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
 
     entropy
 }
-pub fn gen_big_rand_2(bit_size: usize) -> Vec<u8> {
-    let mut data = vec![0u8; bit_size];
-    for digit in &mut data {
-        // swap  digits with random values
-        *digit = rand::random();
-    }
-    data
-}
 
 
