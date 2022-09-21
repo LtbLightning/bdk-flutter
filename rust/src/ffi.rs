@@ -22,6 +22,8 @@ use bdk::keys::{
     DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
     DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey,
 };
+
+
 type BdkError = Error;
 #[derive(Serialize, Deserialize)]
 pub struct ResponseWallet {
@@ -30,7 +32,12 @@ pub struct ResponseWallet {
 }
 #[repr(C)]
 pub struct ExtendedKeyInfo {
-    pub mnemonic: String,
+    pub xprv: String,
+    pub xpub: String,
+    // pub fingerprint:String
+}
+#[repr(C)]
+pub struct DescriptorExtendedKey {
     pub xprv: String,
     pub xpub:String
 }
@@ -350,16 +357,16 @@ impl TxBuilder {
             ..self.clone()
         })
     }
-    // fn set_recipients(&self, recipients: Vec<AddressAmount>) -> Arc<Self> {
-    //     let recipients = recipients
-    //         .iter()
-    //         .map(|address_amount| (address_amount.address.clone(), address_amount.amount))
-    //         .collect();
-    //     Arc::new(TxBuilder {
-    //         recipients,
-    //         ..self.clone()
-    //     })
-    // }
+    pub fn set_recipients(&self, recipients: Vec<AddressAmount>) -> Arc<Self> {
+        let recipients = recipients
+            .iter()
+            .map(|address_amount| (address_amount.address.clone(), address_amount.amount))
+            .collect();
+        Arc::new(TxBuilder {
+            recipients,
+            ..self.clone()
+        })
+    }
     /// Add a utxo to the internal list of unspendable utxos. It’s important to note that the "must-be-spent"
     /// utxos added with [TxBuilder.addUtxo] have priority over this. See the Rust docs of the two linked methods for more details.
     // fn add_unspendable(&self, unspendable: OutPoint) -> Arc<Self> {
@@ -371,7 +378,7 @@ impl TxBuilder {
     //     })
     // }
 
-     /// Spend all the available inputs. This respects filters like TxBuilder.unspendable and the change policy.
+    /// Spend all the available inputs. This respects filters like TxBuilder.unspendable and the change policy.
     // fn drain_wallet(&self) -> Arc<Self> {
     //     Arc::new(TxBuilder {
     //         drain_wallet: true,
@@ -393,8 +400,8 @@ impl TxBuilder {
     //         ..self.clone()
     //     })
     // }
-    // /// Add an outpoint to the internal list of UTXOs that must be spent. These have priority over the "unspendable"
-    // /// utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
+    /// Add an outpoint to the internal list of UTXOs that must be spent. These have priority over the "unspendable"
+    /// utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
     // fn add_utxo(&self, outpoint: OutPoint) -> Arc<Self> {
     //     self.add_utxos(vec![outpoint])
     // }
@@ -418,7 +425,7 @@ impl TxBuilder {
     //         ..self.clone()
     //     })
     // }
-    /// Only spend change outputs. This effectively adds all the non-change outputs to the "unspendable" list. See TxBuilder.unspendable.
+    // /// Only spend change outputs. This effectively adds all the non-change outputs to the "unspendable" list. See TxBuilder.unspendable.
     // fn only_spend_change(&self) -> Arc<Self> {
     //     Arc::new(TxBuilder {
     //         change_policy: ChangeSpendPolicy::OnlyChange,
@@ -436,7 +443,7 @@ impl TxBuilder {
     // }
 
     /// Set a custom fee rate.
-   pub fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
+    pub fn fee_rate(&self, sat_per_vb: f32) -> Arc<Self> {
         Arc::new(TxBuilder {
             fee_rate: Some(sat_per_vb),
             ..self.clone()
@@ -535,21 +542,7 @@ pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
     mnemonic
 }
 
-// pub fn restore_extended_key(
-//     network: Network,
-//     mnemonic: String,
-//     password: Option<String>,
-// ) -> Result<ExtendedKeyInfo, Error> {
-//     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-//     let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
-//     let xprv =  xkey.into_xprv(network).unwrap();
-//     let fingerprint = xprv.fingerprint(&Secp256k1::new());
-//     Ok(ExtendedKeyInfo {
-//         mnemonic: mnemonic.to_string(),
-//         xprv: xprv.to_string(),
-//         fingerprint: fingerprint.to_string(),
-//     })
-// }
+
 pub struct DerivationPath {
     derivation_path_mutex: Mutex<BdkDerivationPath>,
 }
@@ -563,6 +556,33 @@ impl DerivationPath {
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 }
+// pub fn restore_extended_key(
+//     network: Network,
+//     mnemonic: String,
+//     password: Option<String>,
+// ) -> Result<ExtendedKeyInfo, Error> {
+//   let xkey = create_extended_key(mnemonic.clone(), password);
+//     let xprv =  xkey.into_xprv(network).unwrap();
+//     let fingerprint = xprv.fingerprint(&Secp256k1::new());
+//     Ok(ExtendedKeyInfo {
+//         xprv: xprv.to_string(),
+//         fingerprint: fingerprint.to_string(),
+//     })
+// }
+pub fn get_extended_key_info(network: Network, mnemonic: String, password: Option<String>) -> ExtendedKeyInfo{
+    let xprv = DescriptorSecretKey::new(network, mnemonic,password).unwrap();
+    let xpub = xprv.as_public();
+    ExtendedKeyInfo{
+        xprv: xprv.as_string(),
+        xpub: xpub.as_string(),
+    }
+}
+fn create_extended_key(mnemonic: String,
+                       password: Option<String>) -> ExtendedKey{
+    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
+    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
+    xkey
+}
 
 pub struct DescriptorSecretKey {
     descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
@@ -570,9 +590,7 @@ pub struct DescriptorSecretKey {
 
 impl DescriptorSecretKey {
     pub(crate) fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
-        let mnemonic = Mnemonic::parse_in(Language::English, mnemonic)
-            .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let xkey: ExtendedKey = (mnemonic, password).into_extended_key()?;
+        let xkey = create_extended_key(mnemonic, password);
         let descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
             origin: None,
             xkey: xkey.into_xprv(network).unwrap(),
@@ -646,7 +664,7 @@ impl DescriptorSecretKey {
         })
     }
 
-   pub  fn as_string(&self) -> String {
+    pub  fn as_string(&self) -> String {
         self.descriptor_secret_key_mutex.lock().unwrap().to_string()
     }
 }
@@ -661,7 +679,6 @@ impl DescriptorPublicKey {
     //     let secp = Secp256k1::new();
     //     let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
     //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-    //
     //     match descriptor_public_key.deref() {
     //         BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
     //             let derived_xpub = descriptor_x_key.xkey.derive_pub(&secp, &path)?;
@@ -718,5 +735,3 @@ pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
     rand::RngCore::fill_bytes(&mut rng, &mut entropy);
     entropy
 }
-
-

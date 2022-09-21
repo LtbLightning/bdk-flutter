@@ -15,8 +15,10 @@ use flutter_rust_bridge::*;
 
 // Section: imports
 
+use crate::ffi::AddressAmount;
 use crate::ffi::Balance;
 use crate::ffi::BlockConfirmationTime;
+use crate::ffi::DescriptorExtendedKey;
 use crate::ffi::ExtendedKeyInfo;
 use crate::ffi::ResponseWallet;
 use crate::ffi::Transaction;
@@ -156,6 +158,26 @@ pub extern "C" fn wire_create_transaction(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_create_multi_sig_transaction(
+    port_: i64,
+    recipients: *mut wire_list_address_amount,
+    fee_rate: f32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_multi_sig_transaction",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_recipients = recipients.wire2api();
+            let api_fee_rate = fee_rate.wire2api();
+            move |task_callback| Ok(create_multi_sig_transaction(api_recipients, api_fee_rate))
+        },
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_sign_and_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -238,7 +260,6 @@ pub extern "C" fn wire_create_key(
     port_: i64,
     node_network: *mut wire_uint_8_list,
     mnemonic: *mut wire_uint_8_list,
-    path: *mut wire_uint_8_list,
     password: *mut wire_uint_8_list,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -250,10 +271,33 @@ pub extern "C" fn wire_create_key(
         move || {
             let api_node_network = node_network.wire2api();
             let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            move |task_callback| Ok(create_key(api_node_network, api_mnemonic, api_password))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_descriptor_secret_keys(
+    port_: i64,
+    node_network: *mut wire_uint_8_list,
+    mnemonic: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_descriptor_secret_keys",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_network = node_network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
             let api_path = path.wire2api();
             let api_password = password.wire2api();
             move |task_callback| {
-                Ok(create_key(
+                Ok(create_descriptor_secret_keys(
                     api_node_network,
                     api_mnemonic,
                     api_path,
@@ -268,6 +312,20 @@ pub extern "C" fn wire_create_key(
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_AddressAmount {
+    address: *mut wire_uint_8_list,
+    amount: u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_list_address_amount {
+    ptr: *mut wire_AddressAmount,
+    len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_uint_8_list {
     ptr: *mut u8,
     len: i32,
@@ -278,6 +336,15 @@ pub struct wire_uint_8_list {
 // Section: static checks
 
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_list_address_amount_0(len: i32) -> *mut wire_list_address_amount {
+    let wrap = wire_list_address_amount {
+        ptr: support::new_leak_vec_ptr(<wire_AddressAmount>::new_with_null_ptr(), len),
+        len,
+    };
+    support::new_leak_box_ptr(wrap)
+}
 
 #[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
@@ -314,9 +381,28 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
     }
 }
 
+impl Wire2Api<AddressAmount> for wire_AddressAmount {
+    fn wire2api(self) -> AddressAmount {
+        AddressAmount {
+            address: self.address.wire2api(),
+            amount: self.amount.wire2api(),
+        }
+    }
+}
+
 impl Wire2Api<f32> for f32 {
     fn wire2api(self) -> f32 {
         self
+    }
+}
+
+impl Wire2Api<Vec<AddressAmount>> for *mut wire_list_address_amount {
+    fn wire2api(self) -> Vec<AddressAmount> {
+        let vec = unsafe {
+            let wrap = support::box_from_leak_ptr(self);
+            support::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(Wire2Api::wire2api).collect()
     }
 }
 
@@ -353,6 +439,15 @@ impl<T> NewWithNullPtr for *mut T {
     }
 }
 
+impl NewWithNullPtr for wire_AddressAmount {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            address: core::ptr::null_mut(),
+            amount: Default::default(),
+        }
+    }
+}
+
 // Section: impl IntoDart
 
 impl support::IntoDart for Balance {
@@ -377,14 +472,16 @@ impl support::IntoDart for BlockConfirmationTime {
 }
 impl support::IntoDartExceptPrimitive for BlockConfirmationTime {}
 
+impl support::IntoDart for DescriptorExtendedKey {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.xprv.into_dart(), self.xpub.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for DescriptorExtendedKey {}
+
 impl support::IntoDart for ExtendedKeyInfo {
     fn into_dart(self) -> support::DartCObject {
-        vec![
-            self.mnemonic.into_dart(),
-            self.xprv.into_dart(),
-            self.xpub.into_dart(),
-        ]
-        .into_dart()
+        vec![self.xprv.into_dart(), self.xpub.into_dart()].into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for ExtendedKeyInfo {}

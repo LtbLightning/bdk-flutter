@@ -1,4 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:bdk_flutter/src/utils/custom_objects.dart';
 import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
@@ -30,7 +31,7 @@ class BdkWallet {
       if (blockChainConfigUrl.isEmpty||blockChainConfigUrl == null ) {
         throw const WalletException.invalidBlockchainUrl();
       }
-      if (descriptor != null && changeDescriptor!=null) {
+      if (descriptor != null || changeDescriptor!=null) {
         await loaderApi.walletInit(
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor.toString(),
@@ -39,16 +40,17 @@ class BdkWallet {
             socks5OrProxy: socks5OrProxy.toString(),
             url: blockChainConfigUrl);
       } else {
-
-        var key = await createExtendedKey(
+        var key = await createDescriptorsFromMnemonic(
             network: network,
             mnemonic: mnemonic.toString(),
-            password: password);
-        var descriptor = await createDescriptor(xprv: key.xprv, type: Descriptor.P2WPKH);
-        var changeDescriptor = createChangeDescriptor(descriptor:descriptor);
+            password: password,
+            type: Descriptor.P2PK,
+            descriptorPath: 'm/0',
+            changeDescriptorPath: "m/1"
+        );
         await loaderApi.walletInit(
-            descriptor: descriptor.toString(),
-            changeDescriptor: changeDescriptor.toString(),
+            descriptor: key.descriptor,
+            changeDescriptor: key.changeDescriptor,
             network: network.name.toString(),
             blockchain: blockchain.name.toString(),
             url: blockChainConfigUrl,
@@ -78,10 +80,10 @@ class BdkWallet {
     }
   }
 
-  Future<Balance> getBalance() async {
+  Future<String> getBalance() async {
     try {
       var res = await loaderApi.getBalance();
-      return res;
+      return res.total.toString();
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -154,14 +156,20 @@ class BdkWallet {
         required int amount,
         required double feeRate}) async {
     try {
-      if(amount<100) throw const BroadcastException.insufficientAmount( "The minimum amount should be greater 100");
+      if(amount<100) throw const BroadcastException.insufficientBroadcastAmount( "The minimum amount should be greater 100");
       final res = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
       return res;
     } on FfiException catch (e) {
+      if(e.message.contains("InsufficientFunds")){
+        final message = e.message.split("InsufficientFunds").last;
+        throw  BroadcastException.insufficientFunds(message);
+      }
       throw BroadcastException.unexpected(e.message);
     }
   }
+
+
 
   Future<void> signTransaction({required String psbt}) async {
     try {
@@ -184,13 +192,17 @@ class BdkWallet {
     required int amount,
     required double feeRate}) async {
     try {
-      if(amount<100) throw const BroadcastException.insufficientAmount( "The minimum amount should be greater 100");
+      if(amount<100) throw const BroadcastException.insufficientBroadcastAmount( "The minimum amount should be greater 100");
       final psbt = await createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
       await signTransaction(psbt: psbt);
       final txid = await broadcastTransaction(psbt: psbt);
       return txid;
     } on FfiException catch (e) {
-      throw BroadcastException.unexpected( e.message);
+      if(e.message.contains("InsufficientFunds")){
+        final message = e.message.split("InsufficientFunds").last;
+        throw  BroadcastException.insufficientFunds(message);
+      }
+      throw BroadcastException.unexpected(e.message);
     }
   }
 }
@@ -222,10 +234,9 @@ Future<String> generateMnemonic(
 Future<String> createXprv(
     {required Network network,
       required String mnemonic,
-      String? path,
       String? password = ''}) async {
   try {
-    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString(),path: path);
+    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString());
     return res.xprv.toString();
   } on KeyException  {
     rethrow;
@@ -234,77 +245,122 @@ Future<String> createXprv(
 Future<String> createXpub(
     {required Network network,
       required String mnemonic,
-      String? path,
       String? password = ''}) async {
   try {
-    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString(),path: path);
-    return res.xpub;
+    var res = await createExtendedKey(network: network, mnemonic: mnemonic, password: password.toString());
+    return res.xpub.toString();
   } on KeyException  {
     rethrow;
   }
 }
+
 Future<ExtendedKeyInfo> createExtendedKey(
     {required Network network,
       required String mnemonic,
-      String?path,
       String? password = ''}) async {
   try {
     if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.badWordCount("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     var res = await loaderApi.createKey(
-        nodeNetwork: network.name.toString(),
-        mnemonic: mnemonic,
-        password: password,
-        path: path?? "m/0");
+      nodeNetwork: network.name.toString(),
+      mnemonic: mnemonic,
+      password: password,
+    );
     return res;
   } on FfiException catch (e) {
     if(e.message.contains("UnknownWord")){
-     final message = e.message.split("value:").last;
+      final message = e.message.split("value:").last;
+      throw  KeyException.invalidMnemonic(message);
+    }
+    throw KeyException.unexpected(e.message);
+  }
+}
+Future<DescriptorExtendedKey> createDescriptorExtendedKey(
+    {required Network network,
+      required String mnemonic,
+      String? path,
+      String? password = ''}) async {
+  try {
+    if(!isValidMnemonic(mnemonic.toString())) throw const KeyException.badWordCount("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
+    var res = await loaderApi.createDescriptorSecretKeys(nodeNetwork: network.name.toString(), mnemonic: mnemonic, path: path ?? "m");
+    return res;
+  } on FfiException catch (e) {
+    if(e.message.contains("UnknownWord")){
+      final message = e.message.split("value:").last;
       throw  KeyException.invalidMnemonic(message);
     }
     throw KeyException.unexpected(e.message);
   }
 }
 
-
-String createChangeDescriptor({required String descriptor}) {
-  return descriptor.replaceAll("/84'/1'/0'/0/*", "/84'/1'/0'/1/*");
-}
-
-Future<String> createDescriptor({String? xprv, String? path, Descriptor? type, String? mnemonic, Network ?network, String? password, List<String>? publicKeys , int? threshold = 4}) async {
-  if ((mnemonic == null ) && (xprv == null )) {
-    throw const KeyException.insufficientCoreVariables("Require a mnemonic or xprv.");
-  }
-  if((mnemonic != null  ) && (xprv != null ))
-  {
-    throw const KeyException.repetitiousArguments("Provided both mnemonic and xprv.");
-  }
-  if(mnemonic != null ) {
-    if(network ==null) throw const KeyException.invalidNetwork();
-  }
-
-  var xprvStr = xprv ?? (await createXprv(network: network!, password:password, mnemonic: mnemonic.toString()));
+PathDescriptors createDescriptorsFromKeys(
+    {required Descriptor type,
+      required String derivedKey,
+      String? changeDerivedKey,
+      List<String>? publicKeys,
+      int? threshold = 4}){
   switch (type) {
     case Descriptor.P2PKH:
-      return "pkh($xprvStr)";
+      return PathDescriptors(descriptor:"pkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"pkh($changeDerivedKey)");
     case Descriptor.P2WPKH:
-      return "wpkh($xprvStr)";
+      return PathDescriptors(descriptor:"wpkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"wpkh($changeDerivedKey)");
     case Descriptor.P2SHP2WPKH:
-      return "sh(wpkh($xprvStr))";
+      return  PathDescriptors(descriptor:"sh(wpkh($derivedKey))", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"sh(wpkh($changeDerivedKey))");
     case Descriptor.P2SHP2WSHP2PKH:
-      return "sh(wsh(pkh($xprvStr)))";
+      return  PathDescriptors(descriptor:"sh(wsh(pkh($derivedKey)))", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"sh(wsh(pkh($changeDerivedKey)))");
     case Descriptor.MULTI:
-      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(),xprv: xprv.toString());;
+      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(), descriptorKey: derivedKey, changeDescriptorKey: changeDerivedKey);
     default:
-      return "wpkh($xprvStr)";
+      return PathDescriptors(descriptor:"wpkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"wpkh($changeDerivedKey)");
   }
 }
 
-String _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String xprv}){
+
+Future<PathDescriptors> createDescriptorsFromMnemonic({
+  required String descriptorPath,
+  String? changeDescriptorPath,
+  required Descriptor type,
+  required String mnemonic,
+  required Network network,
+  String? password,
+  List<String>? publicKeys,
+  int? threshold = 4
+}) async {
+
+  var descriptorKey =await loaderApi.createDescriptorSecretKeys(nodeNetwork: network.name.toString(), password: password, mnemonic: mnemonic, path: descriptorPath);
+  var changeDescriptorKey = (changeDescriptorPath==null||changeDescriptorPath==""||changeDescriptorPath.isEmpty)?
+  DescriptorExtendedKey(xprv: "", xpub: ""):
+  await loaderApi.createDescriptorSecretKeys(
+      nodeNetwork: network.name.toString(),
+      password: password,
+      mnemonic: mnemonic,
+      path: changeDescriptorPath.toString()) ;
+
+  switch (type) {
+    case Descriptor.P2PKH:
+      return PathDescriptors(descriptor:"pkh(${descriptorKey.xprv})", changeDescriptor: "pkh(${changeDescriptorKey.xprv})");
+    case Descriptor.P2WPKH:
+      return PathDescriptors(descriptor:"wpkh(${descriptorKey.xprv})", changeDescriptor: "wpkh(${changeDescriptorKey.xprv})");
+    case Descriptor.P2SHP2WPKH:
+      return  PathDescriptors(descriptor:"sh(wpkh(${descriptorKey.xprv}))", changeDescriptor: "sh(wpkh(${changeDescriptorKey.xprv}))");
+    case Descriptor.P2SHP2WSHP2PKH:
+      return  PathDescriptors(descriptor:"sh(wsh(pkh(${descriptorKey.xprv})))", changeDescriptor: "sh(wsh(pkh(${changeDescriptorKey.xprv})))");
+    case Descriptor.MULTI:
+      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(), descriptorKey:  descriptorKey.xprv, changeDescriptorKey:  changeDescriptorKey.xprv);
+    default:
+      return PathDescriptors(descriptor:"wpkh(${descriptorKey.xprv})", changeDescriptor: "wpkh(${changeDescriptorKey.xprv})");
+  }
+}
+
+PathDescriptors _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String descriptorKey, String? changeDescriptorKey}){
   if( publicKeys == null ) {
     throw const KeyException.invalidPublicKey("Public key must not be null");
   }
   if (threshold == 0 || threshold > publicKeys.length + 1) throw const KeyException.invalidThresholdValue();
-  return "wsh(thresh($threshold,$xprv,${publicKeys.reduce((value, element) => '$value,$element')}, sdv:older(2)))";
+  return  PathDescriptors(
+      descriptor:"wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
+      changeDescriptor: (changeDescriptorKey==null||changeDescriptorKey=="") ? "":
+      "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
 }
+
 
 

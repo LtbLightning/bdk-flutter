@@ -19,38 +19,47 @@ mixin _$BroadcastException {
   String get e => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientAmount,
+    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InvalidPublicKey value) insufficientAmount,
+    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBroadcastAmount value)
+        insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
     required TResult orElse(),
   }) =>
@@ -92,31 +101,31 @@ class _$BroadcastExceptionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$InvalidPublicKeyCopyWith<$Res>
+abstract class _$$InsufficientFundsCopyWith<$Res>
     implements $BroadcastExceptionCopyWith<$Res> {
-  factory _$$InvalidPublicKeyCopyWith(
-          _$InvalidPublicKey value, $Res Function(_$InvalidPublicKey) then) =
-      __$$InvalidPublicKeyCopyWithImpl<$Res>;
+  factory _$$InsufficientFundsCopyWith(
+          _$InsufficientFunds value, $Res Function(_$InsufficientFunds) then) =
+      __$$InsufficientFundsCopyWithImpl<$Res>;
   @override
   $Res call({String e});
 }
 
 /// @nodoc
-class __$$InvalidPublicKeyCopyWithImpl<$Res>
+class __$$InsufficientFundsCopyWithImpl<$Res>
     extends _$BroadcastExceptionCopyWithImpl<$Res>
-    implements _$$InvalidPublicKeyCopyWith<$Res> {
-  __$$InvalidPublicKeyCopyWithImpl(
-      _$InvalidPublicKey _value, $Res Function(_$InvalidPublicKey) _then)
-      : super(_value, (v) => _then(v as _$InvalidPublicKey));
+    implements _$$InsufficientFundsCopyWith<$Res> {
+  __$$InsufficientFundsCopyWithImpl(
+      _$InsufficientFunds _value, $Res Function(_$InsufficientFunds) _then)
+      : super(_value, (v) => _then(v as _$InsufficientFunds));
 
   @override
-  _$InvalidPublicKey get _value => super._value as _$InvalidPublicKey;
+  _$InsufficientFunds get _value => super._value as _$InsufficientFunds;
 
   @override
   $Res call({
     Object? e = freezed,
   }) {
-    return _then(_$InvalidPublicKey(
+    return _then(_$InsufficientFunds(
       e == freezed
           ? _value.e
           : e // ignore: cast_nullable_to_non_nullable
@@ -127,22 +136,22 @@ class __$$InvalidPublicKeyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InvalidPublicKey implements InvalidPublicKey {
-  const _$InvalidPublicKey(this.e);
+class _$InsufficientFunds implements InsufficientFunds {
+  const _$InsufficientFunds(this.e);
 
   @override
   final String e;
 
   @override
   String toString() {
-    return 'BroadcastException.insufficientAmount(e: $e)';
+    return 'BroadcastException.insufficientFunds(e: $e)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InvalidPublicKey &&
+            other is _$InsufficientFunds &&
             const DeepCollectionEquality().equals(other.e, e));
   }
 
@@ -152,36 +161,39 @@ class _$InvalidPublicKey implements InvalidPublicKey {
 
   @JsonKey(ignore: true)
   @override
-  _$$InvalidPublicKeyCopyWith<_$InvalidPublicKey> get copyWith =>
-      __$$InvalidPublicKeyCopyWithImpl<_$InvalidPublicKey>(this, _$identity);
+  _$$InsufficientFundsCopyWith<_$InsufficientFunds> get copyWith =>
+      __$$InsufficientFundsCopyWithImpl<_$InsufficientFunds>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientAmount,
+    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
   }) {
-    return insufficientAmount(e);
+    return insufficientFunds(e);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
   }) {
-    return insufficientAmount?.call(e);
+    return insufficientFunds?.call(e);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
     required TResult orElse(),
   }) {
-    if (insufficientAmount != null) {
-      return insufficientAmount(e);
+    if (insufficientFunds != null) {
+      return insufficientFunds(e);
     }
     return orElse();
   }
@@ -189,44 +201,202 @@ class _$InvalidPublicKey implements InvalidPublicKey {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InvalidPublicKey value) insufficientAmount,
+    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBroadcastAmount value)
+        insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
   }) {
-    return insufficientAmount(this);
+    return insufficientFunds(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
   }) {
-    return insufficientAmount?.call(this);
+    return insufficientFunds?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
     required TResult orElse(),
   }) {
-    if (insufficientAmount != null) {
-      return insufficientAmount(this);
+    if (insufficientFunds != null) {
+      return insufficientFunds(this);
     }
     return orElse();
   }
 }
 
-abstract class InvalidPublicKey implements BroadcastException {
-  const factory InvalidPublicKey(final String e) = _$InvalidPublicKey;
+abstract class InsufficientFunds implements BroadcastException {
+  const factory InsufficientFunds(final String e) = _$InsufficientFunds;
 
   @override
   String get e;
   @override
   @JsonKey(ignore: true)
-  _$$InvalidPublicKeyCopyWith<_$InvalidPublicKey> get copyWith =>
+  _$$InsufficientFundsCopyWith<_$InsufficientFunds> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InsufficientBroadcastAmountCopyWith<$Res>
+    implements $BroadcastExceptionCopyWith<$Res> {
+  factory _$$InsufficientBroadcastAmountCopyWith(
+          _$InsufficientBroadcastAmount value,
+          $Res Function(_$InsufficientBroadcastAmount) then) =
+      __$$InsufficientBroadcastAmountCopyWithImpl<$Res>;
+  @override
+  $Res call({String e});
+}
+
+/// @nodoc
+class __$$InsufficientBroadcastAmountCopyWithImpl<$Res>
+    extends _$BroadcastExceptionCopyWithImpl<$Res>
+    implements _$$InsufficientBroadcastAmountCopyWith<$Res> {
+  __$$InsufficientBroadcastAmountCopyWithImpl(
+      _$InsufficientBroadcastAmount _value,
+      $Res Function(_$InsufficientBroadcastAmount) _then)
+      : super(_value, (v) => _then(v as _$InsufficientBroadcastAmount));
+
+  @override
+  _$InsufficientBroadcastAmount get _value =>
+      super._value as _$InsufficientBroadcastAmount;
+
+  @override
+  $Res call({
+    Object? e = freezed,
+  }) {
+    return _then(_$InsufficientBroadcastAmount(
+      e == freezed
+          ? _value.e
+          : e // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
+  const _$InsufficientBroadcastAmount(this.e);
+
+  @override
+  final String e;
+
+  @override
+  String toString() {
+    return 'BroadcastException.insufficientBroadcastAmount(e: $e)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsufficientBroadcastAmount &&
+            const DeepCollectionEquality().equals(other.e, e));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(e));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$InsufficientBroadcastAmountCopyWith<_$InsufficientBroadcastAmount>
+      get copyWith => __$$InsufficientBroadcastAmountCopyWithImpl<
+          _$InsufficientBroadcastAmount>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBroadcastAmount,
+    required TResult Function(String e) unexpected,
+  }) {
+    return insufficientBroadcastAmount(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
+    TResult Function(String e)? unexpected,
+  }) {
+    return insufficientBroadcastAmount?.call(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
+    TResult Function(String e)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (insufficientBroadcastAmount != null) {
+      return insufficientBroadcastAmount(e);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBroadcastAmount value)
+        insufficientBroadcastAmount,
+    required TResult Function(Unexpected value) unexpected,
+  }) {
+    return insufficientBroadcastAmount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
+    TResult Function(Unexpected value)? unexpected,
+  }) {
+    return insufficientBroadcastAmount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
+    TResult Function(Unexpected value)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (insufficientBroadcastAmount != null) {
+      return insufficientBroadcastAmount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InsufficientBroadcastAmount implements BroadcastException {
+  const factory InsufficientBroadcastAmount(final String e) =
+      _$InsufficientBroadcastAmount;
+
+  @override
+  String get e;
+  @override
+  @JsonKey(ignore: true)
+  _$$InsufficientBroadcastAmountCopyWith<_$InsufficientBroadcastAmount>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -296,7 +466,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientAmount,
+    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
   }) {
     return unexpected(e);
@@ -305,7 +476,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
   }) {
     return unexpected?.call(e);
@@ -314,7 +486,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientAmount,
+    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
     required TResult orElse(),
   }) {
@@ -327,7 +500,9 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InvalidPublicKey value) insufficientAmount,
+    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBroadcastAmount value)
+        insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
   }) {
     return unexpected(this);
@@ -336,7 +511,9 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
   }) {
     return unexpected?.call(this);
@@ -345,7 +522,9 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidPublicKey value)? insufficientAmount,
+    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
     required TResult orElse(),
   }) {

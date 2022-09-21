@@ -3,12 +3,8 @@ import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
-@GenerateMocks([BdkWallet])
-import 'bdk_flutter_test.mocks.dart';
-final mockWallet = MockBdkWallet();
+
 void main() {
   group('Generate Mnemonic', () {
     test('Verify default word count', () async {

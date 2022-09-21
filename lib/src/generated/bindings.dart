@@ -58,6 +58,13 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta;
 
+  Future<String> createMultiSigTransaction(
+      {required List<AddressAmount> recipients,
+      required double feeRate,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateMultiSigTransactionConstMeta;
+
   Future<String> signAndBroadcast({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
@@ -83,11 +90,29 @@ abstract class Rust {
   Future<ExtendedKeyInfo> createKey(
       {required String nodeNetwork,
       required String mnemonic,
-      required String path,
       String? password,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
+
+  Future<DescriptorExtendedKey> createDescriptorSecretKeys(
+      {required String nodeNetwork,
+      required String mnemonic,
+      required String path,
+      String? password,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretKeysConstMeta;
+}
+
+class AddressAmount {
+  final String address;
+  final int amount;
+
+  AddressAmount({
+    required this.address,
+    required this.amount,
+  });
 }
 
 class Balance {
@@ -128,13 +153,21 @@ class BlockConfirmationTime {
   });
 }
 
+class DescriptorExtendedKey {
+  final String xprv;
+  final String xpub;
+
+  DescriptorExtendedKey({
+    required this.xprv,
+    required this.xpub,
+  });
+}
+
 class ExtendedKeyInfo {
-  final String mnemonic;
   final String xprv;
   final String xpub;
 
   ExtendedKeyInfo({
-    required this.mnemonic,
     required this.xprv,
     required this.xpub,
   });
@@ -338,6 +371,25 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["recipient", "amount", "feeRate"],
       );
 
+  Future<String> createMultiSigTransaction(
+          {required List<AddressAmount> recipients,
+          required double feeRate,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_create_multi_sig_transaction(port_,
+            _api2wire_list_address_amount(recipients), _api2wire_f32(feeRate)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCreateMultiSigTransactionConstMeta,
+        argValues: [recipients, feeRate],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateMultiSigTransactionConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_multi_sig_transaction",
+        argNames: ["recipients", "feeRate"],
+      );
+
   Future<String> signAndBroadcast({required String psbtStr, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) =>
@@ -422,7 +474,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   Future<ExtendedKeyInfo> createKey(
           {required String nodeNetwork,
           required String mnemonic,
-          required String path,
           String? password,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
@@ -430,17 +481,41 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
             port_,
             _api2wire_String(nodeNetwork),
             _api2wire_String(mnemonic),
-            _api2wire_String(path),
             _api2wire_opt_String(password)),
         parseSuccessData: _wire2api_extended_key_info,
         constMeta: kCreateKeyConstMeta,
-        argValues: [nodeNetwork, mnemonic, path, password],
+        argValues: [nodeNetwork, mnemonic, password],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "create_key",
+        argNames: ["nodeNetwork", "mnemonic", "password"],
+      );
+
+  Future<DescriptorExtendedKey> createDescriptorSecretKeys(
+          {required String nodeNetwork,
+          required String mnemonic,
+          required String path,
+          String? password,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_create_descriptor_secret_keys(
+            port_,
+            _api2wire_String(nodeNetwork),
+            _api2wire_String(mnemonic),
+            _api2wire_String(path),
+            _api2wire_opt_String(password)),
+        parseSuccessData: _wire2api_descriptor_extended_key,
+        constMeta: kCreateDescriptorSecretKeysConstMeta,
+        argValues: [nodeNetwork, mnemonic, path, password],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretKeysConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_descriptor_secret_keys",
         argNames: ["nodeNetwork", "mnemonic", "path", "password"],
       );
 
@@ -451,6 +526,15 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   double _api2wire_f32(double raw) {
     return raw;
+  }
+
+  ffi.Pointer<wire_list_address_amount> _api2wire_list_address_amount(
+      List<AddressAmount> raw) {
+    final ans = inner.new_list_address_amount_0(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      _api_fill_to_wire_address_amount(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
   }
 
   ffi.Pointer<wire_uint_8_list> _api2wire_opt_String(String? raw) {
@@ -473,6 +557,11 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   // Section: api_fill_to_wire
 
+  void _api_fill_to_wire_address_amount(
+      AddressAmount apiObj, wire_AddressAmount wireObj) {
+    wireObj.address = _api2wire_String(apiObj.address);
+    wireObj.amount = _api2wire_u64(apiObj.amount);
+  }
 }
 
 // Section: wire2api
@@ -517,14 +606,23 @@ int _wire2api_box_autoadd_u64(dynamic raw) {
   return raw as int;
 }
 
+DescriptorExtendedKey _wire2api_descriptor_extended_key(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return DescriptorExtendedKey(
+    xprv: _wire2api_String(arr[0]),
+    xpub: _wire2api_String(arr[1]),
+  );
+}
+
 ExtendedKeyInfo _wire2api_extended_key_info(dynamic raw) {
   final arr = raw as List<dynamic>;
-  if (arr.length != 3)
-    throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
   return ExtendedKeyInfo(
-    mnemonic: _wire2api_String(arr[0]),
-    xprv: _wire2api_String(arr[1]),
-    xpub: _wire2api_String(arr[2]),
+    xprv: _wire2api_String(arr[0]),
+    xpub: _wire2api_String(arr[1]),
   );
 }
 
@@ -768,6 +866,26 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_create_transaction = _wire_create_transactionPtr.asFunction<
       void Function(int, ffi.Pointer<wire_uint_8_list>, int, double)>();
 
+  void wire_create_multi_sig_transaction(
+    int port_,
+    ffi.Pointer<wire_list_address_amount> recipients,
+    double fee_rate,
+  ) {
+    return _wire_create_multi_sig_transaction(
+      port_,
+      recipients,
+      fee_rate,
+    );
+  }
+
+  late final _wire_create_multi_sig_transactionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_list_address_amount>,
+              ffi.Float)>>('wire_create_multi_sig_transaction');
+  late final _wire_create_multi_sig_transaction =
+      _wire_create_multi_sig_transactionPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_list_address_amount>, double)>();
+
   void wire_sign_and_broadcast(
     int port_,
     ffi.Pointer<wire_uint_8_list> psbt_str,
@@ -859,14 +977,12 @@ class RustWire implements FlutterRustBridgeWireBase {
     int port_,
     ffi.Pointer<wire_uint_8_list> node_network,
     ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> path,
     ffi.Pointer<wire_uint_8_list> password,
   ) {
     return _wire_create_key(
       port_,
       node_network,
       mnemonic,
-      path,
       password,
     );
   }
@@ -877,15 +993,59 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Int64,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_create_key');
   late final _wire_create_key = _wire_create_keyPtr.asFunction<
-      void Function(
-          int,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>)>();
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_create_descriptor_secret_keys(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> node_network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> path,
+    ffi.Pointer<wire_uint_8_list> password,
+  ) {
+    return _wire_create_descriptor_secret_keys(
+      port_,
+      node_network,
+      mnemonic,
+      path,
+      password,
+    );
+  }
+
+  late final _wire_create_descriptor_secret_keysPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_create_descriptor_secret_keys');
+  late final _wire_create_descriptor_secret_keys =
+      _wire_create_descriptor_secret_keysPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_list_address_amount> new_list_address_amount_0(
+    int len,
+  ) {
+    return _new_list_address_amount_0(
+      len,
+    );
+  }
+
+  late final _new_list_address_amount_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_address_amount> Function(
+              ffi.Int32)>>('new_list_address_amount_0');
+  late final _new_list_address_amount_0 = _new_list_address_amount_0Ptr
+      .asFunction<ffi.Pointer<wire_list_address_amount> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -933,6 +1093,20 @@ class RustWire implements FlutterRustBridgeWireBase {
 
 class wire_uint_8_list extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+class wire_AddressAmount extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> address;
+
+  @ffi.Uint64()
+  external int amount;
+}
+
+class wire_list_address_amount extends ffi.Struct {
+  external ffi.Pointer<wire_AddressAmount> ptr;
 
   @ffi.Int32()
   external int len;

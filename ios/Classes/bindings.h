@@ -7,6 +7,16 @@ typedef struct wire_uint_8_list {
   int32_t len;
 } wire_uint_8_list;
 
+typedef struct wire_AddressAmount {
+  struct wire_uint_8_list *address;
+  uint64_t amount;
+} wire_AddressAmount;
+
+typedef struct wire_list_address_amount {
+  struct wire_AddressAmount *ptr;
+  int32_t len;
+} wire_list_address_amount;
+
 typedef struct WireSyncReturnStruct {
   uint8_t *ptr;
   int32_t len;
@@ -42,6 +52,10 @@ void wire_create_transaction(int64_t port_,
                              uint64_t amount,
                              float fee_rate);
 
+void wire_create_multi_sig_transaction(int64_t port_,
+                                       struct wire_list_address_amount *recipients,
+                                       float fee_rate);
+
 void wire_sign_and_broadcast(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 void wire_sign(int64_t port_, struct wire_uint_8_list *psbt_str);
@@ -55,8 +69,15 @@ void wire_generate_seed_from_word_count(int64_t port_, struct wire_uint_8_list *
 void wire_create_key(int64_t port_,
                      struct wire_uint_8_list *node_network,
                      struct wire_uint_8_list *mnemonic,
-                     struct wire_uint_8_list *path,
                      struct wire_uint_8_list *password);
+
+void wire_create_descriptor_secret_keys(int64_t port_,
+                                        struct wire_uint_8_list *node_network,
+                                        struct wire_uint_8_list *mnemonic,
+                                        struct wire_uint_8_list *path,
+                                        struct wire_uint_8_list *password);
+
+struct wire_list_address_amount *new_list_address_amount_0(int32_t len);
 
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
 
@@ -74,12 +95,15 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_last_unused_address);
     dummy_var ^= ((int64_t) (void*) wire_get_transactions);
     dummy_var ^= ((int64_t) (void*) wire_create_transaction);
+    dummy_var ^= ((int64_t) (void*) wire_create_multi_sig_transaction);
     dummy_var ^= ((int64_t) (void*) wire_sign_and_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_sign);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_create_key);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret_keys);
+    dummy_var ^= ((int64_t) (void*) new_list_address_amount_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);
