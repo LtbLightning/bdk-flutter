@@ -37,7 +37,7 @@ pub struct ExtendedKeyInfo {
     // pub fingerprint:String
 }
 #[repr(C)]
-pub struct DescriptorExtendedKey {
+pub struct DerivedKeyInfo {
     pub xprv: String,
     pub xpub:String
 }

@@ -18,7 +18,7 @@ use flutter_rust_bridge::*;
 use crate::ffi::AddressAmount;
 use crate::ffi::Balance;
 use crate::ffi::BlockConfirmationTime;
-use crate::ffi::DescriptorExtendedKey;
+use crate::ffi::DerivedKeyInfo;
 use crate::ffi::ExtendedKeyInfo;
 use crate::ffi::ResponseWallet;
 use crate::ffi::Transaction;
@@ -472,12 +472,12 @@ impl support::IntoDart for BlockConfirmationTime {
 }
 impl support::IntoDartExceptPrimitive for BlockConfirmationTime {}
 
-impl support::IntoDart for DescriptorExtendedKey {
+impl support::IntoDart for DerivedKeyInfo {
     fn into_dart(self) -> support::DartCObject {
         vec![self.xprv.into_dart(), self.xpub.into_dart()].into_dart()
     }
 }
-impl support::IntoDartExceptPrimitive for DescriptorExtendedKey {}
+impl support::IntoDartExceptPrimitive for DerivedKeyInfo {}
 
 impl support::IntoDart for ExtendedKeyInfo {
     fn into_dart(self) -> support::DartCObject {

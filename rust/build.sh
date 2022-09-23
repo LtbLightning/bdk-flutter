@@ -23,4 +23,5 @@ FILE=target
     rm target/armv7-linux-androideabi/release/librust.so
     rm target/i686-linux-android/release/librust.so
     rm target/universal/release/librust.a
+
     fi

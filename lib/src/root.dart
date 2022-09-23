@@ -4,7 +4,6 @@ import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
 import 'package:bdk_flutter/src/utils/validators.dart';
-
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'utils/loader.dart';
 
@@ -40,13 +39,13 @@ class BdkWallet {
             socks5OrProxy: socks5OrProxy.toString(),
             url: blockChainConfigUrl);
       } else {
-        var key = await createDescriptorsFromMnemonic(
+        var key = await createDescriptor(
             network: network,
             mnemonic: mnemonic.toString(),
             password: password,
             type: Descriptor.P2PK,
-            descriptorPath: 'm/0',
-            changeDescriptorPath: "m/1"
+            descriptorPath: 'm/84/0/0/0/0',
+            changeDescriptorPath: "m/84'/0'/0'/0/1"
         );
         await loaderApi.walletInit(
             descriptor: key.descriptor,
@@ -169,8 +168,6 @@ class BdkWallet {
     }
   }
 
-
-
   Future<void> signTransaction({required String psbt}) async {
     try {
       await loaderApi.sign(psbtStr: psbt);
@@ -242,6 +239,7 @@ Future<String> createXprv(
     rethrow;
   }
 }
+
 Future<String> createXpub(
     {required Network network,
       required String mnemonic,
@@ -274,7 +272,8 @@ Future<ExtendedKeyInfo> createExtendedKey(
     throw KeyException.unexpected(e.message);
   }
 }
-Future<DescriptorExtendedKey> createDescriptorExtendedKey(
+
+Future<DerivedKeyInfo> createDerivedKey(
     {required Network network,
       required String mnemonic,
       String? path,
@@ -292,75 +291,77 @@ Future<DescriptorExtendedKey> createDescriptorExtendedKey(
   }
 }
 
-PathDescriptors createDescriptorsFromKeys(
-    {required Descriptor type,
-      required String derivedKey,
-      String? changeDerivedKey,
-      List<String>? publicKeys,
-      int? threshold = 4}){
-  switch (type) {
-    case Descriptor.P2PKH:
-      return PathDescriptors(descriptor:"pkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"pkh($changeDerivedKey)");
-    case Descriptor.P2WPKH:
-      return PathDescriptors(descriptor:"wpkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"wpkh($changeDerivedKey)");
-    case Descriptor.P2SHP2WPKH:
-      return  PathDescriptors(descriptor:"sh(wpkh($derivedKey))", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"sh(wpkh($changeDerivedKey))");
-    case Descriptor.P2SHP2WSHP2PKH:
-      return  PathDescriptors(descriptor:"sh(wsh(pkh($derivedKey)))", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"sh(wsh(pkh($changeDerivedKey)))");
-    case Descriptor.MULTI:
-      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(), descriptorKey: derivedKey, changeDescriptorKey: changeDerivedKey);
-    default:
-      return PathDescriptors(descriptor:"wpkh($derivedKey)", changeDescriptor: (changeDerivedKey==null||changeDerivedKey=="")? "":"wpkh($changeDerivedKey)");
-  }
-}
-
-
-Future<PathDescriptors> createDescriptorsFromMnemonic({
+Future<PathDescriptor> createDescriptor({
   required String descriptorPath,
   String? changeDescriptorPath,
+  String? xprv,
   required Descriptor type,
-  required String mnemonic,
-  required Network network,
+  String? mnemonic,
+  Network? network,
   String? password,
   List<String>? publicKeys,
   int? threshold = 4
 }) async {
-
-  var descriptorKey =await loaderApi.createDescriptorSecretKeys(nodeNetwork: network.name.toString(), password: password, mnemonic: mnemonic, path: descriptorPath);
-  var changeDescriptorKey = (changeDescriptorPath==null||changeDescriptorPath==""||changeDescriptorPath.isEmpty)?
-  DescriptorExtendedKey(xprv: "", xpub: ""):
-  await loaderApi.createDescriptorSecretKeys(
-      nodeNetwork: network.name.toString(),
-      password: password,
-      mnemonic: mnemonic,
-      path: changeDescriptorPath.toString()) ;
-
-  switch (type) {
-    case Descriptor.P2PKH:
-      return PathDescriptors(descriptor:"pkh(${descriptorKey.xprv})", changeDescriptor: "pkh(${changeDescriptorKey.xprv})");
-    case Descriptor.P2WPKH:
-      return PathDescriptors(descriptor:"wpkh(${descriptorKey.xprv})", changeDescriptor: "wpkh(${changeDescriptorKey.xprv})");
-    case Descriptor.P2SHP2WPKH:
-      return  PathDescriptors(descriptor:"sh(wpkh(${descriptorKey.xprv}))", changeDescriptor: "sh(wpkh(${changeDescriptorKey.xprv}))");
-    case Descriptor.P2SHP2WSHP2PKH:
-      return  PathDescriptors(descriptor:"sh(wsh(pkh(${descriptorKey.xprv})))", changeDescriptor: "sh(wsh(pkh(${changeDescriptorKey.xprv})))");
-    case Descriptor.MULTI:
-      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(), descriptorKey:  descriptorKey.xprv, changeDescriptorKey:  changeDescriptorKey.xprv);
-    default:
-      return PathDescriptors(descriptor:"wpkh(${descriptorKey.xprv})", changeDescriptor: "wpkh(${changeDescriptorKey.xprv})");
+  if ((mnemonic == null ) && (xprv == null )) {
+    throw const KeyException.insufficientCoreVariables("Require a mnemonic or xprv.");
+  }
+  if((mnemonic != null  ) && (xprv != null ))
+  {
+    throw const KeyException.repetitiousArguments("Provided both mnemonic and xprv.");
+  }
+  if(xprv==null||xprv=="") {
+    if(network == null) throw const KeyException.invalidNetwork();
+    var descriptorKey =await createDerivedKey(network: network, password: password, mnemonic: mnemonic.toString(), path: descriptorPath);
+    var changeDescriptorKey = (changeDescriptorPath==null||changeDescriptorPath==""||changeDescriptorPath.isEmpty)? DerivedKeyInfo(xprv: "", xpub: ""):
+    await createDerivedKey(
+        network: network,
+        password: password,
+        mnemonic: mnemonic.toString(),
+        path: changeDescriptorPath.toString()) ;
+    final res = _createPathDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: descriptorKey.xprv,changeDescriptorKey: changeDescriptorKey.xprv, type: type);
+    return res;
+  } else{
+    final res = _createPathDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: xprv,changeDescriptorKey: xprv, type: type);
+    return res;
   }
 }
 
-PathDescriptors _createMultiSigDescriptor({required List<String>? publicKeys, int threshold = 2, required String descriptorKey, String? changeDescriptorKey}){
+PathDescriptor _createMultiSigDescriptor({List<String>? publicKeys, int threshold = 2, required String descriptorKey, String? changeDescriptorKey}){
+
   if( publicKeys == null ) {
-    throw const KeyException.invalidPublicKey("Public key must not be null");
+    throw const KeyException.invalidPublicKey("Public keys must not be null");
   }
   if (threshold == 0 || threshold > publicKeys.length + 1) throw const KeyException.invalidThresholdValue();
-  return  PathDescriptors(
+  return  PathDescriptor(
       descriptor:"wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
       changeDescriptor: (changeDescriptorKey==null||changeDescriptorKey=="") ? "":
       "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
 }
+
+PathDescriptor _createPathDescriptor({
+  required String descriptorKey,
+  String? changeDescriptorKey,
+  required Descriptor type,
+  List<String>? publicKeys,
+  int? threshold = 4
+}){
+
+  switch (type) {
+    case Descriptor.P2PKH:
+      return PathDescriptor(descriptor:"pkh($descriptorKey)", changeDescriptor: "pkh($changeDescriptorKey)");
+    case Descriptor.P2WPKH:
+      return PathDescriptor(descriptor:"wpkh($descriptorKey)", changeDescriptor: "wpkh($changeDescriptorKey)");
+    case Descriptor.P2SHP2WPKH:
+      return  PathDescriptor(descriptor:"sh(wpkh($descriptorKey))", changeDescriptor: "sh(wpkh($changeDescriptorKey))");
+    case Descriptor.P2SHP2WSHP2PKH:
+      return  PathDescriptor(descriptor:"sh(wsh(pkh($descriptorKey)))", changeDescriptor: "sh(wsh(pkh($changeDescriptorKey)))");
+    case Descriptor.MULTI:
+      return _createMultiSigDescriptor(publicKeys: publicKeys, threshold: threshold!.toInt(), descriptorKey:  descriptorKey, changeDescriptorKey:  changeDescriptorKey);
+    default:
+      return PathDescriptor(descriptor:"wpkh($descriptorKey)", changeDescriptor: "wpkh($changeDescriptorKey)");
+  }
+}
+
 
 
 
