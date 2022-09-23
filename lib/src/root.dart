@@ -318,10 +318,10 @@ Future<PathDescriptor> createDescriptor({
         password: password,
         mnemonic: mnemonic.toString(),
         path: changeDescriptorPath.toString()) ;
-    final res = _createPathDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: descriptorKey.xprv,changeDescriptorKey: changeDescriptorKey.xprv, type: type);
+    final res = _createDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: descriptorKey.xprv,changeDescriptorKey: changeDescriptorKey.xprv, type: type);
     return res;
   } else{
-    final res = _createPathDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: xprv,changeDescriptorKey: xprv, type: type);
+    final res = _createDescriptor(threshold:threshold,publicKeys:publicKeys,descriptorKey: xprv,changeDescriptorKey: xprv, type: type);
     return res;
   }
 }
@@ -338,7 +338,7 @@ PathDescriptor _createMultiSigDescriptor({List<String>? publicKeys, int threshol
       "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
 }
 
-PathDescriptor _createPathDescriptor({
+PathDescriptor _createDescriptor({
   required String descriptorKey,
   String? changeDescriptorKey,
   required Descriptor type,
