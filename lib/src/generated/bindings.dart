@@ -95,7 +95,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
 
-  Future<DescriptorExtendedKey> createDescriptorSecretKeys(
+  Future<DerivedKeyInfo> createDescriptorSecretKeys(
       {required String nodeNetwork,
       required String mnemonic,
       required String path,
@@ -153,11 +153,11 @@ class BlockConfirmationTime {
   });
 }
 
-class DescriptorExtendedKey {
+class DerivedKeyInfo {
   final String xprv;
   final String xpub;
 
-  DescriptorExtendedKey({
+  DerivedKeyInfo({
     required this.xprv,
     required this.xpub,
   });
@@ -494,7 +494,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["nodeNetwork", "mnemonic", "password"],
       );
 
-  Future<DescriptorExtendedKey> createDescriptorSecretKeys(
+  Future<DerivedKeyInfo> createDescriptorSecretKeys(
           {required String nodeNetwork,
           required String mnemonic,
           required String path,
@@ -507,7 +507,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
             _api2wire_String(mnemonic),
             _api2wire_String(path),
             _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_descriptor_extended_key,
+        parseSuccessData: _wire2api_derived_key_info,
         constMeta: kCreateDescriptorSecretKeysConstMeta,
         argValues: [nodeNetwork, mnemonic, path, password],
         hint: hint,
@@ -606,11 +606,11 @@ int _wire2api_box_autoadd_u64(dynamic raw) {
   return raw as int;
 }
 
-DescriptorExtendedKey _wire2api_descriptor_extended_key(dynamic raw) {
+DerivedKeyInfo _wire2api_derived_key_info(dynamic raw) {
   final arr = raw as List<dynamic>;
   if (arr.length != 2)
     throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return DescriptorExtendedKey(
+  return DerivedKeyInfo(
     xprv: _wire2api_String(arr[0]),
     xpub: _wire2api_String(arr[1]),
   );

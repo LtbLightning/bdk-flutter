@@ -1,4 +1,4 @@
-use crate::ffi::{AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, ResponseWallet, Balance, DescriptorSecretKey, DerivationPath, AddressAmount, DescriptorExtendedKey, get_extended_key_info};
+use crate::ffi::{AddressIndex, ExtendedKeyInfo, PartiallySignedBitcoinTransaction, Transaction, TxBuilder, Wallet, generate_mnemonic_from_word_count, generate_mnemonic_from_entropy, ResponseWallet, Balance, DescriptorSecretKey, DerivationPath, AddressAmount, get_extended_key_info, DerivedKeyInfo};
 use std::ops::Deref;
 // use anyhow::{anyhow, Result};
 use bdk::bitcoin::Network;
@@ -245,10 +245,10 @@ pub fn create_descriptor_secret_keys(
     mnemonic: String,
     path:String,
     password: Option<String>,
-) -> DescriptorExtendedKey {
+) -> DerivedKeyInfo {
     let descriptor_secret = get_descriptor_secret_key( mnemonic.clone(), node_network,password);
     let derived_secret = derive_dsk(&descriptor_secret, path.as_str()).unwrap();
-    let response = DescriptorExtendedKey{
+    let response = DerivedKeyInfo{
         xprv: derived_secret.as_string(),
         xpub: derived_secret.as_public().as_string()
     };

@@ -18,10 +18,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     restoreWallet(
-        "puppy interest whip tonight dad never sudden response push zone pig patch",
+       "puppy interest whip tonight dad never sudden response push zone pig patch",
+      //"science source gallery fresh gallery vanish lamp deal home flash behave frog",
         Network.TESTNET);
     // restoreWalletFromDescriptors();
-    // generateDescriptors();
+     generateDescriptors();
     super.initState();
   }
   generateMnemonicKeys() async{
@@ -34,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateDescriptors() async {
-    var aliceDescriptor = await createDescriptorsFromMnemonic(
+    var aliceDescriptor = await createDescriptor(
         mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
         network: Network.TESTNET,
         type: Descriptor.MULTI,
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         changeDescriptorPath:'m/1'
     );
 
-    var bobDescriptor = await createDescriptorsFromMnemonic(
+    var bobDescriptor = await createDescriptor(
         mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love",
         network: Network.TESTNET,
         type: Descriptor.MULTI,
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         changeDescriptorPath:'m/1'
     );
 
-    var daveDescriptor = await createDescriptorsFromMnemonic(
+    var daveDescriptor = await createDescriptor(
         mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog",
         network: Network.TESTNET,
         type: Descriptor.MULTI,
@@ -109,10 +110,11 @@ class _MyAppState extends State<MyApp> {
     //     blockchain: Blockchain.ELECTRUM);
   }
   restoreWallet(String mnemonic, Network network) async {
-    var  keys = await createDescriptorsFromMnemonic(mnemonic: mnemonic, network: network, type: Descriptor.P2WPKH, descriptorPath: 'm/0',changeDescriptorPath:'m/1' );
+    var  keys = await createDescriptor(mnemonic: mnemonic, network: network, type: Descriptor.P2WPKH, descriptorPath: 'm/0',changeDescriptorPath:'m/1' );
     var resWallet = await bdkWallet.createWallet(
-        descriptor: keys.descriptor,
-        changeDescriptor:  keys.changeDescriptor,
+        //  descriptor: keys.descriptor,
+        // changeDescriptor: keys.changeDescriptor,
+         mnemonic: mnemonic,
         network: network,
         blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
         blockchain: Blockchain.ELECTRUM);
@@ -151,13 +153,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   getXpubFromMnemonic() async {
-    // var aliceKey = await  createExtendedKey(network: Network.TESTNET, mnemonic:  "puppy interest whip tonight dad never sudden response push zone pig patch");
-    // var bobKey = await  createExtendedKey(network: Network.TESTNET, mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love");
-    // var daveKey = await createExtendedKey(network: Network.TESTNET, mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog");
-    //
-    // print("Bob: ${bobKey.xprv}");
-    // print("Dave: ${daveKey.xprv}");
-    // print("Alice: ${aliceKey.xprv}");
+    var aliceKey = await  createExtendedKey(network: Network.TESTNET, mnemonic:  "puppy interest whip tonight dad never sudden response push zone pig patch");
+    var bobKey = await  createExtendedKey(network: Network.TESTNET, mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love");
+    var daveKey = await createExtendedKey(network: Network.TESTNET, mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog");
+
+    print("Bob: ${bobKey.xprv}");
+    print("Dave: ${daveKey.xpub}");
+    print("Alice: ${aliceKey.xprv}");
   }
 
   sendBit() async {

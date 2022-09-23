@@ -123,9 +123,6 @@ void main() {
             isA<BroadcastException>()
         );
       }
-
-
-
     });
   });
 }
