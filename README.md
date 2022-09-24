@@ -7,7 +7,6 @@ A Flutter version of the Bitcoin Development Kit (https://bitcoindevkit.org/)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Building Binary Files](#building-binary-files)
-- [Library API](#library-api)
 - [Usage](#usage)
 - [Library API](#library-api)
 
