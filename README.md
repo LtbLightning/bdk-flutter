@@ -411,7 +411,7 @@ final response = await BdkWallet().syncWallet();
 
 
 ### createTx()
-Creates bitcoin transaction. This can transaction can later be signed and broadcast. The transaction created is a Partially Signed Bitcoin Transaction(psbt).<br />
+Creates a bitcoin transaction. This can transaction can later be signed and broadcast. The transaction created is a Partially Signed Bitcoin Transaction(psbt).<br />
 Required params: address, amount, feeRate
 
 ```dart
@@ -451,7 +451,7 @@ Returned response example:
 
 
 ### broadcastTx()
-Broadcasts a signed bitcoin transaction to the bitcoin network. The transaction is sent to the bitcoin node associated with the blockchain config that was used to create the wallet. The method accepts a signed bitcoin transaction. The psbt returned by signTx can be passed to broadcastTx().<br />
+Broadcasts a signed bitcoin transaction to the bitcoin network. The transaction is sent to the bitcoin node associated with the blockchain config that was used to create the wallet. The method accepts a signed bitcoin transaction. The psbt returned by signTx can be passed to broadcastTx() on succesful broadcasta transaction id is returned.<br />
 Required params: sbt ( Signed Bitcoin Transaction)
 
 ```dart
