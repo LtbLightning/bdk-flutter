@@ -170,7 +170,7 @@ class BdkWallet {
 
 
 
-  Future<String> broadcastTransaction({required String psbt}) async {
+  Future<String> signAndBroadcastTransaction({required String psbt}) async {
     try {
       final txid = await loaderApi.signAndBroadcast(psbtStr: psbt);
       return txid;
@@ -185,7 +185,7 @@ class BdkWallet {
     try {
       if(amount<100) throw const BroadcastException.insufficientBroadcastAmount( "The minimum amount should be greater 100");
       final psbt = await createTransaction(recipient: recipient, amount: amount, feeRate: feeRate);
-      final txid = await broadcastTransaction(psbt: psbt);
+      final txid = await signAndBroadcastTransaction(psbt: psbt);
       return txid;
     } on FfiException catch (e) {
       if(e.message.contains("InsufficientFunds")){

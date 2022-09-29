@@ -71,20 +71,30 @@ class _MyAppState extends State<MyApp> {
         changeDescriptorPath:'m/1'
     );
 
-    print("Alice Descriptor: ${aliceDescriptor.descriptor}");
-    print("Alice ChangeDescriptor: ${aliceDescriptor.changeDescriptor}");
-    print("Bob Descriptor: ${bobDescriptor.descriptor}");
-    print("Bob ChangeDescriptor: ${bobDescriptor.changeDescriptor}");
-    print("Dave Descriptor: ${daveDescriptor.descriptor}");
-    print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
+    // print("Alice Descriptor: ${aliceDescriptor.descriptor}");
+    // print("Alice ChangeDescriptor: ${aliceDescriptor.changeDescriptor}");
+    // print("Bob Descriptor: ${bobDescriptor.descriptor}");
+    // print("Bob ChangeDescriptor: ${bobDescriptor.changeDescriptor}");
+    // print("Dave Descriptor: ${daveDescriptor.descriptor}");
+    // print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
   }
 
   restoreWallet(String mnemonic, Network network) async {
+    final key =await createDescriptor(
+        descriptorPath: "m/84'/0'/0'",
+        changeDescriptorPath: "m/84'/0'/1'",
+        type: Descriptor.P2WPKH,
+      mnemonic: mnemonic,
+      network: network
+    );
+    print(key.descriptor);
+    print(key.changeDescriptor);
     var resWallet = await bdkWallet.createWallet(
          mnemonic: mnemonic,
         network: network,
         blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
         blockchain: Blockchain.ELECTRUM);
+    print(resWallet.address);
     print(resWallet.balance.total);
   }
 
