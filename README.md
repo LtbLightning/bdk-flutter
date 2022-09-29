@@ -87,7 +87,7 @@ The following methods can be used with this module. All methods can be called by
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
 | [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |
 | [createDescriptor()](#createDescriptor)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
-| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockChainConfigUrl, socks5OrProxy, retry, timeOut|                                                                                                                                                 
+| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig|                                                                                                                                                 
 | [getNewAddress()](#getNewAddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
 | [getBalance()](#getbalance)                    | -                                                                                          |
@@ -227,7 +227,7 @@ changeDescriptor: "wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuN
 
 Create a new wallet.
 
-User can specify their custom mnemonic (OR can generate from generateMnemonic() method), password, network, blockChainConfigUrl, blockChainSocket5,  blockChain, walletDescriptor and pass to createWallet.
+User can specify their custom mnemonic (OR can generate from generateMnemonic() method), password, network, blockchainConfig, walletDescriptor and pass to createWallet.
 If any of the values are not specified, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generated automatically and an empty password will be applied to createWallet.
 In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.MULTI type.
 
@@ -236,15 +236,27 @@ In the case of a multi-sig wallet, you can generate a custom descriptor using cr
 final response  =  await BdkWallet().createWallet(  descriptor: descriptor,
                                                     changeDescriptor: changeDescriptor,
                                                     network: Network.TESTNET,
-                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002" ,
-                                                    blockchain: Blockchain.ELECTRUM
+						    blockchainConfig: BlockchainConfig.electrum
+						    (
+						        config: ElectrumConfig(
+                                                                   stopGap: 10,
+                                                                   retry: 5,
+                                                                   url: "ssl://electrum.blockstream.info:60002")
+						     )
+                                                    
                                                  );
                                                 
 final response  =  await BdkWallet().createWallet(  mnemonic: mnemonic,
                                                     password: password,
                                                     network: Network.TESTNET,
-                                                    blockChainConfigUrl: "ssl://electrum.blockstream.info:60002" ,
-                                                    blockchain: Blockchain.ELECTRUM
+                                                    blockchainConfig: BlockchainConfig.electrum
+						    (
+						        config: ElectrumConfig(
+                                                                   stopGap: 10,
+                                                                   retry: 5,
+                                                                   url: "ssl://electrum.blockstream.info:60002")
+						     )
+                                                    
                                                  );
 						    
 ```

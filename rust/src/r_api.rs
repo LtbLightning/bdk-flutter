@@ -9,10 +9,9 @@ use crate::types::{
 };
 use crate::utils::{
     config_bdk_network, config_blockchain, config_entropy, config_keychain_kind, config_network,
-    config_word_count, handle_keys_error,
+    config_word_count
 };
 use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain, GetBlockHash, GetHeight};
-use bdk::keys::bip39::{Language, Mnemonic};
 use bdk::wallet::export::FullyNodedExport;
 use bdk::{bitcoin, Error, KeychainKind};
 use lazy_static::lazy_static;
@@ -218,7 +217,8 @@ pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> Stri
 }
 
 pub fn create_multi_sig_transaction(recipients: Vec<AddressAmount>, fee_rate: f32) -> String {
-    let wallet = WALLET.read().unwrap();
+    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
+    let wallet = bdk_info.wallet.unwrap();
     let tx_builder = TxBuilder::new();
     let psbt = tx_builder
         .set_recipients(recipients)
@@ -270,17 +270,9 @@ pub fn create_key(
 //         // }
 //     }
 // }
+
 pub fn create_descriptor_secret_keys(
     node_network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> ExtendedKeyInfo {
-    let node_network = config_network(node_network);
-    let response = get_extended_key_info(node_network, mnemonic, password);
-    return response;
-}
-pub fn create_descriptor_secret_keys(
-    node_network: String,
     mnemonic: String,
     path: String,
     password: Option<String>,
@@ -359,7 +351,7 @@ mod tests {
         get_descriptor_secret_key, get_new_address, get_transactions, sign, wallet_init,
     };
     use crate::types::{
-        BdkError, BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
+        BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
     };
     use bdk::bitcoin::Address;
     use bdk::bitcoin::Network as BdkNetwork;
@@ -461,7 +453,7 @@ mod tests {
     #[test]
     fn generate_mnemonic_word_count_test() {
         let mnemonic = generate_seed_from_word_count(WordCount::WORDS12);
-        assert_eq!(mnemonic.split(" ").count(), 15)
+        assert_eq!(mnemonic.split(" ").count(), 12)
     }
 
     #[test]

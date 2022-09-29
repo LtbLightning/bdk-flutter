@@ -114,7 +114,7 @@ class BdkFlutter {
   Future<Balance> getBalance() async {
     try {
       var res = await loaderApi.getBalance();
-      return res.total.toString();
+      return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -239,9 +239,10 @@ class BdkFlutter {
       required int amount,
       required double feeRate}) async {
     try {
-      if (amount < 100)
+      if (amount < 100) {
         throw const BroadcastException.insufficientBroadcastAmount(
             "The minimum amount should be greater 100");
+      }
       final psbt = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
       return psbt;
@@ -268,9 +269,10 @@ class BdkFlutter {
       required int amount,
       required double feeRate}) async {
     try {
-      if (amount < 100)
+      if (amount < 100) {
         throw const BroadcastException.insufficientBroadcastAmount(
             "The minimum amount should be greater 100");
+      }
       final psbt = await createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
       final txid = await signAndBroadcastTransaction(psbt: psbt);
@@ -340,9 +342,10 @@ Future<ExtendedKeyInfo> createExtendedKey(
     required String mnemonic,
     String? password = ''}) async {
   try {
-    if (!isValidMnemonic(mnemonic.toString()))
+    if (!isValidMnemonic(mnemonic.toString())) {
       throw const KeyException.badWordCount(
           "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
+    }
     var res = await loaderApi.createKey(
       nodeNetwork: network,
       mnemonic: mnemonic,
@@ -361,14 +364,15 @@ Future<ExtendedKeyInfo> createExtendedKey(
 Future<DerivedKeyInfo> createDerivedKey(
     {required Network network,
     required String mnemonic,
-    String path = 'm/84/0/0/0/0',
+    String? path ,
     String? password = ''}) async {
   try {
-    if (!isValidMnemonic(mnemonic.toString()))
+    if (!isValidMnemonic(mnemonic.toString())) {
       throw const KeyException.badWordCount(
           "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
+    }
     var res = await loaderApi.createDescriptorSecretKeys(
-        nodeNetwork: network, mnemonic: mnemonic, path: path);
+        nodeNetwork: network, mnemonic: mnemonic, path: path ?? "m/84'/0'/0'");
     return res;
   } on FfiException catch (e) {
     if (e.message.contains("UnknownWord")) {
@@ -439,11 +443,11 @@ PathDescriptor _createMultiSigDescriptor(
   if (publicKeys == null) {
     throw const KeyException.invalidPublicKey("Public keys must not be null");
   }
-  if (threshold == 0 || threshold > publicKeys.length + 1)
+  if (threshold == 0 || threshold > publicKeys.length + 1) {
     throw const KeyException.invalidThresholdValue();
+  }
   return PathDescriptor(
-      descriptor:
-          "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
+      descriptor: "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
       changeDescriptor: (changeDescriptorKey == null ||
               changeDescriptorKey == "")
           ? ""

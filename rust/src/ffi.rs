@@ -460,18 +460,6 @@ impl DerivationPath {
 //         fingerprint: fingerprint.to_string(),
 //     })
 // }
-pub fn get_extended_key_info(
-    network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> ExtendedKeyInfo {
-    let xprv = DescriptorSecretKey::new(network, mnemonic, password).unwrap();
-    let xpub = xprv.as_public();
-    ExtendedKeyInfo {
-        xprv: xprv.as_string(),
-        xpub: xpub.as_string(),
-    }
-}
 fn create_extended_key(mnemonic: String, password: Option<String>) -> ExtendedKey {
     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
     let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
@@ -490,11 +478,7 @@ pub fn get_extended_key_info(
         xpub: xpub.as_string(),
     }
 }
-fn create_extended_key(mnemonic: String, password: Option<String>) -> ExtendedKey {
-    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
-    xkey
-}
+
 
 impl DescriptorSecretKey {
     pub(crate) fn new(

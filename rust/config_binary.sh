@@ -25,3 +25,4 @@
         cp temp/target/universal/release/librust.a  ../ios/
         cp temp/config.txt   .
         rm -r temp/
+

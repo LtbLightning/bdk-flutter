@@ -3,7 +3,7 @@ use bdk::blockchain::{AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::{Error, KeychainKind as BdkKeychainKind};
 use bdk::keys::bip39::WordCount as BdkWordCount;
-use crate::types::{BdkError, BlockchainConfig, DatabaseConfig, Entropy, KeyChainKind, Network, WordCount};
+use crate::types::{ BlockchainConfig, DatabaseConfig, Entropy, KeyChainKind, Network, WordCount};
 use bdk::database::any:: SqliteDbConfiguration;
 use bdk::database::{AnyDatabaseConfig};
 use bdk::keys::bip39::Error as KeysError;
@@ -76,62 +76,62 @@ pub fn config_database(database_config: DatabaseConfig) -> AnyDatabaseConfig {
     };
 }
 
-
-pub fn handle_keys_error(error:KeysError)-> BdkError{
-    return match error {
-        KeysError::BadWordCount(_) => BdkError::BadWordCount,
-        KeysError::UnknownWord(_) => BdkError::UnknownWord,
-        KeysError::BadEntropyBitCount(_) => BdkError::BadEntropyBitCount,
-        KeysError::InvalidChecksum => BdkError::InvalidChecksum,
-        KeysError::AmbiguousLanguages(_) => BdkError::UnknownWord
-    }
-}
-pub fn handle_bdk_error(error: Error) -> BdkError {
-    return match error {
-        Error::InvalidU32Bytes(_) => BdkError::InvalidChecksum,
-        _ =>BdkError::UnknownWord,
-        // Error::Generic(_) => {}
-        // Error::ScriptDoesntHaveAddressForm => {}
-        // Error::NoRecipients => {}
-        // Error::NoUtxosSelected => {}
-        // Error::OutputBelowDustLimit(_) => {}
-        // Error::InsufficientFunds { .. } => {}
-        // Error::BnBTotalTriesExceeded => {}
-        // Error::BnBNoExactMatch => {}
-        // Error::UnknownUtxo => {}
-        // Error::TransactionNotFound => {}
-        // Error::TransactionConfirmed => {}
-        // Error::IrreplaceableTransaction => {}
-        // Error::FeeRateTooLow { .. } => {}
-        // Error::FeeTooLow { .. } => {}
-        // Error::FeeRateUnavailable => {}
-        // Error::MissingKeyOrigin(_) => {}
-        // Error::Key(_) => {}
-        // Error::ChecksumMismatch => BdkError::InvalidChecksum,
-        // Error::SpendingPolicyRequired(_) => {}
-        // Error::InvalidPolicyPathError(_) => {}
-        // Error::Signer(_) => {}
-        // Error::InvalidNetwork { .. } => {}
-        // Error::Verification(_) => {}
-        // Error::InvalidProgressValue(_) => {}
-        // Error::ProgressUpdateError => {}
-        // Error::InvalidOutpoint(_) => {}
-        // Error::Descriptor(_) => {}
-        // Error::AddressValidator(_) => {}
-        // Error::Encode(_) => {}
-        // Error::Miniscript(_) => {}
-        // Error::Bip32(_) => {}
-        // Error::Secp256k1(_) => {}
-        // Error::Json(_) => {}
-        // Error::Hex(_) => {}
-        // Error::Psbt(_) => {}
-        // Error::PsbtParse(_) => {}
-        // Error::MissingCachedScripts(_) => {}
-        // Error::Electrum(_) => {}
-        // Error::Esplora(_) => {}
-        // Error::CompactFilters(_) => {}
-        // Error::Sled(_) => {}
-        // Error::Rpc(_) => {}
-        // Error::Rusqlite(_) => {}
-    };
-}
+//
+// pub fn handle_keys_error(error:KeysError)-> BdkError{
+//     return match error {
+//         KeysError::BadWordCount(_) => BdkError::BadWordCount,
+//         KeysError::UnknownWord(_) => BdkError::UnknownWord,
+//         KeysError::BadEntropyBitCount(_) => BdkError::BadEntropyBitCount,
+//         KeysError::InvalidChecksum => BdkError::InvalidChecksum,
+//         KeysError::AmbiguousLanguages(_) => BdkError::UnknownWord
+//     }
+// }
+// pub fn handle_bdk_error(error: Error) -> BdkError {
+//     return match error {
+//         Error::InvalidU32Bytes(_) => BdkError::InvalidChecksum,
+//         _ =>BdkError::UnknownWord,
+//         // Error::Generic(_) => {}
+//         // Error::ScriptDoesntHaveAddressForm => {}
+//         // Error::NoRecipients => {}
+//         // Error::NoUtxosSelected => {}
+//         // Error::OutputBelowDustLimit(_) => {}
+//         // Error::InsufficientFunds { .. } => {}
+//         // Error::BnBTotalTriesExceeded => {}
+//         // Error::BnBNoExactMatch => {}
+//         // Error::UnknownUtxo => {}
+//         // Error::TransactionNotFound => {}
+//         // Error::TransactionConfirmed => {}
+//         // Error::IrreplaceableTransaction => {}
+//         // Error::FeeRateTooLow { .. } => {}
+//         // Error::FeeTooLow { .. } => {}
+//         // Error::FeeRateUnavailable => {}
+//         // Error::MissingKeyOrigin(_) => {}
+//         // Error::Key(_) => {}
+//         // Error::ChecksumMismatch => BdkError::InvalidChecksum,
+//         // Error::SpendingPolicyRequired(_) => {}
+//         // Error::InvalidPolicyPathError(_) => {}
+//         // Error::Signer(_) => {}
+//         // Error::InvalidNetwork { .. } => {}
+//         // Error::Verification(_) => {}
+//         // Error::InvalidProgressValue(_) => {}
+//         // Error::ProgressUpdateError => {}
+//         // Error::InvalidOutpoint(_) => {}
+//         // Error::Descriptor(_) => {}
+//         // Error::AddressValidator(_) => {}
+//         // Error::Encode(_) => {}
+//         // Error::Miniscript(_) => {}
+//         // Error::Bip32(_) => {}
+//         // Error::Secp256k1(_) => {}
+//         // Error::Json(_) => {}
+//         // Error::Hex(_) => {}
+//         // Error::Psbt(_) => {}
+//         // Error::PsbtParse(_) => {}
+//         // Error::MissingCachedScripts(_) => {}
+//         // Error::Electrum(_) => {}
+//         // Error::Esplora(_) => {}
+//         // Error::CompactFilters(_) => {}
+//         // Error::Sled(_) => {}
+//         // Error::Rpc(_) => {}
+//         // Error::Rusqlite(_) => {}
+//     };
+// }

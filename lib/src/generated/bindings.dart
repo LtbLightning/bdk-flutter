@@ -110,11 +110,6 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta;
 
-  Future<String> drainWallet(
-      {required String recipient, required double feeRate, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kDrainWalletConstMeta;
-
   Future<String> createMultiSigTransaction(
       {required List<AddressAmount> recipients,
       required double feeRate,
@@ -145,13 +140,21 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
 
   Future<DerivedKeyInfo> createDescriptorSecretKeys(
-      {required String nodeNetwork,
+      {required Network nodeNetwork,
       required String mnemonic,
       required String path,
       String? password,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretKeysConstMeta;
+
+  Future<String?> sign({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSignConstMeta;
+
+  Future<String?> broadcast({required String txid, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
 }
 
 class AddressAmount {
@@ -199,6 +202,72 @@ class BlockConfirmationTime {
   BlockConfirmationTime({
     required this.height,
     required this.timestamp,
+  });
+}
+
+@freezed
+class BlockchainConfig with _$BlockchainConfig {
+  const factory BlockchainConfig.electrum({
+    required ElectrumConfig config,
+  }) = ELECTRUM;
+  const factory BlockchainConfig.esplora({
+    required EsploraConfig config,
+  }) = ESPLORA;
+}
+
+@freezed
+class DatabaseConfig with _$DatabaseConfig {
+  const factory DatabaseConfig.memory() = MEMORY;
+  const factory DatabaseConfig.sqlite({
+    required SqliteConfiguration config,
+  }) = SQLITE;
+}
+
+class DerivedKeyInfo {
+  final String xprv;
+  final String xpub;
+
+  DerivedKeyInfo({
+    required this.xprv,
+    required this.xpub,
+  });
+}
+
+class ElectrumConfig {
+  final String url;
+  final String? socks5;
+  final int retry;
+  final int? timeout;
+  final int stopGap;
+
+  ElectrumConfig({
+    required this.url,
+    this.socks5,
+    required this.retry,
+    this.timeout,
+    required this.stopGap,
+  });
+}
+
+enum Entropy {
+  ENTROPY128,
+  ENTROPY192,
+  ENTROPY256,
+}
+
+class EsploraConfig {
+  final String baseUrl;
+  final String? proxy;
+  final int? concurrency;
+  final int stopGap;
+  final int? timeout;
+
+  EsploraConfig({
+    required this.baseUrl,
+    this.proxy,
+    this.concurrency,
+    required this.stopGap,
+    this.timeout,
   });
 }
 
@@ -661,23 +730,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["recipient", "amount", "feeRate"],
       );
 
-  Future<String> drainWallet(
-          {required String recipient, required double feeRate, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_drain_wallet(
-            port_, _api2wire_String(recipient), _api2wire_f32(feeRate)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kDrainWalletConstMeta,
-        argValues: [recipient, feeRate],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kDrainWalletConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "drain_wallet",
-        argNames: ["recipient", "feeRate"],
-      );
-
   Future<String> createMultiSigTransaction(
           {required List<AddressAmount> recipients,
           required double feeRate,
@@ -707,14 +759,14 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kSignAndSignAndBroadcastConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "sign_and_sign_and_broadcast",
+        debugName: "sign_and_broadcast",
         argNames: ["psbtStr"],
       );
 
   Future<String> generateSeedFromEntropy(
-          {required String entropy, dynamic hint}) =>
+          {required Entropy entropy, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_generate_seed_from_entropy(
             port_, _api2wire_entropy(entropy)),
@@ -1558,25 +1610,6 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_create_transaction = _wire_create_transactionPtr.asFunction<
       void Function(int, ffi.Pointer<wire_uint_8_list>, int, double)>();
 
-  void wire_drain_wallet(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> recipient,
-    double fee_rate,
-  ) {
-    return _wire_drain_wallet(
-      port_,
-      recipient,
-      fee_rate,
-    );
-  }
-
-  late final _wire_drain_walletPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Float)>>('wire_drain_wallet');
-  late final _wire_drain_wallet = _wire_drain_walletPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, double)>();
-
   void wire_create_multi_sig_transaction(
     int port_,
     ffi.Pointer<wire_list_address_amount> recipients,
@@ -1589,22 +1622,19 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_create_multi_create_multi_sig_transactio_transactionPtr =
-      _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_list_address_amount>,
-                  ffi.Float)>>('wire_create_multi_sig_transaction');
+  late final _wire_create_multi_sig_transactionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_list_address_amount>,
+              ffi.Float)>>('wire_create_multi_sig_transaction');
   late final _wire_create_multi_sig_transaction =
       _wire_create_multi_sig_transactionPtr.asFunction<
           void Function(int, ffi.Pointer<wire_list_address_amount>, double)>();
 
-  void wire_sign_and_sign_and_broadcast(
+  void wire_sign_and_broadcast(
     int port_,
     ffi.Pointer<wire_uint_8_list> psbt_str,
   ) {
-    return _wire_sign_and_sign_and_broadcast(
+    return _wire_sign_and_broadcast(
       port_,
       psbt_str,
     );

@@ -88,24 +88,6 @@ class _MyAppState extends State<MyApp> {
     print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
   }
 
-  sendMultiSigTransaction() async {
-    List<AddressAmount> recipients = [];
-    final dave = AddressAmount(
-        address:
-            "tb1qw27klexhtknl2xhreu3rq33sh379j06eakytq2pnvsersm0w7cvsrr083n",
-        amount: 1500);
-    final bob = AddressAmount(
-        address:
-            "tb1qknu4hm3ee9te9rhketnlmedf793dw04jr6hslq05awatevz6m9tqc6vlzw",
-        amount: 1500);
-    recipients.add(dave);
-    recipients.add(bob);
-    final psbt = await bdkFlutter.createMultiSigTransaction(
-        recipients: recipients, feeRate: 1);
-    final sbt = await bdkFlutter.signTransaction(psbt: psbt);
-    final res = await bdkFlutter.broadcastTransaction(sbtTxid: sbt);
-    print(res);
-  }
 
   restoreWalletFromDescriptors() async {
     var aliceWallet = await bdkFlutter.createWallet(
@@ -161,11 +143,14 @@ class _MyAppState extends State<MyApp> {
         network: network);
     print(key.descriptor);
     print(key.changeDescriptor);
-    var resWallet = await bdkWallet.createWallet(
+    var resWallet = await  bdkFlutter.createWallet(
         mnemonic: mnemonic,
         network: network,
-        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
-        blockchain: Blockchain.ELECTRUM);
+        blockchainConfig: BlockchainConfig.electrum(
+            config: ElectrumConfig(
+                stopGap: 10,
+                retry: 5,
+                url: "ssl://electrum.blockstream.info:60002")));
     print(resWallet.address);
     print(resWallet.balance.total);
   }
@@ -226,24 +211,6 @@ class _MyAppState extends State<MyApp> {
     print("Alice: ${aliceKey.xprv}");
   }
 
-  getXpubFromMnemonic() async {
-    var aliceKey = await createExtendedKey(
-        network: Network.TESTNET,
-        mnemonic:
-            "puppy interest whip tonight dad never sudden response push zone pig patch");
-    var bobKey = await createExtendedKey(
-        network: Network.TESTNET,
-        mnemonic:
-            "master amused swim decline spice nasty juice craft spoil two figure love");
-    var daveKey = await createExtendedKey(
-        network: Network.TESTNET,
-        mnemonic:
-            "science source gallery fresh gallery vanish lamp deal home flash behave frog");
-
-    print("Bob: ${bobKey.xprv}");
-    print("Dave: ${daveKey.xpub}");
-    print("Alice: ${aliceKey.xprv}");
-  }
 
   sendBit() async {
     final txid = await bdkFlutter.quickSend(

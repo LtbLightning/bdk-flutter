@@ -333,22 +333,6 @@ pub extern "C" fn wire_create_transaction(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_drain_wallet(port_: i64, recipient: *mut wire_uint_8_list, fee_rate: f32) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "drain_wallet",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_recipient = recipient.wire2api();
-            let api_fee_rate = fee_rate.wire2api();
-            move |task_callback| Ok(drain_wallet(api_recipient, api_fee_rate))
-        },
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_create_multi_sig_transaction(
     port_: i64,
     recipients: *mut wire_list_address_amount,
