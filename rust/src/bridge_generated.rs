@@ -39,6 +39,89 @@ use crate::types::WordCount;
 // Section: wire functions
 
 #[no_mangle]
+pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: i32) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "generate_seed_from_entropy",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_entropy = entropy.wire2api();
+            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "generate_seed_from_word_count",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_word_count = word_count.wire2api();
+            move |task_callback| Ok(generate_seed_from_word_count(api_word_count))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_key(
+    port_: i64,
+    node_network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_key",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_network = node_network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            move |task_callback| Ok(create_key(api_node_network, api_mnemonic, api_password))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_descriptor_secret_keys(
+    port_: i64,
+    node_network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_descriptor_secret_keys",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_network = node_network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_path = path.wire2api();
+            let api_password = password.wire2api();
+            move |task_callback| {
+                Ok(create_descriptor_secret_keys(
+                    api_node_network,
+                    api_mnemonic,
+                    api_path,
+                    api_password,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_wallet_init(
     port_: i64,
     descriptor: *mut wire_uint_8_list,
@@ -173,18 +256,6 @@ pub extern "C" fn wire_get_wallet(port_: i64) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_blockchain_height(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_blockchain_height",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_blockchain_height()),
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_get_wallet_network(port_: i64) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -193,6 +264,18 @@ pub extern "C" fn wire_get_wallet_network(port_: i64) {
             mode: FfiCallMode::Normal,
         },
         move || move |task_callback| Ok(get_wallet_network()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_blockchain_height(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_blockchain_height",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_blockchain_height()),
     )
 }
 
@@ -368,89 +451,6 @@ pub extern "C" fn wire_sign_and_broadcast(port_: i64, psbt_str: *mut wire_uint_8
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: i32) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "generate_seed_from_entropy",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_entropy = entropy.wire2api();
-            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "generate_seed_from_word_count",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_word_count = word_count.wire2api();
-            move |task_callback| Ok(generate_seed_from_word_count(api_word_count))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_key(
-    port_: i64,
-    node_network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_key",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_node_network = node_network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| Ok(create_key(api_node_network, api_mnemonic, api_password))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret_keys(
-    port_: i64,
-    node_network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    path: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_descriptor_secret_keys",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_node_network = node_network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_path = path.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| {
-                Ok(create_descriptor_secret_keys(
-                    api_node_network,
-                    api_mnemonic,
-                    api_path,
-                    api_password,
-                ))
-            }
-        },
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn wire_sign(port_: i64, psbt_str: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -466,7 +466,7 @@ pub extern "C" fn wire_sign(port_: i64, psbt_str: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_broadcast(port_: i64, txid: *mut wire_uint_8_list) {
+pub extern "C" fn wire_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
             debug_name: "broadcast",
@@ -474,8 +474,8 @@ pub extern "C" fn wire_broadcast(port_: i64, txid: *mut wire_uint_8_list) {
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_txid = txid.wire2api();
-            move |task_callback| Ok(broadcast(api_txid))
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(broadcast(api_psbt_str))
         },
     )
 }

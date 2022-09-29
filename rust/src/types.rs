@@ -1,6 +1,4 @@
-use std::collections::HashMap;
 use std::sync::Arc;
-use bdk::bitcoin;
 use bdk::blockchain::AnyBlockchain;
 use crate::ffi::{Balance, Wallet};
 use serde::{Deserialize, Serialize};
@@ -9,7 +7,6 @@ use serde::{Deserialize, Serialize};
 pub(crate) struct  BdkInfo{
     pub wallet: Option<Arc<Wallet>>,
     pub blockchain: Option<Arc<AnyBlockchain>>,
-    pub sbts:HashMap<String, bitcoin::blockdata::transaction::Transaction>,
 }
 
 #[derive(Serialize, Deserialize)]

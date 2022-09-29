@@ -13,9 +13,8 @@ use crate::utils::{
 };
 use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain, GetBlockHash, GetHeight};
 use bdk::wallet::export::FullyNodedExport;
-use bdk::{bitcoin, Error, KeychainKind};
+use bdk::{ Error, KeychainKind};
 use lazy_static::lazy_static;
-use std::collections::HashMap;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, RwLock};
@@ -25,18 +24,63 @@ lazy_static! {
 }
 fn set_bdk_info(
     blockchain: Arc<AnyBlockchain>,
-    wallet: Arc<Wallet>,
-    sbts: HashMap<String, bitcoin::blockdata::transaction::Transaction>,
+    wallet: Arc<Wallet>
 ) {
     let bdk_info = BdkInfo {
         wallet: Some(wallet),
         blockchain: Some(blockchain),
-        sbts,
     };
     let mut b_info = BDKINFO.write().unwrap();
     *b_info = Some(bdk_info);
 }
+pub fn generate_seed_from_entropy(entropy: Entropy) -> String {
+    let entropy_u8 = config_entropy(entropy);
+    let mnemonic = generate_mnemonic_from_entropy(entropy_u8);
+    mnemonic.to_string()
+}
 
+pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
+    let word_count = config_word_count(word_count);
+    let mnemonic = generate_mnemonic_from_word_count(word_count);
+    mnemonic.to_string()
+}
+pub fn create_key(
+    node_network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> ExtendedKeyInfo {
+    let node_network = config_network(node_network);
+    let response = get_extended_key_info(node_network, mnemonic, password);
+    return response;
+}
+pub fn create_descriptor_secret_keys(
+    node_network: Network,
+    mnemonic: String,
+    path: String,
+    password: Option<String>,
+) -> DerivedKeyInfo {
+    let descriptor_secret = get_descriptor_secret_key(mnemonic.clone(), node_network, password);
+    let derived_secret = derive_dsk(&descriptor_secret, path.as_str()).unwrap();
+    let response = DerivedKeyInfo {
+        xprv: derived_secret.as_string(),
+        xpub: derived_secret.as_public().as_string(),
+    };
+    return response;
+}
+
+fn get_descriptor_secret_key(
+    mnemonic: String,
+    network: Network,
+    password: Option<String>,
+) -> DescriptorSecretKey {
+    let node_network = config_network(network);
+    DescriptorSecretKey::new(node_network, mnemonic, password).unwrap()
+}
+
+fn derive_dsk(key: &DescriptorSecretKey, path: &str) -> Result<Arc<DescriptorSecretKey>, Error> {
+    let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
+    key.derive(path)
+}
 pub fn wallet_init(
     descriptor: String,
     change_descriptor: Option<String>,
@@ -56,7 +100,7 @@ pub fn wallet_init(
     let blockchain = Arc::new(blockchain_obj);
     let wallet = Arc::new(wallet_obj);
     wallet.sync(&blockchain.clone());
-    set_bdk_info(blockchain.clone(), wallet.clone(), Default::default())
+    set_bdk_info(blockchain.clone(), wallet.clone())
 }
 
 pub fn export_wallet(wallet_name: String) -> String {
@@ -228,38 +272,9 @@ pub fn create_multi_sig_transaction(recipients: Vec<AddressAmount>, fee_rate: f3
     psbt.unwrap().serialize()
 }
 
-pub fn sign_and_broadcast(psbt_str: String) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    wallet.sign(&psbt).unwrap();
-    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-    blockchain.broadcast(&tx).unwrap();
-    sync_wallet();
-    tx.txid().to_string()
-}
 
-pub fn generate_seed_from_entropy(entropy: Entropy) -> String {
-    let entropy_u8 = config_entropy(entropy);
-    let mnemonic = generate_mnemonic_from_entropy(entropy_u8);
-    mnemonic.to_string()
-}
 
-pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
-    let word_count = config_word_count(word_count);
-    let mnemonic = generate_mnemonic_from_word_count(word_count);
-    mnemonic.to_string()
-}
-pub fn create_key(
-    node_network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> ExtendedKeyInfo {
-    let node_network = config_network(node_network);
-    let response = get_extended_key_info(node_network, mnemonic, password);
-    return response;
-}
+
 // pub fn parse_mnemonic(mnemonic:String) -> Option<String> {
 //     match  Mnemonic::parse_normalized(mnemonic.clone().as_str()){
 //         Ok(_) => Some(mnemonic),
@@ -272,118 +287,103 @@ pub fn create_key(
 //     }
 // }
 
-pub fn create_descriptor_secret_keys(
-    node_network: Network,
-    mnemonic: String,
-    path: String,
-    password: Option<String>,
-) -> DerivedKeyInfo {
-    let descriptor_secret = get_descriptor_secret_key(mnemonic.clone(), node_network, password);
-    let derived_secret = derive_dsk(&descriptor_secret, path.as_str()).unwrap();
-    let response = DerivedKeyInfo {
-        xprv: derived_secret.as_string(),
-        xpub: derived_secret.as_public().as_string(),
-    };
-    return response;
-}
-
-fn get_descriptor_secret_key(
-    mnemonic: String,
-    network: Network,
-    password: Option<String>,
-) -> DescriptorSecretKey {
-    let node_network = config_network(network);
-    DescriptorSecretKey::new(node_network, mnemonic, password).unwrap()
-}
-
-fn derive_dsk(key: &DescriptorSecretKey, path: &str) -> Result<Arc<DescriptorSecretKey>, Error> {
-    let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
-    key.derive(path)
+pub fn sign_and_broadcast(psbt_str: String) -> String {
+    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
+    let wallet = bdk_info.wallet.unwrap();
+    let blockchain = bdk_info.blockchain.unwrap();
+    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    wallet.sign(&psbt).unwrap();
+    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
+    blockchain.broadcast(&tx).unwrap();
+    sync_wallet();
+    tx.txid().to_string()
 }
 
 pub fn sign(psbt_str: String) -> Option<String> {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    let mut sbts = bdk_info.sbts;
-    wallet.sync(&blockchain);
+    sync_wallet();
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
     return match wallet.sign(&psbt).unwrap() {
         true => {
-            let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-            sbts.insert(tx.clone().txid().to_string(), tx.clone());
-            set_bdk_info(blockchain, wallet, sbts);
-            Some(tx.txid().to_string())
+            Some(psbt.serialize())
         }
         false => None,
     };
 }
 
-pub fn broadcast(txid: String) -> Option<String> {
+pub fn broadcast(psbt_str:String) -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
     let blockchain = bdk_info.blockchain.unwrap();
-    let sbts = bdk_info.sbts;
-    let sbtx = sbts.get(txid.as_str().clone());
-    return match sbtx.is_some() {
-        true => {
-            blockchain.broadcast(&sbtx.unwrap().clone()).unwrap();
-            wallet.sync(&blockchain);
-            Some(txid.clone())
-        }
-        false => None,
-    };
+    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
+    blockchain.broadcast(&tx.clone()).unwrap();
+    sync_wallet();
+    tx.txid().to_string()
 }
 
 
 #[cfg(test)]
 mod tests {
     use crate::ffi::PartiallySignedBitcoinTransaction;
-    use crate::r_api::{ create_transaction, derive_dsk,  generate_seed_from_entropy, generate_seed_from_word_count, get_balance,  get_descriptor_secret_key, get_new_address, get_transactions, sign_and_broadcast, wallet_init};
+    use crate::r_api::{broadcast, create_transaction, derive_dsk, generate_seed_from_entropy, generate_seed_from_word_count, get_balance, get_descriptor_secret_key, get_new_address, get_transactions, sign, sign_and_broadcast, sync_wallet, wallet_init};
     use crate::types::{
         BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
     };
     use bdk::bitcoin::Address;
     use bdk::bitcoin::Network as BdkNetwork;
+    #[test]
+    fn psbt_similarity_test() {
+        _init_wallet();
+        let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
+        let res = sign(psbt.clone());
+        assert_eq!( psbt, res.unwrap(),);
+
+    }
+
+    #[test]
+    fn psbt_broadcast_test() {
+        _init_wallet();
+        let x = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAzTPKDsXOn2pLz5fpOywncnqWqunueV1wCIYiuxXm4QwIgE6ksJNTO2uXRvGMkV7QxEITringKovVeDXMzOyi6edUBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAAIgICl+rHwFFM2iFfYd2ps2Plp8WpcZovU+pWWe+ggZVoweUU2R5q3VQAAIAAAACAAQAAgD4AAAAA".to_string();
+        let y = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA".to_string();
+        let z = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEA1y5jZfakuWe/EyWokRzO08RnjNht9UlRo//qVG/yC44CIBR1diESIVzHI9WKtA0REZXlUXVEwunrYXiuZhQpXra+ASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAIgICl+rHwFFM2iFfYd2ps2Plp8WpcZovU+pWWe+ggZVoweUU2R5q3VQAAIAAAACAAQAAgD4AAAAAAA==".to_string();
+        let a = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEAi7bmbZyqWea0c3Uw8YGVqzGGLI+Q1J92HX5fBJK7O1kCIG3PmHmPtqugEaP4/FPOUcUbU+nV8cqTG7pLh8lZGWThASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAACICApfqx8BRTNohX2HdqbNj5afFqXGaL1PqVlnvoIGVaMHlFNkeat1UAACAAAAAgAEAAIA+AAAAAA==".to_string();
+        let b = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEAi7bmbZyqWea0c3Uw8YGVqzGGLI+Q1J92HX5fBJK7O1kCIG3PmHmPtqugEaP4/FPOUcUbU+nV8cqTG7pLh8lZGWThASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAACICApfqx8BRTNohX2HdqbNj5afFqXGaL1PqVlnvoIGVaMHlFNkeat1UAACAAAAAgAEAAIA+AAAAAA==".to_string();
+        sync_wallet();
+        let txid = broadcast(x);
+        assert_eq!(txid, "txid");
+    }
 
     #[test]
     fn create_broadcast_transaction_test() {
-        test_init_wallet();
+        _init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
-       let res = sign_and_broadcast(psbt);
-        assert_eq!(res.is_empty(), false);
+       let sbt = sign(psbt.clone());
+        let txid = broadcast(sbt.unwrap());
+        assert_eq!(txid, "false");
+    }
+
+    #[test]
+    fn get_balance_test() {
+        _init_wallet();
+        assert_eq!(get_balance().total, 1262245);
     }
     #[test]
     fn get_transactions_test() {
-        test_init_wallet();
+        _init_wallet();
         assert_eq!(get_transactions().is_empty(), false);
     }
 
-    fn test_init_wallet() {
-        wallet_init(
-            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
-            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
-            Network::TESTNET,
-            BlockchainConfig::ELECTRUM{ config: ElectrumConfig {
-                url: "ssl://electrum.blockstream.info:60002".to_string(),
-                socks5: None,
-                retry: 10,
-                timeout: None,
-                stop_gap: 10
-            } },
-          DatabaseConfig::MEMORY
-        );
-    }
     #[test]
     fn get_new_address_test() {
-        test_init_wallet();
+        _init_wallet();
         let res = get_new_address();
         assert_eq!(res, "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt");
     }
 
     #[test]
     fn create_transaction_test() {
-        test_init_wallet();
+        _init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1200, 1.0);
         let x = PartiallySignedBitcoinTransaction::new(psbt).unwrap();
         let script = x
@@ -405,12 +405,22 @@ mod tests {
         );
     }
 
-    #[test]
-    fn get_balance_test() {
-        test_init_wallet();
-        assert_eq!(get_balance().total, 4824);
-    }
 
+    fn _init_wallet() {
+        wallet_init(
+            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
+            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
+            Network::TESTNET,
+            BlockchainConfig::ELECTRUM{ config: ElectrumConfig {
+                url: "ssl://electrum.blockstream.info:60002".to_string(),
+                socks5: None,
+                retry: 10,
+                timeout: None,
+                stop_gap: 10
+            } },
+            DatabaseConfig::MEMORY
+        );
+    }
     #[test]
     fn generate_mnemonic_word_count_test() {
         let mnemonic = generate_seed_from_word_count(WordCount::WORDS12);

@@ -234,7 +234,7 @@ class BdkFlutter {
     }
   }
 
-  Future<String> createTransaction(
+  Future<String> createTx(
       {required String recipient,
       required int amount,
       required double feeRate}) async {
@@ -255,7 +255,26 @@ class BdkFlutter {
     }
   }
 
-  Future<String> signAndBroadcastTransaction({required String psbt}) async {
+  Future<String> signTx({required String psbt}) async {
+    try {
+      final sbt = await loaderApi.sign(psbtStr: psbt);
+      if(sbt ==null ) throw const BroadcastException.unexpected("Unable to sign transaction");
+      return sbt.toString();
+    } on FfiException catch (e) {
+      throw BroadcastException.unexpected(e.message);
+    }
+  }
+
+  Future<String> broadcastTx({required String sbt}) async {
+    try {
+      final txid = await loaderApi.broadcast(psbtStr: sbt);
+      return txid;
+    } on FfiException catch (e) {
+      throw BroadcastException.unexpected(e.message);
+    }
+  }
+
+  Future<String> signAndBroadcastTx({required String psbt}) async {
     try {
       final txid = await loaderApi.signAndBroadcast(psbtStr: psbt);
       return txid;
@@ -273,9 +292,9 @@ class BdkFlutter {
         throw const BroadcastException.insufficientBroadcastAmount(
             "The minimum amount should be greater 100");
       }
-      final psbt = await createTransaction(
+      final psbt = await createTx(
           recipient: recipient, amount: amount, feeRate: feeRate);
-      final txid = await signAndBroadcastTransaction(psbt: psbt);
+      final txid = await signAndBroadcastTx(psbt: psbt);
       return txid;
     } on FfiException catch (e) {
       if (e.message.contains("InsufficientFunds")) {

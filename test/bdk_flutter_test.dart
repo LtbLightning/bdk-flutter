@@ -93,7 +93,7 @@ void main() {
         () async {
       try {
         await BdkFlutter()
-            .createTransaction(recipient: "recipient", amount: 0, feeRate: 1);
+            .createTx(recipient: "recipient", amount: 0, feeRate: 1);
       } catch (e) {
         expect(e, isA<BroadcastException>());
       }

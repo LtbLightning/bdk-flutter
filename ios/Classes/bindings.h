@@ -83,6 +83,21 @@ typedef int64_t DartPort;
 
 typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
 
+void wire_generate_seed_from_entropy(int64_t port_, int32_t entropy);
+
+void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
+
+void wire_create_key(int64_t port_,
+                     int32_t node_network,
+                     struct wire_uint_8_list *mnemonic,
+                     struct wire_uint_8_list *password);
+
+void wire_create_descriptor_secret_keys(int64_t port_,
+                                        int32_t node_network,
+                                        struct wire_uint_8_list *mnemonic,
+                                        struct wire_uint_8_list *path,
+                                        struct wire_uint_8_list *password);
+
 void wire_wallet_init(int64_t port_,
                       struct wire_uint_8_list *descriptor,
                       struct wire_uint_8_list *change_descriptor,
@@ -106,9 +121,9 @@ void wire_get_descriptor_checksum(int64_t port_, int32_t keychain_kind_str);
 
 void wire_get_wallet(int64_t port_);
 
-void wire_get_blockchain_height(int64_t port_);
-
 void wire_get_wallet_network(int64_t port_);
+
+void wire_get_blockchain_height(int64_t port_);
 
 void wire_get_blockchain_hash(int64_t port_, uint64_t blockchain_height);
 
@@ -139,24 +154,9 @@ void wire_create_multi_sig_transaction(int64_t port_,
 
 void wire_sign_and_broadcast(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_generate_seed_from_entropy(int64_t port_, int32_t entropy);
-
-void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
-
-void wire_create_key(int64_t port_,
-                     int32_t node_network,
-                     struct wire_uint_8_list *mnemonic,
-                     struct wire_uint_8_list *password);
-
-void wire_create_descriptor_secret_keys(int64_t port_,
-                                        int32_t node_network,
-                                        struct wire_uint_8_list *mnemonic,
-                                        struct wire_uint_8_list *path,
-                                        struct wire_uint_8_list *password);
-
 void wire_sign(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_broadcast(int64_t port_, struct wire_uint_8_list *txid);
+void wire_broadcast(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
@@ -188,6 +188,10 @@ void store_dart_post_cobject(DartPostCObjectFnType ptr);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
+    dummy_var ^= ((int64_t) (void*) wire_create_key);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret_keys);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_export_wallet);
     dummy_var ^= ((int64_t) (void*) wire_import_wallet);
@@ -195,8 +199,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_descriptor_for_keychain);
     dummy_var ^= ((int64_t) (void*) wire_get_descriptor_checksum);
     dummy_var ^= ((int64_t) (void*) wire_get_wallet);
-    dummy_var ^= ((int64_t) (void*) wire_get_blockchain_height);
     dummy_var ^= ((int64_t) (void*) wire_get_wallet_network);
+    dummy_var ^= ((int64_t) (void*) wire_get_blockchain_height);
     dummy_var ^= ((int64_t) (void*) wire_get_blockchain_hash);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_balance);
@@ -209,10 +213,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_create_transaction);
     dummy_var ^= ((int64_t) (void*) wire_create_multi_sig_transaction);
     dummy_var ^= ((int64_t) (void*) wire_sign_and_broadcast);
-    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
-    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
-    dummy_var ^= ((int64_t) (void*) wire_create_key);
-    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret_keys);
     dummy_var ^= ((int64_t) (void*) wire_sign);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);

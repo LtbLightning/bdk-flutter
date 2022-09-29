@@ -18,7 +18,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     restoreWallet(
-        "puppy interest whip tonight dad never sudden response push zone pig patch",
+      "curtain stairs horse sing file upset laundry cherry make oblige ticket medal",
+      //  "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
     super.initState();
   }
@@ -189,12 +190,13 @@ class _MyAppState extends State<MyApp> {
 
   }
 
-
   sendBit() async {
-    final txid = await bdkFlutter.quickSend(
+    final psbt = await bdkFlutter.createTx(
         recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt",
         amount: 1200,
         feeRate: 1);
+    final sbt = await bdkFlutter.signTx(psbt: psbt);
+    final txid = await bdkFlutter.broadcastTx(sbt: sbt);
     print(txid);
   }
 
