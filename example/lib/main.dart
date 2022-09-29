@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
     final bob = AddressAmount(address: "tb1qknu4hm3ee9te9rhketnlmedf793dw04jr6hslq05awatevz6m9tqc6vlzw", amount: 1500);
     recipients.add(dave);
     recipients.add(bob);
-    final psbt = await bdkFlutter.createMutiSigTransaction(recipients: recipients, feeRate: 1);
+    final psbt = await bdkFlutter.createMultiSigTransaction(recipients: recipients, feeRate: 1);
     final sbt = await bdkFlutter.signTransaction(psbt: psbt);
     final res = await bdkFlutter.broadcastTransaction(sbtTxid: sbt);
     print(res);

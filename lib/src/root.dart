@@ -256,7 +256,7 @@ class BdkFlutter {
     }
   }
 
-  Future<String> createMutiSigTransaction(
+  Future<String> createMultiSigTransaction(
       {required List<AddressAmount> recipients,
         required double feeRate}) async {
     try {
@@ -311,8 +311,6 @@ class BdkFlutter {
       rethrow;
     }
   }
-
-
 }
 
 Future<String> generateMnemonic(
