@@ -56,7 +56,6 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
             txid: x.txid.to_string(),
             received: x.clone().received,
             sent: x.clone().sent,
-            confirmation_time: Some(set_block_time(x.clone().confirmation_time.unwrap())),
         }
     }
 }
@@ -202,8 +201,7 @@ impl Wallet {
     ) -> Result<Option<TransactionDetails>, Error> {
         let txid = Txid::from_str(&*txid_str).unwrap();
         let transaction = self.get_wallet().get_tx(&txid, true);
-        Ok(Some(TransactionDetails::from(
-            &transaction.unwrap().unwrap(),
+        Ok(Some(TransactionDetails::from(&transaction.unwrap().unwrap(),
         )))
     }
     // Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
@@ -233,7 +231,7 @@ impl PartiallySignedBitcoinTransaction {
         let psbt = self.internal.lock().unwrap().clone();
         psbt.to_string()
     }
-    pub(crate) fn txid(&self) -> String {
+    pub fn txid(&self) -> String {
         let tx = self.internal.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
         txid.to_hex()
@@ -577,7 +575,6 @@ pub struct TransactionDetails {
     pub received: u64,
     pub sent: u64,
     pub txid: String,
-    pub confirmation_time: Option<BlockConfirmationTime>,
 }
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C)]

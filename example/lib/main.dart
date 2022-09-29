@@ -19,12 +19,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     restoreWallet(
         "puppy interest whip tonight dad never sudden response push zone pig patch",
-        //"science source gallery fresh gallery vanish lamp deal home flash behave frog",
         Network.TESTNET);
-
-    //restoreWalletFromDescriptors();
-    //  generateDescriptors();
-    //generateMnemonicKeys();
     super.initState();
   }
 
@@ -87,7 +82,6 @@ class _MyAppState extends State<MyApp> {
     print("Dave Descriptor: ${daveDescriptor.descriptor}");
     print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
   }
-
 
   restoreWalletFromDescriptors() async {
     var aliceWallet = await bdkFlutter.createWallet(
@@ -187,21 +181,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   getXpubFromMnemonic() async {
-    var aliceKey = await createExtendedKey(
-        network: Network.TESTNET,
-        mnemonic:
-            "puppy interest whip tonight dad never sudden response push zone pig patch");
     var bobKey = await createExtendedKey(
         network: Network.TESTNET,
         mnemonic:
             "master amused swim decline spice nasty juice craft spoil two figure love");
-    var daveKey = await createExtendedKey(
-        network: Network.TESTNET,
-        mnemonic:
-            "science source gallery fresh gallery vanish lamp deal home flash behave frog");
     print("Bob: ${bobKey.xpub}");
-    print("Dave: ${daveKey.xprv}");
-    print("Alice: ${aliceKey.xprv}");
+
   }
 
 
@@ -213,10 +198,6 @@ class _MyAppState extends State<MyApp> {
     print(txid);
   }
 
-  exportWallet() async {
-    final res = await bdkFlutter.exportWallet(walletName: "TestWallet");
-    print(res);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -257,9 +238,6 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () => getXpubFromMnemonic(),
                   child: const Text('get Public Key')),
-              TextButton(
-                  onPressed: () => getBlockHeightAndHash(),
-                  child: const Text('get Blockchain info')),
             ],
           ),
         ),

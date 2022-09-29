@@ -1,12 +1,11 @@
 use bdk::bitcoin::Network as BdkNetwork;
 use bdk::blockchain::{AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig};
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
-use bdk::{Error, KeychainKind as BdkKeychainKind};
+use bdk::{ KeychainKind as BdkKeychainKind};
 use bdk::keys::bip39::WordCount as BdkWordCount;
 use crate::types::{ BlockchainConfig, DatabaseConfig, Entropy, KeyChainKind, Network, WordCount};
 use bdk::database::any:: SqliteDbConfiguration;
 use bdk::database::{AnyDatabaseConfig};
-use bdk::keys::bip39::Error as KeysError;
 pub fn config_network(network: Network) -> BdkNetwork {
     return match network {
         Network::SIGNET => BdkNetwork::Signet,

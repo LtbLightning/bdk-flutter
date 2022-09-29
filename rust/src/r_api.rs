@@ -123,16 +123,16 @@ pub fn get_wallet() -> ResponseWallet {
         address: get_new_address(),
     }
 }
-pub fn get_blockchain_height() -> u32 {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    blockchain.get_height().unwrap()
-}
 pub fn get_wallet_network() -> Network {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
     let network = config_bdk_network(wallet.get_network());
     network
+}
+pub fn get_blockchain_height() -> u32 {
+    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
+    let blockchain = bdk_info.blockchain.unwrap();
+    blockchain.get_height().unwrap()
 }
 pub fn get_blockchain_hash(blockchain_height: u64) -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
@@ -200,8 +200,9 @@ pub fn get_transaction(txid: String) -> Option<TransactionDetails> {
 pub fn get_transactions() -> Vec<Transaction> {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
-    let response: Vec<Transaction> = wallet.get_transactions().unwrap();
-    return response;
+    sync_wallet();
+    let transactions = wallet.get_transactions().unwrap();
+    transactions
 }
 
 pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
@@ -231,11 +232,11 @@ pub fn sign_and_broadcast(psbt_str: String) -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
     let blockchain = bdk_info.blockchain.unwrap();
-    wallet.sync(&blockchain);
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
     wallet.sign(&psbt).unwrap();
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
     blockchain.broadcast(&tx).unwrap();
+    sync_wallet();
     tx.txid().to_string()
 }
 
@@ -299,15 +300,6 @@ fn derive_dsk(key: &DescriptorSecretKey, path: &str) -> Result<Arc<DescriptorSec
     let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
     key.derive(path)
 }
-// fn extend_dsk(key: &DescriptorSecretKey, path: &str) -> Arc<DescriptorSecretKey> {
-//     let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
-//     key.extend(path)
-// }
-
-// fn extend_dpk(key: &DescriptorPublicKey, path: &str) -> Arc<DescriptorPublicKey> {
-//     let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
-//     key.extend(path)
-// }
 
 pub fn sign(psbt_str: String) -> Option<String> {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
@@ -342,62 +334,35 @@ pub fn broadcast(txid: String) -> Option<String> {
         false => None,
     };
 }
+
+
 #[cfg(test)]
 mod tests {
     use crate::ffi::PartiallySignedBitcoinTransaction;
-    use crate::r_api::{
-        broadcast, create_transaction, derive_dsk, export_wallet, generate_seed_from_entropy,
-        generate_seed_from_word_count, get_balance, get_blockchain_hash, get_blockchain_height,
-        get_descriptor_secret_key, get_new_address, get_transactions, sign, wallet_init,
-    };
+    use crate::r_api::{ create_transaction, derive_dsk,  generate_seed_from_entropy, generate_seed_from_word_count, get_balance,  get_descriptor_secret_key, get_new_address, get_transactions, sign_and_broadcast, wallet_init};
     use crate::types::{
         BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
     };
     use bdk::bitcoin::Address;
     use bdk::bitcoin::Network as BdkNetwork;
-    use bdk::keys::bip39::Error;
-    use std::time::{SystemTime, UNIX_EPOCH};
 
     #[test]
     fn create_broadcast_transaction_test() {
         test_init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
-        let sbt = sign(psbt);
-        let res = broadcast(sbt.as_ref().unwrap().clone());
-        assert_eq!(res.unwrap(), sbt.unwrap());
+       let res = sign_and_broadcast(psbt);
+        assert_eq!(res.is_empty(), false);
     }
     #[test]
-    fn test_derive_hardened_path_using_public() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        let derived_sk = &derive_dsk(&master_dsk, "m/44/0/0/0/0").unwrap();
-        assert_eq!(derived_sk.as_public().as_string(),"[d1d04177/44/0/0/0/0]tpubDH97TH9B3jVk4DodNDKD1HvaXcVU87j4SgGnGWTQq1pRZXCBeZufq3f9xPYQF14sAnL1Pb7WvQ5fZzbSCubTL5LhGFw3tu3DtPomnkKdA9F/*");
-    }
-
-    #[test]
-    fn test_derive_hardened_path_using_private() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        let derived_sk = &derive_dsk(&master_dsk, "m").unwrap();
-        assert_eq!(derived_sk.as_string(),"[d1d04177]tprv8kT5Js6vuMp5AkmqUZecbtGTxayXxnY9sNfzyzR7Qk22j2wR2B65eZ3HnFDFEqULi6kNMhtZLexeD4qoh4kpEoF1LkmPMViwHJRYXPL6EP3/*");
-    }
-
-    #[test]
-    fn test_generate_descriptor_secret_key() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        assert_eq!(master_dsk.as_string(), "tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*");
-        assert_eq!(master_dsk.as_public().as_string(), "tpubD6NzVbkrYhZ4WywdEfYbbd62yuvqLjAZuPsNyvzCNV85JekAEMbKHWSHLF9h3j45SxewXDcLv328B1SEZrxg4iwGfmdt1pDFjZiTkGiFqGa/*");
+    fn get_transactions_test() {
+        test_init_wallet();
+        assert_eq!(get_transactions().is_empty(), false);
     }
 
     fn test_init_wallet() {
-        let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        let mut dir = std::env::current_dir().unwrap();
-        dir.push(format!("bdk_{}", time.as_nanos()));
-
         wallet_init(
-            "wpkh([d1d04177]tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*)".to_string(),
-            None,
+            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
+            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
             Network::TESTNET,
             BlockchainConfig::ELECTRUM{ config: ElectrumConfig {
                 url: "ssl://electrum.blockstream.info:60002".to_string(),
@@ -406,7 +371,6 @@ mod tests {
                 timeout: None,
                 stop_gap: 10
             } },
-          //  DatabaseConfig::SQLITE { config: SqliteConfiguration { path: dir.to_str().unwrap().to_string() } }
           DatabaseConfig::MEMORY
         );
     }
@@ -440,16 +404,13 @@ mod tests {
             "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string()
         );
     }
-    #[test]
-    fn get_transactions_test() {
-        test_init_wallet();
-        assert_eq!(get_transactions().is_empty(), false);
-    }
+
     #[test]
     fn get_balance_test() {
         test_init_wallet();
         assert_eq!(get_balance().total, 4824);
     }
+
     #[test]
     fn generate_mnemonic_word_count_test() {
         let mnemonic = generate_seed_from_word_count(WordCount::WORDS12);
@@ -460,5 +421,28 @@ mod tests {
     fn generate_mnemonic_with_entropy_test() {
         let mnemonic = generate_seed_from_entropy(Entropy::ENTROPY256);
         assert_eq!(mnemonic.split(" ").count(), 24)
+    }
+    #[test]
+    fn test_derive_hardened_path_using_public() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   Network::TESTNET,None);
+        let derived_sk = &derive_dsk(&master_dsk, "m/44/0/0/0/0").unwrap();
+        assert_eq!(derived_sk.as_public().as_string(),"[d1d04177/44/0/0/0/0]tpubDH97TH9B3jVk4DodNDKD1HvaXcVU87j4SgGnGWTQq1pRZXCBeZufq3f9xPYQF14sAnL1Pb7WvQ5fZzbSCubTL5LhGFw3tu3DtPomnkKdA9F/*");
+    }
+
+    #[test]
+    fn test_derive_hardened_path_using_private() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   Network::TESTNET,None);
+        let derived_sk = &derive_dsk(&master_dsk, "m").unwrap();
+        assert_eq!(derived_sk.as_string(),"[d1d04177]tprv8kT5Js6vuMp5AkmqUZecbtGTxayXxnY9sNfzyzR7Qk22j2wR2B65eZ3HnFDFEqULi6kNMhtZLexeD4qoh4kpEoF1LkmPMViwHJRYXPL6EP3/*");
+    }
+
+    #[test]
+    fn test_generate_descriptor_secret_key() {
+        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
+                                                   Network::TESTNET,None);
+        assert_eq!(master_dsk.as_string(), "tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*");
+        assert_eq!(master_dsk.as_public().as_string(), "tpubD6NzVbkrYhZ4WywdEfYbbd62yuvqLjAZuPsNyvzCNV85JekAEMbKHWSHLF9h3j45SxewXDcLv328B1SEZrxg4iwGfmdt1pDFjZiTkGiFqGa/*");
     }
 }

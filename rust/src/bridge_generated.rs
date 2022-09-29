@@ -1069,7 +1069,6 @@ impl support::IntoDart for TransactionDetails {
             self.received.into_dart(),
             self.sent.into_dart(),
             self.txid.into_dart(),
-            self.confirmation_time.into_dart(),
         ]
         .into_dart()
     }

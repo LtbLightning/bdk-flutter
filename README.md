@@ -7,7 +7,6 @@ A Flutter version of the Bitcoin Development Kit (https://bitcoindevkit.org/)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Building Binary Files](#building-binary-files)
-- [Library API](#library-api)
 - [Usage](#usage)
 - [Library API](#library-api)
 
@@ -233,7 +232,7 @@ In the case of a multi-sig wallet, you can generate a custom descriptor using cr
 
 ```dart
 
-final response  =  await BdkWallet().createWallet(  descriptor: descriptor,
+final response  =  await BdkFlutter().createWallet(  descriptor: descriptor,
                                                     changeDescriptor: changeDescriptor,
                                                     network: Network.TESTNET,
 						    blockchainConfig: BlockchainConfig.electrum
@@ -246,7 +245,7 @@ final response  =  await BdkWallet().createWallet(  descriptor: descriptor,
                                                     
                                                  );
                                                 
-final response  =  await BdkWallet().createWallet(  mnemonic: mnemonic,
+final response  =  await BdkFlutter().createWallet(  mnemonic: mnemonic,
                                                     password: password,
                                                     network: Network.TESTNET,
                                                     blockchainConfig: BlockchainConfig.electrum
@@ -280,7 +279,7 @@ Create a new address for the wallet.
 
 ```dart
 
-final response = await BdkWallet().getNewAddress();
+final response = await BdkFlutter().getNewAddress();
 
 ```
 Returned response example:
@@ -297,7 +296,7 @@ Returns the last unused address of the wallet.
 
 ```dart
 
-final response = await BdkWallet().getLastUnusedAddress();
+final response = await BdkFlutter().getLastUnusedAddress();
 
 ```
 
@@ -315,7 +314,7 @@ Returns the Balance object consisting of spendable, totoal, confirmed, untrusted
 
 ```dart
 
-final response = await BdkWallet().getBalance();
+final response = await BdkFlutter().getBalance();
 final total    = response.total;
 
 ```
@@ -333,7 +332,7 @@ Returns a list of all the transactions made.
 
 ```dart
 
-final response = await BdkWallet().getTransactions();
+final response = await BdkFlutter().getTransactions();
 
 ```
 Returned response example:
@@ -357,7 +356,7 @@ Returns the list of unconfirmed transactions.
 
 ```dart
 
-final response = await BdkWallet().getPendingTransactions();
+final response = await BdkFlutter().getPendingTransactions();
 
 ```
 Returned response example:
@@ -381,7 +380,7 @@ Returns the list of confirmed transactions.
 
 ```dart
 
-final response = await BdkWallet().getConfirmedTransactions();
+final response = await BdkFlutter().getConfirmedTransactions();
 
 ```
 Returned response example:
@@ -416,7 +415,7 @@ Required params: address, amount, feeRate
 
 ```dart
 
-final psbt =  await BdkWallet().createTransaction(  recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
+final psbt =  await BdkFlutter().createTransaction(  recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
 						    amount: 2000, 
 						    feeRate: 1
 						 );
@@ -438,7 +437,7 @@ Required params: psbt (Partially Signed Bitcoin Transaction)
 
 final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-final response = await BdkWallet().signAndBroadcastTransaction(psbt:psbt);
+final response = await BdkFlutter().signAndBroadcastTransaction(psbt:psbt);
 
 ```
 Returned response example:
@@ -457,7 +456,7 @@ Required params: address, amount, feeRate
 
 ```dart
 
-final response = await BdkWallet().quickSend(  recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
+final response = await BdkFlutter().quickSend(  recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
 					       amount: 2000, 
 					       feeRate: 1
 					    );

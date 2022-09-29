@@ -353,14 +353,12 @@ class TransactionDetails {
   final int received;
   final int sent;
   final String txid;
-  final BlockConfirmationTime? confirmationTime;
 
   TransactionDetails({
     this.fee,
     required this.received,
     required this.sent,
     required this.txid,
-    this.confirmationTime,
   });
 }
 
@@ -1169,13 +1167,6 @@ String? _wire2api_opt_String(dynamic raw) {
   return raw == null ? null : _wire2api_String(raw);
 }
 
-BlockConfirmationTime? _wire2api_opt_box_autoadd_block_confirmation_time(
-    dynamic raw) {
-  return raw == null
-      ? null
-      : _wire2api_box_autoadd_block_confirmation_time(raw);
-}
-
 TransactionDetails? _wire2api_opt_box_autoadd_transaction_details(dynamic raw) {
   return raw == null ? null : _wire2api_box_autoadd_transaction_details(raw);
 }
@@ -1222,14 +1213,13 @@ Transaction _wire2api_transaction(dynamic raw) {
 
 TransactionDetails _wire2api_transaction_details(dynamic raw) {
   final arr = raw as List<dynamic>;
-  if (arr.length != 5)
-    throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+  if (arr.length != 4)
+    throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
   return TransactionDetails(
     fee: _wire2api_opt_box_autoadd_u64(arr[0]),
     received: _wire2api_u64(arr[1]),
     sent: _wire2api_u64(arr[2]),
     txid: _wire2api_String(arr[3]),
-    confirmationTime: _wire2api_opt_box_autoadd_block_confirmation_time(arr[4]),
   );
 }
 
