@@ -8,32 +8,33 @@ void main() {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  BdkWallet bdkWallet = BdkWallet();
+  BdkFlutter bdkFlutter = BdkFlutter();
   late ResponseWallet wallet;
   @override
   void initState() {
     restoreWallet(
-       "puppy interest whip tonight dad never sudden response push zone pig patch",
-      //"science source gallery fresh gallery vanish lamp deal home flash behave frog",
+        "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
-    // restoreWalletFromDescriptors();
-     generateDescriptors();
+
+    //restoreWalletFromDescriptors();
+  //  generateDescriptors();
+  //generateMnemonicKeys();
     super.initState();
   }
   generateMnemonicKeys() async{
-    var mnemonicWithCount = await generateMnemonic(wordCount: WordCount.Words15);
-    var mnemonicWithEntropy = await generateMnemonic(entropy: Entropy.Entropy192);
-    var mnemonicDefault = await generateMnemonic();
-    print("mnemonicWithCount: $mnemonicWithCount ");
+    var mnemonicWithEntropy = await generateMnemonic(entropy: Entropy.ENTROPY128);
+    var mnemonicWithEntropy2 = await generateMnemonic(entropy: Entropy.ENTROPY192);
+    var mnemonicWithEntropy5 = await generateMnemonic(entropy: Entropy.ENTROPY256);
     print("mnemonicWithEntropy: $mnemonicWithEntropy ");
-    print("mnemonicDefault: $mnemonicDefault");
+    print("mnemonicWithEntropy: $mnemonicWithEntropy2 ");
+    print("mnemonicWithEntropy: $mnemonicWithEntropy5 ");
   }
-
   generateDescriptors() async {
     var aliceDescriptor = await createDescriptor(
         mnemonic: "puppy interest whip tonight dad never sudden response push zone pig patch",
@@ -81,9 +82,19 @@ class _MyAppState extends State<MyApp> {
     print("Dave Descriptor: ${daveDescriptor.descriptor}");
     print("Dave ChangeDescriptor: ${daveDescriptor.changeDescriptor}");
   }
-
+  sendMultiSigTransaction() async{
+    List<AddressAmount> recipients = [];
+    final dave = AddressAmount(address: "tb1qw27klexhtknl2xhreu3rq33sh379j06eakytq2pnvsersm0w7cvsrr083n", amount: 1500);
+    final bob = AddressAmount(address: "tb1qknu4hm3ee9te9rhketnlmedf793dw04jr6hslq05awatevz6m9tqc6vlzw", amount: 1500);
+    recipients.add(dave);
+    recipients.add(bob);
+    final psbt = await bdkFlutter.createMutiSigTransaction(recipients: recipients, feeRate: 1);
+    final sbt = await bdkFlutter.signTransaction(psbt: psbt);
+    final res = await bdkFlutter.broadcastTransaction(sbtTxid: sbt);
+    print(res);
+  }
   restoreWalletFromDescriptors() async {
-    var aliceWallet = await bdkWallet.createWallet(
+    var aliceWallet = await bdkFlutter.createWallet(
         descriptor: "wsh(multi(1,[d91e6add/0]tprv8dAegvLT1CZ6rzZPQLjnWJQvB8W6yXecQQ9gLbJKyuYRFGoAR1niu1DjdpERVZGPcuu1ZxkAjDnwxJWCQ24AoqzAoyUrFeuzAiYc5RwbkkE/*,"
             "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,"
             "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*))",
@@ -92,81 +103,108 @@ class _MyAppState extends State<MyApp> {
             "tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,"
             "tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*))",
         network: Network.TESTNET,
-        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
-        blockchain: Blockchain.ELECTRUM);
+        databaseConfig: const DatabaseConfig.memory(),
+        blockchainConfig: BlockchainConfig.esplora(config: EsploraConfig(
+            baseUrl: "ssl://electrum.blockstream.info:60002",
+            timeout: 5,
+            stopGap: 10,
+        ))
+        );
 
     // var bobWallet = await bdkWallet.createWallet(
     //     descriptor: "wsh(multi(1,[04f28e3e/0]tprv8bcCYCRz5Z3jpfScYvdKgecYJ5WPL6ji9sdjMqhTJA7ze66vAQDQWSTeuM5irB7ydbX1cB7v75NDrH1JiARQJMnzx1b55hvycsq23jWprje/*,tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
     //     changeDescriptor: "wsh(multi(1,[04f28e3e/1]tprv8bcCYCRz5Z3jt5PkL3F4j3rFdWrmbT3MehW6Du6zP3ZjpZRx36RUtzAhc1QDBQEGtVgvmEVhYDMukEeCGHMG8zZ5CaN7ARwTwk3mFC8e5pM/*,tpubD6NzVbkrYhZ4Ypz1zy41nMPDvELhgP3Zf65SBZ3qwmsKwohtNaPvhZEYPhrRkbd7YGvVEpbp6Jx7kKdimJBX74iyb7VyKCWEgT9PfnsmmxX/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
     //     network: Network.TESTNET,
-    //     blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
-    //     blockchain: Blockchain.ELECTRUM);
+    //     databaseConfig: const DatabaseConfig.memory(),
+    //     blockchainConfig: BlockchainConfig.esplora(config: EsploraConfig(
+    //       baseUrl: "ssl://electrum.blockstream.info:60002",
+    //       timeout: 5,
+    //       stopGap: 10,
+    //     )));
 
-    // var daveWallet = await bdkWallet.createWallet(
+    // var daveWallet = await bdkFlutter.createWallet(
     //     descriptor: "wsh(multi(1,[f20279dc/0]tprv8dMG977nxe1x19vutKKBaARhk1sc2SqLdBgHdwpmczdtBUhK6hqDipjHqgqUkgZ3PtGjvKiwNDjriBmQKj9JgPEmsYmFaJpHqqRg6i2TNav/*,tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
     //     changeDescriptor: "wsh(multi(1,[f20279dc/1]tprv8dMG977nxe1x4xSD7kxthnbUVammyMGCW3Xu22kZsgPeVcABDaUEPDwqwqJ1n6p9RkLPUY6xs1kXb4x7RYxhUF1asdCqiLqW56Q9maWiTxh/*,tpubD6NzVbkrYhZ4Y7vS12GNPcMGdG8bqsASki27XzHKA8rG2WWXMW8wi8aLQUZEUp9BsY4rk2PEDcJa7uhzRAecdgrPFSCKQHGKLtfbxPtJpke/*,tpubD6NzVbkrYhZ4WTWu6gfFmFmv41o9rha9UV5U9TU6vcr7ZpghKewi93LhsJ3uV2rAnD4Vd5MTMeCaTJSiVYbWgaNry1quCYx2vNaVrhEZDd3/*))",
     //     network: Network.TESTNET,
-    //     blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
-    //     blockchain: Blockchain.ELECTRUM);
+    //     databaseConfig: const DatabaseConfig.memory(),
+    //     blockchainConfig: BlockchainConfig.electrum(
+    //         config: ElectrumConfig(
+    //       url: "ssl://electrum.blockstream.info:60002",
+    //       timeout: 5,
+    //       stopGap: 10, retry: 10,
+    //     )
+    //     )
+    // );
   }
   restoreWallet(String mnemonic, Network network) async {
-    var  keys = await createDescriptor(mnemonic: mnemonic, network: network, type: Descriptor.P2WPKH, descriptorPath: 'm/0',changeDescriptorPath:'m/1' );
-    var resWallet = await bdkWallet.createWallet(
-        //  descriptor: keys.descriptor,
-        // changeDescriptor: keys.changeDescriptor,
-         mnemonic: mnemonic,
+    var  keys = await createDescriptor(
+        mnemonic:mnemonic,
         network: network,
-        blockChainConfigUrl: "ssl://electrum.blockstream.info:60002",
-        blockchain: Blockchain.ELECTRUM);
+        type: Descriptor.P2WPKH,
+        descriptorPath: "m/84'/0'/0'",
+        changeDescriptorPath: "m/84'/0'/0'"
+    );;
+    var resWallet = await bdkFlutter.createWallet(
+        descriptor: keys.descriptor,
+        changeDescriptor:  keys.changeDescriptor,
+        network: network,
+        databaseConfig: const DatabaseConfig.memory(),
+        blockchainConfig: BlockchainConfig.electrum(config: ElectrumConfig(
+          url: "ssl://electrum.blockstream.info:60002",
+          timeout: 5,
+          stopGap: 10,
+          retry: 10,
+        )));
     print(resWallet.balance.total);
   }
-
   sync() async {
-    bdkWallet.syncWallet();
+    bdkFlutter.syncWallet();
   }
-
-  getNewAddress() async {
-    final res =   await bdkWallet.getNewAddress();
+   getBlockHeightAndHash() async{
+    final height = await  bdkFlutter.getBlockchainHeight();
+    print(height);
+    final hash = await bdkFlutter.getBlockchainHash(height);
+    print(hash);
+   }
+  Future<String> getNewAddress() async {
+    final res =   await bdkFlutter.getNewAddress();
     print(res);
     return res;
   }
-
   Future<List<Transaction>> getConfirmedTransactions() async {
-    final res = await BdkWallet().getConfirmedTransactions();
+    final res = await bdkFlutter.getConfirmedTransactions();
     for (var e in res) {
       print(e.details.txid);
     }
     return res;
   }
-
-  getPendingTransactions() async {
-    final res = await BdkWallet().getPendingTransactions();
+   getPendingTransactions() async {
+    final res = await bdkFlutter.getPendingTransactions();
     if (res.isEmpty) print("No Pending Transactions");
     for (var e in res) {
       print(e.details.txid);
     }
   }
-
   getBalance() async {
-    final res = await bdkWallet.getBalance();
-    print(res.toString());
+    final res = await bdkFlutter.getBalance();
+    print(res.total);
   }
-
   getXpubFromMnemonic() async {
     var aliceKey = await  createExtendedKey(network: Network.TESTNET, mnemonic:  "puppy interest whip tonight dad never sudden response push zone pig patch");
     var bobKey = await  createExtendedKey(network: Network.TESTNET, mnemonic: "master amused swim decline spice nasty juice craft spoil two figure love");
     var daveKey = await createExtendedKey(network: Network.TESTNET, mnemonic: "science source gallery fresh gallery vanish lamp deal home flash behave frog");
-
-    print("Bob: ${bobKey.xprv}");
-    print("Dave: ${daveKey.xpub}");
+    print("Bob: ${bobKey.xpub}");
+    print("Dave: ${daveKey.xprv}");
     print("Alice: ${aliceKey.xprv}");
   }
-
   sendBit() async {
-    final txid =  await BdkWallet().quickSend(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
+    final txid =  await bdkFlutter.quickSend(recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt", amount: 1200, feeRate: 1);
     print(txid);
   }
-
+  exportWallet() async {
+    final res =  await bdkFlutter.exportWallet(walletName: "TestWallet");
+    print(res);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -190,7 +228,9 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () => sendBit(),
                   child: const Text('Press to  send 1200 satoshi')),
-
+              // TextButton(
+              //     onPressed: () => sendMultiSigTransaction(),
+              //     child: const Text('Press to  send 1500 satoshi to Dave and Bob')),
               TextButton(
                   onPressed: () => sync(), child: const Text('Press to  sync')),
               TextButton(
@@ -203,8 +243,14 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
               TextButton(
+                  onPressed: () => exportWallet(),
+                  child: const Text('Export Wallet')),
+              TextButton(
                   onPressed: () => getXpubFromMnemonic(),
                   child: const Text('get Public Key')),
+              TextButton(
+                  onPressed: () => getBlockHeightAndHash(),
+                  child: const Text('get Blockchain info')),
             ],
           ),
         ),
@@ -212,4 +258,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-

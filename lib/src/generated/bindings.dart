@@ -17,18 +17,57 @@ part 'bindings.freezed.dart';
 abstract class Rust {
   Future<void> walletInit(
       {required String descriptor,
-      required String changeDescriptor,
-      required String network,
-      required String blockchain,
-      required String url,
-      required String socks5OrProxy,
+      String? changeDescriptor,
+      required Network network,
+      required BlockchainConfig blockchainConfig,
+      required DatabaseConfig databaseConfig,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
+  Future<String> exportWallet({required String walletName, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kExportWalletConstMeta;
+
+  Future<void> importWallet(
+      {required String jsonWallet,
+      required Network network,
+      required BlockchainConfig blockchainConfig,
+      required DatabaseConfig databaseConfig,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kImportWalletConstMeta;
+
+  Future<String> getPublicDescriptor({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta;
+
+  Future<String> getDescriptorForKeychain(
+      {required KeyChainKind keychainKindStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainConstMeta;
+
+  Future<String> getDescriptorChecksum(
+      {required KeyChainKind keychainKindStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetDescriptorChecksumConstMeta;
+
   Future<ResponseWallet> getWallet({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta;
+
+  Future<int> getBlockchainHeight({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta;
+
+  Future<Network> getWalletNetwork({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetWalletNetworkConstMeta;
+
+  Future<String> getBlockchainHash(
+      {required int blockchainHeight, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta;
 
   Future<void> syncWallet({dynamic hint});
 
@@ -38,13 +77,26 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
 
+  Future<List<LocalUtxo>> listUnspentOutputs({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta;
+
   Future<String> getNewAddress({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta;
 
+  Future<String> getNewInternalAddress({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetNewInternalAddressConstMeta;
+
   Future<String> getLastUnusedAddress({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta;
+
+  Future<TransactionDetails?> getTransaction(
+      {required String txid, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetTransactionConstMeta;
 
   Future<List<Transaction>> getTransactions({dynamic hint});
 
@@ -58,6 +110,11 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta;
 
+  Future<String> drainWallet(
+      {required String recipient, required double feeRate, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDrainWalletConstMeta;
+
   Future<String> createMultiSigTransaction(
       {required List<AddressAmount> recipients,
       required double feeRate,
@@ -69,26 +126,26 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
 
-  Future<void> sign({required String psbtStr, dynamic hint});
+  Future<String?> sign({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignConstMeta;
 
-  Future<String> broadcast({required String psbtStr, dynamic hint});
+  Future<String?> broadcast({required String txid, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
 
   Future<String> generateSeedFromEntropy(
-      {required String entropy, dynamic hint});
+      {required Entropy entropy, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
 
   Future<String> generateSeedFromWordCount(
-      {required String wordCount, dynamic hint});
+      {required WordCount wordCount, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
 
   Future<ExtendedKeyInfo> createKey(
-      {required String nodeNetwork,
+      {required Network nodeNetwork,
       required String mnemonic,
       String? password,
       dynamic hint});
@@ -96,7 +153,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
 
   Future<DerivedKeyInfo> createDescriptorSecretKeys(
-      {required String nodeNetwork,
+      {required Network nodeNetwork,
       required String mnemonic,
       required String path,
       String? password,
@@ -153,6 +210,24 @@ class BlockConfirmationTime {
   });
 }
 
+@freezed
+class BlockchainConfig with _$BlockchainConfig {
+  const factory BlockchainConfig.electrum({
+    required ElectrumConfig config,
+  }) = ELECTRUM;
+  const factory BlockchainConfig.esplora({
+    required EsploraConfig config,
+  }) = ESPLORA;
+}
+
+@freezed
+class DatabaseConfig with _$DatabaseConfig {
+  const factory DatabaseConfig.memory() = MEMORY;
+  const factory DatabaseConfig.sqlite({
+    required SqliteConfiguration config,
+  }) = SQLITE;
+}
+
 class DerivedKeyInfo {
   final String xprv;
   final String xpub;
@@ -160,6 +235,44 @@ class DerivedKeyInfo {
   DerivedKeyInfo({
     required this.xprv,
     required this.xpub,
+  });
+}
+
+class ElectrumConfig {
+  final String url;
+  final String? socks5;
+  final int retry;
+  final int? timeout;
+  final int stopGap;
+
+  ElectrumConfig({
+    required this.url,
+    this.socks5,
+    required this.retry,
+    this.timeout,
+    required this.stopGap,
+  });
+}
+
+enum Entropy {
+  ENTROPY128,
+  ENTROPY192,
+  ENTROPY256,
+}
+
+class EsploraConfig {
+  final String baseUrl;
+  final String? proxy;
+  final int? concurrency;
+  final int stopGap;
+  final int? timeout;
+
+  EsploraConfig({
+    required this.baseUrl,
+    this.proxy,
+    this.concurrency,
+    required this.stopGap,
+    this.timeout,
   });
 }
 
@@ -173,6 +286,44 @@ class ExtendedKeyInfo {
   });
 }
 
+enum KeyChainKind {
+  EXTERNAL,
+  INTERNAL,
+}
+
+class LocalUtxo {
+  final OutPoint outpoint;
+  final TxOut txout;
+  final bool isSpent;
+
+  LocalUtxo({
+    required this.outpoint,
+    required this.txout,
+    required this.isSpent,
+  });
+}
+
+enum Network {
+  TESTNET,
+  REGTEST,
+  BITCOIN,
+  SIGNET,
+}
+
+/// A reference to a transaction output.
+class OutPoint {
+  /// The referenced transaction's txid.
+  final String txid;
+
+  /// The index of the referenced output in its transaction's vout.
+  final int vout;
+
+  OutPoint({
+    required this.txid,
+    required this.vout,
+  });
+}
+
 class ResponseWallet {
   final Balance balance;
   final String address;
@@ -180,6 +331,14 @@ class ResponseWallet {
   ResponseWallet({
     required this.balance,
     required this.address,
+  });
+}
+
+class SqliteConfiguration {
+  final String path;
+
+  SqliteConfiguration({
+    required this.path,
   });
 }
 
@@ -210,6 +369,26 @@ class TransactionDetails {
   });
 }
 
+/// A transaction output, which defines new coins to be created from old ones.
+class TxOut {
+  /// The value of the output, in satoshis.
+  final int value;
+
+  /// The address of the output.
+  final String address;
+
+  TxOut({
+    required this.value,
+    required this.address,
+  });
+}
+
+enum WordCount {
+  WORDS12,
+  WORDS18,
+  WORDS24,
+}
+
 class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   factory RustImpl(ffi.DynamicLibrary dylib) => RustImpl.raw(RustWire(dylib));
 
@@ -217,30 +396,27 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   Future<void> walletInit(
           {required String descriptor,
-          required String changeDescriptor,
-          required String network,
-          required String blockchain,
-          required String url,
-          required String socks5OrProxy,
+          String? changeDescriptor,
+          required Network network,
+          required BlockchainConfig blockchainConfig,
+          required DatabaseConfig databaseConfig,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_wallet_init(
             port_,
             _api2wire_String(descriptor),
-            _api2wire_String(changeDescriptor),
-            _api2wire_String(network),
-            _api2wire_String(blockchain),
-            _api2wire_String(url),
-            _api2wire_String(socks5OrProxy)),
+            _api2wire_opt_String(changeDescriptor),
+            _api2wire_network(network),
+            _api2wire_box_autoadd_blockchain_config(blockchainConfig),
+            _api2wire_box_autoadd_database_config(databaseConfig)),
         parseSuccessData: _wire2api_unit,
         constMeta: kWalletInitConstMeta,
         argValues: [
           descriptor,
           changeDescriptor,
           network,
-          blockchain,
-          url,
-          socks5OrProxy
+          blockchainConfig,
+          databaseConfig
         ],
         hint: hint,
       ));
@@ -252,10 +428,104 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
           "descriptor",
           "changeDescriptor",
           "network",
-          "blockchain",
-          "url",
-          "socks5OrProxy"
+          "blockchainConfig",
+          "databaseConfig"
         ],
+      );
+
+  Future<String> exportWallet({required String walletName, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_export_wallet(port_, _api2wire_String(walletName)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kExportWalletConstMeta,
+        argValues: [walletName],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kExportWalletConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "export_wallet",
+        argNames: ["walletName"],
+      );
+
+  Future<void> importWallet(
+          {required String jsonWallet,
+          required Network network,
+          required BlockchainConfig blockchainConfig,
+          required DatabaseConfig databaseConfig,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_import_wallet(
+            port_,
+            _api2wire_String(jsonWallet),
+            _api2wire_network(network),
+            _api2wire_box_autoadd_blockchain_config(blockchainConfig),
+            _api2wire_box_autoadd_database_config(databaseConfig)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kImportWalletConstMeta,
+        argValues: [jsonWallet, network, blockchainConfig, databaseConfig],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kImportWalletConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "import_wallet",
+        argNames: [
+          "jsonWallet",
+          "network",
+          "blockchainConfig",
+          "databaseConfig"
+        ],
+      );
+
+  Future<String> getPublicDescriptor({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_public_descriptor(port_),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetPublicDescriptorConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_public_descriptor",
+        argNames: [],
+      );
+
+  Future<String> getDescriptorForKeychain(
+          {required KeyChainKind keychainKindStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_descriptor_for_keychain(
+            port_, _api2wire_key_chain_kind(keychainKindStr)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetDescriptorForKeychainConstMeta,
+        argValues: [keychainKindStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_descriptor_for_keychain",
+        argNames: ["keychainKindStr"],
+      );
+
+  Future<String> getDescriptorChecksum(
+          {required KeyChainKind keychainKindStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_descriptor_checksum(
+            port_, _api2wire_key_chain_kind(keychainKindStr)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetDescriptorChecksumConstMeta,
+        argValues: [keychainKindStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetDescriptorChecksumConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_descriptor_checksum",
+        argNames: ["keychainKindStr"],
       );
 
   Future<ResponseWallet> getWallet({dynamic hint}) =>
@@ -271,6 +541,53 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_wallet",
         argNames: [],
+      );
+
+  Future<int> getBlockchainHeight({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_blockchain_height(port_),
+        parseSuccessData: _wire2api_u32,
+        constMeta: kGetBlockchainHeightConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_blockchain_height",
+        argNames: [],
+      );
+
+  Future<Network> getWalletNetwork({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_wallet_network(port_),
+        parseSuccessData: _wire2api_network,
+        constMeta: kGetWalletNetworkConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetWalletNetworkConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_wallet_network",
+        argNames: [],
+      );
+
+  Future<String> getBlockchainHash(
+          {required int blockchainHeight, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_blockchain_hash(
+            port_, _api2wire_u64(blockchainHeight)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetBlockchainHashConstMeta,
+        argValues: [blockchainHeight],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_blockchain_hash",
+        argNames: ["blockchainHeight"],
       );
 
   Future<void> syncWallet({dynamic hint}) =>
@@ -303,6 +620,21 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: [],
       );
 
+  Future<List<LocalUtxo>> listUnspentOutputs({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_list_unspent_outputs(port_),
+        parseSuccessData: _wire2api_list_local_utxo,
+        constMeta: kListUnspentOutputsConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "list_unspent_outputs",
+        argNames: [],
+      );
+
   Future<String> getNewAddress({dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_get_new_address(port_),
@@ -315,6 +647,21 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_new_address",
+        argNames: [],
+      );
+
+  Future<String> getNewInternalAddress({dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_new_internal_address(port_),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetNewInternalAddressConstMeta,
+        argValues: [],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetNewInternalAddressConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_new_internal_address",
         argNames: [],
       );
 
@@ -331,6 +678,23 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_last_unused_address",
         argNames: [],
+      );
+
+  Future<TransactionDetails?> getTransaction(
+          {required String txid, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_transaction(port_, _api2wire_String(txid)),
+        parseSuccessData: _wire2api_opt_box_autoadd_transaction_details,
+        constMeta: kGetTransactionConstMeta,
+        argValues: [txid],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetTransactionConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_transaction",
+        argNames: ["txid"],
       );
 
   Future<List<Transaction>> getTransactions({dynamic hint}) =>
@@ -371,6 +735,23 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["recipient", "amount", "feeRate"],
       );
 
+  Future<String> drainWallet(
+          {required String recipient, required double feeRate, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_drain_wallet(
+            port_, _api2wire_String(recipient), _api2wire_f32(feeRate)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kDrainWalletConstMeta,
+        argValues: [recipient, feeRate],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDrainWalletConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "drain_wallet",
+        argNames: ["recipient", "feeRate"],
+      );
+
   Future<String> createMultiSigTransaction(
           {required List<AddressAmount> recipients,
           required double feeRate,
@@ -406,10 +787,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["psbtStr"],
       );
 
-  Future<void> sign({required String psbtStr, dynamic hint}) =>
+  Future<String?> sign({required String psbtStr, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_sign(port_, _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_unit,
+        parseSuccessData: _wire2api_opt_String,
         constMeta: kSignConstMeta,
         argValues: [psbtStr],
         hint: hint,
@@ -421,27 +802,26 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["psbtStr"],
       );
 
-  Future<String> broadcast({required String psbtStr, dynamic hint}) =>
+  Future<String?> broadcast({required String txid, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_broadcast(port_, _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_String,
+        callFfi: (port_) => inner.wire_broadcast(port_, _api2wire_String(txid)),
+        parseSuccessData: _wire2api_opt_String,
         constMeta: kBroadcastConstMeta,
-        argValues: [psbtStr],
+        argValues: [txid],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "broadcast",
-        argNames: ["psbtStr"],
+        argNames: ["txid"],
       );
 
   Future<String> generateSeedFromEntropy(
-          {required String entropy, dynamic hint}) =>
+          {required Entropy entropy, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_generate_seed_from_entropy(
-            port_, _api2wire_String(entropy)),
+            port_, _api2wire_entropy(entropy)),
         parseSuccessData: _wire2api_String,
         constMeta: kGenerateSeedFromEntropyConstMeta,
         argValues: [entropy],
@@ -455,10 +835,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       );
 
   Future<String> generateSeedFromWordCount(
-          {required String wordCount, dynamic hint}) =>
+          {required WordCount wordCount, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_generate_seed_from_word_count(
-            port_, _api2wire_String(wordCount)),
+            port_, _api2wire_word_count(wordCount)),
         parseSuccessData: _wire2api_String,
         constMeta: kGenerateSeedFromWordCountConstMeta,
         argValues: [wordCount],
@@ -472,14 +852,14 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       );
 
   Future<ExtendedKeyInfo> createKey(
-          {required String nodeNetwork,
+          {required Network nodeNetwork,
           required String mnemonic,
           String? password,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_create_key(
             port_,
-            _api2wire_String(nodeNetwork),
+            _api2wire_network(nodeNetwork),
             _api2wire_String(mnemonic),
             _api2wire_opt_String(password)),
         parseSuccessData: _wire2api_extended_key_info,
@@ -495,7 +875,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       );
 
   Future<DerivedKeyInfo> createDescriptorSecretKeys(
-          {required String nodeNetwork,
+          {required Network nodeNetwork,
           required String mnemonic,
           required String path,
           String? password,
@@ -503,7 +883,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => inner.wire_create_descriptor_secret_keys(
             port_,
-            _api2wire_String(nodeNetwork),
+            _api2wire_network(nodeNetwork),
             _api2wire_String(mnemonic),
             _api2wire_String(path),
             _api2wire_opt_String(password)),
@@ -524,8 +904,63 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
   }
 
+  ffi.Pointer<wire_BlockchainConfig> _api2wire_box_autoadd_blockchain_config(
+      BlockchainConfig raw) {
+    final ptr = inner.new_box_autoadd_blockchain_config_0();
+    _api_fill_to_wire_blockchain_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  ffi.Pointer<wire_DatabaseConfig> _api2wire_box_autoadd_database_config(
+      DatabaseConfig raw) {
+    final ptr = inner.new_box_autoadd_database_config_0();
+    _api_fill_to_wire_database_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  ffi.Pointer<wire_ElectrumConfig> _api2wire_box_autoadd_electrum_config(
+      ElectrumConfig raw) {
+    final ptr = inner.new_box_autoadd_electrum_config_0();
+    _api_fill_to_wire_electrum_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  ffi.Pointer<wire_EsploraConfig> _api2wire_box_autoadd_esplora_config(
+      EsploraConfig raw) {
+    final ptr = inner.new_box_autoadd_esplora_config_0();
+    _api_fill_to_wire_esplora_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  ffi.Pointer<wire_SqliteConfiguration>
+      _api2wire_box_autoadd_sqlite_configuration(SqliteConfiguration raw) {
+    final ptr = inner.new_box_autoadd_sqlite_configuration_0();
+    _api_fill_to_wire_sqlite_configuration(raw, ptr.ref);
+    return ptr;
+  }
+
+  ffi.Pointer<ffi.Uint64> _api2wire_box_autoadd_u64(int raw) {
+    return inner.new_box_autoadd_u64_0(_api2wire_u64(raw));
+  }
+
+  ffi.Pointer<ffi.Uint8> _api2wire_box_autoadd_u8(int raw) {
+    return inner.new_box_autoadd_u8_0(_api2wire_u8(raw));
+  }
+
+  int _api2wire_entropy(Entropy raw) {
+    return _api2wire_i32(raw.index);
+  }
+
   double _api2wire_f32(double raw) {
     return raw;
+  }
+
+  int _api2wire_i32(int raw) {
+    return raw;
+  }
+
+  int _api2wire_key_chain_kind(KeyChainKind raw) {
+    return _api2wire_i32(raw.index);
   }
 
   ffi.Pointer<wire_list_address_amount> _api2wire_list_address_amount(
@@ -537,8 +972,20 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return ans;
   }
 
+  int _api2wire_network(Network raw) {
+    return _api2wire_i32(raw.index);
+  }
+
   ffi.Pointer<wire_uint_8_list> _api2wire_opt_String(String? raw) {
     return raw == null ? ffi.nullptr : _api2wire_String(raw);
+  }
+
+  ffi.Pointer<ffi.Uint64> _api2wire_opt_box_autoadd_u64(int? raw) {
+    return raw == null ? ffi.nullptr : _api2wire_box_autoadd_u64(raw);
+  }
+
+  ffi.Pointer<ffi.Uint8> _api2wire_opt_box_autoadd_u8(int? raw) {
+    return raw == null ? ffi.nullptr : _api2wire_box_autoadd_u8(raw);
   }
 
   int _api2wire_u64(int raw) {
@@ -555,12 +1002,95 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return ans;
   }
 
+  int _api2wire_word_count(WordCount raw) {
+    return _api2wire_i32(raw.index);
+  }
+
   // Section: api_fill_to_wire
 
   void _api_fill_to_wire_address_amount(
       AddressAmount apiObj, wire_AddressAmount wireObj) {
     wireObj.address = _api2wire_String(apiObj.address);
     wireObj.amount = _api2wire_u64(apiObj.amount);
+  }
+
+  void _api_fill_to_wire_blockchain_config(
+      BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
+    if (apiObj is ELECTRUM) {
+      wireObj.tag = 0;
+      wireObj.kind = inner.inflate_BlockchainConfig_ELECTRUM();
+      wireObj.kind.ref.ELECTRUM.ref.config =
+          _api2wire_box_autoadd_electrum_config(apiObj.config);
+    }
+    if (apiObj is ESPLORA) {
+      wireObj.tag = 1;
+      wireObj.kind = inner.inflate_BlockchainConfig_ESPLORA();
+      wireObj.kind.ref.ESPLORA.ref.config =
+          _api2wire_box_autoadd_esplora_config(apiObj.config);
+    }
+  }
+
+  void _api_fill_to_wire_box_autoadd_blockchain_config(
+      BlockchainConfig apiObj, ffi.Pointer<wire_BlockchainConfig> wireObj) {
+    _api_fill_to_wire_blockchain_config(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_database_config(
+      DatabaseConfig apiObj, ffi.Pointer<wire_DatabaseConfig> wireObj) {
+    _api_fill_to_wire_database_config(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_electrum_config(
+      ElectrumConfig apiObj, ffi.Pointer<wire_ElectrumConfig> wireObj) {
+    _api_fill_to_wire_electrum_config(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_esplora_config(
+      EsploraConfig apiObj, ffi.Pointer<wire_EsploraConfig> wireObj) {
+    _api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_sqlite_configuration(
+      SqliteConfiguration apiObj,
+      ffi.Pointer<wire_SqliteConfiguration> wireObj) {
+    _api_fill_to_wire_sqlite_configuration(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_database_config(
+      DatabaseConfig apiObj, wire_DatabaseConfig wireObj) {
+    if (apiObj is MEMORY) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is SQLITE) {
+      wireObj.tag = 1;
+      wireObj.kind = inner.inflate_DatabaseConfig_SQLITE();
+      wireObj.kind.ref.SQLITE.ref.config =
+          _api2wire_box_autoadd_sqlite_configuration(apiObj.config);
+    }
+  }
+
+  void _api_fill_to_wire_electrum_config(
+      ElectrumConfig apiObj, wire_ElectrumConfig wireObj) {
+    wireObj.url = _api2wire_String(apiObj.url);
+    wireObj.socks5 = _api2wire_opt_String(apiObj.socks5);
+    wireObj.retry = _api2wire_u8(apiObj.retry);
+    wireObj.timeout = _api2wire_opt_box_autoadd_u8(apiObj.timeout);
+    wireObj.stop_gap = _api2wire_u64(apiObj.stopGap);
+  }
+
+  void _api_fill_to_wire_esplora_config(
+      EsploraConfig apiObj, wire_EsploraConfig wireObj) {
+    wireObj.base_url = _api2wire_String(apiObj.baseUrl);
+    wireObj.proxy = _api2wire_opt_String(apiObj.proxy);
+    wireObj.concurrency = _api2wire_opt_box_autoadd_u8(apiObj.concurrency);
+    wireObj.stop_gap = _api2wire_u64(apiObj.stopGap);
+    wireObj.timeout = _api2wire_opt_box_autoadd_u64(apiObj.timeout);
+  }
+
+  void _api_fill_to_wire_sqlite_configuration(
+      SqliteConfiguration apiObj, wire_SqliteConfiguration wireObj) {
+    wireObj.path = _api2wire_String(apiObj.path);
   }
 }
 
@@ -591,6 +1121,10 @@ BlockConfirmationTime _wire2api_block_confirmation_time(dynamic raw) {
     height: _wire2api_u32(arr[0]),
     timestamp: _wire2api_u64(arr[1]),
   );
+}
+
+bool _wire2api_bool(dynamic raw) {
+  return raw as bool;
 }
 
 BlockConfirmationTime _wire2api_box_autoadd_block_confirmation_time(
@@ -626,8 +1160,35 @@ ExtendedKeyInfo _wire2api_extended_key_info(dynamic raw) {
   );
 }
 
+int _wire2api_i32(dynamic raw) {
+  return raw as int;
+}
+
+List<LocalUtxo> _wire2api_list_local_utxo(dynamic raw) {
+  return (raw as List<dynamic>).map(_wire2api_local_utxo).toList();
+}
+
 List<Transaction> _wire2api_list_transaction(dynamic raw) {
   return (raw as List<dynamic>).map(_wire2api_transaction).toList();
+}
+
+LocalUtxo _wire2api_local_utxo(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 3)
+    throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+  return LocalUtxo(
+    outpoint: _wire2api_out_point(arr[0]),
+    txout: _wire2api_tx_out(arr[1]),
+    isSpent: _wire2api_bool(arr[2]),
+  );
+}
+
+Network _wire2api_network(dynamic raw) {
+  return Network.values[raw];
+}
+
+String? _wire2api_opt_String(dynamic raw) {
+  return raw == null ? null : _wire2api_String(raw);
 }
 
 BlockConfirmationTime? _wire2api_opt_box_autoadd_block_confirmation_time(
@@ -637,8 +1198,22 @@ BlockConfirmationTime? _wire2api_opt_box_autoadd_block_confirmation_time(
       : _wire2api_box_autoadd_block_confirmation_time(raw);
 }
 
+TransactionDetails? _wire2api_opt_box_autoadd_transaction_details(dynamic raw) {
+  return raw == null ? null : _wire2api_box_autoadd_transaction_details(raw);
+}
+
 int? _wire2api_opt_box_autoadd_u64(dynamic raw) {
   return raw == null ? null : _wire2api_box_autoadd_u64(raw);
+}
+
+OutPoint _wire2api_out_point(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return OutPoint(
+    txid: _wire2api_String(arr[0]),
+    vout: _wire2api_u32(arr[1]),
+  );
 }
 
 ResponseWallet _wire2api_response_wallet(dynamic raw) {
@@ -677,6 +1252,16 @@ TransactionDetails _wire2api_transaction_details(dynamic raw) {
     sent: _wire2api_u64(arr[2]),
     txid: _wire2api_String(arr[3]),
     confirmationTime: _wire2api_opt_box_autoadd_block_confirmation_time(arr[4]),
+  );
+}
+
+TxOut _wire2api_tx_out(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return TxOut(
+    value: _wire2api_u64(arr[0]),
+    address: _wire2api_String(arr[1]),
   );
 }
 
@@ -725,19 +1310,17 @@ class RustWire implements FlutterRustBridgeWireBase {
     int port_,
     ffi.Pointer<wire_uint_8_list> descriptor,
     ffi.Pointer<wire_uint_8_list> change_descriptor,
-    ffi.Pointer<wire_uint_8_list> network,
-    ffi.Pointer<wire_uint_8_list> blockchain,
-    ffi.Pointer<wire_uint_8_list> url,
-    ffi.Pointer<wire_uint_8_list> socks5_or_proxy,
+    int network,
+    ffi.Pointer<wire_BlockchainConfig> blockchain_config,
+    ffi.Pointer<wire_DatabaseConfig> database_config,
   ) {
     return _wire_wallet_init(
       port_,
       descriptor,
       change_descriptor,
       network,
-      blockchain,
-      url,
-      socks5_or_proxy,
+      blockchain_config,
+      database_config,
     );
   }
 
@@ -747,19 +1330,113 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Int64,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_wallet_init');
+              ffi.Int32,
+              ffi.Pointer<wire_BlockchainConfig>,
+              ffi.Pointer<wire_DatabaseConfig>)>>('wire_wallet_init');
   late final _wire_wallet_init = _wire_wallet_initPtr.asFunction<
       void Function(
           int,
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>,
+          int,
+          ffi.Pointer<wire_BlockchainConfig>,
+          ffi.Pointer<wire_DatabaseConfig>)>();
+
+  void wire_export_wallet(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_name,
+  ) {
+    return _wire_export_wallet(
+      port_,
+      wallet_name,
+    );
+  }
+
+  late final _wire_export_walletPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_export_wallet');
+  late final _wire_export_wallet = _wire_export_walletPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_import_wallet(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> json_wallet,
+    int network,
+    ffi.Pointer<wire_BlockchainConfig> blockchain_config,
+    ffi.Pointer<wire_DatabaseConfig> database_config,
+  ) {
+    return _wire_import_wallet(
+      port_,
+      json_wallet,
+      network,
+      blockchain_config,
+      database_config,
+    );
+  }
+
+  late final _wire_import_walletPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32,
+              ffi.Pointer<wire_BlockchainConfig>,
+              ffi.Pointer<wire_DatabaseConfig>)>>('wire_import_wallet');
+  late final _wire_import_wallet = _wire_import_walletPtr.asFunction<
+      void Function(
+          int,
           ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>)>();
+          int,
+          ffi.Pointer<wire_BlockchainConfig>,
+          ffi.Pointer<wire_DatabaseConfig>)>();
+
+  void wire_get_public_descriptor(
+    int port_,
+  ) {
+    return _wire_get_public_descriptor(
+      port_,
+    );
+  }
+
+  late final _wire_get_public_descriptorPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_public_descriptor');
+  late final _wire_get_public_descriptor =
+      _wire_get_public_descriptorPtr.asFunction<void Function(int)>();
+
+  void wire_get_descriptor_for_keychain(
+    int port_,
+    int keychain_kind_str,
+  ) {
+    return _wire_get_descriptor_for_keychain(
+      port_,
+      keychain_kind_str,
+    );
+  }
+
+  late final _wire_get_descriptor_for_keychainPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
+          'wire_get_descriptor_for_keychain');
+  late final _wire_get_descriptor_for_keychain =
+      _wire_get_descriptor_for_keychainPtr
+          .asFunction<void Function(int, int)>();
+
+  void wire_get_descriptor_checksum(
+    int port_,
+    int keychain_kind_str,
+  ) {
+    return _wire_get_descriptor_checksum(
+      port_,
+      keychain_kind_str,
+    );
+  }
+
+  late final _wire_get_descriptor_checksumPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
+          'wire_get_descriptor_checksum');
+  late final _wire_get_descriptor_checksum =
+      _wire_get_descriptor_checksumPtr.asFunction<void Function(int, int)>();
 
   void wire_get_wallet(
     int port_,
@@ -774,6 +1451,50 @@ class RustWire implements FlutterRustBridgeWireBase {
           'wire_get_wallet');
   late final _wire_get_wallet =
       _wire_get_walletPtr.asFunction<void Function(int)>();
+
+  void wire_get_blockchain_height(
+    int port_,
+  ) {
+    return _wire_get_blockchain_height(
+      port_,
+    );
+  }
+
+  late final _wire_get_blockchain_heightPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_blockchain_height');
+  late final _wire_get_blockchain_height =
+      _wire_get_blockchain_heightPtr.asFunction<void Function(int)>();
+
+  void wire_get_wallet_network(
+    int port_,
+  ) {
+    return _wire_get_wallet_network(
+      port_,
+    );
+  }
+
+  late final _wire_get_wallet_networkPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_wallet_network');
+  late final _wire_get_wallet_network =
+      _wire_get_wallet_networkPtr.asFunction<void Function(int)>();
+
+  void wire_get_blockchain_hash(
+    int port_,
+    int blockchain_height,
+  ) {
+    return _wire_get_blockchain_hash(
+      port_,
+      blockchain_height,
+    );
+  }
+
+  late final _wire_get_blockchain_hashPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Uint64)>>(
+          'wire_get_blockchain_hash');
+  late final _wire_get_blockchain_hash =
+      _wire_get_blockchain_hashPtr.asFunction<void Function(int, int)>();
 
   void wire_sync_wallet(
     int port_,
@@ -803,6 +1524,20 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_get_balance =
       _wire_get_balancePtr.asFunction<void Function(int)>();
 
+  void wire_list_unspent_outputs(
+    int port_,
+  ) {
+    return _wire_list_unspent_outputs(
+      port_,
+    );
+  }
+
+  late final _wire_list_unspent_outputsPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_list_unspent_outputs');
+  late final _wire_list_unspent_outputs =
+      _wire_list_unspent_outputsPtr.asFunction<void Function(int)>();
+
   void wire_get_new_address(
     int port_,
   ) {
@@ -817,6 +1552,20 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_get_new_address =
       _wire_get_new_addressPtr.asFunction<void Function(int)>();
 
+  void wire_get_new_internal_address(
+    int port_,
+  ) {
+    return _wire_get_new_internal_address(
+      port_,
+    );
+  }
+
+  late final _wire_get_new_internal_addressPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_new_internal_address');
+  late final _wire_get_new_internal_address =
+      _wire_get_new_internal_addressPtr.asFunction<void Function(int)>();
+
   void wire_get_last_unused_address(
     int port_,
   ) {
@@ -830,6 +1579,23 @@ class RustWire implements FlutterRustBridgeWireBase {
           'wire_get_last_unused_address');
   late final _wire_get_last_unused_address =
       _wire_get_last_unused_addressPtr.asFunction<void Function(int)>();
+
+  void wire_get_transaction(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> txid,
+  ) {
+    return _wire_get_transaction(
+      port_,
+      txid,
+    );
+  }
+
+  late final _wire_get_transactionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_transaction');
+  late final _wire_get_transaction = _wire_get_transactionPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_get_transactions(
     int port_,
@@ -865,6 +1631,25 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Uint64, ffi.Float)>>('wire_create_transaction');
   late final _wire_create_transaction = _wire_create_transactionPtr.asFunction<
       void Function(int, ffi.Pointer<wire_uint_8_list>, int, double)>();
+
+  void wire_drain_wallet(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> recipient,
+    double fee_rate,
+  ) {
+    return _wire_drain_wallet(
+      port_,
+      recipient,
+      fee_rate,
+    );
+  }
+
+  late final _wire_drain_walletPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Float)>>('wire_drain_wallet');
+  late final _wire_drain_wallet = _wire_drain_walletPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, double)>();
 
   void wire_create_multi_sig_transaction(
     int port_,
@@ -922,11 +1707,11 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_broadcast(
     int port_,
-    ffi.Pointer<wire_uint_8_list> psbt_str,
+    ffi.Pointer<wire_uint_8_list> txid,
   ) {
     return _wire_broadcast(
       port_,
-      psbt_str,
+      txid,
     );
   }
 
@@ -939,7 +1724,7 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_generate_seed_from_entropy(
     int port_,
-    ffi.Pointer<wire_uint_8_list> entropy,
+    int entropy,
   ) {
     return _wire_generate_seed_from_entropy(
       port_,
@@ -947,17 +1732,15 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_generate_seed_from_entropyPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_generate_seed_from_entropy');
+  late final _wire_generate_seed_from_entropyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
+          'wire_generate_seed_from_entropy');
   late final _wire_generate_seed_from_entropy =
-      _wire_generate_seed_from_entropyPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+      _wire_generate_seed_from_entropyPtr.asFunction<void Function(int, int)>();
 
   void wire_generate_seed_from_word_count(
     int port_,
-    ffi.Pointer<wire_uint_8_list> word_count,
+    int word_count,
   ) {
     return _wire_generate_seed_from_word_count(
       port_,
@@ -965,17 +1748,16 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_generate_seed_from_word_countPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_generate_seed_from_word_count');
+  late final _wire_generate_seed_from_word_countPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
+          'wire_generate_seed_from_word_count');
   late final _wire_generate_seed_from_word_count =
       _wire_generate_seed_from_word_countPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, int)>();
 
   void wire_create_key(
     int port_,
-    ffi.Pointer<wire_uint_8_list> node_network,
+    int node_network,
     ffi.Pointer<wire_uint_8_list> mnemonic,
     ffi.Pointer<wire_uint_8_list> password,
   ) {
@@ -989,18 +1771,15 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   late final _wire_create_keyPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
+          ffi.Void Function(ffi.Int64, ffi.Int32, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_create_key');
   late final _wire_create_key = _wire_create_keyPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+      void Function(int, int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_create_descriptor_secret_keys(
     int port_,
-    ffi.Pointer<wire_uint_8_list> node_network,
+    int node_network,
     ffi.Pointer<wire_uint_8_list> mnemonic,
     ffi.Pointer<wire_uint_8_list> path,
     ffi.Pointer<wire_uint_8_list> password,
@@ -1018,19 +1797,99 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Int32,
                   ffi.Pointer<wire_uint_8_list>,
                   ffi.Pointer<wire_uint_8_list>,
                   ffi.Pointer<wire_uint_8_list>)>>(
       'wire_create_descriptor_secret_keys');
   late final _wire_create_descriptor_secret_keys =
       _wire_create_descriptor_secret_keysPtr.asFunction<
-          void Function(
-              int,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>();
+          void Function(int, int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_BlockchainConfig> new_box_autoadd_blockchain_config_0() {
+    return _new_box_autoadd_blockchain_config_0();
+  }
+
+  late final _new_box_autoadd_blockchain_config_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_BlockchainConfig> Function()>>(
+      'new_box_autoadd_blockchain_config_0');
+  late final _new_box_autoadd_blockchain_config_0 =
+      _new_box_autoadd_blockchain_config_0Ptr
+          .asFunction<ffi.Pointer<wire_BlockchainConfig> Function()>();
+
+  ffi.Pointer<wire_DatabaseConfig> new_box_autoadd_database_config_0() {
+    return _new_box_autoadd_database_config_0();
+  }
+
+  late final _new_box_autoadd_database_config_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_DatabaseConfig> Function()>>(
+          'new_box_autoadd_database_config_0');
+  late final _new_box_autoadd_database_config_0 =
+      _new_box_autoadd_database_config_0Ptr
+          .asFunction<ffi.Pointer<wire_DatabaseConfig> Function()>();
+
+  ffi.Pointer<wire_ElectrumConfig> new_box_autoadd_electrum_config_0() {
+    return _new_box_autoadd_electrum_config_0();
+  }
+
+  late final _new_box_autoadd_electrum_config_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_ElectrumConfig> Function()>>(
+          'new_box_autoadd_electrum_config_0');
+  late final _new_box_autoadd_electrum_config_0 =
+      _new_box_autoadd_electrum_config_0Ptr
+          .asFunction<ffi.Pointer<wire_ElectrumConfig> Function()>();
+
+  ffi.Pointer<wire_EsploraConfig> new_box_autoadd_esplora_config_0() {
+    return _new_box_autoadd_esplora_config_0();
+  }
+
+  late final _new_box_autoadd_esplora_config_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_EsploraConfig> Function()>>(
+          'new_box_autoadd_esplora_config_0');
+  late final _new_box_autoadd_esplora_config_0 =
+      _new_box_autoadd_esplora_config_0Ptr
+          .asFunction<ffi.Pointer<wire_EsploraConfig> Function()>();
+
+  ffi.Pointer<wire_SqliteConfiguration>
+      new_box_autoadd_sqlite_configuration_0() {
+    return _new_box_autoadd_sqlite_configuration_0();
+  }
+
+  late final _new_box_autoadd_sqlite_configuration_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_SqliteConfiguration> Function()>>(
+      'new_box_autoadd_sqlite_configuration_0');
+  late final _new_box_autoadd_sqlite_configuration_0 =
+      _new_box_autoadd_sqlite_configuration_0Ptr
+          .asFunction<ffi.Pointer<wire_SqliteConfiguration> Function()>();
+
+  ffi.Pointer<ffi.Uint64> new_box_autoadd_u64_0(
+    int value,
+  ) {
+    return _new_box_autoadd_u64_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_u64_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
+          'new_box_autoadd_u64_0');
+  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
+
+  ffi.Pointer<ffi.Uint8> new_box_autoadd_u8_0(
+    int value,
+  ) {
+    return _new_box_autoadd_u8_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_u8_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint8> Function(ffi.Uint8)>>(
+          'new_box_autoadd_u8_0');
+  late final _new_box_autoadd_u8_0 = _new_box_autoadd_u8_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
 
   ffi.Pointer<wire_list_address_amount> new_list_address_amount_0(
     int len,
@@ -1061,6 +1920,38 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Int32)>>('new_uint_8_list_0');
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+
+  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_ELECTRUM() {
+    return _inflate_BlockchainConfig_ELECTRUM();
+  }
+
+  late final _inflate_BlockchainConfig_ELECTRUMPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
+          'inflate_BlockchainConfig_ELECTRUM');
+  late final _inflate_BlockchainConfig_ELECTRUM =
+      _inflate_BlockchainConfig_ELECTRUMPtr
+          .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
+
+  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_ESPLORA() {
+    return _inflate_BlockchainConfig_ESPLORA();
+  }
+
+  late final _inflate_BlockchainConfig_ESPLORAPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
+          'inflate_BlockchainConfig_ESPLORA');
+  late final _inflate_BlockchainConfig_ESPLORA =
+      _inflate_BlockchainConfig_ESPLORAPtr
+          .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
+
+  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_SQLITE() {
+    return _inflate_DatabaseConfig_SQLITE();
+  }
+
+  late final _inflate_DatabaseConfig_SQLITEPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
+          'inflate_DatabaseConfig_SQLITE');
+  late final _inflate_DatabaseConfig_SQLITE = _inflate_DatabaseConfig_SQLITEPtr
+      .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,
@@ -1096,6 +1987,77 @@ class wire_uint_8_list extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+class wire_ElectrumConfig extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> url;
+
+  external ffi.Pointer<wire_uint_8_list> socks5;
+
+  @ffi.Uint8()
+  external int retry;
+
+  external ffi.Pointer<ffi.Uint8> timeout;
+
+  @ffi.Uint64()
+  external int stop_gap;
+}
+
+class BlockchainConfig_ELECTRUM extends ffi.Struct {
+  external ffi.Pointer<wire_ElectrumConfig> config;
+}
+
+class wire_EsploraConfig extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> base_url;
+
+  external ffi.Pointer<wire_uint_8_list> proxy;
+
+  external ffi.Pointer<ffi.Uint8> concurrency;
+
+  @ffi.Uint64()
+  external int stop_gap;
+
+  external ffi.Pointer<ffi.Uint64> timeout;
+}
+
+class BlockchainConfig_ESPLORA extends ffi.Struct {
+  external ffi.Pointer<wire_EsploraConfig> config;
+}
+
+class BlockchainConfigKind extends ffi.Union {
+  external ffi.Pointer<BlockchainConfig_ELECTRUM> ELECTRUM;
+
+  external ffi.Pointer<BlockchainConfig_ESPLORA> ESPLORA;
+}
+
+class wire_BlockchainConfig extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external ffi.Pointer<BlockchainConfigKind> kind;
+}
+
+class DatabaseConfig_MEMORY extends ffi.Opaque {}
+
+class wire_SqliteConfiguration extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> path;
+}
+
+class DatabaseConfig_SQLITE extends ffi.Struct {
+  external ffi.Pointer<wire_SqliteConfiguration> config;
+}
+
+class DatabaseConfigKind extends ffi.Union {
+  external ffi.Pointer<DatabaseConfig_MEMORY> MEMORY;
+
+  external ffi.Pointer<DatabaseConfig_SQLITE> SQLITE;
+}
+
+class wire_DatabaseConfig extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external ffi.Pointer<DatabaseConfigKind> kind;
 }
 
 class wire_AddressAmount extends ffi.Struct {

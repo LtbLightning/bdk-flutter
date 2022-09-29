@@ -18,11 +18,23 @@ use flutter_rust_bridge::*;
 use crate::ffi::AddressAmount;
 use crate::ffi::Balance;
 use crate::ffi::BlockConfirmationTime;
-use crate::ffi::DerivedKeyInfo;
-use crate::ffi::ExtendedKeyInfo;
-use crate::ffi::ResponseWallet;
+use crate::ffi::LocalUtxo;
+use crate::ffi::OutPoint;
 use crate::ffi::Transaction;
 use crate::ffi::TransactionDetails;
+use crate::ffi::TxOut;
+use crate::types::BlockchainConfig;
+use crate::types::DatabaseConfig;
+use crate::types::DerivedKeyInfo;
+use crate::types::ElectrumConfig;
+use crate::types::Entropy;
+use crate::types::EsploraConfig;
+use crate::types::ExtendedKeyInfo;
+use crate::types::KeyChainKind;
+use crate::types::Network;
+use crate::types::ResponseWallet;
+use crate::types::SqliteConfiguration;
+use crate::types::WordCount;
 
 // Section: wire functions
 
@@ -31,10 +43,9 @@ pub extern "C" fn wire_wallet_init(
     port_: i64,
     descriptor: *mut wire_uint_8_list,
     change_descriptor: *mut wire_uint_8_list,
-    network: *mut wire_uint_8_list,
-    blockchain: *mut wire_uint_8_list,
-    url: *mut wire_uint_8_list,
-    socks5_or_proxy: *mut wire_uint_8_list,
+    network: i32,
+    blockchain_config: *mut wire_BlockchainConfig,
+    database_config: *mut wire_DatabaseConfig,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -46,19 +57,105 @@ pub extern "C" fn wire_wallet_init(
             let api_descriptor = descriptor.wire2api();
             let api_change_descriptor = change_descriptor.wire2api();
             let api_network = network.wire2api();
-            let api_blockchain = blockchain.wire2api();
-            let api_url = url.wire2api();
-            let api_socks5_or_proxy = socks5_or_proxy.wire2api();
+            let api_blockchain_config = blockchain_config.wire2api();
+            let api_database_config = database_config.wire2api();
             move |task_callback| {
                 Ok(wallet_init(
                     api_descriptor,
                     api_change_descriptor,
                     api_network,
-                    api_blockchain,
-                    api_url,
-                    api_socks5_or_proxy,
+                    api_blockchain_config,
+                    api_database_config,
                 ))
             }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_export_wallet(port_: i64, wallet_name: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "export_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_name = wallet_name.wire2api();
+            move |task_callback| Ok(export_wallet(api_wallet_name))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_import_wallet(
+    port_: i64,
+    json_wallet: *mut wire_uint_8_list,
+    network: i32,
+    blockchain_config: *mut wire_BlockchainConfig,
+    database_config: *mut wire_DatabaseConfig,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "import_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_json_wallet = json_wallet.wire2api();
+            let api_network = network.wire2api();
+            let api_blockchain_config = blockchain_config.wire2api();
+            let api_database_config = database_config.wire2api();
+            move |task_callback| {
+                Ok(import_wallet(
+                    api_json_wallet,
+                    api_network,
+                    api_blockchain_config,
+                    api_database_config,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_public_descriptor(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_public_descriptor",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_public_descriptor()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_descriptor_for_keychain(port_: i64, keychain_kind_str: i32) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_descriptor_for_keychain",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_keychain_kind_str = keychain_kind_str.wire2api();
+            move |task_callback| Ok(get_descriptor_for_keychain(api_keychain_kind_str))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_descriptor_checksum(port_: i64, keychain_kind_str: i32) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_descriptor_checksum",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_keychain_kind_str = keychain_kind_str.wire2api();
+            move |task_callback| Ok(get_descriptor_checksum(api_keychain_kind_str))
         },
     )
 }
@@ -72,6 +169,45 @@ pub extern "C" fn wire_get_wallet(port_: i64) {
             mode: FfiCallMode::Normal,
         },
         move || move |task_callback| Ok(get_wallet()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_blockchain_height(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_blockchain_height",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_blockchain_height()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_wallet_network(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_wallet_network",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_wallet_network()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_blockchain_hash(port_: i64, blockchain_height: u64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_blockchain_hash",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_blockchain_height = blockchain_height.wire2api();
+            move |task_callback| Ok(get_blockchain_hash(api_blockchain_height))
+        },
     )
 }
 
@@ -100,6 +236,18 @@ pub extern "C" fn wire_get_balance(port_: i64) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_list_unspent_outputs(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "list_unspent_outputs",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(list_unspent_outputs()),
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_get_new_address(port_: i64) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -112,6 +260,18 @@ pub extern "C" fn wire_get_new_address(port_: i64) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_new_internal_address(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_new_internal_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_new_internal_address()),
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_get_last_unused_address(port_: i64) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -120,6 +280,21 @@ pub extern "C" fn wire_get_last_unused_address(port_: i64) {
             mode: FfiCallMode::Normal,
         },
         move || move |task_callback| Ok(get_last_unused_address()),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_transaction(port_: i64, txid: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_transaction",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_txid = txid.wire2api();
+            move |task_callback| Ok(get_transaction(api_txid))
+        },
     )
 }
 
@@ -153,6 +328,22 @@ pub extern "C" fn wire_create_transaction(
             let api_amount = amount.wire2api();
             let api_fee_rate = fee_rate.wire2api();
             move |task_callback| Ok(create_transaction(api_recipient, api_amount, api_fee_rate))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_drain_wallet(port_: i64, recipient: *mut wire_uint_8_list, fee_rate: f32) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "drain_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_recipient = recipient.wire2api();
+            let api_fee_rate = fee_rate.wire2api();
+            move |task_callback| Ok(drain_wallet(api_recipient, api_fee_rate))
         },
     )
 }
@@ -208,7 +399,7 @@ pub extern "C" fn wire_sign(port_: i64, psbt_str: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
+pub extern "C" fn wire_broadcast(port_: i64, txid: *mut wire_uint_8_list) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
             debug_name: "broadcast",
@@ -216,14 +407,14 @@ pub extern "C" fn wire_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(broadcast(api_psbt_str))
+            let api_txid = txid.wire2api();
+            move |task_callback| Ok(broadcast(api_txid))
         },
     )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire_uint_8_list) {
+pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: i32) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
             debug_name: "generate_seed_from_entropy",
@@ -238,10 +429,7 @@ pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_word_count(
-    port_: i64,
-    word_count: *mut wire_uint_8_list,
-) {
+pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
             debug_name: "generate_seed_from_word_count",
@@ -258,7 +446,7 @@ pub extern "C" fn wire_generate_seed_from_word_count(
 #[no_mangle]
 pub extern "C" fn wire_create_key(
     port_: i64,
-    node_network: *mut wire_uint_8_list,
+    node_network: i32,
     mnemonic: *mut wire_uint_8_list,
     password: *mut wire_uint_8_list,
 ) {
@@ -280,7 +468,7 @@ pub extern "C" fn wire_create_key(
 #[no_mangle]
 pub extern "C" fn wire_create_descriptor_secret_keys(
     port_: i64,
-    node_network: *mut wire_uint_8_list,
+    node_network: i32,
     mnemonic: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
     password: *mut wire_uint_8_list,
@@ -319,9 +507,35 @@ pub struct wire_AddressAmount {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_ElectrumConfig {
+    url: *mut wire_uint_8_list,
+    socks5: *mut wire_uint_8_list,
+    retry: u8,
+    timeout: *mut u8,
+    stop_gap: u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_EsploraConfig {
+    base_url: *mut wire_uint_8_list,
+    proxy: *mut wire_uint_8_list,
+    concurrency: *mut u8,
+    stop_gap: u64,
+    timeout: *mut u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_list_address_amount {
     ptr: *mut wire_AddressAmount,
     len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_SqliteConfiguration {
+    path: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
@@ -331,11 +545,94 @@ pub struct wire_uint_8_list {
     len: i32,
 }
 
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_BlockchainConfig {
+    tag: i32,
+    kind: *mut BlockchainConfigKind,
+}
+
+#[repr(C)]
+pub union BlockchainConfigKind {
+    ELECTRUM: *mut BlockchainConfig_ELECTRUM,
+    ESPLORA: *mut BlockchainConfig_ESPLORA,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct BlockchainConfig_ELECTRUM {
+    config: *mut wire_ElectrumConfig,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct BlockchainConfig_ESPLORA {
+    config: *mut wire_EsploraConfig,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_DatabaseConfig {
+    tag: i32,
+    kind: *mut DatabaseConfigKind,
+}
+
+#[repr(C)]
+pub union DatabaseConfigKind {
+    MEMORY: *mut DatabaseConfig_MEMORY,
+    SQLITE: *mut DatabaseConfig_SQLITE,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct DatabaseConfig_MEMORY {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct DatabaseConfig_SQLITE {
+    config: *mut wire_SqliteConfiguration,
+}
+
 // Section: wrapper structs
 
 // Section: static checks
 
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_blockchain_config_0() -> *mut wire_BlockchainConfig {
+    support::new_leak_box_ptr(wire_BlockchainConfig::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_database_config_0() -> *mut wire_DatabaseConfig {
+    support::new_leak_box_ptr(wire_DatabaseConfig::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_electrum_config_0() -> *mut wire_ElectrumConfig {
+    support::new_leak_box_ptr(wire_ElectrumConfig::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig {
+    support::new_leak_box_ptr(wire_EsploraConfig::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_sqlite_configuration_0() -> *mut wire_SqliteConfiguration {
+    support::new_leak_box_ptr(wire_SqliteConfiguration::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_u64_0(value: u64) -> *mut u64 {
+    support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_u8_0(value: u8) -> *mut u8 {
+    support::new_leak_box_ptr(value)
+}
 
 #[no_mangle]
 pub extern "C" fn new_list_address_amount_0(len: i32) -> *mut wire_list_address_amount {
@@ -390,9 +687,145 @@ impl Wire2Api<AddressAmount> for wire_AddressAmount {
     }
 }
 
+impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
+    fn wire2api(self) -> BlockchainConfig {
+        match self.tag {
+            0 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.ELECTRUM);
+                BlockchainConfig::ELECTRUM {
+                    config: ans.config.wire2api(),
+                }
+            },
+            1 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.ESPLORA);
+                BlockchainConfig::ESPLORA {
+                    config: ans.config.wire2api(),
+                }
+            },
+            _ => unreachable!(),
+        }
+    }
+}
+
+impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
+    fn wire2api(self) -> BlockchainConfig {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<BlockchainConfig>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<DatabaseConfig> for *mut wire_DatabaseConfig {
+    fn wire2api(self) -> DatabaseConfig {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<DatabaseConfig>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<ElectrumConfig> for *mut wire_ElectrumConfig {
+    fn wire2api(self) -> ElectrumConfig {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<ElectrumConfig>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<EsploraConfig> for *mut wire_EsploraConfig {
+    fn wire2api(self) -> EsploraConfig {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<EsploraConfig>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<SqliteConfiguration> for *mut wire_SqliteConfiguration {
+    fn wire2api(self) -> SqliteConfiguration {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<SqliteConfiguration>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<u64> for *mut u64 {
+    fn wire2api(self) -> u64 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+
+impl Wire2Api<u8> for *mut u8 {
+    fn wire2api(self) -> u8 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+
+impl Wire2Api<DatabaseConfig> for wire_DatabaseConfig {
+    fn wire2api(self) -> DatabaseConfig {
+        match self.tag {
+            0 => DatabaseConfig::MEMORY,
+            1 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.SQLITE);
+                DatabaseConfig::SQLITE {
+                    config: ans.config.wire2api(),
+                }
+            },
+            _ => unreachable!(),
+        }
+    }
+}
+
+impl Wire2Api<ElectrumConfig> for wire_ElectrumConfig {
+    fn wire2api(self) -> ElectrumConfig {
+        ElectrumConfig {
+            url: self.url.wire2api(),
+            socks5: self.socks5.wire2api(),
+            retry: self.retry.wire2api(),
+            timeout: self.timeout.wire2api(),
+            stop_gap: self.stop_gap.wire2api(),
+        }
+    }
+}
+
+impl Wire2Api<Entropy> for i32 {
+    fn wire2api(self) -> Entropy {
+        match self {
+            0 => Entropy::ENTROPY128,
+            1 => Entropy::ENTROPY192,
+            2 => Entropy::ENTROPY256,
+            _ => unreachable!("Invalid variant for Entropy: {}", self),
+        }
+    }
+}
+
+impl Wire2Api<EsploraConfig> for wire_EsploraConfig {
+    fn wire2api(self) -> EsploraConfig {
+        EsploraConfig {
+            base_url: self.base_url.wire2api(),
+            proxy: self.proxy.wire2api(),
+            concurrency: self.concurrency.wire2api(),
+            stop_gap: self.stop_gap.wire2api(),
+            timeout: self.timeout.wire2api(),
+        }
+    }
+}
+
 impl Wire2Api<f32> for f32 {
     fn wire2api(self) -> f32 {
         self
+    }
+}
+
+impl Wire2Api<i32> for i32 {
+    fn wire2api(self) -> i32 {
+        self
+    }
+}
+
+impl Wire2Api<KeyChainKind> for i32 {
+    fn wire2api(self) -> KeyChainKind {
+        match self {
+            0 => KeyChainKind::EXTERNAL,
+            1 => KeyChainKind::INTERNAL,
+            _ => unreachable!("Invalid variant for KeyChainKind: {}", self),
+        }
     }
 }
 
@@ -403,6 +836,26 @@ impl Wire2Api<Vec<AddressAmount>> for *mut wire_list_address_amount {
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
         };
         vec.into_iter().map(Wire2Api::wire2api).collect()
+    }
+}
+
+impl Wire2Api<Network> for i32 {
+    fn wire2api(self) -> Network {
+        match self {
+            0 => Network::TESTNET,
+            1 => Network::REGTEST,
+            2 => Network::BITCOIN,
+            3 => Network::SIGNET,
+            _ => unreachable!("Invalid variant for Network: {}", self),
+        }
+    }
+}
+
+impl Wire2Api<SqliteConfiguration> for wire_SqliteConfiguration {
+    fn wire2api(self) -> SqliteConfiguration {
+        SqliteConfiguration {
+            path: self.path.wire2api(),
+        }
     }
 }
 
@@ -427,6 +880,17 @@ impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
     }
 }
 
+impl Wire2Api<WordCount> for i32 {
+    fn wire2api(self) -> WordCount {
+        match self {
+            0 => WordCount::WORDS12,
+            1 => WordCount::WORDS18,
+            2 => WordCount::WORDS24,
+            _ => unreachable!("Invalid variant for WordCount: {}", self),
+        }
+    }
+}
+
 // Section: impl NewWithNullPtr
 
 pub trait NewWithNullPtr {
@@ -444,6 +908,83 @@ impl NewWithNullPtr for wire_AddressAmount {
         Self {
             address: core::ptr::null_mut(),
             amount: Default::default(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_BlockchainConfig {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_BlockchainConfig_ELECTRUM() -> *mut BlockchainConfigKind {
+    support::new_leak_box_ptr(BlockchainConfigKind {
+        ELECTRUM: support::new_leak_box_ptr(BlockchainConfig_ELECTRUM {
+            config: core::ptr::null_mut(),
+        }),
+    })
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_BlockchainConfig_ESPLORA() -> *mut BlockchainConfigKind {
+    support::new_leak_box_ptr(BlockchainConfigKind {
+        ESPLORA: support::new_leak_box_ptr(BlockchainConfig_ESPLORA {
+            config: core::ptr::null_mut(),
+        }),
+    })
+}
+
+impl NewWithNullPtr for wire_DatabaseConfig {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_DatabaseConfig_SQLITE() -> *mut DatabaseConfigKind {
+    support::new_leak_box_ptr(DatabaseConfigKind {
+        SQLITE: support::new_leak_box_ptr(DatabaseConfig_SQLITE {
+            config: core::ptr::null_mut(),
+        }),
+    })
+}
+
+impl NewWithNullPtr for wire_ElectrumConfig {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            url: core::ptr::null_mut(),
+            socks5: core::ptr::null_mut(),
+            retry: Default::default(),
+            timeout: core::ptr::null_mut(),
+            stop_gap: Default::default(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_EsploraConfig {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            base_url: core::ptr::null_mut(),
+            proxy: core::ptr::null_mut(),
+            concurrency: core::ptr::null_mut(),
+            stop_gap: Default::default(),
+            timeout: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_SqliteConfiguration {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            path: core::ptr::null_mut(),
         }
     }
 }
@@ -486,6 +1027,37 @@ impl support::IntoDart for ExtendedKeyInfo {
 }
 impl support::IntoDartExceptPrimitive for ExtendedKeyInfo {}
 
+impl support::IntoDart for LocalUtxo {
+    fn into_dart(self) -> support::DartCObject {
+        vec![
+            self.outpoint.into_dart(),
+            self.txout.into_dart(),
+            self.is_spent.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for LocalUtxo {}
+
+impl support::IntoDart for Network {
+    fn into_dart(self) -> support::DartCObject {
+        match self {
+            Self::TESTNET => 0,
+            Self::REGTEST => 1,
+            Self::BITCOIN => 2,
+            Self::SIGNET => 3,
+        }
+        .into_dart()
+    }
+}
+
+impl support::IntoDart for OutPoint {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.txid.into_dart(), self.vout.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for OutPoint {}
+
 impl support::IntoDart for ResponseWallet {
     fn into_dart(self) -> support::DartCObject {
         vec![self.balance.into_dart(), self.address.into_dart()].into_dart()
@@ -519,6 +1091,13 @@ impl support::IntoDart for TransactionDetails {
     }
 }
 impl support::IntoDartExceptPrimitive for TransactionDetails {}
+
+impl support::IntoDart for TxOut {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.value.into_dart(), self.address.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TxOut {}
 
 // Section: executor
 
