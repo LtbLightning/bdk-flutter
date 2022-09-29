@@ -57,7 +57,7 @@ dependencies {
         new Tuple2('Release', '--release')
 ].each {
     def taskPostfix = it.first
-    def profileMode = it.second
+
     tasks.whenTaskAdded { task ->
         if (task.name == "javaPreCompile$taskPostfix") {
             task.dependsOn "cargoBuild$taskPostfix"
@@ -68,7 +68,7 @@ dependencies {
         if (org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem.isWindows()) {
             commandLine 'cmd', '/C', "build.sh"
         } else {
-    commandLine 'sh', '-c', " sh build.sh"
+     commandLine 'sh', '-c', " sh build.sh"
    // commandLine 'sh', '-c', """  ANDROID_NDK_HOME="$ANDROID_NDK" find . -type f -name makefile -execdir make all \\;"""
         }
     }

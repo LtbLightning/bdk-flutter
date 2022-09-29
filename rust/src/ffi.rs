@@ -1,52 +1,36 @@
-use std::collections::HashSet;
 use bdk::bitcoin::secp256k1::Secp256k1;
+use std::collections::HashSet;
 //use bdk::bitcoin::secp256k1::rand as bdk_rand;
+use crate::types::{DatabaseConfig, ExtendedKeyInfo};
+use crate::utils::config_database;
+use bdk::bitcoin::hashes::hex::ToHex;
+use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
 use bdk::bitcoin::{Address, Network, OutPoint as BdkOutPoint, Script, Txid};
 use bdk::blockchain::any::AnyBlockchain;
-use bdk::database::MemoryDatabase;
-use bdk::keys::bip39::{Language, Mnemonic, WordCount};
-use bdk::miniscript::BareCtx;
-use bdk::wallet::AddressIndex as BdkAddressIndex;
-use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{BlockTime, Error, FeeRate, SignOptions, SyncOptions, Wallet as BdkWallet, Balance as BdkBalance};
-use std::convert::From;
-use std::ops::Deref;
-use std::str::FromStr;
-use std::sync::{Arc, Mutex, MutexGuard};
-use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
+use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::descriptor::DescriptorXKey;
-use bdk::wallet::tx_builder::ChangeSpendPolicy;
-use serde::{Deserialize, Serialize};
+use bdk::keys::bip39::{Language, Mnemonic, WordCount};
 use bdk::keys::{
     DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
     DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey,
 };
+use bdk::miniscript::BareCtx;
+use bdk::wallet::tx_builder::ChangeSpendPolicy;
+use bdk::wallet::AddressIndex as BdkAddressIndex;
+use bdk::wallet::AddressInfo as BdkAddressInfo;
+use bdk::{
+    Balance as BdkBalance, BlockTime, Error, FeeRate, KeychainKind, SignOptions, SyncOptions,
+    Wallet as BdkWallet,
+};
+use serde::{Deserialize, Serialize};
+use std::convert::From;
+use std::ops::Deref;
+use std::str::FromStr;
+use std::sync::{Arc, Mutex, MutexGuard};
 
+use bdk::Error as BdkError;
 
-type BdkError = Error;
-#[derive(Serialize, Deserialize)]
-pub struct ResponseWallet {
-    pub balance: Balance,
-    pub address: String,
-}
-#[repr(C)]
-pub struct ExtendedKeyInfo {
-    pub xprv: String,
-    pub xpub: String,
-    // pub fingerprint:String
-}
-#[repr(C)]
-pub struct DerivedKeyInfo {
-    pub xprv: String,
-    pub xpub:String
-}
-
-#[repr(C)]
-pub enum AddressIndex {
-    New,
-    LastUnused,
-}
 impl From<AddressIndex> for BdkAddressIndex {
     fn from(x: AddressIndex) -> BdkAddressIndex {
         match x {
@@ -55,11 +39,7 @@ impl From<AddressIndex> for BdkAddressIndex {
         }
     }
 }
-#[repr(C)]
-pub struct AddressInfo {
-    pub index: u32,
-    pub address: String,
-}
+
 impl From<BdkAddressInfo> for AddressInfo {
     fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
         AddressInfo {
@@ -68,20 +48,7 @@ impl From<BdkAddressInfo> for AddressInfo {
         }
     }
 }
-#[derive( Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct AddressAmount {
-    pub address: String,
-    pub amount: u64,
-}
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[repr(C)]
-pub struct TransactionDetails {
-    pub fee: Option<u64>,
-    pub received: u64,
-    pub sent: u64,
-    pub txid: String,
-    pub confirmation_time: Option<BlockConfirmationTime>,
-}
+
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
@@ -89,26 +56,11 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
             txid: x.txid.to_string(),
             received: x.clone().received,
             sent: x.clone().sent,
-            confirmation_time: Some(set_block_time(x.clone().confirmation_time.unwrap()))
+            confirmation_time: Some(set_block_time(x.clone().confirmation_time.unwrap())),
         }
     }
 }
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[repr(C)]
-pub enum Transaction {
-    Unconfirmed {
-        details: TransactionDetails,
-    },
-    Confirmed {
-        details: TransactionDetails,
-        confirmation: BlockConfirmationTime,
-    },
-}
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct BlockConfirmationTime {
-    pub height: u32,
-    pub timestamp: u64,
-}
+
 fn set_block_time(time: BlockTime) -> BlockConfirmationTime {
     BlockConfirmationTime {
         height: time.height,
@@ -128,14 +80,6 @@ impl From<&bdk::TransactionDetails> for Transaction {
         }
     }
 }
-/// A reference to a transaction output.
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub struct OutPoint {
-    /// The referenced transaction's txid.
-    txid: String,
-    /// The index of the referenced output in its transaction's vout.
-    vout: u32,
-}
 
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
@@ -145,21 +89,7 @@ impl From<&OutPoint> for BdkOutPoint {
         }
     }
 }
-#[derive(Serialize, Deserialize)]
-pub struct Balance {
-    // All coinbase outputs not yet matured
-    pub immature: u64,
-    /// Unconfirmed UTXOs generated by a wallet tx
-    pub trusted_pending: u64,
-    /// Unconfirmed UTXOs received from an external wallet
-    pub untrusted_pending: u64,
-    /// Confirmed and immediately spendable balance
-    pub confirmed: u64,
-    /// Get sum of trusted_pending and confirmed coins
-    pub spendable: u64,
-    /// Get the whole balance visible to the wallet
-    pub total: u64,
-}
+
 impl From<BdkBalance> for Balance {
     fn from(bdk_balance: BdkBalance) -> Self {
         Balance {
@@ -172,124 +102,125 @@ impl From<BdkBalance> for Balance {
         }
     }
 }
-/// A transaction output, which defines new coins to be created from old ones.
-// pub struct TxOut {
-//     /// The value of the output, in satoshis.
-//     value: u64,
-//     /// The address of the output.
-//     address: String,
-// }
-// pub struct LocalUtxo {
-//     outpoint: OutPoint,
-//     txout: TxOut,
-//     keychain: KeychainKind,
-//     is_spent: bool,
-// }
 
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
-// trait NetworkLocalUtxo {
-//     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
-// }
+trait NetworkLocalUtxo {
+    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
+}
 
-// impl NetworkLocalUtxo for LocalUtxo {
-//     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
-//         LocalUtxo {
-//             outpoint: OutPoint {
-//                 txid: x.outpoint.txid.to_string(),
-//                 vout: x.outpoint.vout,
-//             },
-//             txout: TxOut {
-//                 value: x.txout.value,
-//                 address: bdk::bitcoin::util::address::Address::from_script(
-//                     &x.txout.script_pubkey,
-//                     network,
-//                 )
-//                     .unwrap()
-//                     .to_string(),
-//             },
-//             keychain: x.keychain,
-//             is_spent: x.is_spent,
-//         }
-//     }
-// }
-
-
+impl NetworkLocalUtxo for LocalUtxo {
+    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
+        LocalUtxo {
+            outpoint: OutPoint {
+                txid: x.outpoint.txid.to_string(),
+                vout: x.outpoint.vout,
+            },
+            txout: TxOut {
+                value: x.txout.value,
+                address: bdk::bitcoin::util::address::Address::from_script(
+                    &x.txout.script_pubkey,
+                    network,
+                )
+                .unwrap()
+                .to_string(),
+            },
+            is_spent: x.is_spent,
+        }
+    }
+}
 
 pub struct Wallet {
-    pub(crate) wallet_mutex: Mutex<BdkWallet<MemoryDatabase>>,
+    pub(crate) wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
 impl Wallet {
-    pub(crate) fn default() -> Wallet {
-        let res = Mutex::new(BdkWallet::new(
-            "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)",
-            None,
-            Network::Testnet,
-            MemoryDatabase::default(),
-        ).unwrap());
-        Wallet { wallet_mutex: res }
-    }
     pub(crate) fn new(
         descriptor: String,
         change_descriptor: Option<String>,
         network: Network,
+        database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
+        let any_database_config: AnyDatabaseConfig = config_database(database_config);
+        let database: AnyDatabase = AnyDatabase::from_config(&any_database_config)?;
         let res = Mutex::new(
-            BdkWallet::new(
-                &descriptor,
-                change_descriptor.as_ref(),
-                network,
-                MemoryDatabase::default(),
-            )
-                .unwrap(),
+            BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
         );
         Ok(Wallet { wallet_mutex: res })
     }
-    pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<MemoryDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }
-    // pub(crate) fn get_network(&self) -> Network {
-    //     self.get_wallet().network()
-    // }
-    pub(crate) fn sync(&self, blockchain: &AnyBlockchain) {
+    pub fn sync(&self, blockchain: &AnyBlockchain) {
         // let bl =   Blockchain{ blockchain_mutex: blockchain.blockchain_mutex };
         self.get_wallet()
             .sync(blockchain, SyncOptions::default())
             .unwrap();
     }
+    pub fn get_network(&self) -> Network {
+        self.get_wallet().network()
+    }
 
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
     /// on the internal database, which first needs to be Wallet.sync manually.
-    pub(crate) fn get_balance(&self) -> Result<Balance, Error> {
+    pub fn get_balance(&self) -> Result<Balance, Error> {
         self.get_wallet().get_balance().map(|b| b.into())
     }
-    pub(crate) fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
+    pub fn get_descriptor_for_keychain(
+        &self,
+        keychain_kind: KeychainKind,
+    ) -> Result<String, Error> {
+        Ok(self
+            .get_wallet()
+            .get_descriptor_for_keychain(keychain_kind)
+            .to_string())
+    }
+    pub fn get_descriptor_checksum(&self, keychain_kind: KeychainKind) -> Result<String, Error> {
+        Ok(self.get_wallet().descriptor_checksum(keychain_kind))
+    }
+    pub fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
         self.get_wallet()
             .get_address(address_index.into())
+            .map(AddressInfo::from)
+    }
+    //Return a derived address using the internal (change) descriptor.
+    // If the wallet doesn't have an internal descriptor it will use the external descriptor.
+    pub fn get_internal_address(
+        &self,
+        address_index: AddressIndex,
+    ) -> Result<AddressInfo, BdkError> {
+        self.get_wallet()
+            .get_internal_address(address_index.into())
             .map(AddressInfo::from)
     }
     pub(crate) fn get_transactions(&self) -> Result<Vec<Transaction>, Error> {
         let transactions = self.get_wallet().list_transactions(true).unwrap();
         Ok(transactions.iter().map(Transaction::from).collect())
     }
-    /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
-    /// which first needs to be Wallet.sync manually.
-    // fn list_unspent(&self) -> Result<Vec<LocalUtxo>, Error> {
-    //     let unspents = self.get_wallet().list_unspent()?;
-    //     Ok(unspents
-    //         .iter()
-    //         .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
-    //         .collect())
-    // }
-    pub(crate) fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
+    pub(crate) fn get_transaction(
+        &self,
+        txid_str: String,
+    ) -> Result<Option<TransactionDetails>, Error> {
+        let txid = Txid::from_str(&*txid_str).unwrap();
+        let transaction = self.get_wallet().get_tx(&txid, true);
+        Ok(Some(TransactionDetails::from(
+            &transaction.unwrap().unwrap(),
+        )))
+    }
+    // Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
+    // which first needs to be Wallet.sync manually.
+    pub fn list_unspent(&self) -> Result<Vec<LocalUtxo>, Error> {
+        let unspents = self.get_wallet().list_unspent()?;
+        Ok(unspents
+            .iter()
+            .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
+            .collect())
+    }
+    pub fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
         let mut psbt = psbt.internal.lock().unwrap();
         self.get_wallet().sign(&mut psbt, SignOptions::default())
     }
 }
 
-pub struct PartiallySignedBitcoinTransaction {
-    pub(crate) internal: Mutex<PartiallySignedTransaction>,
-}
 impl PartiallySignedBitcoinTransaction {
     pub(crate) fn new(psbt_base64: String) -> Result<Self, Error> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
@@ -302,35 +233,16 @@ impl PartiallySignedBitcoinTransaction {
         let psbt = self.internal.lock().unwrap().clone();
         psbt.to_string()
     }
-
-    // pub(crate) fn txid(&self) -> String {
-    //     let tx = self.internal.lock().unwrap().clone().extract_tx();
-    //     let txid = tx.txid();
-    //     txid.to_hex()
-    // }
+    pub(crate) fn txid(&self) -> String {
+        let tx = self.internal.lock().unwrap().clone().extract_tx();
+        let txid = tx.txid();
+        txid.to_hex()
+    }
 }
 pub(crate) fn to_script_pubkey(address: &str) -> Result<Script, BdkError> {
     Address::from_str(address)
         .map(|x| x.script_pubkey())
         .map_err(|e| BdkError::Generic(e.to_string()))
-}
-
-
-
-#[allow(dead_code)]
-#[derive(Clone, Debug)]
-pub struct TxBuilder {
-    recipients: Vec<(String, u64)>,
-    utxos: Vec<OutPoint>,
-    unspendable: HashSet<OutPoint>,
-    change_policy: ChangeSpendPolicy,
-    manually_selected_only: bool,
-    fee_rate: Option<f32>,
-    fee_absolute: Option<u64>,
-    drain_wallet: bool,
-    drain_to: Option<String>,
-    // rbf: Option<RbfValue>,
-    data: Vec<u8>,
 }
 
 impl TxBuilder {
@@ -450,14 +362,6 @@ impl TxBuilder {
         })
     }
 
-    /// Set an absolute fee.
-    // fn fee_absolute(&self, fee_amount: u64) -> Arc<Self> {
-    //     Arc::new(TxBuilder {
-    //         fee_absolute: Some(fee_amount),
-    //         ..self.clone()
-    //     })
-    // }
-
     //
     // pub(crate) fn enable_rbf(&self) -> Arc<Self> {
     //     Arc::new(TxBuilder {
@@ -512,16 +416,6 @@ impl TxBuilder {
         if let Some(address) = &self.drain_to {
             tx_builder.drain_to(to_script_pubkey(address)?);
         }
-        // if let Some(rbf) = &self.rbf {
-        //     match *rbf {
-        //         RbfValue::Default => {
-        //             tx_builder.enable_rbf();
-        //         }
-        //         RbfValue::Value(nsequence) => {
-        //             tx_builder.enable_rbf_with_sequence(nsequence);
-        //         }
-        //     }
-        // }
         tx_builder
             .finish()
             .map(|(psbt, _)| PartiallySignedBitcoinTransaction {
@@ -533,18 +427,15 @@ impl TxBuilder {
 
 pub fn generate_mnemonic_from_entropy(entropy: usize) -> Mnemonic {
     let entropy_rand = gen_big_rand(entropy);
-    let mnemonic: Mnemonic = Mnemonic::from_entropy_in( Language::English,entropy_rand.as_slice()).unwrap();
+    let mnemonic: Mnemonic =
+        Mnemonic::from_entropy_in(Language::English, entropy_rand.as_slice()).unwrap();
     mnemonic
 }
 pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
-    let mnemonic_gen: GeneratedKey<_, BareCtx> = Mnemonic::generate((word_count, Language::English)).unwrap();
+    let mnemonic_gen: GeneratedKey<_, BareCtx> =
+        Mnemonic::generate((word_count, Language::English)).unwrap();
     let mnemonic = mnemonic_gen.clone().into_key();
     mnemonic
-}
-
-
-pub struct DerivationPath {
-    derivation_path_mutex: Mutex<BdkDerivationPath>,
 }
 
 impl DerivationPath {
@@ -569,27 +460,48 @@ impl DerivationPath {
 //         fingerprint: fingerprint.to_string(),
 //     })
 // }
-pub fn get_extended_key_info(network: Network, mnemonic: String, password: Option<String>) -> ExtendedKeyInfo{
-    let xprv = DescriptorSecretKey::new(network, mnemonic,password).unwrap();
+pub fn get_extended_key_info(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> ExtendedKeyInfo {
+    let xprv = DescriptorSecretKey::new(network, mnemonic, password).unwrap();
     let xpub = xprv.as_public();
-    ExtendedKeyInfo{
+    ExtendedKeyInfo {
         xprv: xprv.as_string(),
         xpub: xpub.as_string(),
     }
 }
-fn create_extended_key(mnemonic: String,
-                       password: Option<String>) -> ExtendedKey{
+fn create_extended_key(mnemonic: String, password: Option<String>) -> ExtendedKey {
     let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
-    let xkey:ExtendedKey= (mnemonic.clone(), password).into_extended_key().unwrap();
+    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
     xkey
 }
 
-pub struct DescriptorSecretKey {
-    descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
+pub fn get_extended_key_info(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> ExtendedKeyInfo {
+    let xprv = DescriptorSecretKey::new(network, mnemonic, password).unwrap();
+    let xpub = xprv.as_public();
+    ExtendedKeyInfo {
+        xprv: xprv.as_string(),
+        xpub: xpub.as_string(),
+    }
+}
+fn create_extended_key(mnemonic: String, password: Option<String>) -> ExtendedKey {
+    let mnemonic = Mnemonic::parse_in(Language::English, mnemonic).unwrap();
+    let xkey: ExtendedKey = (mnemonic.clone(), password).into_extended_key().unwrap();
+    xkey
 }
 
 impl DescriptorSecretKey {
-    pub(crate) fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
+    pub(crate) fn new(
+        network: Network,
+        mnemonic: String,
+        password: Option<String>,
+    ) -> Result<Self, BdkError> {
         let xkey = create_extended_key(mnemonic, password);
         let descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
             origin: None,
@@ -629,28 +541,6 @@ impl DescriptorSecretKey {
         }
     }
 
-    // pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
-    //     let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
-    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-    //     match descriptor_secret_key.deref() {
-    //         BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
-    //             let extended_path = descriptor_x_key.derivation_path.extend(path);
-    //             let extended_descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
-    //                 origin: descriptor_x_key.origin.clone(),
-    //                 xkey: descriptor_x_key.xkey,
-    //                 derivation_path: extended_path,
-    //                 wildcard: descriptor_x_key.wildcard,
-    //             });
-    //             Arc::new(Self {
-    //                 descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
-    //             })
-    //         }
-    //         BdkDescriptorSecretKey::SinglePriv(_) => {
-    //             unreachable!()
-    //         }
-    //     }
-    // }
-
     pub(crate) fn as_public(&self) -> Arc<DescriptorPublicKey> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
@@ -664,66 +554,11 @@ impl DescriptorSecretKey {
         })
     }
 
-    pub  fn as_string(&self) -> String {
+    pub fn as_string(&self) -> String {
         self.descriptor_secret_key_mutex.lock().unwrap().to_string()
     }
 }
-
-
-pub struct DescriptorPublicKey {
-    descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
-}
-
 impl DescriptorPublicKey {
-    // pub(crate) fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
-    //     let secp = Secp256k1::new();
-    //     let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-    //     match descriptor_public_key.deref() {
-    //         BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
-    //             let derived_xpub = descriptor_x_key.xkey.derive_pub(&secp, &path)?;
-    //             let key_source = match descriptor_x_key.origin.clone() {
-    //                 Some((fingerprint, origin_path)) => (fingerprint, origin_path.extend(path)),
-    //                 None => (descriptor_x_key.xkey.fingerprint(), path),
-    //             };
-    //             let derived_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
-    //                 origin: Some(key_source),
-    //                 xkey: derived_xpub,
-    //                 derivation_path: BdkDerivationPath::default(),
-    //                 wildcard: descriptor_x_key.wildcard,
-    //             });
-    //             Ok(Arc::new(Self {
-    //                 descriptor_public_key_mutex: Mutex::new(derived_descriptor_public_key),
-    //             }))
-    //         }
-    //         BdkDescriptorPublicKey::SinglePub(_) => {
-    //             unreachable!()
-    //         }
-    //     }
-    // }
-
-    // pub(crate) fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
-    //     let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-    //     let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-    //     match descriptor_public_key.deref() {
-    //         BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
-    //             let extended_path = descriptor_x_key.derivation_path.extend(path);
-    //             let extended_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
-    //                 origin: descriptor_x_key.origin.clone(),
-    //                 xkey: descriptor_x_key.xkey,
-    //                 derivation_path: extended_path,
-    //                 wildcard: descriptor_x_key.wildcard,
-    //             });
-    //             Arc::new(Self {
-    //                 descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
-    //             })
-    //         }
-    //         BdkDescriptorPublicKey::SinglePub(_) => {
-    //             unreachable!()
-    //         }
-    //     }
-    // }
-
     pub(crate) fn as_string(&self) -> String {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()
     }
@@ -734,4 +569,109 @@ pub fn gen_big_rand(bit_size: usize) -> Vec<u8> {
     let mut entropy = vec![0u8; bit_size];
     rand::RngCore::fill_bytes(&mut rng, &mut entropy);
     entropy
+}
+
+pub enum AddressIndex {
+    New,
+    LastUnused,
+}
+#[repr(C)]
+pub struct AddressInfo {
+    pub index: u32,
+    pub address: String,
+}
+#[derive(Clone, Serialize, Deserialize)]
+pub struct AddressAmount {
+    pub address: String,
+    pub amount: u64,
+}
+#[derive(Clone, Serialize, Deserialize)]
+#[repr(C)]
+#[derive(Debug, PartialEq, Eq)]
+pub struct TransactionDetails {
+    pub fee: Option<u64>,
+    pub received: u64,
+    pub sent: u64,
+    pub txid: String,
+    pub confirmation_time: Option<BlockConfirmationTime>,
+}
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[repr(C)]
+pub enum Transaction {
+    Unconfirmed {
+        details: TransactionDetails,
+    },
+    Confirmed {
+        details: TransactionDetails,
+        confirmation: BlockConfirmationTime,
+    },
+}
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct BlockConfirmationTime {
+    pub height: u32,
+    pub timestamp: u64,
+}
+/// A reference to a transaction output.
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct OutPoint {
+    /// The referenced transaction's txid.
+    pub(crate) txid: String,
+    /// The index of the referenced output in its transaction's vout.
+    pub(crate) vout: u32,
+}
+#[derive(Serialize, Deserialize)]
+pub struct Balance {
+    // All coinbase outputs not yet matured
+    pub immature: u64,
+    /// Unconfirmed UTXOs generated by a wallet tx
+    pub trusted_pending: u64,
+    /// Unconfirmed UTXOs received from an external wallet
+    pub untrusted_pending: u64,
+    /// Confirmed and immediately spendable balance
+    pub confirmed: u64,
+    /// Get sum of trusted_pending and confirmed coins
+    pub spendable: u64,
+    /// Get the whole balance visible to the wallet
+    pub total: u64,
+}
+/// A transaction output, which defines new coins to be created from old ones.
+pub struct TxOut {
+    /// The value of the output, in satoshis.
+    pub(crate) value: u64,
+    /// The address of the output.
+    pub(crate) address: String,
+}
+pub struct LocalUtxo {
+    pub(crate) outpoint: OutPoint,
+    pub(crate) txout: TxOut,
+    // keychain: KeychainKind,
+    pub(crate) is_spent: bool,
+}
+
+pub struct PartiallySignedBitcoinTransaction {
+    pub(crate) internal: Mutex<PartiallySignedTransaction>,
+}
+#[allow(dead_code)]
+#[derive(Clone, Debug)]
+pub struct TxBuilder {
+    pub(crate) recipients: Vec<(String, u64)>,
+    pub(crate) utxos: Vec<OutPoint>,
+    pub(crate) unspendable: HashSet<OutPoint>,
+    pub(crate) change_policy: ChangeSpendPolicy,
+    pub(crate) manually_selected_only: bool,
+    pub(crate) fee_rate: Option<f32>,
+    pub(crate) fee_absolute: Option<u64>,
+    pub(crate) drain_wallet: bool,
+    pub(crate) drain_to: Option<String>,
+    // rbf: Option<RbfValue>,
+    pub(crate) data: Vec<u8>,
+}
+pub struct DerivationPath {
+    pub(crate) derivation_path_mutex: Mutex<BdkDerivationPath>,
+}
+pub struct DescriptorSecretKey {
+    pub(crate) descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
+}
+pub struct DescriptorPublicKey {
+    pub(crate) descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
 }

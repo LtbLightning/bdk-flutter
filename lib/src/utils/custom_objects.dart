@@ -1,6 +1,5 @@
-class PathDescriptor{
-  final String descriptor;
+class PathDescriptor {
   final String changeDescriptor;
-
-  PathDescriptor({required this.descriptor, required this.changeDescriptor});
+  final String descriptor;
+  PathDescriptor({required this.changeDescriptor, required this.descriptor});
 }
