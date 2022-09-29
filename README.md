@@ -94,8 +94,9 @@ The following methods can be used with this module. All methods can be called by
 | [getPendingTransactions()](#getPendingTransactions)| -                                                                                      |
 | [getConfirmedTransactions()](#getConfirmedTransactions)| -                                                                                  |
 | [syncWallet()](#syncWallet)                    | -                                                                                          | 
-| [createTransaction()](#createTransaction)      | - address (recipient wallet address), amount*(sats) , feeRate                              |
-| [signAndBroadcastTransaction()](#signAndBroadcastTransaction)| - psbt                                                                       |  
+| [createTx()](#createTx)                        | - address (recipient wallet address), amount*(sats) , feeRate                              |
+| [signTx()](#signTx)                            | - psbt                                                                                     |
+| [broadcastTx()](#broadcastTx)                  | - sbt                                                                                      |  
 | [quickSend()](#quickSend)                      | - address (recipient wallet address), amount*(sats) , feeRate                              |
 
 ---
@@ -409,16 +410,16 @@ final response = await BdkWallet().syncWallet();
 ---
 
 
-### createTransaction()
+### createTx()
 Create a Partially Signed Bitcoin Transaction.<br />
 Required params: address, amount, feeRate
 
 ```dart
 
-final psbt =  await BdkFlutter().createTransaction(  recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
-						    amount: 2000, 
-						    feeRate: 1
-						 );
+final psbt =  await BdkFlutter().createTx(   recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
+					     amount: 2000, 
+				             feeRate: 1
+			                 );
 
 ```
 Returned response example:
@@ -429,21 +430,41 @@ Returned response example:
 ---
 
 
-### signAndBroadcastTransaction()
-Send bitcoin (*sats) to a given address.<br />
+### signTx()
+Signs the psbt and returns a signed bitcoin transaction<br />
 Required params: psbt (Partially Signed Bitcoin Transaction)
 
 ```dart
 
 final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-final response = await BdkFlutter().signAndBroadcastTransaction(psbt:psbt);
+final response = await BdkFlutter().signTx(psbt:psbt);
 
 ```
 Returned response example:
 ```dart
 
- "9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
+"cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA" //  sbt ( Signed Bitcoin Transaction)
+  
+```
+---
+
+
+### broadcastTx()
+Send bitcoin (*sats) to a given address.<br />
+Required params: sbt ( Signed Bitcoin Transaction)
+
+```dart
+
+final sbt = 'cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA'; // psbt id from createPartiallySignedTransaction()
+
+final response = await BdkFlutter().broadcastTx(sbt:sbt);
+
+```
+Returned response example:
+```dart
+  
+  "9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
  
 ```
 ---
