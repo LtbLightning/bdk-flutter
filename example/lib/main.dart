@@ -135,14 +135,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet(String mnemonic, Network network) async {
-    final key = await createDescriptor(
-        descriptorPath: "m/84'/0'/0'",
-        changeDescriptorPath: "m/84'/0'/1'",
-        type: Descriptor.P2WPKH,
-        mnemonic: mnemonic,
-        network: network);
-    print(key.descriptor);
-    print(key.changeDescriptor);
     var resWallet = await  bdkFlutter.createWallet(
         mnemonic: mnemonic,
         network: network,
@@ -150,7 +142,8 @@ class _MyAppState extends State<MyApp> {
             config: ElectrumConfig(
                 stopGap: 10,
                 retry: 5,
-                url: "ssl://electrum.blockstream.info:60002")));
+                url: "ssl://electrum.blockstream.info:60002"))
+    );
     print(resWallet.address);
     print(resWallet.balance.total);
   }
