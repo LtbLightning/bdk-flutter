@@ -1,7 +1,7 @@
 name: bdk_flutter
 description: A new Flutter project.
-version: 0.0.2
-homepage:
+version: 0.1.3
+homepage: https://github.com/LtbLightning/bdk-flutter
 
 environment:
   sdk: '>=2.17.1 <3.0.0'

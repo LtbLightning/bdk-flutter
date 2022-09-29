@@ -31,6 +31,7 @@ migrate_working_dir/
 .packages
 build/
 rust/target/
+rust/config.txt
 rust/__MACOSX/
 *.so
 *.a

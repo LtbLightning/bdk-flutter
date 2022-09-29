@@ -4,7 +4,6 @@ SOURCES=$(sort $(wildcard ./src/*.rs ./src/**/*.rs))
 
 OS_NAME=$(shell uname | tr '[:upper:]' '[:lower:]')
 BINPATH = $(ANDROID_NDK_HOME)/25.0.8775105/toolchains/llvm/prebuilt/$(OS_NAME)-x86_64/bin
-
 ANDROID_AARCH64_LINKER=$(BINPATH)/aarch64-linux-android29-clang
 ANDROID_AARCH64_AR=$(BINPATH)/llvm-ar
 ANDROID_ARMV7_LINKER=$(BINPATH)/armv7a-linux-androideabi29-clang
@@ -79,40 +78,35 @@ target/aarch64-apple-darwin/release/libexample.dylib: $(SOURCES)
 
 ## android: Compile the android targets (arm64, armv7 and i686)
 android: target/aarch64-linux-android/release/libexample.so target/armv7-linux-androideabi/release/libexample.so target/i686-linux-android/release/libexample.so target/x86_64-linux-android/release/libexample.so
-target/aarch64-linux-android/release/libexample.so: $(SOURCES) ndk-home
+target/aarch64-linux-android/release/libexample.so: $(SOURCES)
 	CC_aarch64_linux_android=$(ANDROID_AARCH64_LINKER) \
 	AR=$(ANDROID_AARCH64_AR) \
 	CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=$(ANDROID_AARCH64_LINKER) \
 		 cargo build  --target aarch64-linux-android --release
 	@echo "[DONE] $@"
 
-target/armv7-linux-androideabi/release/libexample.so: $(SOURCES) ndk-home
+target/armv7-linux-androideabi/release/libexample.so: $(SOURCES)
 	CC_armv7_linux_androideabi=$(ANDROID_ARMV7_LINKER) \
 	AR=$(ANDROID_ARM7_AR) \
 	CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER=$(ANDROID_ARMV7_LINKER) \
 		 cargo build --target armv7-linux-androideabi --release
 	@echo "[DONE] $@"
 
-target/i686-linux-android/release/libexample.so: $(SOURCES) ndk-home
+target/i686-linux-android/release/libexample.so: $(SOURCES)
 	CC_i686_linux_android=$(ANDROID_I686_LINKER) \
 	AR=$(ANDROID_I686_AR) \
 	CARGO_TARGET_I686_LINUX_ANDROID_LINKER=$(ANDROID_I686_LINKER) \
 		cargo  build --target i686-linux-android --release
 	@echo "[DONE] $@"
 
-target/x86_64-linux-android/release/libexample.so: $(SOURCES) ndk-home
+target/x86_64-linux-android/release/libexample.so: $(SOURCES)
 	CC_x86_64_linux_android=$(ANDROID_X86_64_LINKER) \
 	AR=$(ANDROID_X86_64_AR) \
 	CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER=$(ANDROID_X86_64_LINKER) \
 		 cargo build --target x86_64-linux-android --release
 	@echo "[DONE] $@"
 
-.PHONY: ndk-home
-ndk-home:
-	@if [ ! -d "${ANDROID_NDK_HOME}" ] ; then \
-		echo "Error: Please, set the ANDROID_NDK_HOME env variable to point to your NDK folder" ; \
-		exit 1 ; \
-	fi
+
 
 
 ## bindings: Generate the .h file for iOS
