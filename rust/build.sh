@@ -1,6 +1,6 @@
 #!/bin/bash
 FILE=config.txt
-BIN_V="v0.22_release"
+BIN_V="v0.1.1"
 if [ ! -e "$FILE" ];
 then  bash config_binary.sh
 else
