@@ -96,8 +96,7 @@ The following methods can be used with this module. All methods can be called by
 | [getConfirmedTransactions()](#getConfirmedTransactions)| -                                                                                  |
 | [syncWallet()](#syncWallet)                    | -                                                                                          | 
 | [createTransaction()](#createTransaction)      | - address (recipient wallet address), amount*(sats) , feeRate                              |
-| [signTransaction()](#signTransaction)          | - psbt                                                                                     |
-| [broadcastTransaction()](#broadcastTransaction)| - psbt                                                                                     |  
+| [signAndBroadcastTransaction()](#signAndBroadcastTransaction)| - psbt                                                                       |  
 | [quickSend()](#quickSend)                      | - address (recipient wallet address), amount*(sats) , feeRate                              |
 
 ---
@@ -201,14 +200,12 @@ Returns P2WPKH Descriptor
 
 ```dart
 
-final  response = createDescriptor(  xprv: xprv,descriptor: Descriptor.P2WPKH );
-
 final  response = createDescriptor(  network: Network.TESTNET, 
-                                     mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise', 
+                                     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
 				     password: '', 
 				     type: Descriptor.P2WPKH,
-				     descriptorPath: 'm/84/0/0/0/0',
-				     changeDescriptorPath: 'm/84/0/0/0/0'
+				     descriptorPath: "m/84'/0'/0'",
+                                     changeDescriptorPath: "m/84'/0'/1'",
 				  );
 
 ```
@@ -217,8 +214,8 @@ Returned response example:
 
 {
 
-descriptor: "wpkh([d91e6add/84/0/0/0/0]tprv8kcSk9AwERYyNvjdgRLBtu1bRYStYKZ2b1Xv1EFw7FohmrzGc9m1Mg412zxp63sEKrce1ow9JdhMmUZy882a7E6T6mgKFGZiG7GoPbwBJyG/*)"
-changeDescriptor: "wpkh([d91e6add/84/0/0/0/1]tprv8kcSk9AwERYyQJ4grLguvkbfjmq18AFsuBcpkMexTG2sPJUD2QcDf3HZoGSL7nAvx9tMoYYYgA9peafo6iexR1KFVnTvSRC86XToM5CSQUr/*)"
+descriptor: "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)"
+changeDescriptor: "wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)"
 
  }
 
@@ -250,6 +247,17 @@ final response  =  await BdkWallet().createWallet(  mnemonic: mnemonic,
                                                     blockchain: Blockchain.ELECTRUM
                                                  );
 						    
+```
+Returned response example:
+```dart
+
+{
+
+address: "tb1ql5pqtl36xu6z4czdvsd9lr5fa6fyld49dff4gw"
+balance: 100000
+
+}
+
 ```
 
 ---
@@ -410,29 +418,15 @@ Returned response example:
 ---
 
 
-### signTransaction()
-Sign the Partially Signed Transaction.<br />
-Required params: psbt (Partially Signed Transaction - Unsigned)
-
-```dart
-
-final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt from createPartiallySignedTransaction()
-
-final response = await BdkWallet().signTransaction(psbt:psbt);
-
-```
----
-
-
-### broadcastTransaction()
+### signAndBroadcastTransaction()
 Send bitcoin (*sats) to a given address.<br />
-Required params: psbt (Partially Signed Transaction - Signed)
+Required params: psbt (Partially Signed Bitcoin Transaction)
 
 ```dart
 
 final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-final response = await BdkWallet().broadcastTransaction(psbt:psbt);
+final response = await BdkWallet().signAndBroadcastTransaction(psbt:psbt);
 
 ```
 Returned response example:
