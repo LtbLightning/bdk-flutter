@@ -32,8 +32,8 @@ class BdkFlutter {
       // }
       if (descriptor != null || changeDescriptor != null) {
         await loaderApi.walletInit(
-            descriptor: descriptor.toString(),
-            changeDescriptor: changeDescriptor.toString(),
+            descriptor: descriptor!,
+            changeDescriptor: changeDescriptor,
             network: network,
             databaseConfig: databaseConfig,
             blockchainConfig: blockchainConfig);
@@ -258,7 +258,8 @@ class BdkFlutter {
   Future<String> signTx({required String psbt}) async {
     try {
       final sbt = await loaderApi.sign(psbtStr: psbt);
-      if(sbt ==null ) throw const BroadcastException.unexpected("Unable to sign transaction");
+      if (sbt == null)
+        throw const BroadcastException.unexpected("Unable to sign transaction");
       return sbt.toString();
     } on FfiException catch (e) {
       throw BroadcastException.unexpected(e.message);
@@ -383,7 +384,7 @@ Future<ExtendedKeyInfo> createExtendedKey(
 Future<DerivedKeyInfo> createDerivedKey(
     {required Network network,
     required String mnemonic,
-    String? path ,
+    String? path,
     String? password = ''}) async {
   try {
     if (!isValidMnemonic(mnemonic.toString())) {
@@ -466,7 +467,8 @@ PathDescriptor _createMultiSigDescriptor(
     throw const KeyException.invalidThresholdValue();
   }
   return PathDescriptor(
-      descriptor: "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
+      descriptor:
+          "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
       changeDescriptor: (changeDescriptorKey == null ||
               changeDescriptorKey == "")
           ? ""
