@@ -230,7 +230,7 @@ pub fn get_new_internal_address() -> String {
 pub fn get_last_unused_address() -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
-    wallet.get_address(AddressIndex::New).unwrap().address
+    wallet.get_address(AddressIndex::LastUnused).unwrap().address
 }
 pub fn get_transaction(txid: String) -> Option<TransactionDetails> {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
