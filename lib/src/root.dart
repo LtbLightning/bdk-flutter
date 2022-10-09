@@ -399,7 +399,7 @@ Future<DerivedKeyInfo> createDerivedKey(
   }
 }
 //
-Future<WalletDescriptors> createDescriptors(
+Future<WalletDescriptor> createDescriptors(
     {String ?descriptorPath,
       String? changeDescriptorPath,
       String? xprv,
@@ -428,7 +428,7 @@ Future<WalletDescriptors> createDescriptors(
         network: network,
         password: password,
         mnemonic: mnemonic.toString(),
-        path: descriptorPath ??  "m/84'/1'/0'/1");
+        path: changeDescriptorPath ??  "m/84'/1'/0'/1");
     final res = _createDescriptor(
         threshold: threshold,
         publicKeys: publicKeys,
@@ -447,7 +447,7 @@ Future<WalletDescriptors> createDescriptors(
   }
 }
 
-WalletDescriptors _createMultiSigDescriptor(
+WalletDescriptor _createMultiSigDescriptor(
     {List<String>? publicKeys,
       int threshold = 2,
       required String descriptorKey,
@@ -458,12 +458,12 @@ WalletDescriptors _createMultiSigDescriptor(
   if (threshold == 0 || threshold > publicKeys.length + 1) {
     throw const KeyException.invalidThresholdValue();
   }
-  return WalletDescriptors(
+  return WalletDescriptor(
       descriptor: "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
       changeDescriptor:"wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))" );
 }
 
-WalletDescriptors _createDescriptor(
+WalletDescriptor _createDescriptor(
     {required String descriptorKey,
       String? changeDescriptorKey,
       required Descriptor type,
@@ -471,19 +471,19 @@ WalletDescriptors _createDescriptor(
       int? threshold = 4}) {
   switch (type) {
     case Descriptor.P2PKH:
-      return WalletDescriptors(
+      return WalletDescriptor(
           descriptor: "pkh($descriptorKey)",
           changeDescriptor: "pkh($changeDescriptorKey)");
     case Descriptor.P2WPKH:
-      return WalletDescriptors(
+      return WalletDescriptor(
           descriptor: "wpkh($descriptorKey)",
           changeDescriptor: "wpkh($changeDescriptorKey)");
     case Descriptor.P2SHP2WPKH:
-      return WalletDescriptors(
+      return WalletDescriptor(
           descriptor: "sh(wpkh($descriptorKey))",
           changeDescriptor: "sh(wpkh($changeDescriptorKey))");
     case Descriptor.P2SHP2WSHP2PKH:
-      return WalletDescriptors(
+      return WalletDescriptor(
           descriptor: "sh(wsh(pkh($descriptorKey)))",
           changeDescriptor: "sh(wsh(pkh($changeDescriptorKey)))");
     case Descriptor.MULTI:
@@ -493,7 +493,7 @@ WalletDescriptors _createDescriptor(
           descriptorKey: descriptorKey,
           changeDescriptorKey: changeDescriptorKey);
     default:
-      return WalletDescriptors(
+      return WalletDescriptor(
           descriptor: "wpkh($descriptorKey)",
           changeDescriptor: "wpkh($changeDescriptorKey)");
   }
