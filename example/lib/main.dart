@@ -18,7 +18,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     restoreWallet(
-      //"curtain stairs horse sing file upset laundry cherry make oblige ticket medal",
         "puppy interest whip tonight dad never sudden response push zone pig patch",
         Network.TESTNET);
     super.initState();

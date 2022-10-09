@@ -52,19 +52,6 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
-  Future<String> exportWallet({required String walletName, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kExportWalletConstMeta;
-
-  Future<void> importWallet(
-      {required String jsonWallet,
-      required Network network,
-      required BlockchainConfig blockchainConfig,
-      required DatabaseConfig databaseConfig,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kImportWalletConstMeta;
-
   Future<String> getPublicDescriptor({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta;
@@ -502,52 +489,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: [
           "descriptor",
           "changeDescriptor",
-          "network",
-          "blockchainConfig",
-          "databaseConfig"
-        ],
-      );
-
-  Future<String> exportWallet({required String walletName, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_export_wallet(port_, _api2wire_String(walletName)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kExportWalletConstMeta,
-        argValues: [walletName],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kExportWalletConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "export_wallet",
-        argNames: ["walletName"],
-      );
-
-  Future<void> importWallet(
-          {required String jsonWallet,
-          required Network network,
-          required BlockchainConfig blockchainConfig,
-          required DatabaseConfig databaseConfig,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_import_wallet(
-            port_,
-            _api2wire_String(jsonWallet),
-            _api2wire_network(network),
-            _api2wire_box_autoadd_blockchain_config(blockchainConfig),
-            _api2wire_box_autoadd_database_config(databaseConfig)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kImportWalletConstMeta,
-        argValues: [jsonWallet, network, blockchainConfig, databaseConfig],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kImportWalletConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "import_wallet",
-        argNames: [
-          "jsonWallet",
           "network",
           "blockchainConfig",
           "databaseConfig"
@@ -1391,55 +1332,6 @@ class RustWire implements FlutterRustBridgeWireBase {
       void Function(
           int,
           ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          int,
-          ffi.Pointer<wire_BlockchainConfig>,
-          ffi.Pointer<wire_DatabaseConfig>)>();
-
-  void wire_export_wallet(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_name,
-  ) {
-    return _wire_export_wallet(
-      port_,
-      wallet_name,
-    );
-  }
-
-  late final _wire_export_walletPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_export_wallet');
-  late final _wire_export_wallet = _wire_export_walletPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_import_wallet(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> json_wallet,
-    int network,
-    ffi.Pointer<wire_BlockchainConfig> blockchain_config,
-    ffi.Pointer<wire_DatabaseConfig> database_config,
-  ) {
-    return _wire_import_wallet(
-      port_,
-      json_wallet,
-      network,
-      blockchain_config,
-      database_config,
-    );
-  }
-
-  late final _wire_import_walletPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32,
-              ffi.Pointer<wire_BlockchainConfig>,
-              ffi.Pointer<wire_DatabaseConfig>)>>('wire_import_wallet');
-  late final _wire_import_wallet = _wire_import_walletPtr.asFunction<
-      void Function(
-          int,
           ffi.Pointer<wire_uint_8_list>,
           int,
           ffi.Pointer<wire_BlockchainConfig>,

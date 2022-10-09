@@ -30,15 +30,12 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
-rust/target/
-rust/config.txt
-rust/__MACOSX/
-rust/output.log
-*.so
-*.a
-android/src/main/jniLibs/arm64-v8a/librust.so
-android/src/main/jniLibs/x86/librust.so
-android/src/main/jniLibs/armeabi-v7a/librust.so
-ios/librust.a
-macos/librust.dylib
+rust/
+#*.so
+#*.a
+#android/src/main/jniLibs/arm64-v8a/librust.so
+#android/src/main/jniLibs/x86/librust.so
+#android/src/main/jniLibs/armeabi-v7a/librust.so
+#ios/librust.a
+macos/
 
