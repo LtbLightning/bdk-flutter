@@ -3,7 +3,6 @@ import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
-import 'utils/utils.dart';
 
 class BdkFlutter {
   Future<ResponseWallet> createWallet({

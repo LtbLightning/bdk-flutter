@@ -71,7 +71,7 @@ The following methods can be used with this module. All methods can be called by
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
 | [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |
 | [createDescriptors()](#createDescriptors)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
-| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig|                                                                                                                                                 
+| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig              |                                                                                                                                     
 | [getNewAddress()](#getNewAddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
 | [getBalance()](#getbalance)                    | -                                                                                          |
@@ -91,7 +91,7 @@ Generate a random mnemonic seed phrase.<br />
 Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic <br />
 This will generate a mnemonic sentence from the English word list. The required entropy can be specified as the entropy parameter and 
 can be in multiples of 64 from 128 to 256, 128 is used as default. A word count or length can be specified instead as the length 
-parameter and can be in multiples of 6 from 12 to 24. 12 is used as default.
+parameter and can be in multiples of 6 from 12 to 24.
 
 ```dart
 
