@@ -3,13 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:bdk_flutter/bdk_flutter.dart' as _i2;
-import 'package:bdk_flutter/src/utils/utils.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
-import 'bdk_flutter_test.dart' as _i5;
+import 'bdk_flutter_test.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -44,7 +43,7 @@ class _FakeBalance_1 extends _i1.SmartFake implements _i2.Balance {
 }
 
 class _FakeWalletDescriptor_2 extends _i1.SmartFake
-    implements _i3.WalletDescriptor {
+    implements _i2.WalletDescriptor {
   _FakeWalletDescriptor_2(
     Object parent,
     Invocation parentInvocation,
@@ -81,13 +80,13 @@ class _FakeExtendedKeyInfo_4 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
   @override
-  _i4.Future<_i2.ResponseWallet> createWallet({
+  _i3.Future<_i2.ResponseWallet> createWallet({
     String? mnemonic,
     String? password,
     String? descriptor,
     String? changeDescriptor,
-    required _i2.Network? network,
-    required _i2.BlockchainConfig? blockchainConfig,
+    _i2.Network? network,
+    _i2.BlockchainConfig? blockchainConfig,
     _i2.DatabaseConfig? databaseConfig = const _i2.DatabaseConfig.memory(),
   }) =>
       (super.noSuchMethod(
@@ -104,7 +103,7 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
             #databaseConfig: databaseConfig,
           },
         ),
-        returnValue: _i4.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
+        returnValue: _i3.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
           this,
           Invocation.method(
             #createWallet,
@@ -121,7 +120,7 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
+            _i3.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
           this,
           Invocation.method(
             #createWallet,
@@ -137,14 +136,14 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
             },
           ),
         )),
-      ) as _i4.Future<_i2.ResponseWallet>);
+      ) as _i3.Future<_i2.ResponseWallet>);
   @override
-  _i4.Future<_i2.ResponseWallet> getWallet() => (super.noSuchMethod(
+  _i3.Future<_i2.ResponseWallet> getWallet() => (super.noSuchMethod(
         Invocation.method(
           #getWallet,
           [],
         ),
-        returnValue: _i4.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
+        returnValue: _i3.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
           this,
           Invocation.method(
             #getWallet,
@@ -152,73 +151,73 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
+            _i3.Future<_i2.ResponseWallet>.value(_FakeResponseWallet_0(
           this,
           Invocation.method(
             #getWallet,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.ResponseWallet>);
+      ) as _i3.Future<_i2.ResponseWallet>);
   @override
-  _i4.Future<String> getNewAddress() => (super.noSuchMethod(
+  _i3.Future<String> getNewAddress() => (super.noSuchMethod(
         Invocation.method(
           #getNewAddress,
           [],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> getNewInternalAddress() => (super.noSuchMethod(
+  _i3.Future<String> getNewInternalAddress() => (super.noSuchMethod(
         Invocation.method(
           #getNewInternalAddress,
           [],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<_i2.Balance> getBalance() => (super.noSuchMethod(
+  _i3.Future<_i2.Balance> getBalance() => (super.noSuchMethod(
         Invocation.method(
           #getBalance,
           [],
         ),
-        returnValue: _i4.Future<_i2.Balance>.value(_FakeBalance_1(
+        returnValue: _i3.Future<_i2.Balance>.value(_FakeBalance_1(
           this,
           Invocation.method(
             #getBalance,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.Balance>.value(_FakeBalance_1(
+        returnValueForMissingStub: _i3.Future<_i2.Balance>.value(_FakeBalance_1(
           this,
           Invocation.method(
             #getBalance,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Balance>);
+      ) as _i3.Future<_i2.Balance>);
   @override
-  _i4.Future<String> getLastUnusedAddress() => (super.noSuchMethod(
+  _i3.Future<String> getLastUnusedAddress() => (super.noSuchMethod(
         Invocation.method(
           #getLastUnusedAddress,
           [],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> getPublicDescriptor() => (super.noSuchMethod(
+  _i3.Future<String> getPublicDescriptor() => (super.noSuchMethod(
         Invocation.method(
           #getPublicDescriptor,
           [],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> getDescriptorCheckSum(
+  _i3.Future<String> getDescriptorCheckSum(
           {required _i2.KeyChainKind? keyChainKind}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -226,11 +225,11 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
           [],
           {#keyChainKind: keyChainKind},
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> getDescriptorForKeyChainKind(
+  _i3.Future<String> getDescriptorForKeyChainKind(
           {required _i2.KeyChainKind? keyChainKind}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -238,65 +237,65 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
           [],
           {#keyChainKind: keyChainKind},
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<int> getBlockchainHeight() => (super.noSuchMethod(
+  _i3.Future<int> getBlockchainHeight() => (super.noSuchMethod(
         Invocation.method(
           #getBlockchainHeight,
           [],
         ),
-        returnValue: _i4.Future<int>.value(0),
-        returnValueForMissingStub: _i4.Future<int>.value(0),
-      ) as _i4.Future<int>);
+        returnValue: _i3.Future<int>.value(0),
+        returnValueForMissingStub: _i3.Future<int>.value(0),
+      ) as _i3.Future<int>);
   @override
-  _i4.Future<String> getBlockchainHash(int? blockChainHeight) =>
+  _i3.Future<String> getBlockchainHash(int? blockChainHeight) =>
       (super.noSuchMethod(
         Invocation.method(
           #getBlockchainHash,
           [blockChainHeight],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<List<_i2.Transaction>> getTransactions() => (super.noSuchMethod(
+  _i3.Future<List<_i2.Transaction>> getTransactions() => (super.noSuchMethod(
         Invocation.method(
           #getTransactions,
           [],
         ),
         returnValue:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
-      ) as _i4.Future<List<_i2.Transaction>>);
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+      ) as _i3.Future<List<_i2.Transaction>>);
   @override
-  _i4.Future<List<_i2.Transaction>> getPendingTransactions() =>
+  _i3.Future<List<_i2.Transaction>> getPendingTransactions() =>
       (super.noSuchMethod(
         Invocation.method(
           #getPendingTransactions,
           [],
         ),
         returnValue:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
-      ) as _i4.Future<List<_i2.Transaction>>);
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+      ) as _i3.Future<List<_i2.Transaction>>);
   @override
-  _i4.Future<List<_i2.Transaction>> getConfirmedTransactions() =>
+  _i3.Future<List<_i2.Transaction>> getConfirmedTransactions() =>
       (super.noSuchMethod(
         Invocation.method(
           #getConfirmedTransactions,
           [],
         ),
         returnValue:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
-      ) as _i4.Future<List<_i2.Transaction>>);
+            _i3.Future<List<_i2.Transaction>>.value(<_i2.Transaction>[]),
+      ) as _i3.Future<List<_i2.Transaction>>);
   @override
-  _i4.Future<String> createTx({
+  _i3.Future<String> createTx({
     required String? recipient,
     required int? amount,
     required double? feeRate,
@@ -311,42 +310,42 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
             #feeRate: feeRate,
           },
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> signTx({required String? psbt}) => (super.noSuchMethod(
+  _i3.Future<String> signTx({required String? psbt}) => (super.noSuchMethod(
         Invocation.method(
           #signTx,
           [],
           {#psbt: psbt},
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> broadcastTx({required String? sbt}) => (super.noSuchMethod(
+  _i3.Future<String> broadcastTx({required String? sbt}) => (super.noSuchMethod(
         Invocation.method(
           #broadcastTx,
           [],
           {#sbt: sbt},
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> signAndBroadcastTx({required String? psbt}) =>
+  _i3.Future<String> signAndBroadcastTx({required String? psbt}) =>
       (super.noSuchMethod(
         Invocation.method(
           #signAndBroadcastTx,
           [],
           {#psbt: psbt},
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
   @override
-  _i4.Future<String> quickSend({
+  _i3.Future<String> quickSend({
     required String? recipient,
     required int? amount,
     required double? feeRate,
@@ -361,17 +360,17 @@ class MockBdkFlutter extends _i1.Mock implements _i2.BdkFlutter {
             #feeRate: feeRate,
           },
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
 }
 
 /// A class which mocks [GenerateKeys].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
+class MockGenerateKeys extends _i1.Mock implements _i4.GenerateKeys {
   @override
-  _i4.Future<_i3.WalletDescriptor> createDescriptors({
+  _i3.Future<_i2.WalletDescriptor> createDescriptors({
     String? descriptorPath,
     String? changeDescriptorPath,
     String? xprv,
@@ -399,7 +398,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
           },
         ),
         returnValue:
-            _i4.Future<_i3.WalletDescriptor>.value(_FakeWalletDescriptor_2(
+            _i3.Future<_i2.WalletDescriptor>.value(_FakeWalletDescriptor_2(
           this,
           Invocation.method(
             #createDescriptors,
@@ -418,7 +417,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i3.WalletDescriptor>.value(_FakeWalletDescriptor_2(
+            _i3.Future<_i2.WalletDescriptor>.value(_FakeWalletDescriptor_2(
           this,
           Invocation.method(
             #createDescriptors,
@@ -436,9 +435,9 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
             },
           ),
         )),
-      ) as _i4.Future<_i3.WalletDescriptor>);
+      ) as _i3.Future<_i2.WalletDescriptor>);
   @override
-  _i4.Future<_i2.DerivedKeyInfo> createDerivedKey({
+  _i3.Future<_i2.DerivedKeyInfo> createDerivedKey({
     required _i2.Network? network,
     required String? mnemonic,
     String? path,
@@ -455,7 +454,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
             #password: password,
           },
         ),
-        returnValue: _i4.Future<_i2.DerivedKeyInfo>.value(_FakeDerivedKeyInfo_3(
+        returnValue: _i3.Future<_i2.DerivedKeyInfo>.value(_FakeDerivedKeyInfo_3(
           this,
           Invocation.method(
             #createDerivedKey,
@@ -469,7 +468,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.DerivedKeyInfo>.value(_FakeDerivedKeyInfo_3(
+            _i3.Future<_i2.DerivedKeyInfo>.value(_FakeDerivedKeyInfo_3(
           this,
           Invocation.method(
             #createDerivedKey,
@@ -482,9 +481,9 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
             },
           ),
         )),
-      ) as _i4.Future<_i2.DerivedKeyInfo>);
+      ) as _i3.Future<_i2.DerivedKeyInfo>);
   @override
-  _i4.Future<_i2.ExtendedKeyInfo> createExtendedKey({
+  _i3.Future<_i2.ExtendedKeyInfo> createExtendedKey({
     required _i2.Network? network,
     required String? mnemonic,
     String? password = r'',
@@ -500,7 +499,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
           },
         ),
         returnValue:
-            _i4.Future<_i2.ExtendedKeyInfo>.value(_FakeExtendedKeyInfo_4(
+            _i3.Future<_i2.ExtendedKeyInfo>.value(_FakeExtendedKeyInfo_4(
           this,
           Invocation.method(
             #createExtendedKey,
@@ -513,7 +512,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.ExtendedKeyInfo>.value(_FakeExtendedKeyInfo_4(
+            _i3.Future<_i2.ExtendedKeyInfo>.value(_FakeExtendedKeyInfo_4(
           this,
           Invocation.method(
             #createExtendedKey,
@@ -525,9 +524,9 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
             },
           ),
         )),
-      ) as _i4.Future<_i2.ExtendedKeyInfo>);
+      ) as _i3.Future<_i2.ExtendedKeyInfo>);
   @override
-  _i4.Future<String> generateMnemonic({
+  _i3.Future<String> generateMnemonic({
     _i2.WordCount? wordCount,
     _i2.Entropy? entropy,
   }) =>
@@ -540,7 +539,7 @@ class MockGenerateKeys extends _i1.Mock implements _i5.GenerateKeys {
             #entropy: entropy,
           },
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
 }

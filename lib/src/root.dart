@@ -10,8 +10,8 @@ class BdkFlutter {
     String? password,
     String? descriptor,
     String? changeDescriptor,
-    required Network network,
-    required BlockchainConfig blockchainConfig,
+    Network? network,
+    BlockchainConfig? blockchainConfig,
     DatabaseConfig databaseConfig = const DatabaseConfig.memory(),
   }) async {
     try {
@@ -28,12 +28,12 @@ class BdkFlutter {
         await loaderApi.walletInit(
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor,
-            network: network,
+            network: network ?? DEFAULT_NETWORK,
             databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig);
+            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
       } else {
         var key = await createDescriptors(
-            network: network,
+            network: network??DEFAULT_NETWORK,
             mnemonic: mnemonic.toString(),
             password: password,
             type: Descriptor.P2PK,
@@ -43,9 +43,9 @@ class BdkFlutter {
         await loaderApi.walletInit(
             descriptor: key.descriptor,
             changeDescriptor: key.changeDescriptor,
-            network: network,
+            network: network??DEFAULT_NETWORK,
             databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig);
+            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
       }
       final res = await loaderApi.getWallet();
       return res;

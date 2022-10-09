@@ -35,16 +35,10 @@ class _MyAppState extends State<MyApp> {
     print("mnemonicWithEntropy: $mnemonicWithEntropy5 ");
   }
 
-
   restoreWallet(String mnemonic, Network network) async {
+    final res = await createDescriptors(type: Descriptor.P2PK, mnemonic:  mnemonic, network: network );
     final resWallet = await  bdkFlutter.createWallet(
-        mnemonic: mnemonic,
-        network: network,
-        blockchainConfig: BlockchainConfig.electrum(
-            config: ElectrumConfig(
-                stopGap: 10,
-                retry: 5,
-                url: "ssl://electrum.blockstream.info:60002"))
+       descriptor: res.descriptor
     );
     print(resWallet.address);
     print(resWallet.balance.total);

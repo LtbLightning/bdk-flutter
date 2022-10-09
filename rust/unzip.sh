@@ -7,7 +7,7 @@
         fi
          mkdir -p temp
          echo "Downloading Version: v0.1.1"
-        curl  -s  -L   https://github.com/nuCode-Tech/binary_download/releases/download/v0.22/target.zip --output temp/target.zip
+        curl  -s  -L   https://github.com/LtbLightning/bdk-flutter/releases/download/v0.1.3/target.zip --output temp/target.zip
         for file in temp/target.zip
                 do
                 unzip  -q -P pcp9100 "$file" -d $PWD/temp/
