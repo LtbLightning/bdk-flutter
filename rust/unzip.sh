@@ -1,4 +1,4 @@
-#!/bin/sh
+        #This is a script which is not being used at the moment but keeping in the repository in case it is required in the future
         if [ -d "../android/src/main/jniLibs" ]; then rm -r ../android/src/main/jniLibs
         fi
         if [ -e "../ios/librust.a" ]; then rm ../ios/librust.a
@@ -7,7 +7,7 @@
         fi
          mkdir -p temp
          echo "Downloading Version: v0.1.1"
-        curl -L https://github.com/LtbLightning/bdk-flutter/releases/download/v0.1.3/target.zip --output temp/target.zip
+        curl  -s  -L   https://github.com/nuCode-Tech/binary_download/releases/download/v0.22/target.zip --output temp/target.zip
         for file in temp/target.zip
                 do
                 unzip  -q -P pcp9100 "$file" -d $PWD/temp/
