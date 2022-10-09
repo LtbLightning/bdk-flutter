@@ -126,7 +126,7 @@ getConfirmedTransactions() async {
                   child: const Text('Press to create new Address')),
               TextButton(
                   onPressed: () => sendBit(),
-                  child: const Text('Press to  send 1200 satoshi')),
+                  child: const Text('Press to  send 1200 sats')),
               TextButton(
                   onPressed: () => sync(), child: const Text('Press to  sync')),
               TextButton(
@@ -134,7 +134,7 @@ getConfirmedTransactions() async {
                   child: const Text('Get ConfirmedTransactions')),
               TextButton(
                   onPressed: () => getPendingTransactions(),
-                  child: const Text('getPendingTransactions')),
+                  child: const Text('get PendingTransactions')),
               TextButton(
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
