@@ -6,10 +6,11 @@
         if [ -e "config.txt " ]; then rm config.txt
         fi
          mkdir -p temp
+         echo "Downloading Version: v0.1.1"
         curl -L https://github.com/LtbLightning/bdk-flutter/releases/download/v0.1.3/target.zip --output temp/target.zip
         for file in temp/target.zip
                 do
-                unzip -P pcp9100 "$file" -d $PWD/temp/
+                unzip  -q -P pcp9100 "$file" -d $PWD/temp/
                 rm "temp/target.zip"
                 done
         mkdir -p ../android/src/main/jniLibs/arm64-v8a
@@ -25,4 +26,3 @@
         cp temp/target/universal/release/librust.a  ../ios/
         cp temp/config.txt   .
         rm -r temp/
-

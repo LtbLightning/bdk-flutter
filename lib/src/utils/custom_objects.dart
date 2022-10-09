@@ -1,5 +1,5 @@
-class PathDescriptor {
+class WalletDescriptor {
   final String changeDescriptor;
   final String descriptor;
-  PathDescriptor({required this.changeDescriptor, required this.descriptor});
+  WalletDescriptor({required this.changeDescriptor, required this.descriptor});
 }
