@@ -96,7 +96,7 @@ pub fn wallet_init(
         node_network,
         database_config,
     )
-    .unwrap();
+        .unwrap();
     let blockchain = Arc::new(blockchain_obj);
     let wallet = Arc::new(wallet_obj);
     wallet.sync(&blockchain.clone());
@@ -326,47 +326,49 @@ pub fn broadcast(psbt_str:String) -> String {
 #[cfg(test)]
 mod tests {
     use crate::ffi::PartiallySignedBitcoinTransaction;
-    use crate::r_api::{broadcast, create_transaction, derive_dsk, generate_seed_from_entropy, generate_seed_from_word_count, get_balance, get_descriptor_secret_key, get_new_address, get_transactions, sign, sign_and_broadcast, sync_wallet, wallet_init};
+    use crate::r_api::{broadcast, create_transaction, derive_dsk, export_wallet, generate_seed_from_entropy, generate_seed_from_word_count, get_balance, get_descriptor_secret_key, get_new_address, get_transactions, import_wallet, sign, sync_wallet, wallet_init};
     use crate::types::{
         BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
     };
     use bdk::bitcoin::Address;
     use bdk::bitcoin::Network as BdkNetwork;
     #[test]
+    fn export_wallet_test() {
+        _init_wallet();
+        let res = export_wallet("Default".to_string());
+        let resp = import_wallet(res.clone(), Network::TESTNET, BlockchainConfig::ELECTRUM {
+            config: ElectrumConfig {
+                url: "ssl://electrum.blockstream.info:60002".to_string(),
+                socks5: None,
+                retry: 10,
+                timeout: None,
+                stop_gap: 10
+            }
+        }, DatabaseConfig::MEMORY);
+        println!("{}",res);
+        assert_eq!( true, res.contains("Default"),);
+    }
+    #[test]
     fn psbt_similarity_test() {
         _init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
         let res = sign(psbt.clone());
         assert_eq!( psbt, res.unwrap(),);
-
-    }
-
-    #[test]
-    fn psbt_broadcast_test() {
-        _init_wallet();
-        let x = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAzTPKDsXOn2pLz5fpOywncnqWqunueV1wCIYiuxXm4QwIgE6ksJNTO2uXRvGMkV7QxEITringKovVeDXMzOyi6edUBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAAIgICl+rHwFFM2iFfYd2ps2Plp8WpcZovU+pWWe+ggZVoweUU2R5q3VQAAIAAAACAAQAAgD4AAAAA".to_string();
-        let y = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA".to_string();
-        let z = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEA1y5jZfakuWe/EyWokRzO08RnjNht9UlRo//qVG/yC44CIBR1diESIVzHI9WKtA0REZXlUXVEwunrYXiuZhQpXra+ASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAIgICl+rHwFFM2iFfYd2ps2Plp8WpcZovU+pWWe+ggZVoweUU2R5q3VQAAIAAAACAAQAAgD4AAAAAAA==".to_string();
-        let a = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEAi7bmbZyqWea0c3Uw8YGVqzGGLI+Q1J92HX5fBJK7O1kCIG3PmHmPtqugEaP4/FPOUcUbU+nV8cqTG7pLh8lZGWThASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAACICApfqx8BRTNohX2HdqbNj5afFqXGaL1PqVlnvoIGVaMHlFNkeat1UAACAAAAAgAEAAIA+AAAAAA==".to_string();
-        let b = "cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AugDAAAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKzFMBMAAAAAABYAFGzXjDnwBfUEzohX65YVfG0J11lZ4dYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGwCSDBFAiEAi7bmbZyqWea0c3Uw8YGVqzGGLI+Q1J92HX5fBJK7O1kCIG3PmHmPtqugEaP4/FPOUcUbU+nV8cqTG7pLh8lZGWThASEChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggAACICApfqx8BRTNohX2HdqbNj5afFqXGaL1PqVlnvoIGVaMHlFNkeat1UAACAAAAAgAEAAIA+AAAAAA==".to_string();
-        sync_wallet();
-        let txid = broadcast(x);
-        assert_eq!(txid, "txid");
     }
 
     #[test]
     fn create_broadcast_transaction_test() {
         _init_wallet();
         let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
-       let sbt = sign(psbt.clone());
+        let sbt = sign(psbt.clone());
         let txid = broadcast(sbt.unwrap());
-        assert_eq!(txid, "false");
+        assert_eq!(txid.is_empty(), false);
     }
 
     #[test]
     fn get_balance_test() {
         _init_wallet();
-        assert_eq!(get_balance().total, 1262245);
+        assert_eq!(get_balance().total, 1258813);
     }
     #[test]
     fn get_transactions_test() {
@@ -408,8 +410,11 @@ mod tests {
 
     fn _init_wallet() {
         wallet_init(
+            // "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)".to_string(),
+            // Some("wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)".to_string()),
             "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
-            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
+            Some("".to_string()),
+
             Network::TESTNET,
             BlockchainConfig::ELECTRUM{ config: ElectrumConfig {
                 url: "ssl://electrum.blockstream.info:60002".to_string(),

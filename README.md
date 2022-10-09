@@ -85,7 +85,7 @@ The following methods can be used with this module. All methods can be called by
 | [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
 | [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |
-| [createDescriptor()](#createDescriptor)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
+| [createDescriptors()](#createDescriptors)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
 | [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig|                                                                                                                                                 
 | [getNewAddress()](#getNewAddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
@@ -124,7 +124,7 @@ Returned response example:
 
 
 ### createExtendedKey()
-This method will create an ExtendedKeyInfo object using the specified mnemonic seed phrase and password 
+This method will create an ExtendedKeyInfo object using the specified mnemonic seed phrase and password. 
 ExtendedKeyInfo creates a key object which encapsulates the mnemonic and adds a private key using the mnemonic and password.
 
 The extended key info object is required to be passed as an argument in some bdk methods.
@@ -189,14 +189,12 @@ Returned response example:
 ---
 
 
-### createDescriptor()
-Create a PathDescriptor object containing descriptor and changedescriptor using xprv or mnemonic.
-xprv will be used if passed otherwise mnemonic, network and password will be used.
-type is an enum and can be one of P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI. P2WPKH is used as default.
+### createDescriptors()
+Create a WalletDescriptor object containing descriptor and changedescriptor using xprv or mnemonic.
+Xprv will be used if passed otherwise mnemonic, network and password will be used.
+Type is an enum and can be one of P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI. P2WPKH is used as default.
 
 If type is MULTI then need to specify the signature threshold and publicKeys array.
-
-Returns P2WPKH Descriptor
 
 ```dart
 
@@ -411,7 +409,7 @@ final response = await BdkWallet().syncWallet();
 
 
 ### createTx()
-Creates a bitcoin transaction. This can transaction can later be signed and broadcast. The transaction created is a Partially Signed Bitcoin Transaction(psbt).<br />
+Creates bitcoin transaction. This can transaction can later be signed and broadcast. The transaction created is a Partially Signed Bitcoin Transaction(psbt).<br />
 Required params: address, amount, feeRate
 
 ```dart
@@ -451,7 +449,7 @@ Returned response example:
 
 
 ### broadcastTx()
-Broadcasts a signed bitcoin transaction to the bitcoin network. The transaction is sent to the bitcoin node associated with the blockchain config that was used to create the wallet. The method accepts a signed bitcoin transaction. The psbt returned by signTx can be passed to broadcastTx() on succesful broadcasta transaction id is returned.<br />
+Broadcasts a signed bitcoin transaction to the bitcoin network. The transaction is sent to the bitcoin node associated with the blockchain config that was used to create the wallet. The method accepts a signed bitcoin transaction. The psbt returned by signTx can be passed to broadcastTx().<br />
 Required params: sbt ( Signed Bitcoin Transaction)
 
 ```dart

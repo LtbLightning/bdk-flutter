@@ -121,8 +121,8 @@ impl NetworkLocalUtxo for LocalUtxo {
                     &x.txout.script_pubkey,
                     network,
                 )
-                .unwrap()
-                .to_string(),
+                    .unwrap()
+                    .to_string(),
             },
             is_spent: x.is_spent,
         }
