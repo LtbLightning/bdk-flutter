@@ -17,28 +17,8 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-# Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
 /pubspec.lock
 **/doc/api/
 .dart_tool/
 .packages
 build/
-rust/target/
-rust/config.txt
-rust/__MACOSX/
-rust/output.log
-*.so
-*.a
-android/src/main/jniLibs/arm64-v8a/librust.so
-android/src/main/jniLibs/x86/librust.so
-android/src/main/jniLibs/armeabi-v7a/librust.so
-ios/librust.a
-macos/librust.dylib
-

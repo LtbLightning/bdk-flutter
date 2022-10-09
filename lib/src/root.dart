@@ -1,11 +1,8 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/src/utils/custom_objects.dart';
 import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
-import 'package:bdk_flutter/src/utils/validators.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
-import 'utils/loader.dart';
 
 class BdkFlutter {
   Future<ResponseWallet> createWallet({
@@ -13,8 +10,8 @@ class BdkFlutter {
     String? password,
     String? descriptor,
     String? changeDescriptor,
-    required Network network,
-    required BlockchainConfig blockchainConfig,
+    Network? network,
+    BlockchainConfig? blockchainConfig,
     DatabaseConfig databaseConfig = const DatabaseConfig.memory(),
   }) async {
     try {
@@ -27,28 +24,28 @@ class BdkFlutter {
         throw const WalletException.repetitiousArguments(
             "Provided both mnemonic and descriptor.");
       }
-      if (descriptor != null ) {
+      if (descriptor != null) {
         await loaderApi.walletInit(
-            descriptor: descriptor!,
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor,
-            network: network,
+            network: network ?? DEFAULT_NETWORK,
             databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig);
+            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
       } else {
         var key = await createDescriptors(
-            network: network,
+            network: network??DEFAULT_NETWORK,
             mnemonic: mnemonic.toString(),
             password: password,
             type: Descriptor.P2PK,
-            descriptorPath: "m/84'/1'/0'/0",
-            changeDescriptorPath: "m/84'/1'/0'/1");
+            descriptorPath: DEFAUTLT_DESCRIPTOR_PATH,
+            changeDescriptorPath: DEFAUTLT_CHANGE_DESCRIPTOR_PATH
+        );
         await loaderApi.walletInit(
             descriptor: key.descriptor,
             changeDescriptor: key.changeDescriptor,
-            network: network,
+            network: network??DEFAULT_NETWORK,
             databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig);
+            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
       }
       final res = await loaderApi.getWallet();
       return res;
@@ -60,30 +57,6 @@ class BdkFlutter {
   Future<ResponseWallet> getWallet() async {
     try {
       return await loaderApi.getWallet();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  Future<String> exportWallet({required String walletName}) async {
-    final res = await loaderApi.exportWallet(walletName: walletName);
-    return res;
-  }
-
-  Future<ResponseWallet> importWallet({
-    required String walletStr,
-    required Network network,
-    required BlockchainConfig blockchainConfig,
-    DatabaseConfig databaseConfig = const DatabaseConfig.memory(),
-  }) async {
-    try {
-      await loaderApi.importWallet(
-          jsonWallet: walletStr,
-          network: network,
-          blockchainConfig: blockchainConfig,
-          databaseConfig: databaseConfig);
-      final res = await loaderApi.getWallet();
-      return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -142,7 +115,7 @@ class BdkFlutter {
       {required KeyChainKind keyChainKind}) async {
     try {
       var res =
-      await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
+          await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
       return res.toString();
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -154,7 +127,7 @@ class BdkFlutter {
       {required KeyChainKind keyChainKind}) async {
     try {
       var res =
-      await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
+          await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
       return res.toString();
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -173,7 +146,7 @@ class BdkFlutter {
   Future<String> getBlockchainHash(int blockChainHeight) async {
     try {
       var res =
-      await loaderApi.getBlockchainHash(blockchainHeight: blockChainHeight);
+          await loaderApi.getBlockchainHash(blockchainHeight: blockChainHeight);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -234,12 +207,11 @@ class BdkFlutter {
 
   Future<String> createTx(
       {required String recipient,
-        required int amount,
-        required double feeRate}) async {
+      required int amount,
+      required double feeRate}) async {
     try {
       if (amount < 100) {
-        throw const BroadcastException.insufficientBroadcastAmount(
-            "The minimum amount should be greater 100");
+        throw const BroadcastException.insufficientBroadcastAmount("The minimum amount should be greater 100");
       }
       final psbt = await loaderApi.createTransaction(
           recipient: recipient, amount: amount, feeRate: feeRate);
@@ -256,8 +228,7 @@ class BdkFlutter {
   Future<String> signTx({required String psbt}) async {
     try {
       final sbt = await loaderApi.sign(psbtStr: psbt);
-      if (sbt == null)
-        throw const BroadcastException.unexpected("Unable to sign transaction");
+      if (sbt == null) throw const BroadcastException.unexpected("Unable to sign transaction");
       return sbt.toString();
     } on FfiException catch (e) {
       throw BroadcastException.unexpected(e.message);
@@ -284,12 +255,12 @@ class BdkFlutter {
 
   Future<String> quickSend(
       {required String recipient,
-        required int amount,
-        required double feeRate}) async {
+      required int amount,
+      required double feeRate}) async {
     try {
       if (amount < 100) {
         throw const BroadcastException.insufficientBroadcastAmount(
-            "The minimum amount should be greater 100");
+            "The minimum amount should be greater 100 sats");
       }
       final psbt = await createTx(
           recipient: recipient, amount: amount, feeRate: feeRate);
@@ -321,7 +292,7 @@ Future<String> generateMnemonic(
       return res;
     } else {
       var res =
-      await loaderApi.generateSeedFromEntropy(entropy: Entropy.ENTROPY128);
+          await loaderApi.generateSeedFromEntropy(entropy: Entropy.ENTROPY128);
       return res;
     }
   } on FfiException catch (e) {
@@ -331,8 +302,8 @@ Future<String> generateMnemonic(
 
 Future<String> createXprv(
     {required Network network,
-      required String mnemonic,
-      String? password = ''}) async {
+    required String mnemonic,
+    String? password = ''}) async {
   try {
     var res = await createExtendedKey(
         network: network, mnemonic: mnemonic, password: password.toString());
@@ -344,8 +315,8 @@ Future<String> createXprv(
 
 Future<String> createXpub(
     {required Network network,
-      required String mnemonic,
-      String? password = ''}) async {
+    required String mnemonic,
+    String? password = ''}) async {
   try {
     var res = await createExtendedKey(
         network: network, mnemonic: mnemonic, password: password.toString());
@@ -357,8 +328,8 @@ Future<String> createXpub(
 
 Future<ExtendedKeyInfo> createExtendedKey(
     {required Network network,
-      required String mnemonic,
-      String? password = ''}) async {
+    required String mnemonic,
+    String? password = ''}) async {
   try {
     if (!isValidMnemonic(mnemonic.toString())) {
       throw const KeyException.badWordCount(
@@ -390,7 +361,7 @@ Future<DerivedKeyInfo> createDerivedKey(
           "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     }
     var res = await loaderApi.createDescriptorSecretKeys(
-        nodeNetwork: network, mnemonic: mnemonic, path: path ?? "m/84'/0'/0'");
+        nodeNetwork: network, mnemonic: mnemonic, path: path ?? DEFAUTLT_DESCRIPTOR_PATH);
     return res;
   } on FfiException catch (e) {
     if (e.message.contains("UnknownWord")) {
@@ -400,17 +371,17 @@ Future<DerivedKeyInfo> createDerivedKey(
     throw KeyException.unexpected(e.message);
   }
 }
-//
+
 Future<WalletDescriptor> createDescriptors(
-    {String ?descriptorPath,
-      String? changeDescriptorPath,
-      String? xprv,
-      required Descriptor type,
-      String? mnemonic,
-      Network? network,
-      String? password,
-      List<String>? publicKeys,
-      int? threshold = 4}) async {
+    {String? descriptorPath,
+    String? changeDescriptorPath,
+    String? xprv,
+    required Descriptor type,
+    String? mnemonic,
+    Network? network,
+    String? password,
+    List<String>? publicKeys,
+    int? threshold = 4}) async {
   if ((mnemonic == null) && (xprv == null)) {
     throw const KeyException.insufficientCoreVariables(
         "Require a mnemonic or xprv.");
@@ -421,16 +392,16 @@ Future<WalletDescriptor> createDescriptors(
   }
   if (xprv == null || xprv == "") {
     if (network == null) throw const KeyException.invalidNetwork();
-    final  descriptorKey = await createDerivedKey(
+    final descriptorKey = await createDerivedKey(
         network: network,
         password: password,
         mnemonic: mnemonic.toString(),
-        path: descriptorPath ??  "m/84'/1'/0'/0");
-    final  changeDescriptorKey = await createDerivedKey(
+        path: descriptorPath ?? DEFAUTLT_DESCRIPTOR_PATH);
+    final changeDescriptorKey = await createDerivedKey(
         network: network,
         password: password,
         mnemonic: mnemonic.toString(),
-        path: changeDescriptorPath ??  "m/84'/1'/0'/1");
+        path: changeDescriptorPath ?? DEFAUTLT_CHANGE_DESCRIPTOR_PATH);
     final res = _createDescriptor(
         threshold: threshold,
         publicKeys: publicKeys,
@@ -451,30 +422,28 @@ Future<WalletDescriptor> createDescriptors(
 
 WalletDescriptor _createMultiSigDescriptor(
     {List<String>? publicKeys,
-      int threshold = 2,
-      required String descriptorKey,
-      String? changeDescriptorKey}) {
+    int threshold = 2,
+    required String descriptorKey,
+    String? changeDescriptorKey}) {
   if (publicKeys == null) {
     throw const KeyException.invalidPublicKey("Public keys must not be null");
   }
   if (threshold == 0 || threshold > publicKeys.length + 1) {
     throw const KeyException.invalidThresholdValue();
   }
-  return PathDescriptor(
+  return WalletDescriptor(
       descriptor:
           "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
-      changeDescriptor: (changeDescriptorKey == null ||
-              changeDescriptorKey == "")
-          ? ""
-          : "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
+      changeDescriptor:
+          "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
 }
 
 WalletDescriptor _createDescriptor(
     {required String descriptorKey,
-      String? changeDescriptorKey,
-      required Descriptor type,
-      List<String>? publicKeys,
-      int? threshold = 4}) {
+    String? changeDescriptorKey,
+    required Descriptor type,
+    List<String>? publicKeys,
+    int? threshold = 4}) {
   switch (type) {
     case Descriptor.P2PKH:
       return WalletDescriptor(

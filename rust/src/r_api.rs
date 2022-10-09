@@ -12,11 +12,9 @@ use crate::utils::{
     config_word_count
 };
 use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain, GetBlockHash, GetHeight};
-use bdk::wallet::export::FullyNodedExport;
 use bdk::{ Error, KeychainKind};
 use lazy_static::lazy_static;
 use std::ops::Deref;
-use std::str::FromStr;
 use std::sync::{Arc, RwLock};
 
 lazy_static! {
@@ -103,30 +101,6 @@ pub fn wallet_init(
     set_bdk_info(blockchain.clone(), wallet.clone())
 }
 
-pub fn export_wallet(wallet_name: String) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let export = FullyNodedExport::export_wallet(wallet.get_wallet().deref(), &*wallet_name, true)
-        .map_err(ToString::to_string)
-        .map_err(bdk::Error::Generic)
-        .unwrap();
-    export.to_string()
-}
-pub fn import_wallet(
-    json_wallet: String,
-    network: Network,
-    blockchain_config: BlockchainConfig,
-    database_config: DatabaseConfig,
-) {
-    let import = FullyNodedExport::from_str(&*json_wallet).unwrap();
-    wallet_init(
-        import.descriptor(),
-        import.change_descriptor(),
-        network,
-        blockchain_config,
-        database_config,
-    );
-}
 //Return the “public” version of the wallet’s descriptor, meaning a new descriptor that has the same structure but with every secret key removed
 pub fn get_public_descriptor() -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
@@ -272,21 +246,6 @@ pub fn create_multi_sig_transaction(recipients: Vec<AddressAmount>, fee_rate: f3
     psbt.unwrap().serialize()
 }
 
-
-
-
-// pub fn parse_mnemonic(mnemonic:String) -> Option<String> {
-//     match  Mnemonic::parse_normalized(mnemonic.clone().as_str()){
-//         Ok(_) => Some(mnemonic),
-//         Err(e) => None
-//         ///TODO: IMPLEMENT ERROR HANDLING
-//         //     {
-//         //    //  let error = handle_keys_error(e);
-//         //    // return Err(error);
-//         // }
-//     }
-// }
-
 pub fn sign_and_broadcast(psbt_str: String) -> String {
     let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
     let wallet = bdk_info.wallet.unwrap();
@@ -332,22 +291,7 @@ mod tests {
     };
     use bdk::bitcoin::Address;
     use bdk::bitcoin::Network as BdkNetwork;
-    #[test]
-    fn export_wallet_test() {
-        _init_wallet();
-        let res = export_wallet("Default".to_string());
-        let resp = import_wallet(res.clone(), Network::TESTNET, BlockchainConfig::ELECTRUM {
-            config: ElectrumConfig {
-                url: "ssl://electrum.blockstream.info:60002".to_string(),
-                socks5: None,
-                retry: 10,
-                timeout: None,
-                stop_gap: 10
-            }
-        }, DatabaseConfig::MEMORY);
-        println!("{}",res);
-        assert_eq!( true, res.contains("Default"),);
-    }
+
     #[test]
     fn psbt_similarity_test() {
         _init_wallet();
@@ -410,8 +354,6 @@ mod tests {
 
     fn _init_wallet() {
         wallet_init(
-            // "wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/0/*)".to_string(),
-            // Some("wpkh([c258d2e4/84h/1h/0h]tpubDDYkZojQFQjht8Tm4jsS3iuEmKjTiEGjG6KnuFNKKJb5A6ZUCUZKdvLdSDWofKi4ToRCwb9poe1XdqfUnP4jaJjCB2Zwv11ZLgSbnZSNecE/1/*)".to_string()),
             "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
             Some("".to_string()),
 

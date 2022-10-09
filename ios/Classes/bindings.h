@@ -105,14 +105,6 @@ void wire_wallet_init(int64_t port_,
                       struct wire_BlockchainConfig *blockchain_config,
                       struct wire_DatabaseConfig *database_config);
 
-void wire_export_wallet(int64_t port_, struct wire_uint_8_list *wallet_name);
-
-void wire_import_wallet(int64_t port_,
-                        struct wire_uint_8_list *json_wallet,
-                        int32_t network,
-                        struct wire_BlockchainConfig *blockchain_config,
-                        struct wire_DatabaseConfig *database_config);
-
 void wire_get_public_descriptor(int64_t port_);
 
 void wire_get_descriptor_for_keychain(int64_t port_, int32_t keychain_kind_str);
@@ -193,8 +185,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_create_key);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret_keys);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
-    dummy_var ^= ((int64_t) (void*) wire_export_wallet);
-    dummy_var ^= ((int64_t) (void*) wire_import_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_public_descriptor);
     dummy_var ^= ((int64_t) (void*) wire_get_descriptor_for_keychain);
     dummy_var ^= ((int64_t) (void*) wire_get_descriptor_checksum);

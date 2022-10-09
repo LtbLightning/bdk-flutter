@@ -1,12 +1,11 @@
 ## Bdk-Flutter
-A Flutter version of the Bitcoin Development Kit (https://bitcoindevkit.org/)
+A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)
 
 
 ## Table of Contents
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Building Binary Files](#building-binary-files)
 - [Usage](#usage)
 - [Library API](#library-api)
 
@@ -22,35 +21,21 @@ A Flutter version of the Bitcoin Development Kit (https://bitcoindevkit.org/)
 
 * Android minSdkVersion.     : API 23 or higher.
 * Android Target SDK version : API 29.
-* Android Gradle Plugin      : 3.0.0 or greater.
 
 
 ### iOS
 
 * iOS Base SDK      : 12 or greater.
 * Deployment target : iOS 12.0 or greater.
-* Cocoapods         : 1.11.3 or greater
 
 
 ## Installation
 
-From Github (copy and paste the following code to pubsepc.yaml):
-
-```bash
-bdk_flutter:
-    git:
-      url: https://github.com/LtbLightning/bdk-flutter.git
-      ref: main
-```
-
-## Building Binary Files
-```
-Please re-built your app in an android device or an emulator, after including the dependency in your pubspec.yaml, to build the necessary files.
-```
+To use this plugin, add bdk-flutter as a dependency in your pubspec.yaml file.
 
 ### Configuring iOS
 
-Please navigate to the iOS folder in your project run the following command:
+Please navigate to the iOS folder in your project and run the following command:
 ```
 pod install
 ```
@@ -82,11 +67,11 @@ The following methods can be used with this module. All methods can be called by
 | Method                                         | Request Parameters                                                                         |
 | ---------------------------------              | ------------------------------------------------------------------------------------------ |
 | [generateMnemonic()](#generateMnemonic)        | - wordCount, entropy                                                                       |
+| [createDescriptors()](#createDescriptors)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
+| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig              |     
 | [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
-| [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |
-| [createDescriptors()](#createDescriptors)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
-| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig|                                                                                                                                                 
+| [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |                                                                                                                                
 | [getNewAddress()](#getNewAddress)              | -                                                                                          | 
 | [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
 | [getBalance()](#getbalance)                    | -                                                                                          |
@@ -102,11 +87,15 @@ The following methods can be used with this module. All methods can be called by
 ---
 
 ### generateMnemonic()
-Generate a random mnemonic seed phrase.<br />
+Generates a random mnemonic seed phrase.<br />
 Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic <br />
-This will generate a mnemonic sentence from the English word list. The required entropy can be specified as the entropy parameter and 
-can be in multiples of 64 from 128 to 256, 128 is used as default. A word count or length can be specified instead as the length 
-parameter and can be in multiples of 6 from 12 to 24. 12 is used as default.
+This will generate a mnemonic sentence from the English word list. 
+
+The required `entropy` can be specified as the entropy parameter and 
+can be in multiples of `64` from `128 to 256`, `128` is used as default. 
+
+A `wordCount` or length can be specified instead as the length 
+parameter and can be in multiples of `6` from `12 to 24`.
 
 ```dart
 
@@ -122,10 +111,117 @@ Returned response example:
 ```
 ---
 
+### createDescriptors()
+
+Create a `WalletDescriptor` object containing a descriptor and a change descriptor, using `xprv` or `mnemonic`.
+
+`xprv` will be used if passed otherwise `mnemonic`, `network` and `password` will be used.
+
+`type` is an enum and can be one of `P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI`. `P2WPKH` is used as default.
+
+If `type` is `MULTI` then need to specify the signature `threshold` and `publicKeys` array.
+`path` is optional, `m/84'/1'/0'/0` is used by default
+
+
+```dart
+
+final  response = createDescriptor(  network: Network.TESTNET, 
+                                     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
+				     password: '', 
+				     type: Descriptor.P2WPKH,
+				     descriptorPath: "m/84'/1'/0'/0",
+                                     changeDescriptorPath: "m/84'/1'/0'/1",
+				  );
+
+```
+Returned response example:
+```dart
+
+{
+
+descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)"
+changeDescriptor: "wpkh([d91e6add/84'/1'/0'/1]tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)"
+
+ }
+
+```
+---
+
+
+### createWallet()
+
+Creates a new wallet. A wallet can be created using a `mnemonic` or `wallet output descriptor`.
+
+#### Creating a wallet using `mnemonic`
+
+To create a wallet with a `mnemonic`, menmonic argument has to be specified and `descriptor` and `changeDescriptor` should not be specified.
+All other parameters are optional and will take `default` values if not specified.
+A known `mnemonic` can be used when restoring a wallet, or a new `mnemonic` can be created using `generateMnemonic` method.
+
+
+```dart
+                                                
+final response  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch",
+                                                    password: "password",
+                                                    network: Network.TESTNET,
+                                                    blockchainConfig: BlockchainConfig.electrum
+						    (
+						        config: ElectrumConfig(
+                                                                   stopGap: 10,
+								   timeout: 5,
+								   retry: 5,
+                                                                   url: "ssl://electrum.blockstream.info:60002")
+						     )
+                                                    
+                                                 );
+						 
+final response  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch" );						 
+						    
+```
+
+#### Creating a wallet using `descriptor`.
+
+A `descriptor` has to be specified and mnemonic should not be specified. All other arguments are optional and will take `default` values when not specified.
+A known `descriptor` and `changeDescriptor` can be used. `createDescritpors` method can be used to create a `descriptor` and `changeDescriptor`
+
+
+```dart
+final response  =  await BdkFlutter().createWallet( changeDescriptor: "wpkh([d91e6add/84'/1'/0'/1]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)",
+                                                    descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)",
+                                                    network: Network.TESTNET,
+						    blockchainConfig: BlockchainConfig.electrum
+						    (
+						        config: ElectrumConfig(
+                                                                   stopGap: 10,
+                                                                   retry: 5,
+                                                                   url: "ssl://electrum.blockstream.info:60002")
+						     )
+                                                    
+                                                 );						 
+
+
+final response  =  await BdkFlutter().createWallet( descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)" );
+						 
+```						 
+                                                
+Returned response example:
+```dart
+
+{
+
+address: "tb1ql5pqtl36xu6z4czdvsd9lr5fa6fyld49dff4gw"
+balance: 100000
+
+}
+
+```
+
+---
+
 
 ### createExtendedKey()
-This method will create an ExtendedKeyInfo object using the specified mnemonic seed phrase and password. 
-ExtendedKeyInfo creates a key object which encapsulates the mnemonic and adds a private key using the mnemonic and password.
+This method will create an `ExtendedKeyInfo` object using the specified `mnemonic` seed phrase and password. 
+`ExtendedKeyInfo` creates a key object which encapsulates the mnemonic and adds a `private key` using the mnemonic and password.
 
 The extended key info object is required to be passed as an argument in some bdk methods.
 
@@ -150,11 +246,11 @@ Returned response example:
 
 
 ### createXprv()
-Creates the private key using mnemonic phrase and password.
+Creates the `private key` using `mnemonic` phrase and password.
 
 ```dart
 
-final  response = await createXprv(  network: Network.TESTNET, 
+final response = await createXprv(  network: Network.TESTNET, 
                                      mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise', 
 				     password: '' 
 				  );
@@ -170,7 +266,7 @@ Returned response example:
 
 
 ### createXpub()
-Creates the public key using mnemonic phrase and password.
+Create the `public key` using a `mnemonic` phrase and password.
 
 ```dart
 
@@ -189,92 +285,8 @@ Returned response example:
 ---
 
 
-### createDescriptors()
-Create a WalletDescriptor object containing descriptor and changedescriptor using xprv or mnemonic.
-Xprv will be used if passed otherwise mnemonic, network and password will be used.
-Type is an enum and can be one of P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI. P2WPKH is used as default.
-
-If type is MULTI then need to specify the signature threshold and publicKeys array.
-
-```dart
-
-final  response = createDescriptor(  network: Network.TESTNET, 
-                                     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
-				     password: '', 
-				     type: Descriptor.P2WPKH,
-				     descriptorPath: "m/84'/0'/0'",
-                                     changeDescriptorPath: "m/84'/0'/1'",
-				  );
-
-```
-Returned response example:
-```dart
-
-{
-
-descriptor: "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)"
-changeDescriptor: "wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)"
-
- }
-
-```
----
-
-
-### createWallet()
-
-Create a new wallet.
-
-User can specify their custom mnemonic (OR can generate from generateMnemonic() method), password, network, blockchainConfig, walletDescriptor and pass to createWallet.
-If any of the values are not specified, the default values will be used instead of it, except for the case of password and mnemonic, in which case will be generated automatically and an empty password will be applied to createWallet.
-In the case of a multi-sig wallet, you can generate a custom descriptor using createDescriptor() and pass Descriptor.MULTI type.
-
-```dart
-
-final response  =  await BdkFlutter().createWallet(  descriptor: descriptor,
-                                                    changeDescriptor: changeDescriptor,
-                                                    network: Network.TESTNET,
-						    blockchainConfig: BlockchainConfig.electrum
-						    (
-						        config: ElectrumConfig(
-                                                                   stopGap: 10,
-                                                                   retry: 5,
-                                                                   url: "ssl://electrum.blockstream.info:60002")
-						     )
-                                                    
-                                                 );
-                                                
-final response  =  await BdkFlutter().createWallet(  mnemonic: mnemonic,
-                                                    password: password,
-                                                    network: Network.TESTNET,
-                                                    blockchainConfig: BlockchainConfig.electrum
-						    (
-						        config: ElectrumConfig(
-                                                                   stopGap: 10,
-                                                                   retry: 5,
-                                                                   url: "ssl://electrum.blockstream.info:60002")
-						     )
-                                                    
-                                                 );
-						    
-```
-Returned response example:
-```dart
-
-{
-
-address: "tb1ql5pqtl36xu6z4czdvsd9lr5fa6fyld49dff4gw"
-balance: 100000
-
-}
-
-```
-
----
-
-
 ### getNewAddress()
-Create a new address for the wallet.
+Creates a new `address` for the wallet.
 
 ```dart
 
@@ -291,7 +303,7 @@ Returned response example:
 
 
 ### getLastUnusedAddress()
-Returns the last unused address of the wallet.
+Returns the `last unused address` of the wallet.
 
 ```dart
 
@@ -309,7 +321,7 @@ Returned response example:
 
 
 ### getBalance()
-Returns the Balance object consisting of spendable, totoal, confirmed, untrustedPending, trustedPending, immature balances of your wallet.
+Returns the `Balance object` consisting of `spendable`, `total`, `confirmed`, `untrustedPending`, `trustedPending`, and `immature` balances of your wallet.
 
 ```dart
 
@@ -327,7 +339,7 @@ Returned response example:
 
 
 ### getTransactions()
-Returns a list of all the transactions made.
+Returns a list of all the `transactions` made.
 
 ```dart
 
@@ -351,7 +363,7 @@ Returned response example:
 
 
 ### getPendingTransactions()
-Returns the list of unconfirmed transactions.
+Returns the list of `unconfirmed` transactions.
 
 ```dart
 
@@ -375,7 +387,7 @@ Returned response example:
 
 
 ### getConfirmedTransactions()
-Returns the list of confirmed transactions.
+Returns the list of `confirmed` transactions.
 
 ```dart
 
@@ -399,7 +411,7 @@ Returned response example:
 
 
 ### syncWallet()
-Syncs the wallet.
+`Syncs` the wallet.
 
 ```dart
 
@@ -409,7 +421,7 @@ final response = await BdkWallet().syncWallet();
 
 
 ### createTx()
-Creates bitcoin transaction. This can transaction can later be signed and broadcast. The transaction created is a Partially Signed Bitcoin Transaction(psbt).<br />
+Creates a `bitcoin transaction`. This can transaction can later be signed and broadcast. The transaction created is a `Partially Signed Bitcoin Transaction(psbt)`.<br />
 Required params: address, amount, feeRate
 
 ```dart
@@ -429,7 +441,7 @@ Returned response example:
 
 
 ### signTx()
-Signs a bitcoin transaction with the associated private key as per the descriptor used to create the wallet. The method accepts an unsigned Partially Signed Bitcoin Transaction(psbt) and returns a signed psbt.<br />
+Signs a bitcoin transaction with the associated private key as per the descriptor used to create the wallet. The method accepts an unsigned `Partially Signed Bitcoin Transaction(psbt)` and returns a signed `psbt`.<br />
 Required params: psbt (Partially Signed Bitcoin Transaction)
 
 ```dart
@@ -469,7 +481,7 @@ Returned response example:
 
 
 ### quickSend()
-Create a Partially Signed Bitcoin Transaction, Sign the transaction and Broadcast  to the given address.<br />
+Creates a `Partially Signed Bitcoin Transaction`, `Signs` the transaction, and `Broadcasts` to the given address.<br />
 .<br />
 Required params: address, amount, feeRate
 
