@@ -29,6 +29,7 @@ class BdkFlutter {
       }
       if (descriptor != null ) {
         await loaderApi.walletInit(
+            descriptor: descriptor!,
             descriptor: descriptor.toString(),
             changeDescriptor: changeDescriptor,
             network: network,
@@ -255,7 +256,8 @@ class BdkFlutter {
   Future<String> signTx({required String psbt}) async {
     try {
       final sbt = await loaderApi.sign(psbtStr: psbt);
-      if(sbt ==null ) throw const BroadcastException.unexpected("Unable to sign transaction");
+      if (sbt == null)
+        throw const BroadcastException.unexpected("Unable to sign transaction");
       return sbt.toString();
     } on FfiException catch (e) {
       throw BroadcastException.unexpected(e.message);
@@ -379,9 +381,9 @@ Future<ExtendedKeyInfo> createExtendedKey(
 
 Future<DerivedKeyInfo> createDerivedKey(
     {required Network network,
-      required String mnemonic,
-      String? path ,
-      String? password = ''}) async {
+    required String mnemonic,
+    String? path,
+    String? password = ''}) async {
   try {
     if (!isValidMnemonic(mnemonic.toString())) {
       throw const KeyException.badWordCount(
@@ -458,9 +460,13 @@ WalletDescriptor _createMultiSigDescriptor(
   if (threshold == 0 || threshold > publicKeys.length + 1) {
     throw const KeyException.invalidThresholdValue();
   }
-  return WalletDescriptor(
-      descriptor: "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
-      changeDescriptor:"wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))" );
+  return PathDescriptor(
+      descriptor:
+          "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
+      changeDescriptor: (changeDescriptorKey == null ||
+              changeDescriptorKey == "")
+          ? ""
+          : "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
 }
 
 WalletDescriptor _createDescriptor(
