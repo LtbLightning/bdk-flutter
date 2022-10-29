@@ -1,5 +1,5 @@
 library bdk_flutter;
 export './src/root.dart';
-export './src/enums/bdk_enums.dart';
+export 'src/utils/default.dart';
+export 'src/utils/constants.dart';
 export './src/generated/bindings.dart';
-export './src/utils/utils.dart';

@@ -1,4 +1,4 @@
-       #This is a script which is not being used at the moment but keeping in the repository in case it is required in the future
+#This is a script which is not being used at the moment but keeping in the repository in case it is required in the future
        if [ -d "../android/src/main/jniLibs" ]; then rm -r ../android/src/main/jniLibs
         fi
         if [ -e "../ios/librust.a" ]; then rm ../ios/librust.a

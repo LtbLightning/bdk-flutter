@@ -1,5 +1,5 @@
 ## Bdk-Flutter
-A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)
+A Flutter implementation of the  [Bitcoin Development Kit](https://bitcoindevkit.org/)
 
 
 ## Table of Contents
@@ -42,7 +42,7 @@ pod install
 
 ## Sample applications
 * **BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
-  is a simple bitcoin app built in flutter to serve as a reference app to demonstrate bdk-flutter api usage.
+  is a simple testnet Bitcoin wallet built as a reference app for the bdk-flutter on Flutter.
 
 
 ## Usage
@@ -67,7 +67,7 @@ The following methods can be used with this module. All methods can be called by
 | Method                                         | Request Parameters                                                                         |
 | ---------------------------------              | ------------------------------------------------------------------------------------------ |
 | [generateMnemonic()](#generateMnemonic)        | - wordCount, entropy                                                                       |
-| [createDescriptors()](#createDescriptors)        | - xprv, type, mnemonic, network, password, publicKeys, threshold , descriptorPath, changeDescriptorPath|
+| [createDescriptors()](#createDescriptors)      | - xprv, type, mnemonic, network, password, publicKeys, threshold , derivationPath    |
 | [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig              |     
 | [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
 | [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
@@ -89,12 +89,12 @@ The following methods can be used with this module. All methods can be called by
 ### generateMnemonic()
 Generates a random mnemonic seed phrase.<br />
 Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic <br />
-This will generate a mnemonic sentence from the English word list. 
+This will generate a mnemonic sentence from the English word list.
 
-The required `entropy` can be specified as the entropy parameter and 
-can be in multiples of `64` from `128 to 256`, `128` is used as default. 
+The required `entropy` can be specified as the entropy parameter and
+can be in multiples of `64` from `128 to 256`, `128` is used as default.
 
-A `wordCount` or length can be specified instead as the length 
+A `wordCount` or length can be specified instead as the length
 parameter and can be in multiples of `6` from `12 to 24`.
 
 ```dart
@@ -113,25 +113,25 @@ Returned response example:
 
 ### createDescriptors()
 
-Create a `WalletDescriptor` object containing a descriptor and a change descriptor, using `xprv` or `mnemonic`.
+Create a `WalletDescriptor` object containing a descriptor and a change descriptor, using `xprv`  or `mnemonic`.
 
-`xprv` will be used if passed otherwise `mnemonic`, `network` and `password` will be used.
+`xprv` or `xpub` will be used if passed otherwise `mnemonic`, `network` and `password` will be used depending on the availability.
 
 `type` is an enum and can be one of `P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI`. `P2WPKH` is used as default.
 
 If `type` is `MULTI` then need to specify the signature `threshold` and `publicKeys` array.
-`path` is optional, `m/84'/1'/0'/0` is used by default
+`derivationPath` is optional, `m/84'/1'/0'` is used by default
 
 
 ```dart
 
-final  response = createDescriptor(  network: Network.TESTNET, 
-                                     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
-				     password: '', 
-				     type: Descriptor.P2WPKH,
-				     descriptorPath: "m/84'/1'/0'/0",
-                                     changeDescriptorPath: "m/84'/1'/0'/1",
-				  );
+final  response = await createDescriptor(   
+                         network: Network.TESTNET, 
+					     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
+					     password: '', 
+					     type: Descriptor.P2WPKH,
+					     derivationPath: "m/84'/1'/0'",
+				         );
 
 ```
 Returned response example:
@@ -139,8 +139,8 @@ Returned response example:
 
 {
 
-descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)"
-changeDescriptor: "wpkh([d91e6add/84'/1'/0'/1]tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)"
+descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)"
+changeDescriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/1/*)"
 
  }
 
@@ -161,21 +161,21 @@ A known `mnemonic` can be used when restoring a wallet, or a new `mnemonic` can 
 
 ```dart
                                                 
-final response  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch",
-                                                    password: "password",
-                                                    network: Network.TESTNET,
-                                                    blockchainConfig: BlockchainConfig.electrum
-						    (
-						        config: ElectrumConfig(
+final aliceWallet  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch",
+                                                       password: "password",
+                                                       network: Network.TESTNET,
+                                                       blockchainConfig: BlockchainConfig.electrum
+						        (
+						         config: ElectrumConfig(
                                                                    stopGap: 10,
 								   timeout: 5,
 								   retry: 5,
                                                                    url: "ssl://electrum.blockstream.info:60002")
-						     )
+						         )
                                                     
-                                                 );
+                                                      );
 						 
-final response  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch" );						 
+final aliceWallet  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch" );						 
 						    
 ```
 
@@ -186,35 +186,28 @@ A known `descriptor` and `changeDescriptor` can be used. `createDescritpors` met
 
 
 ```dart
-final response  =  await BdkFlutter().createWallet( changeDescriptor: "wpkh([d91e6add/84'/1'/0'/1]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)",
-                                                    descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)",
-                                                    network: Network.TESTNET,
-						    blockchainConfig: BlockchainConfig.electrum
-						    (
-						        config: ElectrumConfig(
-                                                                   stopGap: 10,
-                                                                   retry: 5,
-                                                                   url: "ssl://electrum.blockstream.info:60002")
-						     )
+
+final daveWallet  =  await BdkFlutter().createWallet( 
+							descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)"
+							changeDescriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/1/*)"
+							network: Network.TESTNET,
+						        blockchainConfig: BlockchainConfig.electrum
+						         (
+								config: ElectrumConfig(
+									   stopGap: 10,
+									   retry: 5,
+									   url: "ssl://electrum.blockstream.info:60002")
+						          )
                                                     
-                                                 );						 
+                                                      );						 
 
 
-final response  =  await BdkFlutter().createWallet( descriptor: "wpkh([d91e6add/84'/1'/0'/0]tprv8iG3fH5MsxPcQh8jAvtzkbAc4VTvTQB8pdTiNw5ECciipgQkmcmWFCzkgBqocr8TRqnJD6rnnpzo9q7AUzUTJESHL1xQQfktMvG6Z5wDKZs/*)" );
+final aliceWallet  =  await BdkFlutter().createWallet( descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)" );
 						 
 ```						 
                                                 
-Returned response example:
-```dart
+Returns a `BdkWallet` Object:
 
-{
-
-address: "tb1ql5pqtl36xu6z4czdvsd9lr5fa6fyld49dff4gw"
-balance: 100000
-
-}
-
-```
 
 ---
 
@@ -237,8 +230,8 @@ Returned response example:
 ```dart
 
  {
-	    xpub: "tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9"
-	    xprv: "tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9"
+	    xpub: "tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9/*"
+	    xprv: "tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9/*"
  }
  
 ```
@@ -259,7 +252,7 @@ final response = await createXprv(  network: Network.TESTNET,
 Returned response example:
 ```dart
 
-"tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9"
+"tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9/*"
 
 ```
 ---
@@ -279,7 +272,7 @@ final  response = await createXpub(  network: Network.TESTNET,
 Returned response example:
 ```dart
 
-"tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9"
+"tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9/*"
 
 ```
 ---
@@ -290,13 +283,13 @@ Creates a new `address` for the wallet.
 
 ```dart
 
-final response = await BdkFlutter().getNewAddress();
+final response = await aliceWallet.getNewAddress();
 
 ```
 Returned response example:
 ```dart
 
-"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
+"tb1q5knz6ynpzlsnq3ezj97lh99sh3pac6easfml8h"
 
 ```
 ---
@@ -307,14 +300,14 @@ Returns the `last unused address` of the wallet.
 
 ```dart
 
-final response = await BdkFlutter().getLastUnusedAddress();
+final response = await aliceWallet.getLastUnusedAddress();
 
 ```
 
 Returned response example:
 ```dart
 
-"tb1qew48u6cfxladqpumcpzl0svdqyvc9h4rqd3dtw"
+"tb1qrd4qlk3aw9mhn4wn949lfnxw23fgz0sz0kwqrn"
 
 ```
 ---
@@ -325,14 +318,14 @@ Returns the `Balance object` consisting of `spendable`, `total`, `confirmed`, `u
 
 ```dart
 
-final response = await BdkFlutter().getBalance();
+final response = await aliceWallet.getBalance();
 final total    = response.total;
 
 ```
 Returned response example:
 ```dart
 
- "8369", // balance in sats
+ 0 // balance in sats
  
 ```
 ---
@@ -343,19 +336,20 @@ Returns a list of all the `transactions` made.
 
 ```dart
 
-final response = await BdkFlutter().getTransactions();
+final response = await aliceWallet.getTransactions();
 
 ```
 Returned response example:
 ```dart
 
 [
-	{
-	    "received": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	    "sent": "0" // in sats
-	    "fees": "0" // in sats
-	    "txid": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	}
+        {
+          txid: "e686ff52b2dd54fcb078a4c3854ddc8e2a6fbd05ab0d1d58cb2a16f215ff0f64"
+          fee :  141
+          received: 555
+          send: 0
+        }
+	 	
 ]
 
 ```
@@ -367,7 +361,7 @@ Returns the list of `unconfirmed` transactions.
 
 ```dart
 
-final response = await BdkFlutter().getPendingTransactions();
+final response = await aliceWallet.getPendingTransactions();
 
 ```
 Returned response example:
@@ -375,11 +369,11 @@ Returned response example:
 
 [
 	{
-	    "received": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	    "sent": "0" // in sats
-	    "fees": "0" // in sats
-	    "txid": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	}
+          txid: "e686ff52b2dd54fcb078a4c3854ddc8e2a6fbd05ab0d1d58cb2a16f215ff0f64"
+          fee :  141
+          received: 555
+          send: 0
+        }
 ]
 
 ```
@@ -391,7 +385,7 @@ Returns the list of `confirmed` transactions.
 
 ```dart
 
-final response = await BdkFlutter().getConfirmedTransactions();
+final response = await aliceWallet.getConfirmedTransactions();
 
 ```
 Returned response example:
@@ -399,11 +393,11 @@ Returned response example:
 
 [
 	{
-	    "received": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	    "sent": "0" // in sats
-	    "fees": "0" // in sats
-	    "txid": "tb1qxg8g8cdzgs09cttu3y7lc33udqc4wsesunjnhe",
-	}
+          txid: "e686ff52b2dd54fcb078a4c3854ddc8e2a6fbd05ab0d1d58cb2a16f215ff0f64"
+          fee :  141
+          received: 555
+          send: 0
+        }
 ]
 
 ```
@@ -415,7 +409,7 @@ Returned response example:
 
 ```dart
 
-final response = await BdkWallet().syncWallet();
+final response = await BdkWallet()aliceWallet.syncWallet();
 ```
 ---
 
@@ -426,7 +420,7 @@ Required params: address, amount, feeRate
 
 ```dart
 
-final psbt =  await BdkFlutter().createTx(   recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
+final psbt =  await aliceWallet.createTx(   recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
 					     amount: 2000, 
 				             feeRate: 1
 			                 );
@@ -448,7 +442,7 @@ Required params: psbt (Partially Signed Bitcoin Transaction)
 
 final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-final response = await BdkFlutter().signTx(psbt:psbt);
+final response = await aliceWallet.signTx(psbt:psbt);
 
 ```
 Returned response example:
@@ -468,7 +462,7 @@ Required params: sbt ( Signed Bitcoin Transaction)
 
 final sbt = 'cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA'; // psbt id from createPartiallySignedTransaction()
 
-final response = await BdkFlutter().broadcastTx(sbt:sbt);
+final response = await aliceWallet.broadcastTx(sbt:sbt);
 
 ```
 Returned response example:
@@ -487,17 +481,17 @@ Required params: address, amount, feeRate
 
 ```dart
 
-final response = await BdkFlutter().quickSend( recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
-					       amount: 2000, 
-					       feeRate: 1
-					    );
+final response = await aliceWallet.quickSend( recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t',
+amount: 2000,
+feeRate: 1
+);
 
 ```
 Returned response example:
 ```dart
 
- "9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
- 
+"9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
+
 ```
 ---
 

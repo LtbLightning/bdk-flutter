@@ -1,160 +1,54 @@
-use crate::ffi::{
-    generate_mnemonic_from_entropy, generate_mnemonic_from_word_count, get_extended_key_info,
-    AddressAmount, AddressIndex, Balance, DerivationPath, DescriptorSecretKey, LocalUtxo,
-    PartiallySignedBitcoinTransaction, Transaction, TransactionDetails, TxBuilder, Wallet,
-};
-use crate::types::{
-    BdkInfo, BlockchainConfig, DatabaseConfig, DerivedKeyInfo, Entropy, ExtendedKeyInfo,
-    KeyChainKind, Network, ResponseWallet, WordCount,
-};
-use crate::utils::{
-    config_bdk_network, config_blockchain, config_entropy, config_keychain_kind, config_network,
-    config_word_count
-};
-use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain, GetBlockHash, GetHeight};
-use bdk::{ Error, KeychainKind};
+use std::collections::hash_map::DefaultHasher;
+use std::collections::HashMap;
+use std::hash::{Hash, Hasher};
+use crate::ffi::{generate_mnemonic_from_word_count, DerivationPath, DescriptorSecretKey,PartiallySignedBitcoinTransaction, Wallet,   to_script_pubkey, DescriptorPublicKey, Address, Script};
+use crate::types::{ScriptAmount, BlockchainConfig, DatabaseConfig, Network, WordCount, TransactionDetails, AddressInfo, AddressIndex, Balance, OutPoint, LocalUtxo, DescriptorKeyType, TxBuilderResult};
+use crate::utils::{config_bdk_network, config_blockchain,  config_network, config_word_count};
+use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain,  GetBlockHash, GetHeight};
+use bdk::{Error, FeeRate};
 use lazy_static::lazy_static;
 use std::ops::Deref;
-use std::sync::{Arc, RwLock};
+use std::str::FromStr;
+use std::sync::{Arc, Mutex, RwLock};
+use bdk::bitcoin::hashes::hex::ToHex;
+use bdk::bitcoin::{ Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
+use bdk::wallet::tx_builder::ChangeSpendPolicy;
 
 lazy_static! {
-    static ref BDKINFO: RwLock<Option<BdkInfo>> = RwLock::new(None);
+      static ref BLOCKCHAIN: RwLock<HashMap<String, Arc<AnyBlockchain>>> = RwLock::new(HashMap::new());
+     static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
 }
-fn set_bdk_info(
-    blockchain: Arc<AnyBlockchain>,
-    wallet: Arc<Wallet>
-) {
-    let bdk_info = BdkInfo {
-        wallet: Some(wallet),
-        blockchain: Some(blockchain),
-    };
-    let mut b_info = BDKINFO.write().unwrap();
-    *b_info = Some(bdk_info);
+fn to_hash(str:String)->u64{
+    let mut hasher = DefaultHasher::new();
+    str.clone().hash(&mut hasher);
+    let x =  hasher.finish();
+    x
 }
-pub fn generate_seed_from_entropy(entropy: Entropy) -> String {
-    let entropy_u8 = config_entropy(entropy);
-    let mnemonic = generate_mnemonic_from_entropy(entropy_u8);
-    mnemonic.to_string()
+//========Blockchain==========
+fn get_blockchain_(blockchain_id:String, blockchain_map:HashMap<String, Arc<AnyBlockchain>>) ->Result<Arc<AnyBlockchain>, Error>{
+    let blockchain = blockchain_map.get(blockchain_id.as_str()).unwrap();
+    Ok(blockchain.clone())
 }
 
-pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
-    let word_count = config_word_count(word_count);
-    let mnemonic = generate_mnemonic_from_word_count(word_count);
-    mnemonic.to_string()
-}
-pub fn create_key(
-    node_network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> ExtendedKeyInfo {
-    let node_network = config_network(node_network);
-    let response = get_extended_key_info(node_network, mnemonic, password);
-    return response;
-}
-pub fn create_descriptor_secret_keys(
-    node_network: Network,
-    mnemonic: String,
-    path: String,
-    password: Option<String>,
-) -> DerivedKeyInfo {
-    let descriptor_secret = get_descriptor_secret_key(mnemonic.clone(), node_network, password);
-    let derived_secret = derive_dsk(&descriptor_secret, path.as_str()).unwrap();
-    let response = DerivedKeyInfo {
-        xprv: derived_secret.as_string(),
-        xpub: derived_secret.as_public().as_string(),
-    };
-    return response;
+pub fn blockchain_init( config:BlockchainConfig) -> String{
+    let blockchain_obj = Arc::new(config_blockchain(config));
+    let mut any_blockchain = BLOCKCHAIN.write().unwrap();
+    let hash =    to_hash(blockchain_obj.clone().get_height().unwrap().to_string()).to_hex();
+    let mut blockchain_map = any_blockchain.clone();
+    blockchain_map.insert(hash.clone(), blockchain_obj.clone());
+    *any_blockchain = blockchain_map;
+    hash
 }
 
-fn get_descriptor_secret_key(
-    mnemonic: String,
-    network: Network,
-    password: Option<String>,
-) -> DescriptorSecretKey {
-    let node_network = config_network(network);
-    DescriptorSecretKey::new(node_network, mnemonic, password).unwrap()
-}
-
-fn derive_dsk(key: &DescriptorSecretKey, path: &str) -> Result<Arc<DescriptorSecretKey>, Error> {
-    let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
-    key.derive(path)
-}
-pub fn wallet_init(
-    descriptor: String,
-    change_descriptor: Option<String>,
-    network: Network,
-    blockchain_config: BlockchainConfig,
-    database_config: DatabaseConfig,
-) {
-    let node_network = config_network(network.clone());
-    let blockchain_obj = config_blockchain(blockchain_config);
-    let wallet_obj = Wallet::new(
-        descriptor.clone(),
-        change_descriptor,
-        node_network,
-        database_config,
-    )
-        .unwrap();
-    let blockchain = Arc::new(blockchain_obj);
-    let wallet = Arc::new(wallet_obj);
-    wallet.sync(&blockchain.clone());
-    set_bdk_info(blockchain.clone(), wallet.clone())
-}
-
-//Return the “public” version of the wallet’s descriptor, meaning a new descriptor that has the same structure but with every secret key removed
-pub fn get_public_descriptor() -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let res = wallet
-        .wallet_mutex
-        .lock()
-        .unwrap()
-        .public_descriptor(KeychainKind::External)
-        .unwrap()
-        .unwrap()
-        .to_string();
-    res
-}
-//Returns the descriptor used to create addresses for a particular keychain.
-pub fn get_descriptor_for_keychain(keychain_kind_str: KeyChainKind) -> String {
-    let keychain_kind = config_keychain_kind(keychain_kind_str);
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    wallet.get_descriptor_for_keychain(keychain_kind).unwrap()
-}
-//Return the checksum of the public descriptor associated to keychain
-// Internally calls
-pub fn get_descriptor_checksum(keychain_kind_str: KeyChainKind) -> String {
-    let keychain_kind = config_keychain_kind(keychain_kind_str);
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    wallet.get_descriptor_checksum(keychain_kind).unwrap()
-}
-
-pub fn get_wallet() -> ResponseWallet {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    wallet.sync(blockchain.deref());
-    ResponseWallet {
-        balance: get_balance(),
-        address: get_new_address(),
-    }
-}
-pub fn get_wallet_network() -> Network {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let network = config_bdk_network(wallet.get_network());
-    network
-}
-pub fn get_blockchain_height() -> u32 {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
+pub fn get_blockchain_height(blockchain_id:String) -> u32 {
+    let  any_blockchain = BLOCKCHAIN.read().unwrap().clone();
+    let blockchain = get_blockchain_(blockchain_id,  any_blockchain).unwrap();
     blockchain.get_height().unwrap()
 }
-pub fn get_blockchain_hash(blockchain_height: u64) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
+
+pub fn get_blockchain_hash(blockchain_height: u64, id:String) -> String {
+    let  any_blockchain = BLOCKCHAIN.read().unwrap().clone();
+    let blockchain = get_blockchain_(id,  any_blockchain).unwrap();
     let x = blockchain
         .get_block_hash(blockchain_height)
         .unwrap()
@@ -162,244 +56,425 @@ pub fn get_blockchain_hash(blockchain_height: u64) -> String {
         .to_string();
     x
 }
-pub fn sync_wallet() {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    wallet.sync(blockchain.deref());
-}
 
-pub fn get_balance() -> Balance {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let balance = wallet.get_balance().unwrap();
-    balance
-}
-//Return the list of unspent outputs of this wallet
-pub fn list_unspent_outputs() -> Vec<LocalUtxo> {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let unspent = wallet.list_unspent();
-    unspent.unwrap()
-}
-//Return a derived address using the external descriptor,
-pub fn get_new_address() -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let address = wallet.get_address(AddressIndex::New).unwrap().address;
-    address
-}
-//Return a derived address using the internal (change) descriptor.
-// If the wallet doesn’t have an internal descriptor it will use the external descriptor.
-pub fn get_new_internal_address() -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let address = wallet
-        .get_internal_address(AddressIndex::New)
-        .unwrap()
-        .address;
-    address
-}
-
-pub fn get_last_unused_address() -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    wallet.get_address(AddressIndex::LastUnused).unwrap().address
-}
-pub fn get_transaction(txid: String) -> Option<TransactionDetails> {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let response = wallet.get_transaction(txid);
-    match response.as_ref().unwrap().is_some() {
-        true => response.unwrap(),
-        false => None,
-    }
-}
-pub fn get_transactions() -> Vec<Transaction> {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    sync_wallet();
-    let transactions = wallet.get_transactions().unwrap();
-    transactions
-}
-
-pub fn create_transaction(recipient: String, amount: u64, fee_rate: f32) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    sync_wallet();
-    let tx_builder = TxBuilder::new();
-    let psbt = tx_builder
-        .add_recipient(recipient, amount)
-        .fee_rate(fee_rate)
-        .finish(&wallet);
-    psbt.unwrap().serialize()
-}
-
-pub fn create_multi_sig_transaction(recipients: Vec<AddressAmount>, fee_rate: f32) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let tx_builder = TxBuilder::new();
-    let psbt = tx_builder
-        .set_recipients(recipients)
-        .fee_rate(fee_rate)
-        .finish(&wallet);
-    psbt.unwrap().serialize()
-}
-
-pub fn sign_and_broadcast(psbt_str: String) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
+pub fn broadcast(psbt_str: String, blockchain_id:String) -> String {
+    let  any_blockchain = BLOCKCHAIN.read().unwrap().clone();
+    let blockchain = get_blockchain_(blockchain_id,  any_blockchain).unwrap();
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    wallet.sign(&psbt).unwrap();
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-    blockchain.broadcast(&tx).unwrap();
-    sync_wallet();
+    blockchain.broadcast(&tx.clone()).unwrap();
     tx.txid().to_string()
 }
 
-pub fn sign(psbt_str: String) -> Option<String> {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let wallet = bdk_info.wallet.unwrap();
-    sync_wallet();
+//========Psbt==========
+
+pub fn psbt_to_txid(psbt_str:String)-> String{
+    let psbt= PartiallySignedBitcoinTransaction::new(psbt_str);
+    psbt.unwrap().txid().to_string()
+}
+
+pub fn extract_tx(psbt_str:String)->Vec<u8>{
+    let psbt= PartiallySignedBitcoinTransaction::new(psbt_str);
+    psbt.unwrap().extract_tx()
+}
+
+pub fn combine_psbt(psbt_str:String,other:String)-> String{
+    let psbt= PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    let other= PartiallySignedBitcoinTransaction::new(other).unwrap();
+    psbt.combine(Arc::new(other)).unwrap().serialize()
+}
+//========TxBuilder==========
+pub fn tx_builder_finish(
+    wallet_id:String,
+    recipients:Vec<ScriptAmount>,
+    utxos:Vec<OutPoint>,
+    unspendable:Vec<OutPoint>,
+    manually_selected_only:bool,
+    only_spend_change:bool,
+    do_not_spend_change:bool,
+    fee_rate:Option<f32>,
+    fee_absolute:Option<u64>,
+    drain_wallet:bool,
+    drain_to:Option<String>,
+    enable_rbf:bool,
+    n_sequence:Option<u32>,
+    data: Vec<u8>
+) -> TxBuilderResult {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let wallet = wallet.get_wallet();
+    let mut tx_builder = wallet.build_tx();
+    for  e in recipients {
+        let script=  Script::from_hex(e.script);
+        tx_builder.add_recipient(script.script, e.amount);
+    }
+    if do_not_spend_change {
+        tx_builder.change_policy(ChangeSpendPolicy::ChangeForbidden);
+    }
+    if only_spend_change{
+        tx_builder.change_policy(ChangeSpendPolicy::OnlyChange);
+    }
+    tx_builder.change_policy(ChangeSpendPolicy::ChangeAllowed);
+    if !utxos.is_empty() {
+        let bdk_utxos: Vec<BdkOutPoint> = utxos.iter().map(BdkOutPoint::from).collect();
+        let utxos: &[BdkOutPoint] = &bdk_utxos;
+        tx_builder.add_utxos(utxos).unwrap();
+    }
+    if !unspendable.is_empty() {
+        let bdk_unspendable: Vec<BdkOutPoint> = unspendable.iter().map(BdkOutPoint::from).collect();
+        tx_builder.unspendable(bdk_unspendable);
+    }
+    if manually_selected_only {
+        tx_builder.manually_selected_only();
+    }
+    if let Some(sat_per_vb) = fee_rate {
+        tx_builder.fee_rate(FeeRate::from_sat_per_vb(sat_per_vb));
+    }
+    if let Some(fee_amount) = fee_absolute {
+        tx_builder.fee_absolute(fee_amount);
+    }
+    if drain_wallet {
+        tx_builder.drain_wallet();
+    }
+    if let Some(address) = drain_to {
+        tx_builder.drain_to(to_script_pubkey(address.as_str()).unwrap());
+    }
+    if enable_rbf{
+        tx_builder.enable_rbf();
+    }
+    if let Some(n_sequence) = n_sequence {
+        tx_builder.enable_rbf_with_sequence(n_sequence);
+    }
+    if !data.is_empty() {
+
+        tx_builder.add_data(data.as_slice());
+    }
+
+    let (psbt, tx_details) = tx_builder.finish().unwrap();
+    TxBuilderResult {
+        psbt: Arc::new(PartiallySignedBitcoinTransaction {
+            internal: Mutex::new(psbt),
+        }).serialize(),
+        transaction_details: TransactionDetails::from(&tx_details),
+    }
+
+}
+
+//========BumpFeeTxBuilder==========
+pub fn bumb_fee_tx_builder_finish(
+    txid: String,
+    fee_rate: f32,
+    allow_shrinking: Option<String>,
+    wallet_id:String,
+    enable_rbf:bool,
+    n_sequence:Option<u32>,
+)-> String {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let txid = Txid::from_str(txid.as_str()).unwrap();
+    let bdk_wallet =  wallet.get_wallet();
+    let mut tx_builder =bdk_wallet.build_fee_bump(txid).unwrap();
+    tx_builder.fee_rate(FeeRate::from_sat_per_vb(fee_rate));
+    if let Some(allow_shrinking) = &allow_shrinking {
+        let address = BdkAddress::from_str(allow_shrinking).map_err(|e| Error::Generic(e.to_string())).unwrap();
+        let script = address.script_pubkey();
+        tx_builder.allow_shrinking(script).unwrap();
+    }
+    if let Some(n_sequence) = n_sequence {
+        tx_builder.enable_rbf_with_sequence(n_sequence);
+    }
+    if enable_rbf{
+        tx_builder.enable_rbf();
+    }
+    let psbt = tx_builder
+        .finish()
+        .map(|(psbt, _)| PartiallySignedBitcoinTransaction {
+            internal: Mutex::new(psbt),
+        }.serialize());
+    psbt.unwrap()
+}
+
+//================Descriptor Secret=========
+
+pub fn descriptor_secret_as_string( network: Network,
+                                    mnemonic: String,
+                                    password: Option<String>,
+                                    path:Option<String>,
+                                    key_type:DescriptorKeyType) ->String{
+    let res= create_descriptor_secret(network,mnemonic,password,path,key_type);
+    res.as_string()
+}
+pub fn descriptor_secret_as_secret_bytes(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+    path:Option<String>,
+    key_type:DescriptorKeyType
+) -> Vec<u8> {
+    create_descriptor_secret(network,mnemonic,password,path,key_type).secret_bytes()
+}
+pub fn descriptor_secret_as_public(network: Network,
+                                   mnemonic: String,
+                                   password: Option<String>,
+                                   path:Option<String>,
+                                   key_type:DescriptorKeyType
+) ->String{
+    let res= create_descriptor_secret(network, mnemonic,password,path,key_type);
+    res.as_public().as_string()
+}
+fn create_descriptor_secret(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+    path:Option<String>,
+    key_type:DescriptorKeyType
+)-> Arc<DescriptorSecretKey>
+{
+    let node_network =  config_network(network);
+    let res =  DescriptorSecretKey::new(node_network, mnemonic, password).unwrap();
+    let descriptor_secret =  Arc::new(res);
+
+    return if key_type == DescriptorKeyType::DERIVED {
+        let  derivation_path = Arc::new(DerivationPath::new(path.unwrap().to_string()).unwrap());
+        descriptor_secret.derive(derivation_path).unwrap()
+    } else if  key_type == DescriptorKeyType::EXTENDED {
+        let  derivation_path = Arc::new(DerivationPath::new(path.unwrap().to_string()).unwrap());
+        descriptor_secret.extend(derivation_path)
+    } else{
+        descriptor_secret.clone()
+    }
+}
+
+//================Descriptor Public=========
+pub fn descriptor_public_as_string(
+    xpub: Option<String>,
+    path:String,
+    derive:bool
+) ->String{
+    let res= create_descriptor_public(xpub,path,derive);
+    res.as_string()
+}
+fn create_descriptor_public(
+    xpub: Option<String>,
+    path:String,
+    derive:bool
+)-> Arc<DescriptorPublicKey>{
+    let derivation_path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
+    let descriptor_public =   DescriptorPublicKey::from_string(xpub.unwrap()).unwrap();
+    if derive {
+        let derived_public = descriptor_public.clone().derive(derivation_path).unwrap();
+        derived_public
+    } else{
+        let extended_public = descriptor_public.clone().extend(derivation_path);
+        extended_public
+    }
+}
+//============ Script Class===========
+pub fn address_to_script_hex(address:String)-> String{
+    let script = Address::new(address).unwrap();
+    script.script_pubkey().script.to_hex()
+}
+
+//========Wallet==========
+fn set_wallet(
+    wallet: Arc<Wallet>,
+) -> String{
+    let mut wallets = WALLET.write().unwrap();
+    let pub_descriptor = wallet.get_public_descriptor().unwrap().unwrap().to_string();
+    let wallet_id = to_hash(pub_descriptor).to_hex();
+    println!("{}",wallet_id);
+    let mut wallet_map  =  wallets.clone() ;
+    wallet_map.insert(wallet_id.clone(), wallet);
+    *wallets= wallet_map;
+    wallet_id.clone()
+}
+
+
+pub fn wallet_init(
+    descriptor: String,
+    change_descriptor: Option<String>,
+    network: Network,
+    database_config: DatabaseConfig,
+)->
+    String {
+    let node_network = config_network(network.clone());
+    let wallet_obj = Wallet::new(
+        descriptor.clone(),
+        change_descriptor,
+        node_network,
+        database_config,
+    )
+        .unwrap();
+    let wallet = Arc::new(wallet_obj);
+    let id =  set_wallet( wallet.clone());
+    id
+}
+
+fn get_wallet_(wallet_id:String, wallet_map:HashMap<String, Arc<Wallet>>) ->Result<Arc<Wallet>, Error>{
+    let wallet = wallet_map.get(wallet_id.as_str()).unwrap();
+    Ok(wallet.clone())
+}
+//Return a derived address using the external descriptor,
+pub fn get_address(wallet_id:String, address_index:AddressIndex) -> AddressInfo {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let address = wallet.get_address( address_index).unwrap();
+    address
+}
+
+pub fn sync_wallet(wallet_id:String, blockchain_id:String) {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let blockchains = BLOCKCHAIN.read().unwrap().clone();
+    let blockchain = get_blockchain_(blockchain_id, blockchains).unwrap();
+    wallet.sync(blockchain.deref());
+}
+
+pub fn get_balance(wallet_id:String) -> Balance {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let balance = wallet.get_balance().unwrap();
+    balance
+}
+pub fn get_public_descriptor(wallet_id:String) -> String {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let res = wallet.get_public_descriptor().unwrap().unwrap().to_string();
+    res
+}
+//Return the list of unspent outputs of this wallet
+pub fn list_unspent_outputs(wallet_id:String) -> Vec<LocalUtxo> {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let unspent = wallet.list_unspent();
+    unspent.unwrap()
+}
+
+
+
+pub fn get_transactions(wallet_id:String) -> Vec<TransactionDetails> {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    wallet.list_transactions().unwrap()
+}
+
+pub fn sign(wallet_id:String, psbt_str: String, is_multi_sig:bool) -> Option<String> {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
     let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
     return match wallet.sign(&psbt).unwrap() {
         true => {
             Some(psbt.serialize())
         }
-        false => None,
+        false =>{
+            if is_multi_sig { Some(psbt.serialize()) } else { None }
+        },
     };
 }
 
-pub fn broadcast(psbt_str:String) -> String {
-    let bdk_info = BDKINFO.read().unwrap().clone().unwrap();
-    let blockchain = bdk_info.blockchain.unwrap();
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-    blockchain.broadcast(&tx.clone()).unwrap();
-    sync_wallet();
-    tx.txid().to_string()
+pub fn get_network(wallet_id:String)-> Network {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    let network = config_bdk_network(wallet.get_wallet().network());
+    network
 }
+pub fn list_unspent(wallet_id:String) -> Vec<LocalUtxo> {
+    let wallets = WALLET.read().unwrap().clone();
+    let wallet = get_wallet_(wallet_id,wallets).unwrap();
+    wallet.list_unspent().unwrap()
+}
+
+//==================
+
+pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
+    let word_count = config_word_count(word_count);
+    let mnemonic = generate_mnemonic_from_word_count(word_count);
+    mnemonic.to_string()
+}
+
 
 
 #[cfg(test)]
 mod tests {
-    use crate::ffi::PartiallySignedBitcoinTransaction;
-    use crate::r_api::{broadcast, create_transaction, derive_dsk, export_wallet, generate_seed_from_entropy, generate_seed_from_word_count, get_balance, get_descriptor_secret_key, get_new_address, get_transactions, import_wallet, sign, sync_wallet, wallet_init};
-    use crate::types::{
-        BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount,
-    };
-    use bdk::bitcoin::Address;
-    use bdk::bitcoin::Network as BdkNetwork;
-
-    #[test]
-    fn psbt_similarity_test() {
-        _init_wallet();
-        let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
-        let res = sign(psbt.clone());
-        assert_eq!( psbt, res.unwrap(),);
-    }
-
-    #[test]
-    fn create_broadcast_transaction_test() {
-        _init_wallet();
-        let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1000, 1.0);
-        let sbt = sign(psbt.clone());
-        let txid = broadcast(sbt.unwrap());
-        assert_eq!(txid.is_empty(), false);
-    }
-
-    #[test]
-    fn get_balance_test() {
-        _init_wallet();
-        assert_eq!(get_balance().total, 1258813);
-    }
+    use bdk::bitcoin::hashes::hex::FromHex;
+    use bdk::bitcoin::Script;
+    use crate::ffi::to_script_pubkey;
+    use crate::r_api::{generate_seed_from_word_count, get_balance, get_transactions, sync_wallet, wallet_init, blockchain_init, tx_builder_finish, descriptor_secret_as_string, DescriptorKeyType, address_to_script_hex};
+    use crate::types::{ScriptAmount, BlockchainConfig, DatabaseConfig, ElectrumConfig, Entropy, Network, WordCount};
     #[test]
     fn get_transactions_test() {
-        _init_wallet();
-        assert_eq!(get_transactions().is_empty(), false);
+        let wallet_id = _init_wallet();
+        let blockchain_id = _init_blockchain();
+        sync_wallet(wallet_id.clone(), blockchain_id);
+        assert_eq!(get_transactions(wallet_id).is_empty(), false);
     }
 
     #[test]
-    fn get_new_address_test() {
-        _init_wallet();
-        let res = get_new_address();
-        assert_eq!(res, "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt");
+    fn get_wallet_balance_test(){
+        let wallet_id = _init_wallet();
+        let blockchain_id = _init_blockchain();
+        sync_wallet(wallet_id.clone(), blockchain_id);
+        let res = get_balance(wallet_id);
+        assert_eq!(res.total, 1238709)
     }
-
     #[test]
-    fn create_transaction_test() {
-        _init_wallet();
-        let psbt = create_transaction("mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string(), 1200, 1.0);
-        let x = PartiallySignedBitcoinTransaction::new(psbt).unwrap();
-        let script = x
-            .internal
-            .lock()
-            .unwrap()
-            .unsigned_tx
-            .output
-            .get(0)
-            .cloned()
-            .unwrap()
-            .script_pubkey;
-        let output_address = Address::from_script(&script, BdkNetwork::Testnet)
-            .unwrap()
-            .to_string();
-        assert_eq!(
-            output_address,
-            "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt".to_string()
-        );
+    fn to_script(){
+
+        let res = address_to_script_hex("tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt".to_string());
+        let res2 = Script::from_hex(res.as_str()).unwrap().to_string();
+        assert_eq!(res, res2)
+    }
+    #[test]
+    fn tx_builder_test(){
+        let wallet_id = _init_wallet();
+        let blockchain_id = _init_blockchain();
+        sync_wallet(wallet_id.clone(), blockchain_id);
+        let a = tx_builder_finish(
+            wallet_id.clone(),
+            vec![ScriptAmount { script: "0014ff9da567e62f30ea8654fa1d5fbd47bef8e3be13".to_string(), amount: 1200 }],
+            vec![],
+            vec![],
+            false,
+            false,
+            false,
+            Some(1.0),
+            None,
+            false,
+            None,
+            false,
+            None,
+            vec![]);
+        assert_eq!(a.psbt, "1238709")
     }
 
-
-    fn _init_wallet() {
-        wallet_init(
-            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
-            Some("".to_string()),
-
-            Network::TESTNET,
-            BlockchainConfig::ELECTRUM{ config: ElectrumConfig {
+    fn _init_blockchain() -> String{
+        let y = blockchain_init(BlockchainConfig::ELECTRUM {
+            config: ElectrumConfig {
                 url: "ssl://electrum.blockstream.info:60002".to_string(),
                 socks5: None,
                 retry: 10,
                 timeout: None,
-                stop_gap: 10
-            } },
-            DatabaseConfig::MEMORY
-        );
+                stop_gap: 10,
+            }
+        });
+        y
     }
+    fn _init_wallet() -> String {
+        let x = wallet_init(
+            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
+            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
+            Network::TESTNET,
+            DatabaseConfig::MEMORY,
+        );
+        x
+    }
+
     #[test]
     fn generate_mnemonic_word_count_test() {
         let mnemonic = generate_seed_from_word_count(WordCount::WORDS12);
         assert_eq!(mnemonic.split(" ").count(), 12)
     }
 
-    #[test]
-    fn generate_mnemonic_with_entropy_test() {
-        let mnemonic = generate_seed_from_entropy(Entropy::ENTROPY256);
-        assert_eq!(mnemonic.split(" ").count(), 24)
-    }
-    #[test]
-    fn test_derive_hardened_path_using_public() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        let derived_sk = &derive_dsk(&master_dsk, "m/44/0/0/0/0").unwrap();
-        assert_eq!(derived_sk.as_public().as_string(),"[d1d04177/44/0/0/0/0]tpubDH97TH9B3jVk4DodNDKD1HvaXcVU87j4SgGnGWTQq1pRZXCBeZufq3f9xPYQF14sAnL1Pb7WvQ5fZzbSCubTL5LhGFw3tu3DtPomnkKdA9F/*");
-    }
 
-    #[test]
-    fn test_derive_hardened_path_using_private() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        let derived_sk = &derive_dsk(&master_dsk, "m").unwrap();
-        assert_eq!(derived_sk.as_string(),"[d1d04177]tprv8kT5Js6vuMp5AkmqUZecbtGTxayXxnY9sNfzyzR7Qk22j2wR2B65eZ3HnFDFEqULi6kNMhtZLexeD4qoh4kpEoF1LkmPMViwHJRYXPL6EP3/*");
-    }
 
-    #[test]
-    fn test_generate_descriptor_secret_key() {
-        let master_dsk = get_descriptor_secret_key("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string(),
-                                                   Network::TESTNET,None);
-        assert_eq!(master_dsk.as_string(), "tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h/*");
-        assert_eq!(master_dsk.as_public().as_string(), "tpubD6NzVbkrYhZ4WywdEfYbbd62yuvqLjAZuPsNyvzCNV85JekAEMbKHWSHLF9h3j45SxewXDcLv328B1SEZrxg4iwGfmdt1pDFjZiTkGiFqGa/*");
-    }
 }

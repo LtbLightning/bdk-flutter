@@ -15,40 +15,564 @@ use flutter_rust_bridge::*;
 
 // Section: imports
 
-use crate::ffi::AddressAmount;
-use crate::ffi::Balance;
-use crate::ffi::BlockConfirmationTime;
-use crate::ffi::LocalUtxo;
-use crate::ffi::OutPoint;
-use crate::ffi::Transaction;
-use crate::ffi::TransactionDetails;
-use crate::ffi::TxOut;
+use crate::types::AddressIndex;
+use crate::types::AddressInfo;
+use crate::types::Balance;
+use crate::types::BlockTime;
 use crate::types::BlockchainConfig;
 use crate::types::DatabaseConfig;
-use crate::types::DerivedKeyInfo;
+use crate::types::DescriptorKeyType;
 use crate::types::ElectrumConfig;
-use crate::types::Entropy;
 use crate::types::EsploraConfig;
-use crate::types::ExtendedKeyInfo;
-use crate::types::KeyChainKind;
+use crate::types::LocalUtxo;
 use crate::types::Network;
-use crate::types::ResponseWallet;
+use crate::types::OutPoint;
+use crate::types::ScriptAmount;
+use crate::types::SledDbConfiguration;
 use crate::types::SqliteConfiguration;
+use crate::types::TransactionDetails;
+use crate::types::TxBuilderResult;
+use crate::types::TxOut;
 use crate::types::WordCount;
 
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: i32) {
+pub extern "C" fn wire_blockchain_init(port_: i64, config: *mut wire_BlockchainConfig) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_seed_from_entropy",
+            debug_name: "blockchain_init",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_entropy = entropy.wire2api();
-            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
+            let api_config = config.wire2api();
+            move |task_callback| Ok(blockchain_init(api_config))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_blockchain_height(port_: i64, blockchain_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_blockchain_height",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_blockchain_id = blockchain_id.wire2api();
+            move |task_callback| Ok(get_blockchain_height(api_blockchain_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_blockchain_hash(
+    port_: i64,
+    blockchain_height: u64,
+    id: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_blockchain_hash",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_blockchain_height = blockchain_height.wire2api();
+            let api_id = id.wire2api();
+            move |task_callback| Ok(get_blockchain_hash(api_blockchain_height, api_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_broadcast(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+    blockchain_id: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "broadcast",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            let api_blockchain_id = blockchain_id.wire2api();
+            move |task_callback| Ok(broadcast(api_psbt_str, api_blockchain_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_psbt_to_txid(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "psbt_to_txid",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(psbt_to_txid(api_psbt_str))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "extract_tx",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(extract_tx(api_psbt_str))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_combine_psbt(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+    other: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "combine_psbt",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            let api_other = other.wire2api();
+            move |task_callback| Ok(combine_psbt(api_psbt_str, api_other))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_tx_builder_finish(
+    port_: i64,
+    wallet_id: *mut wire_uint_8_list,
+    recipients: *mut wire_list_script_amount,
+    utxos: *mut wire_list_out_point,
+    unspendable: *mut wire_list_out_point,
+    manually_selected_only: bool,
+    only_spend_change: bool,
+    do_not_spend_change: bool,
+    fee_rate: *mut f32,
+    fee_absolute: *mut u64,
+    drain_wallet: bool,
+    drain_to: *mut wire_uint_8_list,
+    enable_rbf: bool,
+    n_sequence: *mut u32,
+    data: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "tx_builder_finish",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_recipients = recipients.wire2api();
+            let api_utxos = utxos.wire2api();
+            let api_unspendable = unspendable.wire2api();
+            let api_manually_selected_only = manually_selected_only.wire2api();
+            let api_only_spend_change = only_spend_change.wire2api();
+            let api_do_not_spend_change = do_not_spend_change.wire2api();
+            let api_fee_rate = fee_rate.wire2api();
+            let api_fee_absolute = fee_absolute.wire2api();
+            let api_drain_wallet = drain_wallet.wire2api();
+            let api_drain_to = drain_to.wire2api();
+            let api_enable_rbf = enable_rbf.wire2api();
+            let api_n_sequence = n_sequence.wire2api();
+            let api_data = data.wire2api();
+            move |task_callback| {
+                Ok(tx_builder_finish(
+                    api_wallet_id,
+                    api_recipients,
+                    api_utxos,
+                    api_unspendable,
+                    api_manually_selected_only,
+                    api_only_spend_change,
+                    api_do_not_spend_change,
+                    api_fee_rate,
+                    api_fee_absolute,
+                    api_drain_wallet,
+                    api_drain_to,
+                    api_enable_rbf,
+                    api_n_sequence,
+                    api_data,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_bumb_fee_tx_builder_finish(
+    port_: i64,
+    txid: *mut wire_uint_8_list,
+    fee_rate: f32,
+    allow_shrinking: *mut wire_uint_8_list,
+    wallet_id: *mut wire_uint_8_list,
+    enable_rbf: bool,
+    n_sequence: *mut u32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "bumb_fee_tx_builder_finish",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_txid = txid.wire2api();
+            let api_fee_rate = fee_rate.wire2api();
+            let api_allow_shrinking = allow_shrinking.wire2api();
+            let api_wallet_id = wallet_id.wire2api();
+            let api_enable_rbf = enable_rbf.wire2api();
+            let api_n_sequence = n_sequence.wire2api();
+            move |task_callback| {
+                Ok(bumb_fee_tx_builder_finish(
+                    api_txid,
+                    api_fee_rate,
+                    api_allow_shrinking,
+                    api_wallet_id,
+                    api_enable_rbf,
+                    api_n_sequence,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_secret_as_string(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    key_type: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_secret_as_string",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            let api_path = path.wire2api();
+            let api_key_type = key_type.wire2api();
+            move |task_callback| {
+                Ok(descriptor_secret_as_string(
+                    api_network,
+                    api_mnemonic,
+                    api_password,
+                    api_path,
+                    api_key_type,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_secret_as_secret_bytes(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    key_type: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_secret_as_secret_bytes",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            let api_path = path.wire2api();
+            let api_key_type = key_type.wire2api();
+            move |task_callback| {
+                Ok(descriptor_secret_as_secret_bytes(
+                    api_network,
+                    api_mnemonic,
+                    api_password,
+                    api_path,
+                    api_key_type,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_secret_as_public(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    key_type: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_secret_as_public",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            let api_path = path.wire2api();
+            let api_key_type = key_type.wire2api();
+            move |task_callback| {
+                Ok(descriptor_secret_as_public(
+                    api_network,
+                    api_mnemonic,
+                    api_password,
+                    api_path,
+                    api_key_type,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_public_as_string(
+    port_: i64,
+    xpub: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
+    derive: bool,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_public_as_string",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_xpub = xpub.wire2api();
+            let api_path = path.wire2api();
+            let api_derive = derive.wire2api();
+            move |task_callback| Ok(descriptor_public_as_string(api_xpub, api_path, api_derive))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_address_to_script_hex(port_: i64, address: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "address_to_script_hex",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_address = address.wire2api();
+            move |task_callback| Ok(address_to_script_hex(api_address))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_wallet_init(
+    port_: i64,
+    descriptor: *mut wire_uint_8_list,
+    change_descriptor: *mut wire_uint_8_list,
+    network: i32,
+    database_config: *mut wire_DatabaseConfig,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "wallet_init",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_descriptor = descriptor.wire2api();
+            let api_change_descriptor = change_descriptor.wire2api();
+            let api_network = network.wire2api();
+            let api_database_config = database_config.wire2api();
+            move |task_callback| {
+                Ok(wallet_init(
+                    api_descriptor,
+                    api_change_descriptor,
+                    api_network,
+                    api_database_config,
+                ))
+            }
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_address(
+    port_: i64,
+    wallet_id: *mut wire_uint_8_list,
+    address_index: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_address_index = address_index.wire2api();
+            move |task_callback| Ok(get_address(api_wallet_id, api_address_index))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sync_wallet(
+    port_: i64,
+    wallet_id: *mut wire_uint_8_list,
+    blockchain_id: *mut wire_uint_8_list,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sync_wallet",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_blockchain_id = blockchain_id.wire2api();
+            move |task_callback| Ok(sync_wallet(api_wallet_id, api_blockchain_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_balance(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_balance",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(get_balance(api_wallet_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_public_descriptor(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_public_descriptor",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(get_public_descriptor(api_wallet_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_list_unspent_outputs(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "list_unspent_outputs",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(list_unspent_outputs(api_wallet_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_transactions(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_transactions",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(get_transactions(api_wallet_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sign(
+    port_: i64,
+    wallet_id: *mut wire_uint_8_list,
+    psbt_str: *mut wire_uint_8_list,
+    is_multi_sig: bool,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sign",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_psbt_str = psbt_str.wire2api();
+            let api_is_multi_sig = is_multi_sig.wire2api();
+            move |task_callback| Ok(sign(api_wallet_id, api_psbt_str, api_is_multi_sig))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_network(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_network",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(get_network(api_wallet_id))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_list_unspent(port_: i64, wallet_id: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "list_unspent",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Ok(list_unspent(api_wallet_id))
         },
     )
 }
@@ -68,380 +592,7 @@ pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32
     )
 }
 
-#[no_mangle]
-pub extern "C" fn wire_create_key(
-    port_: i64,
-    node_network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_key",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_node_network = node_network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| Ok(create_key(api_node_network, api_mnemonic, api_password))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret_keys(
-    port_: i64,
-    node_network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    path: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_descriptor_secret_keys",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_node_network = node_network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_path = path.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| {
-                Ok(create_descriptor_secret_keys(
-                    api_node_network,
-                    api_mnemonic,
-                    api_path,
-                    api_password,
-                ))
-            }
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_wallet_init(
-    port_: i64,
-    descriptor: *mut wire_uint_8_list,
-    change_descriptor: *mut wire_uint_8_list,
-    network: i32,
-    blockchain_config: *mut wire_BlockchainConfig,
-    database_config: *mut wire_DatabaseConfig,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "wallet_init",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_descriptor = descriptor.wire2api();
-            let api_change_descriptor = change_descriptor.wire2api();
-            let api_network = network.wire2api();
-            let api_blockchain_config = blockchain_config.wire2api();
-            let api_database_config = database_config.wire2api();
-            move |task_callback| {
-                Ok(wallet_init(
-                    api_descriptor,
-                    api_change_descriptor,
-                    api_network,
-                    api_blockchain_config,
-                    api_database_config,
-                ))
-            }
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_public_descriptor(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_public_descriptor",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_public_descriptor()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_descriptor_for_keychain(port_: i64, keychain_kind_str: i32) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_descriptor_for_keychain",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_keychain_kind_str = keychain_kind_str.wire2api();
-            move |task_callback| Ok(get_descriptor_for_keychain(api_keychain_kind_str))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_descriptor_checksum(port_: i64, keychain_kind_str: i32) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_descriptor_checksum",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_keychain_kind_str = keychain_kind_str.wire2api();
-            move |task_callback| Ok(get_descriptor_checksum(api_keychain_kind_str))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_wallet(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_wallet",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_wallet()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_wallet_network(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_wallet_network",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_wallet_network()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_blockchain_height(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_blockchain_height",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_blockchain_height()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_blockchain_hash(port_: i64, blockchain_height: u64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_blockchain_hash",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_blockchain_height = blockchain_height.wire2api();
-            move |task_callback| Ok(get_blockchain_hash(api_blockchain_height))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_sync_wallet(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "sync_wallet",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(sync_wallet()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_balance(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_balance",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_balance()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_list_unspent_outputs(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "list_unspent_outputs",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(list_unspent_outputs()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_new_address(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_new_address",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_new_address()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_new_internal_address(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_new_internal_address",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_new_internal_address()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_last_unused_address(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_last_unused_address",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_last_unused_address()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_transaction(port_: i64, txid: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_transaction",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_txid = txid.wire2api();
-            move |task_callback| Ok(get_transaction(api_txid))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_get_transactions(port_: i64) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "get_transactions",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Ok(get_transactions()),
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_transaction(
-    port_: i64,
-    recipient: *mut wire_uint_8_list,
-    amount: u64,
-    fee_rate: f32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_transaction",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_recipient = recipient.wire2api();
-            let api_amount = amount.wire2api();
-            let api_fee_rate = fee_rate.wire2api();
-            move |task_callback| Ok(create_transaction(api_recipient, api_amount, api_fee_rate))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_create_multi_sig_transaction(
-    port_: i64,
-    recipients: *mut wire_list_address_amount,
-    fee_rate: f32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_multi_sig_transaction",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_recipients = recipients.wire2api();
-            let api_fee_rate = fee_rate.wire2api();
-            move |task_callback| Ok(create_multi_sig_transaction(api_recipients, api_fee_rate))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_sign_and_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "sign_and_broadcast",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(sign_and_broadcast(api_psbt_str))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_sign(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "sign",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(sign(api_psbt_str))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_broadcast(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "broadcast",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(broadcast(api_psbt_str))
-        },
-    )
-}
-
 // Section: wire structs
-
-#[repr(C)]
-#[derive(Clone)]
-pub struct wire_AddressAmount {
-    address: *mut wire_uint_8_list,
-    amount: u64,
-}
 
 #[repr(C)]
 #[derive(Clone)]
@@ -465,9 +616,37 @@ pub struct wire_EsploraConfig {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_list_address_amount {
-    ptr: *mut wire_AddressAmount,
+pub struct wire_list_out_point {
+    ptr: *mut wire_OutPoint,
     len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_list_script_amount {
+    ptr: *mut wire_ScriptAmount,
+    len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_OutPoint {
+    txid: *mut wire_uint_8_list,
+    vout: u32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_ScriptAmount {
+    script: *mut wire_uint_8_list,
+    amount: u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_SledDbConfiguration {
+    path: *mut wire_uint_8_list,
+    tree_name: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
@@ -519,6 +698,7 @@ pub struct wire_DatabaseConfig {
 pub union DatabaseConfigKind {
     MEMORY: *mut DatabaseConfig_MEMORY,
     SQLITE: *mut DatabaseConfig_SQLITE,
+    SLED: *mut DatabaseConfig_SLED,
 }
 
 #[repr(C)]
@@ -529,6 +709,12 @@ pub struct DatabaseConfig_MEMORY {}
 #[derive(Clone)]
 pub struct DatabaseConfig_SQLITE {
     config: *mut wire_SqliteConfiguration,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct DatabaseConfig_SLED {
+    config: *mut wire_SledDbConfiguration,
 }
 
 // Section: wrapper structs
@@ -558,8 +744,23 @@ pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig 
 }
 
 #[no_mangle]
+pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
+    support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_sled_db_configuration_0() -> *mut wire_SledDbConfiguration {
+    support::new_leak_box_ptr(wire_SledDbConfiguration::new_with_null_ptr())
+}
+
+#[no_mangle]
 pub extern "C" fn new_box_autoadd_sqlite_configuration_0() -> *mut wire_SqliteConfiguration {
     support::new_leak_box_ptr(wire_SqliteConfiguration::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_u32_0(value: u32) -> *mut u32 {
+    support::new_leak_box_ptr(value)
 }
 
 #[no_mangle]
@@ -573,9 +774,18 @@ pub extern "C" fn new_box_autoadd_u8_0(value: u8) -> *mut u8 {
 }
 
 #[no_mangle]
-pub extern "C" fn new_list_address_amount_0(len: i32) -> *mut wire_list_address_amount {
-    let wrap = wire_list_address_amount {
-        ptr: support::new_leak_vec_ptr(<wire_AddressAmount>::new_with_null_ptr(), len),
+pub extern "C" fn new_list_out_point_0(len: i32) -> *mut wire_list_out_point {
+    let wrap = wire_list_out_point {
+        ptr: support::new_leak_vec_ptr(<wire_OutPoint>::new_with_null_ptr(), len),
+        len,
+    };
+    support::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn new_list_script_amount_0(len: i32) -> *mut wire_list_script_amount {
+    let wrap = wire_list_script_amount {
+        ptr: support::new_leak_vec_ptr(<wire_ScriptAmount>::new_with_null_ptr(), len),
         len,
     };
     support::new_leak_box_ptr(wrap)
@@ -616,11 +826,12 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
     }
 }
 
-impl Wire2Api<AddressAmount> for wire_AddressAmount {
-    fn wire2api(self) -> AddressAmount {
-        AddressAmount {
-            address: self.address.wire2api(),
-            amount: self.amount.wire2api(),
+impl Wire2Api<AddressIndex> for i32 {
+    fn wire2api(self) -> AddressIndex {
+        match self {
+            0 => AddressIndex::New,
+            1 => AddressIndex::LastUnused,
+            _ => unreachable!("Invalid variant for AddressIndex: {}", self),
         }
     }
 }
@@ -644,6 +855,12 @@ impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
             },
             _ => unreachable!(),
         }
+    }
+}
+
+impl Wire2Api<bool> for bool {
+    fn wire2api(self) -> bool {
+        self
     }
 }
 
@@ -675,10 +892,29 @@ impl Wire2Api<EsploraConfig> for *mut wire_EsploraConfig {
     }
 }
 
+impl Wire2Api<f32> for *mut f32 {
+    fn wire2api(self) -> f32 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+
+impl Wire2Api<SledDbConfiguration> for *mut wire_SledDbConfiguration {
+    fn wire2api(self) -> SledDbConfiguration {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<SledDbConfiguration>::wire2api(*wrap).into()
+    }
+}
+
 impl Wire2Api<SqliteConfiguration> for *mut wire_SqliteConfiguration {
     fn wire2api(self) -> SqliteConfiguration {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<SqliteConfiguration>::wire2api(*wrap).into()
+    }
+}
+
+impl Wire2Api<u32> for *mut u32 {
+    fn wire2api(self) -> u32 {
+        unsafe { *support::box_from_leak_ptr(self) }
     }
 }
 
@@ -705,7 +941,25 @@ impl Wire2Api<DatabaseConfig> for wire_DatabaseConfig {
                     config: ans.config.wire2api(),
                 }
             },
+            2 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.SLED);
+                DatabaseConfig::SLED {
+                    config: ans.config.wire2api(),
+                }
+            },
             _ => unreachable!(),
+        }
+    }
+}
+
+impl Wire2Api<DescriptorKeyType> for i32 {
+    fn wire2api(self) -> DescriptorKeyType {
+        match self {
+            0 => DescriptorKeyType::EXTENDED,
+            1 => DescriptorKeyType::DERIVED,
+            2 => DescriptorKeyType::DEFAULT,
+            _ => unreachable!("Invalid variant for DescriptorKeyType: {}", self),
         }
     }
 }
@@ -718,17 +972,6 @@ impl Wire2Api<ElectrumConfig> for wire_ElectrumConfig {
             retry: self.retry.wire2api(),
             timeout: self.timeout.wire2api(),
             stop_gap: self.stop_gap.wire2api(),
-        }
-    }
-}
-
-impl Wire2Api<Entropy> for i32 {
-    fn wire2api(self) -> Entropy {
-        match self {
-            0 => Entropy::ENTROPY128,
-            1 => Entropy::ENTROPY192,
-            2 => Entropy::ENTROPY256,
-            _ => unreachable!("Invalid variant for Entropy: {}", self),
         }
     }
 }
@@ -757,18 +1000,18 @@ impl Wire2Api<i32> for i32 {
     }
 }
 
-impl Wire2Api<KeyChainKind> for i32 {
-    fn wire2api(self) -> KeyChainKind {
-        match self {
-            0 => KeyChainKind::EXTERNAL,
-            1 => KeyChainKind::INTERNAL,
-            _ => unreachable!("Invalid variant for KeyChainKind: {}", self),
-        }
+impl Wire2Api<Vec<OutPoint>> for *mut wire_list_out_point {
+    fn wire2api(self) -> Vec<OutPoint> {
+        let vec = unsafe {
+            let wrap = support::box_from_leak_ptr(self);
+            support::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(Wire2Api::wire2api).collect()
     }
 }
 
-impl Wire2Api<Vec<AddressAmount>> for *mut wire_list_address_amount {
-    fn wire2api(self) -> Vec<AddressAmount> {
+impl Wire2Api<Vec<ScriptAmount>> for *mut wire_list_script_amount {
+    fn wire2api(self) -> Vec<ScriptAmount> {
         let vec = unsafe {
             let wrap = support::box_from_leak_ptr(self);
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -789,11 +1032,44 @@ impl Wire2Api<Network> for i32 {
     }
 }
 
+impl Wire2Api<OutPoint> for wire_OutPoint {
+    fn wire2api(self) -> OutPoint {
+        OutPoint {
+            txid: self.txid.wire2api(),
+            vout: self.vout.wire2api(),
+        }
+    }
+}
+
+impl Wire2Api<ScriptAmount> for wire_ScriptAmount {
+    fn wire2api(self) -> ScriptAmount {
+        ScriptAmount {
+            script: self.script.wire2api(),
+            amount: self.amount.wire2api(),
+        }
+    }
+}
+
+impl Wire2Api<SledDbConfiguration> for wire_SledDbConfiguration {
+    fn wire2api(self) -> SledDbConfiguration {
+        SledDbConfiguration {
+            path: self.path.wire2api(),
+            tree_name: self.tree_name.wire2api(),
+        }
+    }
+}
+
 impl Wire2Api<SqliteConfiguration> for wire_SqliteConfiguration {
     fn wire2api(self) -> SqliteConfiguration {
         SqliteConfiguration {
             path: self.path.wire2api(),
         }
+    }
+}
+
+impl Wire2Api<u32> for u32 {
+    fn wire2api(self) -> u32 {
+        self
     }
 }
 
@@ -838,15 +1114,6 @@ pub trait NewWithNullPtr {
 impl<T> NewWithNullPtr for *mut T {
     fn new_with_null_ptr() -> Self {
         std::ptr::null_mut()
-    }
-}
-
-impl NewWithNullPtr for wire_AddressAmount {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            address: core::ptr::null_mut(),
-            amount: Default::default(),
-        }
     }
 }
 
@@ -895,6 +1162,15 @@ pub extern "C" fn inflate_DatabaseConfig_SQLITE() -> *mut DatabaseConfigKind {
     })
 }
 
+#[no_mangle]
+pub extern "C" fn inflate_DatabaseConfig_SLED() -> *mut DatabaseConfigKind {
+    support::new_leak_box_ptr(DatabaseConfigKind {
+        SLED: support::new_leak_box_ptr(DatabaseConfig_SLED {
+            config: core::ptr::null_mut(),
+        }),
+    })
+}
+
 impl NewWithNullPtr for wire_ElectrumConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -919,6 +1195,33 @@ impl NewWithNullPtr for wire_EsploraConfig {
     }
 }
 
+impl NewWithNullPtr for wire_OutPoint {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            txid: core::ptr::null_mut(),
+            vout: Default::default(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_ScriptAmount {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            script: core::ptr::null_mut(),
+            amount: Default::default(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_SledDbConfiguration {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            path: core::ptr::null_mut(),
+            tree_name: core::ptr::null_mut(),
+        }
+    }
+}
+
 impl NewWithNullPtr for wire_SqliteConfiguration {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -928,6 +1231,13 @@ impl NewWithNullPtr for wire_SqliteConfiguration {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for AddressInfo {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.index.into_dart(), self.address.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for AddressInfo {}
 
 impl support::IntoDart for Balance {
     fn into_dart(self) -> support::DartCObject {
@@ -944,26 +1254,12 @@ impl support::IntoDart for Balance {
 }
 impl support::IntoDartExceptPrimitive for Balance {}
 
-impl support::IntoDart for BlockConfirmationTime {
+impl support::IntoDart for BlockTime {
     fn into_dart(self) -> support::DartCObject {
         vec![self.height.into_dart(), self.timestamp.into_dart()].into_dart()
     }
 }
-impl support::IntoDartExceptPrimitive for BlockConfirmationTime {}
-
-impl support::IntoDart for DerivedKeyInfo {
-    fn into_dart(self) -> support::DartCObject {
-        vec![self.xprv.into_dart(), self.xpub.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for DerivedKeyInfo {}
-
-impl support::IntoDart for ExtendedKeyInfo {
-    fn into_dart(self) -> support::DartCObject {
-        vec![self.xprv.into_dart(), self.xpub.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for ExtendedKeyInfo {}
+impl support::IntoDartExceptPrimitive for BlockTime {}
 
 impl support::IntoDart for LocalUtxo {
     fn into_dart(self) -> support::DartCObject {
@@ -996,38 +1292,26 @@ impl support::IntoDart for OutPoint {
 }
 impl support::IntoDartExceptPrimitive for OutPoint {}
 
-impl support::IntoDart for ResponseWallet {
-    fn into_dart(self) -> support::DartCObject {
-        vec![self.balance.into_dart(), self.address.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for ResponseWallet {}
-
-impl support::IntoDart for Transaction {
-    fn into_dart(self) -> support::DartCObject {
-        match self {
-            Self::Unconfirmed { details } => vec![0.into_dart(), details.into_dart()],
-            Self::Confirmed {
-                details,
-                confirmation,
-            } => vec![1.into_dart(), details.into_dart(), confirmation.into_dart()],
-        }
-        .into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for Transaction {}
 impl support::IntoDart for TransactionDetails {
     fn into_dart(self) -> support::DartCObject {
         vec![
-            self.fee.into_dart(),
+            self.txid.into_dart(),
             self.received.into_dart(),
             self.sent.into_dart(),
-            self.txid.into_dart(),
+            self.fee.into_dart(),
+            self.confirmation_time.into_dart(),
         ]
         .into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for TransactionDetails {}
+
+impl support::IntoDart for TxBuilderResult {
+    fn into_dart(self) -> support::DartCObject {
+        vec![self.psbt.into_dart(), self.transaction_details.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TxBuilderResult {}
 
 impl support::IntoDart for TxOut {
     fn into_dart(self) -> support::DartCObject {

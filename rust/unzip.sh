@@ -1,4 +1,4 @@
-        #This is a script which is not being used at the moment but keeping in the repository in case it is required in the future
+#This is a script which is not being used at the moment but keeping in the repository in case it is required in the future
         if [ -d "../android/src/main/jniLibs" ]; then rm -r ../android/src/main/jniLibs
         fi
         if [ -e "../ios/librust.a" ]; then rm ../ios/librust.a
@@ -6,7 +6,7 @@
         if [ -e "config.txt " ]; then rm config.txt
         fi
          mkdir -p temp
-         echo "Downloading Version: v0.1.1"
+         echo "Downloading Version: OOP_v0.1.0"
         curl  -s  -L   https://github.com/LtbLightning/bdk-flutter/releases/download/v0.1.3/target.zip --output temp/target.zip
         for file in temp/target.zip
                 do
@@ -20,5 +20,5 @@
         cp temp/target/armv7-linux-androideabi/release/librust.so  ../android/src/main/jniLibs/armeabi-v7a
         cp temp/target/i686-linux-android/release/librust.so  ../android/src/main/jniLibs/x86
         cp temp/target/universal/release/librust.a  ../ios/
-        cp temp/config.txt   .
+
         rm -r temp/

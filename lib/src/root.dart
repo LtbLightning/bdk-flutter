@@ -1,82 +1,98 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/src/utils/exceptions/broadcast_exceptions.dart';
-import 'package:bdk_flutter/src/utils/exceptions/key_exceptions.dart';
-import 'package:bdk_flutter/src/utils/exceptions/wallet_exceptions.dart';
+import 'package:bdk_flutter/src/utils/exceptions/blochchain_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/psbt_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/key_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'utils/utils.dart';
+import 'dart:typed_data' as typed_data;
 
-class BdkFlutter {
-  Future<ResponseWallet> createWallet({
-    String? mnemonic,
-    String? password,
-    String? descriptor,
-    String? changeDescriptor,
-    Network? network,
-    BlockchainConfig? blockchainConfig,
-    DatabaseConfig databaseConfig = const DatabaseConfig.memory(),
-  }) async {
+
+class PartiallySignedBitcoinTransaction{
+  final String psbtBase64;
+  TransactionDetails ? txDetails ;
+  PartiallySignedBitcoinTransaction({required this.psbtBase64});
+  Future<String> txId() async{
+    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    return res;
+  }
+  Future<List<int>> extractTx() async {
+    final res = await loaderApi.extractTx(psbtStr: psbtBase64);
+   return  res;
+  }
+  Future<PartiallySignedBitcoinTransaction> combine(PartiallySignedBitcoinTransaction other) async {
+    final res = await loaderApi.combinePsbt(psbtStr: psbtBase64, other: other.psbtBase64);
+    return PartiallySignedBitcoinTransaction(psbtBase64: res);
+  }
+  Future<String> serialize() async{
+    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    return res;
+  }
+}
+class Blockchain{
+  String? _id;
+  Future<String> getBlockHash(int height) async {
     try {
-      if ((mnemonic == null || mnemonic.isEmpty) &&
-          (descriptor == null || descriptor.isEmpty)) {
-        throw const WalletException.insufficientCoreArguments(
-            "Requires a mnemonic or a descriptor");
-      }
-      if ((mnemonic != null) && (descriptor != null)) {
-        throw const WalletException.repetitiousArguments(
-            "Provided both mnemonic and descriptor.");
-      }
-      if (descriptor != null) {
-        await loaderApi.walletInit(
-            descriptor: descriptor.toString(),
-            changeDescriptor: changeDescriptor,
-            network: network ?? DEFAULT_NETWORK,
-            databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
-      } else {
-        var key = await createDescriptors(
-            network: network??DEFAULT_NETWORK,
-            mnemonic: mnemonic.toString(),
-            password: password,
-            type: Descriptor.P2PK,
-            descriptorPath: DEFAUTLT_DESCRIPTOR_PATH,
-            changeDescriptorPath: DEFAUTLT_CHANGE_DESCRIPTOR_PATH
-        );
-        await loaderApi.walletInit(
-            descriptor: key.descriptor,
-            changeDescriptor: key.changeDescriptor,
-            network: network??DEFAULT_NETWORK,
-            databaseConfig: databaseConfig,
-            blockchainConfig: blockchainConfig??DEFAUTL_CONFIG);
-      }
-      final res = await loaderApi.getWallet();
+      if (_id == null) throw const BlockchainException.unexpected("Blockchain not initialized");
+      var res = await loaderApi.getBlockchainHash(blockchainHeight: height, id: _id.toString());
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw BlockchainException.unexpected(e.message);
     }
   }
 
-  Future<ResponseWallet> getWallet() async {
+  Future<int> getHeight() async {
     try {
-      return await loaderApi.getWallet();
+      if (_id == null) throw const BlockchainException.unexpected("Blockchain not initialized");
+      var res = await loaderApi.getBlockchainHeight(blockchainId: _id.toString());
+      return res;
+    } on FfiException catch (e) {
+      throw BlockchainException.unexpected(e.message);
+    }
+  }
+
+  Future<Blockchain> create({required BlockchainConfig config}) async{
+    final res = await loaderApi.blockchainInit(config: config);
+    _id= res;
+    return  this;
+  }
+
+  Future<void> broadcast(PartiallySignedBitcoinTransaction psbt) async {
+    try {
+      if (_id == null) throw const BlockchainException.unexpected("Blockchain not initialized");
+      final txid = await loaderApi.broadcast(psbtStr: psbt.psbtBase64,  blockchainId: _id.toString());
+      print(txid);
+    } on FfiException catch (e) {
+      throw BlockchainException.unexpected(e.message);
+    }
+  }
+}
+class Wallet{
+  String? _id;
+  Future<Wallet> create({
+    required String  descriptor,
+    String ? changeDescriptor,
+    required Network network,
+   required DatabaseConfig  databaseConfig ,
+  }) async {
+    try {
+      final res = await loaderApi.walletInit(
+        descriptor: descriptor,
+        changeDescriptor: changeDescriptor,
+        network: network,
+        databaseConfig: databaseConfig,
+      );
+      _id = res;
+      return this;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
-
-  Future<String> getNewAddress() async {
+    Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
-      var res = await loaderApi.getNewAddress();
-      return res.toString();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  ///Return a derived address using the internal (change) descriptor.
-  /// If the wallet doesn’t have an internal descriptor it will use the external descriptor.
-  Future<String> getNewInternalAddress() async {
-    try {
-      var res = await loaderApi.getNewInternalAddress();
-      return res.toString();
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      var res = await loaderApi.getAddress(walletId: _id.toString(), addressIndex: addressIndex);
+      return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -84,392 +100,313 @@ class BdkFlutter {
 
   Future<Balance> getBalance() async {
     try {
-      var res = await loaderApi.getBalance();
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      var res = await loaderApi.getBalance(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
 
-  Future<String> getLastUnusedAddress() async {
+  Future<Network> network() async{
     try {
-      var res = await loaderApi.getLastUnusedAddress();
-      return res.toString();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  /// Return the “public” version of the wallet’s descriptor, meaning a new descriptor that has the same structure but with every secret key removed
-  Future<String> getPublicDescriptor() async {
-    try {
-      var res = await loaderApi.getPublicDescriptor();
-      return res.toString();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  /// Return the checksum of the public descriptor associated to keychain Internally calls
-  Future<String> getDescriptorCheckSum(
-      {required KeyChainKind keyChainKind}) async {
-    try {
-      var res =
-          await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
-      return res.toString();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  ///Returns the descriptor used to create addresses for a particular keychain.
-  Future<String> getDescriptorForKeyChainKind(
-      {required KeyChainKind keyChainKind}) async {
-    try {
-      var res =
-          await loaderApi.getDescriptorChecksum(keychainKindStr: keyChainKind);
-      return res.toString();
-    } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
-    }
-  }
-
-  Future<int> getBlockchainHeight() async {
-    try {
-      var res = await loaderApi.getBlockchainHeight();
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      var res = await loaderApi.getNetwork(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
 
-  Future<String> getBlockchainHash(int blockChainHeight) async {
+  Future<List<LocalUtxo>> listUnspent() async{
     try {
-      var res =
-          await loaderApi.getBlockchainHash(blockchainHeight: blockChainHeight);
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      var res = await loaderApi.listUnspentOutputs(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
 
-  syncWallet() async {
+  //TODO Include Progress Class
+  Future sync(Blockchain blockchain) async {
     try {
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
       print("Syncing Wallet");
-      await loaderApi.syncWallet();
+      await loaderApi.syncWallet(walletId: _id.toString(), blockchainId: blockchain._id.toString());
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
 
-  Future<List<Transaction>> getTransactions() async {
+  Future<List<TransactionDetails>> listTransactions() async{
     try {
-      final res = await loaderApi.getTransactions();
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      final res = await loaderApi.getTransactions(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
   }
 
-  Future<List<Transaction>> getPendingTransactions() async {
+  Future<String> sign( PartiallySignedBitcoinTransaction psbt) async {
     try {
-      List<Transaction> unConfirmed = [];
-      final res = await getTransactions();
-      for (var e in res) {
-        e.maybeMap(
-            orElse: () {},
-            unconfirmed: (e) {
-              unConfirmed.add(e);
-            });
-      }
-      return unConfirmed;
-    } on WalletException {
-      rethrow;
-    }
-  }
-
-  Future<List<Transaction>> getConfirmedTransactions() async {
-    try {
-      List<Transaction> confirmed = [];
-      final res = await getTransactions();
-      for (var e in res) {
-        e.maybeMap(
-            orElse: () {},
-            confirmed: (e) {
-              confirmed.add(e);
-            });
-      }
-      return confirmed;
-    } on WalletException {
-      rethrow;
-    }
-  }
-
-  Future<String> createTx(
-      {required String recipient,
-      required int amount,
-      required double feeRate}) async {
-    try {
-      if (amount < 100) {
-        throw const BroadcastException.insufficientBroadcastAmount("The minimum amount should be greater 100");
-      }
-      final psbt = await loaderApi.createTransaction(
-          recipient: recipient, amount: amount, feeRate: feeRate);
-      return psbt;
-    } on FfiException catch (e) {
-      if (e.message.contains("InsufficientFunds")) {
-        final message = e.message.split("InsufficientFunds").last;
-        throw BroadcastException.insufficientFunds(message);
-      }
-      throw BroadcastException.unexpected(e.message);
-    }
-  }
-
-  Future<String> signTx({required String psbt}) async {
-    try {
-      final sbt = await loaderApi.sign(psbtStr: psbt);
-      if (sbt == null) throw const BroadcastException.unexpected("Unable to sign transaction");
+      if (_id == null) throw const WalletException.unexpected("Wallet not initialized");
+      final sbt = await loaderApi.sign(psbtStr: psbt.psbtBase64, walletId: _id.toString(), isMultiSig: false);
+      if (sbt == null) throw const PsbtException.unexpected("Unable to sign transaction");
       return sbt.toString();
     } on FfiException catch (e) {
-      throw BroadcastException.unexpected(e.message);
+      throw PsbtException.unexpected(e.message);
+    }
+  }
+}
+class TxBuilder{
+  List<ScriptAmount> _recipients=[];
+  List<OutPoint>  _utxos = [] ;
+  bool _doNotSpendChange = false;
+  List<OutPoint> _unSpendable = [];
+  bool _manuallySelectedOnly=false;
+  bool  _onlySpendChange= false;
+  double ?_feeRate;
+  int ?  _feeAbsolute;
+  bool _enableRbf = false;
+  bool _drainWallet = false;
+  String?  _drainTo;
+  int? _nSequence;
+  typed_data.Uint8List _data =typed_data.Uint8List.fromList([]);
+
+  TxBuilder addData({required List<int> data}){
+    _data =  typed_data.Uint8List.fromList(data);
+    return this;
+  }
+
+  TxBuilder addRecipient(Script script, int amount){
+    if (script._scriptHex ==null ||script._scriptHex=="")  throw const KeyException.unexpected("Script key not initialized yet");
+    _recipients.add(ScriptAmount(script:script._scriptHex.toString(), amount: amount));
+    return this;
+  }
+  TxBuilder unSpendable(List<OutPoint> outpoints){
+    for (var e in outpoints) {
+      _unSpendable.add(e);
+    }
+    return this;
+  }
+  TxBuilder  addUtxo(OutPoint outpoint){
+    _utxos.add(outpoint);
+    return this;
+  }
+  TxBuilder addUtxos(List<OutPoint> outpoints){
+    for (var e in outpoints) {
+      _utxos.add(e);
+    }
+    return this;
+  }
+  TxBuilder doNotSpendChange(){
+    _doNotSpendChange = true;
+    return this;
+  }
+  TxBuilder drainTo(String address){
+    _drainTo = address;
+    return this;
+  }
+  TxBuilder drainWallet(){
+    _drainWallet= true;
+    return this;
+  }
+  TxBuilder enableRbfWithSequence(int nSequence){
+    _nSequence= nSequence;
+    return this;
+  }
+  TxBuilder enableRbf(){
+    _enableRbf= true;
+    return this;
+  }
+  TxBuilder feeAbsolute(int feeAmount){
+    _feeAbsolute= feeAmount;
+    return this;
+  }
+  TxBuilder feeRate(double satPerVbyte){
+    _feeRate= satPerVbyte;
+    return this;
+  }
+
+  TxBuilder  setRecipients(List<ScriptAmount> recipients){
+    for (var e in _recipients) {
+      _recipients.add(e);
+    }
+    return this;
+  }
+
+  TxBuilder manuallySelectedOnly(){
+    _manuallySelectedOnly= true;
+    return this;
+  }
+
+  TxBuilder addUnSpendable( OutPoint unSpendable){
+    _unSpendable.add(unSpendable);
+    return this;
+  }
+  TxBuilder onlySpendChange(){
+    _onlySpendChange = true;
+    return this;
+  }
+  Future<PartiallySignedBitcoinTransaction> finish( Wallet wallet) async{
+    final res = await  loaderApi.txBuilderFinish(
+        walletId: wallet._id.toString(),
+        recipients: _recipients,
+        utxos: _utxos,
+        unspendable: _unSpendable,
+        manuallySelectedOnly: _manuallySelectedOnly,
+        onlySpendChange: _onlySpendChange,
+        doNotSpendChange: _doNotSpendChange,
+        drainWallet: _drainWallet,
+        nSequence: _nSequence,
+        enableRbf: _enableRbf,
+        drainTo: _drainTo,
+        feeAbsolute: _feeAbsolute,
+        feeRate: _feeRate,
+        data: _data);
+    final psbt = PartiallySignedBitcoinTransaction(psbtBase64: res.psbt);
+    return psbt;
+  }
+
+
+}
+class Script{
+  String? _scriptHex;
+  Future<Script> scriptPubKey(String address)async {
+    final res = await loaderApi.addressToScriptHex(address: address);
+    _scriptHex = res;
+    return this;
+  }
+  @override
+  String toString() {
+    return _scriptHex.toString();
+  }
+}
+class BumpFeeTxBuilder{
+  int? _nSequence;
+  String ? _allowShrinking;
+  bool  _enableRbf = false;
+ final  String txid;
+ final double feeRate;
+
+  BumpFeeTxBuilder({required this.txid, required this.feeRate});
+  BumpFeeTxBuilder  allowShrinking( String address){
+    _allowShrinking = address;
+    return this;
+  }
+
+  BumpFeeTxBuilder enableRbfWithSequence(int nSequence){
+    _nSequence= nSequence;
+    return this;
+  }
+  BumpFeeTxBuilder enableRbf(){
+    _enableRbf= true;
+    return this;
+  }
+  Future<PartiallySignedBitcoinTransaction> finish(Wallet wallet) async {
+    final res = await loaderApi.bumbFeeTxBuilderFinish(txid: txid.toString(), enableRbf:_enableRbf,feeRate: feeRate, walletId:wallet._id.toString(), nSequence: _nSequence, allowShrinking: _allowShrinking);
+    final psbt = PartiallySignedBitcoinTransaction(psbtBase64: res);
+    return psbt;
+  }
+}
+class Progress {
+  void update(int progress, String? message){
+
+  }
+}
+class DerivationPath{
+  final String path;
+  DerivationPath({required this.path});
+}
+class DescriptorPublicKey {
+  String _xpub;
+  DescriptorPublicKey(this._xpub);
+  Future<DescriptorPublicKey> derive(DerivationPath derivationPath)async{
+    final res = await loaderApi.descriptorPublicAsString(xpub:_xpub,path: derivationPath.path, derive:true);
+    return DescriptorPublicKey(res);
+  }
+  Future<DescriptorPublicKey> extend(DerivationPath derivationPath)async{
+    final res = await loaderApi.descriptorPublicAsString(xpub:_xpub,path: derivationPath.path, derive:false);
+    return  DescriptorPublicKey(res);
+  }
+  String asString(){
+    return _xpub.toString();
+  }
+}
+class DescriptorSecretKey {
+  final Network network;
+ final String mnemonic;
+  String? password;
+  String? _descriptorSecretKey;
+  String _derivationPath = DEFAUTLT_DERIVATION_PATH;
+  DescriptorKeyType _descriptorKeyType = DescriptorKeyType.DEFAULT;
+  DescriptorSecretKey({ required this.network,  required this.mnemonic, this.password}){
+      if (!isValidMnemonic(mnemonic.toString())) {throw const KeyException.badWordCount("The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");}
+  }
+
+  Future<DescriptorSecretKey> derive(DerivationPath derivationPath)async{
+    try{
+      final res = await loaderApi.descriptorSecretAsString(network: network, mnemonic: mnemonic, path: derivationPath.path, keyType: DescriptorKeyType.DERIVED);
+      _descriptorKeyType= DescriptorKeyType.DERIVED;
+      _derivationPath= derivationPath.path;
+      _descriptorSecretKey= res;
+      return this;
+    } on FfiException catch(e){
+      throw KeyException.unexpected(e.toString());
     }
   }
 
-  Future<String> broadcastTx({required String sbt}) async {
-    try {
-      final txid = await loaderApi.broadcast(psbtStr: sbt);
-      return txid;
-    } on FfiException catch (e) {
-      throw BroadcastException.unexpected(e.message);
+  Future<DescriptorSecretKey> extend( DerivationPath derivationPath)async{
+    try{
+      final res = await loaderApi.descriptorSecretAsString(network: network, password: password, mnemonic: mnemonic, path: derivationPath.path, keyType: DescriptorKeyType.EXTENDED);
+      _descriptorKeyType= DescriptorKeyType.EXTENDED;
+      _derivationPath= derivationPath.path;
+      _descriptorSecretKey= res;
+      return this;
+    } on FfiException catch(e){
+      throw KeyException.unexpected(e.toString());
     }
   }
 
-  Future<String> signAndBroadcastTx({required String psbt}) async {
-    try {
-      final txid = await loaderApi.signAndBroadcast(psbtStr: psbt);
-      return txid;
-    } on FfiException catch (e) {
-      throw BroadcastException.unexpected(e.message);
+  Future<DescriptorPublicKey> asPublic() async {
+    try{
+      final res = await loaderApi.descriptorSecretAsPublic(mnemonic: mnemonic, password: password, network: network, path: _derivationPath,keyType: _descriptorKeyType);
+      return DescriptorPublicKey(res);
+    } on FfiException catch(e){
+      throw KeyException.unexpected(e.toString());
     }
   }
 
-  Future<String> quickSend(
-      {required String recipient,
-      required int amount,
-      required double feeRate}) async {
-    try {
-      if (amount < 100) {
-        throw const BroadcastException.insufficientBroadcastAmount(
-            "The minimum amount should be greater 100 sats");
+  Future<List<int>> secretBytes() async{
+    try{
+      final res = await loaderApi.descriptorSecretAsSecretBytes(mnemonic: mnemonic, password: password, network: network, path: _derivationPath,keyType: _descriptorKeyType);
+      return res;
+    } on FfiException catch(e){
+      throw KeyException.unexpected(e.toString());
+    }
+  }
+
+  Future<String> asString() async {
+    try{
+      if( _descriptorSecretKey ==null ) {
+      final res = await loaderApi.descriptorSecretAsString(network: network,  mnemonic: mnemonic, password:password,keyType: _descriptorKeyType);
+      return res;
+      } else{
+        return _descriptorSecretKey.toString();
       }
-      final psbt = await createTx(
-          recipient: recipient, amount: amount, feeRate: feeRate);
-      final txid = await signAndBroadcastTx(psbt: psbt);
-      return txid;
-    } on FfiException catch (e) {
-      if (e.message.contains("InsufficientFunds")) {
-        final message = e.message.split("InsufficientFunds").last;
-        throw BroadcastException.insufficientFunds(message);
-      }
-      throw BroadcastException.unexpected(e.message);
-    } on BroadcastException {
-      rethrow;
+    } on FfiException catch(e){
+      throw KeyException.unexpected(e.toString());
     }
   }
 }
-
-Future<String> generateMnemonic(
-    {WordCount? wordCount, Entropy? entropy}) async {
+Future<String> generateMnemonic({required WordCount wordCount}) async {
   try {
-    if ((wordCount != null) && (entropy != null)) {
-      var res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
-      return res;
-    } else if (wordCount != null) {
-      var res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
-      return res;
-    } else if (entropy != null) {
-      var res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
-      return res;
-    } else {
-      var res =
-          await loaderApi.generateSeedFromEntropy(entropy: Entropy.ENTROPY128);
-      return res;
-    }
+    var res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+    return res;
   } on FfiException catch (e) {
     throw KeyException.unexpected(e.message);
   }
 }
 
-Future<String> createXprv(
-    {required Network network,
-    required String mnemonic,
-    String? password = ''}) async {
-  try {
-    var res = await createExtendedKey(
-        network: network, mnemonic: mnemonic, password: password.toString());
-    return res.xprv.toString();
-  } on KeyException {
-    rethrow;
-  }
-}
-
-Future<String> createXpub(
-    {required Network network,
-    required String mnemonic,
-    String? password = ''}) async {
-  try {
-    var res = await createExtendedKey(
-        network: network, mnemonic: mnemonic, password: password.toString());
-    return res.xpub.toString();
-  } on KeyException {
-    rethrow;
-  }
-}
-
-Future<ExtendedKeyInfo> createExtendedKey(
-    {required Network network,
-    required String mnemonic,
-    String? password = ''}) async {
-  try {
-    if (!isValidMnemonic(mnemonic.toString())) {
-      throw const KeyException.badWordCount(
-          "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
-    }
-    var res = await loaderApi.createKey(
-      nodeNetwork: network,
-      mnemonic: mnemonic,
-      password: password,
-    );
-    return res;
-  } on FfiException catch (e) {
-    if (e.message.contains("UnknownWord")) {
-      final message = e.message.split("value:").last;
-      throw KeyException.invalidMnemonic(message);
-    }
-    throw KeyException.unexpected(e.message);
-  }
-}
-
-Future<DerivedKeyInfo> createDerivedKey(
-    {required Network network,
-    required String mnemonic,
-    String? path,
-    String? password = ''}) async {
-  try {
-    if (!isValidMnemonic(mnemonic.toString())) {
-      throw const KeyException.badWordCount(
-          "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
-    }
-    var res = await loaderApi.createDescriptorSecretKeys(
-        nodeNetwork: network, mnemonic: mnemonic, path: path ?? DEFAUTLT_DESCRIPTOR_PATH);
-    return res;
-  } on FfiException catch (e) {
-    if (e.message.contains("UnknownWord")) {
-      final message = e.message.split("value:").last;
-      throw KeyException.invalidMnemonic(message);
-    }
-    throw KeyException.unexpected(e.message);
-  }
-}
-
-Future<WalletDescriptor> createDescriptors(
-    {String? descriptorPath,
-    String? changeDescriptorPath,
-    String? xprv,
-    required Descriptor type,
-    String? mnemonic,
-    Network? network,
-    String? password,
-    List<String>? publicKeys,
-    int? threshold = 4}) async {
-  if ((mnemonic == null) && (xprv == null)) {
-    throw const KeyException.insufficientCoreVariables(
-        "Require a mnemonic or xprv.");
-  }
-  if ((mnemonic != null) && (xprv != null)) {
-    throw const KeyException.repetitiousArguments(
-        "Provided both mnemonic and xprv.");
-  }
-  if (xprv == null || xprv == "") {
-    if (network == null) throw const KeyException.invalidNetwork();
-    final descriptorKey = await createDerivedKey(
-        network: network,
-        password: password,
-        mnemonic: mnemonic.toString(),
-        path: descriptorPath ?? DEFAUTLT_DESCRIPTOR_PATH);
-    final changeDescriptorKey = await createDerivedKey(
-        network: network,
-        password: password,
-        mnemonic: mnemonic.toString(),
-        path: changeDescriptorPath ?? DEFAUTLT_CHANGE_DESCRIPTOR_PATH);
-    final res = _createDescriptor(
-        threshold: threshold,
-        publicKeys: publicKeys,
-        descriptorKey: descriptorKey.xprv,
-        changeDescriptorKey: changeDescriptorKey.xprv,
-        type: type);
-    return res;
-  } else {
-    final res = _createDescriptor(
-        threshold: threshold,
-        publicKeys: publicKeys,
-        descriptorKey: xprv,
-        changeDescriptorKey: xprv,
-        type: type);
-    return res;
-  }
-}
-
-WalletDescriptor _createMultiSigDescriptor(
-    {List<String>? publicKeys,
-    int threshold = 2,
-    required String descriptorKey,
-    String? changeDescriptorKey}) {
-  if (publicKeys == null) {
-    throw const KeyException.invalidPublicKey("Public keys must not be null");
-  }
-  if (threshold == 0 || threshold > publicKeys.length + 1) {
-    throw const KeyException.invalidThresholdValue();
-  }
-  return WalletDescriptor(
-      descriptor:
-          "wsh(multi($threshold,$descriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))",
-      changeDescriptor:
-          "wsh(multi($threshold,$changeDescriptorKey,${publicKeys.reduce((value, element) => '$value,$element')}))");
-}
-
-WalletDescriptor _createDescriptor(
-    {required String descriptorKey,
-    String? changeDescriptorKey,
-    required Descriptor type,
-    List<String>? publicKeys,
-    int? threshold = 4}) {
-  switch (type) {
-    case Descriptor.P2PKH:
-      return WalletDescriptor(
-          descriptor: "pkh($descriptorKey)",
-          changeDescriptor: "pkh($changeDescriptorKey)");
-    case Descriptor.P2WPKH:
-      return WalletDescriptor(
-          descriptor: "wpkh($descriptorKey)",
-          changeDescriptor: "wpkh($changeDescriptorKey)");
-    case Descriptor.P2SHP2WPKH:
-      return WalletDescriptor(
-          descriptor: "sh(wpkh($descriptorKey))",
-          changeDescriptor: "sh(wpkh($changeDescriptorKey))");
-    case Descriptor.P2SHP2WSHP2PKH:
-      return WalletDescriptor(
-          descriptor: "sh(wsh(pkh($descriptorKey)))",
-          changeDescriptor: "sh(wsh(pkh($changeDescriptorKey)))");
-    case Descriptor.MULTI:
-      return _createMultiSigDescriptor(
-          publicKeys: publicKeys,
-          threshold: threshold!.toInt(),
-          descriptorKey: descriptorKey,
-          changeDescriptorKey: changeDescriptorKey);
-    default:
-      return WalletDescriptor(
-          descriptor: "wpkh($descriptorKey)",
-          changeDescriptor: "wpkh($changeDescriptorKey)");
-  }
-}

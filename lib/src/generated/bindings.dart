@@ -15,142 +15,180 @@ import 'dart:ffi' as ffi;
 part 'bindings.freezed.dart';
 
 abstract class Rust {
-  Future<String> generateSeedFromEntropy(
-      {required Entropy entropy, dynamic hint});
+  Future<String> blockchainInit(
+      {required BlockchainConfig config, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
+  FlutterRustBridgeTaskConstMeta get kBlockchainInitConstMeta;
 
-  Future<String> generateSeedFromWordCount(
-      {required WordCount wordCount, dynamic hint});
+  Future<int> getBlockchainHeight({required String blockchainId, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta;
 
-  Future<ExtendedKeyInfo> createKey(
-      {required Network nodeNetwork,
-      required String mnemonic,
-      String? password,
+  Future<String> getBlockchainHash(
+      {required int blockchainHeight, required String id, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta;
+
+  Future<String> broadcast(
+      {required String psbtStr, required String blockchainId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
+
+  Future<String> psbtToTxid({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kPsbtToTxidConstMeta;
+
+  Future<Uint8List> extractTx({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kExtractTxConstMeta;
+
+  Future<String> combinePsbt(
+      {required String psbtStr, required String other, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCombinePsbtConstMeta;
+
+  Future<TxBuilderResult> txBuilderFinish(
+      {required String walletId,
+      required List<ScriptAmount> recipients,
+      required List<OutPoint> utxos,
+      required List<OutPoint> unspendable,
+      required bool manuallySelectedOnly,
+      required bool onlySpendChange,
+      required bool doNotSpendChange,
+      double? feeRate,
+      int? feeAbsolute,
+      required bool drainWallet,
+      String? drainTo,
+      required bool enableRbf,
+      int? nSequence,
+      required Uint8List data,
       dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta;
+  FlutterRustBridgeTaskConstMeta get kTxBuilderFinishConstMeta;
 
-  Future<DerivedKeyInfo> createDescriptorSecretKeys(
-      {required Network nodeNetwork,
-      required String mnemonic,
-      required String path,
-      String? password,
+  Future<String> bumbFeeTxBuilderFinish(
+      {required String txid,
+      required double feeRate,
+      String? allowShrinking,
+      required String walletId,
+      required bool enableRbf,
+      int? nSequence,
       dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretKeysConstMeta;
+  FlutterRustBridgeTaskConstMeta get kBumbFeeTxBuilderFinishConstMeta;
 
-  Future<void> walletInit(
+  Future<String> descriptorSecretAsString(
+      {required Network network,
+      required String mnemonic,
+      String? password,
+      String? path,
+      required DescriptorKeyType keyType,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsStringConstMeta;
+
+  Future<Uint8List> descriptorSecretAsSecretBytes(
+      {required Network network,
+      required String mnemonic,
+      String? password,
+      String? path,
+      required DescriptorKeyType keyType,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesConstMeta;
+
+  Future<String> descriptorSecretAsPublic(
+      {required Network network,
+      required String mnemonic,
+      String? password,
+      String? path,
+      required DescriptorKeyType keyType,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta;
+
+  Future<String> descriptorPublicAsString(
+      {String? xpub, required String path, required bool derive, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorPublicAsStringConstMeta;
+
+  Future<String> addressToScriptHex({required String address, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kAddressToScriptHexConstMeta;
+
+  Future<String> walletInit(
       {required String descriptor,
       String? changeDescriptor,
       required Network network,
-      required BlockchainConfig blockchainConfig,
       required DatabaseConfig databaseConfig,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
-  Future<String> getPublicDescriptor({dynamic hint});
+  Future<AddressInfo> getAddress(
+      {required String walletId,
+      required AddressIndex addressIndex,
+      dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetAddressConstMeta;
 
-  Future<String> getDescriptorForKeychain(
-      {required KeyChainKind keychainKindStr, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainConstMeta;
-
-  Future<String> getDescriptorChecksum(
-      {required KeyChainKind keychainKindStr, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetDescriptorChecksumConstMeta;
-
-  Future<ResponseWallet> getWallet({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta;
-
-  Future<Network> getWalletNetwork({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetWalletNetworkConstMeta;
-
-  Future<int> getBlockchainHeight({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta;
-
-  Future<String> getBlockchainHash(
-      {required int blockchainHeight, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta;
-
-  Future<void> syncWallet({dynamic hint});
+  Future<void> syncWallet(
+      {required String walletId, required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta;
 
-  Future<Balance> getBalance({dynamic hint});
+  Future<Balance> getBalance({required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
 
-  Future<List<LocalUtxo>> listUnspentOutputs({dynamic hint});
+  Future<String> getPublicDescriptor({required String walletId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta;
+
+  Future<List<LocalUtxo>> listUnspentOutputs(
+      {required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta;
 
-  Future<String> getNewAddress({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta;
-
-  Future<String> getNewInternalAddress({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetNewInternalAddressConstMeta;
-
-  Future<String> getLastUnusedAddress({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta;
-
-  Future<TransactionDetails?> getTransaction(
-      {required String txid, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetTransactionConstMeta;
-
-  Future<List<Transaction>> getTransactions({dynamic hint});
+  Future<List<TransactionDetails>> getTransactions(
+      {required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta;
 
-  Future<String> createTransaction(
-      {required String recipient,
-      required int amount,
-      required double feeRate,
+  Future<String?> sign(
+      {required String walletId,
+      required String psbtStr,
+      required bool isMultiSig,
       dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta;
-
-  Future<String> createMultiSigTransaction(
-      {required List<AddressAmount> recipients,
-      required double feeRate,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kCreateMultiSigTransactionConstMeta;
-
-  Future<String> signAndBroadcast({required String psbtStr, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta;
-
-  Future<String?> sign({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignConstMeta;
 
-  Future<String> broadcast({required String psbtStr, dynamic hint});
+  Future<Network> getNetwork({required String walletId, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetNetworkConstMeta;
+
+  Future<List<LocalUtxo>> listUnspent({required String walletId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kListUnspentConstMeta;
+
+  Future<String> generateSeedFromWordCount(
+      {required WordCount wordCount, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
 }
 
-class AddressAmount {
-  final String address;
-  final int amount;
+enum AddressIndex {
+  New,
+  LastUnused,
+}
 
-  AddressAmount({
+class AddressInfo {
+  final int index;
+  final String address;
+
+  AddressInfo({
+    required this.index,
     required this.address,
-    required this.amount,
   });
 }
 
@@ -182,11 +220,11 @@ class Balance {
   });
 }
 
-class BlockConfirmationTime {
+class BlockTime {
   final int height;
   final int timestamp;
 
-  BlockConfirmationTime({
+  BlockTime({
     required this.height,
     required this.timestamp,
   });
@@ -208,16 +246,15 @@ class DatabaseConfig with _$DatabaseConfig {
   const factory DatabaseConfig.sqlite({
     required SqliteConfiguration config,
   }) = SQLITE;
+  const factory DatabaseConfig.sled({
+    required SledDbConfiguration config,
+  }) = SLED;
 }
 
-class DerivedKeyInfo {
-  final String xprv;
-  final String xpub;
-
-  DerivedKeyInfo({
-    required this.xprv,
-    required this.xpub,
-  });
+enum DescriptorKeyType {
+  EXTENDED,
+  DERIVED,
+  DEFAULT,
 }
 
 class ElectrumConfig {
@@ -236,12 +273,6 @@ class ElectrumConfig {
   });
 }
 
-enum Entropy {
-  ENTROPY128,
-  ENTROPY192,
-  ENTROPY256,
-}
-
 class EsploraConfig {
   final String baseUrl;
   final String? proxy;
@@ -256,21 +287,6 @@ class EsploraConfig {
     required this.stopGap,
     this.timeout,
   });
-}
-
-class ExtendedKeyInfo {
-  final String xprv;
-  final String xpub;
-
-  ExtendedKeyInfo({
-    required this.xprv,
-    required this.xpub,
-  });
-}
-
-enum KeyChainKind {
-  EXTERNAL,
-  INTERNAL,
 }
 
 class LocalUtxo {
@@ -306,13 +322,23 @@ class OutPoint {
   });
 }
 
-class ResponseWallet {
-  final Balance balance;
-  final String address;
+class ScriptAmount {
+  final String script;
+  final int amount;
 
-  ResponseWallet({
-    required this.balance,
-    required this.address,
+  ScriptAmount({
+    required this.script,
+    required this.amount,
+  });
+}
+
+class SledDbConfiguration {
+  final String path;
+  final String treeName;
+
+  SledDbConfiguration({
+    required this.path,
+    required this.treeName,
   });
 }
 
@@ -324,32 +350,49 @@ class SqliteConfiguration {
   });
 }
 
-@freezed
-class Transaction with _$Transaction {
-  const factory Transaction.unconfirmed({
-    required TransactionDetails details,
-  }) = Unconfirmed;
-  const factory Transaction.confirmed({
-    required TransactionDetails details,
-    required BlockConfirmationTime confirmation,
-  }) = Confirmed;
-}
-
 class TransactionDetails {
-  final int? fee;
-  final int received;
-  final int sent;
+  /// Transaction id.
   final String txid;
 
+  /// Received value (sats)
+  /// Sum of owned outputs of this transaction.
+  final int received;
+
+  /// Sent value (sats)
+  /// Sum of owned inputs of this transaction.
+  final int sent;
+
+  /// Fee value (sats) if confirmed.
+  /// The availability of the fee depends on the backend. It's never None with an Electrum
+  /// Server backend, but it could be None with a Bitcoin RPC node without txindex that receive
+  /// funds while offline.
+  final int? fee;
+
+  /// If the transaction is confirmed, contains height and timestamp of the block containing the
+  /// transaction, unconfirmed transaction contains `None`.
+  final BlockTime? confirmationTime;
+
   TransactionDetails({
-    this.fee,
+    required this.txid,
     required this.received,
     required this.sent,
-    required this.txid,
+    this.fee,
+    this.confirmationTime,
   });
 }
 
-/// A transaction output, which defines new coins to be created from old ones.
+/// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
+/// transaction details.
+class TxBuilderResult {
+  final String psbt;
+  final TransactionDetails transactionDetails;
+
+  TxBuilderResult({
+    required this.psbt,
+    required this.transactionDetails,
+  });
+}
+
 class TxOut {
   /// The value of the output, in satoshis.
   final int value;
@@ -374,21 +417,546 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   RustImpl.raw(RustWire inner) : super(inner);
 
-  Future<String> generateSeedFromEntropy(
-          {required Entropy entropy, dynamic hint}) =>
+  Future<String> blockchainInit(
+          {required BlockchainConfig config, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_generate_seed_from_entropy(
-            port_, _api2wire_entropy(entropy)),
+        callFfi: (port_) => inner.wire_blockchain_init(
+            port_, _api2wire_box_autoadd_blockchain_config(config)),
         parseSuccessData: _wire2api_String,
-        constMeta: kGenerateSeedFromEntropyConstMeta,
-        argValues: [entropy],
+        constMeta: kBlockchainInitConstMeta,
+        argValues: [config],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kBlockchainInitConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "generate_seed_from_entropy",
-        argNames: ["entropy"],
+        debugName: "blockchain_init",
+        argNames: ["config"],
+      );
+
+  Future<int> getBlockchainHeight(
+          {required String blockchainId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_blockchain_height(
+            port_, _api2wire_String(blockchainId)),
+        parseSuccessData: _wire2api_u32,
+        constMeta: kGetBlockchainHeightConstMeta,
+        argValues: [blockchainId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_blockchain_height",
+        argNames: ["blockchainId"],
+      );
+
+  Future<String> getBlockchainHash(
+          {required int blockchainHeight, required String id, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_blockchain_hash(
+            port_, _api2wire_u64(blockchainHeight), _api2wire_String(id)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetBlockchainHashConstMeta,
+        argValues: [blockchainHeight, id],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_blockchain_hash",
+        argNames: ["blockchainHeight", "id"],
+      );
+
+  Future<String> broadcast(
+          {required String psbtStr,
+          required String blockchainId,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_broadcast(
+            port_, _api2wire_String(psbtStr), _api2wire_String(blockchainId)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kBroadcastConstMeta,
+        argValues: [psbtStr, blockchainId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "broadcast",
+        argNames: ["psbtStr", "blockchainId"],
+      );
+
+  Future<String> psbtToTxid({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_psbt_to_txid(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kPsbtToTxidConstMeta,
+        argValues: [psbtStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kPsbtToTxidConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "psbt_to_txid",
+        argNames: ["psbtStr"],
+      );
+
+  Future<Uint8List> extractTx({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_extract_tx(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_uint_8_list,
+        constMeta: kExtractTxConstMeta,
+        argValues: [psbtStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kExtractTxConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "extract_tx",
+        argNames: ["psbtStr"],
+      );
+
+  Future<String> combinePsbt(
+          {required String psbtStr, required String other, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_combine_psbt(
+            port_, _api2wire_String(psbtStr), _api2wire_String(other)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCombinePsbtConstMeta,
+        argValues: [psbtStr, other],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCombinePsbtConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "combine_psbt",
+        argNames: ["psbtStr", "other"],
+      );
+
+  Future<TxBuilderResult> txBuilderFinish(
+          {required String walletId,
+          required List<ScriptAmount> recipients,
+          required List<OutPoint> utxos,
+          required List<OutPoint> unspendable,
+          required bool manuallySelectedOnly,
+          required bool onlySpendChange,
+          required bool doNotSpendChange,
+          double? feeRate,
+          int? feeAbsolute,
+          required bool drainWallet,
+          String? drainTo,
+          required bool enableRbf,
+          int? nSequence,
+          required Uint8List data,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_tx_builder_finish(
+            port_,
+            _api2wire_String(walletId),
+            _api2wire_list_script_amount(recipients),
+            _api2wire_list_out_point(utxos),
+            _api2wire_list_out_point(unspendable),
+            manuallySelectedOnly,
+            onlySpendChange,
+            doNotSpendChange,
+            _api2wire_opt_box_autoadd_f32(feeRate),
+            _api2wire_opt_box_autoadd_u64(feeAbsolute),
+            drainWallet,
+            _api2wire_opt_String(drainTo),
+            enableRbf,
+            _api2wire_opt_box_autoadd_u32(nSequence),
+            _api2wire_uint_8_list(data)),
+        parseSuccessData: _wire2api_tx_builder_result,
+        constMeta: kTxBuilderFinishConstMeta,
+        argValues: [
+          walletId,
+          recipients,
+          utxos,
+          unspendable,
+          manuallySelectedOnly,
+          onlySpendChange,
+          doNotSpendChange,
+          feeRate,
+          feeAbsolute,
+          drainWallet,
+          drainTo,
+          enableRbf,
+          nSequence,
+          data
+        ],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kTxBuilderFinishConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "tx_builder_finish",
+        argNames: [
+          "walletId",
+          "recipients",
+          "utxos",
+          "unspendable",
+          "manuallySelectedOnly",
+          "onlySpendChange",
+          "doNotSpendChange",
+          "feeRate",
+          "feeAbsolute",
+          "drainWallet",
+          "drainTo",
+          "enableRbf",
+          "nSequence",
+          "data"
+        ],
+      );
+
+  Future<String> bumbFeeTxBuilderFinish(
+          {required String txid,
+          required double feeRate,
+          String? allowShrinking,
+          required String walletId,
+          required bool enableRbf,
+          int? nSequence,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_bumb_fee_tx_builder_finish(
+            port_,
+            _api2wire_String(txid),
+            _api2wire_f32(feeRate),
+            _api2wire_opt_String(allowShrinking),
+            _api2wire_String(walletId),
+            enableRbf,
+            _api2wire_opt_box_autoadd_u32(nSequence)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kBumbFeeTxBuilderFinishConstMeta,
+        argValues: [
+          txid,
+          feeRate,
+          allowShrinking,
+          walletId,
+          enableRbf,
+          nSequence
+        ],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kBumbFeeTxBuilderFinishConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "bumb_fee_tx_builder_finish",
+        argNames: [
+          "txid",
+          "feeRate",
+          "allowShrinking",
+          "walletId",
+          "enableRbf",
+          "nSequence"
+        ],
+      );
+
+  Future<String> descriptorSecretAsString(
+          {required Network network,
+          required String mnemonic,
+          String? password,
+          String? path,
+          required DescriptorKeyType keyType,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_descriptor_secret_as_string(
+            port_,
+            _api2wire_network(network),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password),
+            _api2wire_opt_String(path),
+            _api2wire_descriptor_key_type(keyType)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kDescriptorSecretAsStringConstMeta,
+        argValues: [network, mnemonic, password, path, keyType],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsStringConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_as_string",
+        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+      );
+
+  Future<Uint8List> descriptorSecretAsSecretBytes(
+          {required Network network,
+          required String mnemonic,
+          String? password,
+          String? path,
+          required DescriptorKeyType keyType,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_descriptor_secret_as_secret_bytes(
+            port_,
+            _api2wire_network(network),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password),
+            _api2wire_opt_String(path),
+            _api2wire_descriptor_key_type(keyType)),
+        parseSuccessData: _wire2api_uint_8_list,
+        constMeta: kDescriptorSecretAsSecretBytesConstMeta,
+        argValues: [network, mnemonic, password, path, keyType],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_as_secret_bytes",
+        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+      );
+
+  Future<String> descriptorSecretAsPublic(
+          {required Network network,
+          required String mnemonic,
+          String? password,
+          String? path,
+          required DescriptorKeyType keyType,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_descriptor_secret_as_public(
+            port_,
+            _api2wire_network(network),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password),
+            _api2wire_opt_String(path),
+            _api2wire_descriptor_key_type(keyType)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kDescriptorSecretAsPublicConstMeta,
+        argValues: [network, mnemonic, password, path, keyType],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_as_public",
+        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+      );
+
+  Future<String> descriptorPublicAsString(
+          {String? xpub,
+          required String path,
+          required bool derive,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_descriptor_public_as_string(
+            port_, _api2wire_opt_String(xpub), _api2wire_String(path), derive),
+        parseSuccessData: _wire2api_String,
+        constMeta: kDescriptorPublicAsStringConstMeta,
+        argValues: [xpub, path, derive],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorPublicAsStringConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_public_as_string",
+        argNames: ["xpub", "path", "derive"],
+      );
+
+  Future<String> addressToScriptHex({required String address, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_address_to_script_hex(port_, _api2wire_String(address)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kAddressToScriptHexConstMeta,
+        argValues: [address],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kAddressToScriptHexConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "address_to_script_hex",
+        argNames: ["address"],
+      );
+
+  Future<String> walletInit(
+          {required String descriptor,
+          String? changeDescriptor,
+          required Network network,
+          required DatabaseConfig databaseConfig,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_wallet_init(
+            port_,
+            _api2wire_String(descriptor),
+            _api2wire_opt_String(changeDescriptor),
+            _api2wire_network(network),
+            _api2wire_box_autoadd_database_config(databaseConfig)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kWalletInitConstMeta,
+        argValues: [descriptor, changeDescriptor, network, databaseConfig],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "wallet_init",
+        argNames: [
+          "descriptor",
+          "changeDescriptor",
+          "network",
+          "databaseConfig"
+        ],
+      );
+
+  Future<AddressInfo> getAddress(
+          {required String walletId,
+          required AddressIndex addressIndex,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_get_address(port_,
+            _api2wire_String(walletId), _api2wire_address_index(addressIndex)),
+        parseSuccessData: _wire2api_address_info,
+        constMeta: kGetAddressConstMeta,
+        argValues: [walletId, addressIndex],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetAddressConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_address",
+        argNames: ["walletId", "addressIndex"],
+      );
+
+  Future<void> syncWallet(
+          {required String walletId,
+          required String blockchainId,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_sync_wallet(
+            port_, _api2wire_String(walletId), _api2wire_String(blockchainId)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kSyncWalletConstMeta,
+        argValues: [walletId, blockchainId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "sync_wallet",
+        argNames: ["walletId", "blockchainId"],
+      );
+
+  Future<Balance> getBalance({required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_balance(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_balance,
+        constMeta: kGetBalanceConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_balance",
+        argNames: ["walletId"],
+      );
+
+  Future<String> getPublicDescriptor(
+          {required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_public_descriptor(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGetPublicDescriptorConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_public_descriptor",
+        argNames: ["walletId"],
+      );
+
+  Future<List<LocalUtxo>> listUnspentOutputs(
+          {required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_list_unspent_outputs(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_list_local_utxo,
+        constMeta: kListUnspentOutputsConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "list_unspent_outputs",
+        argNames: ["walletId"],
+      );
+
+  Future<List<TransactionDetails>> getTransactions(
+          {required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_transactions(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_list_transaction_details,
+        constMeta: kGetTransactionsConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_transactions",
+        argNames: ["walletId"],
+      );
+
+  Future<String?> sign(
+          {required String walletId,
+          required String psbtStr,
+          required bool isMultiSig,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_sign(port_, _api2wire_String(walletId),
+            _api2wire_String(psbtStr), isMultiSig),
+        parseSuccessData: _wire2api_opt_String,
+        constMeta: kSignConstMeta,
+        argValues: [walletId, psbtStr, isMultiSig],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kSignConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "sign",
+        argNames: ["walletId", "psbtStr", "isMultiSig"],
+      );
+
+  Future<Network> getNetwork({required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_network(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_network,
+        constMeta: kGetNetworkConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetNetworkConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_network",
+        argNames: ["walletId"],
+      );
+
+  Future<List<LocalUtxo>> listUnspent(
+          {required String walletId, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_list_unspent(port_, _api2wire_String(walletId)),
+        parseSuccessData: _wire2api_list_local_utxo,
+        constMeta: kListUnspentConstMeta,
+        argValues: [walletId],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kListUnspentConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "list_unspent",
+        argNames: ["walletId"],
       );
 
   Future<String> generateSeedFromWordCount(
@@ -408,418 +976,17 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["wordCount"],
       );
 
-  Future<ExtendedKeyInfo> createKey(
-          {required Network nodeNetwork,
-          required String mnemonic,
-          String? password,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_key(
-            port_,
-            _api2wire_network(nodeNetwork),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_extended_key_info,
-        constMeta: kCreateKeyConstMeta,
-        argValues: [nodeNetwork, mnemonic, password],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateKeyConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_key",
-        argNames: ["nodeNetwork", "mnemonic", "password"],
-      );
-
-  Future<DerivedKeyInfo> createDescriptorSecretKeys(
-          {required Network nodeNetwork,
-          required String mnemonic,
-          required String path,
-          String? password,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_descriptor_secret_keys(
-            port_,
-            _api2wire_network(nodeNetwork),
-            _api2wire_String(mnemonic),
-            _api2wire_String(path),
-            _api2wire_opt_String(password)),
-        parseSuccessData: _wire2api_derived_key_info,
-        constMeta: kCreateDescriptorSecretKeysConstMeta,
-        argValues: [nodeNetwork, mnemonic, path, password],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretKeysConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_descriptor_secret_keys",
-        argNames: ["nodeNetwork", "mnemonic", "path", "password"],
-      );
-
-  Future<void> walletInit(
-          {required String descriptor,
-          String? changeDescriptor,
-          required Network network,
-          required BlockchainConfig blockchainConfig,
-          required DatabaseConfig databaseConfig,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_wallet_init(
-            port_,
-            _api2wire_String(descriptor),
-            _api2wire_opt_String(changeDescriptor),
-            _api2wire_network(network),
-            _api2wire_box_autoadd_blockchain_config(blockchainConfig),
-            _api2wire_box_autoadd_database_config(databaseConfig)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kWalletInitConstMeta,
-        argValues: [
-          descriptor,
-          changeDescriptor,
-          network,
-          blockchainConfig,
-          databaseConfig
-        ],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "wallet_init",
-        argNames: [
-          "descriptor",
-          "changeDescriptor",
-          "network",
-          "blockchainConfig",
-          "databaseConfig"
-        ],
-      );
-
-  Future<String> getPublicDescriptor({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_public_descriptor(port_),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetPublicDescriptorConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_public_descriptor",
-        argNames: [],
-      );
-
-  Future<String> getDescriptorForKeychain(
-          {required KeyChainKind keychainKindStr, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_descriptor_for_keychain(
-            port_, _api2wire_key_chain_kind(keychainKindStr)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetDescriptorForKeychainConstMeta,
-        argValues: [keychainKindStr],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_descriptor_for_keychain",
-        argNames: ["keychainKindStr"],
-      );
-
-  Future<String> getDescriptorChecksum(
-          {required KeyChainKind keychainKindStr, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_descriptor_checksum(
-            port_, _api2wire_key_chain_kind(keychainKindStr)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetDescriptorChecksumConstMeta,
-        argValues: [keychainKindStr],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetDescriptorChecksumConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_descriptor_checksum",
-        argNames: ["keychainKindStr"],
-      );
-
-  Future<ResponseWallet> getWallet({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_wallet(port_),
-        parseSuccessData: _wire2api_response_wallet,
-        constMeta: kGetWalletConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetWalletConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_wallet",
-        argNames: [],
-      );
-
-  Future<Network> getWalletNetwork({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_wallet_network(port_),
-        parseSuccessData: _wire2api_network,
-        constMeta: kGetWalletNetworkConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetWalletNetworkConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_wallet_network",
-        argNames: [],
-      );
-
-  Future<int> getBlockchainHeight({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_blockchain_height(port_),
-        parseSuccessData: _wire2api_u32,
-        constMeta: kGetBlockchainHeightConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_blockchain_height",
-        argNames: [],
-      );
-
-  Future<String> getBlockchainHash(
-          {required int blockchainHeight, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_blockchain_hash(
-            port_, _api2wire_u64(blockchainHeight)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetBlockchainHashConstMeta,
-        argValues: [blockchainHeight],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_blockchain_hash",
-        argNames: ["blockchainHeight"],
-      );
-
-  Future<void> syncWallet({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_sync_wallet(port_),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kSyncWalletConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "sync_wallet",
-        argNames: [],
-      );
-
-  Future<Balance> getBalance({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_balance(port_),
-        parseSuccessData: _wire2api_balance,
-        constMeta: kGetBalanceConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_balance",
-        argNames: [],
-      );
-
-  Future<List<LocalUtxo>> listUnspentOutputs({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_list_unspent_outputs(port_),
-        parseSuccessData: _wire2api_list_local_utxo,
-        constMeta: kListUnspentOutputsConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "list_unspent_outputs",
-        argNames: [],
-      );
-
-  Future<String> getNewAddress({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_new_address(port_),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetNewAddressConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetNewAddressConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_new_address",
-        argNames: [],
-      );
-
-  Future<String> getNewInternalAddress({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_new_internal_address(port_),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetNewInternalAddressConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetNewInternalAddressConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_new_internal_address",
-        argNames: [],
-      );
-
-  Future<String> getLastUnusedAddress({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_last_unused_address(port_),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetLastUnusedAddressConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetLastUnusedAddressConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_last_unused_address",
-        argNames: [],
-      );
-
-  Future<TransactionDetails?> getTransaction(
-          {required String txid, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_get_transaction(port_, _api2wire_String(txid)),
-        parseSuccessData: _wire2api_opt_box_autoadd_transaction_details,
-        constMeta: kGetTransactionConstMeta,
-        argValues: [txid],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetTransactionConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_transaction",
-        argNames: ["txid"],
-      );
-
-  Future<List<Transaction>> getTransactions({dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_get_transactions(port_),
-        parseSuccessData: _wire2api_list_transaction,
-        constMeta: kGetTransactionsConstMeta,
-        argValues: [],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_transactions",
-        argNames: [],
-      );
-
-  Future<String> createTransaction(
-          {required String recipient,
-          required int amount,
-          required double feeRate,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_transaction(
-            port_,
-            _api2wire_String(recipient),
-            _api2wire_u64(amount),
-            _api2wire_f32(feeRate)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kCreateTransactionConstMeta,
-        argValues: [recipient, amount, feeRate],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateTransactionConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_transaction",
-        argNames: ["recipient", "amount", "feeRate"],
-      );
-
-  Future<String> createMultiSigTransaction(
-          {required List<AddressAmount> recipients,
-          required double feeRate,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_create_multi_sig_transaction(port_,
-            _api2wire_list_address_amount(recipients), _api2wire_f32(feeRate)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kCreateMultiSigTransactionConstMeta,
-        argValues: [recipients, feeRate],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kCreateMultiSigTransactionConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "create_multi_sig_transaction",
-        argNames: ["recipients", "feeRate"],
-      );
-
-  Future<String> signAndBroadcast({required String psbtStr, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_sign_and_broadcast(port_, _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kSignAndBroadcastConstMeta,
-        argValues: [psbtStr],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kSignAndBroadcastConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "sign_and_broadcast",
-        argNames: ["psbtStr"],
-      );
-
-  Future<String?> sign({required String psbtStr, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_sign(port_, _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_opt_String,
-        constMeta: kSignConstMeta,
-        argValues: [psbtStr],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kSignConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "sign",
-        argNames: ["psbtStr"],
-      );
-
-  Future<String> broadcast({required String psbtStr, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_broadcast(port_, _api2wire_String(psbtStr)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kBroadcastConstMeta,
-        argValues: [psbtStr],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "broadcast",
-        argNames: ["psbtStr"],
-      );
-
   // Section: api2wire
   ffi.Pointer<wire_uint_8_list> _api2wire_String(String raw) {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  int _api2wire_address_index(AddressIndex raw) {
+    return _api2wire_i32(raw.index);
+  }
+
+  bool _api2wire_bool(bool raw) {
+    return raw;
   }
 
   ffi.Pointer<wire_BlockchainConfig> _api2wire_box_autoadd_blockchain_config(
@@ -850,11 +1017,26 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return ptr;
   }
 
+  ffi.Pointer<ffi.Float> _api2wire_box_autoadd_f32(double raw) {
+    return inner.new_box_autoadd_f32_0(_api2wire_f32(raw));
+  }
+
+  ffi.Pointer<wire_SledDbConfiguration>
+      _api2wire_box_autoadd_sled_db_configuration(SledDbConfiguration raw) {
+    final ptr = inner.new_box_autoadd_sled_db_configuration_0();
+    _api_fill_to_wire_sled_db_configuration(raw, ptr.ref);
+    return ptr;
+  }
+
   ffi.Pointer<wire_SqliteConfiguration>
       _api2wire_box_autoadd_sqlite_configuration(SqliteConfiguration raw) {
     final ptr = inner.new_box_autoadd_sqlite_configuration_0();
     _api_fill_to_wire_sqlite_configuration(raw, ptr.ref);
     return ptr;
+  }
+
+  ffi.Pointer<ffi.Uint32> _api2wire_box_autoadd_u32(int raw) {
+    return inner.new_box_autoadd_u32_0(_api2wire_u32(raw));
   }
 
   ffi.Pointer<ffi.Uint64> _api2wire_box_autoadd_u64(int raw) {
@@ -865,7 +1047,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return inner.new_box_autoadd_u8_0(_api2wire_u8(raw));
   }
 
-  int _api2wire_entropy(Entropy raw) {
+  int _api2wire_descriptor_key_type(DescriptorKeyType raw) {
     return _api2wire_i32(raw.index);
   }
 
@@ -877,15 +1059,20 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return raw;
   }
 
-  int _api2wire_key_chain_kind(KeyChainKind raw) {
-    return _api2wire_i32(raw.index);
+  ffi.Pointer<wire_list_out_point> _api2wire_list_out_point(
+      List<OutPoint> raw) {
+    final ans = inner.new_list_out_point_0(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      _api_fill_to_wire_out_point(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
   }
 
-  ffi.Pointer<wire_list_address_amount> _api2wire_list_address_amount(
-      List<AddressAmount> raw) {
-    final ans = inner.new_list_address_amount_0(raw.length);
+  ffi.Pointer<wire_list_script_amount> _api2wire_list_script_amount(
+      List<ScriptAmount> raw) {
+    final ans = inner.new_list_script_amount_0(raw.length);
     for (var i = 0; i < raw.length; ++i) {
-      _api_fill_to_wire_address_amount(raw[i], ans.ref.ptr[i]);
+      _api_fill_to_wire_script_amount(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -898,12 +1085,24 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return raw == null ? ffi.nullptr : _api2wire_String(raw);
   }
 
+  ffi.Pointer<ffi.Float> _api2wire_opt_box_autoadd_f32(double? raw) {
+    return raw == null ? ffi.nullptr : _api2wire_box_autoadd_f32(raw);
+  }
+
+  ffi.Pointer<ffi.Uint32> _api2wire_opt_box_autoadd_u32(int? raw) {
+    return raw == null ? ffi.nullptr : _api2wire_box_autoadd_u32(raw);
+  }
+
   ffi.Pointer<ffi.Uint64> _api2wire_opt_box_autoadd_u64(int? raw) {
     return raw == null ? ffi.nullptr : _api2wire_box_autoadd_u64(raw);
   }
 
   ffi.Pointer<ffi.Uint8> _api2wire_opt_box_autoadd_u8(int? raw) {
     return raw == null ? ffi.nullptr : _api2wire_box_autoadd_u8(raw);
+  }
+
+  int _api2wire_u32(int raw) {
+    return raw;
   }
 
   int _api2wire_u64(int raw) {
@@ -925,12 +1124,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   }
 
   // Section: api_fill_to_wire
-
-  void _api_fill_to_wire_address_amount(
-      AddressAmount apiObj, wire_AddressAmount wireObj) {
-    wireObj.address = _api2wire_String(apiObj.address);
-    wireObj.amount = _api2wire_u64(apiObj.amount);
-  }
 
   void _api_fill_to_wire_blockchain_config(
       BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
@@ -968,6 +1161,12 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     _api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
   }
 
+  void _api_fill_to_wire_box_autoadd_sled_db_configuration(
+      SledDbConfiguration apiObj,
+      ffi.Pointer<wire_SledDbConfiguration> wireObj) {
+    _api_fill_to_wire_sled_db_configuration(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_box_autoadd_sqlite_configuration(
       SqliteConfiguration apiObj,
       ffi.Pointer<wire_SqliteConfiguration> wireObj) {
@@ -985,6 +1184,12 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       wireObj.kind = inner.inflate_DatabaseConfig_SQLITE();
       wireObj.kind.ref.SQLITE.ref.config =
           _api2wire_box_autoadd_sqlite_configuration(apiObj.config);
+    }
+    if (apiObj is SLED) {
+      wireObj.tag = 2;
+      wireObj.kind = inner.inflate_DatabaseConfig_SLED();
+      wireObj.kind.ref.SLED.ref.config =
+          _api2wire_box_autoadd_sled_db_configuration(apiObj.config);
     }
   }
 
@@ -1006,6 +1211,23 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     wireObj.timeout = _api2wire_opt_box_autoadd_u64(apiObj.timeout);
   }
 
+  void _api_fill_to_wire_out_point(OutPoint apiObj, wire_OutPoint wireObj) {
+    wireObj.txid = _api2wire_String(apiObj.txid);
+    wireObj.vout = _api2wire_u32(apiObj.vout);
+  }
+
+  void _api_fill_to_wire_script_amount(
+      ScriptAmount apiObj, wire_ScriptAmount wireObj) {
+    wireObj.script = _api2wire_String(apiObj.script);
+    wireObj.amount = _api2wire_u64(apiObj.amount);
+  }
+
+  void _api_fill_to_wire_sled_db_configuration(
+      SledDbConfiguration apiObj, wire_SledDbConfiguration wireObj) {
+    wireObj.path = _api2wire_String(apiObj.path);
+    wireObj.tree_name = _api2wire_String(apiObj.treeName);
+  }
+
   void _api_fill_to_wire_sqlite_configuration(
       SqliteConfiguration apiObj, wire_SqliteConfiguration wireObj) {
     wireObj.path = _api2wire_String(apiObj.path);
@@ -1015,6 +1237,16 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 // Section: wire2api
 String _wire2api_String(dynamic raw) {
   return raw as String;
+}
+
+AddressInfo _wire2api_address_info(dynamic raw) {
+  final arr = raw as List<dynamic>;
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return AddressInfo(
+    index: _wire2api_u32(arr[0]),
+    address: _wire2api_String(arr[1]),
+  );
 }
 
 Balance _wire2api_balance(dynamic raw) {
@@ -1031,11 +1263,11 @@ Balance _wire2api_balance(dynamic raw) {
   );
 }
 
-BlockConfirmationTime _wire2api_block_confirmation_time(dynamic raw) {
+BlockTime _wire2api_block_time(dynamic raw) {
   final arr = raw as List<dynamic>;
   if (arr.length != 2)
     throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return BlockConfirmationTime(
+  return BlockTime(
     height: _wire2api_u32(arr[0]),
     timestamp: _wire2api_u64(arr[1]),
   );
@@ -1045,37 +1277,12 @@ bool _wire2api_bool(dynamic raw) {
   return raw as bool;
 }
 
-BlockConfirmationTime _wire2api_box_autoadd_block_confirmation_time(
-    dynamic raw) {
-  return _wire2api_block_confirmation_time(raw);
-}
-
-TransactionDetails _wire2api_box_autoadd_transaction_details(dynamic raw) {
-  return _wire2api_transaction_details(raw);
+BlockTime _wire2api_box_autoadd_block_time(dynamic raw) {
+  return _wire2api_block_time(raw);
 }
 
 int _wire2api_box_autoadd_u64(dynamic raw) {
   return raw as int;
-}
-
-DerivedKeyInfo _wire2api_derived_key_info(dynamic raw) {
-  final arr = raw as List<dynamic>;
-  if (arr.length != 2)
-    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return DerivedKeyInfo(
-    xprv: _wire2api_String(arr[0]),
-    xpub: _wire2api_String(arr[1]),
-  );
-}
-
-ExtendedKeyInfo _wire2api_extended_key_info(dynamic raw) {
-  final arr = raw as List<dynamic>;
-  if (arr.length != 2)
-    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return ExtendedKeyInfo(
-    xprv: _wire2api_String(arr[0]),
-    xpub: _wire2api_String(arr[1]),
-  );
 }
 
 int _wire2api_i32(dynamic raw) {
@@ -1086,8 +1293,8 @@ List<LocalUtxo> _wire2api_list_local_utxo(dynamic raw) {
   return (raw as List<dynamic>).map(_wire2api_local_utxo).toList();
 }
 
-List<Transaction> _wire2api_list_transaction(dynamic raw) {
-  return (raw as List<dynamic>).map(_wire2api_transaction).toList();
+List<TransactionDetails> _wire2api_list_transaction_details(dynamic raw) {
+  return (raw as List<dynamic>).map(_wire2api_transaction_details).toList();
 }
 
 LocalUtxo _wire2api_local_utxo(dynamic raw) {
@@ -1109,8 +1316,8 @@ String? _wire2api_opt_String(dynamic raw) {
   return raw == null ? null : _wire2api_String(raw);
 }
 
-TransactionDetails? _wire2api_opt_box_autoadd_transaction_details(dynamic raw) {
-  return raw == null ? null : _wire2api_box_autoadd_transaction_details(raw);
+BlockTime? _wire2api_opt_box_autoadd_block_time(dynamic raw) {
+  return raw == null ? null : _wire2api_box_autoadd_block_time(raw);
 }
 
 int? _wire2api_opt_box_autoadd_u64(dynamic raw) {
@@ -1127,41 +1334,26 @@ OutPoint _wire2api_out_point(dynamic raw) {
   );
 }
 
-ResponseWallet _wire2api_response_wallet(dynamic raw) {
+TransactionDetails _wire2api_transaction_details(dynamic raw) {
   final arr = raw as List<dynamic>;
-  if (arr.length != 2)
-    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-  return ResponseWallet(
-    balance: _wire2api_balance(arr[0]),
-    address: _wire2api_String(arr[1]),
+  if (arr.length != 5)
+    throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+  return TransactionDetails(
+    txid: _wire2api_String(arr[0]),
+    received: _wire2api_u64(arr[1]),
+    sent: _wire2api_u64(arr[2]),
+    fee: _wire2api_opt_box_autoadd_u64(arr[3]),
+    confirmationTime: _wire2api_opt_box_autoadd_block_time(arr[4]),
   );
 }
 
-Transaction _wire2api_transaction(dynamic raw) {
-  switch (raw[0]) {
-    case 0:
-      return Unconfirmed(
-        details: _wire2api_box_autoadd_transaction_details(raw[1]),
-      );
-    case 1:
-      return Confirmed(
-        details: _wire2api_box_autoadd_transaction_details(raw[1]),
-        confirmation: _wire2api_box_autoadd_block_confirmation_time(raw[2]),
-      );
-    default:
-      throw Exception("unreachable");
-  }
-}
-
-TransactionDetails _wire2api_transaction_details(dynamic raw) {
+TxBuilderResult _wire2api_tx_builder_result(dynamic raw) {
   final arr = raw as List<dynamic>;
-  if (arr.length != 4)
-    throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
-  return TransactionDetails(
-    fee: _wire2api_opt_box_autoadd_u64(arr[0]),
-    received: _wire2api_u64(arr[1]),
-    sent: _wire2api_u64(arr[2]),
-    txid: _wire2api_String(arr[3]),
+  if (arr.length != 2)
+    throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+  return TxBuilderResult(
+    psbt: _wire2api_String(arr[0]),
+    transactionDetails: _wire2api_transaction_details(arr[1]),
   );
 }
 
@@ -1216,21 +1408,594 @@ class RustWire implements FlutterRustBridgeWireBase {
           lookup)
       : _lookup = lookup;
 
-  void wire_generate_seed_from_entropy(
+  void wire_blockchain_init(
     int port_,
-    int entropy,
+    ffi.Pointer<wire_BlockchainConfig> config,
   ) {
-    return _wire_generate_seed_from_entropy(
+    return _wire_blockchain_init(
       port_,
-      entropy,
+      config,
     );
   }
 
-  late final _wire_generate_seed_from_entropyPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
-          'wire_generate_seed_from_entropy');
-  late final _wire_generate_seed_from_entropy =
-      _wire_generate_seed_from_entropyPtr.asFunction<void Function(int, int)>();
+  late final _wire_blockchain_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_BlockchainConfig>)>>('wire_blockchain_init');
+  late final _wire_blockchain_init = _wire_blockchain_initPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_BlockchainConfig>)>();
+
+  void wire_get_blockchain_height(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> blockchain_id,
+  ) {
+    return _wire_get_blockchain_height(
+      port_,
+      blockchain_id,
+    );
+  }
+
+  late final _wire_get_blockchain_heightPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_blockchain_height');
+  late final _wire_get_blockchain_height = _wire_get_blockchain_heightPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_blockchain_hash(
+    int port_,
+    int blockchain_height,
+    ffi.Pointer<wire_uint_8_list> id,
+  ) {
+    return _wire_get_blockchain_hash(
+      port_,
+      blockchain_height,
+      id,
+    );
+  }
+
+  late final _wire_get_blockchain_hashPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Uint64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_blockchain_hash');
+  late final _wire_get_blockchain_hash = _wire_get_blockchain_hashPtr
+      .asFunction<void Function(int, int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_broadcast(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+    ffi.Pointer<wire_uint_8_list> blockchain_id,
+  ) {
+    return _wire_broadcast(
+      port_,
+      psbt_str,
+      blockchain_id,
+    );
+  }
+
+  late final _wire_broadcastPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_broadcast');
+  late final _wire_broadcast = _wire_broadcastPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_psbt_to_txid(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+  ) {
+    return _wire_psbt_to_txid(
+      port_,
+      psbt_str,
+    );
+  }
+
+  late final _wire_psbt_to_txidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_psbt_to_txid');
+  late final _wire_psbt_to_txid = _wire_psbt_to_txidPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_extract_tx(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+  ) {
+    return _wire_extract_tx(
+      port_,
+      psbt_str,
+    );
+  }
+
+  late final _wire_extract_txPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_extract_tx');
+  late final _wire_extract_tx = _wire_extract_txPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_combine_psbt(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+    ffi.Pointer<wire_uint_8_list> other,
+  ) {
+    return _wire_combine_psbt(
+      port_,
+      psbt_str,
+      other,
+    );
+  }
+
+  late final _wire_combine_psbtPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_combine_psbt');
+  late final _wire_combine_psbt = _wire_combine_psbtPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_tx_builder_finish(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    ffi.Pointer<wire_list_script_amount> recipients,
+    ffi.Pointer<wire_list_out_point> utxos,
+    ffi.Pointer<wire_list_out_point> unspendable,
+    bool manually_selected_only,
+    bool only_spend_change,
+    bool do_not_spend_change,
+    ffi.Pointer<ffi.Float> fee_rate,
+    ffi.Pointer<ffi.Uint64> fee_absolute,
+    bool drain_wallet,
+    ffi.Pointer<wire_uint_8_list> drain_to,
+    bool enable_rbf,
+    ffi.Pointer<ffi.Uint32> n_sequence,
+    ffi.Pointer<wire_uint_8_list> data,
+  ) {
+    return _wire_tx_builder_finish(
+      port_,
+      wallet_id,
+      recipients,
+      utxos,
+      unspendable,
+      manually_selected_only,
+      only_spend_change,
+      do_not_spend_change,
+      fee_rate,
+      fee_absolute,
+      drain_wallet,
+      drain_to,
+      enable_rbf,
+      n_sequence,
+      data,
+    );
+  }
+
+  late final _wire_tx_builder_finishPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_list_script_amount>,
+              ffi.Pointer<wire_list_out_point>,
+              ffi.Pointer<wire_list_out_point>,
+              ffi.Bool,
+              ffi.Bool,
+              ffi.Bool,
+              ffi.Pointer<ffi.Float>,
+              ffi.Pointer<ffi.Uint64>,
+              ffi.Bool,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Bool,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_tx_builder_finish');
+  late final _wire_tx_builder_finish = _wire_tx_builder_finishPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_list_script_amount>,
+          ffi.Pointer<wire_list_out_point>,
+          ffi.Pointer<wire_list_out_point>,
+          bool,
+          bool,
+          bool,
+          ffi.Pointer<ffi.Float>,
+          ffi.Pointer<ffi.Uint64>,
+          bool,
+          ffi.Pointer<wire_uint_8_list>,
+          bool,
+          ffi.Pointer<ffi.Uint32>,
+          ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_bumb_fee_tx_builder_finish(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> txid,
+    double fee_rate,
+    ffi.Pointer<wire_uint_8_list> allow_shrinking,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    bool enable_rbf,
+    ffi.Pointer<ffi.Uint32> n_sequence,
+  ) {
+    return _wire_bumb_fee_tx_builder_finish(
+      port_,
+      txid,
+      fee_rate,
+      allow_shrinking,
+      wallet_id,
+      enable_rbf,
+      n_sequence,
+    );
+  }
+
+  late final _wire_bumb_fee_tx_builder_finishPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Float,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Bool,
+              ffi.Pointer<ffi.Uint32>)>>('wire_bumb_fee_tx_builder_finish');
+  late final _wire_bumb_fee_tx_builder_finish =
+      _wire_bumb_fee_tx_builder_finishPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              double,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              bool,
+              ffi.Pointer<ffi.Uint32>)>();
+
+  void wire_descriptor_secret_as_string(
+    int port_,
+    int network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
+    ffi.Pointer<wire_uint_8_list> path,
+    int key_type,
+  ) {
+    return _wire_descriptor_secret_as_string(
+      port_,
+      network,
+      mnemonic,
+      password,
+      path,
+      key_type,
+    );
+  }
+
+  late final _wire_descriptor_secret_as_stringPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Int32,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_descriptor_secret_as_string');
+  late final _wire_descriptor_secret_as_string =
+      _wire_descriptor_secret_as_stringPtr.asFunction<
+          void Function(
+              int,
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              int)>();
+
+  void wire_descriptor_secret_as_secret_bytes(
+    int port_,
+    int network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
+    ffi.Pointer<wire_uint_8_list> path,
+    int key_type,
+  ) {
+    return _wire_descriptor_secret_as_secret_bytes(
+      port_,
+      network,
+      mnemonic,
+      password,
+      path,
+      key_type,
+    );
+  }
+
+  late final _wire_descriptor_secret_as_secret_bytesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Int32,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_descriptor_secret_as_secret_bytes');
+  late final _wire_descriptor_secret_as_secret_bytes =
+      _wire_descriptor_secret_as_secret_bytesPtr.asFunction<
+          void Function(
+              int,
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              int)>();
+
+  void wire_descriptor_secret_as_public(
+    int port_,
+    int network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
+    ffi.Pointer<wire_uint_8_list> path,
+    int key_type,
+  ) {
+    return _wire_descriptor_secret_as_public(
+      port_,
+      network,
+      mnemonic,
+      password,
+      path,
+      key_type,
+    );
+  }
+
+  late final _wire_descriptor_secret_as_publicPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Int32,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_descriptor_secret_as_public');
+  late final _wire_descriptor_secret_as_public =
+      _wire_descriptor_secret_as_publicPtr.asFunction<
+          void Function(
+              int,
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              int)>();
+
+  void wire_descriptor_public_as_string(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> xpub,
+    ffi.Pointer<wire_uint_8_list> path,
+    bool derive,
+  ) {
+    return _wire_descriptor_public_as_string(
+      port_,
+      xpub,
+      path,
+      derive,
+    );
+  }
+
+  late final _wire_descriptor_public_as_stringPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Bool)>>('wire_descriptor_public_as_string');
+  late final _wire_descriptor_public_as_string =
+      _wire_descriptor_public_as_stringPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>, bool)>();
+
+  void wire_address_to_script_hex(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> address,
+  ) {
+    return _wire_address_to_script_hex(
+      port_,
+      address,
+    );
+  }
+
+  late final _wire_address_to_script_hexPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_address_to_script_hex');
+  late final _wire_address_to_script_hex = _wire_address_to_script_hexPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_wallet_init(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> descriptor,
+    ffi.Pointer<wire_uint_8_list> change_descriptor,
+    int network,
+    ffi.Pointer<wire_DatabaseConfig> database_config,
+  ) {
+    return _wire_wallet_init(
+      port_,
+      descriptor,
+      change_descriptor,
+      network,
+      database_config,
+    );
+  }
+
+  late final _wire_wallet_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32,
+              ffi.Pointer<wire_DatabaseConfig>)>>('wire_wallet_init');
+  late final _wire_wallet_init = _wire_wallet_initPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          int,
+          ffi.Pointer<wire_DatabaseConfig>)>();
+
+  void wire_get_address(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    int address_index,
+  ) {
+    return _wire_get_address(
+      port_,
+      wallet_id,
+      address_index,
+    );
+  }
+
+  late final _wire_get_addressPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_get_address');
+  late final _wire_get_address = _wire_get_addressPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+
+  void wire_sync_wallet(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    ffi.Pointer<wire_uint_8_list> blockchain_id,
+  ) {
+    return _wire_sync_wallet(
+      port_,
+      wallet_id,
+      blockchain_id,
+    );
+  }
+
+  late final _wire_sync_walletPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_sync_wallet');
+  late final _wire_sync_wallet = _wire_sync_walletPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_balance(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_get_balance(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_get_balancePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_get_balance');
+  late final _wire_get_balance = _wire_get_balancePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_public_descriptor(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_get_public_descriptor(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_get_public_descriptorPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_public_descriptor');
+  late final _wire_get_public_descriptor = _wire_get_public_descriptorPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_list_unspent_outputs(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_list_unspent_outputs(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_list_unspent_outputsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_list_unspent_outputs');
+  late final _wire_list_unspent_outputs = _wire_list_unspent_outputsPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_transactions(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_get_transactions(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_get_transactionsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_transactions');
+  late final _wire_get_transactions = _wire_get_transactionsPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_sign(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+    bool is_multi_sig,
+  ) {
+    return _wire_sign(
+      port_,
+      wallet_id,
+      psbt_str,
+      is_multi_sig,
+    );
+  }
+
+  late final _wire_signPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Bool)>>('wire_sign');
+  late final _wire_sign = _wire_signPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, bool)>();
+
+  void wire_get_network(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_get_network(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_get_networkPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_get_network');
+  late final _wire_get_network = _wire_get_networkPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_list_unspent(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+  ) {
+    return _wire_list_unspent(
+      port_,
+      wallet_id,
+    );
+  }
+
+  late final _wire_list_unspentPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_list_unspent');
+  late final _wire_list_unspent = _wire_list_unspentPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_generate_seed_from_word_count(
     int port_,
@@ -1248,406 +2013,6 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_generate_seed_from_word_count =
       _wire_generate_seed_from_word_countPtr
           .asFunction<void Function(int, int)>();
-
-  void wire_create_key(
-    int port_,
-    int node_network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-  ) {
-    return _wire_create_key(
-      port_,
-      node_network,
-      mnemonic,
-      password,
-    );
-  }
-
-  late final _wire_create_keyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Int32, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_create_key');
-  late final _wire_create_key = _wire_create_keyPtr.asFunction<
-      void Function(int, int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_create_descriptor_secret_keys(
-    int port_,
-    int node_network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> path,
-    ffi.Pointer<wire_uint_8_list> password,
-  ) {
-    return _wire_create_descriptor_secret_keys(
-      port_,
-      node_network,
-      mnemonic,
-      path,
-      password,
-    );
-  }
-
-  late final _wire_create_descriptor_secret_keysPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Int32,
-                  ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_create_descriptor_secret_keys');
-  late final _wire_create_descriptor_secret_keys =
-      _wire_create_descriptor_secret_keysPtr.asFunction<
-          void Function(int, int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_wallet_init(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> descriptor,
-    ffi.Pointer<wire_uint_8_list> change_descriptor,
-    int network,
-    ffi.Pointer<wire_BlockchainConfig> blockchain_config,
-    ffi.Pointer<wire_DatabaseConfig> database_config,
-  ) {
-    return _wire_wallet_init(
-      port_,
-      descriptor,
-      change_descriptor,
-      network,
-      blockchain_config,
-      database_config,
-    );
-  }
-
-  late final _wire_wallet_initPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32,
-              ffi.Pointer<wire_BlockchainConfig>,
-              ffi.Pointer<wire_DatabaseConfig>)>>('wire_wallet_init');
-  late final _wire_wallet_init = _wire_wallet_initPtr.asFunction<
-      void Function(
-          int,
-          ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>,
-          int,
-          ffi.Pointer<wire_BlockchainConfig>,
-          ffi.Pointer<wire_DatabaseConfig>)>();
-
-  void wire_get_public_descriptor(
-    int port_,
-  ) {
-    return _wire_get_public_descriptor(
-      port_,
-    );
-  }
-
-  late final _wire_get_public_descriptorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_public_descriptor');
-  late final _wire_get_public_descriptor =
-      _wire_get_public_descriptorPtr.asFunction<void Function(int)>();
-
-  void wire_get_descriptor_for_keychain(
-    int port_,
-    int keychain_kind_str,
-  ) {
-    return _wire_get_descriptor_for_keychain(
-      port_,
-      keychain_kind_str,
-    );
-  }
-
-  late final _wire_get_descriptor_for_keychainPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
-          'wire_get_descriptor_for_keychain');
-  late final _wire_get_descriptor_for_keychain =
-      _wire_get_descriptor_for_keychainPtr
-          .asFunction<void Function(int, int)>();
-
-  void wire_get_descriptor_checksum(
-    int port_,
-    int keychain_kind_str,
-  ) {
-    return _wire_get_descriptor_checksum(
-      port_,
-      keychain_kind_str,
-    );
-  }
-
-  late final _wire_get_descriptor_checksumPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
-          'wire_get_descriptor_checksum');
-  late final _wire_get_descriptor_checksum =
-      _wire_get_descriptor_checksumPtr.asFunction<void Function(int, int)>();
-
-  void wire_get_wallet(
-    int port_,
-  ) {
-    return _wire_get_wallet(
-      port_,
-    );
-  }
-
-  late final _wire_get_walletPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_wallet');
-  late final _wire_get_wallet =
-      _wire_get_walletPtr.asFunction<void Function(int)>();
-
-  void wire_get_wallet_network(
-    int port_,
-  ) {
-    return _wire_get_wallet_network(
-      port_,
-    );
-  }
-
-  late final _wire_get_wallet_networkPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_wallet_network');
-  late final _wire_get_wallet_network =
-      _wire_get_wallet_networkPtr.asFunction<void Function(int)>();
-
-  void wire_get_blockchain_height(
-    int port_,
-  ) {
-    return _wire_get_blockchain_height(
-      port_,
-    );
-  }
-
-  late final _wire_get_blockchain_heightPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_blockchain_height');
-  late final _wire_get_blockchain_height =
-      _wire_get_blockchain_heightPtr.asFunction<void Function(int)>();
-
-  void wire_get_blockchain_hash(
-    int port_,
-    int blockchain_height,
-  ) {
-    return _wire_get_blockchain_hash(
-      port_,
-      blockchain_height,
-    );
-  }
-
-  late final _wire_get_blockchain_hashPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Uint64)>>(
-          'wire_get_blockchain_hash');
-  late final _wire_get_blockchain_hash =
-      _wire_get_blockchain_hashPtr.asFunction<void Function(int, int)>();
-
-  void wire_sync_wallet(
-    int port_,
-  ) {
-    return _wire_sync_wallet(
-      port_,
-    );
-  }
-
-  late final _wire_sync_walletPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_sync_wallet');
-  late final _wire_sync_wallet =
-      _wire_sync_walletPtr.asFunction<void Function(int)>();
-
-  void wire_get_balance(
-    int port_,
-  ) {
-    return _wire_get_balance(
-      port_,
-    );
-  }
-
-  late final _wire_get_balancePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_balance');
-  late final _wire_get_balance =
-      _wire_get_balancePtr.asFunction<void Function(int)>();
-
-  void wire_list_unspent_outputs(
-    int port_,
-  ) {
-    return _wire_list_unspent_outputs(
-      port_,
-    );
-  }
-
-  late final _wire_list_unspent_outputsPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_list_unspent_outputs');
-  late final _wire_list_unspent_outputs =
-      _wire_list_unspent_outputsPtr.asFunction<void Function(int)>();
-
-  void wire_get_new_address(
-    int port_,
-  ) {
-    return _wire_get_new_address(
-      port_,
-    );
-  }
-
-  late final _wire_get_new_addressPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_new_address');
-  late final _wire_get_new_address =
-      _wire_get_new_addressPtr.asFunction<void Function(int)>();
-
-  void wire_get_new_internal_address(
-    int port_,
-  ) {
-    return _wire_get_new_internal_address(
-      port_,
-    );
-  }
-
-  late final _wire_get_new_internal_addressPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_new_internal_address');
-  late final _wire_get_new_internal_address =
-      _wire_get_new_internal_addressPtr.asFunction<void Function(int)>();
-
-  void wire_get_last_unused_address(
-    int port_,
-  ) {
-    return _wire_get_last_unused_address(
-      port_,
-    );
-  }
-
-  late final _wire_get_last_unused_addressPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_last_unused_address');
-  late final _wire_get_last_unused_address =
-      _wire_get_last_unused_addressPtr.asFunction<void Function(int)>();
-
-  void wire_get_transaction(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> txid,
-  ) {
-    return _wire_get_transaction(
-      port_,
-      txid,
-    );
-  }
-
-  late final _wire_get_transactionPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_transaction');
-  late final _wire_get_transaction = _wire_get_transactionPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_get_transactions(
-    int port_,
-  ) {
-    return _wire_get_transactions(
-      port_,
-    );
-  }
-
-  late final _wire_get_transactionsPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_get_transactions');
-  late final _wire_get_transactions =
-      _wire_get_transactionsPtr.asFunction<void Function(int)>();
-
-  void wire_create_transaction(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> recipient,
-    int amount,
-    double fee_rate,
-  ) {
-    return _wire_create_transaction(
-      port_,
-      recipient,
-      amount,
-      fee_rate,
-    );
-  }
-
-  late final _wire_create_transactionPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Uint64, ffi.Float)>>('wire_create_transaction');
-  late final _wire_create_transaction = _wire_create_transactionPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>, int, double)>();
-
-  void wire_create_multi_sig_transaction(
-    int port_,
-    ffi.Pointer<wire_list_address_amount> recipients,
-    double fee_rate,
-  ) {
-    return _wire_create_multi_sig_transaction(
-      port_,
-      recipients,
-      fee_rate,
-    );
-  }
-
-  late final _wire_create_multi_sig_transactionPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_list_address_amount>,
-              ffi.Float)>>('wire_create_multi_sig_transaction');
-  late final _wire_create_multi_sig_transaction =
-      _wire_create_multi_sig_transactionPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_list_address_amount>, double)>();
-
-  void wire_sign_and_broadcast(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> psbt_str,
-  ) {
-    return _wire_sign_and_broadcast(
-      port_,
-      psbt_str,
-    );
-  }
-
-  late final _wire_sign_and_broadcastPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_sign_and_broadcast');
-  late final _wire_sign_and_broadcast = _wire_sign_and_broadcastPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_sign(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> psbt_str,
-  ) {
-    return _wire_sign(
-      port_,
-      psbt_str,
-    );
-  }
-
-  late final _wire_signPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_sign');
-  late final _wire_sign = _wire_signPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_broadcast(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> psbt_str,
-  ) {
-    return _wire_broadcast(
-      port_,
-      psbt_str,
-    );
-  }
-
-  late final _wire_broadcastPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_broadcast');
-  late final _wire_broadcast = _wire_broadcastPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_BlockchainConfig> new_box_autoadd_blockchain_config_0() {
     return _new_box_autoadd_blockchain_config_0();
@@ -1693,6 +2058,32 @@ class RustWire implements FlutterRustBridgeWireBase {
       _new_box_autoadd_esplora_config_0Ptr
           .asFunction<ffi.Pointer<wire_EsploraConfig> Function()>();
 
+  ffi.Pointer<ffi.Float> new_box_autoadd_f32_0(
+    double value,
+  ) {
+    return _new_box_autoadd_f32_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_f32_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Float> Function(ffi.Float)>>(
+          'new_box_autoadd_f32_0');
+  late final _new_box_autoadd_f32_0 = _new_box_autoadd_f32_0Ptr
+      .asFunction<ffi.Pointer<ffi.Float> Function(double)>();
+
+  ffi.Pointer<wire_SledDbConfiguration>
+      new_box_autoadd_sled_db_configuration_0() {
+    return _new_box_autoadd_sled_db_configuration_0();
+  }
+
+  late final _new_box_autoadd_sled_db_configuration_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>>(
+      'new_box_autoadd_sled_db_configuration_0');
+  late final _new_box_autoadd_sled_db_configuration_0 =
+      _new_box_autoadd_sled_db_configuration_0Ptr
+          .asFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>();
+
   ffi.Pointer<wire_SqliteConfiguration>
       new_box_autoadd_sqlite_configuration_0() {
     return _new_box_autoadd_sqlite_configuration_0();
@@ -1704,6 +2095,20 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _new_box_autoadd_sqlite_configuration_0 =
       _new_box_autoadd_sqlite_configuration_0Ptr
           .asFunction<ffi.Pointer<wire_SqliteConfiguration> Function()>();
+
+  ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
+    int value,
+  ) {
+    return _new_box_autoadd_u32_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_u32_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
+          'new_box_autoadd_u32_0');
+  late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
 
   ffi.Pointer<ffi.Uint64> new_box_autoadd_u64_0(
     int value,
@@ -1733,20 +2138,35 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _new_box_autoadd_u8_0 = _new_box_autoadd_u8_0Ptr
       .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
 
-  ffi.Pointer<wire_list_address_amount> new_list_address_amount_0(
+  ffi.Pointer<wire_list_out_point> new_list_out_point_0(
     int len,
   ) {
-    return _new_list_address_amount_0(
+    return _new_list_out_point_0(
       len,
     );
   }
 
-  late final _new_list_address_amount_0Ptr = _lookup<
+  late final _new_list_out_point_0Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<wire_list_address_amount> Function(
-              ffi.Int32)>>('new_list_address_amount_0');
-  late final _new_list_address_amount_0 = _new_list_address_amount_0Ptr
-      .asFunction<ffi.Pointer<wire_list_address_amount> Function(int)>();
+          ffi.Pointer<wire_list_out_point> Function(
+              ffi.Int32)>>('new_list_out_point_0');
+  late final _new_list_out_point_0 = _new_list_out_point_0Ptr
+      .asFunction<ffi.Pointer<wire_list_out_point> Function(int)>();
+
+  ffi.Pointer<wire_list_script_amount> new_list_script_amount_0(
+    int len,
+  ) {
+    return _new_list_script_amount_0(
+      len,
+    );
+  }
+
+  late final _new_list_script_amount_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_script_amount> Function(
+              ffi.Int32)>>('new_list_script_amount_0');
+  late final _new_list_script_amount_0 = _new_list_script_amount_0Ptr
+      .asFunction<ffi.Pointer<wire_list_script_amount> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -1793,6 +2213,16 @@ class RustWire implements FlutterRustBridgeWireBase {
       _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
           'inflate_DatabaseConfig_SQLITE');
   late final _inflate_DatabaseConfig_SQLITE = _inflate_DatabaseConfig_SQLITEPtr
+      .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
+
+  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_SLED() {
+    return _inflate_DatabaseConfig_SLED();
+  }
+
+  late final _inflate_DatabaseConfig_SLEDPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
+          'inflate_DatabaseConfig_SLED');
+  late final _inflate_DatabaseConfig_SLED = _inflate_DatabaseConfig_SLEDPtr
       .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
   void free_WireSyncReturnStruct(
@@ -1879,6 +2309,34 @@ class wire_BlockchainConfig extends ffi.Struct {
   external ffi.Pointer<BlockchainConfigKind> kind;
 }
 
+class wire_ScriptAmount extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> script;
+
+  @ffi.Uint64()
+  external int amount;
+}
+
+class wire_list_script_amount extends ffi.Struct {
+  external ffi.Pointer<wire_ScriptAmount> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+class wire_OutPoint extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> txid;
+
+  @ffi.Uint32()
+  external int vout;
+}
+
+class wire_list_out_point extends ffi.Struct {
+  external ffi.Pointer<wire_OutPoint> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 class DatabaseConfig_MEMORY extends ffi.Opaque {}
 
 class wire_SqliteConfiguration extends ffi.Struct {
@@ -1889,10 +2347,22 @@ class DatabaseConfig_SQLITE extends ffi.Struct {
   external ffi.Pointer<wire_SqliteConfiguration> config;
 }
 
+class wire_SledDbConfiguration extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> path;
+
+  external ffi.Pointer<wire_uint_8_list> tree_name;
+}
+
+class DatabaseConfig_SLED extends ffi.Struct {
+  external ffi.Pointer<wire_SledDbConfiguration> config;
+}
+
 class DatabaseConfigKind extends ffi.Union {
   external ffi.Pointer<DatabaseConfig_MEMORY> MEMORY;
 
   external ffi.Pointer<DatabaseConfig_SQLITE> SQLITE;
+
+  external ffi.Pointer<DatabaseConfig_SLED> SLED;
 }
 
 class wire_DatabaseConfig extends ffi.Struct {
@@ -1900,20 +2370,6 @@ class wire_DatabaseConfig extends ffi.Struct {
   external int tag;
 
   external ffi.Pointer<DatabaseConfigKind> kind;
-}
-
-class wire_AddressAmount extends ffi.Struct {
-  external ffi.Pointer<wire_uint_8_list> address;
-
-  @ffi.Uint64()
-  external int amount;
-}
-
-class wire_list_address_amount extends ffi.Struct {
-  external ffi.Pointer<wire_AddressAmount> ptr;
-
-  @ffi.Int32()
-  external int len;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<
