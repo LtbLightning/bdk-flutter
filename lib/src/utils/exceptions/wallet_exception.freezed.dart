@@ -16,67 +16,48 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$WalletException {
+  String get e => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
+    required TResult Function(String e) invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
     TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
+    TResult? Function(String e)? invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
+    TResult Function(String e)? invalidAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
+    required TResult Function(InvalidAddress value) invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
     TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult? Function(InvalidAddress value)? invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult Function(InvalidAddress value)? invalidAddress,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $WalletExceptionCopyWith<WalletException> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -85,6 +66,8 @@ abstract class $WalletExceptionCopyWith<$Res> {
   factory $WalletExceptionCopyWith(
           WalletException value, $Res Function(WalletException) then) =
       _$WalletExceptionCopyWithImpl<$Res, WalletException>;
+  @useResult
+  $Res call({String e});
 }
 
 /// @nodoc
@@ -96,331 +79,28 @@ class _$WalletExceptionCopyWithImpl<$Res, $Val extends WalletException>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$InsufficientCoreArgumentsCopyWith<$Res> {
-  factory _$$InsufficientCoreArgumentsCopyWith(
-          _$InsufficientCoreArguments value,
-          $Res Function(_$InsufficientCoreArguments) then) =
-      __$$InsufficientCoreArgumentsCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String e});
-}
-
-/// @nodoc
-class __$$InsufficientCoreArgumentsCopyWithImpl<$Res>
-    extends _$WalletExceptionCopyWithImpl<$Res, _$InsufficientCoreArguments>
-    implements _$$InsufficientCoreArgumentsCopyWith<$Res> {
-  __$$InsufficientCoreArgumentsCopyWithImpl(_$InsufficientCoreArguments _value,
-      $Res Function(_$InsufficientCoreArguments) _then)
-      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? e = null,
   }) {
-    return _then(_$InsufficientCoreArguments(
-      null == e
+    return _then(_value.copyWith(
+      e: null == e
           ? _value.e
           : e // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-
-class _$InsufficientCoreArguments implements InsufficientCoreArguments {
-  const _$InsufficientCoreArguments(this.e);
-
-  @override
-  final String e;
-
-  @override
-  String toString() {
-    return 'WalletException.insufficientCoreArguments(e: $e)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InsufficientCoreArguments &&
-            (identical(other.e, e) || other.e == e));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, e);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InsufficientCoreArgumentsCopyWith<_$InsufficientCoreArguments>
-      get copyWith => __$$InsufficientCoreArgumentsCopyWithImpl<
-          _$InsufficientCoreArguments>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
-    required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
-  }) {
-    return insufficientCoreArguments(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
-    TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
-  }) {
-    return insufficientCoreArguments?.call(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
-    TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (insufficientCoreArguments != null) {
-      return insufficientCoreArguments(e);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
-    required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
-  }) {
-    return insufficientCoreArguments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-  }) {
-    return insufficientCoreArguments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (insufficientCoreArguments != null) {
-      return insufficientCoreArguments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InsufficientCoreArguments implements WalletException {
-  const factory InsufficientCoreArguments(final String e) =
-      _$InsufficientCoreArguments;
-
-  String get e;
-  @JsonKey(ignore: true)
-  _$$InsufficientCoreArgumentsCopyWith<_$InsufficientCoreArguments>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$RepetitiousArgumentsCopyWith<$Res> {
-  factory _$$RepetitiousArgumentsCopyWith(_$RepetitiousArguments value,
-          $Res Function(_$RepetitiousArguments) then) =
-      __$$RepetitiousArgumentsCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String e});
-}
-
-/// @nodoc
-class __$$RepetitiousArgumentsCopyWithImpl<$Res>
-    extends _$WalletExceptionCopyWithImpl<$Res, _$RepetitiousArguments>
-    implements _$$RepetitiousArgumentsCopyWith<$Res> {
-  __$$RepetitiousArgumentsCopyWithImpl(_$RepetitiousArguments _value,
-      $Res Function(_$RepetitiousArguments) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? e = null,
-  }) {
-    return _then(_$RepetitiousArguments(
-      null == e
-          ? _value.e
-          : e // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$RepetitiousArguments implements RepetitiousArguments {
-  const _$RepetitiousArguments(this.e);
-
-  @override
-  final String e;
-
-  @override
-  String toString() {
-    return 'WalletException.repetitiousArguments(e: $e)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RepetitiousArguments &&
-            (identical(other.e, e) || other.e == e));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, e);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RepetitiousArgumentsCopyWith<_$RepetitiousArguments> get copyWith =>
-      __$$RepetitiousArgumentsCopyWithImpl<_$RepetitiousArguments>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
-    required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
-  }) {
-    return repetitiousArguments(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
-    TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
-  }) {
-    return repetitiousArguments?.call(e);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
-    TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (repetitiousArguments != null) {
-      return repetitiousArguments(e);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
-    required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
-  }) {
-    return repetitiousArguments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-  }) {
-    return repetitiousArguments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (repetitiousArguments != null) {
-      return repetitiousArguments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class RepetitiousArguments implements WalletException {
-  const factory RepetitiousArguments(final String e) = _$RepetitiousArguments;
-
-  String get e;
-  @JsonKey(ignore: true)
-  _$$RepetitiousArgumentsCopyWith<_$RepetitiousArguments> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UnexpectedCopyWith<$Res> {
+abstract class _$$UnexpectedCopyWith<$Res>
+    implements $WalletExceptionCopyWith<$Res> {
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({String e});
 }
@@ -480,11 +160,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
+    required TResult Function(String e) invalidAddress,
   }) {
     return unexpected(e);
   }
@@ -492,11 +169,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
     TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
+    TResult? Function(String e)? invalidAddress,
   }) {
     return unexpected?.call(e);
   }
@@ -504,11 +178,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
+    TResult Function(String e)? invalidAddress,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -520,13 +191,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
+    required TResult Function(InvalidAddress value) invalidAddress,
   }) {
     return unexpected(this);
   }
@@ -534,13 +200,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
     TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult? Function(InvalidAddress value)? invalidAddress,
   }) {
     return unexpected?.call(this);
   }
@@ -548,13 +209,8 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult Function(InvalidAddress value)? invalidAddress,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -567,86 +223,104 @@ class _$Unexpected implements Unexpected {
 abstract class Unexpected implements WalletException {
   const factory Unexpected(final String e) = _$Unexpected;
 
+  @override
   String get e;
+  @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$InvalidMnemonicAndPasswordCopyWith<$Res> {
-  factory _$$InvalidMnemonicAndPasswordCopyWith(
-          _$InvalidMnemonicAndPassword value,
-          $Res Function(_$InvalidMnemonicAndPassword) then) =
-      __$$InvalidMnemonicAndPasswordCopyWithImpl<$Res>;
+abstract class _$$InvalidAddressCopyWith<$Res>
+    implements $WalletExceptionCopyWith<$Res> {
+  factory _$$InvalidAddressCopyWith(
+          _$InvalidAddress value, $Res Function(_$InvalidAddress) then) =
+      __$$InvalidAddressCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String e});
 }
 
 /// @nodoc
-class __$$InvalidMnemonicAndPasswordCopyWithImpl<$Res>
-    extends _$WalletExceptionCopyWithImpl<$Res, _$InvalidMnemonicAndPassword>
-    implements _$$InvalidMnemonicAndPasswordCopyWith<$Res> {
-  __$$InvalidMnemonicAndPasswordCopyWithImpl(
-      _$InvalidMnemonicAndPassword _value,
-      $Res Function(_$InvalidMnemonicAndPassword) _then)
+class __$$InvalidAddressCopyWithImpl<$Res>
+    extends _$WalletExceptionCopyWithImpl<$Res, _$InvalidAddress>
+    implements _$$InvalidAddressCopyWith<$Res> {
+  __$$InvalidAddressCopyWithImpl(
+      _$InvalidAddress _value, $Res Function(_$InvalidAddress) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? e = null,
+  }) {
+    return _then(_$InvalidAddress(
+      null == e
+          ? _value.e
+          : e // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$InvalidMnemonicAndPassword implements InvalidMnemonicAndPassword {
-  const _$InvalidMnemonicAndPassword();
+class _$InvalidAddress implements InvalidAddress {
+  const _$InvalidAddress(this.e);
+
+  @override
+  final String e;
 
   @override
   String toString() {
-    return 'WalletException.invalidMnemonicAndPassword()';
+    return 'WalletException.invalidAddress(e: $e)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InvalidMnemonicAndPassword);
+            other is _$InvalidAddress &&
+            (identical(other.e, e) || other.e == e));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, e);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidAddressCopyWith<_$InvalidAddress> get copyWith =>
+      __$$InvalidAddressCopyWithImpl<_$InvalidAddress>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
     required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
+    required TResult Function(String e) invalidAddress,
   }) {
-    return invalidMnemonicAndPassword();
+    return invalidAddress(e);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
     TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
+    TResult? Function(String e)? invalidAddress,
   }) {
-    return invalidMnemonicAndPassword?.call();
+    return invalidAddress?.call(e);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
     TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
+    TResult Function(String e)? invalidAddress,
     required TResult orElse(),
   }) {
-    if (invalidMnemonicAndPassword != null) {
-      return invalidMnemonicAndPassword();
+    if (invalidAddress != null) {
+      return invalidAddress(e);
     }
     return orElse();
   }
@@ -654,176 +328,42 @@ class _$InvalidMnemonicAndPassword implements InvalidMnemonicAndPassword {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
     required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
+    required TResult Function(InvalidAddress value) invalidAddress,
   }) {
-    return invalidMnemonicAndPassword(this);
+    return invalidAddress(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
     TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult? Function(InvalidAddress value)? invalidAddress,
   }) {
-    return invalidMnemonicAndPassword?.call(this);
+    return invalidAddress?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
     TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
+    TResult Function(InvalidAddress value)? invalidAddress,
     required TResult orElse(),
   }) {
-    if (invalidMnemonicAndPassword != null) {
-      return invalidMnemonicAndPassword(this);
+    if (invalidAddress != null) {
+      return invalidAddress(this);
     }
     return orElse();
   }
 }
 
-abstract class InvalidMnemonicAndPassword implements WalletException {
-  const factory InvalidMnemonicAndPassword() = _$InvalidMnemonicAndPassword;
-}
-
-/// @nodoc
-abstract class _$$InvalidBlockchainUrlCopyWith<$Res> {
-  factory _$$InvalidBlockchainUrlCopyWith(_$InvalidBlockchainUrl value,
-          $Res Function(_$InvalidBlockchainUrl) then) =
-      __$$InvalidBlockchainUrlCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InvalidBlockchainUrlCopyWithImpl<$Res>
-    extends _$WalletExceptionCopyWithImpl<$Res, _$InvalidBlockchainUrl>
-    implements _$$InvalidBlockchainUrlCopyWith<$Res> {
-  __$$InvalidBlockchainUrlCopyWithImpl(_$InvalidBlockchainUrl _value,
-      $Res Function(_$InvalidBlockchainUrl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InvalidBlockchainUrl implements InvalidBlockchainUrl {
-  const _$InvalidBlockchainUrl();
+abstract class InvalidAddress implements WalletException {
+  const factory InvalidAddress(final String e) = _$InvalidAddress;
 
   @override
-  String toString() {
-    return 'WalletException.invalidBlockchainUrl()';
-  }
-
+  String get e;
   @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InvalidBlockchainUrl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientCoreArguments,
-    required TResult Function(String e) repetitiousArguments,
-    required TResult Function(String e) unexpected,
-    required TResult Function() invalidMnemonicAndPassword,
-    required TResult Function() invalidBlockchainUrl,
-  }) {
-    return invalidBlockchainUrl();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientCoreArguments,
-    TResult? Function(String e)? repetitiousArguments,
-    TResult? Function(String e)? unexpected,
-    TResult? Function()? invalidMnemonicAndPassword,
-    TResult? Function()? invalidBlockchainUrl,
-  }) {
-    return invalidBlockchainUrl?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientCoreArguments,
-    TResult Function(String e)? repetitiousArguments,
-    TResult Function(String e)? unexpected,
-    TResult Function()? invalidMnemonicAndPassword,
-    TResult Function()? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (invalidBlockchainUrl != null) {
-      return invalidBlockchainUrl();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientCoreArguments value)
-        insufficientCoreArguments,
-    required TResult Function(RepetitiousArguments value) repetitiousArguments,
-    required TResult Function(Unexpected value) unexpected,
-    required TResult Function(InvalidMnemonicAndPassword value)
-        invalidMnemonicAndPassword,
-    required TResult Function(InvalidBlockchainUrl value) invalidBlockchainUrl,
-  }) {
-    return invalidBlockchainUrl(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult? Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult? Function(Unexpected value)? unexpected,
-    TResult? Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult? Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-  }) {
-    return invalidBlockchainUrl?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientCoreArguments value)?
-        insufficientCoreArguments,
-    TResult Function(RepetitiousArguments value)? repetitiousArguments,
-    TResult Function(Unexpected value)? unexpected,
-    TResult Function(InvalidMnemonicAndPassword value)?
-        invalidMnemonicAndPassword,
-    TResult Function(InvalidBlockchainUrl value)? invalidBlockchainUrl,
-    required TResult orElse(),
-  }) {
-    if (invalidBlockchainUrl != null) {
-      return invalidBlockchainUrl(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InvalidBlockchainUrl implements WalletException {
-  const factory InvalidBlockchainUrl() = _$InvalidBlockchainUrl;
+  @JsonKey(ignore: true)
+  _$$InvalidAddressCopyWith<_$InvalidAddress> get copyWith =>
+      throw _privateConstructorUsedError;
 }

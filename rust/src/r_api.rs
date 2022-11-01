@@ -105,7 +105,7 @@ pub fn tx_builder_finish(
     let wallet = wallet.get_wallet();
     let mut tx_builder = wallet.build_tx();
     for  e in recipients {
-        let script=  Script::from_hex(e.script);
+        let script=  Script::from_hex(e.script).unwrap();
         tx_builder.add_recipient(script.script, e.amount);
     }
     if do_not_spend_change {
@@ -201,7 +201,7 @@ pub fn descriptor_secret_as_string( network: Network,
                                     password: Option<String>,
                                     path:Option<String>,
                                     key_type:DescriptorKeyType) ->String{
-    let res= create_descriptor_secret(network,mnemonic,password,path,key_type);
+    let res= descriptor_secret_config(network, mnemonic, password, path, key_type);
     res.as_string()
 }
 pub fn descriptor_secret_as_secret_bytes(
@@ -211,18 +211,34 @@ pub fn descriptor_secret_as_secret_bytes(
     path:Option<String>,
     key_type:DescriptorKeyType
 ) -> Vec<u8> {
-    create_descriptor_secret(network,mnemonic,password,path,key_type).secret_bytes()
+   return match  descriptor_secret_config(network, mnemonic, password, path, key_type).secret_bytes(){
+       Ok(e) => { e},
+       Err(e) => { panic!("DescriptorSecret SecretByte Error:{:?}", e) }
+   }
 }
 pub fn descriptor_secret_as_public(network: Network,
                                    mnemonic: String,
                                    password: Option<String>,
                                    path:Option<String>,
                                    key_type:DescriptorKeyType
-) ->String{
-    let res= create_descriptor_secret(network, mnemonic,password,path,key_type);
-    res.as_public().as_string()
+) -> String{
+    let res= descriptor_secret_config(network, mnemonic, password, path, key_type);
+   return match  res.as_public(){
+       Ok(e) => { e.to_string() },
+       Err(e) => { panic!("DescriptorSecret Public Error:{:?}", e) }
+   }
 }
-fn create_descriptor_secret(
+
+fn create_descriptor_secret( network: Network,
+                              mnemonic: String,
+                              password: Option<String>) ->DescriptorSecretKey{
+    let node_network =  config_network(network);
+    return  match DescriptorSecretKey::new(node_network, mnemonic, password){
+        Ok(e) => { e },
+        Err(e) => { panic!("DescriptorSecret Derivation Error:{:?}", e) }
+    };
+}
+fn descriptor_secret_config(
     network: Network,
     mnemonic: String,
     password: Option<String>,
@@ -230,21 +246,48 @@ fn create_descriptor_secret(
     key_type:DescriptorKeyType
 )-> Arc<DescriptorSecretKey>
 {
-    let node_network =  config_network(network);
-    let res =  DescriptorSecretKey::new(node_network, mnemonic, password).unwrap();
-    let descriptor_secret =  Arc::new(res);
-
+    let descriptor_secret =  Arc::new(create_descriptor_secret(network, mnemonic, password));
     return if key_type == DescriptorKeyType::DERIVED {
         let  derivation_path = Arc::new(DerivationPath::new(path.unwrap().to_string()).unwrap());
-        descriptor_secret.derive(derivation_path).unwrap()
+        return match descriptor_secret.derive(derivation_path){
+            Ok(e) => { e },
+            Err(e) => { panic!("DescriptorSecret Derivation Error:{:?}", e) }
+        }
     } else if  key_type == DescriptorKeyType::EXTENDED {
         let  derivation_path = Arc::new(DerivationPath::new(path.unwrap().to_string()).unwrap());
-        descriptor_secret.extend(derivation_path)
+        return match descriptor_secret.extend(derivation_path){
+            Ok(e) => { e },
+            Err(e) => { panic!("DescriptorSecret Extend Error:{:?}", e) }
+        }
     } else{
         descriptor_secret.clone()
     }
 }
-
+//==============Derivation Path ==========
+pub fn create_derivation_path(path:String)-> String{
+    return match DerivationPath::new(path){
+        Ok(e) => {e.as_string()}
+        Err(e) => { panic!("DerivationPath Parse Error:{:?}", e) }
+    }
+}
+//============ Script Class===========
+pub fn init_script(raw_output_script: Vec<u8>)-> String{
+    return match  Script::new(raw_output_script){
+        Ok(e) => {e.script.to_hex()}
+        Err(e) => { panic!("DerivationPath Parse Error:{:?}", e) }
+    }
+}
+//================Address============
+pub fn init_address(address:String)-> String{
+    return match  Address::new(address){
+        Ok(e) => {e.address.to_string()}
+        Err(e) => { panic!("DerivationPath Parse Error:{:?}", e) }
+    }
+}
+pub fn address_to_script_pubkey_hex(address:String)-> String{
+    let script = Address::new(address).unwrap();
+    script.script_pubkey().script.to_hex()
+}
 //================Descriptor Public=========
 pub fn descriptor_public_as_string(
     xpub: Option<String>,
@@ -261,19 +304,20 @@ fn create_descriptor_public(
 )-> Arc<DescriptorPublicKey>{
     let derivation_path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
     let descriptor_public =   DescriptorPublicKey::from_string(xpub.unwrap()).unwrap();
-    if derive {
-        let derived_public = descriptor_public.clone().derive(derivation_path).unwrap();
-        derived_public
-    } else{
-        let extended_public = descriptor_public.clone().extend(derivation_path);
-        extended_public
+    return if derive {
+        match descriptor_public.clone().derive(derivation_path) {
+            Ok(e) => { e },
+            Err(e) => { panic!("DescriptorPublic Derivation error:{:?}", e) }
+        }
+    } else {
+        match descriptor_public.clone().extend(derivation_path) {
+            Ok(e) => { e },
+            Err(e) => { panic!("DescriptorPublic Extend error:{:?}", e) }
+        }
     }
 }
-//============ Script Class===========
-pub fn address_to_script_hex(address:String)-> String{
-    let script = Address::new(address).unwrap();
-    script.script_pubkey().script.to_hex()
-}
+
+
 
 //========Wallet==========
 fn set_wallet(

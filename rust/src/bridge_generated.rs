@@ -358,6 +358,66 @@ pub extern "C" fn wire_descriptor_secret_as_public(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_derivation_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_path = path.wire2api();
+            move |task_callback| Ok(create_derivation_path(api_path))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_init_script(port_: i64, raw_output_script: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "init_script",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_raw_output_script = raw_output_script.wire2api();
+            move |task_callback| Ok(init_script(api_raw_output_script))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_init_address(port_: i64, address: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "init_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_address = address.wire2api();
+            move |task_callback| Ok(init_address(api_address))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_address_to_script_pubkey_hex(port_: i64, address: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "address_to_script_pubkey_hex",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_address = address.wire2api();
+            move |task_callback| Ok(address_to_script_pubkey_hex(api_address))
+        },
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_descriptor_public_as_string(
     port_: i64,
     xpub: *mut wire_uint_8_list,
@@ -375,21 +435,6 @@ pub extern "C" fn wire_descriptor_public_as_string(
             let api_path = path.wire2api();
             let api_derive = derive.wire2api();
             move |task_callback| Ok(descriptor_public_as_string(api_xpub, api_path, api_derive))
-        },
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn wire_address_to_script_hex(port_: i64, address: *mut wire_uint_8_list) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "address_to_script_hex",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_address = address.wire2api();
-            move |task_callback| Ok(address_to_script_hex(api_address))
         },
     )
 }

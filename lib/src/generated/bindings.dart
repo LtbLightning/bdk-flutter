@@ -107,14 +107,27 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta;
 
+  Future<String> createDerivationPath({required String path, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateDerivationPathConstMeta;
+
+  Future<String> initScript({required Uint8List rawOutputScript, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kInitScriptConstMeta;
+
+  Future<String> initAddress({required String address, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kInitAddressConstMeta;
+
+  Future<String> addressToScriptPubkeyHex(
+      {required String address, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyHexConstMeta;
+
   Future<String> descriptorPublicAsString(
       {String? xpub, required String path, required bool derive, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorPublicAsStringConstMeta;
-
-  Future<String> addressToScriptHex({required String address, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kAddressToScriptHexConstMeta;
 
   Future<String> walletInit(
       {required String descriptor,
@@ -735,6 +748,72 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["network", "mnemonic", "password", "path", "keyType"],
       );
 
+  Future<String> createDerivationPath({required String path, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_create_derivation_path(port_, _api2wire_String(path)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCreateDerivationPathConstMeta,
+        argValues: [path],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateDerivationPathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_derivation_path",
+        argNames: ["path"],
+      );
+
+  Future<String> initScript(
+          {required Uint8List rawOutputScript, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_init_script(
+            port_, _api2wire_uint_8_list(rawOutputScript)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kInitScriptConstMeta,
+        argValues: [rawOutputScript],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kInitScriptConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "init_script",
+        argNames: ["rawOutputScript"],
+      );
+
+  Future<String> initAddress({required String address, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_init_address(port_, _api2wire_String(address)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kInitAddressConstMeta,
+        argValues: [address],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kInitAddressConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "init_address",
+        argNames: ["address"],
+      );
+
+  Future<String> addressToScriptPubkeyHex(
+          {required String address, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_address_to_script_pubkey_hex(
+            port_, _api2wire_String(address)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kAddressToScriptPubkeyHexConstMeta,
+        argValues: [address],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyHexConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "address_to_script_pubkey_hex",
+        argNames: ["address"],
+      );
+
   Future<String> descriptorPublicAsString(
           {String? xpub,
           required String path,
@@ -753,22 +832,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "descriptor_public_as_string",
         argNames: ["xpub", "path", "derive"],
-      );
-
-  Future<String> addressToScriptHex({required String address, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_address_to_script_hex(port_, _api2wire_String(address)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kAddressToScriptHexConstMeta,
-        argValues: [address],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kAddressToScriptHexConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "address_to_script_hex",
-        argNames: ["address"],
       );
 
   Future<String> walletInit(
@@ -1759,6 +1822,75 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               int)>();
 
+  void wire_create_derivation_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> path,
+  ) {
+    return _wire_create_derivation_path(
+      port_,
+      path,
+    );
+  }
+
+  late final _wire_create_derivation_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_create_derivation_path');
+  late final _wire_create_derivation_path = _wire_create_derivation_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_init_script(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> raw_output_script,
+  ) {
+    return _wire_init_script(
+      port_,
+      raw_output_script,
+    );
+  }
+
+  late final _wire_init_scriptPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_init_script');
+  late final _wire_init_script = _wire_init_scriptPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_init_address(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> address,
+  ) {
+    return _wire_init_address(
+      port_,
+      address,
+    );
+  }
+
+  late final _wire_init_addressPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_init_address');
+  late final _wire_init_address = _wire_init_addressPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_address_to_script_pubkey_hex(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> address,
+  ) {
+    return _wire_address_to_script_pubkey_hex(
+      port_,
+      address,
+    );
+  }
+
+  late final _wire_address_to_script_pubkey_hexPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_address_to_script_pubkey_hex');
+  late final _wire_address_to_script_pubkey_hex =
+      _wire_address_to_script_pubkey_hexPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
   void wire_descriptor_public_as_string(
     int port_,
     ffi.Pointer<wire_uint_8_list> xpub,
@@ -1784,23 +1916,6 @@ class RustWire implements FlutterRustBridgeWireBase {
       _wire_descriptor_public_as_stringPtr.asFunction<
           void Function(int, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>, bool)>();
-
-  void wire_address_to_script_hex(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> address,
-  ) {
-    return _wire_address_to_script_hex(
-      port_,
-      address,
-    );
-  }
-
-  late final _wire_address_to_script_hexPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_address_to_script_hex');
-  late final _wire_address_to_script_hex = _wire_address_to_script_hexPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_wallet_init(
     int port_,

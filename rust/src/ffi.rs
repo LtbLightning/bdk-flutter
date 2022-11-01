@@ -4,7 +4,8 @@ use crate::utils::config_database;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
-use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Script as BdkScript, Txid};
+use bdk::bitcoin::{Address as BdkAddress,Script as BdkScript, Network, OutPoint as BdkOutPoint, Txid};
+
 use bdk::blockchain::any::AnyBlockchain;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
@@ -13,11 +14,7 @@ use bdk::keys::{DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey, Des
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{
-    Balance as BdkBalance, BlockTime as BdkBlockTime, Error,  KeychainKind, SignOptions, SyncOptions,
-    Wallet as BdkWallet,
-};
-use std::convert::From;
+use bdk::{Balance as BdkBalance,  BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet};
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
@@ -44,10 +41,10 @@ impl From<BdkAddressInfo> for AddressInfo {
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
-            fee: x.fee,
-            txid: x.txid.to_string(),
-            received: x.received,
-            sent: x.sent,
+            fee: x.clone().fee,
+            txid: x.clone().txid.to_string(),
+            received: x.clone().received,
+            sent: x.clone().sent,
             confirmation_time: set_block_time(x.confirmation_time.clone()),
         }
     }
@@ -233,19 +230,40 @@ pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
     mnemonic
 }
 pub struct DerivationPath {
-    pub(crate) derivation_path_mutex: Mutex<BdkDerivationPath>,
+    pub derivation_path_mutex: Mutex<BdkDerivationPath>,
 }
 impl DerivationPath {
-    pub(crate) fn new(path: String) -> Result<Self, BdkError> {
+    pub fn new(path: String) -> Result<Self, BdkError> {
         BdkDerivationPath::from_str(&path)
             .map(|x| DerivationPath {
                 derivation_path_mutex: Mutex::new(x),
             })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
+    pub fn as_string(&self) -> String {
+        self.derivation_path_mutex.lock().unwrap().to_string()
+    }
 }
 pub struct DescriptorSecretKey {
     pub descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
+}
+/// A Bitcoin address.
+pub struct Address {
+   pub address: BdkAddress,
+}
+
+impl Address {
+  pub  fn new(address: String) -> Result<Self, BdkError> {
+        BdkAddress::from_str(address.as_str())
+            .map(|a| Address { address: a })
+            .map_err(|e| BdkError::Generic(e.to_string()))
+    }
+
+   pub fn script_pubkey(&self) -> Arc<Script> {
+        Arc::new(Script {
+            script: self.address.script_pubkey(),
+        })
+    }
 }
 impl DescriptorSecretKey {
     pub fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
@@ -290,7 +308,7 @@ impl DescriptorSecretKey {
         }
     }
 
-    pub fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    pub fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
         match descriptor_secret_key.deref() {
@@ -302,9 +320,9 @@ impl DescriptorSecretKey {
                     derivation_path: extended_path,
                     wildcard: descriptor_x_key.wildcard,
                 });
-                Arc::new(Self {
+                Ok(Arc::new(Self {
                     descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
-                })
+                }))
             }
             BdkDescriptorSecretKey::SinglePriv(_) => {
                 unreachable!()
@@ -312,7 +330,7 @@ impl DescriptorSecretKey {
         }
     }
 
-    pub fn as_public(&self) -> Arc<DescriptorPublicKey> {
+    pub fn as_public(&self) -> Result<bdk::descriptor::DescriptorPublicKey, Error> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
             .descriptor_secret_key_mutex
@@ -320,13 +338,11 @@ impl DescriptorSecretKey {
             .unwrap()
             .as_public(&secp)
             .unwrap();
-        Arc::new(DescriptorPublicKey {
-            descriptor_public_key_mutex: Mutex::new(descriptor_public_key),
-        })
+        Ok(descriptor_public_key)
     }
 
     /// Get the private key as bytes.
-    pub fn secret_bytes(&self) -> Vec<u8> {
+    pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let secret_bytes: Vec<u8> = match descriptor_secret_key.deref() {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
@@ -337,7 +353,7 @@ impl DescriptorSecretKey {
             }
         };
 
-        secret_bytes
+        Ok(secret_bytes)
     }
     #[allow(dead_code)]
     pub fn from_string( key_str:String) -> Result<Arc<Self>, BdkError> {
@@ -388,7 +404,7 @@ impl DescriptorPublicKey {
         }
     }
 
-    pub  fn extend(&self, path: Arc<DerivationPath>) -> Arc<Self> {
+    pub  fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
         match descriptor_public_key.deref() {
@@ -400,9 +416,9 @@ impl DescriptorPublicKey {
                     derivation_path: extended_path,
                     wildcard: descriptor_x_key.wildcard,
                 });
-                Arc::new(Self {
+                Ok(Arc::new(Self {
                     descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
-                })
+                }))
             }
             BdkDescriptorPublicKey::SinglePub(_) => {
                 unreachable!()
@@ -414,32 +430,20 @@ impl DescriptorPublicKey {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()
     }
 }
-pub struct Address {
-   pub  address: BdkAddress,
-}
-impl Address {
-   pub fn new(address: String) -> Result<Self, BdkError> {
-        BdkAddress::from_str(address.as_str())
-            .map(|a| Address { address: a })
-            .map_err(|e| BdkError::Generic(e.to_string()))
-    }
-
-  pub  fn script_pubkey(&self) -> Arc<Script> {
-        Arc::new(Script {
-            script: self.address.script_pubkey(),
-        })
-    }
-}
 /// A Bitcoin script.
 #[derive(Clone)]
 pub struct Script {
    pub script: BdkScript,
 }
 impl Script {
-    pub fn from_hex (script:String) -> Self{
+    pub fn from_hex (script:String) -> Result<Self, BdkError>{
         let script=  BdkScript::from_hex(script.as_str()).unwrap();
-        Script { script }
+        Ok(Script { script })
     }
+  pub fn new(raw_output_script: Vec<u8>)->Result<Self, BdkError>{
+      let script = raw_output_script.as_slice().to_hex();
+      Script::from_hex(script)
+  }
 }
 
 

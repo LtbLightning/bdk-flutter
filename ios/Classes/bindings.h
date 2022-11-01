@@ -168,12 +168,18 @@ void wire_descriptor_secret_as_public(int64_t port_,
                                       struct wire_uint_8_list *path,
                                       int32_t key_type);
 
+void wire_create_derivation_path(int64_t port_, struct wire_uint_8_list *path);
+
+void wire_init_script(int64_t port_, struct wire_uint_8_list *raw_output_script);
+
+void wire_init_address(int64_t port_, struct wire_uint_8_list *address);
+
+void wire_address_to_script_pubkey_hex(int64_t port_, struct wire_uint_8_list *address);
+
 void wire_descriptor_public_as_string(int64_t port_,
                                       struct wire_uint_8_list *xpub,
                                       struct wire_uint_8_list *path,
                                       bool derive);
-
-void wire_address_to_script_hex(int64_t port_, struct wire_uint_8_list *address);
 
 void wire_wallet_init(int64_t port_,
                       struct wire_uint_8_list *descriptor,
@@ -258,8 +264,11 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_string);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public);
+    dummy_var ^= ((int64_t) (void*) wire_create_derivation_path);
+    dummy_var ^= ((int64_t) (void*) wire_init_script);
+    dummy_var ^= ((int64_t) (void*) wire_init_address);
+    dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_public_as_string);
-    dummy_var ^= ((int64_t) (void*) wire_address_to_script_hex);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_get_address);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);

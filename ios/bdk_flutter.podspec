@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A new Flutter project.
                        DESC
-  s.homepage         = 'https://github.com/LtbLightning/bdk-flutter'
+                       s.homepage         = 'https://github.com/LtbLightning/bdk-flutter'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
