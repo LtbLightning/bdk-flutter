@@ -342,21 +342,21 @@ mixin _$DatabaseConfig {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
     required TResult Function(SledDbConfiguration config) sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
-    TResult? Function(SqliteConfiguration config)? sqlite,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
     TResult? Function(SledDbConfiguration config)? sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
     TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) =>
@@ -440,7 +440,7 @@ class _$MEMORY implements MEMORY {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
     required TResult Function(SledDbConfiguration config) sled,
   }) {
     return memory();
@@ -450,7 +450,7 @@ class _$MEMORY implements MEMORY {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
-    TResult? Function(SqliteConfiguration config)? sqlite,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
     TResult? Function(SledDbConfiguration config)? sled,
   }) {
     return memory?.call();
@@ -460,7 +460,7 @@ class _$MEMORY implements MEMORY {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
     TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {
@@ -514,7 +514,7 @@ abstract class _$$SQLITECopyWith<$Res> {
   factory _$$SQLITECopyWith(_$SQLITE value, $Res Function(_$SQLITE) then) =
       __$$SQLITECopyWithImpl<$Res>;
   @useResult
-  $Res call({SqliteConfiguration config});
+  $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
@@ -533,7 +533,7 @@ class __$$SQLITECopyWithImpl<$Res>
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as SqliteConfiguration,
+              as SqliteDbConfiguration,
     ));
   }
 }
@@ -544,7 +544,7 @@ class _$SQLITE implements SQLITE {
   const _$SQLITE({required this.config});
 
   @override
-  final SqliteConfiguration config;
+  final SqliteDbConfiguration config;
 
   @override
   String toString() {
@@ -572,7 +572,7 @@ class _$SQLITE implements SQLITE {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
     required TResult Function(SledDbConfiguration config) sled,
   }) {
     return sqlite(config);
@@ -582,7 +582,7 @@ class _$SQLITE implements SQLITE {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
-    TResult? Function(SqliteConfiguration config)? sqlite,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
     TResult? Function(SledDbConfiguration config)? sled,
   }) {
     return sqlite?.call(config);
@@ -592,7 +592,7 @@ class _$SQLITE implements SQLITE {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
     TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {
@@ -638,9 +638,10 @@ class _$SQLITE implements SQLITE {
 }
 
 abstract class SQLITE implements DatabaseConfig {
-  const factory SQLITE({required final SqliteConfiguration config}) = _$SQLITE;
+  const factory SQLITE({required final SqliteDbConfiguration config}) =
+      _$SQLITE;
 
-  SqliteConfiguration get config;
+  SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
   _$$SQLITECopyWith<_$SQLITE> get copyWith =>
       throw _privateConstructorUsedError;
@@ -709,7 +710,7 @@ class _$SLED implements SLED {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
     required TResult Function(SledDbConfiguration config) sled,
   }) {
     return sled(config);
@@ -719,7 +720,7 @@ class _$SLED implements SLED {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
-    TResult? Function(SqliteConfiguration config)? sqlite,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
     TResult? Function(SledDbConfiguration config)? sled,
   }) {
     return sled?.call(config);
@@ -729,7 +730,7 @@ class _$SLED implements SLED {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
     TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {

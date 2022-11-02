@@ -65,12 +65,12 @@ typedef struct DatabaseConfig_MEMORY {
 
 } DatabaseConfig_MEMORY;
 
-typedef struct wire_SqliteConfiguration {
+typedef struct wire_SqliteDbConfiguration {
   struct wire_uint_8_list *path;
-} wire_SqliteConfiguration;
+} wire_SqliteDbConfiguration;
 
 typedef struct DatabaseConfig_SQLITE {
-  struct wire_SqliteConfiguration *config;
+  struct wire_SqliteDbConfiguration *config;
 } DatabaseConfig_SQLITE;
 
 typedef struct wire_SledDbConfiguration {
@@ -139,7 +139,7 @@ void wire_tx_builder_finish(int64_t port_,
                             uint32_t *n_sequence,
                             struct wire_uint_8_list *data);
 
-void wire_bumb_fee_tx_builder_finish(int64_t port_,
+void wire_bump_fee_tx_builder_finish(int64_t port_,
                                      struct wire_uint_8_list *txid,
                                      float fee_rate,
                                      struct wire_uint_8_list *allow_shrinking,
@@ -224,7 +224,7 @@ float *new_box_autoadd_f32_0(float value);
 
 struct wire_SledDbConfiguration *new_box_autoadd_sled_db_configuration_0(void);
 
-struct wire_SqliteConfiguration *new_box_autoadd_sqlite_configuration_0(void);
+struct wire_SqliteDbConfiguration *new_box_autoadd_sqlite_db_configuration_0(void);
 
 uint32_t *new_box_autoadd_u32_0(uint32_t value);
 
@@ -260,7 +260,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
     dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
     dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
-    dummy_var ^= ((int64_t) (void*) wire_bumb_fee_tx_builder_finish);
+    dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_string);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public);
@@ -286,7 +286,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sled_db_configuration_0);
-    dummy_var ^= ((int64_t) (void*) new_box_autoadd_sqlite_configuration_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_sqlite_db_configuration_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u32_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u64_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u8_0);

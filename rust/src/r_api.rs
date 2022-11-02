@@ -12,7 +12,7 @@ use std::str::FromStr;
 use std::sync::{Arc, Mutex, RwLock};
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{ Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
-use bdk::wallet::tx_builder::ChangeSpendPolicy;
+use bdk::wallet::tx_builder::{ ChangeSpendPolicy};
 
 lazy_static! {
       static ref BLOCKCHAIN: RwLock<HashMap<String, Arc<AnyBlockchain>>> = RwLock::new(HashMap::new());
@@ -161,7 +161,8 @@ pub fn tx_builder_finish(
 }
 
 //========BumpFeeTxBuilder==========
-pub fn bumb_fee_tx_builder_finish(
+
+pub fn bump_fee_tx_builder_finish(
     txid: String,
     fee_rate: f32,
     allow_shrinking: Option<String>,
@@ -173,7 +174,11 @@ pub fn bumb_fee_tx_builder_finish(
     let wallet = get_wallet_(wallet_id,wallets).unwrap();
     let txid = Txid::from_str(txid.as_str()).unwrap();
     let bdk_wallet =  wallet.get_wallet();
-    let mut tx_builder =bdk_wallet.build_fee_bump(txid).unwrap();
+
+    let mut tx_builder=  match  bdk_wallet.build_fee_bump(txid){
+        Ok(e) => { e},
+        Err(e) => { panic!("Bum:{:?}", e) }
+    };
     tx_builder.fee_rate(FeeRate::from_sat_per_vb(fee_rate));
     if let Some(allow_shrinking) = &allow_shrinking {
         let address = BdkAddress::from_str(allow_shrinking).map_err(|e| Error::Generic(e.to_string())).unwrap();
@@ -211,10 +216,10 @@ pub fn descriptor_secret_as_secret_bytes(
     path:Option<String>,
     key_type:DescriptorKeyType
 ) -> Vec<u8> {
-   return match  descriptor_secret_config(network, mnemonic, password, path, key_type).secret_bytes(){
-       Ok(e) => { e},
-       Err(e) => { panic!("DescriptorSecret SecretByte Error:{:?}", e) }
-   }
+    return match  descriptor_secret_config(network, mnemonic, password, path, key_type).secret_bytes(){
+        Ok(e) => { e},
+        Err(e) => { panic!("DescriptorSecret SecretByte Error:{:?}", e) }
+    }
 }
 pub fn descriptor_secret_as_public(network: Network,
                                    mnemonic: String,
@@ -223,15 +228,15 @@ pub fn descriptor_secret_as_public(network: Network,
                                    key_type:DescriptorKeyType
 ) -> String{
     let res= descriptor_secret_config(network, mnemonic, password, path, key_type);
-   return match  res.as_public(){
-       Ok(e) => { e.to_string() },
-       Err(e) => { panic!("DescriptorSecret Public Error:{:?}", e) }
-   }
+    return match  res.as_public(){
+        Ok(e) => { e.to_string() },
+        Err(e) => { panic!("DescriptorSecret Public Error:{:?}", e) }
+    }
 }
 
 fn create_descriptor_secret( network: Network,
-                              mnemonic: String,
-                              password: Option<String>) ->DescriptorSecretKey{
+                             mnemonic: String,
+                             password: Option<String>) ->DescriptorSecretKey{
     let node_network =  config_network(network);
     return  match DescriptorSecretKey::new(node_network, mnemonic, password){
         Ok(e) => { e },
@@ -281,7 +286,7 @@ pub fn init_script(raw_output_script: Vec<u8>)-> String{
 pub fn init_address(address:String)-> String{
     return match  Address::new(address){
         Ok(e) => {e.address.to_string()}
-        Err(e) => { panic!("DerivationPath Parse Error:{:?}", e) }
+        Err(e) => { panic!("AddressError, {:?}", e) }
     }
 }
 pub fn address_to_script_pubkey_hex(address:String)-> String{

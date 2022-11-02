@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'psbt_exception.dart';
+part of 'tx_builder_exception.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,74 +15,80 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PsbtException {
+mixin _$TxBuilderException {
   String get e => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBalance,
     required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientFunds,
+    TResult? Function(String e)? insufficientBalance,
     TResult? Function(String e)? insufficientBroadcastAmount,
     TResult? Function(String e)? unexpected,
+    TResult? Function(String e)? invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBalance,
     TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidTxid,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBalance value) insufficientBalance,
     required TResult Function(InsufficientBroadcastAmount value)
         insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidTxid value) invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientFunds value)? insufficientFunds,
+    TResult? Function(InsufficientBalance value)? insufficientBalance,
     TResult? Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidTxid value)? invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBalance value)? insufficientBalance,
     TResult Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidTxid value)? invalidTxid,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PsbtExceptionCopyWith<PsbtException> get copyWith =>
+  $TxBuilderExceptionCopyWith<TxBuilderException> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PsbtExceptionCopyWith<$Res> {
-  factory $PsbtExceptionCopyWith(
-          PsbtException value, $Res Function(PsbtException) then) =
-      _$PsbtExceptionCopyWithImpl<$Res, PsbtException>;
+abstract class $TxBuilderExceptionCopyWith<$Res> {
+  factory $TxBuilderExceptionCopyWith(
+          TxBuilderException value, $Res Function(TxBuilderException) then) =
+      _$TxBuilderExceptionCopyWithImpl<$Res, TxBuilderException>;
   @useResult
   $Res call({String e});
 }
 
 /// @nodoc
-class _$PsbtExceptionCopyWithImpl<$Res, $Val extends PsbtException>
-    implements $PsbtExceptionCopyWith<$Res> {
-  _$PsbtExceptionCopyWithImpl(this._value, this._then);
+class _$TxBuilderExceptionCopyWithImpl<$Res, $Val extends TxBuilderException>
+    implements $TxBuilderExceptionCopyWith<$Res> {
+  _$TxBuilderExceptionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -104,22 +110,22 @@ class _$PsbtExceptionCopyWithImpl<$Res, $Val extends PsbtException>
 }
 
 /// @nodoc
-abstract class _$$InsufficientFundsCopyWith<$Res>
-    implements $PsbtExceptionCopyWith<$Res> {
-  factory _$$InsufficientFundsCopyWith(
-          _$InsufficientFunds value, $Res Function(_$InsufficientFunds) then) =
-      __$$InsufficientFundsCopyWithImpl<$Res>;
+abstract class _$$InsufficientBalanceCopyWith<$Res>
+    implements $TxBuilderExceptionCopyWith<$Res> {
+  factory _$$InsufficientBalanceCopyWith(_$InsufficientBalance value,
+          $Res Function(_$InsufficientBalance) then) =
+      __$$InsufficientBalanceCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String e});
 }
 
 /// @nodoc
-class __$$InsufficientFundsCopyWithImpl<$Res>
-    extends _$PsbtExceptionCopyWithImpl<$Res, _$InsufficientFunds>
-    implements _$$InsufficientFundsCopyWith<$Res> {
-  __$$InsufficientFundsCopyWithImpl(
-      _$InsufficientFunds _value, $Res Function(_$InsufficientFunds) _then)
+class __$$InsufficientBalanceCopyWithImpl<$Res>
+    extends _$TxBuilderExceptionCopyWithImpl<$Res, _$InsufficientBalance>
+    implements _$$InsufficientBalanceCopyWith<$Res> {
+  __$$InsufficientBalanceCopyWithImpl(
+      _$InsufficientBalance _value, $Res Function(_$InsufficientBalance) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +133,7 @@ class __$$InsufficientFundsCopyWithImpl<$Res>
   $Res call({
     Object? e = null,
   }) {
-    return _then(_$InsufficientFunds(
+    return _then(_$InsufficientBalance(
       null == e
           ? _value.e
           : e // ignore: cast_nullable_to_non_nullable
@@ -138,22 +144,22 @@ class __$$InsufficientFundsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InsufficientFunds implements InsufficientFunds {
-  const _$InsufficientFunds(this.e);
+class _$InsufficientBalance implements InsufficientBalance {
+  const _$InsufficientBalance(this.e);
 
   @override
   final String e;
 
   @override
   String toString() {
-    return 'PsbtException.insufficientFunds(e: $e)';
+    return 'TxBuilderException.insufficientBalance(e: $e)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InsufficientFunds &&
+            other is _$InsufficientBalance &&
             (identical(other.e, e) || other.e == e));
   }
 
@@ -163,39 +169,43 @@ class _$InsufficientFunds implements InsufficientFunds {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InsufficientFundsCopyWith<_$InsufficientFunds> get copyWith =>
-      __$$InsufficientFundsCopyWithImpl<_$InsufficientFunds>(this, _$identity);
+  _$$InsufficientBalanceCopyWith<_$InsufficientBalance> get copyWith =>
+      __$$InsufficientBalanceCopyWithImpl<_$InsufficientBalance>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBalance,
     required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidTxid,
   }) {
-    return insufficientFunds(e);
+    return insufficientBalance(e);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientFunds,
+    TResult? Function(String e)? insufficientBalance,
     TResult? Function(String e)? insufficientBroadcastAmount,
     TResult? Function(String e)? unexpected,
+    TResult? Function(String e)? invalidTxid,
   }) {
-    return insufficientFunds?.call(e);
+    return insufficientBalance?.call(e);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBalance,
     TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidTxid,
     required TResult orElse(),
   }) {
-    if (insufficientFunds != null) {
-      return insufficientFunds(e);
+    if (insufficientBalance != null) {
+      return insufficientBalance(e);
     }
     return orElse();
   }
@@ -203,55 +213,58 @@ class _$InsufficientFunds implements InsufficientFunds {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBalance value) insufficientBalance,
     required TResult Function(InsufficientBroadcastAmount value)
         insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidTxid value) invalidTxid,
   }) {
-    return insufficientFunds(this);
+    return insufficientBalance(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientFunds value)? insufficientFunds,
+    TResult? Function(InsufficientBalance value)? insufficientBalance,
     TResult? Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidTxid value)? invalidTxid,
   }) {
-    return insufficientFunds?.call(this);
+    return insufficientBalance?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBalance value)? insufficientBalance,
     TResult Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidTxid value)? invalidTxid,
     required TResult orElse(),
   }) {
-    if (insufficientFunds != null) {
-      return insufficientFunds(this);
+    if (insufficientBalance != null) {
+      return insufficientBalance(this);
     }
     return orElse();
   }
 }
 
-abstract class InsufficientFunds implements PsbtException {
-  const factory InsufficientFunds(final String e) = _$InsufficientFunds;
+abstract class InsufficientBalance implements TxBuilderException {
+  const factory InsufficientBalance(final String e) = _$InsufficientBalance;
 
   @override
   String get e;
   @override
   @JsonKey(ignore: true)
-  _$$InsufficientFundsCopyWith<_$InsufficientFunds> get copyWith =>
+  _$$InsufficientBalanceCopyWith<_$InsufficientBalance> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$InsufficientBroadcastAmountCopyWith<$Res>
-    implements $PsbtExceptionCopyWith<$Res> {
+    implements $TxBuilderExceptionCopyWith<$Res> {
   factory _$$InsufficientBroadcastAmountCopyWith(
           _$InsufficientBroadcastAmount value,
           $Res Function(_$InsufficientBroadcastAmount) then) =
@@ -263,7 +276,8 @@ abstract class _$$InsufficientBroadcastAmountCopyWith<$Res>
 
 /// @nodoc
 class __$$InsufficientBroadcastAmountCopyWithImpl<$Res>
-    extends _$PsbtExceptionCopyWithImpl<$Res, _$InsufficientBroadcastAmount>
+    extends _$TxBuilderExceptionCopyWithImpl<$Res,
+        _$InsufficientBroadcastAmount>
     implements _$$InsufficientBroadcastAmountCopyWith<$Res> {
   __$$InsufficientBroadcastAmountCopyWithImpl(
       _$InsufficientBroadcastAmount _value,
@@ -294,7 +308,7 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
 
   @override
   String toString() {
-    return 'PsbtException.insufficientBroadcastAmount(e: $e)';
+    return 'TxBuilderException.insufficientBroadcastAmount(e: $e)';
   }
 
   @override
@@ -318,9 +332,10 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBalance,
     required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidTxid,
   }) {
     return insufficientBroadcastAmount(e);
   }
@@ -328,9 +343,10 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientFunds,
+    TResult? Function(String e)? insufficientBalance,
     TResult? Function(String e)? insufficientBroadcastAmount,
     TResult? Function(String e)? unexpected,
+    TResult? Function(String e)? invalidTxid,
   }) {
     return insufficientBroadcastAmount?.call(e);
   }
@@ -338,9 +354,10 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBalance,
     TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidTxid,
     required TResult orElse(),
   }) {
     if (insufficientBroadcastAmount != null) {
@@ -352,10 +369,11 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBalance value) insufficientBalance,
     required TResult Function(InsufficientBroadcastAmount value)
         insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidTxid value) invalidTxid,
   }) {
     return insufficientBroadcastAmount(this);
   }
@@ -363,10 +381,11 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientFunds value)? insufficientFunds,
+    TResult? Function(InsufficientBalance value)? insufficientBalance,
     TResult? Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidTxid value)? invalidTxid,
   }) {
     return insufficientBroadcastAmount?.call(this);
   }
@@ -374,10 +393,11 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBalance value)? insufficientBalance,
     TResult Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidTxid value)? invalidTxid,
     required TResult orElse(),
   }) {
     if (insufficientBroadcastAmount != null) {
@@ -387,7 +407,7 @@ class _$InsufficientBroadcastAmount implements InsufficientBroadcastAmount {
   }
 }
 
-abstract class InsufficientBroadcastAmount implements PsbtException {
+abstract class InsufficientBroadcastAmount implements TxBuilderException {
   const factory InsufficientBroadcastAmount(final String e) =
       _$InsufficientBroadcastAmount;
 
@@ -401,7 +421,7 @@ abstract class InsufficientBroadcastAmount implements PsbtException {
 
 /// @nodoc
 abstract class _$$UnexpectedCopyWith<$Res>
-    implements $PsbtExceptionCopyWith<$Res> {
+    implements $TxBuilderExceptionCopyWith<$Res> {
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
@@ -412,7 +432,7 @@ abstract class _$$UnexpectedCopyWith<$Res>
 
 /// @nodoc
 class __$$UnexpectedCopyWithImpl<$Res>
-    extends _$PsbtExceptionCopyWithImpl<$Res, _$Unexpected>
+    extends _$TxBuilderExceptionCopyWithImpl<$Res, _$Unexpected>
     implements _$$UnexpectedCopyWith<$Res> {
   __$$UnexpectedCopyWithImpl(
       _$Unexpected _value, $Res Function(_$Unexpected) _then)
@@ -442,7 +462,7 @@ class _$Unexpected implements Unexpected {
 
   @override
   String toString() {
-    return 'PsbtException.unexpected(e: $e)';
+    return 'TxBuilderException.unexpected(e: $e)';
   }
 
   @override
@@ -465,9 +485,10 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String e) insufficientFunds,
+    required TResult Function(String e) insufficientBalance,
     required TResult Function(String e) insufficientBroadcastAmount,
     required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidTxid,
   }) {
     return unexpected(e);
   }
@@ -475,9 +496,10 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String e)? insufficientFunds,
+    TResult? Function(String e)? insufficientBalance,
     TResult? Function(String e)? insufficientBroadcastAmount,
     TResult? Function(String e)? unexpected,
+    TResult? Function(String e)? invalidTxid,
   }) {
     return unexpected?.call(e);
   }
@@ -485,9 +507,10 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String e)? insufficientFunds,
+    TResult Function(String e)? insufficientBalance,
     TResult Function(String e)? insufficientBroadcastAmount,
     TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidTxid,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -499,10 +522,11 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InsufficientFunds value) insufficientFunds,
+    required TResult Function(InsufficientBalance value) insufficientBalance,
     required TResult Function(InsufficientBroadcastAmount value)
         insufficientBroadcastAmount,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidTxid value) invalidTxid,
   }) {
     return unexpected(this);
   }
@@ -510,10 +534,11 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InsufficientFunds value)? insufficientFunds,
+    TResult? Function(InsufficientBalance value)? insufficientBalance,
     TResult? Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidTxid value)? invalidTxid,
   }) {
     return unexpected?.call(this);
   }
@@ -521,10 +546,11 @@ class _$Unexpected implements Unexpected {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InsufficientFunds value)? insufficientFunds,
+    TResult Function(InsufficientBalance value)? insufficientBalance,
     TResult Function(InsufficientBroadcastAmount value)?
         insufficientBroadcastAmount,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidTxid value)? invalidTxid,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -534,7 +560,7 @@ class _$Unexpected implements Unexpected {
   }
 }
 
-abstract class Unexpected implements PsbtException {
+abstract class Unexpected implements TxBuilderException {
   const factory Unexpected(final String e) = _$Unexpected;
 
   @override
@@ -542,5 +568,157 @@ abstract class Unexpected implements PsbtException {
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InvalidTxidCopyWith<$Res>
+    implements $TxBuilderExceptionCopyWith<$Res> {
+  factory _$$InvalidTxidCopyWith(
+          _$InvalidTxid value, $Res Function(_$InvalidTxid) then) =
+      __$$InvalidTxidCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String e});
+}
+
+/// @nodoc
+class __$$InvalidTxidCopyWithImpl<$Res>
+    extends _$TxBuilderExceptionCopyWithImpl<$Res, _$InvalidTxid>
+    implements _$$InvalidTxidCopyWith<$Res> {
+  __$$InvalidTxidCopyWithImpl(
+      _$InvalidTxid _value, $Res Function(_$InvalidTxid) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? e = null,
+  }) {
+    return _then(_$InvalidTxid(
+      null == e
+          ? _value.e
+          : e // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InvalidTxid implements InvalidTxid {
+  const _$InvalidTxid(this.e);
+
+  @override
+  final String e;
+
+  @override
+  String toString() {
+    return 'TxBuilderException.invalidTxid(e: $e)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidTxid &&
+            (identical(other.e, e) || other.e == e));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, e);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidTxidCopyWith<_$InvalidTxid> get copyWith =>
+      __$$InvalidTxidCopyWithImpl<_$InvalidTxid>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String e) insufficientBalance,
+    required TResult Function(String e) insufficientBroadcastAmount,
+    required TResult Function(String e) unexpected,
+    required TResult Function(String e) invalidTxid,
+  }) {
+    return invalidTxid(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String e)? insufficientBalance,
+    TResult? Function(String e)? insufficientBroadcastAmount,
+    TResult? Function(String e)? unexpected,
+    TResult? Function(String e)? invalidTxid,
+  }) {
+    return invalidTxid?.call(e);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String e)? insufficientBalance,
+    TResult Function(String e)? insufficientBroadcastAmount,
+    TResult Function(String e)? unexpected,
+    TResult Function(String e)? invalidTxid,
+    required TResult orElse(),
+  }) {
+    if (invalidTxid != null) {
+      return invalidTxid(e);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsufficientBalance value) insufficientBalance,
+    required TResult Function(InsufficientBroadcastAmount value)
+        insufficientBroadcastAmount,
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidTxid value) invalidTxid,
+  }) {
+    return invalidTxid(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InsufficientBalance value)? insufficientBalance,
+    TResult? Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
+    TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidTxid value)? invalidTxid,
+  }) {
+    return invalidTxid?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsufficientBalance value)? insufficientBalance,
+    TResult Function(InsufficientBroadcastAmount value)?
+        insufficientBroadcastAmount,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidTxid value)? invalidTxid,
+    required TResult orElse(),
+  }) {
+    if (invalidTxid != null) {
+      return invalidTxid(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidTxid implements TxBuilderException {
+  const factory InvalidTxid(final String e) = _$InvalidTxid;
+
+  @override
+  String get e;
+  @override
+  @JsonKey(ignore: true)
+  _$$InvalidTxidCopyWith<_$InvalidTxid> get copyWith =>
       throw _privateConstructorUsedError;
 }

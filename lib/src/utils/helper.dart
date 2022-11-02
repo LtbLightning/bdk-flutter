@@ -1,7 +1,4 @@
-
-import 'package:bdk_flutter/bdk_flutter.dart';
-
-import 'exceptions/blochchain_exception.dart';
+import 'exceptions/blockchain_exception.dart';
 import 'exceptions/wallet_exception.dart';
 
 const MIN_WORD_COUNT= 6;

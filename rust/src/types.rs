@@ -116,7 +116,7 @@ pub enum BlockchainConfig {
     ESPLORA { config: EsploraConfig },
 }
 
-pub struct SqliteConfiguration {
+pub struct SqliteDbConfiguration {
     pub path: String,
 }
 pub struct SledDbConfiguration {
@@ -125,7 +125,7 @@ pub struct SledDbConfiguration {
 }
 pub enum DatabaseConfig {
     MEMORY,
-    SQLITE { config: SqliteConfiguration },
+    SQLITE { config: SqliteDbConfiguration },
     SLED {config:SledDbConfiguration},
 }
 #[allow(dead_code)]

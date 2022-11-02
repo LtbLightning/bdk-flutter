@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'blochchain_exception.freezed.dart';
+part 'blockchain_exception.freezed.dart';
 
 @freezed
 class BlockchainException with _$BlockchainException {

@@ -29,7 +29,7 @@ use crate::types::Network;
 use crate::types::OutPoint;
 use crate::types::ScriptAmount;
 use crate::types::SledDbConfiguration;
-use crate::types::SqliteConfiguration;
+use crate::types::SqliteDbConfiguration;
 use crate::types::TransactionDetails;
 use crate::types::TxBuilderResult;
 use crate::types::TxOut;
@@ -219,7 +219,7 @@ pub extern "C" fn wire_tx_builder_finish(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_bumb_fee_tx_builder_finish(
+pub extern "C" fn wire_bump_fee_tx_builder_finish(
     port_: i64,
     txid: *mut wire_uint_8_list,
     fee_rate: f32,
@@ -230,7 +230,7 @@ pub extern "C" fn wire_bumb_fee_tx_builder_finish(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "bumb_fee_tx_builder_finish",
+            debug_name: "bump_fee_tx_builder_finish",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -242,7 +242,7 @@ pub extern "C" fn wire_bumb_fee_tx_builder_finish(
             let api_enable_rbf = enable_rbf.wire2api();
             let api_n_sequence = n_sequence.wire2api();
             move |task_callback| {
-                Ok(bumb_fee_tx_builder_finish(
+                Ok(bump_fee_tx_builder_finish(
                     api_txid,
                     api_fee_rate,
                     api_allow_shrinking,
@@ -696,7 +696,7 @@ pub struct wire_SledDbConfiguration {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_SqliteConfiguration {
+pub struct wire_SqliteDbConfiguration {
     path: *mut wire_uint_8_list,
 }
 
@@ -753,7 +753,7 @@ pub struct DatabaseConfig_MEMORY {}
 #[repr(C)]
 #[derive(Clone)]
 pub struct DatabaseConfig_SQLITE {
-    config: *mut wire_SqliteConfiguration,
+    config: *mut wire_SqliteDbConfiguration,
 }
 
 #[repr(C)]
@@ -799,8 +799,8 @@ pub extern "C" fn new_box_autoadd_sled_db_configuration_0() -> *mut wire_SledDbC
 }
 
 #[no_mangle]
-pub extern "C" fn new_box_autoadd_sqlite_configuration_0() -> *mut wire_SqliteConfiguration {
-    support::new_leak_box_ptr(wire_SqliteConfiguration::new_with_null_ptr())
+pub extern "C" fn new_box_autoadd_sqlite_db_configuration_0() -> *mut wire_SqliteDbConfiguration {
+    support::new_leak_box_ptr(wire_SqliteDbConfiguration::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -950,10 +950,10 @@ impl Wire2Api<SledDbConfiguration> for *mut wire_SledDbConfiguration {
     }
 }
 
-impl Wire2Api<SqliteConfiguration> for *mut wire_SqliteConfiguration {
-    fn wire2api(self) -> SqliteConfiguration {
+impl Wire2Api<SqliteDbConfiguration> for *mut wire_SqliteDbConfiguration {
+    fn wire2api(self) -> SqliteDbConfiguration {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<SqliteConfiguration>::wire2api(*wrap).into()
+        Wire2Api::<SqliteDbConfiguration>::wire2api(*wrap).into()
     }
 }
 
@@ -1104,9 +1104,9 @@ impl Wire2Api<SledDbConfiguration> for wire_SledDbConfiguration {
     }
 }
 
-impl Wire2Api<SqliteConfiguration> for wire_SqliteConfiguration {
-    fn wire2api(self) -> SqliteConfiguration {
-        SqliteConfiguration {
+impl Wire2Api<SqliteDbConfiguration> for wire_SqliteDbConfiguration {
+    fn wire2api(self) -> SqliteDbConfiguration {
+        SqliteDbConfiguration {
             path: self.path.wire2api(),
         }
     }
@@ -1267,7 +1267,7 @@ impl NewWithNullPtr for wire_SledDbConfiguration {
     }
 }
 
-impl NewWithNullPtr for wire_SqliteConfiguration {
+impl NewWithNullPtr for wire_SqliteDbConfiguration {
     fn new_with_null_ptr() -> Self {
         Self {
             path: core::ptr::null_mut(),

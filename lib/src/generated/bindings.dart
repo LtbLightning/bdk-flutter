@@ -66,7 +66,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kTxBuilderFinishConstMeta;
 
-  Future<String> bumbFeeTxBuilderFinish(
+  Future<String> bumpFeeTxBuilderFinish(
       {required String txid,
       required double feeRate,
       String? allowShrinking,
@@ -75,7 +75,7 @@ abstract class Rust {
       int? nSequence,
       dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kBumbFeeTxBuilderFinishConstMeta;
+  FlutterRustBridgeTaskConstMeta get kBumpFeeTxBuilderFinishConstMeta;
 
   Future<String> descriptorSecretAsString(
       {required Network network,
@@ -257,7 +257,7 @@ class BlockchainConfig with _$BlockchainConfig {
 class DatabaseConfig with _$DatabaseConfig {
   const factory DatabaseConfig.memory() = MEMORY;
   const factory DatabaseConfig.sqlite({
-    required SqliteConfiguration config,
+    required SqliteDbConfiguration config,
   }) = SQLITE;
   const factory DatabaseConfig.sled({
     required SledDbConfiguration config,
@@ -355,10 +355,10 @@ class SledDbConfiguration {
   });
 }
 
-class SqliteConfiguration {
+class SqliteDbConfiguration {
   final String path;
 
-  SqliteConfiguration({
+  SqliteDbConfiguration({
     required this.path,
   });
 }
@@ -624,7 +624,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         ],
       );
 
-  Future<String> bumbFeeTxBuilderFinish(
+  Future<String> bumpFeeTxBuilderFinish(
           {required String txid,
           required double feeRate,
           String? allowShrinking,
@@ -633,7 +633,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
           int? nSequence,
           dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_bumb_fee_tx_builder_finish(
+        callFfi: (port_) => inner.wire_bump_fee_tx_builder_finish(
             port_,
             _api2wire_String(txid),
             _api2wire_f32(feeRate),
@@ -642,7 +642,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
             enableRbf,
             _api2wire_opt_box_autoadd_u32(nSequence)),
         parseSuccessData: _wire2api_String,
-        constMeta: kBumbFeeTxBuilderFinishConstMeta,
+        constMeta: kBumpFeeTxBuilderFinishConstMeta,
         argValues: [
           txid,
           feeRate,
@@ -654,9 +654,9 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kBumbFeeTxBuilderFinishConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kBumpFeeTxBuilderFinishConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "bumb_fee_tx_builder_finish",
+        debugName: "bump_fee_tx_builder_finish",
         argNames: [
           "txid",
           "feeRate",
@@ -1091,10 +1091,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     return ptr;
   }
 
-  ffi.Pointer<wire_SqliteConfiguration>
-      _api2wire_box_autoadd_sqlite_configuration(SqliteConfiguration raw) {
-    final ptr = inner.new_box_autoadd_sqlite_configuration_0();
-    _api_fill_to_wire_sqlite_configuration(raw, ptr.ref);
+  ffi.Pointer<wire_SqliteDbConfiguration>
+      _api2wire_box_autoadd_sqlite_db_configuration(SqliteDbConfiguration raw) {
+    final ptr = inner.new_box_autoadd_sqlite_db_configuration_0();
+    _api_fill_to_wire_sqlite_db_configuration(raw, ptr.ref);
     return ptr;
   }
 
@@ -1230,10 +1230,10 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     _api_fill_to_wire_sled_db_configuration(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_sqlite_configuration(
-      SqliteConfiguration apiObj,
-      ffi.Pointer<wire_SqliteConfiguration> wireObj) {
-    _api_fill_to_wire_sqlite_configuration(apiObj, wireObj.ref);
+  void _api_fill_to_wire_box_autoadd_sqlite_db_configuration(
+      SqliteDbConfiguration apiObj,
+      ffi.Pointer<wire_SqliteDbConfiguration> wireObj) {
+    _api_fill_to_wire_sqlite_db_configuration(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_database_config(
@@ -1246,7 +1246,7 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       wireObj.tag = 1;
       wireObj.kind = inner.inflate_DatabaseConfig_SQLITE();
       wireObj.kind.ref.SQLITE.ref.config =
-          _api2wire_box_autoadd_sqlite_configuration(apiObj.config);
+          _api2wire_box_autoadd_sqlite_db_configuration(apiObj.config);
     }
     if (apiObj is SLED) {
       wireObj.tag = 2;
@@ -1291,8 +1291,8 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
     wireObj.tree_name = _api2wire_String(apiObj.treeName);
   }
 
-  void _api_fill_to_wire_sqlite_configuration(
-      SqliteConfiguration apiObj, wire_SqliteConfiguration wireObj) {
+  void _api_fill_to_wire_sqlite_db_configuration(
+      SqliteDbConfiguration apiObj, wire_SqliteDbConfiguration wireObj) {
     wireObj.path = _api2wire_String(apiObj.path);
   }
 }
@@ -1670,7 +1670,7 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<ffi.Uint32>,
           ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_bumb_fee_tx_builder_finish(
+  void wire_bump_fee_tx_builder_finish(
     int port_,
     ffi.Pointer<wire_uint_8_list> txid,
     double fee_rate,
@@ -1679,7 +1679,7 @@ class RustWire implements FlutterRustBridgeWireBase {
     bool enable_rbf,
     ffi.Pointer<ffi.Uint32> n_sequence,
   ) {
-    return _wire_bumb_fee_tx_builder_finish(
+    return _wire_bump_fee_tx_builder_finish(
       port_,
       txid,
       fee_rate,
@@ -1690,7 +1690,7 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_bumb_fee_tx_builder_finishPtr = _lookup<
+  late final _wire_bump_fee_tx_builder_finishPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
               ffi.Int64,
@@ -1699,9 +1699,9 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Bool,
-              ffi.Pointer<ffi.Uint32>)>>('wire_bumb_fee_tx_builder_finish');
-  late final _wire_bumb_fee_tx_builder_finish =
-      _wire_bumb_fee_tx_builder_finishPtr.asFunction<
+              ffi.Pointer<ffi.Uint32>)>>('wire_bump_fee_tx_builder_finish');
+  late final _wire_bump_fee_tx_builder_finish =
+      _wire_bump_fee_tx_builder_finishPtr.asFunction<
           void Function(
               int,
               ffi.Pointer<wire_uint_8_list>,
@@ -2199,17 +2199,18 @@ class RustWire implements FlutterRustBridgeWireBase {
       _new_box_autoadd_sled_db_configuration_0Ptr
           .asFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>();
 
-  ffi.Pointer<wire_SqliteConfiguration>
-      new_box_autoadd_sqlite_configuration_0() {
-    return _new_box_autoadd_sqlite_configuration_0();
+  ffi.Pointer<wire_SqliteDbConfiguration>
+      new_box_autoadd_sqlite_db_configuration_0() {
+    return _new_box_autoadd_sqlite_db_configuration_0();
   }
 
-  late final _new_box_autoadd_sqlite_configuration_0Ptr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<wire_SqliteConfiguration> Function()>>(
-      'new_box_autoadd_sqlite_configuration_0');
-  late final _new_box_autoadd_sqlite_configuration_0 =
-      _new_box_autoadd_sqlite_configuration_0Ptr
-          .asFunction<ffi.Pointer<wire_SqliteConfiguration> Function()>();
+  late final _new_box_autoadd_sqlite_db_configuration_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_SqliteDbConfiguration>
+              Function()>>('new_box_autoadd_sqlite_db_configuration_0');
+  late final _new_box_autoadd_sqlite_db_configuration_0 =
+      _new_box_autoadd_sqlite_db_configuration_0Ptr
+          .asFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>();
 
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
@@ -2454,12 +2455,12 @@ class wire_list_out_point extends ffi.Struct {
 
 class DatabaseConfig_MEMORY extends ffi.Opaque {}
 
-class wire_SqliteConfiguration extends ffi.Struct {
+class wire_SqliteDbConfiguration extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> path;
 }
 
 class DatabaseConfig_SQLITE extends ffi.Struct {
-  external ffi.Pointer<wire_SqliteConfiguration> config;
+  external ffi.Pointer<wire_SqliteDbConfiguration> config;
 }
 
 class wire_SledDbConfiguration extends ffi.Struct {

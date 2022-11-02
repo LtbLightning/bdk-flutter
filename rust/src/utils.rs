@@ -69,4 +69,4 @@ pub fn config_database(database_config: DatabaseConfig) -> AnyDatabaseConfig {
         DatabaseConfig::SQLITE { config } => AnyDatabaseConfig::Sqlite(SqliteDbConfiguration{ path: config.path }),
         DatabaseConfig::SLED { config } => AnyDatabaseConfig::Sled(SledDbConfiguration{ path: config.path, tree_name: config.tree_name }),
     };
-}
+

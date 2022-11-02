@@ -1,3 +1,5 @@
+## [0.1.5]
+Updated API to match bdk-ffi
 ## [0.1.4]
 
 #### Functionality Added
