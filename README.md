@@ -53,268 +53,255 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 ## Library API
 
-All methods work in iOS: ✅
+`bdk_flutter` consists of a number of classes that provide a range of functionality essential for implementing descriptor based `Bitcoin wallet` applications in flutter. In this section, we will take a brief tour of `bdk_flutter`, summarizing the major APIs and their uses.
 
-All methods work in Android: ✅
+[Address](#Address)
 
-**All methods return the response as follows:**
+[Script](#Script) 
+
+[DescriptorPublicKey](#DescriptorPublicKey) 
+
+[DescriptorSecretKey](#DescriptorSecretKey) 
+
+[Blockchain](#Blockchain) 
+
+[Wallet](#Wallet) 
+
+[PartiallySignedBitcoinTransaction](#PartiallySignedBitcoinTransaction) 
+
+[TxBuilder](#TxBuilder) 
+
+[BumpFeeTxBuilder](#BumpFeeTxBuilder) 
+
+---
 
 
-The following methods can be used with this module. All methods can be called by the BdkWallet object.
+### Address
 
+Bitcoin address.
 
+Support for ordinary base58 Bitcoin addresses and private keys.
 
 | Method                                         | Request Parameters                                                                         |
 | ---------------------------------              | ------------------------------------------------------------------------------------------ |
-| [generateMnemonic()](#generateMnemonic)        | - wordCount, entropy                                                                       |
-| [createDescriptors()](#createDescriptors)      | - xprv, type, mnemonic, network, password, publicKeys, threshold , derivationPath    |
-| [createWallet()](#createWallet)                | - mnemonic, password, descriptor, changeDescriptor, network, blockchainConfig              |     
-| [createExtendedKey()](#createExtendedKey)      | - network, mnemonic, password                                                              |
-| [createXprv()](#createXprv)                    | - network, mnemonic, password                                                              |
-| [createXpub()](#createXpub)                    | - network, mnemonic, password                                                              |                                                                                                                                
-| [getNewAddress()](#getNewAddress)              | -                                                                                          | 
-| [getLastUnusedAddress()](#getLastUnusedAddress)| -                                                                                          |       
-| [getBalance()](#getbalance)                    | -                                                                                          |
-| [getTransactions()](#getTransactions)          | -                                                                                          | 
-| [getPendingTransactions()](#getPendingTransactions)| -                                                                                      |
-| [getConfirmedTransactions()](#getConfirmedTransactions)| -                                                                                  |
-| [syncWallet()](#syncWallet)                    | -                                                                                          | 
-| [createTx()](#createTx)                        | - address (recipient wallet address), amount*(sats) , feeRate                              |
-| [signTx()](#signTx)                            | - psbt                                                                                     |
-| [broadcastTx()](#broadcastTx)                  | - sbt                                                                                      |  
-| [quickSend()](#quickSend)                      | - address (recipient wallet address), amount*(sats) , feeRate                              |
+| [create()](#create)                            | - String address.                                                                          | 
+| [scriptPubKey()](#scriptPubKey)                | -                                                                                    |
 
----
+#
 
-### generateMnemonic()
-Generates a random mnemonic seed phrase.<br />
-Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic <br />
-This will generate a mnemonic sentence from the English word list.
 
-The required `entropy` can be specified as the entropy parameter and
-can be in multiples of `64` from `128 to 256`, `128` is used as default.
-
-A `wordCount` or length can be specified instead as the length
-parameter and can be in multiples of `6` from `12 to 24`.
+### create()
+Create a new `Address` instance given an address.
 
 ```dart
 
-final response = await generateMnemonic()
-final  response = await generateMnemonic(entropy: Entropy.Entropy128)
+ final address= await Address().create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+
+```
+
+Returns an `Address()` object
+#
+
+
+### scriptPubKey()
+Returns the `Script` object form the `Address` object.
+
+```dart
+
+ final script = await address.scriptPubKey();
+
+```
+
+Returns a `Script()` object
+
+---
+
+
+### Script
+
+Scripts define Bitcoin’s digital signature scheme: a signature is formed from a script (the second half of which is defined by a coin to be spent, and the first half provided by the spending transaction), and is valid iff the script leaves TRUE on the stack after being evaluated. Bitcoin’s script is a stack-based assembly language similar in spirit to Forth.
+
+This class provides the functions needed to support scripts.
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [create()](#create)                            | - Uint8List rawOutputScript                                                                         | 
+
+#
+
+
+### create()
+Create a new `Script` instance given a Uint8List.
+
+```dart
+
+ final address= await Script().create([]);
+
+```
+
+Returns an `Script()` object
+#
+
+
+
+### Blockchain
+
+This class provides the implementation of a few commonly-used backends like Electrum, and Esplora  along with a Blockchain class that can be implemented to build customized backends.
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [create()](#create)                            | - BlockchainConfig config                                                                  | 
+| [getHeight()](#getHeight)                      | -                                                                                          |
+| [getBlockHash()](#getBlockHash)                | - int height                                                                               |
+| [broadcast()](#broadcast)                      | - PartiallySignedBitcoinTransaction psbt                                                   |     
+#
+
+### create()
+Create a new `Blockchain` instance given a [BlockchainConfig](#BlockchainConfig) configuration
+
+[BlockchainConfig](#BlockchainConfig) is ab enum having 2 values,`BlockchainConfig.electrum` & `BlockchainConfig.esplora` 
+
+Required Params: config( `BlockchainConfig` )
+
+```dart
+
+final blockchain  = await Blockchain().create(config: BlockchainConfig.electrum(
+        config: ElectrumConfig(
+            stopGap: 10,
+            timeout: 5,
+            retry: 5,
+            url: "ssl://electrum.blockstream.info:60002")));
+
+```
+
+Returns a `Blockchain()` object
+
+#
+
+### getHeight()
+
+Return the current height of the `blockchain`
+
+
+```dart
+
+ final res = await blockchain.getHeight();
 
 ```
 Returned response example:
 ```dart
 
-"daring erase travel point pull loud peanut apart attack lobster cross surprise actress dolphin gift journey mystery save"
+2401901
 
 ```
----
+#
 
-### createDescriptors()
 
-Create a `WalletDescriptor` object containing a descriptor and a change descriptor, using `xprv`  or `mnemonic`.
+### getBlockHash()
 
-`xprv` or `xpub` will be used if passed otherwise `mnemonic`, `network` and `password` will be used depending on the availability.
+Fetch `block hash` of the initialized blockchain
 
-`type` is an enum and can be one of `P2PK, P2PKH, P2WPKH, P2SHP2WPKH, P2SHP2WSHP2PKH, MULTI`. `P2WPKH` is used as default.
-
-If `type` is `MULTI` then need to specify the signature `threshold` and `publicKeys` array.
-`derivationPath` is optional, `m/84'/1'/0'` is used by default
-
+The function takes blockchain `height` returned from [getHeight()](#getHeight) as its parameter.
 
 ```dart
-
-final  response = await createDescriptor(   
-                         network: Network.TESTNET, 
-					     mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch', 
-					     password: '', 
-					     type: Descriptor.P2WPKH,
-					     derivationPath: "m/84'/1'/0'",
-				         );
+                                                
+ final blockhash = await blockchain.getBlockHash(2401901);
 
 ```
 Returned response example:
 ```dart
 
-{
-
-descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)"
-changeDescriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/1/*)"
-
- }
+"000000000000027af96de90e53f21a37200d1b9777ef3c8e9b8a1efe79a9d0e5"
 
 ```
----
+#
 
 
-### createWallet()
+### broadcast()
+This method will broadcast bitcoin transaction  using the signed `psbt` object.
 
-Creates a new wallet. A wallet can be created using a `mnemonic` or `wallet output descriptor`.
-
-#### Creating a wallet using `mnemonic`
-
-To create a wallet with a `mnemonic`, menmonic argument has to be specified and `descriptor` and `changeDescriptor` should not be specified.
-All other parameters are optional and will take `default` values if not specified.
-A known `mnemonic` can be used when restoring a wallet, or a new `mnemonic` can be created using `generateMnemonic` method.
-
-
-```dart
-                                                
-final aliceWallet  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch",
-                                                       password: "password",
-                                                       network: Network.TESTNET,
-                                                       blockchainConfig: BlockchainConfig.electrum
-						        (
-						         config: ElectrumConfig(
-                                                                   stopGap: 10,
-								   timeout: 5,
-								   retry: 5,
-                                                                   url: "ssl://electrum.blockstream.info:60002")
-						         )
-                                                    
-                                                      );
-						 
-final aliceWallet  =  await BdkFlutter().createWallet( mnemonic:"puppy interest whip tonight dad never sudden response push zone pig patch" );						 
-						    
-```
-
-#### Creating a wallet using `descriptor`.
-
-A `descriptor` has to be specified and mnemonic should not be specified. All other arguments are optional and will take `default` values when not specified.
-A known `descriptor` and `changeDescriptor` can be used. `createDescritpors` method can be used to create a `descriptor` and `changeDescriptor`
-
+`PartiallySignedBitcoinTransaction` can be created using the `signed bitcoin transaction` returned from `sign()` method in `Wallet` class
 
 ```dart
 
-final daveWallet  =  await BdkFlutter().createWallet( 
-							descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)"
-							changeDescriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/1/*)"
-							network: Network.TESTNET,
-						        blockchainConfig: BlockchainConfig.electrum
-						         (
-								config: ElectrumConfig(
-									   stopGap: 10,
-									   retry: 5,
-									   url: "ssl://electrum.blockstream.info:60002")
-						          )
-                                                    
-                                                      );						 
+final sbt = "cHNidP8BAHEBAAAAARyp0TU6O43fV/uRO/km4cSiqsmE7sR+RqKE+UbgIaFkAAAAAAD+////AugDAAAAAAAAFgAU/52lZ+YvMOqGVPodX71HvvjjvhOIPwAAAAAAABYAFCadMSHX5kpd2pMQOkhfWNMPEgSvbaYkAAABAN4BAAAAAAEB9Tq4MbyE1SjHZDDWeh2KKtCGcuQMJilNh+djj6VSCMUAAAAAAP7///8CDkQAAAAAAAAWABTFgPd936kh3eFbF66+5aaJSVL7U+gDAAAAAAAAFgAU/52lZ+YvMOqGVPodX71HvvjjvhMCRzBEAiAZ8BHP5BLbs04B3NHkJEcsSmYJuOskRdXZueLmGbB5SQIgQUP1SbqnIRMY3GmQlN73Pe4bdMjjJcJmEq7lW/ami6YBIQIevFoumcPh53TVsUdyLGcCJy/XmgqKJUetxWbFRYFbnsakJAABAR8ORAAAAAAAABYAFMWA933fqSHd4VsXrr7lpolJUvtTIgYCpIXSaEEGWAx707IgIqWSEYdl8+MDRDTcjnn1xyP3HqgY2R5q3VQAAIABAACAAAAAgAEAAABcAAAAAQcAAQhrAkcwRAIgDU3jeUogxFEF4H5eIIK1GOeRi3UStkLsXywBAN6qIscCICGlRzeiWuDN7X/8xAbPq4TXadJSa7atywG6PJyOcqdSASECpIXSaEEGWAx707IgIqWSEYdl8+MDRDTcjnn1xyP3HqgAACICApl47fK3INCtOiQ+olI2NJiOJ6zdEIBpirtDk9oBrfniGNkeat1UAACAAQAAgAAAAIABAAAAXQAAAAA="
 
-
-final aliceWallet  =  await BdkFlutter().createWallet( descriptor: "wpkh([d91e6add/84'/1'/0']tprv8g2W7sNhrubz3auYxkXBA2fSS7kPwjf7GKESKWG8TDSCro7Q4EaCbNxTgKuiJU9yfg1JMp7hNCJBnt1gvqcEAkUn4XnJfdeQHdXgJMDc2uH/0/*)" );
-						 
-```						 
-                                                
-Returns a `BdkWallet` Object:
-
-
----
-
-
-### createExtendedKey()
-This method will create an `ExtendedKeyInfo` object using the specified `mnemonic` seed phrase and password. 
-`ExtendedKeyInfo` creates a key object which encapsulates the mnemonic and adds a `private key` using the mnemonic and password.
-
-The extended key info object is required to be passed as an argument in some bdk methods.
-
-```dart
-
-final  response = await createExtendedKey(  network : Network.TESTNET
-                                            mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise',
-                                            password: ''
-                                         );
+ await blockchain.broadcast(PartiallySignedBitcoinTransaction(psbtBase64: sbt));
 					   
 ```
-Returned response example:
-```dart
-
- {
-	    xpub: "tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9/*"
-	    xprv: "tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9/*"
- }
- 
-```
 ---
 
 
-### createXprv()
-Creates the `private key` using `mnemonic` phrase and password.
+### Wallet
+
+The Wallet class acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
+
+- Output descriptors from which it can derive addresses.
+- A Database where it tracks transactions and utxos related to the descriptors.
+- Signers that can contribute signatures to addresses instantiated from the descriptors.
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [create()](#create)                            | - String descriptor, String changeDescriptor (*optional*), Network network, DatabaseConfig  databaseConfig | 
+| [getAddress()](#getAddress)                    | - AddressIndex addressIndex                                                                |    
+| [getBalance()](#getbalance)                    | -                                                                                          |
+| [sync()](#sync)                                | -  Blockchain blockchain                                                                   |
+| [network()](#network)                          | -                                                                                          |
+| [listUnspent()](#listUnspent)                  | -                                                                                          | 
+| [listTransactions()](#listTransactions)        | -                                                                                          |
+| [sign()](#sign)                                | - PartiallySignedBitcoinTransaction psbt                                                   |        
+#
+
+### create()
+
+Creates a new wallet using `wallet output descriptor`.
+
 
 ```dart
 
-final response = await createXprv(  network: Network.TESTNET, 
-                                     mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise', 
-				     password: '' 
-				  );
+ final aliceWallet =  await Wallet().create(
+        descriptor: "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)", 
+        network: Network.TESTNET, 
+        databaseConfig: const DatabaseConfig.memory()
+    );
+
 
 ```
-Returned response example:
-```dart
 
-"tprv8jwstWYSsSzHyNpVT2YXP8n7TQ7fFp43n6yutzaPSx5iYmNquVfYwEtjxm2Wynm3NWjTfutiDr1AXXPFVwSyrZE7ixgycbpbqAkQ1GzcVx9/*"
+Returns a `Wallet` class object
 
-```
----
+#
 
 
-### createXpub()
-Create the `public key` using a `mnemonic` phrase and password.
-
-```dart
-
-final  response = await createXpub(  network: Network.TESTNET, 
-                                     mnemonic: 'daring erase travel point pull loud peanut apart attack lobster cross surprise', 
-				     password: '' 
-				  );
-
-```
-Returned response example:
-```dart
-
-"tpubDGdv2vah1pfxrqrHLgD7nYSE2RdbR9ExMQahBWcgsDt7PFdcXtV97jWc8tkXrFHDbKeyoKjPQaJ9UxA5xLEWvU1zv1h7JxdvsTMNpdBjsb9/*"
-
-```
----
-
-
-### getNewAddress()
-Creates a new `address` for the wallet.
+### getAddress()
+Return an `AddressInfo` object with a `derived address` and an `addressIndex` using the `external descriptor`, requires `AddressIndex` enum as it's parameter. If none of the keys in the descriptor are derivable (i.e. does not end with /*) then the same address will always be returned for any `AddressIndex`.
+Required params: AddressIndex 
 
 ```dart
 
-final response = await aliceWallet.getNewAddress();
+final newAddress =  await aliceWallet.getAddress(addressIndex:AddressIndex.New);
+
+final lastUnUsedAddress =  await aliceWallet.getAddress(addressIndex:AddressIndex.LastUnused);
+
 
 ```
+
 Returned response example:
 ```dart
 
 "tb1q5knz6ynpzlsnq3ezj97lh99sh3pac6easfml8h"
 
-```
----
-
-
-### getLastUnusedAddress()
-Returns the `last unused address` of the wallet.
-
-```dart
-
-final response = await aliceWallet.getLastUnusedAddress();
+"tb1qtv92lppzj2qz0rxqvxhmexzm5p0ku04yh6al5m
 
 ```
-
-Returned response example:
-```dart
-
-"tb1qrd4qlk3aw9mhn4wn949lfnxw23fgz0sz0kwqrn"
-
-```
----
+#
 
 
 ### getBalance()
 Returns the `Balance object` consisting of `spendable`, `total`, `confirmed`, `untrustedPending`, `trustedPending`, and `immature` balances of your wallet.
+
+Note that this method only operates on the internal database, which first needs to be sync manually.
+
 
 ```dart
 
@@ -328,15 +315,64 @@ Returned response example:
  0 // balance in sats
  
 ```
----
+#
 
 
-### getTransactions()
-Returns a list of all the `transactions` made.
+### sync()
+`Sync` the internal database with the blockchain.
+
+Sync function takes a blockchain object as its parameter and prints the log.
+
+Required params: blockchain 
 
 ```dart
 
-final response = await aliceWallet.getTransactions();
+final response = await aliceWallet.sync(blockchain);
+```
+#
+
+
+### network()
+Get the Bitcoin network the wallet is using.
+
+```dart
+
+final response = await aliceWallet.network();
+```
+#
+
+
+### listUnspent()
+Return the list of unspent outputs of this wallet
+
+Note that this method only operates on the internal database, which first needs to be sync manually.
+
+```dart
+
+final response = await aliceWallet.listUnspent();
+
+```
+Returned response example:
+```dart
+
+[
+
+	 	
+]
+
+```
+#
+
+
+### listTransactions()
+Returns a list of all the `transactions` made.
+
+Note that this method only operates on the internal database, which first needs to be sync manually.
+
+
+```dart
+
+final response = await aliceWallet.listTransactions();
 
 ```
 Returned response example:
@@ -353,96 +389,20 @@ Returned response example:
 ]
 
 ```
----
+#
 
 
-### getPendingTransactions()
-Returns the list of `unconfirmed` transactions.
+### sign()
+Signs a bitcoin transaction with the associated private key as per the descriptor used to create the wallet. The method accepts an unsigned `Partially 
 
-```dart
+Signed Bitcoin Transaction(psbt)` and returns a signed `psbt` string.<br />
 
-final response = await aliceWallet.getPendingTransactions();
-
-```
-Returned response example:
-```dart
-
-[
-	{
-          txid: "e686ff52b2dd54fcb078a4c3854ddc8e2a6fbd05ab0d1d58cb2a16f215ff0f64"
-          fee :  141
-          received: 555
-          send: 0
-        }
-]
-
-```
----
-
-
-### getConfirmedTransactions()
-Returns the list of `confirmed` transactions.
-
-```dart
-
-final response = await aliceWallet.getConfirmedTransactions();
-
-```
-Returned response example:
-```dart
-
-[
-	{
-          txid: "e686ff52b2dd54fcb078a4c3854ddc8e2a6fbd05ab0d1d58cb2a16f215ff0f64"
-          fee :  141
-          received: 555
-          send: 0
-        }
-]
-
-```
----
-
-
-### syncWallet()
-`Syncs` the wallet.
-
-```dart
-
-final response = await BdkWallet()aliceWallet.syncWallet();
-```
----
-
-
-### createTx()
-Creates a `bitcoin transaction`. This can transaction can later be signed and broadcast. The transaction created is a `Partially Signed Bitcoin Transaction(psbt)`.<br />
-Required params: address, amount, feeRate
-
-```dart
-
-final psbt =  await aliceWallet.createTx(   recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t', 
-					     amount: 2000, 
-				             feeRate: 1
-			                 );
-
-```
-Returned response example:
-```dart
- 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA', // psbt id
- 
-```
----
-
-
-### signTx()
-Signs a bitcoin transaction with the associated private key as per the descriptor used to create the wallet. The method accepts an unsigned `Partially Signed Bitcoin Transaction(psbt)` and returns a signed `psbt`.<br />
 Required params: psbt (Partially Signed Bitcoin Transaction)
 
 ```dart
-
-final psbt = 'cHNidP8BAHQBAAAAAWxkL9CW6cpdkjO2eie+MXCxnvjL/Kemjmi2bnna1e+wAQAAAAD/////AlACAAAAAAAAFgAUmz1p6HT0uW0bDRhmY1sL92YbdtawBAAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJoisAAAAAAABAOEBAAAAAAEBTevYyZI0SDB417CFQMW87Z8YkrBtdkrHIqfn5GAxH98BAAAAAP////8CsAQAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrJAHAAAAAAAAFgAUMrIFB4W5c6b7/yiu+ph/N1JI5iwCRzBEAiBx5CL5kk4rvqInQ76atWwb+lUh/WcMPLZPLZirBLjgCQIgWLy2yuubrGDdMpg1/PUangucUxlVY3mzYSsBBPW6pigBIQLntzCxsOIpzhQe7I5rV+gEW0iJXUrnryU8gAa8sOOjtwAAAAABAR+QBwAAAAAAABYAFDKyBQeFuXOm+/8orvqYfzdSSOYsIgYCfoT0VFzm9d47mVZJ5kJn0/PSMZ6WedD5r9Q9TseuyvgY2R5q3VQAAIABAACAAAAAgAEAAAASAAAAACICA3+RBKNCI5Ev2vzb2+iGZ2+ODuqxgIxi5xRTEtobkC8tGNkeat1UAACAAQAAgAAAAIABAAAAGAAAAAAA'; // psbt id from createPartiallySignedTransaction()
-
-final response = await aliceWallet.signTx(psbt:psbt);
+ TxBuilder txBuilder =  TxBuilder()
+ final psbt = await txBuilder.addRecipient(script, 1000).feeRate(1.1).finish(aliceWallet);
+ final sbt = await aliceWallet.sign(psbt);
 
 ```
 Returned response example:
@@ -454,48 +414,526 @@ Returned response example:
 ---
 
 
-### broadcastTx()
-Broadcasts a signed bitcoin transaction to the bitcoin network. The transaction is sent to the bitcoin node associated with the blockchain config that was used to create the wallet. The method accepts a signed bitcoin transaction. The psbt returned by signTx can be passed to broadcastTx().<br />
-Required params: sbt ( Signed Bitcoin Transaction)
+### PartiallySignedBitcoinTransaction
+
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [txId()](#txId)                                | -                                                                                          | 
+| [extractTx()](#extractTx)                      | -                                                                                          |
+| [combine()](#combine)                          | - PartiallySignedBitcoinTransaction other                                                  |
+| [serialize()](#serialize)                      | -                                                                                         |     
+#
+
+
+### txId()
+Returns the `txId` of the `psbt`.
+
+Note that the psbt can be created from Txbuilder.
+
 
 ```dart
-
-final sbt = 'cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA'; // psbt id from createPartiallySignedTransaction()
-
-final response = await aliceWallet.broadcastTx(sbt:sbt);
+ final psbt = await txBuilder.addRecipient(script, 1000).feeRate(1.1).finish(aliceWallet);
+ final txid = await psbt.txId();
 
 ```
 Returned response example:
 ```dart
-  
-  "9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
+
+ "1338d123a76102e3d77958e48cc8761a9262f412656a61044d810018cd267145"
  
 ```
----
+#
 
 
-### quickSend()
-Creates a `Partially Signed Bitcoin Transaction`, `Signs` the transaction, and `Broadcasts` to the given address.<br />
-.<br />
-Required params: address, amount, feeRate
+### extractTx()
+Extract the transaction as List<int>.
+
+Note that the psbt can be created from Txbuilder.
+
 
 ```dart
-
-final response = await aliceWallet.quickSend( recipient: 'tb1qhmk3ftsyctxf2st2fwnprwc0gl708f685t0j3t',
-amount: 2000,
-feeRate: 1
-);
+ final tx = await psbt.extractTx();
 
 ```
 Returned response example:
 ```dart
 
-"9b5ecd0ee3846a891201f3c59a484fe73501d845c20b05d63c45ec92bc2c16b3", // transaction id
+[1, 0, 0, 0, 1, 226, 91, 46, 73, 220, 142, 100, 101, 17, 105, 57, 78, 225, 206, 20, 16, 74, 53, 145, 53, 10, 234, 59, 191, 151, 185, 183, 158, 26, 97, 46, 97, 1, 0, 0, 0, 0, 254, 255, 255, 255, 2, 230, 157, 0, 0, 0, 0, 0, 0, 22, 0, 20, 137, 155, 157, 20, 91, 193, 250, 48, 125, 87, 122, 16, 97, 219, 170, 26, 60, 108, 227, 114, 232, 3, 0, 0, 0, 0, 0, 0, 22, 0, 20, 255, 157, 165, 103, 230, 47, 48, 234, 134, 84, 250, 29, 95, 189, 71, 190, 248, 227, 190, 19, 67, 167, 36, 0]
+ 
+```
+#
 
+
+### combine()
+Combine 2 psbt into one.
+Required Params: PartiallySignedBitcoinTransaction (other)
+
+
+```dart
+ final other = PartiallySignedBitcoinTransaction(psbtBase64: 'cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA');
+
+ final tx = await psbt.combine(other);;
+
+```
+Returns a combined `psbt` object
+#
+
+
+### serialize()
+The method converts the unsigned /signed `Partially Signed Bitcoin Transaction(psbt)` object into a `String` <br />
+
+```dart
+ final tx = await psbt.serialize();
+
+```
+Returned response example:
+```dart
+
+"cHNidP8BAHQBAAAAAWO9QVybfmhTpK6qzTVcf9yeiui/a0iNmTgljuw29UeQAQAAAAD+////AsUwEwAAAAAAFgAUbNeMOfAF9QTOiFfrlhV8bQnXWVnoAwAAAAAAABl2qRQ0Sg9IyhUOwrkDgXZgubaLE6ZwJois4NYjAAABAOEBAAAAAAEBHIAjDPiXGopfbzyQGDCQ/UjKxT2rhurl5iYZWIrY0ycAAAAAAP7///8C6AMAAAAAAAAZdqkUNEoPSMoVDsK5A4F2YLm2ixOmcCaIrD01EwAAAAAAFgAUHjTI1PY9tTZPado27T8PTGITvIUCRzBEAiA/C1zSpBrEZkgHwt1sfcadj13OUruw6eofeOVk2aHhUAIgLf/sYhD3kv8+nZrM5atuyYwKXCMDuNBPldaO2FQpxBUBIQPCWh5gAGcSYqmTy9aVpFb96u5Sgp+hjs/JDg+6SgKqVeDWIwABAR89NRMAAAAAABYAFB40yNT2PbU2T2naNu0/D0xiE7yFIgYChXdsXDGO5LXjWfyh3rRkTZzfPDbWmBBZHSKDesNSrggU2R5q3VQAAIAAAACAAQAAgD0AAAABBwABCGsCRzBEAiAo6eGvjAWQdyefCuSphc8FJewM9BZzgOhXJW9Uf+hQfAIgVvNJ6D7YC+MSqS01aMiTZ+0T2NJlXZLJFCBl585wescBIQKFd2xcMY7kteNZ/KHetGRNnN88NtaYEFkdIoN6w1KuCAAiAgKX6sfAUUzaIV9h3amzY+Wnxalxmi9T6lZZ76CBlWjB5RTZHmrdVAAAgAAAAIABAACAPgAAAAAA"
 ```
 ---
 
 
+### TxBuilder
+
+
+A TxBuilder is created by calling the TxBuilder class. After initializing it, you set options on it until finally calling finish to consume the builder and generate the transaction.
+
+Each option setting method on TxBuilder takes paramters and returns `txBuilder` object so you can chain calls as in the following example:
+
+
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [addData()](#addData)                          | - List<int> data                                                                           | 
+| [addRecipient()](#addRecipient)                | -  Script script, int amount                                                               |
+| [unSpendable()](#unSpendable)                  | - List<OutPoint> outpoints                                                                 |
+| [addUtxo()](#addUtxo)                          | - OutPoint outpoint                                                                        |   
+| [addUtxos()](#addUtxos)                        | - List<OutPoint> outpoints                                                                 |     
+| [doNotSpendChange()](#doNotSpendChange)        |                                                                                            | 
+| [drainWallet()](#drainWallet)                  | -                                                                                          | 
+| [drainTo()](#drainTo)                          | - String address                                                                           |     
+| [enableRbf()](#enableRbf)                      | -                                                                                          |	
+| [enableRbfWithSequence()](#enableRbfWithSequence)| - int nSequence                                                                          |
+| [feeAbsolute()](#feeAbsolute)                  | - int feeAmount                                                                            |
+| [feeRate()](#feeRate)                          | - double satPerVbyte                                                                       |
+| [setRecipients()](#setRecipients)              | - List<ScriptAmount> recipients                                                            |
+| [manuallySelectedOnly()](#addUtxo)             | -                                                                                          |
+| [addUnSpendable()](#addUnSpendable)            | - OutPoint unSpendable                                                                     |
+| [onlySpendChange()](#onlySpendChange)          | -                                                                                          |
+| [finish()](#finish)                            | - Wallet wallet)                                                                           |
+#
+
+### addData()
+Add data as an output, using OP_RETURN	
+
+```dart
+
+ final txBuilder = TxBuilder();
+	
+ final res = txBuilder.addData([]);
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### addRecipient()
+	
+Add a `recipient` to the internal list	
+	
+Required Params: script (`Script` object created from [scriptPubKey()](#scriptPubKey) ), `amount` (int )
+
+```dart
+	
+ final res = txBuilder.addRecipient(`script`, 1000);
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+
+
+### unSpendable()
+	
+Replace the internal list of unspendable utxos with a new list
+
+It’s important to note that the “must-be-spent” utxos added with [addUtxo()](#addUtxo) have priority over these. 
+	
+Required Params: script (`Script` object created from [scriptPubKey()](#scriptPubKey) ), `amount` (int )
+
+```dart
+	
+ final res  = txBuilder.addRecipient(`script`, 1000);
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+	
+
+### addUtxo()
+	
+Add a utxo to the internal list of utxos that must be spent
+
+Required Params: outPoint (`txid` ( The referenced transaction's txid ), `amount` ( The index of the referenced output in its transaction's vout ) )
+	
+```dart
+	
+ final uxto  = txBuilder.addUtxo( OutPoint(txid: txid, vout: vout) )
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+
+	
+### addUtxos()
+	
+Add the list of outpoints to the internal list of UTXOs that must be spent.
+
+If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
+
+These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
+
+source
+
+
+Required Params:  outpoints (List of `OutPoints`)
+	
+```dart
+	
+ final uxtos  = txBuilder.addUtxos( [OutPoint(txid: txid, vout: vout)] )
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### doNotSpendChange()
+	
+
+This effectively adds all the change outputs to the [unSpendable()](#unSpendable) list. 
+
+source
+
+	
+```dart
+	
+ final res  = txBuilder.doNotSpendChange();
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### drainWallet()
+	
+Spend all the available inputs. This respects filters like [unSpendable()](#unSpendable) and the change policy.
+
+	
+```dart
+	
+ final res  = txBuilder.drainWallet();
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### drainTo()
+Sets the address to drain excess coins to.
+
+Usually, when there are excess coins they are sent to a change address generated by the wallet. This option replaces the usual change address with an arbitrary script_pubkey of your choosing. Just as with a change output, if the drain output is not needed (the excess coins are too small) it will not be included in the resulting transaction. The only difference is that it is valid to use drainTo without setting any ordinary recipients with addRecipient (but it is perfectly fine to add recipients as well).
+
+If you choose not to set any recipients, you should either provide the utxos that the transaction should spend via [addUtxos()](#addUtxos), or set [drainWallet()](#drainWallet) to spend all of them.
+
+When bumping the fees of a transaction made with this option, you probably want to use allowShrinking to allow this output to be reduced to pay for the extra fees.
+	
+Required Params:  address (`change address` String)	
+	
+	
+```dart
+	
+ final res  = txBuilder.drainTo("tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+	
+	
+### enableRbf()
+	
+This method will enable signaling RBF
+
+This will use the default nSequence value of 0xFFFFFFFD
+
+	
+```dart
+	
+ final uxtos  = txBuilder.enableRbf();
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+		
+### enableRbfWithSequence()
+This method will enable signaling RBF with a specific nSequence value
+
+This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
+
+If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
+	
+Required Params:  nSequence (`nSequence` ( *eg: 0xFFFFFFFD* ) int)	
+	
+	
+```dart
+	
+ final res  = txBuilder.enableRbfWithSequence(0xFFFFFFFD);
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+	
+	
+### feeAbsolute()
+	
+This method will set an absolute fee
+
+Required Params:  feeAmount ( int)	
+	
+```dart
+	
+ final uxtos  = txBuilder.feeAbsolute(1);
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### feeRate()
+	
+This method will set a custom fee rate
+
+Required Params:  satPerVbyte (double)	
+	
+```dart
+	
+ final uxtos  = txBuilder.satPerVbyte(1.0);
+
+```
+
+Returns a `TxBuilder` object
+
+#	
+	
+
+### setRecipients()
+	
+This method will replace the recipients already added with a new list
+
+Required Params:  recipients ( List of `ScriptAmount` )	
+	
+```dart
+	
+final address= await Address().create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+	
+final script = await address.scriptPubKey();
+	
+final uxto = txBuilder.setRecipients([ScriptAmount(script: script.toString(), amount: 1200)]);
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### manuallySelectedOnly()
+	
+This method will let txBuilder only spend utxos added by [addUtxo()](#addUtxo).
+
+The wallet will not add additional utxos to the transaction even if they are needed to make the transaction valid.
+	
+```dart
+	
+ final res  = txBuilder.manuallySelectedOnly();
+
+```
+
+Returns a `TxBuilder` object
+
+#
+		
+	
+### addUnSpendable()
+	
+This method will add a utxo to the internal list of unspendable utxos
+
+It’s important to note that the “must-be-spent” utxos added with [addUtxo()](#addUtxo) have priority over this.
+
+Required Params:  unSpendable ( OutPoint (`txid` ( The referenced transaction's txid ), `amount` ( The index of the referenced output in its transaction's vout ) ) )
+	
+	
+```dart
+	
+ final res = txBuilder.addUnSpendable(OutPoint(txid: txid, vout: vout));
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### onlySpendChange()
+	
+This method will effectively adds all the non-change outputs to the “unspendable” list. 
+
+	
+```dart
+	
+ final res = txBuilder.onlySpendChange();
+
+```
+
+Returns a `TxBuilder` object
+
+#
+	
+	
+### finish()
+	
+This method will finish building the transaction.
+
+Returns the BIP174 “PSBT” and summary details about the transaction.
+
+Required Params:  wallet ( `Wallet` can be created from create() in `Wallet` class)
+	
+	
+```dart
+	
+ final res = txBuilder.finish(aliceWallet);
+
+```
+
+Returns a `PartiallySignedBitcoinTransaction` object
+
+---
+
+
+### BumpFeeTxBuilder
+	
+
+| Method                                         | Request Parameters                                                                         |
+| ---------------------------------              | ------------------------------------------------------------------------------------------ |
+| [allowShrinking()](#allowShrinking)            | - String address                                                                           | 
+| [enableRbfWithSequence()](#enableRbfWithSequence)| -  int nSequence                                                                         |
+| [enableRbf()](#enableRbf)                      | -                                                                                          |    
+| [finish()](#finish)                            | - Wallet wallet                                                                            |
+# 
+
+	
+### allowShrinking()
+	
+This method will explicitly tells the wallet that it is allowed to reduce the amount of the output matching this scriptPubkey in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
+
+Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
+
+Returns an Err if scriptPubkey can’t be found among the recipients of the transaction we are bumping.
+
+	
+```dart
+	
+ final uxtos  = txBuilder.allowShrinking();
+
+```
+
+Returns a `BumpFeeTxBuilder` object
+
+#
+	
+	
+### enableRbf()
+	
+This method will enable signaling RBF
+
+This will use the default nSequence value of 0xFFFFFFFD
+
+	
+```dart
+	
+ final uxtos  = txBuilder.enableRbf();
+
+```
+
+Returns a `BumpFeeTxBuilder` object
+
+#
+	
+		
+### enableRbfWithSequence()
+	
+This method will enable signaling RBF with a specific nSequence value
+
+This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
+
+If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
+	
+Required Params:  nSequence (`nSequence` ( *eg: 0xFFFFFFFD* ) int)	
+	
+	
+```dart
+	
+ final res  = txBuilder.enableRbfWithSequence(0xFFFFFFFD);
+
+```
+
+Returns a `BumpFeeTxBuilder` object
+
+#
+	
+	
+### finish()
+	
+This method will finish building the transaction.
+
+Returns the BIP174 “PSBT” and summary details about the transaction.
+
+Required Params:  wallet ( `Wallet` can be created from create() in `Wallet` class)
+	
+	
+```dart
+	
+ final res = txBuilder.finish(aliceWallet);
+
+```
+
+Returns a `PartiallySignedBitcoinTransaction` object
+	
+---	
+	
 _Note: Caution this is pre-Alpha at this stage
 Please consider reviewing, experimenting, and contributing ⚡️_
 
