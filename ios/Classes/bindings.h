@@ -147,39 +147,39 @@ void wire_bump_fee_tx_builder_finish(int64_t port_,
                                      bool enable_rbf,
                                      uint32_t *n_sequence);
 
-void wire_descriptor_secret_as_string(int64_t port_,
-                                      int32_t network,
-                                      struct wire_uint_8_list *mnemonic,
-                                      struct wire_uint_8_list *password,
-                                      struct wire_uint_8_list *path,
-                                      int32_t key_type);
+void wire_descriptor_secret_extend(int64_t port_,
+                                   struct wire_uint_8_list *xprv,
+                                   struct wire_uint_8_list *path);
+
+void wire_descriptor_secret_derive(int64_t port_,
+                                   struct wire_uint_8_list *xprv,
+                                   struct wire_uint_8_list *path);
 
 void wire_descriptor_secret_as_secret_bytes(int64_t port_,
-                                            int32_t network,
-                                            struct wire_uint_8_list *mnemonic,
-                                            struct wire_uint_8_list *password,
-                                            struct wire_uint_8_list *path,
-                                            int32_t key_type);
+                                            struct wire_uint_8_list *descriptor_secret,
+                                            struct wire_uint_8_list *xprv);
 
 void wire_descriptor_secret_as_public(int64_t port_,
-                                      int32_t network,
-                                      struct wire_uint_8_list *mnemonic,
-                                      struct wire_uint_8_list *password,
-                                      struct wire_uint_8_list *path,
-                                      int32_t key_type);
+                                      struct wire_uint_8_list *descriptor_secret,
+                                      struct wire_uint_8_list *xprv);
+
+void wire_create_descriptor_secret(int64_t port_,
+                                   int32_t network,
+                                   struct wire_uint_8_list *mnemonic,
+                                   struct wire_uint_8_list *password);
 
 void wire_create_derivation_path(int64_t port_, struct wire_uint_8_list *path);
+
+void wire_create_descriptor_public(int64_t port_,
+                                   struct wire_uint_8_list *xpub,
+                                   struct wire_uint_8_list *path,
+                                   bool derive);
 
 void wire_init_script(int64_t port_, struct wire_uint_8_list *raw_output_script);
 
 void wire_init_address(int64_t port_, struct wire_uint_8_list *address);
 
 void wire_address_to_script_pubkey_hex(int64_t port_, struct wire_uint_8_list *address);
-
-void wire_descriptor_public_as_string(int64_t port_,
-                                      struct wire_uint_8_list *xpub,
-                                      struct wire_uint_8_list *path,
-                                      bool derive);
 
 void wire_wallet_init(int64_t port_,
                       struct wire_uint_8_list *descriptor,
@@ -194,8 +194,6 @@ void wire_sync_wallet(int64_t port_,
                       struct wire_uint_8_list *blockchain_id);
 
 void wire_get_balance(int64_t port_, struct wire_uint_8_list *wallet_id);
-
-void wire_get_public_descriptor(int64_t port_, struct wire_uint_8_list *wallet_id);
 
 void wire_list_unspent_outputs(int64_t port_, struct wire_uint_8_list *wallet_id);
 
@@ -261,19 +259,20 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
     dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_string);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_extend);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_derive);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret);
     dummy_var ^= ((int64_t) (void*) wire_create_derivation_path);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public);
     dummy_var ^= ((int64_t) (void*) wire_init_script);
     dummy_var ^= ((int64_t) (void*) wire_init_address);
     dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_public_as_string);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_get_address);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_balance);
-    dummy_var ^= ((int64_t) (void*) wire_get_public_descriptor);
     dummy_var ^= ((int64_t) (void*) wire_list_unspent_outputs);
     dummy_var ^= ((int64_t) (void*) wire_get_transactions);
     dummy_var ^= ((int64_t) (void*) wire_sign);

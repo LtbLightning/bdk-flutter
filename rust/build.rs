@@ -1,15 +1,15 @@
-
+use std::env;
 
 use lib_flutter_rust_bridge_codegen::{
     config_parse, frb_codegen, get_symbols_if_no_duplicates, RawOpts,
 };
-use std::env;
 
 /// Path of input Rust code
 const RUST_INPUT: &str = "src/r_api.rs";
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/src/generated/bindings.dart";
 const C_OUTPUT: &str = "../ios/Classes/bindings.h";
+
 fn main() {
     // Tell Cargo that if the input Rust code changes, to rerun this build script.
     println!("cargo:rerun-if-changed={}", RUST_INPUT);

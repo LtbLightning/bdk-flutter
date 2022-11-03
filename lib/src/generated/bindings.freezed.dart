@@ -22,6 +22,7 @@ mixin _$BlockchainConfig {
     required TResult Function(EsploraConfig config) esplora,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ElectrumConfig config)? electrum,
@@ -35,12 +36,14 @@ mixin _$BlockchainConfig {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ELECTRUM value) electrum,
     required TResult Function(ESPLORA value) esplora,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ELECTRUM value)? electrum,
@@ -70,6 +73,7 @@ class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
@@ -79,6 +83,7 @@ abstract class _$$ELECTRUMCopyWith<$Res> {
   factory _$$ELECTRUMCopyWith(
           _$ELECTRUM value, $Res Function(_$ELECTRUM) then) =
       __$$ELECTRUMCopyWithImpl<$Res>;
+
   @useResult
   $Res call({ElectrumConfig config});
 }
@@ -201,6 +206,7 @@ abstract class ELECTRUM implements BlockchainConfig {
   const factory ELECTRUM({required final ElectrumConfig config}) = _$ELECTRUM;
 
   ElectrumConfig get config;
+
   @JsonKey(ignore: true)
   _$$ELECTRUMCopyWith<_$ELECTRUM> get copyWith =>
       throw _privateConstructorUsedError;
@@ -210,6 +216,7 @@ abstract class ELECTRUM implements BlockchainConfig {
 abstract class _$$ESPLORACopyWith<$Res> {
   factory _$$ESPLORACopyWith(_$ESPLORA value, $Res Function(_$ESPLORA) then) =
       __$$ESPLORACopyWithImpl<$Res>;
+
   @useResult
   $Res call({EsploraConfig config});
 }
@@ -332,6 +339,7 @@ abstract class ESPLORA implements BlockchainConfig {
   const factory ESPLORA({required final EsploraConfig config}) = _$ESPLORA;
 
   EsploraConfig get config;
+
   @JsonKey(ignore: true)
   _$$ESPLORACopyWith<_$ESPLORA> get copyWith =>
       throw _privateConstructorUsedError;
@@ -346,6 +354,7 @@ mixin _$DatabaseConfig {
     required TResult Function(SledDbConfiguration config) sled,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
@@ -361,6 +370,7 @@ mixin _$DatabaseConfig {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MEMORY value) memory,
@@ -368,6 +378,7 @@ mixin _$DatabaseConfig {
     required TResult Function(SLED value) sled,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MEMORY value)? memory,
@@ -399,6 +410,7 @@ class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
@@ -513,6 +525,7 @@ abstract class MEMORY implements DatabaseConfig {
 abstract class _$$SQLITECopyWith<$Res> {
   factory _$$SQLITECopyWith(_$SQLITE value, $Res Function(_$SQLITE) then) =
       __$$SQLITECopyWithImpl<$Res>;
+
   @useResult
   $Res call({SqliteDbConfiguration config});
 }
@@ -642,6 +655,7 @@ abstract class SQLITE implements DatabaseConfig {
       _$SQLITE;
 
   SqliteDbConfiguration get config;
+
   @JsonKey(ignore: true)
   _$$SQLITECopyWith<_$SQLITE> get copyWith =>
       throw _privateConstructorUsedError;
@@ -651,6 +665,7 @@ abstract class SQLITE implements DatabaseConfig {
 abstract class _$$SLEDCopyWith<$Res> {
   factory _$$SLEDCopyWith(_$SLED value, $Res Function(_$SLED) then) =
       __$$SLEDCopyWithImpl<$Res>;
+
   @useResult
   $Res call({SledDbConfiguration config});
 }
@@ -779,6 +794,7 @@ abstract class SLED implements DatabaseConfig {
   const factory SLED({required final SledDbConfiguration config}) = _$SLED;
 
   SledDbConfiguration get config;
+
   @JsonKey(ignore: true)
   _$$SLEDCopyWith<_$SLED> get copyWith => throw _privateConstructorUsedError;
 }

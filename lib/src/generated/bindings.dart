@@ -4,13 +4,13 @@
 // ignore_for_file: non_constant_identifier_names, unused_element, duplicate_ignore, directives_ordering, curly_braces_in_flow_control_structures, unnecessary_lambdas, slash_for_doc_comments, prefer_const_literals_to_create_immutables, implicit_dynamic_list_literal, duplicate_import, unused_import, prefer_single_quotes, prefer_const_constructors, use_super_parameters, always_use_package_imports
 
 import 'dart:convert';
-import 'dart:typed_data';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'dart:convert';
-import 'dart:typed_data';
-import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'dart:ffi' as ffi;
+import 'dart:typed_data';
+import 'dart:typed_data';
+
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'bindings.freezed.dart';
 
@@ -77,39 +77,42 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kBumpFeeTxBuilderFinishConstMeta;
 
-  Future<String> descriptorSecretAsString(
-      {required Network network,
-      required String mnemonic,
-      String? password,
-      String? path,
-      required DescriptorKeyType keyType,
-      dynamic hint});
+  Future<String> descriptorSecretExtend(
+      {required String xprv, required String path, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsStringConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretExtendConstMeta;
+
+  Future<String> descriptorSecretDerive(
+      {required String xprv, required String path, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretDeriveConstMeta;
 
   Future<Uint8List> descriptorSecretAsSecretBytes(
-      {required Network network,
-      required String mnemonic,
-      String? password,
-      String? path,
-      required DescriptorKeyType keyType,
-      dynamic hint});
+      {String? descriptorSecret, String? xprv, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesConstMeta;
 
   Future<String> descriptorSecretAsPublic(
+      {String? descriptorSecret, String? xprv, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta;
+
+  Future<String> createDescriptorSecret(
       {required Network network,
       required String mnemonic,
       String? password,
-      String? path,
-      required DescriptorKeyType keyType,
       dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta;
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretConstMeta;
 
   Future<String> createDerivationPath({required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDerivationPathConstMeta;
+
+  Future<String> createDescriptorPublic(
+      {String? xpub, required String path, required bool derive, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorPublicConstMeta;
 
   Future<String> initScript({required Uint8List rawOutputScript, dynamic hint});
 
@@ -123,11 +126,6 @@ abstract class Rust {
       {required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyHexConstMeta;
-
-  Future<String> descriptorPublicAsString(
-      {String? xpub, required String path, required bool derive, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kDescriptorPublicAsStringConstMeta;
 
   Future<String> walletInit(
       {required String descriptor,
@@ -153,10 +151,6 @@ abstract class Rust {
   Future<Balance> getBalance({required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
-
-  Future<String> getPublicDescriptor({required String walletId, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta;
 
   Future<List<LocalUtxo>> listUnspentOutputs(
       {required String walletId, dynamic hint});
@@ -248,6 +242,7 @@ class BlockchainConfig with _$BlockchainConfig {
   const factory BlockchainConfig.electrum({
     required ElectrumConfig config,
   }) = ELECTRUM;
+
   const factory BlockchainConfig.esplora({
     required EsploraConfig config,
   }) = ESPLORA;
@@ -256,18 +251,14 @@ class BlockchainConfig with _$BlockchainConfig {
 @freezed
 class DatabaseConfig with _$DatabaseConfig {
   const factory DatabaseConfig.memory() = MEMORY;
+
   const factory DatabaseConfig.sqlite({
     required SqliteDbConfiguration config,
   }) = SQLITE;
+
   const factory DatabaseConfig.sled({
     required SledDbConfiguration config,
   }) = SLED;
-}
-
-enum DescriptorKeyType {
-  EXTENDED,
-  DERIVED,
-  DEFAULT,
 }
 
 class ElectrumConfig {
@@ -667,85 +658,95 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         ],
       );
 
-  Future<String> descriptorSecretAsString(
-          {required Network network,
-          required String mnemonic,
-          String? password,
-          String? path,
-          required DescriptorKeyType keyType,
-          dynamic hint}) =>
+  Future<String> descriptorSecretExtend(
+          {required String xprv, required String path, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_descriptor_secret_as_string(
-            port_,
-            _api2wire_network(network),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password),
-            _api2wire_opt_String(path),
-            _api2wire_descriptor_key_type(keyType)),
+        callFfi: (port_) => inner.wire_descriptor_secret_extend(
+            port_, _api2wire_String(xprv), _api2wire_String(path)),
         parseSuccessData: _wire2api_String,
-        constMeta: kDescriptorSecretAsStringConstMeta,
-        argValues: [network, mnemonic, password, path, keyType],
+        constMeta: kDescriptorSecretExtendConstMeta,
+        argValues: [xprv, path],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsStringConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretExtendConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "descriptor_secret_as_string",
-        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+        debugName: "descriptor_secret_extend",
+        argNames: ["xprv", "path"],
+      );
+
+  Future<String> descriptorSecretDerive(
+          {required String xprv, required String path, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_descriptor_secret_derive(
+            port_, _api2wire_String(xprv), _api2wire_String(path)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kDescriptorSecretDeriveConstMeta,
+        argValues: [xprv, path],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretDeriveConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_derive",
+        argNames: ["xprv", "path"],
       );
 
   Future<Uint8List> descriptorSecretAsSecretBytes(
-          {required Network network,
-          required String mnemonic,
-          String? password,
-          String? path,
-          required DescriptorKeyType keyType,
-          dynamic hint}) =>
+          {String? descriptorSecret, String? xprv, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_descriptor_secret_as_secret_bytes(
-            port_,
-            _api2wire_network(network),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password),
-            _api2wire_opt_String(path),
-            _api2wire_descriptor_key_type(keyType)),
+        callFfi: (port_) => inner.wire_descriptor_secret_as_secret_bytes(port_,
+            _api2wire_opt_String(descriptorSecret), _api2wire_opt_String(xprv)),
         parseSuccessData: _wire2api_uint_8_list,
         constMeta: kDescriptorSecretAsSecretBytesConstMeta,
-        argValues: [network, mnemonic, password, path, keyType],
+        argValues: [descriptorSecret, xprv],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "descriptor_secret_as_secret_bytes",
-        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+        argNames: ["descriptorSecret", "xprv"],
       );
 
   Future<String> descriptorSecretAsPublic(
-          {required Network network,
-          required String mnemonic,
-          String? password,
-          String? path,
-          required DescriptorKeyType keyType,
-          dynamic hint}) =>
+          {String? descriptorSecret, String? xprv, dynamic hint}) =>
       executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_descriptor_secret_as_public(
-            port_,
-            _api2wire_network(network),
-            _api2wire_String(mnemonic),
-            _api2wire_opt_String(password),
-            _api2wire_opt_String(path),
-            _api2wire_descriptor_key_type(keyType)),
+        callFfi: (port_) => inner.wire_descriptor_secret_as_public(port_,
+            _api2wire_opt_String(descriptorSecret), _api2wire_opt_String(xprv)),
         parseSuccessData: _wire2api_String,
         constMeta: kDescriptorSecretAsPublicConstMeta,
-        argValues: [network, mnemonic, password, path, keyType],
+        argValues: [descriptorSecret, xprv],
         hint: hint,
       ));
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "descriptor_secret_as_public",
-        argNames: ["network", "mnemonic", "password", "path", "keyType"],
+        argNames: ["descriptorSecret", "xprv"],
+      );
+
+  Future<String> createDescriptorSecret(
+          {required Network network,
+          required String mnemonic,
+          String? password,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_create_descriptor_secret(
+            port_,
+            _api2wire_network(network),
+            _api2wire_String(mnemonic),
+            _api2wire_opt_String(password)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCreateDescriptorSecretConstMeta,
+        argValues: [network, mnemonic, password],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_descriptor_secret",
+        argNames: ["network", "mnemonic", "password"],
       );
 
   Future<String> createDerivationPath({required String path, dynamic hint}) =>
@@ -762,6 +763,26 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "create_derivation_path",
         argNames: ["path"],
+      );
+
+  Future<String> createDescriptorPublic(
+          {String? xpub,
+          required String path,
+          required bool derive,
+          dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_create_descriptor_public(
+            port_, _api2wire_opt_String(xpub), _api2wire_String(path), derive),
+        parseSuccessData: _wire2api_String,
+        constMeta: kCreateDescriptorPublicConstMeta,
+        argValues: [xpub, path, derive],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorPublicConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_descriptor_public",
+        argNames: ["xpub", "path", "derive"],
       );
 
   Future<String> initScript(
@@ -812,26 +833,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "address_to_script_pubkey_hex",
         argNames: ["address"],
-      );
-
-  Future<String> descriptorPublicAsString(
-          {String? xpub,
-          required String path,
-          required bool derive,
-          dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => inner.wire_descriptor_public_as_string(
-            port_, _api2wire_opt_String(xpub), _api2wire_String(path), derive),
-        parseSuccessData: _wire2api_String,
-        constMeta: kDescriptorPublicAsStringConstMeta,
-        argValues: [xpub, path, derive],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kDescriptorPublicAsStringConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "descriptor_public_as_string",
-        argNames: ["xpub", "path", "derive"],
       );
 
   Future<String> walletInit(
@@ -915,23 +916,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_balance",
-        argNames: ["walletId"],
-      );
-
-  Future<String> getPublicDescriptor(
-          {required String walletId, dynamic hint}) =>
-      executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) =>
-            inner.wire_get_public_descriptor(port_, _api2wire_String(walletId)),
-        parseSuccessData: _wire2api_String,
-        constMeta: kGetPublicDescriptorConstMeta,
-        argValues: [walletId],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kGetPublicDescriptorConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_public_descriptor",
         argNames: ["walletId"],
       );
 
@@ -1108,10 +1092,6 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   ffi.Pointer<ffi.Uint8> _api2wire_box_autoadd_u8(int raw) {
     return inner.new_box_autoadd_u8_0(_api2wire_u8(raw));
-  }
-
-  int _api2wire_descriptor_key_type(DescriptorKeyType raw) {
-    return _api2wire_i32(raw.index);
   }
 
   double _api2wire_f32(double raw) {
@@ -1711,116 +1691,114 @@ class RustWire implements FlutterRustBridgeWireBase {
               bool,
               ffi.Pointer<ffi.Uint32>)>();
 
-  void wire_descriptor_secret_as_string(
+  void wire_descriptor_secret_extend(
     int port_,
-    int network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
+    ffi.Pointer<wire_uint_8_list> xprv,
     ffi.Pointer<wire_uint_8_list> path,
-    int key_type,
   ) {
-    return _wire_descriptor_secret_as_string(
+    return _wire_descriptor_secret_extend(
       port_,
-      network,
-      mnemonic,
-      password,
+      xprv,
       path,
-      key_type,
     );
   }
 
-  late final _wire_descriptor_secret_as_stringPtr = _lookup<
+  late final _wire_descriptor_secret_extendPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Int32,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32)>>('wire_descriptor_secret_as_string');
-  late final _wire_descriptor_secret_as_string =
-      _wire_descriptor_secret_as_stringPtr.asFunction<
-          void Function(
-              int,
-              int,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              int)>();
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_descriptor_secret_extend');
+  late final _wire_descriptor_secret_extend =
+      _wire_descriptor_secret_extendPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_descriptor_secret_derive(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> xprv,
+    ffi.Pointer<wire_uint_8_list> path,
+  ) {
+    return _wire_descriptor_secret_derive(
+      port_,
+      xprv,
+      path,
+    );
+  }
+
+  late final _wire_descriptor_secret_derivePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_descriptor_secret_derive');
+  late final _wire_descriptor_secret_derive =
+      _wire_descriptor_secret_derivePtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_descriptor_secret_as_secret_bytes(
     int port_,
-    int network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-    ffi.Pointer<wire_uint_8_list> path,
-    int key_type,
+    ffi.Pointer<wire_uint_8_list> descriptor_secret,
+    ffi.Pointer<wire_uint_8_list> xprv,
   ) {
     return _wire_descriptor_secret_as_secret_bytes(
       port_,
-      network,
-      mnemonic,
-      password,
-      path,
-      key_type,
+      descriptor_secret,
+      xprv,
     );
   }
 
   late final _wire_descriptor_secret_as_secret_bytesPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Int32,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32)>>('wire_descriptor_secret_as_secret_bytes');
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_descriptor_secret_as_secret_bytes');
   late final _wire_descriptor_secret_as_secret_bytes =
       _wire_descriptor_secret_as_secret_bytesPtr.asFunction<
-          void Function(
-              int,
-              int,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              int)>();
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_descriptor_secret_as_public(
     int port_,
-    int network,
-    ffi.Pointer<wire_uint_8_list> mnemonic,
-    ffi.Pointer<wire_uint_8_list> password,
-    ffi.Pointer<wire_uint_8_list> path,
-    int key_type,
+    ffi.Pointer<wire_uint_8_list> descriptor_secret,
+    ffi.Pointer<wire_uint_8_list> xprv,
   ) {
     return _wire_descriptor_secret_as_public(
       port_,
-      network,
-      mnemonic,
-      password,
-      path,
-      key_type,
+      descriptor_secret,
+      xprv,
     );
   }
 
   late final _wire_descriptor_secret_as_publicPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Int32,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32)>>('wire_descriptor_secret_as_public');
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_descriptor_secret_as_public');
   late final _wire_descriptor_secret_as_public =
       _wire_descriptor_secret_as_publicPtr.asFunction<
-          void Function(
-              int,
-              int,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              int)>();
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_create_descriptor_secret(
+    int port_,
+    int network,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+    ffi.Pointer<wire_uint_8_list> password,
+  ) {
+    return _wire_create_descriptor_secret(
+      port_,
+      network,
+      mnemonic,
+      password,
+    );
+  }
+
+  late final _wire_create_descriptor_secretPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Int32, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_create_descriptor_secret');
+  late final _wire_create_descriptor_secret =
+      _wire_create_descriptor_secretPtr.asFunction<
+          void Function(int, int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_create_derivation_path(
     int port_,
@@ -1838,6 +1816,32 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>)>>('wire_create_derivation_path');
   late final _wire_create_derivation_path = _wire_create_derivation_pathPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_create_descriptor_public(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> xpub,
+    ffi.Pointer<wire_uint_8_list> path,
+    bool derive,
+  ) {
+    return _wire_create_descriptor_public(
+      port_,
+      xpub,
+      path,
+      derive,
+    );
+  }
+
+  late final _wire_create_descriptor_publicPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Bool)>>('wire_create_descriptor_public');
+  late final _wire_create_descriptor_public =
+      _wire_create_descriptor_publicPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>, bool)>();
 
   void wire_init_script(
     int port_,
@@ -1890,32 +1894,6 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_address_to_script_pubkey_hex =
       _wire_address_to_script_pubkey_hexPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_descriptor_public_as_string(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> xpub,
-    ffi.Pointer<wire_uint_8_list> path,
-    bool derive,
-  ) {
-    return _wire_descriptor_public_as_string(
-      port_,
-      xpub,
-      path,
-      derive,
-    );
-  }
-
-  late final _wire_descriptor_public_as_stringPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Bool)>>('wire_descriptor_public_as_string');
-  late final _wire_descriptor_public_as_string =
-      _wire_descriptor_public_as_stringPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>, bool)>();
 
   void wire_wallet_init(
     int port_,
@@ -2003,23 +1981,6 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(
               ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_get_balance');
   late final _wire_get_balance = _wire_get_balancePtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_get_public_descriptor(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
-  ) {
-    return _wire_get_public_descriptor(
-      port_,
-      wallet_id,
-    );
-  }
-
-  late final _wire_get_public_descriptorPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_public_descriptor');
-  late final _wire_get_public_descriptor = _wire_get_public_descriptorPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_list_unspent_outputs(

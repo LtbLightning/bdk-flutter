@@ -1,5 +1,10 @@
-
 use serde::{Deserialize, Serialize};
+
+// #[derive(Clone)]
+// pub(crate) struct  BdkInfo{
+//     pub wallets: HashMap<String, Arc<Wallet>>,
+//     pub blockchain: HashMap<String, Arc<AnyBlockchain>>,
+// }
 
 pub struct TxOut {
     /// The value of the output, in satoshis.
@@ -7,14 +12,10 @@ pub struct TxOut {
     /// The address of the output.
     pub(crate) address: String,
 }
-#[derive(PartialEq)]
-pub enum DescriptorKeyType{
-    EXTENDED,
-    DERIVED,
-    DEFAULT
-}
+
+
 /// A reference to a transaction output.
-#[derive(Clone, Debug, PartialEq, Eq, Hash )]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct OutPoint {
     /// The referenced transaction's txid.
     pub(crate) txid: String,
@@ -28,7 +29,8 @@ pub struct LocalUtxo {
     // keychain: KeychainKind,
     pub is_spent: bool,
 }
-#[derive( Deserialize)]
+
+#[derive(Deserialize)]
 pub struct Balance {
     // All coinbase outputs not yet matured
     pub immature: u64,
@@ -43,15 +45,18 @@ pub struct Balance {
     /// Get the whole balance visible to the wallet
     pub total: u64,
 }
+
 pub enum AddressIndex {
     New,
     LastUnused,
 }
+
 #[repr(C)]
 pub struct AddressInfo {
     pub index: u32,
     pub address: String,
 }
+
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize)]
 pub struct TransactionDetails {
     /// Transaction id.
@@ -71,11 +76,13 @@ pub struct TransactionDetails {
     /// transaction, unconfirmed transaction contains `None`.
     pub confirmation_time: Option<BlockTime>,
 }
+
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 pub struct BlockTime {
     pub height: u32,
     pub timestamp: u64,
 }
+
 #[derive(Clone, Serialize, Deserialize, )]
 pub struct ScriptAmount {
     pub script: String,
@@ -95,6 +102,7 @@ pub struct TxBuilderResult {
     pub psbt: String,
     pub transaction_details: TransactionDetails,
 }
+
 pub struct ElectrumConfig {
     pub url: String,
     pub socks5: Option<String>,
@@ -119,27 +127,32 @@ pub enum BlockchainConfig {
 pub struct SqliteDbConfiguration {
     pub path: String,
 }
+
 pub struct SledDbConfiguration {
     pub path: String,
-    pub tree_name: String
+    pub tree_name: String,
 }
+
 pub enum DatabaseConfig {
     MEMORY,
     SQLITE { config: SqliteDbConfiguration },
-    SLED {config:SledDbConfiguration},
+    SLED { config: SledDbConfiguration },
 }
+
 #[allow(dead_code)]
 pub enum KeyChainKind {
     EXTERNAL,
     INTERNAL,
 }
+
 #[derive(Clone)]
 pub enum Network {
     TESTNET,
     REGTEST,
     BITCOIN,
-    SIGNET
+    SIGNET,
 }
+
 pub enum WordCount {
     WORDS12,
     WORDS18,

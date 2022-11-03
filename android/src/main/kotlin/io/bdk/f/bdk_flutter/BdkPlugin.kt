@@ -1,4 +1,5 @@
 package io.bdk.f.bdk_flutter
+
 import io.flutter.plugin.common.MethodChannel.Result
 import android.os.AsyncTask
 import androidx.annotation.NonNull
@@ -32,6 +33,7 @@ class BdkPlugin : FlutterPlugin, MethodCallHandler {
             }
         }
     }
+
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }

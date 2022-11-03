@@ -1,73 +1,88 @@
-import 'package:flutter/material.dart';
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<MyApp> {
-  late Wallet aliceWallet ;
+  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
+  late Wallet aliceWallet;
+
   late Blockchain blockchain;
+
   @override
   void initState() {
     restoreWallet();
     createDescriptorSecret();
     super.initState();
   }
+
   generateMnemonicKeys() async {
-    AddressInfo d;
-    AddressIndex g;
-    SledDbConfiguration j;
-    SqliteDbConfiguration h;
-    TransactionDetails l;
-    BlockTime lg;
-    BlockchainConfig k;
-    TxOut i;
     final res = await generateMnemonic(wordCount: WordCount.WORDS18);
     print(res);
   }
+
   restoreWallet() async {
-    aliceWallet=   await Wallet().create(
-        descriptor: "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)", network: Network.TESTNET, databaseConfig: DatabaseConfig.memory()
-    );
+    aliceWallet = await Wallet().create(
+        descriptor:
+            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+        network: Network.TESTNET,
+        databaseConfig: const DatabaseConfig.memory());
     print("init Complete");
   }
-  createDescriptorSecret() async{
+
+  createDescriptorSecret() async {
     final descriptorSecretKey = DescriptorSecretKey(
       network: Network.TESTNET,
-      mnemonic: 'puppy interest whip tonight dad never sudden response push zone pig patch',
+      mnemonic:
+          'puppy interest whip tonight dad never sudden response push zone pig patch',
     );
-    final secretBytes = await descriptorSecretKey.secretBytes();
-    final xpub = await descriptorSecretKey.asPublic();
-    final xprv = await descriptorSecretKey.asString();
+
     final path = await DerivationPath().create(path: DEFAULT_DERIVATION_PATH);
-    final derivedXprv = await descriptorSecretKey.derive(path);
-    final derivedPublicKey = await derivedXprv.asPublic();
+    final xprv = await descriptorSecretKey.asString();
+    final xpub = await descriptorSecretKey.asPublic();
+    final xpubString = xpub.asString();
+    final derivedXprv = await descriptorSecretKey.extend(path);
+    final derivedXpub = await xpub.extend(path);
     final derivedXprvStr = await derivedXprv.asString();
-    print("xpub: ${xpub.asString()}");
-    print("derivedXpub: ${derivedPublicKey.asString()}");
+    final derivedXpubStr = derivedXpub.asString();
+    print("xpub: $xpubString");
     print("xprv: $xprv");
+    print("derivedXpub: $derivedXpubStr");
     print("derivedXprv: $derivedXprvStr");
-    print("secretBytes: ${secretBytes.join(",")}");
   }
+
   sync() async {
-    blockchain = await Blockchain().create(config: defaultConfig);
+    blockchain = await Blockchain().create(
+        config: BlockchainConfig.electrum(
+            config: ElectrumConfig(
+                stopGap: 10,
+                timeout: 5,
+                retry: 5,
+                url: "ssl://electrum.blockstream.info:60002")));
     aliceWallet.sync(blockchain);
   }
+
   getNewAddress() async {
-    final alice = await aliceWallet.getAddress(addressIndex:AddressIndex.New);
+    final alice =
+        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
     print(alice.address);
     print(alice.index);
   }
+
   getUnConfirmedTransactions() async {
     List<TransactionDetails> unConfirmed = [];
     final res = await aliceWallet.listTransactions();
     for (var e in res) {
-      if(e.confirmationTime == null) unConfirmed.add(e);
+      if (e.confirmationTime == null) unConfirmed.add(e);
     }
     for (var e in unConfirmed) {
       print(" txid: ${e.txid}");
@@ -77,11 +92,12 @@ class _MyAppState extends State<MyApp> {
       print("===========================");
     }
   }
+
   getConfirmedTransactions() async {
     List<TransactionDetails> confirmed = [];
     final res = await aliceWallet.listTransactions();
     for (var e in res) {
-      if(e.confirmationTime != null) confirmed.add(e);
+      if (e.confirmationTime != null) confirmed.add(e);
     }
     for (var e in confirmed) {
       print(" txid: ${e.txid}");
@@ -93,30 +109,49 @@ class _MyAppState extends State<MyApp> {
       print("===========================");
     }
   }
+
   getBalance() async {
     final res = await aliceWallet.getBalance();
     print("alice ${res.total}");
   }
- Future<int> getBlockHeight() async{
+
+  listUnspent() async {
+    final res = await aliceWallet.listUnspent();
+    for (var e in res) {
+      print("isSpent: ${e.isSpent}");
+      print("outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
+      print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
+      print("===========================");
+    }
+  }
+
+  Future<int> getBlockHeight() async {
     final res = await blockchain.getHeight();
     print(res);
     return res;
   }
- getBlockHash() async{
+
+  getBlockHash() async {
     final height = await getBlockHeight();
     final blockhash = await blockchain.getBlockHash(height);
     print(blockhash);
   }
+
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address= await Address().create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+    final address = await Address()
+        .create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
     final script = await address.scriptPubKey();
-    final res = await txBuilder.addRecipient(script, 1000).feeRate(1.1).finish(aliceWallet);
-    print(res.psbtBase64);
-    final res2 = await aliceWallet.sign(res);
-    await blockchain.broadcast(PartiallySignedBitcoinTransaction(psbtBase64: res2));
+    final psbt = await txBuilder
+        .addRecipient(script, 1000)
+        .feeRate(1.1)
+        .finish(aliceWallet);
+    final sbtStr = await aliceWallet.sign(psbt);
+    await blockchain
+        .broadcast(PartiallySignedBitcoinTransaction(psbtBase64: sbtStr));
     sync();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -153,6 +188,9 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
+              TextButton(
+                  onPressed: () => listUnspent(),
+                  child: const Text('list Unspent')),
               TextButton(
                   onPressed: () => getBlockHash(),
                   child: const Text('get BlockHash')),

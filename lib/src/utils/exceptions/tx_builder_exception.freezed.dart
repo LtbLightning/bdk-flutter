@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TxBuilderException {
   String get e => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String e) insufficientBalance,
@@ -25,6 +26,7 @@ mixin _$TxBuilderException {
     required TResult Function(String e) invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String e)? insufficientBalance,
@@ -42,6 +44,7 @@ mixin _$TxBuilderException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InsufficientBalance value) insufficientBalance,
@@ -51,6 +54,7 @@ mixin _$TxBuilderException {
     required TResult Function(InvalidTxid value) invalidTxid,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InsufficientBalance value)? insufficientBalance,
@@ -81,6 +85,7 @@ abstract class $TxBuilderExceptionCopyWith<$Res> {
   factory $TxBuilderExceptionCopyWith(
           TxBuilderException value, $Res Function(TxBuilderException) then) =
       _$TxBuilderExceptionCopyWithImpl<$Res, TxBuilderException>;
+
   @useResult
   $Res call({String e});
 }
@@ -92,6 +97,7 @@ class _$TxBuilderExceptionCopyWithImpl<$Res, $Val extends TxBuilderException>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -115,6 +121,7 @@ abstract class _$$InsufficientBalanceCopyWith<$Res>
   factory _$$InsufficientBalanceCopyWith(_$InsufficientBalance value,
           $Res Function(_$InsufficientBalance) then) =
       __$$InsufficientBalanceCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String e});
@@ -256,6 +263,7 @@ abstract class InsufficientBalance implements TxBuilderException {
 
   @override
   String get e;
+
   @override
   @JsonKey(ignore: true)
   _$$InsufficientBalanceCopyWith<_$InsufficientBalance> get copyWith =>
@@ -269,6 +277,7 @@ abstract class _$$InsufficientBroadcastAmountCopyWith<$Res>
           _$InsufficientBroadcastAmount value,
           $Res Function(_$InsufficientBroadcastAmount) then) =
       __$$InsufficientBroadcastAmountCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String e});
@@ -413,6 +422,7 @@ abstract class InsufficientBroadcastAmount implements TxBuilderException {
 
   @override
   String get e;
+
   @override
   @JsonKey(ignore: true)
   _$$InsufficientBroadcastAmountCopyWith<_$InsufficientBroadcastAmount>
@@ -425,6 +435,7 @@ abstract class _$$UnexpectedCopyWith<$Res>
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String e});
@@ -565,6 +576,7 @@ abstract class Unexpected implements TxBuilderException {
 
   @override
   String get e;
+
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
@@ -577,6 +589,7 @@ abstract class _$$InvalidTxidCopyWith<$Res>
   factory _$$InvalidTxidCopyWith(
           _$InvalidTxid value, $Res Function(_$InvalidTxid) then) =
       __$$InvalidTxidCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String e});
@@ -717,6 +730,7 @@ abstract class InvalidTxid implements TxBuilderException {
 
   @override
   String get e;
+
   @override
   @JsonKey(ignore: true)
   _$$InvalidTxidCopyWith<_$InvalidTxid> get copyWith =>

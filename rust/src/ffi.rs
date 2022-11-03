@@ -1,25 +1,26 @@
-use bdk::bitcoin::secp256k1::Secp256k1;
-use crate::types::{DatabaseConfig, BlockTime, TransactionDetails, AddressIndex, AddressInfo, OutPoint, TxOut, LocalUtxo, Balance};
-use crate::utils::config_database;
-use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
-use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
-use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
-use bdk::bitcoin::{Address as BdkAddress,Script as BdkScript, Network, OutPoint as BdkOutPoint, Txid};
-
-use bdk::blockchain::any::AnyBlockchain;
-use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
-use bdk::keys::bip39::{Language, Mnemonic, WordCount};
-use bdk::keys::{DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey, DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey};
-use bdk::miniscript::BareCtx;
-use bdk::wallet::AddressIndex as BdkAddressIndex;
-use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::{Balance as BdkBalance,  BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet};
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
+
+use bdk::{Balance as BdkBalance, BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet};
+use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Script as BdkScript, Txid};
+use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::psbt::serialize::Serialize;
+use bdk::bitcoin::secp256k1::Secp256k1;
+use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
+use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
+use bdk::blockchain::any::AnyBlockchain;
+use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
+use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
 use bdk::Error as BdkError;
+use bdk::keys::{DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey, DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey};
+use bdk::keys::bip39::{Language, Mnemonic, WordCount};
+use bdk::miniscript::BareCtx;
+use bdk::wallet::AddressIndex as BdkAddressIndex;
+use bdk::wallet::AddressInfo as BdkAddressInfo;
+
+use crate::types::{AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo, OutPoint, TransactionDetails, TxOut};
+use crate::utils::config_database;
 
 impl From<AddressIndex> for BdkAddressIndex {
     fn from(x: AddressIndex) -> BdkAddressIndex {
@@ -29,6 +30,7 @@ impl From<AddressIndex> for BdkAddressIndex {
         }
     }
 }
+
 impl From<BdkAddressInfo> for AddressInfo {
     fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
         AddressInfo {
@@ -37,6 +39,7 @@ impl From<BdkAddressInfo> for AddressInfo {
         }
     }
 }
+
 /// A wallet transaction
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
@@ -49,16 +52,18 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
         }
     }
 }
+
 fn set_block_time(time: Option<BdkBlockTime>) -> Option<BlockTime> {
-     if let Some(time) = time{
-        Some( BlockTime {
+    if let Some(time) = time {
+        Some(BlockTime {
             height: time.height,
             timestamp: time.timestamp,
         })
-     } else{
-         None
-     }
+    } else {
+        None
+    }
 }
+
 /// A transaction output, which defines new coins to be created from old ones.
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
@@ -68,6 +73,7 @@ impl From<&OutPoint> for BdkOutPoint {
         }
     }
 }
+
 impl From<BdkBalance> for Balance {
     fn from(bdk_balance: BdkBalance) -> Self {
         Balance {
@@ -80,11 +86,13 @@ impl From<BdkBalance> for Balance {
         }
     }
 }
+
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
 trait NetworkLocalUtxo {
     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
 }
+
 impl NetworkLocalUtxo for LocalUtxo {
     fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
         LocalUtxo {
@@ -105,9 +113,11 @@ impl NetworkLocalUtxo for LocalUtxo {
         }
     }
 }
+
 pub struct Wallet {
-    pub  wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
+    pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
+
 impl Wallet {
     pub fn new(
         descriptor: String,
@@ -126,7 +136,7 @@ impl Wallet {
         self.wallet_mutex.lock().expect("wallet")
     }
 
-    pub fn get_public_descriptor(&self) -> Result<Option<ExtendedDescriptor> ,Error> {
+    pub fn get_public_descriptor(&self) -> Result<Option<ExtendedDescriptor>, Error> {
         self.get_wallet().public_descriptor(KeychainKind::External)
     }
 
@@ -154,7 +164,6 @@ impl Wallet {
             .iter()
             .map(TransactionDetails::from)
             .collect())
-
     }
     // Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
     // which first needs to be Wallet.sync manually.
@@ -170,31 +179,33 @@ impl Wallet {
         self.get_wallet().sign(&mut psbt, SignOptions::default())
     }
 }
+
 #[derive(Debug)]
 pub struct PartiallySignedBitcoinTransaction {
-   pub internal: Mutex<PartiallySignedTransaction>,
+    pub internal: Mutex<PartiallySignedTransaction>,
 }
+
 impl PartiallySignedBitcoinTransaction {
-   pub fn new(psbt_base64: String) -> Result<Self, BdkError> {
+    pub fn new(psbt_base64: String) -> Result<Self, BdkError> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
         Ok(PartiallySignedBitcoinTransaction {
             internal: Mutex::new(psbt),
         })
     }
 
-   pub fn serialize(&self) -> String {
+    pub fn serialize(&self) -> String {
         let psbt = self.internal.lock().unwrap().clone();
         psbt.to_string()
     }
 
-   pub fn txid(&self) -> String {
+    pub fn txid(&self) -> String {
         let tx = self.internal.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
         txid.to_hex()
     }
 
     /// Return the transaction as bytes.
-   pub fn extract_tx(&self) -> Vec<u8> {
+    pub fn extract_tx(&self) -> Vec<u8> {
         self.internal
             .lock()
             .unwrap()
@@ -205,7 +216,7 @@ impl PartiallySignedBitcoinTransaction {
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-   pub fn combine(
+    pub fn combine(
         &self,
         other: Arc<PartiallySignedBitcoinTransaction>,
     ) -> Result<Arc<PartiallySignedBitcoinTransaction>, BdkError> {
@@ -218,20 +229,24 @@ impl PartiallySignedBitcoinTransaction {
         }))
     }
 }
+
 pub fn to_script_pubkey(address: &str) -> Result<BdkScript, BdkError> {
     BdkAddress::from_str(address)
         .map(|x| x.script_pubkey())
         .map_err(|e| BdkError::Generic(e.to_string()))
 }
+
 pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
     let mnemonic_gen: GeneratedKey<_, BareCtx> =
         Mnemonic::generate((word_count, Language::English)).unwrap();
     let mnemonic = mnemonic_gen.clone().into_key();
     mnemonic
 }
+
 pub struct DerivationPath {
     pub derivation_path_mutex: Mutex<BdkDerivationPath>,
 }
+
 impl DerivationPath {
     pub fn new(path: String) -> Result<Self, BdkError> {
         BdkDerivationPath::from_str(&path)
@@ -244,27 +259,30 @@ impl DerivationPath {
         self.derivation_path_mutex.lock().unwrap().to_string()
     }
 }
+
 pub struct DescriptorSecretKey {
     pub descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
 }
+
 /// A Bitcoin address.
 pub struct Address {
-   pub address: BdkAddress,
+    pub address: BdkAddress,
 }
 
 impl Address {
-  pub  fn new(address: String) -> Result<Self, BdkError> {
+    pub fn new(address: String) -> Result<Self, BdkError> {
         BdkAddress::from_str(address.as_str())
             .map(|a| Address { address: a })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 
-   pub fn script_pubkey(&self) -> Arc<Script> {
+    pub fn script_pubkey(&self) -> Arc<Script> {
         Arc::new(Script {
             script: self.address.script_pubkey(),
         })
     }
 }
+
 impl DescriptorSecretKey {
     pub fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
         let mnemonic = Mnemonic::parse_in(Language::English, mnemonic)
@@ -330,7 +348,7 @@ impl DescriptorSecretKey {
         }
     }
 
-    pub fn as_public(&self) -> Result<bdk::descriptor::DescriptorPublicKey, Error> {
+    pub fn as_public(&self) -> Result<DescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
             .descriptor_secret_key_mutex
@@ -338,7 +356,9 @@ impl DescriptorSecretKey {
             .unwrap()
             .as_public(&secp)
             .unwrap();
-        Ok(descriptor_public_key)
+        Ok(DescriptorPublicKey {
+            descriptor_public_key_mutex: Mutex::new(descriptor_public_key),
+        })
     }
 
     /// Get the private key as bytes.
@@ -356,7 +376,7 @@ impl DescriptorSecretKey {
         Ok(secret_bytes)
     }
     #[allow(dead_code)]
-    pub fn from_string( key_str:String) -> Result<Arc<Self>, BdkError> {
+    pub fn from_string(key_str: String) -> Result<Arc<Self>, BdkError> {
         let key = BdkDescriptorSecretKey::from_str(&*key_str).unwrap();
         Ok(Arc::new(Self {
             descriptor_secret_key_mutex: Mutex::new(key),
@@ -366,17 +386,19 @@ impl DescriptorSecretKey {
         self.descriptor_secret_key_mutex.lock().unwrap().to_string()
     }
 }
+
 pub struct DescriptorPublicKey {
     pub descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
 }
+
 impl DescriptorPublicKey {
-    pub fn from_string( key:String) -> Result<Arc<Self>, BdkError> {
+    pub fn from_string(key: String) -> Result<Arc<Self>, BdkError> {
         let key = BdkDescriptorPublicKey::from_str(&*key).unwrap();
         Ok(Arc::new(Self {
             descriptor_public_key_mutex: Mutex::new(key),
         }))
     }
-    pub  fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
+    pub fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
@@ -404,7 +426,7 @@ impl DescriptorPublicKey {
         }
     }
 
-    pub  fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
+    pub fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
         let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
         match descriptor_public_key.deref() {
@@ -426,24 +448,26 @@ impl DescriptorPublicKey {
         }
     }
 
-    pub  fn as_string(&self) -> String {
+    pub fn as_string(&self) -> String {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()
     }
 }
+
 /// A Bitcoin script.
 #[derive(Clone)]
 pub struct Script {
-   pub script: BdkScript,
+    pub script: BdkScript,
 }
+
 impl Script {
-    pub fn from_hex (script:String) -> Result<Self, BdkError>{
-        let script=  BdkScript::from_hex(script.as_str()).unwrap();
+    pub fn from_hex(script: String) -> Result<Self, BdkError> {
+        let script = BdkScript::from_hex(script.as_str()).unwrap();
         Ok(Script { script })
     }
-  pub fn new(raw_output_script: Vec<u8>)->Result<Self, BdkError>{
-      let script = raw_output_script.as_slice().to_hex();
-      Script::from_hex(script)
-  }
+    pub fn new(raw_output_script: Vec<u8>) -> Result<Self, BdkError> {
+        let script = raw_output_script.as_slice().to_hex();
+        Script::from_hex(script)
+    }
 }
 
 

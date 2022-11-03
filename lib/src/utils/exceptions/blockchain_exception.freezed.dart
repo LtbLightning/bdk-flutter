@@ -17,11 +17,13 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$BlockchainException {
   String get e => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String e) unexpected,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String e)? unexpected,
@@ -33,11 +35,13 @@ mixin _$BlockchainException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Unexpected value)? unexpected,
@@ -60,6 +64,7 @@ abstract class $BlockchainExceptionCopyWith<$Res> {
   factory $BlockchainExceptionCopyWith(
           BlockchainException value, $Res Function(BlockchainException) then) =
       _$BlockchainExceptionCopyWithImpl<$Res, BlockchainException>;
+
   @useResult
   $Res call({String e});
 }
@@ -71,6 +76,7 @@ class _$BlockchainExceptionCopyWithImpl<$Res, $Val extends BlockchainException>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -94,6 +100,7 @@ abstract class _$$UnexpectedCopyWith<$Res>
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String e});
@@ -213,6 +220,7 @@ abstract class Unexpected implements BlockchainException {
 
   @override
   String get e;
+
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
