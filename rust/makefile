@@ -3,10 +3,7 @@ PROJECTNAME=$(shell basename "$(PWD)")
 SOURCES=$(sort $(wildcard ./src/*.rs ./src/**/*.rs))
 
 OS_NAME=$(shell uname | tr '[:upper:]' '[:lower:]')
-#Please change the ndk version when ndk version is updated
-BINPATH = /Users/sambaby/Library/Android/sdk/ndk/25.0.8775105/toolchains/llvm/prebuilt/$(OS_NAME)-x86_64/bin
-
-#BINPATH = $(ANDROID_NDK_HOME)/25.0.8775105/toolchains/llvm/prebuilt/$(OS_NAME)-x86_64/bin
+BINPATH = $(ANDROID_NDK_HOME)/25.0.8775105/toolchains/llvm/prebuilt/$(OS_NAME)-x86_64/bin
 ANDROID_AARCH64_LINKER=$(BINPATH)/aarch64-linux-android29-clang
 ANDROID_AARCH64_AR=$(BINPATH)/llvm-ar
 ANDROID_ARMV7_LINKER=$(BINPATH)/armv7a-linux-androideabi29-clang

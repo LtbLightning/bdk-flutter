@@ -39,6 +39,7 @@ pod install
 ```
 
 ## Sample applications
+
 * **BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
   is a simple testnet Bitcoin wallet built as a reference app for the bdk-flutter on Flutter.
 
