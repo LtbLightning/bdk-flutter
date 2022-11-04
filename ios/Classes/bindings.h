@@ -15,9 +15,9 @@ typedef struct wire_ElectrumConfig {
   uint64_t stop_gap;
 } wire_ElectrumConfig;
 
-typedef struct BlockchainConfig_ELECTRUM {
+typedef struct BlockchainConfig_Electrum {
   struct wire_ElectrumConfig *config;
-} BlockchainConfig_ELECTRUM;
+} BlockchainConfig_Electrum;
 
 typedef struct wire_EsploraConfig {
   struct wire_uint_8_list *base_url;
@@ -27,13 +27,13 @@ typedef struct wire_EsploraConfig {
   uint64_t *timeout;
 } wire_EsploraConfig;
 
-typedef struct BlockchainConfig_ESPLORA {
+typedef struct BlockchainConfig_Esplora {
   struct wire_EsploraConfig *config;
-} BlockchainConfig_ESPLORA;
+} BlockchainConfig_Esplora;
 
 typedef union BlockchainConfigKind {
-  struct BlockchainConfig_ELECTRUM *ELECTRUM;
-  struct BlockchainConfig_ESPLORA *ESPLORA;
+  struct BlockchainConfig_Electrum *Electrum;
+  struct BlockchainConfig_Esplora *Esplora;
 } BlockchainConfigKind;
 
 typedef struct wire_BlockchainConfig {
@@ -61,31 +61,31 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
-typedef struct DatabaseConfig_MEMORY {
+typedef struct DatabaseConfig_Memory {
 
-} DatabaseConfig_MEMORY;
+} DatabaseConfig_Memory;
 
 typedef struct wire_SqliteDbConfiguration {
   struct wire_uint_8_list *path;
 } wire_SqliteDbConfiguration;
 
-typedef struct DatabaseConfig_SQLITE {
+typedef struct DatabaseConfig_Sqlite {
   struct wire_SqliteDbConfiguration *config;
-} DatabaseConfig_SQLITE;
+} DatabaseConfig_Sqlite;
 
 typedef struct wire_SledDbConfiguration {
   struct wire_uint_8_list *path;
   struct wire_uint_8_list *tree_name;
 } wire_SledDbConfiguration;
 
-typedef struct DatabaseConfig_SLED {
+typedef struct DatabaseConfig_Sled {
   struct wire_SledDbConfiguration *config;
-} DatabaseConfig_SLED;
+} DatabaseConfig_Sled;
 
 typedef union DatabaseConfigKind {
-  struct DatabaseConfig_MEMORY *MEMORY;
-  struct DatabaseConfig_SQLITE *SQLITE;
-  struct DatabaseConfig_SLED *SLED;
+  struct DatabaseConfig_Memory *Memory;
+  struct DatabaseConfig_Sqlite *Sqlite;
+  struct DatabaseConfig_Sled *Sled;
 } DatabaseConfigKind;
 
 typedef struct wire_DatabaseConfig {
@@ -236,13 +236,13 @@ struct wire_list_script_amount *new_list_script_amount_0(int32_t len);
 
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
 
-union BlockchainConfigKind *inflate_BlockchainConfig_ELECTRUM(void);
+union BlockchainConfigKind *inflate_BlockchainConfig_Electrum(void);
 
-union BlockchainConfigKind *inflate_BlockchainConfig_ESPLORA(void);
+union BlockchainConfigKind *inflate_BlockchainConfig_Esplora(void);
 
-union DatabaseConfigKind *inflate_DatabaseConfig_SQLITE(void);
+union DatabaseConfigKind *inflate_DatabaseConfig_Sqlite(void);
 
-union DatabaseConfigKind *inflate_DatabaseConfig_SLED(void);
+union DatabaseConfigKind *inflate_DatabaseConfig_Sled(void);
 
 void free_WireSyncReturnStruct(struct WireSyncReturnStruct val);
 
@@ -292,10 +292,10 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_list_out_point_0);
     dummy_var ^= ((int64_t) (void*) new_list_script_amount_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
-    dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_ELECTRUM);
-    dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_ESPLORA);
-    dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_SQLITE);
-    dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_SLED);
+    dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Electrum);
+    dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Esplora);
+    dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_Sqlite);
+    dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_Sled);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);
     return dummy_var;

@@ -17,14 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PathException {
   String get e => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String e) invalidPath,
     required TResult Function(String e) unexpected,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String e)? invalidPath,
@@ -38,14 +36,12 @@ mixin _$PathException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPath value) invalidPath,
     required TResult Function(Unexpected value) unexpected,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidPath value)? invalidPath,
@@ -70,7 +66,6 @@ abstract class $PathExceptionCopyWith<$Res> {
   factory $PathExceptionCopyWith(
           PathException value, $Res Function(PathException) then) =
       _$PathExceptionCopyWithImpl<$Res, PathException>;
-
   @useResult
   $Res call({String e});
 }
@@ -82,7 +77,6 @@ class _$PathExceptionCopyWithImpl<$Res, $Val extends PathException>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -106,7 +100,6 @@ abstract class _$$InvalidPathCopyWith<$Res>
   factory _$$InvalidPathCopyWith(
           _$InvalidPath value, $Res Function(_$InvalidPath) then) =
       __$$InvalidPathCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -232,7 +225,6 @@ abstract class InvalidPath implements PathException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$InvalidPathCopyWith<_$InvalidPath> get copyWith =>
@@ -245,7 +237,6 @@ abstract class _$$UnexpectedCopyWith<$Res>
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -371,7 +362,6 @@ abstract class Unexpected implements PathException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>

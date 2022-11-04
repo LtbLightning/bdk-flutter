@@ -1,16 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-// #[derive(Clone)]
-// pub(crate) struct  BdkInfo{
-//     pub wallets: HashMap<String, Arc<Wallet>>,
-//     pub blockchain: HashMap<String, Arc<AnyBlockchain>>,
-// }
-
+///A transaction output, which defines new coins to be created from old ones.
 pub struct TxOut {
     /// The value of the output, in satoshis.
-    pub(crate) value: u64,
+    pub value: u64,
     /// The address of the output.
-    pub(crate) address: String,
+    pub address: String,
 }
 
 
@@ -22,14 +17,14 @@ pub struct OutPoint {
     /// The index of the referenced output in its transaction's vout.
     pub(crate) vout: u32,
 }
-
+/// Unspent outputs of this wallet
 pub struct LocalUtxo {
     pub outpoint: OutPoint,
     pub txout: TxOut,
-    // keychain: KeychainKind,
     pub is_spent: bool,
 }
 
+/// Local Wallet's Balance
 #[derive(Deserialize)]
 pub struct Balance {
     // All coinbase outputs not yet matured
@@ -120,8 +115,8 @@ pub struct EsploraConfig {
 }
 
 pub enum BlockchainConfig {
-    ELECTRUM { config: ElectrumConfig },
-    ESPLORA { config: EsploraConfig },
+    Electrum { config: ElectrumConfig },
+    Esplora { config: EsploraConfig },
 }
 
 pub struct SqliteDbConfiguration {
@@ -134,27 +129,27 @@ pub struct SledDbConfiguration {
 }
 
 pub enum DatabaseConfig {
-    MEMORY,
-    SQLITE { config: SqliteDbConfiguration },
-    SLED { config: SledDbConfiguration },
+    Memory,
+    Sqlite { config: SqliteDbConfiguration },
+    Sled { config: SledDbConfiguration },
 }
 
 #[allow(dead_code)]
 pub enum KeyChainKind {
-    EXTERNAL,
-    INTERNAL,
+    External,
+    Internal,
 }
 
 #[derive(Clone)]
 pub enum Network {
-    TESTNET,
-    REGTEST,
-    BITCOIN,
-    SIGNET,
+    Testnet,
+    Regtest,
+    Bitcoin,
+    Signet,
 }
 
 pub enum WordCount {
-    WORDS12,
-    WORDS18,
-    WORDS24,
+    Words12,
+    Words18,
+    Words24,
 }

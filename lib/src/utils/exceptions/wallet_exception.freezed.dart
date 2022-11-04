@@ -17,14 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WalletException {
   String get e => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String e) unexpected,
     required TResult Function(String e) invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String e)? unexpected,
@@ -38,14 +36,12 @@ mixin _$WalletException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
     required TResult Function(InvalidAddress value) invalidAddress,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Unexpected value)? unexpected,
@@ -70,7 +66,6 @@ abstract class $WalletExceptionCopyWith<$Res> {
   factory $WalletExceptionCopyWith(
           WalletException value, $Res Function(WalletException) then) =
       _$WalletExceptionCopyWithImpl<$Res, WalletException>;
-
   @useResult
   $Res call({String e});
 }
@@ -82,7 +77,6 @@ class _$WalletExceptionCopyWithImpl<$Res, $Val extends WalletException>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -106,7 +100,6 @@ abstract class _$$UnexpectedCopyWith<$Res>
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -232,7 +225,6 @@ abstract class Unexpected implements WalletException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
@@ -245,7 +237,6 @@ abstract class _$$InvalidAddressCopyWith<$Res>
   factory _$$InvalidAddressCopyWith(
           _$InvalidAddress value, $Res Function(_$InvalidAddress) then) =
       __$$InvalidAddressCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -371,7 +362,6 @@ abstract class InvalidAddress implements WalletException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$InvalidAddressCopyWith<_$InvalidAddress> get copyWith =>

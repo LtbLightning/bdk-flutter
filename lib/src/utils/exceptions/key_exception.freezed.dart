@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$KeyException {
   String get e => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String e) invalidPublicKey,
@@ -26,7 +25,6 @@ mixin _$KeyException {
     required TResult Function(String e) invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String e)? invalidPublicKey,
@@ -44,7 +42,6 @@ mixin _$KeyException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPublicKey value) invalidPublicKey,
@@ -53,7 +50,6 @@ mixin _$KeyException {
     required TResult Function(UnknownWord value) invalidMnemonic,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidPublicKey value)? invalidPublicKey,
@@ -82,7 +78,6 @@ abstract class $KeyExceptionCopyWith<$Res> {
   factory $KeyExceptionCopyWith(
           KeyException value, $Res Function(KeyException) then) =
       _$KeyExceptionCopyWithImpl<$Res, KeyException>;
-
   @useResult
   $Res call({String e});
 }
@@ -94,7 +89,6 @@ class _$KeyExceptionCopyWithImpl<$Res, $Val extends KeyException>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -118,7 +112,6 @@ abstract class _$$InvalidPublicKeyCopyWith<$Res>
   factory _$$InvalidPublicKeyCopyWith(
           _$InvalidPublicKey value, $Res Function(_$InvalidPublicKey) then) =
       __$$InvalidPublicKeyCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -256,7 +249,6 @@ abstract class InvalidPublicKey implements KeyException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$InvalidPublicKeyCopyWith<_$InvalidPublicKey> get copyWith =>
@@ -269,7 +261,6 @@ abstract class _$$UnexpectedCopyWith<$Res>
   factory _$$UnexpectedCopyWith(
           _$Unexpected value, $Res Function(_$Unexpected) then) =
       __$$UnexpectedCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -407,7 +398,6 @@ abstract class Unexpected implements KeyException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$UnexpectedCopyWith<_$Unexpected> get copyWith =>
@@ -420,7 +410,6 @@ abstract class _$$BadWordCountCopyWith<$Res>
   factory _$$BadWordCountCopyWith(
           _$BadWordCount value, $Res Function(_$BadWordCount) then) =
       __$$BadWordCountCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -558,7 +547,6 @@ abstract class BadWordCount implements KeyException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$BadWordCountCopyWith<_$BadWordCount> get copyWith =>
@@ -571,7 +559,6 @@ abstract class _$$UnknownWordCopyWith<$Res>
   factory _$$UnknownWordCopyWith(
           _$UnknownWord value, $Res Function(_$UnknownWord) then) =
       __$$UnknownWordCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({String e});
@@ -709,7 +696,6 @@ abstract class UnknownWord implements KeyException {
 
   @override
   String get e;
-
   @override
   @JsonKey(ignore: true)
   _$$UnknownWordCopyWith<_$UnknownWord> get copyWith =>

@@ -520,7 +520,7 @@ mod tests {
     }
 
     fn _init_blockchain() -> String {
-        let y = blockchain_init(BlockchainConfig::ELECTRUM {
+        let y = blockchain_init(BlockchainConfig::Electrum {
             config: ElectrumConfig {
                 url: "ssl://electrum.blockstream.info:60002".to_string(),
                 socks5: None,
@@ -536,15 +536,15 @@ mod tests {
         let x = wallet_init(
             "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
             Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
-            Network::TESTNET,
-            DatabaseConfig::MEMORY,
+            Network::Testnet,
+            DatabaseConfig::Memory,
         );
         x
     }
 
     #[test]
     fn generate_mnemonic_word_count_test() {
-        let mnemonic = generate_seed_from_word_count(WordCount::WORDS12);
+        let mnemonic = generate_seed_from_word_count(WordCount::Words12);
         assert_eq!(mnemonic.split(" ").count(), 12)
     }
 }

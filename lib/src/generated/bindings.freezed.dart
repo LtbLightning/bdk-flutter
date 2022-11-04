@@ -22,7 +22,6 @@ mixin _$BlockchainConfig {
     required TResult Function(EsploraConfig config) esplora,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ElectrumConfig config)? electrum,
@@ -36,24 +35,22 @@ mixin _$BlockchainConfig {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(Electrum value) electrum,
+    required TResult Function(Esplora value) esplora,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ELECTRUM value)? electrum,
-    TResult? Function(ESPLORA value)? esplora,
+    TResult? Function(Electrum value)? electrum,
+    TResult? Function(Esplora value)? esplora,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(Electrum value)? electrum,
+    TResult Function(Esplora value)? esplora,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -73,26 +70,24 @@ class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$ELECTRUMCopyWith<$Res> {
-  factory _$$ELECTRUMCopyWith(
-          _$ELECTRUM value, $Res Function(_$ELECTRUM) then) =
-      __$$ELECTRUMCopyWithImpl<$Res>;
-
+abstract class _$$ElectrumCopyWith<$Res> {
+  factory _$$ElectrumCopyWith(
+          _$Electrum value, $Res Function(_$Electrum) then) =
+      __$$ElectrumCopyWithImpl<$Res>;
   @useResult
   $Res call({ElectrumConfig config});
 }
 
 /// @nodoc
-class __$$ELECTRUMCopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res, _$ELECTRUM>
-    implements _$$ELECTRUMCopyWith<$Res> {
-  __$$ELECTRUMCopyWithImpl(_$ELECTRUM _value, $Res Function(_$ELECTRUM) _then)
+class __$$ElectrumCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$Electrum>
+    implements _$$ElectrumCopyWith<$Res> {
+  __$$ElectrumCopyWithImpl(_$Electrum _value, $Res Function(_$Electrum) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +95,7 @@ class __$$ELECTRUMCopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$ELECTRUM(
+    return _then(_$Electrum(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -111,8 +106,8 @@ class __$$ELECTRUMCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ELECTRUM implements ELECTRUM {
-  const _$ELECTRUM({required this.config});
+class _$Electrum implements Electrum {
+  const _$Electrum({required this.config});
 
   @override
   final ElectrumConfig config;
@@ -126,7 +121,7 @@ class _$ELECTRUM implements ELECTRUM {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ELECTRUM &&
+            other is _$Electrum &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -136,8 +131,8 @@ class _$ELECTRUM implements ELECTRUM {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ELECTRUMCopyWith<_$ELECTRUM> get copyWith =>
-      __$$ELECTRUMCopyWithImpl<_$ELECTRUM>(this, _$identity);
+  _$$ElectrumCopyWith<_$Electrum> get copyWith =>
+      __$$ElectrumCopyWithImpl<_$Electrum>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -173,8 +168,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(Electrum value) electrum,
+    required TResult Function(Esplora value) esplora,
   }) {
     return electrum(this);
   }
@@ -182,8 +177,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ELECTRUM value)? electrum,
-    TResult? Function(ESPLORA value)? esplora,
+    TResult? Function(Electrum value)? electrum,
+    TResult? Function(Esplora value)? esplora,
   }) {
     return electrum?.call(this);
   }
@@ -191,8 +186,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(Electrum value)? electrum,
+    TResult Function(Esplora value)? esplora,
     required TResult orElse(),
   }) {
     if (electrum != null) {
@@ -202,30 +197,28 @@ class _$ELECTRUM implements ELECTRUM {
   }
 }
 
-abstract class ELECTRUM implements BlockchainConfig {
-  const factory ELECTRUM({required final ElectrumConfig config}) = _$ELECTRUM;
+abstract class Electrum implements BlockchainConfig {
+  const factory Electrum({required final ElectrumConfig config}) = _$Electrum;
 
   ElectrumConfig get config;
-
   @JsonKey(ignore: true)
-  _$$ELECTRUMCopyWith<_$ELECTRUM> get copyWith =>
+  _$$ElectrumCopyWith<_$Electrum> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ESPLORACopyWith<$Res> {
-  factory _$$ESPLORACopyWith(_$ESPLORA value, $Res Function(_$ESPLORA) then) =
-      __$$ESPLORACopyWithImpl<$Res>;
-
+abstract class _$$EsploraCopyWith<$Res> {
+  factory _$$EsploraCopyWith(_$Esplora value, $Res Function(_$Esplora) then) =
+      __$$EsploraCopyWithImpl<$Res>;
   @useResult
   $Res call({EsploraConfig config});
 }
 
 /// @nodoc
-class __$$ESPLORACopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res, _$ESPLORA>
-    implements _$$ESPLORACopyWith<$Res> {
-  __$$ESPLORACopyWithImpl(_$ESPLORA _value, $Res Function(_$ESPLORA) _then)
+class __$$EsploraCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$Esplora>
+    implements _$$EsploraCopyWith<$Res> {
+  __$$EsploraCopyWithImpl(_$Esplora _value, $Res Function(_$Esplora) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -233,7 +226,7 @@ class __$$ESPLORACopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$ESPLORA(
+    return _then(_$Esplora(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -244,8 +237,8 @@ class __$$ESPLORACopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ESPLORA implements ESPLORA {
-  const _$ESPLORA({required this.config});
+class _$Esplora implements Esplora {
+  const _$Esplora({required this.config});
 
   @override
   final EsploraConfig config;
@@ -259,7 +252,7 @@ class _$ESPLORA implements ESPLORA {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ESPLORA &&
+            other is _$Esplora &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -269,8 +262,8 @@ class _$ESPLORA implements ESPLORA {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ESPLORACopyWith<_$ESPLORA> get copyWith =>
-      __$$ESPLORACopyWithImpl<_$ESPLORA>(this, _$identity);
+  _$$EsploraCopyWith<_$Esplora> get copyWith =>
+      __$$EsploraCopyWithImpl<_$Esplora>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -306,8 +299,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(Electrum value) electrum,
+    required TResult Function(Esplora value) esplora,
   }) {
     return esplora(this);
   }
@@ -315,8 +308,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ELECTRUM value)? electrum,
-    TResult? Function(ESPLORA value)? esplora,
+    TResult? Function(Electrum value)? electrum,
+    TResult? Function(Esplora value)? esplora,
   }) {
     return esplora?.call(this);
   }
@@ -324,8 +317,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(Electrum value)? electrum,
+    TResult Function(Esplora value)? esplora,
     required TResult orElse(),
   }) {
     if (esplora != null) {
@@ -335,13 +328,12 @@ class _$ESPLORA implements ESPLORA {
   }
 }
 
-abstract class ESPLORA implements BlockchainConfig {
-  const factory ESPLORA({required final EsploraConfig config}) = _$ESPLORA;
+abstract class Esplora implements BlockchainConfig {
+  const factory Esplora({required final EsploraConfig config}) = _$Esplora;
 
   EsploraConfig get config;
-
   @JsonKey(ignore: true)
-  _$$ESPLORACopyWith<_$ESPLORA> get copyWith =>
+  _$$EsploraCopyWith<_$Esplora> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -354,7 +346,6 @@ mixin _$DatabaseConfig {
     required TResult Function(SledDbConfiguration config) sled,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? memory,
@@ -370,27 +361,25 @@ mixin _$DatabaseConfig {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
-    required TResult Function(SLED value) sled,
+    required TResult Function(Memory value) memory,
+    required TResult Function(Sqlite value) sqlite,
+    required TResult Function(Sled value) sled,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MEMORY value)? memory,
-    TResult? Function(SQLITE value)? sqlite,
-    TResult? Function(SLED value)? sled,
+    TResult? Function(Memory value)? memory,
+    TResult? Function(Sqlite value)? sqlite,
+    TResult? Function(Sled value)? sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
-    TResult Function(SLED value)? sled,
+    TResult Function(Memory value)? memory,
+    TResult Function(Sqlite value)? sqlite,
+    TResult Function(Sled value)? sled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -410,29 +399,28 @@ class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$MEMORYCopyWith<$Res> {
-  factory _$$MEMORYCopyWith(_$MEMORY value, $Res Function(_$MEMORY) then) =
-      __$$MEMORYCopyWithImpl<$Res>;
+abstract class _$$MemoryCopyWith<$Res> {
+  factory _$$MemoryCopyWith(_$Memory value, $Res Function(_$Memory) then) =
+      __$$MemoryCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MEMORYCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$MEMORY>
-    implements _$$MEMORYCopyWith<$Res> {
-  __$$MEMORYCopyWithImpl(_$MEMORY _value, $Res Function(_$MEMORY) _then)
+class __$$MemoryCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$Memory>
+    implements _$$MemoryCopyWith<$Res> {
+  __$$MemoryCopyWithImpl(_$Memory _value, $Res Function(_$Memory) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MEMORY implements MEMORY {
-  const _$MEMORY();
+class _$Memory implements Memory {
+  const _$Memory();
 
   @override
   String toString() {
@@ -442,7 +430,7 @@ class _$MEMORY implements MEMORY {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MEMORY);
+        (other.runtimeType == runtimeType && other is _$Memory);
   }
 
   @override
@@ -485,9 +473,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
-    required TResult Function(SLED value) sled,
+    required TResult Function(Memory value) memory,
+    required TResult Function(Sqlite value) sqlite,
+    required TResult Function(Sled value) sled,
   }) {
     return memory(this);
   }
@@ -495,9 +483,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MEMORY value)? memory,
-    TResult? Function(SQLITE value)? sqlite,
-    TResult? Function(SLED value)? sled,
+    TResult? Function(Memory value)? memory,
+    TResult? Function(Sqlite value)? sqlite,
+    TResult? Function(Sled value)? sled,
   }) {
     return memory?.call(this);
   }
@@ -505,9 +493,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
-    TResult Function(SLED value)? sled,
+    TResult Function(Memory value)? memory,
+    TResult Function(Sqlite value)? sqlite,
+    TResult Function(Sled value)? sled,
     required TResult orElse(),
   }) {
     if (memory != null) {
@@ -517,24 +505,23 @@ class _$MEMORY implements MEMORY {
   }
 }
 
-abstract class MEMORY implements DatabaseConfig {
-  const factory MEMORY() = _$MEMORY;
+abstract class Memory implements DatabaseConfig {
+  const factory Memory() = _$Memory;
 }
 
 /// @nodoc
-abstract class _$$SQLITECopyWith<$Res> {
-  factory _$$SQLITECopyWith(_$SQLITE value, $Res Function(_$SQLITE) then) =
-      __$$SQLITECopyWithImpl<$Res>;
-
+abstract class _$$SqliteCopyWith<$Res> {
+  factory _$$SqliteCopyWith(_$Sqlite value, $Res Function(_$Sqlite) then) =
+      __$$SqliteCopyWithImpl<$Res>;
   @useResult
   $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
-class __$$SQLITECopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$SQLITE>
-    implements _$$SQLITECopyWith<$Res> {
-  __$$SQLITECopyWithImpl(_$SQLITE _value, $Res Function(_$SQLITE) _then)
+class __$$SqliteCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$Sqlite>
+    implements _$$SqliteCopyWith<$Res> {
+  __$$SqliteCopyWithImpl(_$Sqlite _value, $Res Function(_$Sqlite) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -542,7 +529,7 @@ class __$$SQLITECopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$SQLITE(
+    return _then(_$Sqlite(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -553,8 +540,8 @@ class __$$SQLITECopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SQLITE implements SQLITE {
-  const _$SQLITE({required this.config});
+class _$Sqlite implements Sqlite {
+  const _$Sqlite({required this.config});
 
   @override
   final SqliteDbConfiguration config;
@@ -568,7 +555,7 @@ class _$SQLITE implements SQLITE {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SQLITE &&
+            other is _$Sqlite &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -578,8 +565,8 @@ class _$SQLITE implements SQLITE {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SQLITECopyWith<_$SQLITE> get copyWith =>
-      __$$SQLITECopyWithImpl<_$SQLITE>(this, _$identity);
+  _$$SqliteCopyWith<_$Sqlite> get copyWith =>
+      __$$SqliteCopyWithImpl<_$Sqlite>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -618,9 +605,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
-    required TResult Function(SLED value) sled,
+    required TResult Function(Memory value) memory,
+    required TResult Function(Sqlite value) sqlite,
+    required TResult Function(Sled value) sled,
   }) {
     return sqlite(this);
   }
@@ -628,9 +615,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MEMORY value)? memory,
-    TResult? Function(SQLITE value)? sqlite,
-    TResult? Function(SLED value)? sled,
+    TResult? Function(Memory value)? memory,
+    TResult? Function(Sqlite value)? sqlite,
+    TResult? Function(Sled value)? sled,
   }) {
     return sqlite?.call(this);
   }
@@ -638,9 +625,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
-    TResult Function(SLED value)? sled,
+    TResult Function(Memory value)? memory,
+    TResult Function(Sqlite value)? sqlite,
+    TResult Function(Sled value)? sled,
     required TResult orElse(),
   }) {
     if (sqlite != null) {
@@ -650,31 +637,29 @@ class _$SQLITE implements SQLITE {
   }
 }
 
-abstract class SQLITE implements DatabaseConfig {
-  const factory SQLITE({required final SqliteDbConfiguration config}) =
-      _$SQLITE;
+abstract class Sqlite implements DatabaseConfig {
+  const factory Sqlite({required final SqliteDbConfiguration config}) =
+      _$Sqlite;
 
   SqliteDbConfiguration get config;
-
   @JsonKey(ignore: true)
-  _$$SQLITECopyWith<_$SQLITE> get copyWith =>
+  _$$SqliteCopyWith<_$Sqlite> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SLEDCopyWith<$Res> {
-  factory _$$SLEDCopyWith(_$SLED value, $Res Function(_$SLED) then) =
-      __$$SLEDCopyWithImpl<$Res>;
-
+abstract class _$$SledCopyWith<$Res> {
+  factory _$$SledCopyWith(_$Sled value, $Res Function(_$Sled) then) =
+      __$$SledCopyWithImpl<$Res>;
   @useResult
   $Res call({SledDbConfiguration config});
 }
 
 /// @nodoc
-class __$$SLEDCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$SLED>
-    implements _$$SLEDCopyWith<$Res> {
-  __$$SLEDCopyWithImpl(_$SLED _value, $Res Function(_$SLED) _then)
+class __$$SledCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$Sled>
+    implements _$$SledCopyWith<$Res> {
+  __$$SledCopyWithImpl(_$Sled _value, $Res Function(_$Sled) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -682,7 +667,7 @@ class __$$SLEDCopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$SLED(
+    return _then(_$Sled(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -693,8 +678,8 @@ class __$$SLEDCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SLED implements SLED {
-  const _$SLED({required this.config});
+class _$Sled implements Sled {
+  const _$Sled({required this.config});
 
   @override
   final SledDbConfiguration config;
@@ -708,7 +693,7 @@ class _$SLED implements SLED {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SLED &&
+            other is _$Sled &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -718,8 +703,8 @@ class _$SLED implements SLED {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SLEDCopyWith<_$SLED> get copyWith =>
-      __$$SLEDCopyWithImpl<_$SLED>(this, _$identity);
+  _$$SledCopyWith<_$Sled> get copyWith =>
+      __$$SledCopyWithImpl<_$Sled>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -758,9 +743,9 @@ class _$SLED implements SLED {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
-    required TResult Function(SLED value) sled,
+    required TResult Function(Memory value) memory,
+    required TResult Function(Sqlite value) sqlite,
+    required TResult Function(Sled value) sled,
   }) {
     return sled(this);
   }
@@ -768,9 +753,9 @@ class _$SLED implements SLED {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MEMORY value)? memory,
-    TResult? Function(SQLITE value)? sqlite,
-    TResult? Function(SLED value)? sled,
+    TResult? Function(Memory value)? memory,
+    TResult? Function(Sqlite value)? sqlite,
+    TResult? Function(Sled value)? sled,
   }) {
     return sled?.call(this);
   }
@@ -778,9 +763,9 @@ class _$SLED implements SLED {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
-    TResult Function(SLED value)? sled,
+    TResult Function(Memory value)? memory,
+    TResult Function(Sqlite value)? sqlite,
+    TResult Function(Sled value)? sled,
     required TResult orElse(),
   }) {
     if (sled != null) {
@@ -790,11 +775,10 @@ class _$SLED implements SLED {
   }
 }
 
-abstract class SLED implements DatabaseConfig {
-  const factory SLED({required final SledDbConfiguration config}) = _$SLED;
+abstract class Sled implements DatabaseConfig {
+  const factory Sled({required final SledDbConfiguration config}) = _$Sled;
 
   SledDbConfiguration get config;
-
   @JsonKey(ignore: true)
-  _$$SLEDCopyWith<_$SLED> get copyWith => throw _privateConstructorUsedError;
+  _$$SledCopyWith<_$Sled> get copyWith => throw _privateConstructorUsedError;
 }

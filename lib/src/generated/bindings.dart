@@ -4,13 +4,13 @@
 // ignore_for_file: non_constant_identifier_names, unused_element, duplicate_ignore, directives_ordering, curly_braces_in_flow_control_structures, unnecessary_lambdas, slash_for_doc_comments, prefer_const_literals_to_create_immutables, implicit_dynamic_list_literal, duplicate_import, unused_import, prefer_single_quotes, prefer_const_constructors, use_super_parameters, always_use_package_imports
 
 import 'dart:convert';
-import 'dart:convert';
-import 'dart:ffi' as ffi;
 import 'dart:typed_data';
-import 'dart:typed_data';
-
-import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'dart:ffi' as ffi;
 
 part 'bindings.freezed.dart';
 
@@ -199,6 +199,7 @@ class AddressInfo {
   });
 }
 
+/// Local Wallet's Balance
 class Balance {
   final int immature;
 
@@ -241,24 +242,21 @@ class BlockTime {
 class BlockchainConfig with _$BlockchainConfig {
   const factory BlockchainConfig.electrum({
     required ElectrumConfig config,
-  }) = ELECTRUM;
-
+  }) = Electrum;
   const factory BlockchainConfig.esplora({
     required EsploraConfig config,
-  }) = ESPLORA;
+  }) = Esplora;
 }
 
 @freezed
 class DatabaseConfig with _$DatabaseConfig {
-  const factory DatabaseConfig.memory() = MEMORY;
-
+  const factory DatabaseConfig.memory() = Memory;
   const factory DatabaseConfig.sqlite({
     required SqliteDbConfiguration config,
-  }) = SQLITE;
-
+  }) = Sqlite;
   const factory DatabaseConfig.sled({
     required SledDbConfiguration config,
-  }) = SLED;
+  }) = Sled;
 }
 
 class ElectrumConfig {
@@ -293,6 +291,7 @@ class EsploraConfig {
   });
 }
 
+/// Unspent outputs of this wallet
 class LocalUtxo {
   final OutPoint outpoint;
   final TxOut txout;
@@ -306,10 +305,10 @@ class LocalUtxo {
 }
 
 enum Network {
-  TESTNET,
-  REGTEST,
-  BITCOIN,
-  SIGNET,
+  Testnet,
+  Regtest,
+  Bitcoin,
+  Signet,
 }
 
 /// A reference to a transaction output.
@@ -397,6 +396,7 @@ class TxBuilderResult {
   });
 }
 
+///A transaction output, which defines new coins to be created from old ones.
 class TxOut {
   /// The value of the output, in satoshis.
   final int value;
@@ -411,9 +411,9 @@ class TxOut {
 }
 
 enum WordCount {
-  WORDS12,
-  WORDS18,
-  WORDS24,
+  Words12,
+  Words18,
+  Words24,
 }
 
 class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
@@ -1170,16 +1170,16 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   void _api_fill_to_wire_blockchain_config(
       BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
-    if (apiObj is ELECTRUM) {
+    if (apiObj is Electrum) {
       wireObj.tag = 0;
-      wireObj.kind = inner.inflate_BlockchainConfig_ELECTRUM();
-      wireObj.kind.ref.ELECTRUM.ref.config =
+      wireObj.kind = inner.inflate_BlockchainConfig_Electrum();
+      wireObj.kind.ref.Electrum.ref.config =
           _api2wire_box_autoadd_electrum_config(apiObj.config);
     }
-    if (apiObj is ESPLORA) {
+    if (apiObj is Esplora) {
       wireObj.tag = 1;
-      wireObj.kind = inner.inflate_BlockchainConfig_ESPLORA();
-      wireObj.kind.ref.ESPLORA.ref.config =
+      wireObj.kind = inner.inflate_BlockchainConfig_Esplora();
+      wireObj.kind.ref.Esplora.ref.config =
           _api2wire_box_autoadd_esplora_config(apiObj.config);
     }
   }
@@ -1218,20 +1218,20 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
 
   void _api_fill_to_wire_database_config(
       DatabaseConfig apiObj, wire_DatabaseConfig wireObj) {
-    if (apiObj is MEMORY) {
+    if (apiObj is Memory) {
       wireObj.tag = 0;
       return;
     }
-    if (apiObj is SQLITE) {
+    if (apiObj is Sqlite) {
       wireObj.tag = 1;
-      wireObj.kind = inner.inflate_DatabaseConfig_SQLITE();
-      wireObj.kind.ref.SQLITE.ref.config =
+      wireObj.kind = inner.inflate_DatabaseConfig_Sqlite();
+      wireObj.kind.ref.Sqlite.ref.config =
           _api2wire_box_autoadd_sqlite_db_configuration(apiObj.config);
     }
-    if (apiObj is SLED) {
+    if (apiObj is Sled) {
       wireObj.tag = 2;
-      wireObj.kind = inner.inflate_DatabaseConfig_SLED();
-      wireObj.kind.ref.SLED.ref.config =
+      wireObj.kind = inner.inflate_DatabaseConfig_Sled();
+      wireObj.kind.ref.Sled.ref.config =
           _api2wire_box_autoadd_sled_db_configuration(apiObj.config);
     }
   }
@@ -2260,46 +2260,46 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
-  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_ELECTRUM() {
-    return _inflate_BlockchainConfig_ELECTRUM();
+  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_Electrum() {
+    return _inflate_BlockchainConfig_Electrum();
   }
 
-  late final _inflate_BlockchainConfig_ELECTRUMPtr =
+  late final _inflate_BlockchainConfig_ElectrumPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
-          'inflate_BlockchainConfig_ELECTRUM');
-  late final _inflate_BlockchainConfig_ELECTRUM =
-      _inflate_BlockchainConfig_ELECTRUMPtr
+          'inflate_BlockchainConfig_Electrum');
+  late final _inflate_BlockchainConfig_Electrum =
+      _inflate_BlockchainConfig_ElectrumPtr
           .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
 
-  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_ESPLORA() {
-    return _inflate_BlockchainConfig_ESPLORA();
+  ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_Esplora() {
+    return _inflate_BlockchainConfig_Esplora();
   }
 
-  late final _inflate_BlockchainConfig_ESPLORAPtr =
+  late final _inflate_BlockchainConfig_EsploraPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
-          'inflate_BlockchainConfig_ESPLORA');
-  late final _inflate_BlockchainConfig_ESPLORA =
-      _inflate_BlockchainConfig_ESPLORAPtr
+          'inflate_BlockchainConfig_Esplora');
+  late final _inflate_BlockchainConfig_Esplora =
+      _inflate_BlockchainConfig_EsploraPtr
           .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
 
-  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_SQLITE() {
-    return _inflate_DatabaseConfig_SQLITE();
+  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_Sqlite() {
+    return _inflate_DatabaseConfig_Sqlite();
   }
 
-  late final _inflate_DatabaseConfig_SQLITEPtr =
+  late final _inflate_DatabaseConfig_SqlitePtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
-          'inflate_DatabaseConfig_SQLITE');
-  late final _inflate_DatabaseConfig_SQLITE = _inflate_DatabaseConfig_SQLITEPtr
+          'inflate_DatabaseConfig_Sqlite');
+  late final _inflate_DatabaseConfig_Sqlite = _inflate_DatabaseConfig_SqlitePtr
       .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
-  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_SLED() {
-    return _inflate_DatabaseConfig_SLED();
+  ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_Sled() {
+    return _inflate_DatabaseConfig_Sled();
   }
 
-  late final _inflate_DatabaseConfig_SLEDPtr =
+  late final _inflate_DatabaseConfig_SledPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
-          'inflate_DatabaseConfig_SLED');
-  late final _inflate_DatabaseConfig_SLED = _inflate_DatabaseConfig_SLEDPtr
+          'inflate_DatabaseConfig_Sled');
+  late final _inflate_DatabaseConfig_Sled = _inflate_DatabaseConfig_SledPtr
       .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
   void free_WireSyncReturnStruct(
@@ -2352,7 +2352,7 @@ class wire_ElectrumConfig extends ffi.Struct {
   external int stop_gap;
 }
 
-class BlockchainConfig_ELECTRUM extends ffi.Struct {
+class BlockchainConfig_Electrum extends ffi.Struct {
   external ffi.Pointer<wire_ElectrumConfig> config;
 }
 
@@ -2369,14 +2369,14 @@ class wire_EsploraConfig extends ffi.Struct {
   external ffi.Pointer<ffi.Uint64> timeout;
 }
 
-class BlockchainConfig_ESPLORA extends ffi.Struct {
+class BlockchainConfig_Esplora extends ffi.Struct {
   external ffi.Pointer<wire_EsploraConfig> config;
 }
 
 class BlockchainConfigKind extends ffi.Union {
-  external ffi.Pointer<BlockchainConfig_ELECTRUM> ELECTRUM;
+  external ffi.Pointer<BlockchainConfig_Electrum> Electrum;
 
-  external ffi.Pointer<BlockchainConfig_ESPLORA> ESPLORA;
+  external ffi.Pointer<BlockchainConfig_Esplora> Esplora;
 }
 
 class wire_BlockchainConfig extends ffi.Struct {
@@ -2414,13 +2414,13 @@ class wire_list_out_point extends ffi.Struct {
   external int len;
 }
 
-class DatabaseConfig_MEMORY extends ffi.Opaque {}
+class DatabaseConfig_Memory extends ffi.Opaque {}
 
 class wire_SqliteDbConfiguration extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> path;
 }
 
-class DatabaseConfig_SQLITE extends ffi.Struct {
+class DatabaseConfig_Sqlite extends ffi.Struct {
   external ffi.Pointer<wire_SqliteDbConfiguration> config;
 }
 
@@ -2430,16 +2430,16 @@ class wire_SledDbConfiguration extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> tree_name;
 }
 
-class DatabaseConfig_SLED extends ffi.Struct {
+class DatabaseConfig_Sled extends ffi.Struct {
   external ffi.Pointer<wire_SledDbConfiguration> config;
 }
 
 class DatabaseConfigKind extends ffi.Union {
-  external ffi.Pointer<DatabaseConfig_MEMORY> MEMORY;
+  external ffi.Pointer<DatabaseConfig_Memory> Memory;
 
-  external ffi.Pointer<DatabaseConfig_SQLITE> SQLITE;
+  external ffi.Pointer<DatabaseConfig_Sqlite> Sqlite;
 
-  external ffi.Pointer<DatabaseConfig_SLED> SLED;
+  external ffi.Pointer<DatabaseConfig_Sled> Sled;
 }
 
 class wire_DatabaseConfig extends ffi.Struct {

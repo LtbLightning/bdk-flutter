@@ -8,6 +8,7 @@ import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 
+import 'generated/bindings.dart';
 import 'utils/utils.dart';
 
 class Blockchain {
@@ -15,7 +16,7 @@ class Blockchain {
 
   Future<String> getBlockHash(int height) async {
     try {
-      blockchainInitializationCheck(_id);
+      _blockchainInitializationCheck(_id);
       var res = await loaderApi.getBlockchainHash(
           blockchainHeight: height, id: _id.toString());
       return res;
@@ -26,7 +27,7 @@ class Blockchain {
 
   Future<int> getHeight() async {
     try {
-      blockchainInitializationCheck(_id);
+      _blockchainInitializationCheck(_id);
       var res =
           await loaderApi.getBlockchainHeight(blockchainId: _id.toString());
       return res;
@@ -43,7 +44,7 @@ class Blockchain {
 
   Future<void> broadcast(PartiallySignedBitcoinTransaction psbt) async {
     try {
-      blockchainInitializationCheck(_id);
+      _blockchainInitializationCheck(_id);
       final txid = await loaderApi.broadcast(
           psbtStr: psbt.psbtBase64, blockchainId: _id.toString());
       print(txid);
@@ -78,7 +79,7 @@ class Wallet {
 
   Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       var res = await loaderApi.getAddress(
           walletId: _id.toString(), addressIndex: addressIndex);
       return res;
@@ -89,7 +90,7 @@ class Wallet {
 
   Future<Balance> getBalance() async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       var res = await loaderApi.getBalance(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
@@ -99,7 +100,7 @@ class Wallet {
 
   Future<Network> network() async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       var res = await loaderApi.getNetwork(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
@@ -109,7 +110,7 @@ class Wallet {
 
   Future<List<LocalUtxo>> listUnspent() async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       var res = await loaderApi.listUnspentOutputs(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
@@ -119,7 +120,7 @@ class Wallet {
 
   Future sync(Blockchain blockchain) async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       print("Syncing Wallet");
       await loaderApi.syncWallet(
           walletId: _id.toString(), blockchainId: blockchain._id.toString());
@@ -130,7 +131,7 @@ class Wallet {
 
   Future<List<TransactionDetails>> listTransactions() async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       final res = await loaderApi.getTransactions(walletId: _id.toString());
       return res;
     } on FfiException catch (e) {
@@ -138,16 +139,14 @@ class Wallet {
     }
   }
 
-  Future<String> sign(PartiallySignedBitcoinTransaction psbt) async {
+  Future<PartiallySignedBitcoinTransaction> sign(PartiallySignedBitcoinTransaction psbt) async {
     try {
-      walletInitializationCheck(_id);
+      _walletInitializationCheck(_id);
       final sbt = await loaderApi.sign(
           psbtStr: psbt.psbtBase64,
-          walletId: _id.toString(),
-          isMultiSig: false);
-      if (sbt == null)
-        throw const TxBuilderException.unexpected("Unable to sign transaction");
-      return sbt.toString();
+          walletId: _id.toString(), isMultiSig: false);
+      if (sbt == null) throw const TxBuilderException.unexpected("Unable to sign transaction");
+      return PartiallySignedBitcoinTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
       throw TxBuilderException.unexpected(e.message);
     }
@@ -404,7 +403,6 @@ class Address {
   }
 
   /// Returns the script pub key of the [Address] object
-
   Future<Script> scriptPubKey() async {
     final res =
         await loaderApi.addressToScriptPubkeyHex(address: _address.toString());
@@ -418,9 +416,6 @@ class Address {
   }
 }
 
-class Progress {
-  void update(int progress, String? message) {}
-}
 
 class DerivationPath {
   String? _path;
@@ -486,7 +481,7 @@ class DescriptorSecretKey {
 
   DescriptorSecretKey(
       {required this.network, required this.mnemonic, this.password}) {
-    if (!isValidMnemonic(mnemonic.toString())) {
+    if (!_isValidMnemonic(mnemonic.toString())) {
       throw const KeyException.badWordCount(
           "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
     }
@@ -581,4 +576,16 @@ Future<String> generateMnemonic({required WordCount wordCount}) async {
   } on FfiException catch (e) {
     throw KeyException.unexpected(e.message);
   }
+}
+bool _isValidMnemonic(String mnemonic) {
+  var strLen = mnemonic.split(' ').length;
+  return ((strLen >= 12) && (strLen <= 24) && strLen % 6 == 0);
+}
+
+_walletInitializationCheck(String? id) {
+  if (id == null) throw const WalletException.unexpected("Wallet not initialized");
+}
+
+_blockchainInitializationCheck(String? id) {
+  if (id == null) throw const BlockchainException.unexpected("Blockchain not initialized");
 }
