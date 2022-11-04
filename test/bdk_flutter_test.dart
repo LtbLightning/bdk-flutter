@@ -39,21 +39,21 @@ void main() {
   String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
   group('Generate Mnemonic', () {
     test('verify  word count', () async {
-      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.WORDS12))
+      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12))
           .thenAnswer((_) async =>
               'puppy interest whip tonight dad never sudden response push zone pig patch');
       final res =
-          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.WORDS12);
+          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12);
       final wordCount = res.split(' ');
       expect(wordCount.length, 12);
     });
     test('verify generated mnemonic', () async {
       const mnemonic =
           "uncover melt orient double buyer birth run glad unhappy sport dizzy squeeze top offer axis rare bulk item";
-      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.WORDS12))
+      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12))
           .thenAnswer((_) async => mnemonic);
       final res =
-          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.WORDS12);
+          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12);
       expect(mnemonic, res);
     });
   });
