@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateMnemonicKeys() async {
-    final res = await generateMnemonic(wordCount: WordCount.WORDS18);
+    final res = await generateMnemonic(wordCount: WordCount.Words12);
     print(res);
   }
 
@@ -34,14 +34,15 @@ class _MyAppState extends State<MyApp> {
     aliceWallet = await Wallet().create(
         descriptor:
             "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
-        network: Network.TESTNET,
+        network: Network.Testnet,
+
         databaseConfig: const DatabaseConfig.memory());
     print("init Complete");
   }
 
   createDescriptorSecret() async {
     final descriptorSecretKey = DescriptorSecretKey(
-      network: Network.TESTNET,
+      network: Network.Testnet,
       mnemonic:
           'puppy interest whip tonight dad never sudden response push zone pig patch',
     );
@@ -146,9 +147,8 @@ class _MyAppState extends State<MyApp> {
         .addRecipient(script, 1000)
         .feeRate(1.1)
         .finish(aliceWallet);
-    final sbtStr = await aliceWallet.sign(psbt);
-    await blockchain
-        .broadcast(PartiallySignedBitcoinTransaction(psbtBase64: sbtStr));
+    final res = await aliceWallet.sign(psbt);
+    await blockchain.broadcast(res);
     sync();
   }
 
