@@ -1058,7 +1058,7 @@ Returns a `PartiallySignedBitcoinTransaction` object
 ---	
 
 
-_Note: Caution this is Alpha at this stage
+_Note: Caution this is pre-Alpha at this stage
 Please consider reviewing, experimenting, and contributing ⚡️_
 
 Thanks for taking a look!
