@@ -1,10 +1,12 @@
 use bdk::bitcoin::Network as BdkNetwork;
-use bdk::blockchain::{AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig};
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
+use bdk::blockchain::{
+    AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
+};
 use bdk::database::any::{SledDbConfiguration, SqliteDbConfiguration};
 use bdk::database::AnyDatabaseConfig;
-use bdk::KeychainKind as BdkKeychainKind;
 use bdk::keys::bip39::WordCount as BdkWordCount;
+use bdk::KeychainKind as BdkKeychainKind;
 
 use crate::types::{BlockchainConfig, DatabaseConfig, KeyChainKind, Network, WordCount};
 
@@ -35,9 +37,7 @@ pub fn config_word_count(word_count: WordCount) -> BdkWordCount {
     };
 }
 
-pub fn config_blockchain(
-    blockchain_config: BlockchainConfig
-) -> AnyBlockchain {
+pub fn config_blockchain(blockchain_config: BlockchainConfig) -> AnyBlockchain {
     let any_blockchain_config = match blockchain_config {
         BlockchainConfig::Electrum { config } => {
             AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
@@ -73,8 +73,12 @@ pub fn config_keychain_kind(keychain: KeyChainKind) -> BdkKeychainKind {
 pub fn config_database(database_config: DatabaseConfig) -> AnyDatabaseConfig {
     return match database_config {
         DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
-        DatabaseConfig::Sqlite { config } => AnyDatabaseConfig::Sqlite(SqliteDbConfiguration { path: config.path }),
-        DatabaseConfig::Sled { config } => AnyDatabaseConfig::Sled(SledDbConfiguration { path: config.path, tree_name: config.tree_name }),
+        DatabaseConfig::Sqlite { config } => {
+            AnyDatabaseConfig::Sqlite(SqliteDbConfiguration { path: config.path })
+        }
+        DatabaseConfig::Sled { config } => AnyDatabaseConfig::Sled(SledDbConfiguration {
+            path: config.path,
+            tree_name: config.tree_name,
+        }),
     };
 }
-

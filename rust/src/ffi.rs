@@ -2,24 +2,35 @@ use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use bdk::{Balance as BdkBalance, BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet};
-use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Script as BdkScript, Txid};
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::psbt::serialize::Serialize;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
+use bdk::bitcoin::{
+    Address as BdkAddress, Network, OutPoint as BdkOutPoint, Script as BdkScript, Txid,
+};
 use bdk::blockchain::any::AnyBlockchain;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
-use bdk::Error as BdkError;
-use bdk::keys::{DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey, DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey};
 use bdk::keys::bip39::{Language, Mnemonic, WordCount};
+use bdk::keys::{
+    DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
+    DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey,
+};
 use bdk::miniscript::BareCtx;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
+use bdk::Error as BdkError;
+use bdk::{
+    Balance as BdkBalance, BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions,
+    SyncOptions, Wallet as BdkWallet,
+};
 
-use crate::types::{AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo, OutPoint, TransactionDetails, TxOut};
+use crate::types::{
+    AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo, OutPoint,
+    TransactionDetails, TxOut,
+};
 use crate::utils::config_database;
 
 impl From<AddressIndex> for BdkAddressIndex {
@@ -106,8 +117,8 @@ impl NetworkLocalUtxo for LocalUtxo {
                     &x.txout.script_pubkey,
                     network,
                 )
-                    .unwrap()
-                    .to_string(),
+                .unwrap()
+                .to_string(),
             },
             is_spent: x.clone().is_spent,
         }
@@ -155,7 +166,6 @@ impl Wallet {
             .get_address(address_index.into())
             .map(AddressInfo::from)
     }
-
 
     /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
     pub fn list_transactions(&self) -> Result<Vec<TransactionDetails>, Error> {
@@ -210,7 +220,8 @@ impl PartiallySignedBitcoinTransaction {
             .lock()
             .unwrap()
             .clone()
-            .extract_tx().serialize()
+            .extract_tx()
+            .serialize()
     }
 
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
@@ -284,7 +295,11 @@ impl Address {
 }
 
 impl DescriptorSecretKey {
-    pub fn new(network: Network, mnemonic: String, password: Option<String>) -> Result<Self, BdkError> {
+    pub fn new(
+        network: Network,
+        mnemonic: String,
+        password: Option<String>,
+    ) -> Result<Self, BdkError> {
         let mnemonic = Mnemonic::parse_in(Language::English, mnemonic)
             .map_err(|e| BdkError::Generic(e.to_string()))?;
         let xkey: ExtendedKey = (mnemonic, password).into_extended_key()?;
@@ -469,6 +484,3 @@ impl Script {
         Script::from_hex(script)
     }
 }
-
-
-

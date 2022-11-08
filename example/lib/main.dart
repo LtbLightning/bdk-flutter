@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
         descriptor:
             "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
         network: Network.Testnet,
-
         databaseConfig: const DatabaseConfig.memory());
     print("init Complete");
   }
@@ -49,12 +48,14 @@ class _MyAppState extends State<MyApp> {
 
     final path = await DerivationPath().create(path: DEFAULT_DERIVATION_PATH);
     final xprv = await descriptorSecretKey.asString();
+    final sec = await descriptorSecretKey.secretBytes();
     final xpub = await descriptorSecretKey.asPublic();
     final xpubString = xpub.asString();
     final derivedXprv = await descriptorSecretKey.extend(path);
     final derivedXpub = await xpub.extend(path);
     final derivedXprvStr = await derivedXprv.asString();
     final derivedXpubStr = derivedXpub.asString();
+    print("sec: $sec");
     print("xpub: $xpubString");
     print("xprv: $xprv");
     print("derivedXpub: $derivedXpubStr");

@@ -121,9 +121,10 @@ class Wallet {
   Future sync(Blockchain blockchain) async {
     try {
       _walletInitializationCheck(_id);
-      print("Syncing Wallet");
+      print("Syncing wallet");
       await loaderApi.syncWallet(
           walletId: _id.toString(), blockchainId: blockchain._id.toString());
+      print("Sync complete");
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -139,13 +140,16 @@ class Wallet {
     }
   }
 
-  Future<PartiallySignedBitcoinTransaction> sign(PartiallySignedBitcoinTransaction psbt) async {
+  Future<PartiallySignedBitcoinTransaction> sign(
+      PartiallySignedBitcoinTransaction psbt) async {
     try {
       _walletInitializationCheck(_id);
       final sbt = await loaderApi.sign(
           psbtStr: psbt.psbtBase64,
-          walletId: _id.toString(), isMultiSig: false);
-      if (sbt == null) throw const TxBuilderException.unexpected("Unable to sign transaction");
+          walletId: _id.toString(),
+          isMultiSig: false);
+      if (sbt == null)
+        throw const TxBuilderException.unexpected("Unable to sign transaction");
       return PartiallySignedBitcoinTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
       throw TxBuilderException.unexpected(e.message);
@@ -416,7 +420,6 @@ class Address {
   }
 }
 
-
 class DerivationPath {
   String? _path;
 
@@ -577,15 +580,18 @@ Future<String> generateMnemonic({required WordCount wordCount}) async {
     throw KeyException.unexpected(e.message);
   }
 }
+
 bool _isValidMnemonic(String mnemonic) {
   var strLen = mnemonic.split(' ').length;
   return ((strLen >= 12) && (strLen <= 24) && strLen % 6 == 0);
 }
 
 _walletInitializationCheck(String? id) {
-  if (id == null) throw const WalletException.unexpected("Wallet not initialized");
+  if (id == null)
+    throw const WalletException.unexpected("Wallet not initialized");
 }
 
 _blockchainInitializationCheck(String? id) {
-  if (id == null) throw const BlockchainException.unexpected("Blockchain not initialized");
+  if (id == null)
+    throw const BlockchainException.unexpected("Blockchain not initialized");
 }

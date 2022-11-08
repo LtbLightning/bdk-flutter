@@ -8,7 +8,6 @@ pub struct TxOut {
     pub address: String,
 }
 
-
 /// A reference to a transaction output.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct OutPoint {
@@ -78,7 +77,7 @@ pub struct BlockTime {
     pub timestamp: u64,
 }
 
-#[derive(Clone, Serialize, Deserialize, )]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct ScriptAmount {
     pub script: String,
     pub amount: u64,
