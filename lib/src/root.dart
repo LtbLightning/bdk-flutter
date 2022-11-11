@@ -29,7 +29,7 @@ class Blockchain {
     try {
       _blockchainInitializationCheck(_id);
       var res =
-          await loaderApi.getBlockchainHeight(blockchainId: _id.toString());
+      await loaderApi.getBlockchainHeight(blockchainId: _id.toString());
       return res;
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
@@ -409,7 +409,7 @@ class Address {
   /// Returns the script pub key of the [Address] object
   Future<Script> scriptPubKey() async {
     final res =
-        await loaderApi.addressToScriptPubkeyHex(address: _address.toString());
+    await loaderApi.addressToScriptPubkeyHex(address: _address.toString());
     final script = Script()._setScriptHex(res);
     return script;
   }
@@ -434,6 +434,25 @@ class DerivationPath {
   }
 }
 
+class Mnemonic{
+  String? _mnemonic;
+  Future<Mnemonic> create(WordCount wordCount) async{
+    _mnemonic = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+    return this;
+  }
+
+  Future<Mnemonic> fromString(String mnemonic) async{
+    _mnemonic = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
+    return this;
+  }
+  Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async{
+    _mnemonic = await loaderApi.generateSeedFromEntropy(entropy: entropy);
+    return this;
+  }
+  String asString(){
+    return  _mnemonic.toString();
+  }
+}
 class DescriptorPublicKey {
   String? _descriptorPublicKey;
 
@@ -477,24 +496,18 @@ class DescriptorPublicKey {
 
 class DescriptorSecretKey {
   final Network network;
-  final String mnemonic;
+  final Mnemonic mnemonic;
   String? password;
   String? _descriptorSecretKey;
   String? _xprv;
 
-  DescriptorSecretKey(
-      {required this.network, required this.mnemonic, this.password}) {
-    if (!_isValidMnemonic(mnemonic.toString())) {
-      throw const KeyException.badWordCount(
-          "The mnemonic length must be a multiple of 6 greater than or equal to 12 and less than 24");
-    }
-  }
+  DescriptorSecretKey({required this.network, required this.mnemonic, this.password});
 
   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
     try {
       if (_xprv == null) {
         _xprv = await loaderApi.createDescriptorSecret(
-            network: network, mnemonic: mnemonic);
+            network: network, mnemonic: mnemonic.asString());
         _descriptorSecretKey = await loaderApi.descriptorSecretDerive(
             xprv: _xprv.toString(), path: derivationPath._path.toString());
       } else {
@@ -511,7 +524,7 @@ class DescriptorSecretKey {
     try {
       if (_xprv == null) {
         _xprv = await loaderApi.createDescriptorSecret(
-            network: network, mnemonic: mnemonic);
+            network: network, mnemonic: mnemonic.asString());
         _descriptorSecretKey = await loaderApi.descriptorSecretExtend(
             xprv: _xprv.toString(), path: derivationPath._path.toString());
       } else {
@@ -528,7 +541,7 @@ class DescriptorSecretKey {
     try {
       if (_xprv == null) {
         _xprv = await loaderApi.createDescriptorSecret(
-            network: network, mnemonic: mnemonic);
+            network: network, mnemonic: mnemonic.asString());
         final xpub = await loaderApi.descriptorSecretAsPublic(
             xprv: _xprv, descriptorSecret: _descriptorSecretKey);
         return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
@@ -546,7 +559,7 @@ class DescriptorSecretKey {
     try {
       if (_xprv == null) {
         _xprv = await loaderApi.createDescriptorSecret(
-            network: network, mnemonic: mnemonic);
+            network: network, mnemonic: mnemonic.asString());
         final res = await loaderApi.descriptorSecretAsSecretBytes(
             xprv: _xprv, descriptorSecret: _descriptorSecretKey);
         return res;
@@ -565,21 +578,13 @@ class DescriptorSecretKey {
       return _descriptorSecretKey.toString();
     } else {
       final res = await loaderApi.createDescriptorSecret(
-          network: network, mnemonic: mnemonic);
+          network: network, mnemonic: mnemonic.asString());
       _xprv = res;
       return res;
     }
   }
 }
 
-Future<String> generateMnemonic({required WordCount wordCount}) async {
-  try {
-    var res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
-    return res;
-  } on FfiException catch (e) {
-    throw KeyException.unexpected(e.message);
-  }
-}
 
 bool _isValidMnemonic(String mnemonic) {
   var strLen = mnemonic.split(' ').length;

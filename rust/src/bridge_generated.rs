@@ -137,6 +137,21 @@ pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_fee_rate",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(get_fee_rate(api_psbt_str))
+        },
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn wire_combine_psbt(
     port_: i64,
     psbt_str: *mut wire_uint_8_list,
@@ -628,6 +643,36 @@ pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32
         move || {
             let api_word_count = word_count.wire2api();
             move |task_callback| Ok(generate_seed_from_word_count(api_word_count))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_generate_seed_from_string(port_: i64, mnemonic: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "generate_seed_from_string",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.wire2api();
+            move |task_callback| Ok(generate_seed_from_string(api_mnemonic))
+        },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire_uint_8_list) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "generate_seed_from_entropy",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_entropy = entropy.wire2api();
+            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
         },
     )
 }

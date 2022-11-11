@@ -57,6 +57,8 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 [Address](#Address)
 
+[Mnemonic](#Mnemonic)
+
 [Script](#Script)
 
 [DerivationPath](#DerivationPath)
@@ -117,6 +119,92 @@ final script = await address.scriptPubKey();
 Returns a `Script` object
 
 ---
+
+### Mnemonic
+
+A mnemonic code.
+
+Supported number of words are 12, 18 and 24.
+
+This class provides the functions needed to support menmonic.
+
+| Method                       | Request Parameters          |
+| -------------------          | --------------------------- |
+| [create()](#create)          | - WordCount wordCount       |
+| [fromString()](#fromString)  | - String mnemonic           |
+| [fromEntropy()](#fromEntropy)| - List<int> entropy         |
+| [asString()](#asString)      |                             |    
+    
+    
+#
+
+### create()
+
+Create a new `Mnemonic` instance given a WordCount.
+
+Required Params: wordCount( `WordCount` )
+
+```dart
+
+final mnemonic = await Mnemonic().create(WordCount.Words12);
+
+```
+
+Returns an `Mnemonic` object
+
+#
+
+### fromString()
+
+Return a `Mnemonic` instance given a `mnemonic` `String`.
+
+Required Params: mnemonic( `String` )
+
+```dart
+
+final mnemonic = await Mnemonic().fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
+
+```
+
+Returns an `Mnemonic` object
+
+#
+
+### fromEntropy()
+
+Return a `Mnemonic` instance given an `entropy` `List`.
+
+Required Params: entropy( `List<int>` )
+
+```dart
+
+final mnemonic = await Mnemonic().fromEntropy([3, 67, 174, 10, 219, 101, 93, 14, 82, 162, 197, 21, 49, 127, 95, 59, 172, 95, 187, 198, 3, 193, 67, 54, 71, 40, 251, 253, 36, 159, 62, 145]);
+
+```
+
+Returns an `Mnemonic` object
+
+#
+
+### asString()
+
+This function will return the `Mnemonic` object as a `String`.
+
+
+```dart
+
+final mnemonicStr = mnemonic.asString();
+
+```
+
+Returned response example:
+
+```dart
+"addict buddy live replace fiction mango enhance flavor benefit message style jar shine target blossom join drip rate sketch wave spoil exhibit where design"
+```
+
+___
+
 
 ### Script
 

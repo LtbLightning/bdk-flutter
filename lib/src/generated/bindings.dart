@@ -42,6 +42,10 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kExtractTxConstMeta;
 
+  Future<double> getFeeRate({required String psbtStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetFeeRateConstMeta;
+
   Future<String> combinePsbt(
       {required String psbtStr, required String other, dynamic hint});
 
@@ -182,6 +186,16 @@ abstract class Rust {
       {required WordCount wordCount, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
+
+  Future<String> generateSeedFromString(
+      {required String mnemonic, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromStringConstMeta;
+
+  Future<String> generateSeedFromEntropy(
+      {required Uint8List entropy, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
 }
 
 enum AddressIndex {
@@ -520,6 +534,22 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
   FlutterRustBridgeTaskConstMeta get kExtractTxConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "extract_tx",
+        argNames: ["psbtStr"],
+      );
+
+  Future<double> getFeeRate({required String psbtStr, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) =>
+            inner.wire_get_fee_rate(port_, _api2wire_String(psbtStr)),
+        parseSuccessData: _wire2api_f32,
+        constMeta: kGetFeeRateConstMeta,
+        argValues: [psbtStr],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetFeeRateConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_fee_rate",
         argNames: ["psbtStr"],
       );
 
@@ -1023,6 +1053,40 @@ class RustImpl extends FlutterRustBridgeBase<RustWire> implements Rust {
         argNames: ["wordCount"],
       );
 
+  Future<String> generateSeedFromString(
+          {required String mnemonic, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_generate_seed_from_string(
+            port_, _api2wire_String(mnemonic)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGenerateSeedFromStringConstMeta,
+        argValues: [mnemonic],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromStringConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "generate_seed_from_string",
+        argNames: ["mnemonic"],
+      );
+
+  Future<String> generateSeedFromEntropy(
+          {required Uint8List entropy, dynamic hint}) =>
+      executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => inner.wire_generate_seed_from_entropy(
+            port_, _api2wire_uint_8_list(entropy)),
+        parseSuccessData: _wire2api_String,
+        constMeta: kGenerateSeedFromEntropyConstMeta,
+        argValues: [entropy],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "generate_seed_from_entropy",
+        argNames: ["entropy"],
+      );
+
   // Section: api2wire
   ffi.Pointer<wire_uint_8_list> _api2wire_String(String raw) {
     return _api2wire_uint_8_list(utf8.encoder.convert(raw));
@@ -1328,6 +1392,10 @@ int _wire2api_box_autoadd_u64(dynamic raw) {
   return raw as int;
 }
 
+double _wire2api_f32(dynamic raw) {
+  return raw as double;
+}
+
 int _wire2api_i32(dynamic raw) {
   return raw as int;
 }
@@ -1556,6 +1624,23 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(
               ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_extract_tx');
   late final _wire_extract_tx = _wire_extract_txPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_fee_rate(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> psbt_str,
+  ) {
+    return _wire_get_fee_rate(
+      port_,
+      psbt_str,
+    );
+  }
+
+  late final _wire_get_fee_ratePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_get_fee_rate');
+  late final _wire_get_fee_rate = _wire_get_fee_ratePtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_combine_psbt(
@@ -2089,6 +2174,42 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_generate_seed_from_word_count =
       _wire_generate_seed_from_word_countPtr
           .asFunction<void Function(int, int)>();
+
+  void wire_generate_seed_from_string(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> mnemonic,
+  ) {
+    return _wire_generate_seed_from_string(
+      port_,
+      mnemonic,
+    );
+  }
+
+  late final _wire_generate_seed_from_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_generate_seed_from_string');
+  late final _wire_generate_seed_from_string =
+      _wire_generate_seed_from_stringPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_generate_seed_from_entropy(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> entropy,
+  ) {
+    return _wire_generate_seed_from_entropy(
+      port_,
+      entropy,
+    );
+  }
+
+  late final _wire_generate_seed_from_entropyPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_generate_seed_from_entropy');
+  late final _wire_generate_seed_from_entropy =
+      _wire_generate_seed_from_entropyPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_BlockchainConfig> new_box_autoadd_blockchain_config_0() {
     return _new_box_autoadd_blockchain_config_0();

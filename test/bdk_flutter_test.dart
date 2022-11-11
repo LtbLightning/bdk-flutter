@@ -19,44 +19,22 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
-@GenerateNiceMocks([MockSpec<BdkFlutter>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
-abstract class BdkFlutter {
-  Future<String> generateMnemonic({required WordCount wordCount});
-}
+
 
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
   final mockSDescriptorPublic = MockDescriptorPublicKey();
   final mockBlockchain = MockBlockchain();
-  final mockBdkFlutter = MockBdkFlutter();
   final mockDerivationPath = MockDerivationPath();
   final mockTxBuilder = MockTxBuilder();
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
   String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
-  group('Generate Mnemonic', () {
-    test('verify  word count', () async {
-      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12))
-          .thenAnswer((_) async =>
-              'puppy interest whip tonight dad never sudden response push zone pig patch');
-      final res =
-          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12);
-      final wordCount = res.split(' ');
-      expect(wordCount.length, 12);
-    });
-    test('verify generated mnemonic', () async {
-      const mnemonic =
-          "uncover melt orient double buyer birth run glad unhappy sport dizzy squeeze top offer axis rare bulk item";
-      when(mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12))
-          .thenAnswer((_) async => mnemonic);
-      final res =
-          await mockBdkFlutter.generateMnemonic(wordCount: WordCount.Words12);
-      expect(mnemonic, res);
-    });
-  });
+  
+  //TODO:: Add mnemonic test cases as per ffi v0.11.0
   group('Blockchain', () {
     test('verify create', () async {
       final defaultConfig = BlockchainConfig.electrum(

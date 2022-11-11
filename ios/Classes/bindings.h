@@ -119,6 +119,8 @@ void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 void wire_extract_tx(int64_t port_, struct wire_uint_8_list *psbt_str);
 
+void wire_get_fee_rate(int64_t port_, struct wire_uint_8_list *psbt_str);
+
 void wire_combine_psbt(int64_t port_,
                        struct wire_uint_8_list *psbt_str,
                        struct wire_uint_8_list *other);
@@ -210,6 +212,10 @@ void wire_list_unspent(int64_t port_, struct wire_uint_8_list *wallet_id);
 
 void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
 
+void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnemonic);
+
+void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
+
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
 struct wire_DatabaseConfig *new_box_autoadd_database_config_0(void);
@@ -256,6 +262,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
+    dummy_var ^= ((int64_t) (void*) wire_get_fee_rate);
     dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
     dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish);
@@ -279,6 +286,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_network);
     dummy_var ^= ((int64_t) (void*) wire_list_unspent);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);

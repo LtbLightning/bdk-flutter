@@ -1,36 +1,32 @@
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
-
+use bdk::bitcoin::blockdata::script::Script as BdkScript;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::psbt::serialize::Serialize;
 use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
-use bdk::bitcoin::util::psbt::PartiallySignedTransaction;
-use bdk::bitcoin::{
-    Address as BdkAddress, Network, OutPoint as BdkOutPoint, Script as BdkScript, Txid,
-};
+use bdk::bitcoin::util::psbt::PartiallySignedTransaction as BdkPartiallySignedTransaction;
+use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Txid};
 use bdk::blockchain::any::AnyBlockchain;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
-use bdk::keys::bip39::{Language, Mnemonic, WordCount};
+use bdk::keys::bip39::{Language, Mnemonic as BdkMnemonic, WordCount};
 use bdk::keys::{
     DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
     DescriptorSecretKey as BdkDescriptorSecretKey, ExtendedKey, GeneratableKey, GeneratedKey,
 };
 use bdk::miniscript::BareCtx;
+use bdk::psbt::PsbtUtils;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
-use bdk::Error as BdkError;
+
 use bdk::{
-    Balance as BdkBalance, BlockTime as BdkBlockTime, Error, KeychainKind, SignOptions,
-    SyncOptions, Wallet as BdkWallet,
+    Balance as BdkBalance, BlockTime as BdkBlockTime, Error as BdkError, Error, FeeRate,
+    KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet,
 };
 
-use crate::types::{
-    AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo, OutPoint,
-    TransactionDetails, TxOut,
-};
+use crate::types::{AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo,  OutPoint, TransactionDetails, TxOut};
 use crate::utils::config_database;
 
 impl From<AddressIndex> for BdkAddressIndex {
@@ -184,21 +180,22 @@ impl Wallet {
             .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
             .collect())
     }
-    pub fn sign(&self, psbt: &PartiallySignedBitcoinTransaction) -> Result<bool, Error> {
+    pub fn sign(&self, psbt: &PartiallySignedTransaction) -> Result<bool, Error> {
         let mut psbt = psbt.internal.lock().unwrap();
         self.get_wallet().sign(&mut psbt, SignOptions::default())
     }
 }
 
 #[derive(Debug)]
-pub struct PartiallySignedBitcoinTransaction {
-    pub internal: Mutex<PartiallySignedTransaction>,
+pub struct PartiallySignedTransaction {
+    pub internal: Mutex<BdkPartiallySignedTransaction>,
 }
 
-impl PartiallySignedBitcoinTransaction {
+impl PartiallySignedTransaction {
     pub fn new(psbt_base64: String) -> Result<Self, BdkError> {
-        let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
-        Ok(PartiallySignedBitcoinTransaction {
+        let psbt: BdkPartiallySignedTransaction =
+            BdkPartiallySignedTransaction::from_str(&psbt_base64)?;
+        Ok(PartiallySignedTransaction {
             internal: Mutex::new(psbt),
         })
     }
@@ -224,20 +221,23 @@ impl PartiallySignedBitcoinTransaction {
             .serialize()
     }
 
-    /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
+    /// Combines this BdkPartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
     pub fn combine(
         &self,
-        other: Arc<PartiallySignedBitcoinTransaction>,
-    ) -> Result<Arc<PartiallySignedBitcoinTransaction>, BdkError> {
+        other: Arc<PartiallySignedTransaction>,
+    ) -> Result<Arc<PartiallySignedTransaction>, BdkError> {
         let other_psbt = other.internal.lock().unwrap().clone();
         let mut original_psbt = self.internal.lock().unwrap().clone();
 
         original_psbt.combine(other_psbt)?;
-        Ok(Arc::new(PartiallySignedBitcoinTransaction {
+        Ok(Arc::new(PartiallySignedTransaction {
             internal: Mutex::new(original_psbt),
         }))
+    }
+    pub fn fee_rate(&self) -> Option<Arc<FeeRate>> {
+        self.internal.lock().unwrap().fee_rate().map(Arc::new)
     }
 }
 
@@ -245,13 +245,6 @@ pub fn to_script_pubkey(address: &str) -> Result<BdkScript, BdkError> {
     BdkAddress::from_str(address)
         .map(|x| x.script_pubkey())
         .map_err(|e| BdkError::Generic(e.to_string()))
-}
-
-pub fn generate_mnemonic_from_word_count(word_count: WordCount) -> Mnemonic {
-    let mnemonic_gen: GeneratedKey<_, BareCtx> =
-        Mnemonic::generate((word_count, Language::English)).unwrap();
-    let mnemonic = mnemonic_gen.clone().into_key();
-    mnemonic
 }
 
 pub struct DerivationPath {
@@ -297,12 +290,11 @@ impl Address {
 impl DescriptorSecretKey {
     pub fn new(
         network: Network,
-        mnemonic: String,
+        mnemonic: Mnemonic,
         password: Option<String>,
     ) -> Result<Self, BdkError> {
-        let mnemonic = Mnemonic::parse_in(Language::English, mnemonic)
-            .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let xkey: ExtendedKey = (mnemonic, password).into_extended_key()?;
+        let mnemonic = mnemonic.internal.clone();
+        let xkey: ExtendedKey = (mnemonic, password).into_extended_key().unwrap();
         let descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
             origin: None,
             xkey: xkey.into_xprv(network).unwrap(),
@@ -335,7 +327,7 @@ impl DescriptorSecretKey {
                     descriptor_secret_key_mutex: Mutex::new(derived_descriptor_secret_key),
                 }))
             }
-            BdkDescriptorSecretKey::SinglePriv(_) => {
+            BdkDescriptorSecretKey::Single(_) => {
                 unreachable!()
             }
         }
@@ -357,33 +349,33 @@ impl DescriptorSecretKey {
                     descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
                 }))
             }
-            BdkDescriptorSecretKey::SinglePriv(_) => {
+            BdkDescriptorSecretKey::Single(_) => {
                 unreachable!()
             }
         }
     }
 
-    pub fn as_public(&self) -> Result<DescriptorPublicKey, BdkError> {
+    pub fn as_public(&self) -> Result<Arc<DescriptorPublicKey>, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
             .descriptor_secret_key_mutex
             .lock()
             .unwrap()
-            .as_public(&secp)
+            .to_public(&secp)
             .unwrap();
-        Ok(DescriptorPublicKey {
+        Ok(Arc::new(DescriptorPublicKey {
             descriptor_public_key_mutex: Mutex::new(descriptor_public_key),
-        })
+        }))
     }
 
     /// Get the private key as bytes.
-    pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
+    pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError>  {
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let secret_bytes: Vec<u8> = match descriptor_secret_key.deref() {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 descriptor_x_key.xkey.private_key.secret_bytes().to_vec()
             }
-            BdkDescriptorSecretKey::SinglePriv(_) => {
+            BdkDescriptorSecretKey::Single(_) => {
                 unreachable!()
             }
         };
@@ -435,7 +427,7 @@ impl DescriptorPublicKey {
                     descriptor_public_key_mutex: Mutex::new(derived_descriptor_public_key),
                 }))
             }
-            BdkDescriptorPublicKey::SinglePub(_) => {
+            BdkDescriptorPublicKey::Single(_) => {
                 unreachable!()
             }
         }
@@ -457,7 +449,7 @@ impl DescriptorPublicKey {
                     descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
                 }))
             }
-            BdkDescriptorPublicKey::SinglePub(_) => {
+            BdkDescriptorPublicKey::Single(_) => {
                 unreachable!()
             }
         }
@@ -465,6 +457,40 @@ impl DescriptorPublicKey {
 
     pub fn as_string(&self) -> String {
         self.descriptor_public_key_mutex.lock().unwrap().to_string()
+    }
+}
+
+pub struct Mnemonic {
+  pub  internal: BdkMnemonic,
+}
+
+impl Mnemonic {
+    /// Generates Mnemonic with a random entropy
+   pub fn new(word_count: WordCount) -> Self {
+        let generated_key: GeneratedKey<_, BareCtx> =
+            BdkMnemonic::generate((word_count, Language::English)).unwrap();
+        let mnemonic = BdkMnemonic::parse_in(Language::English, generated_key.to_string()).unwrap();
+        Mnemonic { internal: mnemonic }
+    }
+
+    /// Parse a Mnemonic with given string
+   pub fn from_str(mnemonic: String) -> Result<Self, BdkError> {
+        BdkMnemonic::from_str(&mnemonic)
+            .map(|m| Mnemonic { internal: m })
+            .map_err(|e| BdkError::Generic(e.to_string()))
+    }
+
+    /// Create a new Mnemonic in the specified language from the given entropy.
+    /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
+   pub fn from_entropy(entropy: Vec<u8>) -> Result<Self, BdkError> {
+        BdkMnemonic::from_entropy(entropy.as_slice())
+            .map(|m| Mnemonic { internal: m })
+            .map_err(|e| BdkError::Generic(e.to_string()))
+    }
+
+    /// Returns Mnemonic as string
+    pub fn as_string(&self) -> String {
+        self.internal.to_string()
     }
 }
 

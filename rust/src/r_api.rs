@@ -13,10 +13,7 @@ use bdk::wallet::tx_builder::ChangeSpendPolicy;
 use bdk::{Error, FeeRate};
 use lazy_static::lazy_static;
 
-use crate::ffi::{
-    generate_mnemonic_from_word_count, to_script_pubkey, Address, DerivationPath,
-    DescriptorPublicKey, DescriptorSecretKey, PartiallySignedBitcoinTransaction, Script, Wallet,
-};
+use crate::ffi::{to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, PartiallySignedTransaction, Script, Wallet, Mnemonic};
 use crate::types::{
     AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig, LocalUtxo, Network,
     OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
@@ -74,7 +71,7 @@ pub fn get_blockchain_hash(blockchain_height: u64, id: String) -> String {
 pub fn broadcast(psbt_str: String, blockchain_id: String) -> String {
     let any_blockchain = BLOCKCHAIN.read().unwrap().clone();
     let blockchain = get_blockchain_(blockchain_id, any_blockchain).unwrap();
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
     let tx = psbt.internal.lock().unwrap().clone().extract_tx();
     blockchain.broadcast(&tx.clone()).unwrap();
     tx.txid().to_string()
@@ -83,18 +80,21 @@ pub fn broadcast(psbt_str: String, blockchain_id: String) -> String {
 //========Psbt==========
 
 pub fn psbt_to_txid(psbt_str: String) -> String {
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str);
+    let psbt = PartiallySignedTransaction::new(psbt_str);
     psbt.unwrap().txid().to_string()
 }
 
 pub fn extract_tx(psbt_str: String) -> Vec<u8> {
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str);
+    let psbt = PartiallySignedTransaction::new(psbt_str);
     psbt.unwrap().extract_tx()
 }
-
+pub fn get_fee_rate(psbt_str: String) -> f32 {
+    let psbt = PartiallySignedTransaction::new(psbt_str);
+    psbt.unwrap().fee_rate().unwrap().as_sat_per_vb()
+}
 pub fn combine_psbt(psbt_str: String, other: String) -> String {
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
-    let other = PartiallySignedBitcoinTransaction::new(other).unwrap();
+    let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
+    let other = PartiallySignedTransaction::new(other).unwrap();
     psbt.combine(Arc::new(other)).unwrap().serialize()
 }
 
@@ -158,7 +158,7 @@ pub fn tx_builder_finish(
         tx_builder.enable_rbf();
     }
     if let Some(n_sequence) = n_sequence {
-        tx_builder.enable_rbf_with_sequence(n_sequence);
+        tx_builder.enable_rbf_with_sequence(bdk::bitcoin::Sequence(n_sequence));
     }
     if !data.is_empty() {
         tx_builder.add_data(data.as_slice());
@@ -166,7 +166,7 @@ pub fn tx_builder_finish(
 
     let (psbt, tx_details) = tx_builder.finish().unwrap();
     TxBuilderResult {
-        psbt: Arc::new(PartiallySignedBitcoinTransaction {
+        psbt: Arc::new(PartiallySignedTransaction {
             internal: Mutex::new(psbt),
         })
         .serialize(),
@@ -204,13 +204,13 @@ pub fn bump_fee_tx_builder_finish(
         tx_builder.allow_shrinking(script).unwrap();
     }
     if let Some(n_sequence) = n_sequence {
-        tx_builder.enable_rbf_with_sequence(n_sequence);
+        tx_builder.enable_rbf_with_sequence(bdk::bitcoin::Sequence(n_sequence));
     }
     if enable_rbf {
         tx_builder.enable_rbf();
     }
     let psbt = tx_builder.finish().map(|(psbt, _)| {
-        PartiallySignedBitcoinTransaction {
+        PartiallySignedTransaction {
             internal: Mutex::new(psbt),
         }
         .serialize()
@@ -313,6 +313,7 @@ fn descriptor_secret_config(
                 panic!("DescriptorSecret Extend Error:{:?}", e)
             }
         }
+
     };
 }
 
@@ -322,6 +323,7 @@ pub fn create_descriptor_secret(
     password: Option<String>,
 ) -> String {
     let node_network = config_network(network);
+    let mnemonic = Mnemonic::from_str(mnemonic).unwrap();
     return match DescriptorSecretKey::new(node_network, mnemonic, password) {
         Ok(e) => e.as_string(),
         Err(e) => {
@@ -466,7 +468,7 @@ pub fn get_transactions(wallet_id: String) -> Vec<TransactionDetails> {
 pub fn sign(wallet_id: String, psbt_str: String, is_multi_sig: bool) -> Option<String> {
     let wallets = WALLET.read().unwrap().clone();
     let wallet = get_wallet_(wallet_id, wallets).unwrap();
-    let psbt = PartiallySignedBitcoinTransaction::new(psbt_str).unwrap();
+    let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
     return match wallet.sign(&psbt).unwrap() {
         true => Some(psbt.serialize()),
         false => {
@@ -492,94 +494,31 @@ pub fn list_unspent(wallet_id: String) -> Vec<LocalUtxo> {
     wallet.list_unspent().unwrap()
 }
 
-//==================
+//================== Mnemonic ==========
 
 pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
     let word_count = config_word_count(word_count);
-    let mnemonic = generate_mnemonic_from_word_count(word_count);
-    mnemonic.to_string()
+    let mnemonic = Mnemonic::new(word_count);
+    mnemonic.as_string()
 }
 
-#[cfg(test)]
-mod tests {
-    use crate::r_api::{
-        blockchain_init, generate_seed_from_word_count, get_balance, get_transactions, sync_wallet,
-        tx_builder_finish, wallet_init,
-    };
-    use crate::types::{
-        BlockchainConfig, DatabaseConfig, ElectrumConfig, Network, ScriptAmount, WordCount,
-    };
-
-    #[test]
-    fn get_transactions_test() {
-        let wallet_id = _init_wallet();
-        let blockchain_id = _init_blockchain();
-        sync_wallet(wallet_id.clone(), blockchain_id);
-        assert_eq!(get_transactions(wallet_id).is_empty(), false);
-    }
-
-    #[test]
-    fn get_wallet_balance_test() {
-        let wallet_id = _init_wallet();
-        let blockchain_id = _init_blockchain();
-        sync_wallet(wallet_id.clone(), blockchain_id);
-        let res = get_balance(wallet_id);
-        assert_eq!(res.total, 1238709)
-    }
-
-    #[test]
-    fn tx_builder_test() {
-        let wallet_id = _init_wallet();
-        let blockchain_id = _init_blockchain();
-        sync_wallet(wallet_id.clone(), blockchain_id);
-        let a = tx_builder_finish(
-            wallet_id.clone(),
-            vec![ScriptAmount {
-                script: "0014ff9da567e62f30ea8654fa1d5fbd47bef8e3be13".to_string(),
-                amount: 1200,
-            }],
-            vec![],
-            vec![],
-            false,
-            false,
-            false,
-            Some(1.0),
-            None,
-            false,
-            None,
-            false,
-            None,
-            vec![],
-        );
-        assert_eq!(a.psbt, "1238709")
-    }
-
-    fn _init_blockchain() -> String {
-        let y = blockchain_init(BlockchainConfig::Electrum {
-            config: ElectrumConfig {
-                url: "ssl://electrum.blockstream.info:60002".to_string(),
-                socks5: None,
-                retry: 10,
-                timeout: None,
-                stop_gap: 10,
-            },
-        });
-        y
-    }
-
-    fn _init_wallet() -> String {
-        let x = wallet_init(
-            "wpkh([d91e6add/84'/0'/0']tprv8gnnA5Zcbjai6d1mWvQatrK8c9eHfUAKSgJLoHfiryJb6gNBnQeAT7UuKKFmaBJUrc7pzyszqujrwxijJbDPBPi5edtPsm3jZ3pnNUzHbpm/*)".to_string(),
-            Some("wpkh([d91e6add/84'/0'/1']tprv8gnnA5Zcbjai9Wfiec82h4oP8R92SNuNFFD5g8Kqu8hMd3kb8h93wGynk4vgCH3tfoGkDvCroMtqaiMGnqHudQoEYd89297VuybvNWfgPuL/*)".to_string()),
-            Network::Testnet,
-            DatabaseConfig::Memory,
-        );
-        x
-    }
-
-    #[test]
-    fn generate_mnemonic_word_count_test() {
-        let mnemonic = generate_seed_from_word_count(WordCount::Words12);
-        assert_eq!(mnemonic.split(" ").count(), 12)
+pub fn generate_seed_from_string(mnemonic:String) -> String {
+    let mnemonic = Mnemonic::from_str(mnemonic);
+    match mnemonic {
+        Ok(e) => e.as_string(),
+        Err(e) => {
+            panic!("MnemonicError, {:?}", e)
+        }
     }
 }
+
+    pub fn generate_seed_from_entropy(entropy:Vec<u8>) -> String {
+        let mnemonic = Mnemonic::from_entropy(entropy);
+        match mnemonic {
+            Ok(e) => e.as_string(),
+            Err(e) => {
+                panic!("MnemonicError, {:?}", e)
+            }
+        }
+    }
+

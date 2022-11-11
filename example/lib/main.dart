@@ -26,24 +26,24 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateMnemonicKeys() async {
-    final res = await generateMnemonic(wordCount: WordCount.Words12);
-    print(res);
+    final res = await Mnemonic().create(WordCount.Words12);
+    print(res.asString());
   }
 
   restoreWallet() async {
     aliceWallet = await Wallet().create(
         descriptor:
-            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+        "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     print("init Complete");
   }
 
   createDescriptorSecret() async {
+    final mnemonic = await Mnemonic().fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = DescriptorSecretKey(
       network: Network.Testnet,
-      mnemonic:
-          'puppy interest whip tonight dad never sudden response push zone pig patch',
+      mnemonic: mnemonic ,
     );
 
     final path = await DerivationPath().create(path: DEFAULT_DERIVATION_PATH);
@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
 
   getNewAddress() async {
     final alice =
-        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+    await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
     print(alice.address);
     print(alice.index);
   }
