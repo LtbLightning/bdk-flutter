@@ -13,7 +13,10 @@ use bdk::wallet::tx_builder::ChangeSpendPolicy;
 use bdk::{Error, FeeRate};
 use lazy_static::lazy_static;
 
-use crate::ffi::{to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, PartiallySignedTransaction, Script, Wallet, Mnemonic};
+use crate::ffi::{
+    to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic,
+    PartiallySignedTransaction, Script, Wallet,
+};
 use crate::types::{
     AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig, LocalUtxo, Network,
     OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
@@ -313,7 +316,6 @@ fn descriptor_secret_config(
                 panic!("DescriptorSecret Extend Error:{:?}", e)
             }
         }
-
     };
 }
 
@@ -502,7 +504,7 @@ pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
     mnemonic.as_string()
 }
 
-pub fn generate_seed_from_string(mnemonic:String) -> String {
+pub fn generate_seed_from_string(mnemonic: String) -> String {
     let mnemonic = Mnemonic::from_str(mnemonic);
     match mnemonic {
         Ok(e) => e.as_string(),
@@ -512,13 +514,12 @@ pub fn generate_seed_from_string(mnemonic:String) -> String {
     }
 }
 
-    pub fn generate_seed_from_entropy(entropy:Vec<u8>) -> String {
-        let mnemonic = Mnemonic::from_entropy(entropy);
-        match mnemonic {
-            Ok(e) => e.as_string(),
-            Err(e) => {
-                panic!("MnemonicError, {:?}", e)
-            }
+pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> String {
+    let mnemonic = Mnemonic::from_entropy(entropy);
+    match mnemonic {
+        Ok(e) => e.as_string(),
+        Err(e) => {
+            panic!("MnemonicError, {:?}", e)
         }
     }
-
+}

@@ -14,7 +14,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Blockchain>()])
 @GenerateNiceMocks([MockSpec<DescriptorSecretKey>()])
 @GenerateNiceMocks([MockSpec<DescriptorPublicKey>()])
-@GenerateNiceMocks([MockSpec<PartiallySignedBitcoinTransaction>()])
+@GenerateNiceMocks([MockSpec<PartiallySignedTransaction>()])
 @GenerateNiceMocks([MockSpec<TxBuilder>()])
 @GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
 @GenerateNiceMocks([MockSpec<Script>()])
@@ -32,22 +32,8 @@ void main() {
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
-  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
-  
-  //TODO:: Add mnemonic test cases as per ffi v0.11.0
+  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'/0";
   group('Blockchain', () {
-    test('verify create', () async {
-      final defaultConfig = BlockchainConfig.electrum(
-          config: ElectrumConfig(
-              stopGap: 10,
-              timeout: 5,
-              retry: 5,
-              url: "ssl://electrum.blockstream.info:60002"));
-      when(mockBlockchain.create(config: defaultConfig))
-          .thenAnswer((_) async => Blockchain());
-      final res = await mockBlockchain.create(config: defaultConfig);
-      expect(res, isA<Blockchain>());
-    });
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
       final res = await mockBlockchain.getHeight();
@@ -192,15 +178,12 @@ void main() {
   });
   group('DescriptorSecret', () {
     test('verify derive()', () async {
-      final path =
-          await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      final res = await mockSDescriptorSecret.derive(path);
+      final res = await mockSDescriptorSecret.derive(mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
     });
     test('verify extend()', () async {
-      final path =
-          await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      final res = await mockSDescriptorSecret.extend(path);
+
+      final res = await mockSDescriptorSecret.extend(mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
     });
     test('verify asPublic()', () async {
@@ -214,15 +197,13 @@ void main() {
   });
   group('DescriptorPublic', () {
     test('verify derive()', () async {
-      final path =
-          await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      final res = await mockSDescriptorPublic.derive(path);
+
+      final res = await mockSDescriptorPublic.derive(mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify extend()', () async {
-      final path =
-          await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      final res = await mockSDescriptorPublic.extend(path);
+
+      final res = await mockSDescriptorPublic.extend(mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify asString', () async {
@@ -289,14 +270,11 @@ void main() {
     });
     test('Verify necessary function are called for a  psbt transaction ',
         () async {
-      await mockAddress.create(address: "2N4eQYCbKUHCCTUjBJeHcJp9ok6J2GZsTDt");
       final script = await mockAddress.scriptPubKey();
       mockTxBuilder.addRecipient(script, 1200);
       mockTxBuilder.feeRate(1.2);
       await mockTxBuilder.finish(mockWallet);
 
-      verify(mockAddress.create(address: "2N4eQYCbKUHCCTUjBJeHcJp9ok6J2GZsTDt"))
-          .called(1);
       verify(mockAddress.scriptPubKey()).called(1);
       verify(mockTxBuilder.addRecipient(mockScript, 1200)).called(1);
       verify(mockTxBuilder.feeRate(any)).called(1);
@@ -308,16 +286,14 @@ void main() {
           "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
-      when(mockAddress.create(address: "2N4eQYCbKUHCCTUjBJeHcJp9ok6J2GZsTDt"))
-          .thenAnswer((_) async => mockAddress);
+
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer(
-          (_) async => PartiallySignedBitcoinTransaction(psbtBase64: psbt));
-      final address = await mockAddress.create(
-          address: "2N4eQYCbKUHCCTUjBJeHcJp9ok6J2GZsTDt");
-      final script = await address.scriptPubKey();
+          (_) async => PartiallySignedTransaction(psbtBase64: psbt));
+
+      final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
       final res = await txBuilder.finish(mockWallet);
       expect(res.psbtBase64, psbt);
@@ -336,51 +312,12 @@ void main() {
     });
   });
   group('Address', () {
-    test('verify create()', () async {
-      when(mockAddress.create(
-              address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt"))
-          .thenAnswer((_) async => mockAddress);
-      final res = await mockAddress.create(
-          address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
-      expect(res, isA<Address>());
-    });
-    test('verify create() exception', () async {
-      try {
-        when(mockAddress.create(
-                address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt"))
-            .thenThrow(const WalletException.invalidAddress("Invalid address"));
-        await mockAddress.create(
-            address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
-      } catch (error) {
-        expect(error, const WalletException.invalidAddress("Invalid address"));
-        expect(error, isA<WalletException>());
-      }
-    });
+
+
     test('verify scriptPubKey()', () async {
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       final res = await mockAddress.scriptPubKey();
       expect(res, isA<Script>());
-    });
-  });
-  group('Derivation Path', () {
-    test('verify create()', () async {
-      when(mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH))
-          .thenAnswer((_) async => mockDerivationPath);
-      final res =
-          await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      expect(res, isA<DerivationPath>());
-    });
-    test('verify create() exception', () async {
-      try {
-        when(mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH))
-            .thenThrow(
-                const PathException.invalidPath("Invalid Derivation Path"));
-        await mockDerivationPath.create(path: DEFAULT_DERIVATION_PATH);
-      } catch (error) {
-        expect(
-            error, const PathException.invalidPath("Invalid Derivation Path"));
-        expect(error, isA<PathException>());
-      }
     });
   });
   group('Script', () {

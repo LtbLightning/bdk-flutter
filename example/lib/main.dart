@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
+  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'/0";
   late Wallet aliceWallet;
 
   late Blockchain blockchain;
@@ -26,12 +26,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateMnemonicKeys() async {
-    final res = await Mnemonic().create(WordCount.Words12);
+    final res = await Mnemonic.create(WordCount.Words12);
     print(res.asString());
   }
 
   restoreWallet() async {
-    aliceWallet = await Wallet().create(
+    aliceWallet = await Wallet.create(
         descriptor:
         "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
         network: Network.Testnet,
@@ -40,13 +40,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   createDescriptorSecret() async {
-    final mnemonic = await Mnemonic().fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
-    final descriptorSecretKey = DescriptorSecretKey(
+    final mnemonic = await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
+    final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic ,
     );
 
-    final path = await DerivationPath().create(path: DEFAULT_DERIVATION_PATH);
+    final path = await DerivationPath.create(path: DEFAULT_DERIVATION_PATH);
     final xprv = await descriptorSecretKey.asString();
     final sec = await descriptorSecretKey.secretBytes();
     final xpub = await descriptorSecretKey.asPublic();
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    blockchain = await Blockchain().create(
+    blockchain = await Blockchain.create(
         config: BlockchainConfig.electrum(
             config: ElectrumConfig(
                 stopGap: 10,
@@ -141,7 +141,7 @@ class _MyAppState extends State<MyApp> {
 
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address = await Address()
+    final address = await Address
         .create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder

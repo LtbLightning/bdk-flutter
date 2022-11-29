@@ -198,13 +198,23 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
 }
 
+/// The address index selection strategy to use to derived an address from the wallet's external
+/// descriptor.
 enum AddressIndex {
+  ///Return a new address after incrementing the current descriptor index.
   New,
+
+  ///Return the address for the current descriptor index if it has not been used in a received transaction. Otherwise return a new address as with AddressIndex.New.
+  ///Use with caution, if the wallet has not yet detected an address has been used it could return an already used address. This function is primarily meant for situations where the caller is untrusted; for example when deriving donation addresses on-demand for a public web page.
   LastUnused,
 }
 
+///A derived address and the index it was found at For convenience this automatically derefs to Address
 class AddressInfo {
+  ///Child index of this address
   final int index;
+
+  /// Address
   final String address;
 
   AddressInfo({
@@ -242,8 +252,12 @@ class Balance {
   });
 }
 
+///Block height and timestamp of a block
 class BlockTime {
+  ///Confirmation block height
   final int height;
+
+  ///Confirmation block timestamp
   final int timestamp;
 
   BlockTime({
@@ -265,19 +279,34 @@ class BlockchainConfig with _$BlockchainConfig {
 @freezed
 class DatabaseConfig with _$DatabaseConfig {
   const factory DatabaseConfig.memory() = Memory;
+
+  ///Simple key-value embedded database based on sled
   const factory DatabaseConfig.sqlite({
     required SqliteDbConfiguration config,
   }) = Sqlite;
+
+  ///Sqlite embedded database using rusqlite
   const factory DatabaseConfig.sled({
     required SledDbConfiguration config,
   }) = Sled;
 }
 
+/// Configuration for an ElectrumBlockchain
 class ElectrumConfig {
+  ///URL of the Electrum server (such as ElectrumX, Esplora, BWT) may start with ssl:// or tcp:// and include a port
+  ///eg. ssl://electrum.blockstream.info:60002
   final String url;
+
+  ///URL of the socks5 proxy server or a Tor service
   final String? socks5;
+
+  ///Request retry count
   final int retry;
+
+  ///Request timeout (seconds)
   final int? timeout;
+
+  ///Stop searching addresses for transactions after finding an unused gap of this length
   final int stopGap;
 
   ElectrumConfig({
@@ -289,11 +318,26 @@ class ElectrumConfig {
   });
 }
 
+///Configuration for an EsploraBlockchain
 class EsploraConfig {
+  ///Base URL of the esplora service
+  ///eg. https://blockstream.info/api/
   final String baseUrl;
+
+  ///  Optional URL of the proxy to use to make requests to the Esplora server
+  /// The string should be formatted as: <protocol>://<user>:<password>@host:<port>.
+  /// Note that the format of this value and the supported protocols change slightly between the sync version of esplora (using ureq) and the async version (using reqwest).
+  ///  For more details check with the documentation of the two crates. Both of them are compiled with the socks feature enabled.
+  /// The proxy is ignored when targeting wasm32.
   final String? proxy;
+
+  ///Number of parallel requests sent to the esplora service (default: 4)
   final int? concurrency;
+
+  ///Stop searching addresses for transactions after finding an unused gap of this length.
   final int stopGap;
+
+  ///Socket timeout.
   final int? timeout;
 
   EsploraConfig({
@@ -307,8 +351,13 @@ class EsploraConfig {
 
 /// Unspent outputs of this wallet
 class LocalUtxo {
+  /// Reference to a transaction output
   final OutPoint outpoint;
+
+  ///Transaction output
   final TxOut txout;
+
+  ///Whether this UTXO is spent or not
   final bool isSpent;
 
   LocalUtxo({
@@ -318,10 +367,18 @@ class LocalUtxo {
   });
 }
 
+///The cryptocurrency to act on
 enum Network {
+  ///Bitcoin’s testnet
   Testnet,
+
+  ///Bitcoin’s regtest
   Regtest,
+
+  ///Classic Bitcoin
   Bitcoin,
+
+  ///Bitcoin’s signet
   Signet,
 }
 
@@ -339,6 +396,7 @@ class OutPoint {
   });
 }
 
+/// A output script and an amount of satoshis.
 class ScriptAmount {
   final String script;
   final int amount;
@@ -349,8 +407,12 @@ class ScriptAmount {
   });
 }
 
+///Configuration type for a sled Tree database
 class SledDbConfiguration {
+  ///Main directory of the db
   final String path;
+
+  ///Name of the database tree, a separated namespace for the data
   final String treeName;
 
   SledDbConfiguration({
@@ -359,7 +421,9 @@ class SledDbConfiguration {
   });
 }
 
+///Configuration type for a SqliteDatabase database
 class SqliteDbConfiguration {
+  ///Main directory of the db
   final String path;
 
   SqliteDbConfiguration({
@@ -367,6 +431,7 @@ class SqliteDbConfiguration {
   });
 }
 
+///A wallet transaction
 class TransactionDetails {
   /// Transaction id.
   final String txid;
@@ -402,6 +467,8 @@ class TransactionDetails {
 /// transaction details.
 class TxBuilderResult {
   final String psbt;
+
+  ///A wallet transaction
   final TransactionDetails transactionDetails;
 
   TxBuilderResult({
@@ -424,9 +491,15 @@ class TxOut {
   });
 }
 
+///Type describing entropy length (aka word count) in the mnemonic
 enum WordCount {
+  ///12 words mnemonic (128 bits entropy)
   Words12,
+
+  ///18 words mnemonic (192 bits entropy)
   Words18,
+
+  ///24 words mnemonic (256 bits entropy)
   Words24,
 }
 
