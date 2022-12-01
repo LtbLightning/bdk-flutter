@@ -1,6 +1,3 @@
-use std::ops::Deref;
-use std::str::FromStr;
-use std::sync::{Arc, Mutex, MutexGuard};
 use bdk::bitcoin::blockdata::script::Script as BdkScript;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::psbt::serialize::Serialize;
@@ -9,8 +6,12 @@ use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction as BdkPartiallySignedTransaction;
 use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Txid};
 use bdk::blockchain::any::AnyBlockchain;
+use bdk::blockchain::{
+    AnyBlockchainConfig, Blockchain, ConfigurableBlockchain, ElectrumBlockchainConfig,
+    GetBlockHash, GetHeight,
+};
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor};
+use bdk::descriptor::DescriptorXKey;
 use bdk::keys::bip39::{Language, Mnemonic as BdkMnemonic, WordCount};
 use bdk::keys::{
     DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
@@ -20,13 +21,20 @@ use bdk::miniscript::BareCtx;
 use bdk::psbt::PsbtUtils;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
+use std::ops::Deref;
+use std::str::FromStr;
+use std::sync::{Arc, Mutex, MutexGuard};
 
+use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::{
     Balance as BdkBalance, BlockTime as BdkBlockTime, Error as BdkError, Error, FeeRate,
-    KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet,
+    SignOptions, SyncOptions, Wallet as BdkWallet,
 };
 
-use crate::types::{AddressIndex, AddressInfo, Balance, BlockTime, DatabaseConfig, LocalUtxo,  OutPoint, TransactionDetails, TxOut};
+use crate::types::{
+    AddressIndex, AddressInfo, Balance, BlockTime, BlockchainConfig, DatabaseConfig, LocalUtxo,
+    OutPoint, TransactionDetails, TxOut,
+};
 use crate::utils::config_database;
 
 impl From<AddressIndex> for BdkAddressIndex {
@@ -121,11 +129,64 @@ impl NetworkLocalUtxo for LocalUtxo {
     }
 }
 
-pub struct Wallet {
-    pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
+pub struct BlockchainInstance {
+    pub blockchain_mutex: Mutex<AnyBlockchain>,
 }
 
-impl Wallet {
+impl BlockchainInstance {
+    pub fn new(blockchain_config: BlockchainConfig) -> Result<Self, BdkError> {
+        let any_blockchain_config = match blockchain_config {
+            BlockchainConfig::Electrum { config } => {
+                AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
+                    retry: config.retry,
+                    socks5: config.socks5,
+                    timeout: config.timeout,
+                    url: config.url,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                })
+            }
+            BlockchainConfig::Esplora { config } => {
+                AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
+                    base_url: config.base_url,
+                    proxy: config.proxy,
+                    concurrency: config.concurrency,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                    timeout: config.timeout,
+                })
+            }
+        };
+        let blockchain = AnyBlockchain::from_config(&any_blockchain_config)?;
+        Ok(Self {
+            blockchain_mutex: Mutex::new(blockchain),
+        })
+    }
+
+    pub fn get_blockchain(&self) -> MutexGuard<AnyBlockchain> {
+        self.blockchain_mutex.lock().expect("blockchain")
+    }
+
+    pub(crate) fn broadcast(&self, psbt: &PartiallySignedTransaction) -> Result<String, BdkError> {
+        let tx = psbt.internal.lock().unwrap().clone().extract_tx();
+        self.get_blockchain()
+            .broadcast(&tx.clone())
+            .expect("Broadcast Error");
+        return Ok(tx.txid().to_string());
+    }
+
+    pub fn get_height(&self) -> Result<u32, BdkError> {
+        self.get_blockchain().get_height()
+    }
+
+    pub fn get_block_hash(&self, height: u32) -> Result<String, BdkError> {
+        self.get_blockchain()
+            .get_block_hash(u64::from(height))
+            .map(|hash| hash.to_string())
+    }
+}
+pub struct WalletInstance {
+    pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
+}
+impl WalletInstance {
     pub fn new(
         descriptor: String,
         change_descriptor: Option<String>,
@@ -137,20 +198,17 @@ impl Wallet {
         let res = Mutex::new(
             BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
         );
-        Ok(Wallet { wallet_mutex: res })
+        Ok(WalletInstance { wallet_mutex: res })
     }
     pub fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }
 
-    pub fn get_public_descriptor(&self) -> Result<Option<ExtendedDescriptor>, Error> {
-        self.get_wallet().public_descriptor(KeychainKind::External)
-    }
-
-    pub fn sync(&self, blockchain: &AnyBlockchain) {
+    pub fn sync(&self, blockchain: &BlockchainInstance) {
+        let blockchain = blockchain.get_blockchain();
         self.get_wallet()
-            .sync(blockchain, SyncOptions::default())
-            .unwrap();
+            .sync(blockchain.deref(), SyncOptions::default())
+            .unwrap()
     }
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
     /// on the internal database, which first needs to be Wallet.sync manually.
@@ -369,7 +427,7 @@ impl DescriptorSecretKey {
     }
 
     /// Get the private key as bytes.
-    pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError>  {
+    pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
         let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
         let secret_bytes: Vec<u8> = match descriptor_secret_key.deref() {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
@@ -461,12 +519,12 @@ impl DescriptorPublicKey {
 }
 
 pub struct Mnemonic {
-  pub  internal: BdkMnemonic,
+    pub internal: BdkMnemonic,
 }
 
 impl Mnemonic {
     /// Generates Mnemonic with a random entropy
-   pub fn new(word_count: WordCount) -> Self {
+    pub fn new(word_count: WordCount) -> Self {
         let generated_key: GeneratedKey<_, BareCtx> =
             BdkMnemonic::generate((word_count, Language::English)).unwrap();
         let mnemonic = BdkMnemonic::parse_in(Language::English, generated_key.to_string()).unwrap();
@@ -474,7 +532,7 @@ impl Mnemonic {
     }
 
     /// Parse a Mnemonic with given string
-   pub fn from_str(mnemonic: String) -> Result<Self, BdkError> {
+    pub fn from_str(mnemonic: String) -> Result<Self, BdkError> {
         BdkMnemonic::from_str(&mnemonic)
             .map(|m| Mnemonic { internal: m })
             .map_err(|e| BdkError::Generic(e.to_string()))
@@ -482,7 +540,7 @@ impl Mnemonic {
 
     /// Create a new Mnemonic in the specified language from the given entropy.
     /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
-   pub fn from_entropy(entropy: Vec<u8>) -> Result<Self, BdkError> {
+    pub fn from_entropy(entropy: Vec<u8>) -> Result<Self, BdkError> {
         BdkMnemonic::from_entropy(entropy.as_slice())
             .map(|m| Mnemonic { internal: m })
             .map_err(|e| BdkError::Generic(e.to_string()))

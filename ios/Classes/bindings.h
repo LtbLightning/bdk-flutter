@@ -2,6 +2,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+typedef int64_t DartPort;
+
+typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
+
 typedef struct wire_uint_8_list {
   uint8_t *ptr;
   int32_t len;
@@ -15,9 +19,9 @@ typedef struct wire_ElectrumConfig {
   uint64_t stop_gap;
 } wire_ElectrumConfig;
 
-typedef struct BlockchainConfig_Electrum {
+typedef struct wire_BlockchainConfig_Electrum {
   struct wire_ElectrumConfig *config;
-} BlockchainConfig_Electrum;
+} wire_BlockchainConfig_Electrum;
 
 typedef struct wire_EsploraConfig {
   struct wire_uint_8_list *base_url;
@@ -27,19 +31,27 @@ typedef struct wire_EsploraConfig {
   uint64_t *timeout;
 } wire_EsploraConfig;
 
-typedef struct BlockchainConfig_Esplora {
+typedef struct wire_BlockchainConfig_Esplora {
   struct wire_EsploraConfig *config;
-} BlockchainConfig_Esplora;
+} wire_BlockchainConfig_Esplora;
 
 typedef union BlockchainConfigKind {
-  struct BlockchainConfig_Electrum *Electrum;
-  struct BlockchainConfig_Esplora *Esplora;
+  struct wire_BlockchainConfig_Electrum *Electrum;
+  struct wire_BlockchainConfig_Esplora *Esplora;
 } BlockchainConfigKind;
 
 typedef struct wire_BlockchainConfig {
   int32_t tag;
   union BlockchainConfigKind *kind;
 } wire_BlockchainConfig;
+
+typedef struct wire_BlockchainInstance {
+  const void *ptr;
+} wire_BlockchainInstance;
+
+typedef struct wire_WalletInstance {
+  const void *ptr;
+} wire_WalletInstance;
 
 typedef struct wire_ScriptAmount {
   struct wire_uint_8_list *script;
@@ -61,31 +73,31 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
-typedef struct DatabaseConfig_Memory {
+typedef struct wire_DatabaseConfig_Memory {
 
-} DatabaseConfig_Memory;
+} wire_DatabaseConfig_Memory;
 
 typedef struct wire_SqliteDbConfiguration {
   struct wire_uint_8_list *path;
 } wire_SqliteDbConfiguration;
 
-typedef struct DatabaseConfig_Sqlite {
+typedef struct wire_DatabaseConfig_Sqlite {
   struct wire_SqliteDbConfiguration *config;
-} DatabaseConfig_Sqlite;
+} wire_DatabaseConfig_Sqlite;
 
 typedef struct wire_SledDbConfiguration {
   struct wire_uint_8_list *path;
   struct wire_uint_8_list *tree_name;
 } wire_SledDbConfiguration;
 
-typedef struct DatabaseConfig_Sled {
+typedef struct wire_DatabaseConfig_Sled {
   struct wire_SledDbConfiguration *config;
-} DatabaseConfig_Sled;
+} wire_DatabaseConfig_Sled;
 
 typedef union DatabaseConfigKind {
-  struct DatabaseConfig_Memory *Memory;
-  struct DatabaseConfig_Sqlite *Sqlite;
-  struct DatabaseConfig_Sled *Sled;
+  struct wire_DatabaseConfig_Memory *Memory;
+  struct wire_DatabaseConfig_Sqlite *Sqlite;
+  struct wire_DatabaseConfig_Sled *Sled;
 } DatabaseConfigKind;
 
 typedef struct wire_DatabaseConfig {
@@ -99,21 +111,19 @@ typedef struct WireSyncReturnStruct {
   bool success;
 } WireSyncReturnStruct;
 
-typedef int64_t DartPort;
-
-typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
+void store_dart_post_cobject(DartPostCObjectFnType ptr);
 
 void wire_blockchain_init(int64_t port_, struct wire_BlockchainConfig *config);
 
-void wire_get_blockchain_height(int64_t port_, struct wire_uint_8_list *blockchain_id);
+void wire_get_blockchain_height(int64_t port_, struct wire_BlockchainInstance blockchain);
 
 void wire_get_blockchain_hash(int64_t port_,
-                              uint64_t blockchain_height,
-                              struct wire_uint_8_list *id);
+                              uint32_t blockchain_height,
+                              struct wire_BlockchainInstance blockchain);
 
 void wire_broadcast(int64_t port_,
                     struct wire_uint_8_list *psbt_str,
-                    struct wire_uint_8_list *blockchain_id);
+                    struct wire_BlockchainInstance blockchain);
 
 void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
@@ -126,7 +136,7 @@ void wire_combine_psbt(int64_t port_,
                        struct wire_uint_8_list *other);
 
 void wire_tx_builder_finish(int64_t port_,
-                            struct wire_uint_8_list *wallet_id,
+                            struct wire_WalletInstance wallet,
                             struct wire_list_script_amount *recipients,
                             struct wire_list_out_point *utxos,
                             struct wire_list_out_point *unspendable,
@@ -145,7 +155,7 @@ void wire_bump_fee_tx_builder_finish(int64_t port_,
                                      struct wire_uint_8_list *txid,
                                      float fee_rate,
                                      struct wire_uint_8_list *allow_shrinking,
-                                     struct wire_uint_8_list *wallet_id,
+                                     struct wire_WalletInstance wallet,
                                      bool enable_rbf,
                                      uint32_t *n_sequence);
 
@@ -189,32 +199,36 @@ void wire_wallet_init(int64_t port_,
                       int32_t network,
                       struct wire_DatabaseConfig *database_config);
 
-void wire_get_address(int64_t port_, struct wire_uint_8_list *wallet_id, int32_t address_index);
+void wire_get_address(int64_t port_, struct wire_WalletInstance wallet, int32_t address_index);
 
 void wire_sync_wallet(int64_t port_,
-                      struct wire_uint_8_list *wallet_id,
-                      struct wire_uint_8_list *blockchain_id);
+                      struct wire_WalletInstance wallet,
+                      struct wire_BlockchainInstance blockchain);
 
-void wire_get_balance(int64_t port_, struct wire_uint_8_list *wallet_id);
+void wire_get_balance(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_list_unspent_outputs(int64_t port_, struct wire_uint_8_list *wallet_id);
+void wire_list_unspent_outputs(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_get_transactions(int64_t port_, struct wire_uint_8_list *wallet_id);
+void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet);
 
 void wire_sign(int64_t port_,
-               struct wire_uint_8_list *wallet_id,
+               struct wire_WalletInstance wallet,
                struct wire_uint_8_list *psbt_str,
                bool is_multi_sig);
 
-void wire_get_network(int64_t port_, struct wire_uint_8_list *wallet_id);
+void wire_get_network(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_list_unspent(int64_t port_, struct wire_uint_8_list *wallet_id);
+void wire_list_unspent(int64_t port_, struct wire_WalletInstance wallet);
 
 void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
 
 void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnemonic);
 
 void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
+
+struct wire_BlockchainInstance new_BlockchainInstance(void);
+
+struct wire_WalletInstance new_WalletInstance(void);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
@@ -242,6 +256,14 @@ struct wire_list_script_amount *new_list_script_amount_0(int32_t len);
 
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
 
+void drop_opaque_BlockchainInstance(const void *ptr);
+
+const void *share_opaque_BlockchainInstance(const void *ptr);
+
+void drop_opaque_WalletInstance(const void *ptr);
+
+const void *share_opaque_WalletInstance(const void *ptr);
+
 union BlockchainConfigKind *inflate_BlockchainConfig_Electrum(void);
 
 union BlockchainConfigKind *inflate_BlockchainConfig_Esplora(void);
@@ -251,8 +273,6 @@ union DatabaseConfigKind *inflate_DatabaseConfig_Sqlite(void);
 union DatabaseConfigKind *inflate_DatabaseConfig_Sled(void);
 
 void free_WireSyncReturnStruct(struct WireSyncReturnStruct val);
-
-void store_dart_post_cobject(DartPostCObjectFnType ptr);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
@@ -288,6 +308,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
+    dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
+    dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
@@ -301,6 +323,10 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_list_out_point_0);
     dummy_var ^= ((int64_t) (void*) new_list_script_amount_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
+    dummy_var ^= ((int64_t) (void*) drop_opaque_BlockchainInstance);
+    dummy_var ^= ((int64_t) (void*) share_opaque_BlockchainInstance);
+    dummy_var ^= ((int64_t) (void*) drop_opaque_WalletInstance);
+    dummy_var ^= ((int64_t) (void*) share_opaque_WalletInstance);
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Electrum);
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Esplora);
     dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_Sqlite);

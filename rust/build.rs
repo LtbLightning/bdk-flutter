@@ -23,16 +23,9 @@ fn main() {
         // for other options use defaults
         dart_decl_output: None,
         c_output: Some(vec![C_OUTPUT.to_string()]),
-        rust_crate_dir: None,
-        rust_output: None,
-        class_name: None,
-        dart_format_line_length: None,
-        skip_add_mod_to_lib: false,
-        llvm_path: None,
-        llvm_compiler_opts: None,
-        dart_root: None,
-        no_build_runner: true,
-        verbose: true,
+        dart_format_line_length: 120,
+        // for other options use defaults
+        ..Default::default()
     };
     // get opts from raw opts
     let configs = config_parse(raw_opts);

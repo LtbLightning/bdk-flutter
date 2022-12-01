@@ -1,14 +1,10 @@
 use bdk::bitcoin::Network as BdkNetwork;
-use bdk::blockchain::esplora::EsploraBlockchainConfig;
-use bdk::blockchain::{
-    AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
-};
 use bdk::database::any::{SledDbConfiguration, SqliteDbConfiguration};
 use bdk::database::AnyDatabaseConfig;
 use bdk::keys::bip39::WordCount as BdkWordCount;
 use bdk::KeychainKind as BdkKeychainKind;
 
-use crate::types::{BlockchainConfig, DatabaseConfig, KeyChainKind, Network, WordCount};
+use crate::types::{DatabaseConfig, KeyChainKind, Network, WordCount};
 
 pub fn config_network(network: Network) -> BdkNetwork {
     return match network {
@@ -35,31 +31,6 @@ pub fn config_word_count(word_count: WordCount) -> BdkWordCount {
         WordCount::Words18 => BdkWordCount::Words18,
         WordCount::Words24 => BdkWordCount::Words24,
     };
-}
-
-pub fn config_blockchain(blockchain_config: BlockchainConfig) -> AnyBlockchain {
-    let any_blockchain_config = match blockchain_config {
-        BlockchainConfig::Electrum { config } => {
-            AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
-                retry: config.retry,
-                socks5: config.socks5,
-                timeout: config.timeout,
-                url: config.url,
-                stop_gap: usize::try_from(config.stop_gap).unwrap(),
-            })
-        }
-        BlockchainConfig::Esplora { config } => {
-            AnyBlockchainConfig::Esplora(EsploraBlockchainConfig {
-                base_url: config.base_url,
-                proxy: config.proxy,
-                concurrency: config.concurrency,
-                stop_gap: usize::try_from(config.stop_gap).unwrap(),
-                timeout: config.timeout,
-            })
-        }
-    };
-    let blockchain = AnyBlockchain::from_config(&any_blockchain_config).unwrap();
-    blockchain
 }
 
 #[allow(dead_code)]

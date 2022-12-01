@@ -1,7 +1,6 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/utils/exceptions/blockchain_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exception.dart';
-import 'package:bdk_flutter/src/utils/exceptions/path_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,8 +19,6 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
-
-
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -182,7 +179,6 @@ void main() {
       expect(res, isA<DescriptorSecretKey>());
     });
     test('verify extend()', () async {
-
       final res = await mockSDescriptorSecret.extend(mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
     });
@@ -197,12 +193,10 @@ void main() {
   });
   group('DescriptorPublic', () {
     test('verify derive()', () async {
-
       final res = await mockSDescriptorPublic.derive(mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify extend()', () async {
-
       final res = await mockSDescriptorPublic.extend(mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
@@ -312,8 +306,6 @@ void main() {
     });
   });
   group('Address', () {
-
-
     test('verify scriptPubKey()', () async {
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       final res = await mockAddress.scriptPubKey();

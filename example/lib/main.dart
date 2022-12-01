@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'/0";
+  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
   late Wallet aliceWallet;
 
   late Blockchain blockchain;
@@ -33,17 +33,18 @@ class _MyAppState extends State<MyApp> {
   restoreWallet() async {
     aliceWallet = await Wallet.create(
         descriptor:
-        "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     print("init Complete");
   }
 
   createDescriptorSecret() async {
-    final mnemonic = await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
+    final mnemonic = await Mnemonic.fromString(
+        'puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
-      mnemonic: mnemonic ,
+      mnemonic: mnemonic,
     );
 
     final path = await DerivationPath.create(path: DEFAULT_DERIVATION_PATH);
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
 
   getNewAddress() async {
     final alice =
-    await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
     print(alice.address);
     print(alice.index);
   }
@@ -141,8 +142,8 @@ class _MyAppState extends State<MyApp> {
 
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address = await Address
-        .create(address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+    final address = await Address.create(
+        address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder
         .addRecipient(script, 1000)

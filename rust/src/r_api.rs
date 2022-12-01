@@ -1,83 +1,50 @@
-use std::collections::hash_map::DefaultHasher;
-use std::collections::HashMap;
-use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::str::FromStr;
-use std::sync::{Arc, Mutex, RwLock};
+use std::sync::{Arc, Mutex};
 
+pub use crate::ffi::BlockchainInstance;
+pub use crate::ffi::WalletInstance;
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
-use bdk::blockchain::{AnyBlockchain, Blockchain as BdkBlockChain, GetBlockHash, GetHeight};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::wallet::tx_builder::ChangeSpendPolicy;
 use bdk::{Error, FeeRate};
-use lazy_static::lazy_static;
+use flutter_rust_bridge::Opaque;
 
 use crate::ffi::{
     to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic,
-    PartiallySignedTransaction, Script, Wallet,
+    PartiallySignedTransaction, Script,
 };
 use crate::types::{
     AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig, LocalUtxo, Network,
     OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
 };
-use crate::utils::{config_bdk_network, config_blockchain, config_network, config_word_count};
-
-lazy_static! {
-    static ref BLOCKCHAIN: RwLock<HashMap<String, Arc<AnyBlockchain>>> =
-        RwLock::new(HashMap::new());
-    static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
-}
-fn to_hash(str: String) -> u64 {
-    let mut hasher = DefaultHasher::new();
-    str.clone().hash(&mut hasher);
-    let x = hasher.finish();
-    x
-}
+use crate::utils::{config_bdk_network, config_network, config_word_count};
 
 //========Blockchain==========
-fn get_blockchain_(
-    blockchain_id: String,
-    blockchain_map: HashMap<String, Arc<AnyBlockchain>>,
-) -> Result<Arc<AnyBlockchain>, Error> {
-    let blockchain = blockchain_map.get(blockchain_id.as_str()).unwrap();
-    Ok(blockchain.clone())
+
+pub fn blockchain_init(config: BlockchainConfig) -> Opaque<BlockchainInstance> {
+    let blockchain = BlockchainInstance::new(config);
+    return match blockchain.is_err() {
+        false => Opaque::new(blockchain.unwrap()),
+        true => panic!("Error creating blockchain"),
+    };
 }
 
-pub fn blockchain_init(config: BlockchainConfig) -> String {
-    let blockchain_obj = Arc::new(config_blockchain(config));
-    let mut any_blockchain = BLOCKCHAIN.write().unwrap();
-    let hash = to_hash(blockchain_obj.clone().get_height().unwrap().to_string()).to_hex();
-    let mut blockchain_map = any_blockchain.clone();
-    blockchain_map.insert(hash.clone(), blockchain_obj.clone());
-    *any_blockchain = blockchain_map;
-    hash
-}
-
-pub fn get_blockchain_height(blockchain_id: String) -> u32 {
-    let any_blockchain = BLOCKCHAIN.read().unwrap().clone();
-    let blockchain = get_blockchain_(blockchain_id, any_blockchain).unwrap();
+pub fn get_blockchain_height(blockchain: Opaque<BlockchainInstance>) -> u32 {
     blockchain.get_height().unwrap()
 }
 
-pub fn get_blockchain_hash(blockchain_height: u64, id: String) -> String {
-    let any_blockchain = BLOCKCHAIN.read().unwrap().clone();
-    let blockchain = get_blockchain_(id, any_blockchain).unwrap();
-    let x = blockchain
-        .get_block_hash(blockchain_height)
-        .unwrap()
-        .as_hash()
-        .to_string();
-    x
+pub fn get_blockchain_hash(
+    blockchain_height: u32,
+    blockchain: Opaque<BlockchainInstance>,
+) -> String {
+    blockchain.get_block_hash(blockchain_height).unwrap()
 }
 
-pub fn broadcast(psbt_str: String, blockchain_id: String) -> String {
-    let any_blockchain = BLOCKCHAIN.read().unwrap().clone();
-    let blockchain = get_blockchain_(blockchain_id, any_blockchain).unwrap();
+pub fn broadcast(psbt_str: String, blockchain: Opaque<BlockchainInstance>) -> String {
     let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
-    let tx = psbt.internal.lock().unwrap().clone().extract_tx();
-    blockchain.broadcast(&tx.clone()).unwrap();
-    tx.txid().to_string()
+    blockchain.broadcast(&psbt).unwrap()
 }
 
 //========Psbt==========
@@ -103,7 +70,7 @@ pub fn combine_psbt(psbt_str: String, other: String) -> String {
 
 //========TxBuilder==========
 pub fn tx_builder_finish(
-    wallet_id: String,
+    wallet: Opaque<WalletInstance>,
     recipients: Vec<ScriptAmount>,
     utxos: Vec<OutPoint>,
     unspendable: Vec<OutPoint>,
@@ -118,10 +85,9 @@ pub fn tx_builder_finish(
     n_sequence: Option<u32>,
     data: Vec<u8>,
 ) -> TxBuilderResult {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
-    let wallet = wallet.get_wallet();
-    let mut tx_builder = wallet.build_tx();
+    let binding = wallet.get_wallet();
+    let mut tx_builder = binding.build_tx();
+
     for e in recipients {
         let script = Script::from_hex(e.script).unwrap();
         tx_builder.add_recipient(script.script, e.amount);
@@ -183,15 +149,12 @@ pub fn bump_fee_tx_builder_finish(
     txid: String,
     fee_rate: f32,
     allow_shrinking: Option<String>,
-    wallet_id: String,
+    wallet: Opaque<WalletInstance>,
     enable_rbf: bool,
     n_sequence: Option<u32>,
 ) -> String {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
     let txid = Txid::from_str(txid.as_str()).unwrap();
     let bdk_wallet = wallet.get_wallet();
-
     let mut tx_builder = match bdk_wallet.build_fee_bump(txid) {
         Ok(e) => e,
         Err(e) => {
@@ -392,84 +355,55 @@ pub fn address_to_script_pubkey_hex(address: String) -> String {
 }
 
 //========Wallet==========
-fn set_wallet(wallet: Arc<Wallet>) -> String {
-    let mut wallets = WALLET.write().unwrap();
-    let pub_descriptor = wallet.get_public_descriptor().unwrap().unwrap().to_string();
-    let wallet_id = to_hash(pub_descriptor).to_hex();
-    println!("{}", wallet_id);
-    let mut wallet_map = wallets.clone();
-    wallet_map.insert(wallet_id.clone(), wallet);
-    *wallets = wallet_map;
-    wallet_id.clone()
-}
 
 pub fn wallet_init(
     descriptor: String,
     change_descriptor: Option<String>,
     network: Network,
     database_config: DatabaseConfig,
-) -> String {
+) -> Opaque<WalletInstance> {
     let node_network = config_network(network.clone());
-    let wallet_obj = Wallet::new(
+    let wallet_obj = WalletInstance::new(
         descriptor.clone(),
         change_descriptor,
         node_network,
         database_config,
     )
     .unwrap();
-    let wallet = Arc::new(wallet_obj);
-    let id = set_wallet(wallet.clone());
-    id
-}
-
-fn get_wallet_(
-    wallet_id: String,
-    wallet_map: HashMap<String, Arc<Wallet>>,
-) -> Result<Arc<Wallet>, Error> {
-    let wallet = wallet_map.get(wallet_id.as_str()).unwrap();
-    Ok(wallet.clone())
+    Opaque::new(wallet_obj)
 }
 
 //Return a derived address using the external descriptor,
-pub fn get_address(wallet_id: String, address_index: AddressIndex) -> AddressInfo {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+
+pub fn get_address(wallet: Opaque<WalletInstance>, address_index: AddressIndex) -> AddressInfo {
     let address = wallet.get_address(address_index).unwrap();
     address
 }
 
-pub fn sync_wallet(wallet_id: String, blockchain_id: String) {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
-    let blockchains = BLOCKCHAIN.read().unwrap().clone();
-    let blockchain = get_blockchain_(blockchain_id, blockchains).unwrap();
+pub fn sync_wallet(wallet: Opaque<WalletInstance>, blockchain: Opaque<BlockchainInstance>) {
     wallet.sync(blockchain.deref());
 }
 
-pub fn get_balance(wallet_id: String) -> Balance {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn get_balance(wallet: Opaque<WalletInstance>) -> Balance {
     let balance = wallet.get_balance().unwrap();
     balance
 }
 
 //Return the list of unspent outputs of this wallet
-pub fn list_unspent_outputs(wallet_id: String) -> Vec<LocalUtxo> {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn list_unspent_outputs(wallet: Opaque<WalletInstance>) -> Vec<LocalUtxo> {
     let unspent = wallet.list_unspent();
     unspent.unwrap()
 }
 
-pub fn get_transactions(wallet_id: String) -> Vec<TransactionDetails> {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn get_transactions(wallet: Opaque<WalletInstance>) -> Vec<TransactionDetails> {
     wallet.list_transactions().unwrap()
 }
 
-pub fn sign(wallet_id: String, psbt_str: String, is_multi_sig: bool) -> Option<String> {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn sign(
+    wallet: Opaque<WalletInstance>,
+    psbt_str: String,
+    is_multi_sig: bool,
+) -> Option<String> {
     let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
     return match wallet.sign(&psbt).unwrap() {
         true => Some(psbt.serialize()),
@@ -483,16 +417,12 @@ pub fn sign(wallet_id: String, psbt_str: String, is_multi_sig: bool) -> Option<S
     };
 }
 
-pub fn get_network(wallet_id: String) -> Network {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn get_network(wallet: Opaque<WalletInstance>) -> Network {
     let network = config_bdk_network(wallet.get_wallet().network());
     network
 }
 
-pub fn list_unspent(wallet_id: String) -> Vec<LocalUtxo> {
-    let wallets = WALLET.read().unwrap().clone();
-    let wallet = get_wallet_(wallet_id, wallets).unwrap();
+pub fn list_unspent(wallet: Opaque<WalletInstance>) -> Vec<LocalUtxo> {
     wallet.list_unspent().unwrap()
 }
 

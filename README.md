@@ -1,110 +1,82 @@
-## Bdk-Flutter
-
+### Bdk-Flutter
 A Flutter implementation of the [Bitcoin Development Kit](https://bitcoindevkit.org/)
 
-
-## Table of Contents
-
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Library API](#library-api)
-
-## Requirements
-
-### Flutter
-
-- Flutter version : 3.0 or higher
-- Dart version : 2.17.1 or higher
-
-### Android
-
+### Requirements
+- Flutter  : 3.0 or higher
 - Android minSdkVersion. : API 23 or higher.
-- Android Target SDK version : API 29.
-
-### iOS
-
-- iOS Base SDK : 12 or greater.
 - Deployment target : iOS 12.0 or greater.
 
-## Installation
-
-To use this plugin, add `bdk_flutter` as a dependency in your pubspec.yaml file.
-
-## Sample applications
-
-* **BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
-  is a simple testnet Bitcoin wallet built as a reference app for the bdk-flutter on Flutter.
-
-## Usage
+### How to Use
+To use the `bdk_flutter` package for your project add the 
+following as a dependency to your pubspec.yaml:
 
 ```dart
-
+dependencies:
+  bdk_flutter: ^0.1.5
+```
+You may then import and use the bdk_flutter plugin in your Flutter code. For example:
+```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
 
+// ....
+
+final externalDescriptor = "wpkh([b8b575c2/84'/1'/0'/0]tprv8icWtRzy9CWgFxpGMLSdAeE4wWyz39XGc6SwykeTo13tYm14JkVVQAf7jz8DDarCgNJrG3aEPJEqchDWeJdiaWpS3FwbLB9SzsN57V7qxB/*)"
+final internalDescriptor = "wpkh([b8b575c2/84'/1'/0'/1]tprv8icWtRzy9CWgFxpGMLSdAeE4wWyz39XGc6SwykeTo13tYm14JkVVQAf7jz8DDarCgNJrG3aEPJEqchDWeJdiaWpS3FwbLB9SzsN57V7qxB/*)"
+
+  final blockchain  = await Blockchain.create(
+                            config: BlockchainConfig.electrum(
+                                config: ElectrumConfig(
+                                    stopGap: 10,
+                                    timeout: 5,
+                                    retry: 5,
+                                    url: "ssl://electrum.blockstream.info:60002")));
+  final wallet      = await Wallet.create( externalDescriptor, internalDescriptor, Network.TESTNET, databaseConfig: const DatabaseConfig.memory());
+  final addressInfo = await wallet.getAddress(addressIndex: AddressIndex.New);
+                      await wallet.sync(blockchain);
 ```
 
-## API Documentation
+### API Documentation
+The latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
 
-The Latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
+### Example Projects
+- * **BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
+  is a simple testnet Bitcoin wallet built as a reference app for the bdk-flutter on Flutter.
+  
+### How to build
+_Note that Flutter version `3.0` or later is required to build the plugin._
 
+  1. Install `Rust` and `Cargo`
+The easiest way to get Cargo is to install the current stable release of Rust by using [rustup](https://doc.rust-lang.org/cargo/getting-started/installation.html). Installing Rust using rustup will also install cargo.
 
-## Building from Rust Code
+2. Clone this repository
+    ```shell
+    git clone https://github.com/LtbLightning/bdk-flutter.git
+    ```
 
-bdk_flutter uses bdk at its core, which is written in rust. To build, from the rust code or if you wish to make changes to the rust code and build, please consider the following.
+3. Activate dart `ffigen`
+    ```shell
+    dart pub global activate ffigen
+    ```
 
+4. Android Setup 
+- The [Android NDK](https://developer.android.com/ndk), or Native Development Kit, enables code written in other languages to be run on the JVM via the Java Native Interface, or JNI for short. 
+After following the instructions above, the NDK should be installed in your $ANDROID_SDK_HOME/ndk folder, where ANDROID_SDK_HOME usually is:
+    <br/> Windows: %APPDATA%\Local\Android\sdk
+    <br/> MacOS: ~/Library/Android/sdk
 
-### Cloning
+  An [issue](https://github.com/rust-lang/rust/pull/85806) regarding building Rust's core library against the latest NDK means that as of writing only NDK versions 22 and older can be used.
 
-Install [Rust](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+  You can alternatively use the latest version of the Android NDK which is greater than 22. However, this requires a hack to prevent the [`unable to find library -lgcc error`](https://github.com/rust-lang/rust/pull/85806#issuecomment-1096266946).
 
-And then clone the repository:
+5. Build flutter bindings
+    by navigating to `rust` directory, and run the following commands
+    ```shell
+    cargo build
+    make all
+    ```
 
-```bash
-
-git clone https://github.com/LtbLightning/bdk-flutter.git
-
-```
-### Environment Setup
-
-In order to build and generate bindings from scratch for android, you will need install Andorid NDK. Click here to know more about [Android NDK](https://developer.android.com/ndk)
-
-#### Android 
-
-Once NDK installed, specify your NDK path location ANDROID_NDK_HOME in `rust/makefile`
-
-Replace line ANDROID_NDK_HOME=(path to NDK) in rust/makefile.
-
-### Generating Rust-to-Flutter-bindings
-
-Wrapper codes for [bdk](https://crates.io/crates/bdk) is in `rust/src/r_api.rs file`, please include your public functions in r_api.rs, if you want to build new functions, so that the code generator can generate the binaries, and the bindings code properly.
- 
-Once you are ready, please navigate to the `rust` directory, and run  the following commands
-
-```rust
-
-cargo build
-
-make all
-
-```
-#### Updating Binary Files 
-
-After building the code run the following bash command to replace the binaries with the new ones
-
-```bash
-
-sh zip.sh
-
-```
-Once the script finishes running, you should see the new binaries in the ./ios and android/src/main/jniLibs folders. 
-
-## Generating Docs Manually
-
-The API documentation is automatically generated and available on pub.dev when package is published. To generate manually please use the [Dart documentation generator](https://pub.dev/packages/dartdoc) to generate the API documentation manually. 
-
-
-Thanks for checking out the bdk_flutter code! We're excited to hear and learn from you. Your experiences will benefit others who read and use these guides.
+###  _Generating Docs Manually (Optional)_
+Please use the [Dart documentation generator](https://pub.dev/packages/dartdoc) to generate the API documentation. 
 
 _Note: Caution this is pre-Alpha at this stage
 Please consider reviewing, experimenting, and contributing ⚡️_
