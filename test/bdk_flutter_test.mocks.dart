@@ -108,10 +108,10 @@ class _FakeScript_7 extends _i1.SmartFake implements _i2.Script {
 /// See the documentation for Mockito's code generation for more information.
 class MockWallet extends _i1.Mock implements _i2.Wallet {
   @override
-  set offlineWallet(_i2.WalletInstance? _offlineWallet) => super.noSuchMethod(
+  set walletInstance(_i2.WalletInstance? _walletInstance) => super.noSuchMethod(
         Invocation.setter(
-          #offlineWallet,
-          _offlineWallet,
+          #walletInstance,
+          _walletInstance,
         ),
         returnValueForMissingStub: null,
       );
@@ -238,11 +238,11 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
 /// See the documentation for Mockito's code generation for more information.
 class MockBlockchain extends _i1.Mock implements _i2.Blockchain {
   @override
-  set bdkBlockchain(_i2.BlockchainInstance? _bdkBlockchain) =>
+  set blockchainInstance(_i2.BlockchainInstance? _blockchainInstance) =>
       super.noSuchMethod(
         Invocation.setter(
-          #bdkBlockchain,
-          _bdkBlockchain,
+          #blockchainInstance,
+          _blockchainInstance,
         ),
         returnValueForMissingStub: null,
       );

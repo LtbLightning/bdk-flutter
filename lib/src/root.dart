@@ -11,7 +11,7 @@ import 'utils/utils.dart';
 
 /// [Blockchain] backends  module provides the implementation of a few commonly-used backends like [Electrum], and [Esplora].
 class Blockchain {
-  BlockchainInstance? bdkBlockchain;
+  BlockchainInstance? blockchainInstance;
   Blockchain._();
 
   ///  [Blockchain] constructor
@@ -23,7 +23,7 @@ class Blockchain {
 
   Future<Blockchain> _create({required BlockchainConfig config}) async {
     final res = await loaderApi.blockchainInit(config: config);
-    bdkBlockchain = res;
+    blockchainInstance = res;
     return this;
   }
 
@@ -31,7 +31,7 @@ class Blockchain {
   Future<String> getBlockHash(int height) async {
     try {
       var res = await loaderApi.getBlockchainHash(
-          blockchainHeight: height, blockchain: bdkBlockchain!);
+          blockchainHeight: height, blockchain: blockchainInstance!);
       return res;
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
@@ -41,7 +41,8 @@ class Blockchain {
   /// The function for getting the current height of the blockchain.
   Future<int> getHeight() async {
     try {
-      var res = await loaderApi.getBlockchainHeight(blockchain: bdkBlockchain!);
+      var res =
+          await loaderApi.getBlockchainHeight(blockchain: blockchainInstance!);
       return res;
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
@@ -52,7 +53,7 @@ class Blockchain {
   Future<void> broadcast(PartiallySignedTransaction psbt) async {
     try {
       final txid = await loaderApi.broadcast(
-          psbtStr: psbt.psbtBase64, blockchain: bdkBlockchain!);
+          psbtStr: psbt.psbtBase64, blockchain: blockchainInstance!);
       print(txid);
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
@@ -67,7 +68,7 @@ class Blockchain {
 ///     2. A Database where it tracks transactions and utxos related to the descriptors.
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 class Wallet {
-  WalletInstance? offlineWallet;
+  WalletInstance? walletInstance;
   Wallet._();
 
   ///  [Wallet] constructor
@@ -101,7 +102,7 @@ class Wallet {
       network: network,
       databaseConfig: databaseConfig,
     );
-    offlineWallet = res;
+    walletInstance = res;
     return this;
   }
 
@@ -110,7 +111,7 @@ class Wallet {
   Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getAddress(
-          wallet: offlineWallet!, addressIndex: addressIndex);
+          wallet: walletInstance!, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -122,7 +123,7 @@ class Wallet {
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<Balance> getBalance() async {
     try {
-      var res = await loaderApi.getBalance(wallet: offlineWallet!);
+      var res = await loaderApi.getBalance(wallet: walletInstance!);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -132,7 +133,7 @@ class Wallet {
   ///Get the Bitcoin network the wallet is using.
   Future<Network> network() async {
     try {
-      var res = await loaderApi.getNetwork(wallet: offlineWallet!);
+      var res = await loaderApi.getNetwork(wallet: walletInstance!);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -144,7 +145,7 @@ class Wallet {
   /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<List<LocalUtxo>> listUnspent() async {
     try {
-      var res = await loaderApi.listUnspentOutputs(wallet: offlineWallet!);
+      var res = await loaderApi.listUnspentOutputs(wallet: walletInstance!);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -156,7 +157,7 @@ class Wallet {
     try {
       print("Syncing wallet");
       await loaderApi.syncWallet(
-          wallet: offlineWallet!, blockchain: blockchain.bdkBlockchain!);
+          wallet: walletInstance!, blockchain: blockchain.blockchainInstance!);
       print("Sync complete");
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -166,7 +167,7 @@ class Wallet {
   ///Return an unsorted list of transactions made and received by the wallet
   Future<List<TransactionDetails>> listTransactions() async {
     try {
-      final res = await loaderApi.getTransactions(wallet: offlineWallet!);
+      final res = await loaderApi.getTransactions(wallet: walletInstance!);
       return res;
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
@@ -180,7 +181,7 @@ class Wallet {
       PartiallySignedTransaction psbt) async {
     try {
       final sbt = await loaderApi.sign(
-          psbtStr: psbt.psbtBase64, wallet: offlineWallet!, isMultiSig: false);
+          psbtStr: psbt.psbtBase64, wallet: walletInstance!, isMultiSig: false);
       if (sbt == null)
         throw const TxBuilderException.unexpected("Unable to sign transaction");
       return PartiallySignedTransaction(psbtBase64: sbt);
@@ -392,7 +393,7 @@ class TxBuilder {
       throw const TxBuilderException.unexpected("No Recipients Added");
     try {
       final res = await loaderApi.txBuilderFinish(
-          wallet: wallet.offlineWallet!,
+          wallet: wallet.walletInstance!,
           recipients: _recipients,
           utxos: _utxos,
           unspendable: _unSpendable,
@@ -465,7 +466,7 @@ class BumpFeeTxBuilder {
           txid: txid.toString(),
           enableRbf: _enableRbf,
           feeRate: feeRate,
-          wallet: wallet.offlineWallet!,
+          wallet: wallet.walletInstance!,
           nSequence: _nSequence,
           allowShrinking: _allowShrinking);
       final psbt = PartiallySignedTransaction(psbtBase64: res);
