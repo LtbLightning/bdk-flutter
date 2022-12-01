@@ -31,29 +31,29 @@ all: init ios android bindings
 ios: target/universal/release/libexample.a
 target/universal/release/libexample.a:
 	cargo lipo --release
-	@echo "[DONE] $@"
+	@echo "[Done ✅] $@"
 
 ## android: Compile the android targets (arm64, armv7 and i686)
 android: target/aarch64-linux-android/release/libexample.so target/armv7-linux-androideabi/release/libexample.so target/i686-linux-android/release/libexample.so
 target/aarch64-linux-android/release/libexample.so: $(SOURCES)
 		    cargo ndk -t arm64-v8a build --release
-	@echo "[DONE] $@"
+	@echo "[Done ✅] $@"
 target/armv7-linux-androideabi/release/libexample.so: $(SOURCES)
 		 cargo ndk -t armeabi-v7a build --release
-	@echo "[DONE] $@"
+	@echo "[Done ✅] $@"
 target/i686-linux-android/release/libexample.so: $(SOURCES)
 		cargo ndk -t x86 build --release
-	@echo "[DONE] $@"
+	@echo "[Done ✅] $@"
 target/x86_64-linux-android/release/libexample.so: $(SOURCES)
 		 cargo ndk -t x86_64 build --release
-	@echo "[DONE] $@"
+	@echo "[Done ✅] $@"
 
 bindings: copy/bindings
 copy/bindings: $(SOURCES)
 #	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
-	 @echo "[COPING BINARIES] $@"
+	 @echo "[COPYING BINARIES TO FLUTTER PACKAGE ...] $@"
 	sh copy.sh
-	@echo "[DONE] $@"
-
+	@echo "[Done ✅]"
+	@echo "[*** ALL TASKS Completed ✅ ***]"
 
 

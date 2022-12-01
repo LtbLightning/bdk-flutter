@@ -7,14 +7,13 @@ A Flutter implementation of the [Bitcoin Development Kit](https://bitcoindevkit.
 - Deployment target : iOS 12.0 or greater.
 
 ### How to Use
-To use the `bdk_flutter` package for your project add the 
-following as a dependency to your pubspec.yaml:
+To use the `bdk_flutter` package in your project, add it as a dependency in your project's pubspec.yaml:
 
 ```dart
 dependencies:
   bdk_flutter: ^0.1.5
 ```
-You may then import and use the bdk_flutter plugin in your Flutter code. For example:
+`bdk-flutter` can then be imported and used in your Flutter code. For example:
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
 
@@ -39,8 +38,8 @@ final internalDescriptor = "wpkh([b8b575c2/84'/1'/0'/1]tprv8icWtRzy9CWgFxpGMLSdA
 The latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
 
 ### Example Projects
-- * **BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
-  is a simple testnet Bitcoin wallet built as a reference app for the bdk-flutter on Flutter.
+- ***BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
+  is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
   
 ### How to build
 _Note that Flutter version `3.0` or later is required to build the plugin._
@@ -69,7 +68,7 @@ After following the instructions above, the NDK should be installed in your $AND
   You can alternatively use the latest version of the Android NDK which is greater than 22. However, this requires a hack to prevent the [`unable to find library -lgcc error`](https://github.com/rust-lang/rust/pull/85806#issuecomment-1096266946).
 
 5. Build flutter bindings
-    by navigating to `rust` directory, and run the following commands
+    Navigate to `rust` directory, and run the following commands
     ```shell
     cargo build
     make all
