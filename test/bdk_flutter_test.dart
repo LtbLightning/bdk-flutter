@@ -1,8 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/src/utils/exceptions/blockchain_exception.dart';
-import 'package:bdk_flutter/src/utils/exceptions/key_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
-import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -36,35 +33,14 @@ void main() {
       final res = await mockBlockchain.getHeight();
       expect(res, 2396450);
     });
-    test('getHeight Exception', () async {
-      try {
-        when(mockBlockchain.getHeight()).thenThrow(
-            const BlockchainException.unexpected("Blockchain not initialized"));
-        await mockBlockchain.getHeight();
-      } catch (error) {
-        expect(error,
-            const BlockchainException.unexpected("Blockchain not initialized"));
-        expect(error, isA<BlockchainException>());
-      }
-    });
+
 
     test('verify getHash', () async {
       when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
-          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+      "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
       final res = await mockBlockchain.getBlockHash(2396450);
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-    });
-    test('verify getHash  Exception', () async {
-      try {
-        when(mockBlockchain.getBlockHash(any)).thenThrow(
-            const BlockchainException.unexpected("Blockchain not initialized"));
-        await mockBlockchain.getHeight();
-      } catch (error) {
-        expect(error,
-            const BlockchainException.unexpected("Blockchain not initialized"));
-        expect(error, isA<BlockchainException>());
-      }
     });
   });
   group('Wallet', () {
@@ -72,20 +48,9 @@ void main() {
       final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
       expect(res, isA<AddressInfo>());
     });
-    test('verify getAddress() Exception', () async {
-      try {
-        when(mockWallet.getAddress(addressIndex: AddressIndex.New)).thenThrow(
-            const WalletException.unexpected("Wallet not initialized"));
-        await mockWallet.getAddress(addressIndex: AddressIndex.New);
-      } catch (error) {
-        expect(
-            error, const WalletException.unexpected("Wallet not initialized"));
-        expect(error, isA<WalletException>());
-      }
-    });
     test('Should return a new AddressInfo', () async {
       when(mockWallet.getAddress(addressIndex: AddressIndex.New)).thenAnswer(
-          (e) async => AddressInfo(
+              (e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
@@ -95,10 +60,10 @@ void main() {
     test('Should return a last unused AddressInfo', () async {
       when(mockWallet.getAddress(addressIndex: AddressIndex.LastUnused))
           .thenAnswer((e) async => AddressInfo(
-              index: 82,
-              address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
+          index: 82,
+          address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res =
-          await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+      await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
@@ -106,63 +71,19 @@ void main() {
       final res = await mockWallet.getBalance();
       expect(res, isA<Balance>());
     });
-    test('verify getBalance() Exception', () async {
-      try {
-        when(mockWallet.getBalance()).thenThrow(
-            const WalletException.unexpected("Wallet not initialized"));
-        await mockWallet.getBalance();
-      } catch (error) {
-        expect(
-            error, const WalletException.unexpected("Wallet not initialized"));
-        expect(error, isA<WalletException>());
-      }
-    });
     test('Should return Network enum', () async {
       final res = await mockWallet.network();
       expect(res, isA<Network>());
     });
-    test('verify network() Exception', () async {
-      try {
-        when(mockWallet.network()).thenThrow(
-            const WalletException.unexpected("Wallet not initialized"));
-        await mockWallet.network();
-      } catch (error) {
-        expect(
-            error, const WalletException.unexpected("Wallet not initialized"));
-        expect(error, isA<WalletException>());
-      }
-    });
     test('Should return list of LocalUtxo object', () async {
       final res = await mockWallet.listUnspent();
       expect(res, isA<List<LocalUtxo>>());
-    });
-    test('verify listUnspent() Exception', () async {
-      try {
-        when(mockWallet.listUnspent()).thenThrow(
-            const WalletException.unexpected("Wallet not initialized"));
-        await mockWallet.listUnspent();
-      } catch (error) {
-        expect(
-            error, const WalletException.unexpected("Wallet not initialized"));
-        expect(error, isA<WalletException>());
-      }
     });
     test('Should return an empty list of TransactionDetails', () async {
       when(mockWallet.listTransactions()).thenAnswer((e) async => List.empty());
       final res = await mockWallet.listTransactions();
       expect(res, isA<List<TransactionDetails>>());
       expect(res, List.empty());
-    });
-    test('verify listTransactions() Exception', () async {
-      try {
-        when(mockWallet.listUnspent()).thenThrow(
-            const WalletException.unexpected("Wallet not initialized"));
-        await mockWallet.listUnspent();
-      } catch (error) {
-        expect(
-            error, const WalletException.unexpected("Wallet not initialized"));
-        expect(error, isA<WalletException>());
-      }
     });
     test('verify function call order', () async {
       await mockWallet.sync(mockBlockchain);
@@ -207,32 +128,32 @@ void main() {
   });
   group('Tx Builder', () {
     test('Should return a TxBuilderException when funds are insufficient',
-        () async {
-      try {
-        when(mockTxBuilder.finish(mockWallet)).thenThrow(
-            const TxBuilderException.insufficientBroadcastAmount(
-                "InsufficientFunds { needed: 1252, available: 0 }"));
-        await mockTxBuilder.finish(mockWallet);
-      } catch (error) {
-        expect(
-            error,
-            const TxBuilderException.insufficientBroadcastAmount(
-                "InsufficientFunds { needed: 1252, available: 0 }"));
-        expect(error, isA<TxBuilderException>());
-      }
-    });
+            () async {
+          try {
+            when(mockTxBuilder.finish(mockWallet)).thenThrow(
+                const TxBuilderException.insufficientBroadcastAmount(
+                    "InsufficientFunds { needed: 1252, available: 0 }"));
+            await mockTxBuilder.finish(mockWallet);
+          } catch (error) {
+            expect(
+                error,
+                const TxBuilderException.insufficientBroadcastAmount(
+                    "InsufficientFunds { needed: 1252, available: 0 }"));
+            expect(error, isA<TxBuilderException>());
+          }
+        });
     test('Should return aTxBuilderException when no recipients are added',
-        () async {
-      try {
-        when(mockTxBuilder.finish(mockWallet)).thenThrow(
-            const TxBuilderException.unexpected("No Recipients Added"));
-        await mockTxBuilder.finish(mockWallet);
-      } catch (error) {
-        expect(
-            error, const TxBuilderException.unexpected("No Recipients Added"));
-        expect(error, isA<TxBuilderException>());
-      }
-    });
+            () async {
+          try {
+            when(mockTxBuilder.finish(mockWallet)).thenThrow(
+                const TxBuilderException.unexpected("No Recipients Added"));
+            await mockTxBuilder.finish(mockWallet);
+          } catch (error) {
+            expect(
+                error, const TxBuilderException.unexpected("No Recipients Added"));
+            expect(error, isA<TxBuilderException>());
+          }
+        });
     test('Verify addData() Exception', () async {
       try {
         when(mockTxBuilder.addData(data: List.empty())).thenThrow(
@@ -244,34 +165,12 @@ void main() {
         expect(error, isA<TxBuilderException>());
       }
     });
-    test('Verify addRecipient() Exception', () async {
-      try {
-        when(mockTxBuilder.addRecipient(any, any)).thenThrow(
-            const KeyException.unexpected("Script key not initialized yet"));
-        mockTxBuilder.addRecipient(mockScript, 1200);
-      } catch (error) {
-        expect(error,
-            const KeyException.unexpected("Script key not initialized yet"));
-        expect(error, isA<KeyException>());
-      }
-    });
     test('Verify unSpendable()', () async {
       final res = mockTxBuilder.addUnSpendable(OutPoint(
           txid:
-              "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
+          "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
           vout: 1));
       expect(res, isNot(mockTxBuilder));
-    });
-    test('Verify necessary function are called for a  psbt transaction ',
-        () async {
-      final script = await mockAddress.scriptPubKey();
-      mockTxBuilder.addRecipient(script, 1200);
-      mockTxBuilder.feeRate(1.2);
-      await mockTxBuilder.finish(mockWallet);
-
-      verify(mockAddress.scriptPubKey()).called(1);
-      verify(mockTxBuilder.addRecipient(mockScript, 1200)).called(1);
-      verify(mockTxBuilder.feeRate(any)).called(1);
     });
     test('Create a proper psbt transaction ', () async {
       const psbt = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
@@ -285,7 +184,7 @@ void main() {
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer(
-          (_) async => PartiallySignedTransaction(psbtBase64: psbt));
+              (_) async => PartiallySignedTransaction(psbtBase64: psbt));
 
       final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
