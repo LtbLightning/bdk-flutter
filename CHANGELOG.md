@@ -1,3 +1,8 @@
+## [0.2.1]
+### Fixed
+- pub.dev static analysis warning
+- removing internal helper functions from public api
+
 ## [0.2.0]
 Updated API to match bdk-ffi
 

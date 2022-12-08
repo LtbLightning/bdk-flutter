@@ -1,5 +1,6 @@
-### Bdk-Flutter
-A Flutter implementation of the [Bitcoin Development Kit](https://bitcoindevkit.org/)
+### Bdk Flutter
+A Flutter library for the [Bitcoin Development Kit](https://bitcoindevkit.org/). 
+The bdk library aims to be the core building block for Bitcoin Applications of any kind.
 
 ### Requirements
 - Flutter  : 3.0 or higher
@@ -11,7 +12,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.2.0
+  bdk_flutter: ^0.2.1
 ```
 `bdk-flutter` can then be imported and used in your Flutter code. For example:
 ```dart
