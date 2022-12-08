@@ -1,99 +1,157 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:flutter/material.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'";
+  late Wallet aliceWallet;
 
-  BdkFlutter bdkFlutter = BdkFlutter();
-  late ResponseWallet wallet;
+  late Blockchain blockchain;
+
   @override
   void initState() {
-    restoreWallet(
-        "puppy interest whip tonight dad never sudden response push zone pig patch",
-        Network.TESTNET);
+    restoreWallet();
+    createDescriptorSecret();
     super.initState();
   }
 
   generateMnemonicKeys() async {
-    var mnemonicWithEntropy =
-    await generateMnemonic(entropy: Entropy.ENTROPY128);
-    var mnemonicWithEntropy2 =
-    await generateMnemonic(entropy: Entropy.ENTROPY192);
-    var mnemonicWithEntropy5 =
-    await generateMnemonic(entropy: Entropy.ENTROPY256);
-    print("mnemonicWithEntropy: $mnemonicWithEntropy ");
-    print("mnemonicWithEntropy: $mnemonicWithEntropy2 ");
-    print("mnemonicWithEntropy: $mnemonicWithEntropy5 ");
+    final res = await Mnemonic.create(WordCount.Words12);
+    print(res.asString());
   }
 
-  restoreWallet(String mnemonic, Network network) async {
-    final res = await createDescriptors(type: Descriptor.P2PK, mnemonic:  mnemonic, network: network );
-    final resWallet = await  bdkFlutter.createWallet(
-       descriptor: res.descriptor
+  restoreWallet() async {
+    aliceWallet = await Wallet.create(
+        descriptor:
+            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+        network: Network.Testnet,
+        databaseConfig: const DatabaseConfig.memory());
+    print("init Complete");
+  }
+
+  createDescriptorSecret() async {
+    final mnemonic = await Mnemonic.fromString(
+        'puppy interest whip tonight dad never sudden response push zone pig patch');
+    final descriptorSecretKey = await DescriptorSecretKey.create(
+      network: Network.Testnet,
+      mnemonic: mnemonic,
     );
-    print(resWallet.address);
-    print(resWallet.balance.total);
+
+    final path = await DerivationPath.create(path: DEFAULT_DERIVATION_PATH);
+    final xprv = await descriptorSecretKey.asString();
+    final sec = await descriptorSecretKey.secretBytes();
+    final xpub = await descriptorSecretKey.asPublic();
+    final xpubString = xpub.asString();
+    final derivedXprv = await descriptorSecretKey.extend(path);
+    final derivedXpub = await xpub.extend(path);
+    final derivedXprvStr = await derivedXprv.asString();
+    final derivedXpubStr = derivedXpub.asString();
+    print("sec: $sec");
+    print("xpub: $xpubString");
+    print("xprv: $xprv");
+    print("derivedXpub: $derivedXpubStr");
+    print("derivedXprv: $derivedXprvStr");
   }
 
   sync() async {
-    bdkFlutter.syncWallet();
+    blockchain = await Blockchain.create(
+        config: BlockchainConfig.electrum(
+            config: ElectrumConfig(
+                stopGap: 10,
+                timeout: 5,
+                retry: 5,
+                url: "ssl://electrum.blockstream.info:60002")));
+    aliceWallet.sync(blockchain);
   }
 
-  getBlockHeightAndHash() async {
-    final height = await bdkFlutter.getBlockchainHeight();
-    print(height);
-    final hash = await bdkFlutter.getBlockchainHash(height);
-    print(hash);
+  getNewAddress() async {
+    final alice =
+        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+    print(alice.address);
+    print(alice.index);
   }
 
-  Future<String> getNewAddress() async {
-    final res = await bdkFlutter.getNewAddress();
-    print(res);
-    return res;
-  }
-
-getConfirmedTransactions() async {
-    final res = await bdkFlutter.getConfirmedTransactions();
+  getUnConfirmedTransactions() async {
+    List<TransactionDetails> unConfirmed = [];
+    final res = await aliceWallet.listTransactions();
     for (var e in res) {
-      print(e.details.txid);
+      if (e.confirmationTime == null) unConfirmed.add(e);
+    }
+    for (var e in unConfirmed) {
+      print(" txid: ${e.txid}");
+      print(" fee: ${e.fee}");
+      print(" received: ${e.received}");
+      print(" send: ${e.sent}");
+      print("===========================");
     }
   }
 
-  getPendingTransactions() async {
-    final res = await bdkFlutter.getPendingTransactions();
-    if (res.isEmpty) print("No Pending Transactions");
+  getConfirmedTransactions() async {
+    List<TransactionDetails> confirmed = [];
+    final res = await aliceWallet.listTransactions();
     for (var e in res) {
-      print(e.details.txid);
+      if (e.confirmationTime != null) confirmed.add(e);
+    }
+    for (var e in confirmed) {
+      print(" txid: ${e.txid}");
+      print(" fee: ${e.fee}");
+      print(" received: ${e.received}");
+      print(" send: ${e.sent}");
+      print(" confirmationTime: ${e.confirmationTime?.timestamp}");
+      print(" confirmationTime Height: ${e.confirmationTime?.height}");
+      print("===========================");
     }
   }
 
   getBalance() async {
-    final res = await bdkFlutter.getBalance();
-    print(res.total);
+    final res = await aliceWallet.getBalance();
+    print("alice ${res.total}");
   }
 
-  getPublicDescriptor() async {
-    final res= await bdkFlutter.getPublicDescriptor();
+  listUnspent() async {
+    final res = await aliceWallet.listUnspent();
+    for (var e in res) {
+      print("isSpent: ${e.isSpent}");
+      print("outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
+      print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
+      print("===========================");
+    }
+  }
+
+  Future<int> getBlockHeight() async {
+    final res = await blockchain.getHeight();
     print(res);
+    return res;
+  }
+
+  getBlockHash() async {
+    final height = await getBlockHeight();
+    final blockhash = await blockchain.getBlockHash(height);
+    print(blockhash);
   }
 
   sendBit() async {
-    final psbt = await bdkFlutter.createTx(
-        recipient: "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt",
-        amount: 1200,
-        feeRate: 1);
-    final sbt = await bdkFlutter.signTx(psbt: psbt);
-    final txid = await bdkFlutter.broadcastTx(sbt: sbt);
-    print(txid);
+    final txBuilder = TxBuilder();
+    final address = await Address.create(
+        address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+    final script = await address.scriptPubKey();
+    final psbt = await txBuilder
+        .addRecipient(script, 1000)
+        .feeRate(1.1)
+        .finish(aliceWallet);
+    final res = await aliceWallet.sign(psbt);
+    await blockchain.broadcast(res);
+    sync();
   }
 
   @override
@@ -120,21 +178,27 @@ getConfirmedTransactions() async {
                   child: const Text('Press to create new Address')),
               TextButton(
                   onPressed: () => sendBit(),
-                  child: const Text('Press to  send 1200 sats')),
+                  child: const Text('Press to send 1200 satoshi')),
               TextButton(
                   onPressed: () => sync(), child: const Text('Press to  sync')),
               TextButton(
                   onPressed: () => getConfirmedTransactions(),
                   child: const Text('Get ConfirmedTransactions')),
               TextButton(
-                  onPressed: () => getPendingTransactions(),
-                  child: const Text('get PendingTransactions')),
+                  onPressed: () => getUnConfirmedTransactions(),
+                  child: const Text('getPendingTransactions')),
               TextButton(
                   onPressed: () => getBalance(),
                   child: const Text('get Balance')),
               TextButton(
-                  onPressed: () => getPublicDescriptor(),
-                  child: const Text('get Public Key')),
+                  onPressed: () => listUnspent(),
+                  child: const Text('list Unspent')),
+              TextButton(
+                  onPressed: () => getBlockHash(),
+                  child: const Text('get BlockHash')),
+              TextButton(
+                  onPressed: () => generateMnemonicKeys(),
+                  child: const Text('generate Mnemonic')),
             ],
           ),
         ),

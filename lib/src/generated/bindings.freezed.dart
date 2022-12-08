@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bindings.dart';
 
@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BlockchainConfig {
+  Object get config => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ElectrumConfig config) electrum,
@@ -24,8 +25,8 @@ mixin _$BlockchainConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ElectrumConfig config)? electrum,
-    TResult Function(EsploraConfig config)? esplora,
+    TResult? Function(ElectrumConfig config)? electrum,
+    TResult? Function(EsploraConfig config)? esplora,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,20 +38,20 @@ mixin _$BlockchainConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(BlockchainConfig_Electrum value) electrum,
+    required TResult Function(BlockchainConfig_Esplora value) esplora,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult? Function(BlockchainConfig_Electrum value)? electrum,
+    TResult? Function(BlockchainConfig_Esplora value)? esplora,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(BlockchainConfig_Electrum value)? electrum,
+    TResult Function(BlockchainConfig_Esplora value)? esplora,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,43 +61,45 @@ mixin _$BlockchainConfig {
 abstract class $BlockchainConfigCopyWith<$Res> {
   factory $BlockchainConfigCopyWith(
           BlockchainConfig value, $Res Function(BlockchainConfig) then) =
-      _$BlockchainConfigCopyWithImpl<$Res>;
+      _$BlockchainConfigCopyWithImpl<$Res, BlockchainConfig>;
 }
 
 /// @nodoc
-class _$BlockchainConfigCopyWithImpl<$Res>
+class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
     implements $BlockchainConfigCopyWith<$Res> {
   _$BlockchainConfigCopyWithImpl(this._value, this._then);
 
-  final BlockchainConfig _value;
   // ignore: unused_field
-  final $Res Function(BlockchainConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$ELECTRUMCopyWith<$Res> {
-  factory _$$ELECTRUMCopyWith(
-          _$ELECTRUM value, $Res Function(_$ELECTRUM) then) =
-      __$$ELECTRUMCopyWithImpl<$Res>;
+abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
+  factory _$$BlockchainConfig_ElectrumCopyWith(
+          _$BlockchainConfig_Electrum value,
+          $Res Function(_$BlockchainConfig_Electrum) then) =
+      __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>;
+  @useResult
   $Res call({ElectrumConfig config});
 }
 
 /// @nodoc
-class __$$ELECTRUMCopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res>
-    implements _$$ELECTRUMCopyWith<$Res> {
-  __$$ELECTRUMCopyWithImpl(_$ELECTRUM _value, $Res Function(_$ELECTRUM) _then)
-      : super(_value, (v) => _then(v as _$ELECTRUM));
+class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Electrum>
+    implements _$$BlockchainConfig_ElectrumCopyWith<$Res> {
+  __$$BlockchainConfig_ElectrumCopyWithImpl(_$BlockchainConfig_Electrum _value,
+      $Res Function(_$BlockchainConfig_Electrum) _then)
+      : super(_value, _then);
 
-  @override
-  _$ELECTRUM get _value => super._value as _$ELECTRUM;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? config = freezed,
+    Object? config = null,
   }) {
-    return _then(_$ELECTRUM(
-      config: config == freezed
+    return _then(_$BlockchainConfig_Electrum(
+      config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
               as ElectrumConfig,
@@ -106,8 +109,8 @@ class __$$ELECTRUMCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ELECTRUM implements ELECTRUM {
-  const _$ELECTRUM({required this.config});
+class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
+  const _$BlockchainConfig_Electrum({required this.config});
 
   @override
   final ElectrumConfig config;
@@ -121,18 +124,19 @@ class _$ELECTRUM implements ELECTRUM {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ELECTRUM &&
-            const DeepCollectionEquality().equals(other.config, config));
+            other is _$BlockchainConfig_Electrum &&
+            (identical(other.config, config) || other.config == config));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(config));
+  int get hashCode => Object.hash(runtimeType, config);
 
   @JsonKey(ignore: true)
   @override
-  _$$ELECTRUMCopyWith<_$ELECTRUM> get copyWith =>
-      __$$ELECTRUMCopyWithImpl<_$ELECTRUM>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
+      get copyWith => __$$BlockchainConfig_ElectrumCopyWithImpl<
+          _$BlockchainConfig_Electrum>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -146,8 +150,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ElectrumConfig config)? electrum,
-    TResult Function(EsploraConfig config)? esplora,
+    TResult? Function(ElectrumConfig config)? electrum,
+    TResult? Function(EsploraConfig config)? esplora,
   }) {
     return electrum?.call(config);
   }
@@ -168,8 +172,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(BlockchainConfig_Electrum value) electrum,
+    required TResult Function(BlockchainConfig_Esplora value) esplora,
   }) {
     return electrum(this);
   }
@@ -177,8 +181,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult? Function(BlockchainConfig_Electrum value)? electrum,
+    TResult? Function(BlockchainConfig_Esplora value)? esplora,
   }) {
     return electrum?.call(this);
   }
@@ -186,8 +190,8 @@ class _$ELECTRUM implements ELECTRUM {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(BlockchainConfig_Electrum value)? electrum,
+    TResult Function(BlockchainConfig_Esplora value)? esplora,
     required TResult orElse(),
   }) {
     if (electrum != null) {
@@ -197,37 +201,41 @@ class _$ELECTRUM implements ELECTRUM {
   }
 }
 
-abstract class ELECTRUM implements BlockchainConfig {
-  const factory ELECTRUM({required final ElectrumConfig config}) = _$ELECTRUM;
+abstract class BlockchainConfig_Electrum implements BlockchainConfig {
+  const factory BlockchainConfig_Electrum(
+      {required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
 
+  @override
   ElectrumConfig get config;
   @JsonKey(ignore: true)
-  _$$ELECTRUMCopyWith<_$ELECTRUM> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ESPLORACopyWith<$Res> {
-  factory _$$ESPLORACopyWith(_$ESPLORA value, $Res Function(_$ESPLORA) then) =
-      __$$ESPLORACopyWithImpl<$Res>;
+abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
+  factory _$$BlockchainConfig_EsploraCopyWith(_$BlockchainConfig_Esplora value,
+          $Res Function(_$BlockchainConfig_Esplora) then) =
+      __$$BlockchainConfig_EsploraCopyWithImpl<$Res>;
+  @useResult
   $Res call({EsploraConfig config});
 }
 
 /// @nodoc
-class __$$ESPLORACopyWithImpl<$Res> extends _$BlockchainConfigCopyWithImpl<$Res>
-    implements _$$ESPLORACopyWith<$Res> {
-  __$$ESPLORACopyWithImpl(_$ESPLORA _value, $Res Function(_$ESPLORA) _then)
-      : super(_value, (v) => _then(v as _$ESPLORA));
+class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Esplora>
+    implements _$$BlockchainConfig_EsploraCopyWith<$Res> {
+  __$$BlockchainConfig_EsploraCopyWithImpl(_$BlockchainConfig_Esplora _value,
+      $Res Function(_$BlockchainConfig_Esplora) _then)
+      : super(_value, _then);
 
-  @override
-  _$ESPLORA get _value => super._value as _$ESPLORA;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? config = freezed,
+    Object? config = null,
   }) {
-    return _then(_$ESPLORA(
-      config: config == freezed
+    return _then(_$BlockchainConfig_Esplora(
+      config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
               as EsploraConfig,
@@ -237,8 +245,8 @@ class __$$ESPLORACopyWithImpl<$Res> extends _$BlockchainConfigCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ESPLORA implements ESPLORA {
-  const _$ESPLORA({required this.config});
+class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
+  const _$BlockchainConfig_Esplora({required this.config});
 
   @override
   final EsploraConfig config;
@@ -252,18 +260,20 @@ class _$ESPLORA implements ESPLORA {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ESPLORA &&
-            const DeepCollectionEquality().equals(other.config, config));
+            other is _$BlockchainConfig_Esplora &&
+            (identical(other.config, config) || other.config == config));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(config));
+  int get hashCode => Object.hash(runtimeType, config);
 
   @JsonKey(ignore: true)
   @override
-  _$$ESPLORACopyWith<_$ESPLORA> get copyWith =>
-      __$$ESPLORACopyWithImpl<_$ESPLORA>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
+      get copyWith =>
+          __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -277,8 +287,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ElectrumConfig config)? electrum,
-    TResult Function(EsploraConfig config)? esplora,
+    TResult? Function(ElectrumConfig config)? electrum,
+    TResult? Function(EsploraConfig config)? esplora,
   }) {
     return esplora?.call(config);
   }
@@ -299,8 +309,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ELECTRUM value) electrum,
-    required TResult Function(ESPLORA value) esplora,
+    required TResult Function(BlockchainConfig_Electrum value) electrum,
+    required TResult Function(BlockchainConfig_Esplora value) esplora,
   }) {
     return esplora(this);
   }
@@ -308,8 +318,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult? Function(BlockchainConfig_Electrum value)? electrum,
+    TResult? Function(BlockchainConfig_Esplora value)? esplora,
   }) {
     return esplora?.call(this);
   }
@@ -317,8 +327,8 @@ class _$ESPLORA implements ESPLORA {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ELECTRUM value)? electrum,
-    TResult Function(ESPLORA value)? esplora,
+    TResult Function(BlockchainConfig_Electrum value)? electrum,
+    TResult Function(BlockchainConfig_Esplora value)? esplora,
     required TResult orElse(),
   }) {
     if (esplora != null) {
@@ -328,13 +338,15 @@ class _$ESPLORA implements ESPLORA {
   }
 }
 
-abstract class ESPLORA implements BlockchainConfig {
-  const factory ESPLORA({required final EsploraConfig config}) = _$ESPLORA;
+abstract class BlockchainConfig_Esplora implements BlockchainConfig {
+  const factory BlockchainConfig_Esplora(
+      {required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
 
+  @override
   EsploraConfig get config;
   @JsonKey(ignore: true)
-  _$$ESPLORACopyWith<_$ESPLORA> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -342,38 +354,44 @@ mixin _$DatabaseConfig {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
+    required TResult Function(SledDbConfiguration config) sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult? Function()? memory,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
+    TResult? Function(SledDbConfiguration config)? sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
+    TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
+    required TResult Function(DatabaseConfig_Memory value) memory,
+    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
+    required TResult Function(DatabaseConfig_Sled value) sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult? Function(DatabaseConfig_Memory value)? memory,
+    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult? Function(DatabaseConfig_Sled value)? sled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult Function(DatabaseConfig_Memory value)? memory,
+    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult Function(DatabaseConfig_Sled value)? sled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -383,39 +401,40 @@ mixin _$DatabaseConfig {
 abstract class $DatabaseConfigCopyWith<$Res> {
   factory $DatabaseConfigCopyWith(
           DatabaseConfig value, $Res Function(DatabaseConfig) then) =
-      _$DatabaseConfigCopyWithImpl<$Res>;
+      _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
 }
 
 /// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res>
+class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
     implements $DatabaseConfigCopyWith<$Res> {
   _$DatabaseConfigCopyWithImpl(this._value, this._then);
 
-  final DatabaseConfig _value;
   // ignore: unused_field
-  final $Res Function(DatabaseConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$MEMORYCopyWith<$Res> {
-  factory _$$MEMORYCopyWith(_$MEMORY value, $Res Function(_$MEMORY) then) =
-      __$$MEMORYCopyWithImpl<$Res>;
+abstract class _$$DatabaseConfig_MemoryCopyWith<$Res> {
+  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value,
+          $Res Function(_$DatabaseConfig_Memory) then) =
+      __$$DatabaseConfig_MemoryCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MEMORYCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res>
-    implements _$$MEMORYCopyWith<$Res> {
-  __$$MEMORYCopyWithImpl(_$MEMORY _value, $Res Function(_$MEMORY) _then)
-      : super(_value, (v) => _then(v as _$MEMORY));
-
-  @override
-  _$MEMORY get _value => super._value as _$MEMORY;
+class __$$DatabaseConfig_MemoryCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
+    implements _$$DatabaseConfig_MemoryCopyWith<$Res> {
+  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value,
+      $Res Function(_$DatabaseConfig_Memory) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MEMORY implements MEMORY {
-  const _$MEMORY();
+class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
+  const _$DatabaseConfig_Memory();
 
   @override
   String toString() {
@@ -425,7 +444,7 @@ class _$MEMORY implements MEMORY {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MEMORY);
+        (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
   }
 
   @override
@@ -435,7 +454,8 @@ class _$MEMORY implements MEMORY {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
+    required TResult Function(SledDbConfiguration config) sled,
   }) {
     return memory();
   }
@@ -443,8 +463,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult? Function()? memory,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
+    TResult? Function(SledDbConfiguration config)? sled,
   }) {
     return memory?.call();
   }
@@ -453,7 +474,8 @@ class _$MEMORY implements MEMORY {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
+    TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {
     if (memory != null) {
@@ -465,8 +487,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
+    required TResult Function(DatabaseConfig_Memory value) memory,
+    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
+    required TResult Function(DatabaseConfig_Sled value) sled,
   }) {
     return memory(this);
   }
@@ -474,8 +497,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult? Function(DatabaseConfig_Memory value)? memory,
+    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult? Function(DatabaseConfig_Sled value)? sled,
   }) {
     return memory?.call(this);
   }
@@ -483,8 +507,9 @@ class _$MEMORY implements MEMORY {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult Function(DatabaseConfig_Memory value)? memory,
+    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult Function(DatabaseConfig_Sled value)? sled,
     required TResult orElse(),
   }) {
     if (memory != null) {
@@ -494,46 +519,48 @@ class _$MEMORY implements MEMORY {
   }
 }
 
-abstract class MEMORY implements DatabaseConfig {
-  const factory MEMORY() = _$MEMORY;
+abstract class DatabaseConfig_Memory implements DatabaseConfig {
+  const factory DatabaseConfig_Memory() = _$DatabaseConfig_Memory;
 }
 
 /// @nodoc
-abstract class _$$SQLITECopyWith<$Res> {
-  factory _$$SQLITECopyWith(_$SQLITE value, $Res Function(_$SQLITE) then) =
-      __$$SQLITECopyWithImpl<$Res>;
-  $Res call({SqliteConfiguration config});
+abstract class _$$DatabaseConfig_SqliteCopyWith<$Res> {
+  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value,
+          $Res Function(_$DatabaseConfig_Sqlite) then) =
+      __$$DatabaseConfig_SqliteCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
-class __$$SQLITECopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res>
-    implements _$$SQLITECopyWith<$Res> {
-  __$$SQLITECopyWithImpl(_$SQLITE _value, $Res Function(_$SQLITE) _then)
-      : super(_value, (v) => _then(v as _$SQLITE));
+class __$$DatabaseConfig_SqliteCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
+    implements _$$DatabaseConfig_SqliteCopyWith<$Res> {
+  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value,
+      $Res Function(_$DatabaseConfig_Sqlite) _then)
+      : super(_value, _then);
 
-  @override
-  _$SQLITE get _value => super._value as _$SQLITE;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? config = freezed,
+    Object? config = null,
   }) {
-    return _then(_$SQLITE(
-      config: config == freezed
+    return _then(_$DatabaseConfig_Sqlite(
+      config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as SqliteConfiguration,
+              as SqliteDbConfiguration,
     ));
   }
 }
 
 /// @nodoc
 
-class _$SQLITE implements SQLITE {
-  const _$SQLITE({required this.config});
+class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
+  const _$DatabaseConfig_Sqlite({required this.config});
 
   @override
-  final SqliteConfiguration config;
+  final SqliteDbConfiguration config;
 
   @override
   String toString() {
@@ -544,24 +571,26 @@ class _$SQLITE implements SQLITE {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SQLITE &&
-            const DeepCollectionEquality().equals(other.config, config));
+            other is _$DatabaseConfig_Sqlite &&
+            (identical(other.config, config) || other.config == config));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(config));
+  int get hashCode => Object.hash(runtimeType, config);
 
   @JsonKey(ignore: true)
   @override
-  _$$SQLITECopyWith<_$SQLITE> get copyWith =>
-      __$$SQLITECopyWithImpl<_$SQLITE>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
+      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() memory,
-    required TResult Function(SqliteConfiguration config) sqlite,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
+    required TResult Function(SledDbConfiguration config) sled,
   }) {
     return sqlite(config);
   }
@@ -569,8 +598,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult? Function()? memory,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
+    TResult? Function(SledDbConfiguration config)? sled,
   }) {
     return sqlite?.call(config);
   }
@@ -579,7 +609,8 @@ class _$SQLITE implements SQLITE {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? memory,
-    TResult Function(SqliteConfiguration config)? sqlite,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
+    TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {
     if (sqlite != null) {
@@ -591,8 +622,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MEMORY value) memory,
-    required TResult Function(SQLITE value) sqlite,
+    required TResult Function(DatabaseConfig_Memory value) memory,
+    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
+    required TResult Function(DatabaseConfig_Sled value) sled,
   }) {
     return sqlite(this);
   }
@@ -600,8 +632,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult? Function(DatabaseConfig_Memory value)? memory,
+    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult? Function(DatabaseConfig_Sled value)? sled,
   }) {
     return sqlite?.call(this);
   }
@@ -609,8 +642,9 @@ class _$SQLITE implements SQLITE {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MEMORY value)? memory,
-    TResult Function(SQLITE value)? sqlite,
+    TResult Function(DatabaseConfig_Memory value)? memory,
+    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult Function(DatabaseConfig_Sled value)? sled,
     required TResult orElse(),
   }) {
     if (sqlite != null) {
@@ -620,193 +654,108 @@ class _$SQLITE implements SQLITE {
   }
 }
 
-abstract class SQLITE implements DatabaseConfig {
-  const factory SQLITE({required final SqliteConfiguration config}) = _$SQLITE;
+abstract class DatabaseConfig_Sqlite implements DatabaseConfig {
+  const factory DatabaseConfig_Sqlite(
+      {required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
 
-  SqliteConfiguration get config;
+  SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$SQLITECopyWith<_$SQLITE> get copyWith =>
+  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$Transaction {
-  TransactionDetails get details => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(TransactionDetails details) unconfirmed,
-    required TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)
-        confirmed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Unconfirmed value) unconfirmed,
-    required TResult Function(Confirmed value) confirmed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $TransactionCopyWith<Transaction> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _$$DatabaseConfig_SledCopyWith<$Res> {
+  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value,
+          $Res Function(_$DatabaseConfig_Sled) then) =
+      __$$DatabaseConfig_SledCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SledDbConfiguration config});
 }
 
 /// @nodoc
-abstract class $TransactionCopyWith<$Res> {
-  factory $TransactionCopyWith(
-          Transaction value, $Res Function(Transaction) then) =
-      _$TransactionCopyWithImpl<$Res>;
-  $Res call({TransactionDetails details});
-}
+class __$$DatabaseConfig_SledCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
+    implements _$$DatabaseConfig_SledCopyWith<$Res> {
+  __$$DatabaseConfig_SledCopyWithImpl(
+      _$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
+      : super(_value, _then);
 
-/// @nodoc
-class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
-  _$TransactionCopyWithImpl(this._value, this._then);
-
-  final Transaction _value;
-  // ignore: unused_field
-  final $Res Function(Transaction) _then;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? details = freezed,
+    Object? config = null,
   }) {
-    return _then(_value.copyWith(
-      details: details == freezed
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as TransactionDetails,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$$UnconfirmedCopyWith<$Res>
-    implements $TransactionCopyWith<$Res> {
-  factory _$$UnconfirmedCopyWith(
-          _$Unconfirmed value, $Res Function(_$Unconfirmed) then) =
-      __$$UnconfirmedCopyWithImpl<$Res>;
-  @override
-  $Res call({TransactionDetails details});
-}
-
-/// @nodoc
-class __$$UnconfirmedCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
-    implements _$$UnconfirmedCopyWith<$Res> {
-  __$$UnconfirmedCopyWithImpl(
-      _$Unconfirmed _value, $Res Function(_$Unconfirmed) _then)
-      : super(_value, (v) => _then(v as _$Unconfirmed));
-
-  @override
-  _$Unconfirmed get _value => super._value as _$Unconfirmed;
-
-  @override
-  $Res call({
-    Object? details = freezed,
-  }) {
-    return _then(_$Unconfirmed(
-      details: details == freezed
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as TransactionDetails,
+    return _then(_$DatabaseConfig_Sled(
+      config: null == config
+          ? _value.config
+          : config // ignore: cast_nullable_to_non_nullable
+              as SledDbConfiguration,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Unconfirmed implements Unconfirmed {
-  const _$Unconfirmed({required this.details});
+class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
+  const _$DatabaseConfig_Sled({required this.config});
 
   @override
-  final TransactionDetails details;
+  final SledDbConfiguration config;
 
   @override
   String toString() {
-    return 'Transaction.unconfirmed(details: $details)';
+    return 'DatabaseConfig.sled(config: $config)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Unconfirmed &&
-            const DeepCollectionEquality().equals(other.details, details));
+            other is _$DatabaseConfig_Sled &&
+            (identical(other.config, config) || other.config == config));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(details));
+  int get hashCode => Object.hash(runtimeType, config);
 
   @JsonKey(ignore: true)
   @override
-  _$$UnconfirmedCopyWith<_$Unconfirmed> get copyWith =>
-      __$$UnconfirmedCopyWithImpl<_$Unconfirmed>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
+      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TransactionDetails details) unconfirmed,
-    required TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)
-        confirmed,
+    required TResult Function() memory,
+    required TResult Function(SqliteDbConfiguration config) sqlite,
+    required TResult Function(SledDbConfiguration config) sled,
   }) {
-    return unconfirmed(details);
+    return sled(config);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
+    TResult? Function()? memory,
+    TResult? Function(SqliteDbConfiguration config)? sqlite,
+    TResult? Function(SledDbConfiguration config)? sled,
   }) {
-    return unconfirmed?.call(details);
+    return sled?.call(config);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
+    TResult Function()? memory,
+    TResult Function(SqliteDbConfiguration config)? sqlite,
+    TResult Function(SledDbConfiguration config)? sled,
     required TResult orElse(),
   }) {
-    if (unconfirmed != null) {
-      return unconfirmed(details);
+    if (sled != null) {
+      return sled(config);
     }
     return orElse();
   }
@@ -814,200 +763,44 @@ class _$Unconfirmed implements Unconfirmed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Unconfirmed value) unconfirmed,
-    required TResult Function(Confirmed value) confirmed,
+    required TResult Function(DatabaseConfig_Memory value) memory,
+    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
+    required TResult Function(DatabaseConfig_Sled value) sled,
   }) {
-    return unconfirmed(this);
+    return sled(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
+    TResult? Function(DatabaseConfig_Memory value)? memory,
+    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult? Function(DatabaseConfig_Sled value)? sled,
   }) {
-    return unconfirmed?.call(this);
+    return sled?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
+    TResult Function(DatabaseConfig_Memory value)? memory,
+    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
+    TResult Function(DatabaseConfig_Sled value)? sled,
     required TResult orElse(),
   }) {
-    if (unconfirmed != null) {
-      return unconfirmed(this);
+    if (sled != null) {
+      return sled(this);
     }
     return orElse();
   }
 }
 
-abstract class Unconfirmed implements Transaction {
-  const factory Unconfirmed({required final TransactionDetails details}) =
-      _$Unconfirmed;
+abstract class DatabaseConfig_Sled implements DatabaseConfig {
+  const factory DatabaseConfig_Sled(
+      {required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
 
-  @override
-  TransactionDetails get details;
-  @override
+  SledDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$UnconfirmedCopyWith<_$Unconfirmed> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ConfirmedCopyWith<$Res>
-    implements $TransactionCopyWith<$Res> {
-  factory _$$ConfirmedCopyWith(
-          _$Confirmed value, $Res Function(_$Confirmed) then) =
-      __$$ConfirmedCopyWithImpl<$Res>;
-  @override
-  $Res call({TransactionDetails details, BlockConfirmationTime confirmation});
-}
-
-/// @nodoc
-class __$$ConfirmedCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
-    implements _$$ConfirmedCopyWith<$Res> {
-  __$$ConfirmedCopyWithImpl(
-      _$Confirmed _value, $Res Function(_$Confirmed) _then)
-      : super(_value, (v) => _then(v as _$Confirmed));
-
-  @override
-  _$Confirmed get _value => super._value as _$Confirmed;
-
-  @override
-  $Res call({
-    Object? details = freezed,
-    Object? confirmation = freezed,
-  }) {
-    return _then(_$Confirmed(
-      details: details == freezed
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as TransactionDetails,
-      confirmation: confirmation == freezed
-          ? _value.confirmation
-          : confirmation // ignore: cast_nullable_to_non_nullable
-              as BlockConfirmationTime,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Confirmed implements Confirmed {
-  const _$Confirmed({required this.details, required this.confirmation});
-
-  @override
-  final TransactionDetails details;
-  @override
-  final BlockConfirmationTime confirmation;
-
-  @override
-  String toString() {
-    return 'Transaction.confirmed(details: $details, confirmation: $confirmation)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Confirmed &&
-            const DeepCollectionEquality().equals(other.details, details) &&
-            const DeepCollectionEquality()
-                .equals(other.confirmation, confirmation));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(details),
-      const DeepCollectionEquality().hash(confirmation));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$ConfirmedCopyWith<_$Confirmed> get copyWith =>
-      __$$ConfirmedCopyWithImpl<_$Confirmed>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(TransactionDetails details) unconfirmed,
-    required TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)
-        confirmed,
-  }) {
-    return confirmed(details, confirmation);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
-  }) {
-    return confirmed?.call(details, confirmation);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionDetails details)? unconfirmed,
-    TResult Function(
-            TransactionDetails details, BlockConfirmationTime confirmation)?
-        confirmed,
-    required TResult orElse(),
-  }) {
-    if (confirmed != null) {
-      return confirmed(details, confirmation);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Unconfirmed value) unconfirmed,
-    required TResult Function(Confirmed value) confirmed,
-  }) {
-    return confirmed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
-  }) {
-    return confirmed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Unconfirmed value)? unconfirmed,
-    TResult Function(Confirmed value)? confirmed,
-    required TResult orElse(),
-  }) {
-    if (confirmed != null) {
-      return confirmed(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Confirmed implements Transaction {
-  const factory Confirmed(
-      {required final TransactionDetails details,
-      required final BlockConfirmationTime confirmation}) = _$Confirmed;
-
-  @override
-  TransactionDetails get details;
-  BlockConfirmationTime get confirmation;
-  @override
-  @JsonKey(ignore: true)
-  _$$ConfirmedCopyWith<_$Confirmed> get copyWith =>
+  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
       throw _privateConstructorUsedError;
 }
