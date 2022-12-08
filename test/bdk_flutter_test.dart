@@ -26,7 +26,6 @@ void main() {
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
-  String DEFAULT_DERIVATION_PATH = "m/84'/1'/0'/0";
   group('Blockchain', () {
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
@@ -158,7 +157,7 @@ void main() {
       try {
         when(mockTxBuilder.addData(data: List.empty())).thenThrow(
             const TxBuilderException.unexpected("List must not be empty"));
-        await mockTxBuilder.addData(data: []);
+         mockTxBuilder.addData(data: []);
       } catch (error) {
         expect(error,
             const TxBuilderException.unexpected("List must not be empty"));

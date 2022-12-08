@@ -8,7 +8,6 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 
 import 'package:meta/meta.dart';
-import 'package:meta/meta.dart';
 import 'dart:ffi' as ffi;
 
 part 'bindings.freezed.dart';

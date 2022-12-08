@@ -1,15 +1,15 @@
 import 'dart:typed_data' as typed_data;
-import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/utils/exceptions/blockchain_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/key_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/path_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
 import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'generated/bindings.dart';
 import 'utils/utils.dart';
 
-/// [Blockchain] backends  module provides the implementation of a few commonly-used backends like [Electrum], and [Esplora].
+/// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
 class Blockchain {
   BlockchainInstance? blockchain;
   Blockchain._();
@@ -52,20 +52,24 @@ class Blockchain {
   /// The function for broadcasting a transaction
   Future<void> broadcast(PartiallySignedTransaction psbt) async {
     try {
-      final txid = await loaderApi.broadcast(
-          psbtStr: psbt.psbtBase64, blockchain: blockchain!);
-      print(txid);
+      final txid = await loaderApi.broadcast(psbtStr: psbt.psbtBase64, blockchain: blockchain!);
+      if (kDebugMode) {
+        print(txid);
+      }
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
     }
   }
 }
 
-/// A [Bitcoin] wallet.
+/// A Bitcoin wallet.
 ///
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
+///
 ///     1. Output descriptors from which it can derive addresses.
+///
 ///     2. A Database where it tracks transactions and utxos related to the descriptors.
+///
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 class Wallet {
   WalletInstance? wallet;
@@ -118,7 +122,7 @@ class Wallet {
     }
   }
 
-  ///Return the balance, separated into available, trusted-pending, untrusted-pending and immature values.
+  ///Return the [Balance], separated into available, trusted-pending, untrusted-pending and immature values.
   ///
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<Balance> getBalance() async {
@@ -152,13 +156,17 @@ class Wallet {
     }
   }
 
-  ///Sync the internal database with the blockchain
+  ///Sync the internal database with the [Blockchain]
   Future sync(Blockchain blockchain) async {
     try {
-      print("Syncing wallet");
+      if (kDebugMode) {
+        print("Syncing wallet");
+      }
       await loaderApi.syncWallet(
           wallet: wallet!, blockchain: blockchain.blockchain!);
-      print("Sync complete");
+      if (kDebugMode) {
+        print("Sync complete");
+      }
     } on FfiException catch (e) {
       throw WalletException.unexpected(e.message);
     }
@@ -182,8 +190,9 @@ class Wallet {
     try {
       final sbt = await loaderApi.sign(
           psbtStr: psbt.psbtBase64, wallet: wallet!, isMultiSig: false);
-      if (sbt == null)
+      if (sbt == null) {
         throw const TxBuilderException.unexpected("Unable to sign transaction");
+      }
       return PartiallySignedTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
       throw TxBuilderException.unexpected(e.message);
@@ -198,7 +207,7 @@ class PartiallySignedTransaction {
 
   PartiallySignedTransaction({required this.psbtBase64});
 
-  /// Returns the psbt Transaction id
+  /// Returns the [PartiallySignedTransaction] transaction id
   Future<String> txId() async {
     final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
     return res;
@@ -210,7 +219,7 @@ class PartiallySignedTransaction {
     return res;
   }
 
-  /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
+  /// Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
   ///
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
   Future<PartiallySignedTransaction> combine(
@@ -232,10 +241,10 @@ class PartiallySignedTransaction {
 /// A TxBuilder is created by calling TxBuilder or BumpFeeTxBuilder on a wallet.
 /// After assigning it, you set options on it until finally calling finish to consume the builder and generate the transaction.
 class TxBuilder {
-  List<ScriptAmount> _recipients = [];
-  List<OutPoint> _utxos = [];
+  final List<ScriptAmount> _recipients = [];
+  final List<OutPoint> _utxos = [];
   bool _doNotSpendChange = false;
-  List<OutPoint> _unSpendable = [];
+  final List<OutPoint> _unSpendable = [];
   bool _manuallySelectedOnly = false;
   bool _onlySpendChange = false;
   double? _feeRate;
@@ -248,8 +257,9 @@ class TxBuilder {
 
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
-    if (data.isEmpty)
+    if (data.isEmpty) {
       throw const TxBuilderException.unexpected("List must not be empty");
+    }
     _data = typed_data.Uint8List.fromList(data);
     return this;
   }
@@ -293,7 +303,7 @@ class TxBuilder {
 
   ///Do not spend change outputs
   ///
-  /// This effectively adds all the change outputs to the “unspendable” list. See [TxBuilder().addUtxos]
+  /// This effectively adds all the change outputs to the “unspendable” list. See TxBuilder().addUtxos
   TxBuilder doNotSpendChange() {
     _doNotSpendChange = true;
     return this;
@@ -387,8 +397,9 @@ class TxBuilder {
   ///
   /// Returns the BIP174 “PSBT”.
   Future<PartiallySignedTransaction> finish(Wallet wallet) async {
-    if (_recipients.isEmpty)
+    if (_recipients.isEmpty) {
       throw const TxBuilderException.unexpected("No Recipients Added");
+    }
     try {
       final res = await loaderApi.txBuilderFinish(
           wallet: wallet.wallet!,
@@ -418,7 +429,7 @@ class TxBuilder {
   }
 }
 
-/// The [BumpFeeTxBuilder] is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
+/// The BumpFeeTxBuilder is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
 class BumpFeeTxBuilder {
   int? _nSequence;
   String? _allowShrinking;
@@ -428,7 +439,7 @@ class BumpFeeTxBuilder {
 
   BumpFeeTxBuilder({required this.txid, required this.feeRate});
 
-  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this [address] in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
+  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this `address` in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
   ///
   /// Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
   ///
@@ -440,7 +451,7 @@ class BumpFeeTxBuilder {
 
   ///Enable signaling RBF
   ///
-  /// This will use the default nSequence value of 0xFFFFFFFD
+  /// This will use the default nSequence value of `0xFFFFFFFD`
   BumpFeeTxBuilder enableRbf() {
     _enableRbf = true;
     return this;
@@ -450,14 +461,14 @@ class BumpFeeTxBuilder {
   ///
   /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
   ///
-  /// If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
+  /// If the nsequence is higher than `0xFFFFFFFD` an error will be thrown, since it would not be a valid nSequence to signal RBF.
 
   BumpFeeTxBuilder enableRbfWithSequence(int nSequence) {
     _nSequence = nSequence;
     return this;
   }
 
-  /// Finish building the transaction. Returns the BIP174 PSBT.
+  /// Finish building the transaction. Returns the BIP174 [PartiallySignedTransaction].
   Future<PartiallySignedTransaction> finish(Wallet wallet) async {
     try {
       final res = await loaderApi.bumpFeeTxBuilderFinish(
@@ -551,7 +562,7 @@ class Address {
   }
 }
 
-///A BIP-32 derivation path
+///A `BIP-32` derivation path
 class DerivationPath {
   String? _path;
   DerivationPath._();
@@ -592,7 +603,7 @@ class Mnemonic {
     return this;
   }
 
-  /// Parse a Mnemonic with given string
+  /// Parse a [Mnemonic] with given string
   static Future<Mnemonic> fromString(String mnemonic) async {
     final mnemonicObj = Mnemonic._();
     final res = await mnemonicObj._fromString(mnemonic);
@@ -690,7 +701,7 @@ class DescriptorSecretKey {
     return this;
   }
 
-  /// Derived the “XPrv” using the derivation path
+  /// Derived the `XPrv` using the derivation path
   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
     try {
       _descriptorSecretKey = await loaderApi.descriptorSecretDerive(
