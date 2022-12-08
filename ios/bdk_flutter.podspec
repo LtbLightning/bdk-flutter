@@ -11,7 +11,7 @@ A new Flutter project.
                        DESC
                        s.homepage         = 'https://github.com/LtbLightning/bdk-flutter'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Bitcoin Zavior' => 'BitcoinZavior@GMail.Com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
