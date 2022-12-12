@@ -33,10 +33,9 @@ void main() {
       expect(res, 2396450);
     });
 
-
     test('verify getHash', () async {
       when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
-      "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
       final res = await mockBlockchain.getBlockHash(2396450);
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
@@ -49,7 +48,7 @@ void main() {
     });
     test('Should return a new AddressInfo', () async {
       when(mockWallet.getAddress(addressIndex: AddressIndex.New)).thenAnswer(
-              (e) async => AddressInfo(
+          (e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
@@ -59,10 +58,10 @@ void main() {
     test('Should return a last unused AddressInfo', () async {
       when(mockWallet.getAddress(addressIndex: AddressIndex.LastUnused))
           .thenAnswer((e) async => AddressInfo(
-          index: 82,
-          address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
+              index: 82,
+              address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res =
-      await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+          await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
@@ -127,37 +126,37 @@ void main() {
   });
   group('Tx Builder', () {
     test('Should return a TxBuilderException when funds are insufficient',
-            () async {
-          try {
-            when(mockTxBuilder.finish(mockWallet)).thenThrow(
-                const TxBuilderException.insufficientBroadcastAmount(
-                    "InsufficientFunds { needed: 1252, available: 0 }"));
-            await mockTxBuilder.finish(mockWallet);
-          } catch (error) {
-            expect(
-                error,
-                const TxBuilderException.insufficientBroadcastAmount(
-                    "InsufficientFunds { needed: 1252, available: 0 }"));
-            expect(error, isA<TxBuilderException>());
-          }
-        });
+        () async {
+      try {
+        when(mockTxBuilder.finish(mockWallet)).thenThrow(
+            const TxBuilderException.insufficientBroadcastAmount(
+                "InsufficientFunds { needed: 1252, available: 0 }"));
+        await mockTxBuilder.finish(mockWallet);
+      } catch (error) {
+        expect(
+            error,
+            const TxBuilderException.insufficientBroadcastAmount(
+                "InsufficientFunds { needed: 1252, available: 0 }"));
+        expect(error, isA<TxBuilderException>());
+      }
+    });
     test('Should return aTxBuilderException when no recipients are added',
-            () async {
-          try {
-            when(mockTxBuilder.finish(mockWallet)).thenThrow(
-                const TxBuilderException.unexpected("No Recipients Added"));
-            await mockTxBuilder.finish(mockWallet);
-          } catch (error) {
-            expect(
-                error, const TxBuilderException.unexpected("No Recipients Added"));
-            expect(error, isA<TxBuilderException>());
-          }
-        });
+        () async {
+      try {
+        when(mockTxBuilder.finish(mockWallet)).thenThrow(
+            const TxBuilderException.unexpected("No Recipients Added"));
+        await mockTxBuilder.finish(mockWallet);
+      } catch (error) {
+        expect(
+            error, const TxBuilderException.unexpected("No Recipients Added"));
+        expect(error, isA<TxBuilderException>());
+      }
+    });
     test('Verify addData() Exception', () async {
       try {
         when(mockTxBuilder.addData(data: List.empty())).thenThrow(
             const TxBuilderException.unexpected("List must not be empty"));
-         mockTxBuilder.addData(data: []);
+        mockTxBuilder.addData(data: []);
       } catch (error) {
         expect(error,
             const TxBuilderException.unexpected("List must not be empty"));
@@ -167,7 +166,7 @@ void main() {
     test('Verify unSpendable()', () async {
       final res = mockTxBuilder.addUnSpendable(OutPoint(
           txid:
-          "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
+              "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
           vout: 1));
       expect(res, isNot(mockTxBuilder));
     });
@@ -183,7 +182,7 @@ void main() {
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer(
-              (_) async => PartiallySignedTransaction(psbtBase64: psbt));
+          (_) async => PartiallySignedTransaction(psbtBase64: psbt));
 
       final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);

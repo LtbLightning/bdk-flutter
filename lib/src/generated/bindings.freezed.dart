@@ -59,12 +59,14 @@ mixin _$BlockchainConfig {
 
 /// @nodoc
 abstract class $BlockchainConfigCopyWith<$Res> {
-  factory $BlockchainConfigCopyWith(BlockchainConfig value, $Res Function(BlockchainConfig) then) =
+  factory $BlockchainConfigCopyWith(
+          BlockchainConfig value, $Res Function(BlockchainConfig) then) =
       _$BlockchainConfigCopyWithImpl<$Res, BlockchainConfig>;
 }
 
 /// @nodoc
-class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig> implements $BlockchainConfigCopyWith<$Res> {
+class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
+    implements $BlockchainConfigCopyWith<$Res> {
   _$BlockchainConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -76,7 +78,8 @@ class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig> implem
 /// @nodoc
 abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
   factory _$$BlockchainConfig_ElectrumCopyWith(
-          _$BlockchainConfig_Electrum value, $Res Function(_$BlockchainConfig_Electrum) then) =
+          _$BlockchainConfig_Electrum value,
+          $Res Function(_$BlockchainConfig_Electrum) then) =
       __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>;
   @useResult
   $Res call({ElectrumConfig config});
@@ -86,8 +89,8 @@ abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
 class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
     extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Electrum>
     implements _$$BlockchainConfig_ElectrumCopyWith<$Res> {
-  __$$BlockchainConfig_ElectrumCopyWithImpl(
-      _$BlockchainConfig_Electrum _value, $Res Function(_$BlockchainConfig_Electrum) _then)
+  __$$BlockchainConfig_ElectrumCopyWithImpl(_$BlockchainConfig_Electrum _value,
+      $Res Function(_$BlockchainConfig_Electrum) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -131,8 +134,9 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith =>
-      __$$BlockchainConfig_ElectrumCopyWithImpl<_$BlockchainConfig_Electrum>(this, _$identity);
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
+      get copyWith => __$$BlockchainConfig_ElectrumCopyWithImpl<
+          _$BlockchainConfig_Electrum>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -198,18 +202,20 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
 }
 
 abstract class BlockchainConfig_Electrum implements BlockchainConfig {
-  const factory BlockchainConfig_Electrum({required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
+  const factory BlockchainConfig_Electrum(
+      {required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
 
   @override
   ElectrumConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  factory _$$BlockchainConfig_EsploraCopyWith(
-          _$BlockchainConfig_Esplora value, $Res Function(_$BlockchainConfig_Esplora) then) =
+  factory _$$BlockchainConfig_EsploraCopyWith(_$BlockchainConfig_Esplora value,
+          $Res Function(_$BlockchainConfig_Esplora) then) =
       __$$BlockchainConfig_EsploraCopyWithImpl<$Res>;
   @useResult
   $Res call({EsploraConfig config});
@@ -219,8 +225,8 @@ abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
 class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
     extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Esplora>
     implements _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  __$$BlockchainConfig_EsploraCopyWithImpl(
-      _$BlockchainConfig_Esplora _value, $Res Function(_$BlockchainConfig_Esplora) _then)
+  __$$BlockchainConfig_EsploraCopyWithImpl(_$BlockchainConfig_Esplora _value,
+      $Res Function(_$BlockchainConfig_Esplora) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -264,8 +270,10 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith =>
-      __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(this, _$identity);
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
+      get copyWith =>
+          __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -331,12 +339,14 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
 }
 
 abstract class BlockchainConfig_Esplora implements BlockchainConfig {
-  const factory BlockchainConfig_Esplora({required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
+  const factory BlockchainConfig_Esplora(
+      {required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
 
   @override
   EsploraConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -389,12 +399,14 @@ mixin _$DatabaseConfig {
 
 /// @nodoc
 abstract class $DatabaseConfigCopyWith<$Res> {
-  factory $DatabaseConfigCopyWith(DatabaseConfig value, $Res Function(DatabaseConfig) then) =
+  factory $DatabaseConfigCopyWith(
+          DatabaseConfig value, $Res Function(DatabaseConfig) then) =
       _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
 }
 
 /// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig> implements $DatabaseConfigCopyWith<$Res> {
+class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
+    implements $DatabaseConfigCopyWith<$Res> {
   _$DatabaseConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -405,14 +417,17 @@ class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig> implements
 
 /// @nodoc
 abstract class _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value, $Res Function(_$DatabaseConfig_Memory) then) =
+  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value,
+          $Res Function(_$DatabaseConfig_Memory) then) =
       __$$DatabaseConfig_MemoryCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DatabaseConfig_MemoryCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
+class __$$DatabaseConfig_MemoryCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
     implements _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value, $Res Function(_$DatabaseConfig_Memory) _then)
+  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value,
+      $Res Function(_$DatabaseConfig_Memory) _then)
       : super(_value, _then);
 }
 
@@ -428,7 +443,8 @@ class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
   }
 
   @override
@@ -509,16 +525,19 @@ abstract class DatabaseConfig_Memory implements DatabaseConfig {
 
 /// @nodoc
 abstract class _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value, $Res Function(_$DatabaseConfig_Sqlite) then) =
+  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value,
+          $Res Function(_$DatabaseConfig_Sqlite) then) =
       __$$DatabaseConfig_SqliteCopyWithImpl<$Res>;
   @useResult
   $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SqliteCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
+class __$$DatabaseConfig_SqliteCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
     implements _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value, $Res Function(_$DatabaseConfig_Sqlite) _then)
+  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value,
+      $Res Function(_$DatabaseConfig_Sqlite) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -563,7 +582,8 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
   @override
   @pragma('vm:prefer-inline')
   _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
-      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(this, _$identity);
+      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -635,25 +655,30 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
 }
 
 abstract class DatabaseConfig_Sqlite implements DatabaseConfig {
-  const factory DatabaseConfig_Sqlite({required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
+  const factory DatabaseConfig_Sqlite(
+      {required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
 
   SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith => throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$DatabaseConfig_SledCopyWith<$Res> {
-  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value, $Res Function(_$DatabaseConfig_Sled) then) =
+  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value,
+          $Res Function(_$DatabaseConfig_Sled) then) =
       __$$DatabaseConfig_SledCopyWithImpl<$Res>;
   @useResult
   $Res call({SledDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SledCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
+class __$$DatabaseConfig_SledCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
     implements _$$DatabaseConfig_SledCopyWith<$Res> {
-  __$$DatabaseConfig_SledCopyWithImpl(_$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
+  __$$DatabaseConfig_SledCopyWithImpl(
+      _$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -698,7 +723,8 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
   @override
   @pragma('vm:prefer-inline')
   _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
-      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(this, _$identity);
+      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -770,9 +796,11 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
 }
 
 abstract class DatabaseConfig_Sled implements DatabaseConfig {
-  const factory DatabaseConfig_Sled({required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
+  const factory DatabaseConfig_Sled(
+      {required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
 
   SledDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith => throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
+      throw _privateConstructorUsedError;
 }

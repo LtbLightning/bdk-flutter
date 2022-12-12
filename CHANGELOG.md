@@ -1,3 +1,11 @@
+## [0.2.3]
+### Fixed
+- pub.dev analysis score
+
+## [0.2.2]
+### Fixed
+- pub.dev analysis score
+
 ## [0.2.1]
 ### Fixed
 - pub.dev static analysis warning

@@ -28,17 +28,19 @@ class _MyAppState extends State<MyApp> {
   generateMnemonicKeys() async {
     final res = await Mnemonic.create(WordCount.Words12);
     if (kDebugMode) {
-      print(res.asString());}
+      print(res.asString());
+    }
   }
 
   restoreWallet() async {
     aliceWallet = await Wallet.create(
         descriptor:
-        "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     if (kDebugMode) {
-      print("init Complete");}
+      print("init Complete");
+    }
   }
 
   createDescriptorSecret() async {
@@ -65,7 +67,6 @@ class _MyAppState extends State<MyApp> {
       print("derivedXpub: $derivedXpubStr");
       print("derivedXprv: $derivedXprvStr");
     }
-
   }
 
   sync() async {
@@ -81,10 +82,11 @@ class _MyAppState extends State<MyApp> {
 
   getNewAddress() async {
     final alice =
-    await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
     if (kDebugMode) {
       print(alice.address);
-      print(alice.index);}
+      print(alice.index);
+    }
   }
 
   getUnConfirmedTransactions() async {
@@ -99,7 +101,8 @@ class _MyAppState extends State<MyApp> {
         print(" fee: ${e.fee}");
         print(" received: ${e.received}");
         print(" send: ${e.sent}");
-        print("===========================");}
+        print("===========================");
+      }
     }
   }
 
@@ -117,14 +120,16 @@ class _MyAppState extends State<MyApp> {
         print(" send: ${e.sent}");
         print(" confirmationTime: ${e.confirmationTime?.timestamp}");
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
-        print("===========================");}
+        print("===========================");
+      }
     }
   }
 
   getBalance() async {
     final res = await aliceWallet.getBalance();
     if (kDebugMode) {
-      print("alice ${res.total}");}
+      print("alice ${res.total}");
+    }
   }
 
   listUnspent() async {
@@ -132,9 +137,11 @@ class _MyAppState extends State<MyApp> {
     for (var e in res) {
       if (kDebugMode) {
         print("isSpent: ${e.isSpent}");
-        print("outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
+        print(
+            "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
-        print("===========================");}
+        print("===========================");
+      }
     }
   }
 
@@ -150,7 +157,8 @@ class _MyAppState extends State<MyApp> {
     final height = await getBlockHeight();
     final blockHash = await blockchain.getBlockHash(height);
     if (kDebugMode) {
-      print(blockHash);}
+      print(blockHash);
+    }
   }
 
   sendBit() async {

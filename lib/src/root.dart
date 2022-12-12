@@ -41,8 +41,7 @@ class Blockchain {
   /// The function for getting the current height of the blockchain.
   Future<int> getHeight() async {
     try {
-      var res =
-          await loaderApi.getBlockchainHeight(blockchain: _blockchain!);
+      var res = await loaderApi.getBlockchainHeight(blockchain: _blockchain!);
       return res;
     } on FfiException catch (e) {
       throw BlockchainException.unexpected(e.message);
@@ -52,7 +51,8 @@ class Blockchain {
   /// The function for broadcasting a transaction
   Future<void> broadcast(PartiallySignedTransaction psbt) async {
     try {
-      final txid = await loaderApi.broadcast(psbtStr: psbt.psbtBase64, blockchain: _blockchain!);
+      final txid = await loaderApi.broadcast(
+          psbtStr: psbt.psbtBase64, blockchain: _blockchain!);
       if (kDebugMode) {
         print(txid);
       }
@@ -752,6 +752,3 @@ class DescriptorSecretKey {
     return _descriptorSecretKey ?? _xprv.toString();
   }
 }
-
-
-
