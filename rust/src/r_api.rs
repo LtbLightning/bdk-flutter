@@ -9,7 +9,7 @@ use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::wallet::tx_builder::ChangeSpendPolicy;
 use bdk::{Error, FeeRate};
-use flutter_rust_bridge::Opaque;
+use flutter_rust_bridge::{RustOpaque};
 
 use crate::ffi::{
     to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic,
@@ -23,26 +23,26 @@ use crate::utils::{config_bdk_network, config_network, config_word_count};
 
 //========Blockchain==========
 
-pub fn blockchain_init(config: BlockchainConfig) -> Opaque<BlockchainInstance> {
+pub fn blockchain_init(config: BlockchainConfig) -> RustOpaque<BlockchainInstance> {
     let blockchain = BlockchainInstance::new(config);
     return match blockchain.is_err() {
-        false => Opaque::new(blockchain.unwrap()),
+        false => RustOpaque::new(blockchain.unwrap()),
         true => panic!("Error creating blockchain"),
     };
 }
 
-pub fn get_blockchain_height(blockchain: Opaque<BlockchainInstance>) -> u32 {
+pub fn get_blockchain_height(blockchain: RustOpaque<BlockchainInstance>) -> u32 {
     blockchain.get_height().unwrap()
 }
 
 pub fn get_blockchain_hash(
     blockchain_height: u32,
-    blockchain: Opaque<BlockchainInstance>,
+    blockchain: RustOpaque<BlockchainInstance>,
 ) -> String {
     blockchain.get_block_hash(blockchain_height).unwrap()
 }
 
-pub fn broadcast(psbt_str: String, blockchain: Opaque<BlockchainInstance>) -> String {
+pub fn broadcast(psbt_str: String, blockchain: RustOpaque<BlockchainInstance>) -> String {
     let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
     blockchain.broadcast(&psbt).unwrap()
 }
@@ -70,7 +70,7 @@ pub fn combine_psbt(psbt_str: String, other: String) -> String {
 
 //========TxBuilder==========
 pub fn tx_builder_finish(
-    wallet: Opaque<WalletInstance>,
+    wallet: RustOpaque<WalletInstance>,
     recipients: Vec<ScriptAmount>,
     utxos: Vec<OutPoint>,
     unspendable: Vec<OutPoint>,
@@ -149,7 +149,7 @@ pub fn bump_fee_tx_builder_finish(
     txid: String,
     fee_rate: f32,
     allow_shrinking: Option<String>,
-    wallet: Opaque<WalletInstance>,
+    wallet: RustOpaque<WalletInstance>,
     enable_rbf: bool,
     n_sequence: Option<u32>,
 ) -> String {
@@ -361,7 +361,7 @@ pub fn wallet_init(
     change_descriptor: Option<String>,
     network: Network,
     database_config: DatabaseConfig,
-) -> Opaque<WalletInstance> {
+) -> RustOpaque<WalletInstance> {
     let node_network = config_network(network.clone());
     let wallet_obj = WalletInstance::new(
         descriptor.clone(),
@@ -370,37 +370,37 @@ pub fn wallet_init(
         database_config,
     )
     .unwrap();
-    Opaque::new(wallet_obj)
+    RustOpaque::new(wallet_obj)
 }
 
 //Return a derived address using the external descriptor,
 
-pub fn get_address(wallet: Opaque<WalletInstance>, address_index: AddressIndex) -> AddressInfo {
+pub fn get_address(wallet: RustOpaque<WalletInstance>, address_index: AddressIndex) -> AddressInfo {
     let address = wallet.get_address(address_index).unwrap();
     address
 }
 
-pub fn sync_wallet(wallet: Opaque<WalletInstance>, blockchain: Opaque<BlockchainInstance>) {
+pub fn sync_wallet(wallet: RustOpaque<WalletInstance>, blockchain: RustOpaque<BlockchainInstance>) {
     wallet.sync(blockchain.deref());
 }
 
-pub fn get_balance(wallet: Opaque<WalletInstance>) -> Balance {
+pub fn get_balance(wallet: RustOpaque<WalletInstance>) -> Balance {
     let balance = wallet.get_balance().unwrap();
     balance
 }
 
 //Return the list of unspent outputs of this wallet
-pub fn list_unspent_outputs(wallet: Opaque<WalletInstance>) -> Vec<LocalUtxo> {
+pub fn list_unspent_outputs(wallet: RustOpaque<WalletInstance>) -> Vec<LocalUtxo> {
     let unspent = wallet.list_unspent();
     unspent.unwrap()
 }
 
-pub fn get_transactions(wallet: Opaque<WalletInstance>) -> Vec<TransactionDetails> {
+pub fn get_transactions(wallet: RustOpaque<WalletInstance>) -> Vec<TransactionDetails> {
     wallet.list_transactions().unwrap()
 }
 
 pub fn sign(
-    wallet: Opaque<WalletInstance>,
+    wallet: RustOpaque<WalletInstance>,
     psbt_str: String,
     is_multi_sig: bool,
 ) -> Option<String> {
@@ -417,12 +417,12 @@ pub fn sign(
     };
 }
 
-pub fn get_network(wallet: Opaque<WalletInstance>) -> Network {
+pub fn get_network(wallet: RustOpaque<WalletInstance>) -> Network {
     let network = config_bdk_network(wallet.get_wallet().network());
     network
 }
 
-pub fn list_unspent(wallet: Opaque<WalletInstance>) -> Vec<LocalUtxo> {
+pub fn list_unspent(wallet: RustOpaque<WalletInstance>) -> Vec<LocalUtxo> {
     wallet.list_unspent().unwrap()
 }
 

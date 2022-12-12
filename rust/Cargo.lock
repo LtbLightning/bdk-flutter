@@ -93,9 +93,9 @@ checksum = "904dfeac50f3cdaba28fc6f57fdcddb75f49ed61346676a78c4ffe55877802fd"
 
 [[package]]
 name = "bdk"
-version = "0.24.0"
+version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c50e3f08fbcd7eb34f11e066a1353986d583f1f87af70f7cd50bff9fce97c817"
+checksum = "c1e7eb54c6288eca1b698e6e33dd82ebe6c08a93ec1a96bb6926ddceed22c703"
 dependencies = [
  "ahash",
  "async-trait",
@@ -435,6 +435,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "dart-sys"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42fe64308f2072bb94ecd8f7557f9ac01b69d86e6199bac24be0f091ad74b092"
+
+[[package]]
 name = "either"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -530,19 +536,23 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge"
-version = "1.51.0"
+version = "1.54.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a46a779310d708f39fdac03654a501fe03c83f058c3ff23bb2ec819e0a519ac6"
+checksum = "5df8e5ef5f0e51bc20a0f4f4dc9b84f08256f9fec19098fd66ef098cc77c30b3"
 dependencies = [
  "allo-isolate",
  "anyhow",
  "build-target",
  "bytemuck",
+ "cc",
  "chrono",
  "console_error_panic_hook",
+ "dart-sys",
  "flutter_rust_bridge_macros",
  "js-sys",
  "lazy_static",
+ "libc",
+ "log",
  "parking_lot 0.12.1",
  "threadpool",
  "wasm-bindgen",
@@ -551,9 +561,9 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge_codegen"
-version = "1.51.0"
+version = "1.54.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ae2e290a6d29046850d16c8426f83c8c494344a8408f9d6fa3f3b12b2dec6b1"
+checksum = "c46fb09a35c5b4b505d1bb5941f29e03ea3c0cacd4de0c9dec21a84ba3cb95b6"
 dependencies = [
  "anyhow",
  "cargo_metadata",
@@ -1393,6 +1403,18 @@ dependencies = [
  "autocfg",
  "once_cell",
  "pin-project-lite",
+ "tokio-macros",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "1.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d266c00fde287f55d3f1c3e96c500c362a2b8c695076ec180f27918820bc6df8"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
