@@ -41,6 +41,9 @@ export './src/generated/bindings.dart'
     api2wire_u32,
     api2wire_u8,
     api2wire_word_count,
+    DartPostCObjectFnType,
+    uintptr_t,
+    DartPort,
     wire_uint_8_list;
 
 export './src/root.dart';

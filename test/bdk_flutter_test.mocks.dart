@@ -2,11 +2,11 @@
 // in bdk_flutter/example/ios/.symlinks/plugins/bdk_flutter/test/bdk_flutter_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, override_on_non_overriding_member
 import 'dart:async' as _i4;
 
-import 'package:bdk_flutter/bdk_flutter.dart' as _i2;
-import 'package:bdk_flutter/src/generated/bindings.dart' as _i3;
+import 'package:bdk_flutter/src/generated/bindings.dart' as _i2;
+import 'package:bdk_flutter/src/root.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -41,7 +41,7 @@ class _FakeBalance_1 extends _i1.SmartFake implements _i2.Balance {
 }
 
 class _FakePartiallySignedTransaction_2 extends _i1.SmartFake
-    implements _i2.PartiallySignedTransaction {
+    implements _i3.PartiallySignedTransaction {
   _FakePartiallySignedTransaction_2(
     Object parent,
     Invocation parentInvocation,
@@ -52,7 +52,7 @@ class _FakePartiallySignedTransaction_2 extends _i1.SmartFake
 }
 
 class _FakeDescriptorSecretKey_3 extends _i1.SmartFake
-    implements _i2.DescriptorSecretKey {
+    implements _i3.DescriptorSecretKey {
   _FakeDescriptorSecretKey_3(
     Object parent,
     Invocation parentInvocation,
@@ -63,7 +63,7 @@ class _FakeDescriptorSecretKey_3 extends _i1.SmartFake
 }
 
 class _FakeDescriptorPublicKey_4 extends _i1.SmartFake
-    implements _i2.DescriptorPublicKey {
+    implements _i3.DescriptorPublicKey {
   _FakeDescriptorPublicKey_4(
     Object parent,
     Invocation parentInvocation,
@@ -73,7 +73,7 @@ class _FakeDescriptorPublicKey_4 extends _i1.SmartFake
         );
 }
 
-class _FakeTxBuilder_5 extends _i1.SmartFake implements _i2.TxBuilder {
+class _FakeTxBuilder_5 extends _i1.SmartFake implements _i3.TxBuilder {
   _FakeTxBuilder_5(
     Object parent,
     Invocation parentInvocation,
@@ -84,7 +84,7 @@ class _FakeTxBuilder_5 extends _i1.SmartFake implements _i2.TxBuilder {
 }
 
 class _FakeBumpFeeTxBuilder_6 extends _i1.SmartFake
-    implements _i2.BumpFeeTxBuilder {
+    implements _i3.BumpFeeTxBuilder {
   _FakeBumpFeeTxBuilder_6(
     Object parent,
     Invocation parentInvocation,
@@ -94,7 +94,7 @@ class _FakeBumpFeeTxBuilder_6 extends _i1.SmartFake
         );
 }
 
-class _FakeScript_7 extends _i1.SmartFake implements _i2.Script {
+class _FakeScript_7 extends _i1.SmartFake implements _i3.Script {
   _FakeScript_7(
     Object parent,
     Invocation parentInvocation,
@@ -107,15 +107,7 @@ class _FakeScript_7 extends _i1.SmartFake implements _i2.Script {
 /// A class which mocks [Wallet].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWallet extends _i1.Mock implements _i2.Wallet {
-  @override
-  set wallet(_i3.WalletInstance? _wallet) => super.noSuchMethod(
-        Invocation.setter(
-          #wallet,
-          _wallet,
-        ),
-        returnValueForMissingStub: null,
-      );
+class MockWallet extends _i1.Mock implements _i3.Wallet {
   @override
   _i4.Future<_i2.AddressInfo> getAddress(
           {required _i2.AddressIndex? addressIndex}) =>
@@ -185,7 +177,7 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
             _i4.Future<List<_i2.LocalUtxo>>.value(<_i2.LocalUtxo>[]),
       ) as _i4.Future<List<_i2.LocalUtxo>>);
   @override
-  _i4.Future<dynamic> sync(_i2.Blockchain? blockchain) => (super.noSuchMethod(
+  _i4.Future<dynamic> sync(_i3.Blockchain? blockchain) => (super.noSuchMethod(
         Invocation.method(
           #sync,
           [blockchain],
@@ -207,14 +199,14 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
                 <_i2.TransactionDetails>[]),
       ) as _i4.Future<List<_i2.TransactionDetails>>);
   @override
-  _i4.Future<_i2.PartiallySignedTransaction> sign(
-          _i2.PartiallySignedTransaction? psbt) =>
+  _i4.Future<_i3.PartiallySignedTransaction> sign(
+          _i3.PartiallySignedTransaction? psbt) =>
       (super.noSuchMethod(
         Invocation.method(
           #sign,
           [psbt],
         ),
-        returnValue: _i4.Future<_i2.PartiallySignedTransaction>.value(
+        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -223,7 +215,7 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.PartiallySignedTransaction>.value(
+            _i4.Future<_i3.PartiallySignedTransaction>.value(
                 _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -231,21 +223,13 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
             [psbt],
           ),
         )),
-      ) as _i4.Future<_i2.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.PartiallySignedTransaction>);
 }
 
 /// A class which mocks [Blockchain].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBlockchain extends _i1.Mock implements _i2.Blockchain {
-  @override
-  set blockchain(_i3.BlockchainInstance? _blockchain) => super.noSuchMethod(
-        Invocation.setter(
-          #blockchain,
-          _blockchain,
-        ),
-        returnValueForMissingStub: null,
-      );
+class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
   @override
   _i4.Future<String> getBlockHash(int? height) => (super.noSuchMethod(
         Invocation.method(
@@ -265,7 +249,7 @@ class MockBlockchain extends _i1.Mock implements _i2.Blockchain {
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
   @override
-  _i4.Future<void> broadcast(_i2.PartiallySignedTransaction? psbt) =>
+  _i4.Future<void> broadcast(_i3.PartiallySignedTransaction? psbt) =>
       (super.noSuchMethod(
         Invocation.method(
           #broadcast,
@@ -280,16 +264,16 @@ class MockBlockchain extends _i1.Mock implements _i2.Blockchain {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDescriptorSecretKey extends _i1.Mock
-    implements _i2.DescriptorSecretKey {
+    implements _i3.DescriptorSecretKey {
   @override
-  _i4.Future<_i2.DescriptorSecretKey> derive(
-          _i2.DerivationPath? derivationPath) =>
+  _i4.Future<_i3.DescriptorSecretKey> derive(
+          _i3.DerivationPath? derivationPath) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
           [derivationPath],
         ),
-        returnValue: _i4.Future<_i2.DescriptorSecretKey>.value(
+        returnValue: _i4.Future<_i3.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_3(
           this,
           Invocation.method(
@@ -297,7 +281,7 @@ class MockDescriptorSecretKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.DescriptorSecretKey>.value(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_3(
           this,
           Invocation.method(
@@ -305,16 +289,16 @@ class MockDescriptorSecretKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-      ) as _i4.Future<_i2.DescriptorSecretKey>);
+      ) as _i4.Future<_i3.DescriptorSecretKey>);
   @override
-  _i4.Future<_i2.DescriptorSecretKey> extend(
-          _i2.DerivationPath? derivationPath) =>
+  _i4.Future<_i3.DescriptorSecretKey> extend(
+          _i3.DerivationPath? derivationPath) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
           [derivationPath],
         ),
-        returnValue: _i4.Future<_i2.DescriptorSecretKey>.value(
+        returnValue: _i4.Future<_i3.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_3(
           this,
           Invocation.method(
@@ -322,7 +306,7 @@ class MockDescriptorSecretKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.DescriptorSecretKey>.value(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_3(
           this,
           Invocation.method(
@@ -330,14 +314,14 @@ class MockDescriptorSecretKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-      ) as _i4.Future<_i2.DescriptorSecretKey>);
+      ) as _i4.Future<_i3.DescriptorSecretKey>);
   @override
-  _i4.Future<_i2.DescriptorPublicKey> asPublic() => (super.noSuchMethod(
+  _i4.Future<_i3.DescriptorPublicKey> asPublic() => (super.noSuchMethod(
         Invocation.method(
           #asPublic,
           [],
         ),
-        returnValue: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValue: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -345,7 +329,7 @@ class MockDescriptorSecretKey extends _i1.Mock
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -353,7 +337,7 @@ class MockDescriptorSecretKey extends _i1.Mock
             [],
           ),
         )),
-      ) as _i4.Future<_i2.DescriptorPublicKey>);
+      ) as _i4.Future<_i3.DescriptorPublicKey>);
   @override
   _i4.Future<List<int>> secretBytes() => (super.noSuchMethod(
         Invocation.method(
@@ -378,16 +362,16 @@ class MockDescriptorSecretKey extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDescriptorPublicKey extends _i1.Mock
-    implements _i2.DescriptorPublicKey {
+    implements _i3.DescriptorPublicKey {
   @override
-  _i4.Future<_i2.DescriptorPublicKey> derive(
-          _i2.DerivationPath? derivationPath) =>
+  _i4.Future<_i3.DescriptorPublicKey> derive(
+          _i3.DerivationPath? derivationPath) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
           [derivationPath],
         ),
-        returnValue: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValue: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -395,7 +379,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -403,16 +387,16 @@ class MockDescriptorPublicKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-      ) as _i4.Future<_i2.DescriptorPublicKey>);
+      ) as _i4.Future<_i3.DescriptorPublicKey>);
   @override
-  _i4.Future<_i2.DescriptorPublicKey> extend(
-          _i2.DerivationPath? derivationPath) =>
+  _i4.Future<_i3.DescriptorPublicKey> extend(
+          _i3.DerivationPath? derivationPath) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
           [derivationPath],
         ),
-        returnValue: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValue: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -420,7 +404,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.DescriptorPublicKey>.value(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorPublicKey>.value(
             _FakeDescriptorPublicKey_4(
           this,
           Invocation.method(
@@ -428,7 +412,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             [derivationPath],
           ),
         )),
-      ) as _i4.Future<_i2.DescriptorPublicKey>);
+      ) as _i4.Future<_i3.DescriptorPublicKey>);
   @override
   String asString() => (super.noSuchMethod(
         Invocation.method(
@@ -444,7 +428,7 @@ class MockDescriptorPublicKey extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPartiallySignedTransaction extends _i1.Mock
-    implements _i2.PartiallySignedTransaction {
+    implements _i3.PartiallySignedTransaction {
   @override
   String get psbtBase64 => (super.noSuchMethod(
         Invocation.getter(#psbtBase64),
@@ -478,14 +462,14 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValueForMissingStub: _i4.Future<List<int>>.value(<int>[]),
       ) as _i4.Future<List<int>>);
   @override
-  _i4.Future<_i2.PartiallySignedTransaction> combine(
-          _i2.PartiallySignedTransaction? other) =>
+  _i4.Future<_i3.PartiallySignedTransaction> combine(
+          _i3.PartiallySignedTransaction? other) =>
       (super.noSuchMethod(
         Invocation.method(
           #combine,
           [other],
         ),
-        returnValue: _i4.Future<_i2.PartiallySignedTransaction>.value(
+        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -494,7 +478,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.PartiallySignedTransaction>.value(
+            _i4.Future<_i3.PartiallySignedTransaction>.value(
                 _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -502,7 +486,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
             [other],
           ),
         )),
-      ) as _i4.Future<_i2.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.PartiallySignedTransaction>);
   @override
   _i4.Future<String> serialize() => (super.noSuchMethod(
         Invocation.method(
@@ -517,9 +501,9 @@ class MockPartiallySignedTransaction extends _i1.Mock
 /// A class which mocks [TxBuilder].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
+class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
   @override
-  _i2.TxBuilder addData({required List<int>? data}) => (super.noSuchMethod(
+  _i3.TxBuilder addData({required List<int>? data}) => (super.noSuchMethod(
         Invocation.method(
           #addData,
           [],
@@ -541,10 +525,10 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             {#data: data},
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder addRecipient(
-    _i2.Script? script,
+  _i3.TxBuilder addRecipient(
+    _i3.Script? script,
     int? amount,
   ) =>
       (super.noSuchMethod(
@@ -575,9 +559,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             ],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder unSpendable(List<_i2.OutPoint>? outpoints) =>
+  _i3.TxBuilder unSpendable(List<_i2.OutPoint>? outpoints) =>
       (super.noSuchMethod(
         Invocation.method(
           #unSpendable,
@@ -597,9 +581,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [outpoints],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder addUtxo(_i2.OutPoint? outpoint) => (super.noSuchMethod(
+  _i3.TxBuilder addUtxo(_i2.OutPoint? outpoint) => (super.noSuchMethod(
         Invocation.method(
           #addUtxo,
           [outpoint],
@@ -618,9 +602,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [outpoint],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder addUtxos(List<_i2.OutPoint>? outpoints) => (super.noSuchMethod(
+  _i3.TxBuilder addUtxos(List<_i2.OutPoint>? outpoints) => (super.noSuchMethod(
         Invocation.method(
           #addUtxos,
           [outpoints],
@@ -639,9 +623,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [outpoints],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder doNotSpendChange() => (super.noSuchMethod(
+  _i3.TxBuilder doNotSpendChange() => (super.noSuchMethod(
         Invocation.method(
           #doNotSpendChange,
           [],
@@ -660,9 +644,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder drainWallet() => (super.noSuchMethod(
+  _i3.TxBuilder drainWallet() => (super.noSuchMethod(
         Invocation.method(
           #drainWallet,
           [],
@@ -681,9 +665,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder drainTo(String? address) => (super.noSuchMethod(
+  _i3.TxBuilder drainTo(String? address) => (super.noSuchMethod(
         Invocation.method(
           #drainTo,
           [address],
@@ -702,9 +686,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [address],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder enableRbfWithSequence(int? nSequence) => (super.noSuchMethod(
+  _i3.TxBuilder enableRbfWithSequence(int? nSequence) => (super.noSuchMethod(
         Invocation.method(
           #enableRbfWithSequence,
           [nSequence],
@@ -723,9 +707,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [nSequence],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder enableRbf() => (super.noSuchMethod(
+  _i3.TxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
           #enableRbf,
           [],
@@ -744,9 +728,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder feeAbsolute(int? feeAmount) => (super.noSuchMethod(
+  _i3.TxBuilder feeAbsolute(int? feeAmount) => (super.noSuchMethod(
         Invocation.method(
           #feeAbsolute,
           [feeAmount],
@@ -765,9 +749,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [feeAmount],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder feeRate(double? satPerVbyte) => (super.noSuchMethod(
+  _i3.TxBuilder feeRate(double? satPerVbyte) => (super.noSuchMethod(
         Invocation.method(
           #feeRate,
           [satPerVbyte],
@@ -786,9 +770,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [satPerVbyte],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder setRecipients(List<_i2.ScriptAmount>? recipients) =>
+  _i3.TxBuilder setRecipients(List<_i2.ScriptAmount>? recipients) =>
       (super.noSuchMethod(
         Invocation.method(
           #setRecipients,
@@ -808,9 +792,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [recipients],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder manuallySelectedOnly() => (super.noSuchMethod(
+  _i3.TxBuilder manuallySelectedOnly() => (super.noSuchMethod(
         Invocation.method(
           #manuallySelectedOnly,
           [],
@@ -829,9 +813,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder addUnSpendable(_i2.OutPoint? unSpendable) =>
+  _i3.TxBuilder addUnSpendable(_i2.OutPoint? unSpendable) =>
       (super.noSuchMethod(
         Invocation.method(
           #addUnSpendable,
@@ -851,9 +835,9 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [unSpendable],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i2.TxBuilder onlySpendChange() => (super.noSuchMethod(
+  _i3.TxBuilder onlySpendChange() => (super.noSuchMethod(
         Invocation.method(
           #onlySpendChange,
           [],
@@ -872,15 +856,15 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
   @override
-  _i4.Future<_i2.PartiallySignedTransaction> finish(_i2.Wallet? wallet) =>
+  _i4.Future<_i3.PartiallySignedTransaction> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
         Invocation.method(
           #finish,
           [wallet],
         ),
-        returnValue: _i4.Future<_i2.PartiallySignedTransaction>.value(
+        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -889,7 +873,7 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.PartiallySignedTransaction>.value(
+            _i4.Future<_i3.PartiallySignedTransaction>.value(
                 _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -897,13 +881,13 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             [wallet],
           ),
         )),
-      ) as _i4.Future<_i2.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.PartiallySignedTransaction>);
 }
 
 /// A class which mocks [BumpFeeTxBuilder].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
+class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
   @override
   String get txid => (super.noSuchMethod(
         Invocation.getter(#txid),
@@ -917,7 +901,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
         returnValueForMissingStub: 0.0,
       ) as double);
   @override
-  _i2.BumpFeeTxBuilder allowShrinking(String? address) => (super.noSuchMethod(
+  _i3.BumpFeeTxBuilder allowShrinking(String? address) => (super.noSuchMethod(
         Invocation.method(
           #allowShrinking,
           [address],
@@ -936,9 +920,9 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
             [address],
           ),
         ),
-      ) as _i2.BumpFeeTxBuilder);
+      ) as _i3.BumpFeeTxBuilder);
   @override
-  _i2.BumpFeeTxBuilder enableRbf() => (super.noSuchMethod(
+  _i3.BumpFeeTxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
           #enableRbf,
           [],
@@ -957,9 +941,9 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
             [],
           ),
         ),
-      ) as _i2.BumpFeeTxBuilder);
+      ) as _i3.BumpFeeTxBuilder);
   @override
-  _i2.BumpFeeTxBuilder enableRbfWithSequence(int? nSequence) =>
+  _i3.BumpFeeTxBuilder enableRbfWithSequence(int? nSequence) =>
       (super.noSuchMethod(
         Invocation.method(
           #enableRbfWithSequence,
@@ -979,15 +963,15 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
             [nSequence],
           ),
         ),
-      ) as _i2.BumpFeeTxBuilder);
+      ) as _i3.BumpFeeTxBuilder);
   @override
-  _i4.Future<_i2.PartiallySignedTransaction> finish(_i2.Wallet? wallet) =>
+  _i4.Future<_i3.PartiallySignedTransaction> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
         Invocation.method(
           #finish,
           [wallet],
         ),
-        returnValue: _i4.Future<_i2.PartiallySignedTransaction>.value(
+        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -996,7 +980,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.PartiallySignedTransaction>.value(
+            _i4.Future<_i3.PartiallySignedTransaction>.value(
                 _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
@@ -1004,42 +988,42 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
             [wallet],
           ),
         )),
-      ) as _i4.Future<_i2.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.PartiallySignedTransaction>);
 }
 
 /// A class which mocks [Script].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockScript extends _i1.Mock implements _i2.Script {}
+class MockScript extends _i1.Mock implements _i3.Script {}
 
 /// A class which mocks [Address].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddress extends _i1.Mock implements _i2.Address {
+class MockAddress extends _i1.Mock implements _i3.Address {
   @override
-  _i4.Future<_i2.Script> scriptPubKey() => (super.noSuchMethod(
+  _i4.Future<_i3.Script> scriptPubKey() => (super.noSuchMethod(
         Invocation.method(
           #scriptPubKey,
           [],
         ),
-        returnValue: _i4.Future<_i2.Script>.value(_FakeScript_7(
+        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_7(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i2.Script>.value(_FakeScript_7(
+        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_7(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Script>);
+      ) as _i4.Future<_i3.Script>);
 }
 
 /// A class which mocks [DerivationPath].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDerivationPath extends _i1.Mock implements _i2.DerivationPath {}
+class MockDerivationPath extends _i1.Mock implements _i3.DerivationPath {}

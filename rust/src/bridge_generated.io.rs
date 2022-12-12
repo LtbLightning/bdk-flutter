@@ -391,8 +391,8 @@ pub extern "C" fn share_opaque_WalletInstance(ptr: *const c_void) -> *const c_vo
 
 // Section: impl Wire2Api
 
-impl Wire2Api<Opaque<BlockchainInstance>> for wire_BlockchainInstance {
-    fn wire2api(self) -> Opaque<BlockchainInstance> {
+impl Wire2Api<RustOpaque<BlockchainInstance>> for wire_BlockchainInstance {
+    fn wire2api(self) -> RustOpaque<BlockchainInstance> {
         unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
@@ -402,8 +402,8 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
         String::from_utf8_lossy(&vec).into_owned()
     }
 }
-impl Wire2Api<Opaque<WalletInstance>> for wire_WalletInstance {
-    fn wire2api(self) -> Opaque<WalletInstance> {
+impl Wire2Api<RustOpaque<WalletInstance>> for wire_WalletInstance {
+    fn wire2api(self) -> RustOpaque<WalletInstance> {
         unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
