@@ -2,16 +2,17 @@ use bdk::bitcoin::blockdata::script::Script as BdkScript;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::psbt::serialize::Serialize;
 use bdk::bitcoin::secp256k1::Secp256k1;
-use bdk::bitcoin::util::bip32::DerivationPath as BdkDerivationPath;
+use bdk::bitcoin::util::bip32::{DerivationPath as BdkDerivationPath, Fingerprint};
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction as BdkPartiallySignedTransaction;
-use bdk::bitcoin::{Address as BdkAddress, Network, OutPoint as BdkOutPoint, Txid};
+use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
+
 use bdk::blockchain::any::AnyBlockchain;
 use bdk::blockchain::{
-    AnyBlockchainConfig, Blockchain, ConfigurableBlockchain, ElectrumBlockchainConfig,
-    GetBlockHash, GetHeight,
+    rpc::RpcConfig as BdkRpcConfig, rpc::RpcSyncParams as BdkRpcSyncParams, AnyBlockchainConfig,
+    Blockchain, ConfigurableBlockchain, ElectrumBlockchainConfig, GetBlockHash, GetHeight,
 };
-use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::descriptor::DescriptorXKey;
+use bdk::database::{AnyDatabase, ConfigurableDatabase};
+use bdk::descriptor::{DescriptorXKey, ExtendedDescriptor, IntoWalletDescriptor, KeyMap};
 use bdk::keys::bip39::{Language, Mnemonic as BdkMnemonic, WordCount};
 use bdk::keys::{
     DerivableKey, DescriptorPublicKey as BdkDescriptorPublicKey,
@@ -22,20 +23,23 @@ use bdk::psbt::PsbtUtils;
 use bdk::wallet::AddressIndex as BdkAddressIndex;
 use bdk::wallet::AddressInfo as BdkAddressInfo;
 use std::ops::Deref;
+use std::path::PathBuf;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use bdk::blockchain::esplora::EsploraBlockchainConfig;
-use bdk::{
-    Balance as BdkBalance, BlockTime as BdkBlockTime, Error as BdkError, Error, FeeRate,
-    SignOptions, SyncOptions, Wallet as BdkWallet,
-};
-
 use crate::types::{
     AddressIndex, AddressInfo, Balance, BlockTime, BlockchainConfig, DatabaseConfig, LocalUtxo,
-    OutPoint, TransactionDetails, TxOut,
+    OutPoint, RpcSyncParams, TransactionDetails, TxOut,
 };
-use crate::utils::config_database;
+use bdk::blockchain::esplora::EsploraBlockchainConfig;
+use bdk::template::{
+    Bip44, Bip44Public, Bip49, Bip49Public, Bip84, Bip84Public, DescriptorTemplate,
+};
+use bdk::{
+    Balance as BdkBalance, BlockTime as BdkBlockTime, Error as BdkError, Error, FeeRate,
+    KeychainKind, SignOptions, SyncOptions, Wallet as BdkWallet,
+};
+use flutter_rust_bridge::RustOpaque;
 
 impl From<AddressIndex> for BdkAddressIndex {
     fn from(x: AddressIndex) -> BdkAddressIndex {
@@ -79,11 +83,29 @@ fn set_block_time(time: Option<BdkBlockTime>) -> Option<BlockTime> {
     }
 }
 
+impl From<RpcSyncParams> for BdkRpcSyncParams {
+    fn from(params: RpcSyncParams) -> Self {
+        BdkRpcSyncParams {
+            start_script_count: params.start_script_count as usize,
+            start_time: params.start_time,
+            force_start_time: params.force_start_time,
+            poll_rate_sec: params.poll_rate_sec,
+        }
+    }
+}
 /// A transaction output, which defines new coins to be created from old ones.
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
         BdkOutPoint {
             txid: Txid::from_str(&x.clone().txid).unwrap(),
+            vout: x.clone().vout,
+        }
+    }
+}
+impl From<BdkOutPoint> for OutPoint {
+    fn from(x: BdkOutPoint) -> OutPoint {
+        OutPoint {
+            txid: x.txid.to_string(),
             vout: x.clone().vout,
         }
     }
@@ -105,11 +127,11 @@ impl From<BdkBalance> for Balance {
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
 trait NetworkLocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo;
+    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo;
 }
 
 impl NetworkLocalUtxo for LocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: Network) -> LocalUtxo {
+    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo {
         LocalUtxo {
             outpoint: OutPoint {
                 txid: x.clone().outpoint.txid.to_string(),
@@ -143,6 +165,7 @@ impl BlockchainInstance {
                     timeout: config.timeout,
                     url: config.url,
                     stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                    validate_domain: config.validate_domain,
                 })
             }
             BlockchainConfig::Esplora { config } => {
@@ -152,6 +175,28 @@ impl BlockchainInstance {
                     concurrency: config.concurrency,
                     stop_gap: usize::try_from(config.stop_gap).unwrap(),
                     timeout: config.timeout,
+                })
+            }
+            BlockchainConfig::Rpc { config } => {
+                let rpc_auth = if let Some(file) = config.auth_cookie {
+                    bdk::blockchain::rpc::Auth::Cookie {
+                        file: PathBuf::from(file),
+                    }
+                } else if let Some(user_pass) = config.auth_user_pass {
+                    bdk::blockchain::rpc::Auth::UserPass {
+                        username: user_pass.username,
+                        password: user_pass.password,
+                    }
+                } else {
+                    bdk::blockchain::rpc::Auth::None
+                };
+                AnyBlockchainConfig::Rpc(BdkRpcConfig {
+                    url: config.url,
+                    // auth: config.auth.into(),
+                    auth: rpc_auth,
+                    network: config.network.into(),
+                    wallet_name: config.wallet_name,
+                    sync_params: config.sync_params.map(|p| p.into()),
                 })
             }
         };
@@ -188,17 +233,19 @@ pub struct WalletInstance {
 }
 impl WalletInstance {
     pub fn new(
-        descriptor: String,
-        change_descriptor: Option<String>,
-        network: Network,
+        descriptor: Arc<RustOpaque<BdkDescriptor>>,
+        change_descriptor: Option<Arc<RustOpaque<BdkDescriptor>>>,
+        network: bdk::bitcoin::Network,
         database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
-        let any_database_config: AnyDatabaseConfig = config_database(database_config);
-        let database: AnyDatabase = AnyDatabase::from_config(&any_database_config)?;
-        let res = Mutex::new(
+        let database = AnyDatabase::from_config(&database_config.into()).unwrap();
+        let descriptor: String = descriptor.as_string_private();
+        let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
+
+        let wallet_mutex = Mutex::new(
             BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
         );
-        Ok(WalletInstance { wallet_mutex: res })
+        Ok(WalletInstance { wallet_mutex })
     }
     pub fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
@@ -294,8 +341,11 @@ impl PartiallySignedTransaction {
             internal: Mutex::new(original_psbt),
         }))
     }
-    pub fn fee_rate(&self) -> Option<Arc<FeeRate>> {
-        self.internal.lock().unwrap().fee_rate().map(Arc::new)
+    pub(crate) fn fee_amount(&self) -> Option<u64> {
+        self.internal.lock().unwrap().fee_amount()
+    }
+    pub(crate) fn fee_rate(&self) -> Option<FeeRate> {
+        self.internal.lock().unwrap().fee_rate()
     }
 }
 
@@ -347,7 +397,7 @@ impl Address {
 
 impl DescriptorSecretKey {
     pub fn new(
-        network: Network,
+        network: bdk::bitcoin::Network,
         mnemonic: Mnemonic,
         password: Option<String>,
     ) -> Result<Self, BdkError> {
@@ -551,7 +601,186 @@ impl Mnemonic {
         self.internal.to_string()
     }
 }
+#[derive(Debug)]
+pub struct BdkDescriptor {
+    pub extended_descriptor: ExtendedDescriptor,
+    pub key_map: KeyMap,
+}
 
+impl BdkDescriptor {
+    pub fn new(descriptor: String, network: bdk::bitcoin::Network) -> Result<Self, BdkError> {
+        let secp = Secp256k1::new();
+        let (extended_descriptor, key_map) = descriptor.into_wallet_descriptor(&secp, network)?;
+
+        Ok(Self {
+            extended_descriptor,
+            key_map,
+        })
+    }
+
+    pub fn new_bip44(
+        secret_key: Arc<DescriptorSecretKey>,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip44(derivable_key, keychain_kind).build(network).unwrap();
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorSecretKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn new_bip44_public(
+        public_key: Arc<DescriptorPublicKey>,
+        fingerprint: String,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip44Public(derivable_key, fingerprint, keychain_kind)
+                        .build(network)
+                        .unwrap();
+
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorPublicKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn new_bip49(
+        secret_key: Arc<DescriptorSecretKey>,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip49(derivable_key, keychain_kind).build(network).unwrap();
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorSecretKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn new_bip49_public(
+        public_key: Arc<DescriptorPublicKey>,
+        fingerprint: String,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip49Public(derivable_key, fingerprint, keychain_kind)
+                        .build(network)
+                        .unwrap();
+
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorPublicKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn new_bip84(
+        secret_key: Arc<DescriptorSecretKey>,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip84(derivable_key, keychain_kind).build(network).unwrap();
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorSecretKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn new_bip84_public(
+        public_key: Arc<DescriptorPublicKey>,
+        fingerprint: String,
+        keychain_kind: KeychainKind,
+        network: bdk::bitcoin::Network,
+    ) -> Self {
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+
+        match derivable_key.deref() {
+            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip84Public(derivable_key, fingerprint, keychain_kind)
+                        .build(network)
+                        .unwrap();
+
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorPublicKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub fn as_string_private(&self) -> String {
+        let descriptor = &self.extended_descriptor;
+        let key_map = &self.key_map;
+        descriptor.to_string_with_secret(key_map)
+    }
+
+    pub fn as_string(&self) -> String {
+        self.extended_descriptor.to_string()
+    }
+}
 /// A Bitcoin script.
 #[derive(Clone)]
 pub struct Script {

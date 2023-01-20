@@ -12,7 +12,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.2.3
+  bdk_flutter: ^0.2.4
 ```
 `bdk-flutter` can then be imported and used in your Flutter code. For example:
 ```dart
@@ -20,19 +20,35 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 // ....
 
-final externalDescriptor = "wpkh([b8b575c2/84'/1'/0'/0]tprv8icWtRzy9CWgFxpGMLSdAeE4wWyz39XGc6SwykeTo13tYm14JkVVQAf7jz8DDarCgNJrG3aEPJEqchDWeJdiaWpS3FwbLB9SzsN57V7qxB/*)"
-final internalDescriptor = "wpkh([b8b575c2/84'/1'/0'/1]tprv8icWtRzy9CWgFxpGMLSdAeE4wWyz39XGc6SwykeTo13tYm14JkVVQAf7jz8DDarCgNJrG3aEPJEqchDWeJdiaWpS3FwbLB9SzsN57V7qxB/*)"
+final mnemonic            = await Mnemonic.create(WordCount.Words12);
 
-  final blockchain  = await Blockchain.create(
-                            config: BlockchainConfig.electrum(
-                                config: ElectrumConfig(
-                                    stopGap: 10,
-                                    timeout: 5,
-                                    retry: 5,
-                                    url: "ssl://electrum.blockstream.info:60002")));
-  final wallet      = await Wallet.create( externalDescriptor, internalDescriptor, Network.TESTNET, databaseConfig: const DatabaseConfig.memory());
-  final addressInfo = await wallet.getAddress(addressIndex: AddressIndex.New);
-                      await wallet.sync(blockchain);
+final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
+                                                              mnemonic: mnemonic );
+                                    
+final externalDescriptor  = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
+                                                       network: Network.Testnet,
+                                                       keyChainKind: KeyChainKind.External );   
+
+
+ final internalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
+                                                       network: Network.Testnet,
+                                                       keyChainKind: KeyChainKind.Internal );
+
+ final blockchain         = await Blockchain.create( config: BlockchainConfig.electrum(
+                                                                        config: ElectrumConfig(
+                                                                            stopGap: 10,
+                                                                            timeout: 5,
+                                                                            retry: 5,
+                                                                            url: "ssl://electrum.blockstream.info:60002")));
+                                    
+  final wallet            = await Wallet.create( descriptor: externalDescriptor, 
+                                                 changeDescriptor: internalDescriptor, 
+                                                 network: Network.TESTNET, 
+                                                 databaseConfig: const DatabaseConfig.memory());
+  
+  final addressInfo       = await wallet.getAddress( addressIndex: AddressIndex.New );
+  
+                            await wallet.sync( blockchain );
 ```
 
 ### API Documentation
