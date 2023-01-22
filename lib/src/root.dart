@@ -1,6 +1,9 @@
 import 'dart:typed_data' as typed_data;
-import 'package:bdk_flutter/src/utils/exceptions/bdk_exception.dart';
-import 'package:bdk_flutter/src/utils/exceptions/config.dart';
+import 'package:bdk_flutter/src/utils/exceptions/blockchain_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/key_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/path_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/wallet_exception.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'generated/bridge_definitions.dart';
@@ -17,12 +20,8 @@ class Blockchain {
 
   ///  [Blockchain] constructor
   static Future<Blockchain> create({required BlockchainConfig config}) async {
-    try{
-      final res = await loaderApi.blockchainInit(config: config);
-      return Blockchain._()._setBlockchain(res);
-    } on FfiException catch (e){
-      throw configException(e.message);
-    }
+    final res = await loaderApi.blockchainInit(config: config);
+    return Blockchain._()._setBlockchain(res);
   }
 
   /// The function for getting block hash by block height
@@ -32,7 +31,7 @@ class Blockchain {
           blockchainHeight: height, blockchain: _blockchain!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw BlockchainException.unexpected(e.message);
     }
   }
 
@@ -42,7 +41,7 @@ class Blockchain {
       var res = await loaderApi.getBlockchainHeight(blockchain: _blockchain!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw BlockchainException.unexpected(e.message);
     }
   }
 
@@ -55,45 +54,30 @@ class Blockchain {
         print(txid);
       }
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw BlockchainException.unexpected(e.message);
     }
   }
 }
 
 ///Script descriptor
-class Descriptor {
+class Descriptor{
   BdkDescriptor? _descriptorInstance;
   Descriptor._();
-  Descriptor _setDescriptor(BdkDescriptor? descriptorInstance) {
+  Descriptor _setDescriptor(BdkDescriptor? descriptorInstance){
     _descriptorInstance = descriptorInstance;
     return this;
   }
-
   ///  [Descriptor] constructor
-  static Future<Descriptor> create(
-      {required String descriptor, required Network network}) async {
-    try{ final res = await loaderApi.newDescriptor(descriptor: descriptor, network: network);
+  static Future<Descriptor> create({required String descriptor ,required Network network}) async{
+    final res = await loaderApi.newDescriptor(descriptor: descriptor, network: network);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
   ///BIP44 template. Expands to pkh(key/44'/{0,1}'/0'/{0,1}/*)
   ///
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-  static Future<Descriptor> newBip44(
-      {required DescriptorSecretKey descriptorSecretKey,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{ final res = await loaderApi.newBip44Descriptor(
-        secretKey: descriptorSecretKey.asString(),
-        network: network,
-        keyChainKind: keyChainKind);
+  static Future<Descriptor> newBip44({required DescriptorSecretKey descriptorSecretKey ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip44Descriptor(secretKey: descriptorSecretKey.asString(), network: network, keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   ///BIP44 public template. Expands to pkh(key/{0,1}/*)
@@ -101,35 +85,16 @@ class Descriptor {
   /// This assumes that the key used has already been derived with m/44'/0'/0' for Mainnet or m/44'/1'/0' for Testnet.
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-  static Future<Descriptor> newBip44Public(
-      {required String publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{ final res = await loaderApi.newBip44Public(
-        keyChainKind: keyChainKind,
-        publicKey: publicKey,
-        network: network,
-        fingerprint: fingerPrint?? '00000000');
+  static Future<Descriptor> newBip44Public({required String publicKey, required String fingerPrint ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip44Public(keyChainKind: keyChainKind, publicKey: publicKey, network: network, fingerprint: fingerPrint);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
   ///BIP49 template. Expands to sh(wpkh(key/49'/{0,1}'/0'/{0,1}/*))
   ///
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-  static Future<Descriptor> newBip49(
-      {required String secretKey,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{  final res = await loaderApi.newBip49Descriptor(
-        secretKey: secretKey, network: network, keyChainKind: keyChainKind);
+  static Future<Descriptor> newBip49({required String secretKey ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip49Descriptor(secretKey: secretKey, network: network, keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   ///BIP49 public template. Expands to sh(wpkh(key/{0,1}/*))
@@ -137,73 +102,34 @@ class Descriptor {
   /// This assumes that the key used has already been derived with m/49'/0'/0'.
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-  static Future<Descriptor> newBip49Public(
-      {required String publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{ final res = await loaderApi.newBip49Public(
-        keyChainKind: keyChainKind,
-        publicKey: publicKey,
-        network: network,
-        fingerprint: fingerPrint?? '00000000');
+  static Future<Descriptor> newBip49Public({required String publicKey, required String fingerPrint ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip49Public(keyChainKind: keyChainKind, publicKey: publicKey, network: network, fingerprint: fingerPrint);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
   ///BIP84 template. Expands to wpkh(key/84'/{0,1}'/0'/{0,1}/*)
   ///
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-  static Future<Descriptor> newBip84(
-      {required String secretKey,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{ final res = await loaderApi.newBip84Descriptor(
-        secretKey: secretKey, network: network, keyChainKind: keyChainKind);
+  static Future<Descriptor> newBip84({required String secretKey ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip84Descriptor(secretKey: secretKey, network: network, keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
   ///BIP84 public template. Expands to wpkh(key/{0,1}/*)
   ///
   /// This assumes that the key used has already been derived with m/84'/0'/0'.
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-  static Future<Descriptor> newBip84Public(
-      {required String publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keyChainKind}) async {
-    try{  final res = await loaderApi.newBip84Public(
-        keyChainKind: keyChainKind,
-        publicKey: publicKey,
-        network: network,
-        fingerprint: fingerPrint?? '00000000');
+  static Future<Descriptor> newBip84Public({required String publicKey, required String fingerPrint ,required Network network, required KeyChainKind keyChainKind}) async{
+    final res = await loaderApi.newBip84Public(keyChainKind: keyChainKind, publicKey: publicKey, network: network, fingerprint: fingerPrint);
     return Descriptor._()._setDescriptor(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
-  Future<String> asPrivateString() async {
-    try{ final res =
-    await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
+  Future<String> asPrivateString() async{
+    final res = await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
-  Future<String> asString() async {
-    try{ final res = await loaderApi.asString(descriptor: _descriptorInstance!);
+  Future<String> asString() async{
+    final res = await loaderApi.asString(descriptor: _descriptorInstance!);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 }
 
@@ -220,11 +146,10 @@ class Descriptor {
 class Wallet {
   WalletInstance? _wallet;
   Wallet._();
-  Wallet _setWallet(WalletInstance? walletInstance) {
+  Wallet _setWallet(WalletInstance? walletInstance){
     _wallet = walletInstance;
     return this;
   }
-
   ///  [Wallet] constructor
   static Future<Wallet> create({
     required Descriptor descriptor,
@@ -239,9 +164,9 @@ class Wallet {
         network: network,
         databaseConfig: databaseConfig,
       );
-      return Wallet._()._setWallet(res);
+      return  Wallet._()._setWallet(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -253,7 +178,7 @@ class Wallet {
           wallet: _wallet!, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -265,7 +190,7 @@ class Wallet {
       var res = await loaderApi.getBalance(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -275,7 +200,7 @@ class Wallet {
       var res = await loaderApi.getNetwork(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -287,7 +212,7 @@ class Wallet {
       var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -303,7 +228,7 @@ class Wallet {
         print("Sync complete");
       }
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -313,7 +238,7 @@ class Wallet {
       final res = await loaderApi.getTransactions(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.unexpected(e.message);
     }
   }
 
@@ -326,11 +251,11 @@ class Wallet {
       final sbt = await loaderApi.sign(
           psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
       if (sbt == null) {
-        throw const BdkException.unExpected("Unable to sign transaction");
+        throw const TxBuilderException.unexpected("Unable to sign transaction");
       }
       return PartiallySignedTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw TxBuilderException.unexpected(e.message);
     }
   }
 }
@@ -344,22 +269,14 @@ class PartiallySignedTransaction {
 
   /// Returns the [PartiallySignedTransaction] transaction id
   Future<String> txId() async {
-    try {
-      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   /// Return the transaction as bytes.
   Future<List<int>> extractTx() async {
-    try{
-      final res = await loaderApi.extractTx(psbtStr: psbtBase64);
+    final res = await loaderApi.extractTx(psbtStr: psbtBase64);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   /// Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
@@ -367,44 +284,36 @@ class PartiallySignedTransaction {
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
   Future<PartiallySignedTransaction> combine(
       PartiallySignedTransaction other) async {
-    try{  final res = await loaderApi.combinePsbt(
+    final res = await loaderApi.combinePsbt(
         psbtStr: psbtBase64, other: other.psbtBase64);
     return PartiallySignedTransaction(psbtBase64: res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   /// Return txid as string
   Future<String> serialize() async {
-    try{  final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   /// Return Fee Rate
   Future<FeeRate?> feeRate() async {
-    try{ final res = await loaderApi.getFeeRate(psbtStr: psbtBase64);
-    if (res == null) return null;
-    return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
+    final res = await loaderApi.getFeeRate(psbtStr: psbtBase64);
+    if(res ==null) return null;
+    return FeeRate(satPerVb: res);
   }
-
   /// Return feeAmount
   Future<int?> feeAmount() async {
-    try{ final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
+    final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
     return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 }
-
-
+class FeeRate{
+  final double satPerVb;
+  FeeRate({required this.satPerVb});
+ double asSatPerVb(){
+   return satPerVb;
+ }
+}
 ///A transaction builder
 ///
 /// A TxBuilder is created by calling TxBuilder or BumpFeeTxBuilder on a wallet.
@@ -427,7 +336,7 @@ class TxBuilder {
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
     if (data.isEmpty) {
-      throw const BdkException.unExpected("List must not be empty");
+      throw const TxBuilderException.unexpected("List must not be empty");
     }
     _data = typed_data.Uint8List.fromList(data);
     return this;
@@ -567,7 +476,7 @@ class TxBuilder {
   /// Returns the BIP174 “PSBT”.
   Future<PartiallySignedTransaction> finish(Wallet wallet) async {
     if (_recipients.isEmpty) {
-      throw const BdkException.unExpected("No Recipients Added");
+      throw const TxBuilderException.unexpected("No Recipients Added");
     }
     try {
       final res = await loaderApi.txBuilderFinish(
@@ -588,7 +497,12 @@ class TxBuilder {
       final psbt = PartiallySignedTransaction(psbtBase64: res.psbt);
       return psbt;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      if (e.message.contains("InsufficientFunds")) {
+        final msg = e.message.split("value:");
+        throw TxBuilderException.insufficientBroadcastAmount(msg.last);
+      } else {
+        throw TxBuilderException.unexpected(e.message);
+      }
     }
   }
 }
@@ -645,7 +559,12 @@ class BumpFeeTxBuilder {
       final psbt = PartiallySignedTransaction(psbtBase64: res);
       return psbt;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      if (e.message.contains("Txid")) {
+        final msg = e.message.split("value:");
+        throw TxBuilderException.invalidTxid(msg.last);
+      } else {
+        throw TxBuilderException.unexpected(e.message);
+      }
     }
   }
 }
@@ -666,11 +585,8 @@ class Script {
 
   /// [Script] constructor
   static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
-    try{final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
+    final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
     return Script._()._setScriptHex(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   @override
@@ -683,11 +599,10 @@ class Script {
 class Address {
   String? _address;
   Address._();
-  Address _setAddress(String address) {
+  Address _setAddress(String address){
     _address = address;
     return this;
   }
-
   /// Creates an instance of [Address] from address given.
   ///
   /// Throws a [WalletException] if the address is not valid
@@ -696,19 +611,16 @@ class Address {
       final res = await loaderApi.initAddress(address: address);
       return Address._()._setAddress(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw WalletException.invalidAddress(e.message);
     }
-  }
 
+  }
   /// Returns the script pub key of the [Address] object
   Future<Script> scriptPubKey() async {
-    try{ final res =
+    final res =
     await loaderApi.addressToScriptPubkeyHex(address: _address.toString());
     final script = Script._()._setScriptHex(res);
     return script;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   @override
@@ -721,18 +633,17 @@ class Address {
 class DerivationPath {
   String? _path;
   DerivationPath._();
-  DerivationPath _setDerivationPath(String path) {
+  DerivationPath _setDerivationPath(String path){
     _path = path;
     return this;
   }
-
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
       final res = await loaderApi.createDerivationPath(path: path);
       return DerivationPath._()._setDerivationPath(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw PathException.invalidPath(e.message);
     }
   }
 }
@@ -742,39 +653,29 @@ class DerivationPath {
 class Mnemonic {
   String? _mnemonic;
   Mnemonic._();
-  Mnemonic _setMnemonic(String mnemonic) {
+  Mnemonic _setMnemonic(String mnemonic){
     _mnemonic = mnemonic;
     return this;
   }
-
   /// Generates [Mnemonic] with given [WordCount]
   static Future<Mnemonic> create(WordCount wordCount) async {
-    try{  final res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+    final res =await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
     return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
 
   /// Parse a [Mnemonic] with given string
   static Future<Mnemonic> fromString(String mnemonic) async {
-    try{ final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
+    final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
     return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
+
 
   /// Create a new [Mnemonic] in the specified language from the given entropy.
   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
   static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
-    try{ final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
+    final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
     return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
-
   /// Returns [Mnemonic] as string
   String asString() {
     return _mnemonic.toString();
@@ -797,9 +698,9 @@ class DescriptorPublicKey {
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: true);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+      return  DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.message);
     }
   }
 
@@ -809,9 +710,9 @@ class DescriptorPublicKey {
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: false);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+      return  DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.message);
     }
   }
 
@@ -825,43 +726,39 @@ class DescriptorSecretKey {
   String? _descriptorSecretKey;
   String? _xprv;
   DescriptorSecretKey._();
-  DescriptorSecretKey _setXprv(String key) {
+  DescriptorSecretKey _setXprv(String key ){
     _xprv = key;
     return this;
   }
-
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> create(
       {required Network network,
         required Mnemonic mnemonic,
         String? password}) async {
-    try{ final res = await loaderApi.createDescriptorSecret(
+
+    final res = await loaderApi.createDescriptorSecret(
         network: network, mnemonic: mnemonic.asString(), password: password);
     return DescriptorSecretKey._()._setXprv(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
   }
+
 
   /// Derived the `XPrv` using the derivation path
   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
     try {
-      _descriptorSecretKey = await loaderApi.descriptorSecretDerive(
-          xprv: _xprv.toString(), path: derivationPath._path.toString());
+      _descriptorSecretKey = await loaderApi.descriptorSecretDerive(xprv: _xprv.toString(), path: derivationPath._path.toString());
       return this;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.toString());
     }
   }
 
   /// Extends the “XPrv” using the derivation path
   Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
     try {
-      _descriptorSecretKey = await loaderApi.descriptorSecretExtend(
-          xprv: _xprv.toString(), path: derivationPath._path.toString());
+      _descriptorSecretKey = await loaderApi.descriptorSecretExtend(xprv: _xprv.toString(), path: derivationPath._path.toString());
       return this;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.toString());
     }
   }
 
@@ -870,22 +767,20 @@ class DescriptorSecretKey {
   /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
-      final xpub = await loaderApi.descriptorSecretAsPublic(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
+      final xpub = await loaderApi.descriptorSecretAsPublic(xprv: _xprv, descriptorSecret: _descriptorSecretKey);
       return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.toString());
     }
   }
 
   /// Get the private key as bytes.
   Future<List<int>> secretBytes() async {
     try {
-      final res = await loaderApi.descriptorSecretAsSecretBytes(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
+      final res = await loaderApi.descriptorSecretAsSecretBytes(xprv: _xprv, descriptorSecret: _descriptorSecretKey);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw KeyException.unexpected(e.toString());
     }
   }
 

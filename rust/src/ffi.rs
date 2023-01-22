@@ -102,14 +102,6 @@ impl From<&OutPoint> for BdkOutPoint {
         }
     }
 }
-impl From<BdkOutPoint> for OutPoint {
-    fn from(x: BdkOutPoint) -> OutPoint {
-        OutPoint {
-            txid: x.txid.to_string(),
-            vout: x.clone().vout,
-        }
-    }
-}
 
 impl From<BdkBalance> for Balance {
     fn from(bdk_balance: BdkBalance) -> Self {
@@ -165,7 +157,6 @@ impl BlockchainInstance {
                     timeout: config.timeout,
                     url: config.url,
                     stop_gap: usize::try_from(config.stop_gap).unwrap(),
-                    validate_domain: config.validate_domain,
                 })
             }
             BlockchainConfig::Esplora { config } => {

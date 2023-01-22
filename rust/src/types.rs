@@ -1,4 +1,4 @@
-use crate::r_api::{ WalletInstance};
+use crate::r_api::WalletInstance;
 use bdk::blockchain::rpc::Auth as BdkAuth;
 use bdk::database::AnyDatabaseConfig;
 use flutter_rust_bridge::RustOpaque;
@@ -176,8 +176,6 @@ pub struct ElectrumConfig {
     pub timeout: Option<u8>,
     ///Stop searching addresses for transactions after finding an unused gap of this length
     pub stop_gap: u64,
-    /// Validate the domain when using SSL
-    pub validate_domain: bool,
 }
 ///Configuration for an EsploraBlockchain
 pub struct EsploraConfig {
@@ -260,25 +258,16 @@ pub enum DatabaseConfig {
 }
 
 ///Types of keychains
-pub enum KeychainKind {
+pub enum KeyChainKind {
     External,
     ///Internal, usually used for change outputs
     Internal,
 }
-
-impl From<bdk::KeychainKind> for KeychainKind {
-    fn from(e: bdk::KeychainKind) -> Self {
-      match e {
-          bdk::KeychainKind::External => KeychainKind::External,
-          bdk::KeychainKind::Internal => KeychainKind::Internal
-      }
-    }
-}
-impl From<KeychainKind> for bdk::KeychainKind {
-    fn from(kind: KeychainKind) -> Self {
+impl From<KeyChainKind> for bdk::KeychainKind {
+    fn from(kind: KeyChainKind) -> Self {
         match kind {
-            KeychainKind::External => bdk::KeychainKind::External,
-            KeychainKind::Internal => bdk::KeychainKind::Internal,
+            KeyChainKind::External => bdk::KeychainKind::External,
+            KeyChainKind::Internal => bdk::KeychainKind::Internal,
         }
     }
 }

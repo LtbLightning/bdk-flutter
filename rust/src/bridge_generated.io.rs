@@ -351,11 +351,6 @@ pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire
     wire_generate_seed_from_entropy_impl(port_, entropy)
 }
 
-#[no_mangle]
-pub extern "C" fn wire_as_sat_per_vb__method__FeeRate(port_: i64, that: *mut wire_FeeRate) {
-    wire_as_sat_per_vb__method__FeeRate_impl(port_, that)
-}
-
 // Section: allocate functions
 
 #[no_mangle]
@@ -401,11 +396,6 @@ pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
     support::new_leak_box_ptr(value)
-}
-
-#[no_mangle]
-pub extern "C" fn new_box_autoadd_fee_rate_0() -> *mut wire_FeeRate {
-    support::new_leak_box_ptr(wire_FeeRate::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -605,17 +595,7 @@ impl Wire2Api<EsploraConfig> for *mut wire_EsploraConfig {
         Wire2Api::<EsploraConfig>::wire2api(*wrap).into()
     }
 }
-impl Wire2Api<f32> for *mut f32 {
-    fn wire2api(self) -> f32 {
-        unsafe { *support::box_from_leak_ptr(self) }
-    }
-}
-impl Wire2Api<FeeRate> for *mut wire_FeeRate {
-    fn wire2api(self) -> FeeRate {
-        let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<FeeRate>::wire2api(*wrap).into()
-    }
-}
+
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -640,21 +620,7 @@ impl Wire2Api<SqliteDbConfiguration> for *mut wire_SqliteDbConfiguration {
         Wire2Api::<SqliteDbConfiguration>::wire2api(*wrap).into()
     }
 }
-impl Wire2Api<u32> for *mut u32 {
-    fn wire2api(self) -> u32 {
-        unsafe { *support::box_from_leak_ptr(self) }
-    }
-}
-impl Wire2Api<u64> for *mut u64 {
-    fn wire2api(self) -> u64 {
-        unsafe { *support::box_from_leak_ptr(self) }
-    }
-}
-impl Wire2Api<u8> for *mut u8 {
-    fn wire2api(self) -> u8 {
-        unsafe { *support::box_from_leak_ptr(self) }
-    }
-}
+
 impl Wire2Api<UserPass> for *mut wire_UserPass {
     fn wire2api(self) -> UserPass {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -691,7 +657,6 @@ impl Wire2Api<ElectrumConfig> for wire_ElectrumConfig {
             retry: self.retry.wire2api(),
             timeout: self.timeout.wire2api(),
             stop_gap: self.stop_gap.wire2api(),
-            validate_domain: self.validate_domain.wire2api(),
         }
     }
 }
@@ -704,12 +669,6 @@ impl Wire2Api<EsploraConfig> for wire_EsploraConfig {
             stop_gap: self.stop_gap.wire2api(),
             timeout: self.timeout.wire2api(),
         }
-    }
-}
-
-impl Wire2Api<FeeRate> for wire_FeeRate {
-    fn wire2api(self) -> FeeRate {
-        FeeRate(self.field0.wire2api())
     }
 }
 
@@ -831,7 +790,6 @@ pub struct wire_ElectrumConfig {
     retry: u8,
     timeout: *mut u8,
     stop_gap: u64,
-    validate_domain: bool,
 }
 
 #[repr(C)]
@@ -842,12 +800,6 @@ pub struct wire_EsploraConfig {
     concurrency: *mut u8,
     stop_gap: u64,
     timeout: *mut u64,
-}
-
-#[repr(C)]
-#[derive(Clone)]
-pub struct wire_FeeRate {
-    field0: f32,
 }
 
 #[repr(C)]
@@ -1093,7 +1045,6 @@ impl NewWithNullPtr for wire_ElectrumConfig {
             retry: Default::default(),
             timeout: core::ptr::null_mut(),
             stop_gap: Default::default(),
-            validate_domain: Default::default(),
         }
     }
 }
@@ -1106,14 +1057,6 @@ impl NewWithNullPtr for wire_EsploraConfig {
             concurrency: core::ptr::null_mut(),
             stop_gap: Default::default(),
             timeout: core::ptr::null_mut(),
-        }
-    }
-}
-
-impl NewWithNullPtr for wire_FeeRate {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            field0: Default::default(),
         }
     }
 }

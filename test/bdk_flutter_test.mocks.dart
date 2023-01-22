@@ -497,14 +497,14 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
   @override
-  _i4.Future<_i2.FeeRate?> feeRate() => (super.noSuchMethod(
+  _i4.Future<_i3.FeeRate?> feeRate() => (super.noSuchMethod(
         Invocation.method(
           #feeRate,
           [],
         ),
-        returnValue: _i4.Future<_i2.FeeRate?>.value(),
-        returnValueForMissingStub: _i4.Future<_i2.FeeRate?>.value(),
-      ) as _i4.Future<_i2.FeeRate?>);
+        returnValue: _i4.Future<_i3.FeeRate?>.value(),
+        returnValueForMissingStub: _i4.Future<_i3.FeeRate?>.value(),
+      ) as _i4.Future<_i3.FeeRate?>);
   @override
   _i4.Future<int?> feeAmount() => (super.noSuchMethod(
         Invocation.method(

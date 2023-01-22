@@ -1,5 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter/src/utils/exceptions/bdk_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/tx_builder_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -26,7 +26,6 @@ void main() {
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
-
   group('Blockchain', () {
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
@@ -130,38 +129,38 @@ void main() {
         () async {
       try {
         when(mockTxBuilder.finish(mockWallet)).thenThrow(
-            const BdkException.insufficientFunds(
-                "{ needed: 751, available: 0 }"));
+            const TxBuilderException.insufficientBroadcastAmount(
+                "InsufficientFunds { needed: 1252, available: 0 }"));
         await mockTxBuilder.finish(mockWallet);
       } catch (error) {
         expect(
             error,
-            const BdkException.insufficientFunds(
-                "{ needed: 751, available: 0 }"));
-        expect(error, isA<BdkException>());
+            const TxBuilderException.insufficientBroadcastAmount(
+                "InsufficientFunds { needed: 1252, available: 0 }"));
+        expect(error, isA<TxBuilderException>());
       }
     });
     test('Should return aTxBuilderException when no recipients are added',
         () async {
       try {
         when(mockTxBuilder.finish(mockWallet)).thenThrow(
-            const BdkException.noRecipients());
+            const TxBuilderException.unexpected("No Recipients Added"));
         await mockTxBuilder.finish(mockWallet);
       } catch (error) {
         expect(
-            error, const BdkException.noRecipients());
-        expect(error, isA<BdkException>());
+            error, const TxBuilderException.unexpected("No Recipients Added"));
+        expect(error, isA<TxBuilderException>());
       }
     });
     test('Verify addData() Exception', () async {
       try {
         when(mockTxBuilder.addData(data: List.empty())).thenThrow(
-            const BdkException.unExpected("List must not be empty"));
+            const TxBuilderException.unexpected("List must not be empty"));
         mockTxBuilder.addData(data: []);
       } catch (error) {
         expect(error,
-            const BdkException.unExpected("List must not be empty"));
-        expect(error, isA<BdkException>());
+            const TxBuilderException.unexpected("List must not be empty"));
+        expect(error, isA<TxBuilderException>());
       }
     });
     test('Verify unSpendable()', () async {
@@ -195,11 +194,11 @@ void main() {
     test('Should return a TxBuilderException when txid is invalid', () async {
       try {
         when(mockBumpFeeTxBuilder.finish(mockWallet))
-            .thenThrow(const BdkException.transactionNotFound());
+            .thenThrow(const TxBuilderException.invalidTxid("Invalid Txid"));
         await mockBumpFeeTxBuilder.finish(mockWallet);
       } catch (error) {
-        expect(error, const BdkException.transactionNotFound());
-        expect(error, isA<BdkException>());
+        expect(error, const TxBuilderException.invalidTxid("Invalid Txid"));
+        expect(error, isA<TxBuilderException>());
       }
     });
   });
