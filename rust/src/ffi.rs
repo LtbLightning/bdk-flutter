@@ -157,6 +157,7 @@ impl BlockchainInstance {
                     timeout: config.timeout,
                     url: config.url,
                     stop_gap: usize::try_from(config.stop_gap).unwrap(),
+                    validate_domain: config.validate_domain,
                 })
             }
             BlockchainConfig::Esplora { config } => {

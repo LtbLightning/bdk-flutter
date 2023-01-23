@@ -176,6 +176,8 @@ pub struct ElectrumConfig {
     pub timeout: Option<u8>,
     ///Stop searching addresses for transactions after finding an unused gap of this length
     pub stop_gap: u64,
+    /// Validate the domain when using SSL
+    pub validate_domain: bool,
 }
 ///Configuration for an EsploraBlockchain
 pub struct EsploraConfig {

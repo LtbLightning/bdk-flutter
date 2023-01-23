@@ -5,4 +5,5 @@ include: package:lints/recommended.yaml
 analyzer:
   exclude:
     - lib/src/generated/bindings.dart
-    - lib/src/generated/bindings.freezed.dart
+    - lib/src/generated/bridge_definitions.dart
+    - lib/src/generated/bridge_definitions.freezed.dart

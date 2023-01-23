@@ -20,6 +20,7 @@ typedef struct wire_ElectrumConfig {
   uint8_t retry;
   uint8_t *timeout;
   uint64_t stop_gap;
+  bool validate_domain;
 } wire_ElectrumConfig;
 
 typedef struct wire_BlockchainConfig_Electrum {

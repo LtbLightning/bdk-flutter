@@ -50,33 +50,39 @@ class _MyAppState extends State<MyApp> {
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
-    final res  = await Descriptor.newBip44(descriptorSecretKey: descriptorSecretKey, network: Network.Testnet, keyChainKind: KeyChainKind.External);
+    final res = await Descriptor.newBip44(
+        descriptorSecretKey: descriptorSecretKey,
+        network: Network.Testnet,
+        keyChainKind: KeyChainKind.External);
     setState(() {
       aliceDescriptor = res;
     });
   }
-  initRpcBlockchain(bool isRpc) async{
-    if(blockchain == null){
-      if (isRpc)
-      {
+
+  initRpcBlockchain(bool isElectrum) async {
+    if (blockchain == null) {
+      if (!isElectrum) {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.rpc(
                 config: RpcConfig(
                     url: 'http://127.0.0.1:18446',
-                    authUserPass: UserPass(username: 'polaruser', password: 'polarpass'),
+                    authUserPass:
+                        UserPass(username: 'polaruser', password: 'polarpass'),
                     network: Network.Regtest,
                     walletName: 'default')));
-      } else{
+      } else {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.electrum(
                 config: ElectrumConfig(
                     stopGap: 10,
                     timeout: 5,
                     retry: 5,
-                    url: "ssl://electrum.blockstream.info:60002")));
+                    url: "ssl://electrum.blockstream.info:60002",
+                    validateDomain: true)));
       }
     }
   }
+
   sync() async {
     await initRpcBlockchain(true);
     aliceWallet.sync(blockchain!);
@@ -84,7 +90,7 @@ class _MyAppState extends State<MyApp> {
 
   getNewAddress() async {
     final alice =
-    await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
     if (kDebugMode) {
       print(alice.address);
       print(alice.index);
@@ -165,8 +171,8 @@ class _MyAppState extends State<MyApp> {
 
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address = await Address.create(
-        address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    final address =
+        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder
         .addRecipient(script, 1000)

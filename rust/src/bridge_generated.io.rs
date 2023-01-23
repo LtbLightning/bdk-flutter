@@ -595,7 +595,11 @@ impl Wire2Api<EsploraConfig> for *mut wire_EsploraConfig {
         Wire2Api::<EsploraConfig>::wire2api(*wrap).into()
     }
 }
-
+impl Wire2Api<f32> for *mut f32 {
+    fn wire2api(self) -> f32 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -620,7 +624,21 @@ impl Wire2Api<SqliteDbConfiguration> for *mut wire_SqliteDbConfiguration {
         Wire2Api::<SqliteDbConfiguration>::wire2api(*wrap).into()
     }
 }
-
+impl Wire2Api<u32> for *mut u32 {
+    fn wire2api(self) -> u32 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+impl Wire2Api<u64> for *mut u64 {
+    fn wire2api(self) -> u64 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+impl Wire2Api<u8> for *mut u8 {
+    fn wire2api(self) -> u8 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
 impl Wire2Api<UserPass> for *mut wire_UserPass {
     fn wire2api(self) -> UserPass {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -657,6 +675,7 @@ impl Wire2Api<ElectrumConfig> for wire_ElectrumConfig {
             retry: self.retry.wire2api(),
             timeout: self.timeout.wire2api(),
             stop_gap: self.stop_gap.wire2api(),
+            validate_domain: self.validate_domain.wire2api(),
         }
     }
 }
@@ -790,6 +809,7 @@ pub struct wire_ElectrumConfig {
     retry: u8,
     timeout: *mut u8,
     stop_gap: u64,
+    validate_domain: bool,
 }
 
 #[repr(C)]
@@ -1045,6 +1065,7 @@ impl NewWithNullPtr for wire_ElectrumConfig {
             retry: Default::default(),
             timeout: core::ptr::null_mut(),
             stop_gap: Default::default(),
+            validate_domain: Default::default(),
         }
     }
 }
