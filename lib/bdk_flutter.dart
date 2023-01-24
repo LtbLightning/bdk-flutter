@@ -13,5 +13,4 @@ export './src/generated/bridge_definitions.dart'
         DatabaseConfig_Sqlite,
         DatabaseConfig_Sled;
 
-
 export './src/root.dart';

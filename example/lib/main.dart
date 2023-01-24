@@ -54,12 +54,17 @@ class _MyAppState extends State<MyApp> {
         descriptorSecretKey: descriptorSecretKey,
         network: Network.Testnet,
         keyChainKind: KeyChainKind.External);
+
+    final publicDescriptor = await Descriptor.newBip84Public(
+        network: Network.Testnet,
+        publicKey: 'tpubDDpWvmUrPZrhSPmUzCMBHffvC3HyMAPnWDSAQNBTnj1iZeJa7BZQEttFiP4DS4GCcXQHezdXhn86Hj6LHX5EDstXPWrMaSneRWM8yUf6NFd',
+        keyChainKind: KeyChainKind.External);
     setState(() {
       aliceDescriptor = res;
     });
   }
 
-  initRpcBlockchain(bool isElectrum) async {
+  initElectrumBlockchain(bool isElectrum) async {
     if (blockchain == null) {
       if (!isElectrum) {
         blockchain = await Blockchain.create(
@@ -84,13 +89,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    await initRpcBlockchain(true);
+    await initElectrumBlockchain(true);
     aliceWallet.sync(blockchain!);
   }
 
   getNewAddress() async {
     final alice =
-        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+        await aliceWallet.getAddress(addressIndex: AddressIndex.New);
     if (kDebugMode) {
       print(alice.address);
       print(alice.index);
@@ -175,7 +180,7 @@ class _MyAppState extends State<MyApp> {
         await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder
-        .addRecipient(script, 1000)
+        .addRecipient(script, 700)
         .feeRate(1.1)
         .finish(aliceWallet);
     final res = await aliceWallet.sign(psbt);

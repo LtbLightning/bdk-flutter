@@ -16,8 +16,8 @@ use crate::ffi::{
     PartiallySignedTransaction, Script,
 };
 use crate::types::{
-    AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig,  KeyChainKind,
-    LocalUtxo, Network, OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
+    AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig, KeyChainKind, LocalUtxo,
+    Network, OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
 };
 //========Blockchain==========
 
