@@ -1,14 +1,9 @@
 import 'dart:typed_data' as typed_data;
-
+import 'package:bdk_flutter/src/utils/exceptions/bdk_exception.dart';
+import 'package:bdk_flutter/src/utils/exceptions/config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
-
 import 'generated/bridge_definitions.dart';
-import 'utils/exceptions/blockchain_exception.dart';
-import 'utils/exceptions/key_exception.dart';
-import 'utils/exceptions/path_exception.dart';
-import 'utils/exceptions/tx_builder_exception.dart';
-import 'utils/exceptions/wallet_exception.dart';
 import 'utils/utils.dart';
 
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
@@ -22,8 +17,12 @@ class Blockchain {
 
   ///  [Blockchain] constructor
   static Future<Blockchain> create({required BlockchainConfig config}) async {
-    final res = await loaderApi.blockchainInit(config: config);
-    return Blockchain._()._setBlockchain(res);
+    try{
+      final res = await loaderApi.blockchainInit(config: config);
+      return Blockchain._()._setBlockchain(res);
+    } on FfiException catch (e){
+      throw configException(e.message);
+    }
   }
 
   /// The function for getting block hash by block height
@@ -33,7 +32,7 @@ class Blockchain {
           blockchainHeight: height, blockchain: _blockchain!);
       return res;
     } on FfiException catch (e) {
-      throw BlockchainException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -43,7 +42,7 @@ class Blockchain {
       var res = await loaderApi.getBlockchainHeight(blockchain: _blockchain!);
       return res;
     } on FfiException catch (e) {
-      throw BlockchainException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -56,7 +55,7 @@ class Blockchain {
         print(txid);
       }
     } on FfiException catch (e) {
-      throw BlockchainException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 }
@@ -73,9 +72,11 @@ class Descriptor {
   ///  [Descriptor] constructor
   static Future<Descriptor> create(
       {required String descriptor, required Network network}) async {
-    final res =
-    await loaderApi.newDescriptor(descriptor: descriptor, network: network);
+    try{ final res = await loaderApi.newDescriptor(descriptor: descriptor, network: network);
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP44 template. Expands to pkh(key/44'/{0,1}'/0'/{0,1}/*)
@@ -84,12 +85,15 @@ class Descriptor {
   static Future<Descriptor> newBip44(
       {required DescriptorSecretKey descriptorSecretKey,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip44Descriptor(
+        required KeychainKind keyChainKind}) async {
+    try{ final res = await loaderApi.newBip44Descriptor(
         secretKey: descriptorSecretKey.asString(),
         network: network,
         keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP44 public template. Expands to pkh(key/{0,1}/*)
@@ -101,13 +105,16 @@ class Descriptor {
       {required String publicKey,
         String? fingerPrint,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip44Public(
+        required KeychainKind keyChainKind}) async {
+    try{ final res = await loaderApi.newBip44Public(
         keyChainKind: keyChainKind,
         publicKey: publicKey,
         network: network,
         fingerprint: fingerPrint?? '00000000');
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP49 template. Expands to sh(wpkh(key/49'/{0,1}'/0'/{0,1}/*))
@@ -116,10 +123,13 @@ class Descriptor {
   static Future<Descriptor> newBip49(
       {required String secretKey,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip49Descriptor(
+        required KeychainKind keyChainKind}) async {
+    try{  final res = await loaderApi.newBip49Descriptor(
         secretKey: secretKey, network: network, keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP49 public template. Expands to sh(wpkh(key/{0,1}/*))
@@ -131,13 +141,16 @@ class Descriptor {
       {required String publicKey,
         String? fingerPrint,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip49Public(
+        required KeychainKind keyChainKind}) async {
+    try{ final res = await loaderApi.newBip49Public(
         keyChainKind: keyChainKind,
         publicKey: publicKey,
         network: network,
         fingerprint: fingerPrint?? '00000000');
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP84 template. Expands to wpkh(key/84'/{0,1}'/0'/{0,1}/*)
@@ -146,10 +159,13 @@ class Descriptor {
   static Future<Descriptor> newBip84(
       {required String secretKey,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip84Descriptor(
+        required KeychainKind keyChainKind}) async {
+    try{ final res = await loaderApi.newBip84Descriptor(
         secretKey: secretKey, network: network, keyChainKind: keyChainKind);
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///BIP84 public template. Expands to wpkh(key/{0,1}/*)
@@ -161,24 +177,33 @@ class Descriptor {
       {required String publicKey,
         String? fingerPrint,
         required Network network,
-        required KeyChainKind keyChainKind}) async {
-    final res = await loaderApi.newBip84Public(
+        required KeychainKind keyChainKind}) async {
+    try{  final res = await loaderApi.newBip84Public(
         keyChainKind: keyChainKind,
         publicKey: publicKey,
         network: network,
         fingerprint: fingerPrint?? '00000000');
     return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<String> asPrivateString() async {
-    final res =
+    try{ final res =
     await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<String> asString() async {
-    final res = await loaderApi.asString(descriptor: _descriptorInstance!);
+    try{ final res = await loaderApi.asString(descriptor: _descriptorInstance!);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 }
 
@@ -216,7 +241,7 @@ class Wallet {
       );
       return Wallet._()._setWallet(res);
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -228,7 +253,7 @@ class Wallet {
           wallet: _wallet!, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -240,7 +265,7 @@ class Wallet {
       var res = await loaderApi.getBalance(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -250,7 +275,7 @@ class Wallet {
       var res = await loaderApi.getNetwork(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -262,7 +287,7 @@ class Wallet {
       var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -278,7 +303,7 @@ class Wallet {
         print("Sync complete");
       }
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -288,7 +313,7 @@ class Wallet {
       final res = await loaderApi.getTransactions(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
-      throw WalletException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -301,11 +326,11 @@ class Wallet {
       final sbt = await loaderApi.sign(
           psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
       if (sbt == null) {
-        throw const TxBuilderException.unexpected("Unable to sign transaction");
+        throw const BdkException.unExpected("Unable to sign transaction");
       }
       return PartiallySignedTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
-      throw TxBuilderException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 }
@@ -319,14 +344,22 @@ class PartiallySignedTransaction {
 
   /// Returns the [PartiallySignedTransaction] transaction id
   Future<String> txId() async {
-    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    try {
+      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Return the transaction as bytes.
   Future<List<int>> extractTx() async {
-    final res = await loaderApi.extractTx(psbtStr: psbtBase64);
+    try{
+      final res = await loaderApi.extractTx(psbtStr: psbtBase64);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
@@ -334,38 +367,43 @@ class PartiallySignedTransaction {
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
   Future<PartiallySignedTransaction> combine(
       PartiallySignedTransaction other) async {
-    final res = await loaderApi.combinePsbt(
+    try{  final res = await loaderApi.combinePsbt(
         psbtStr: psbtBase64, other: other.psbtBase64);
     return PartiallySignedTransaction(psbtBase64: res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Return txid as string
   Future<String> serialize() async {
-    final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+    try{  final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Return Fee Rate
   Future<FeeRate?> feeRate() async {
-    final res = await loaderApi.getFeeRate(psbtStr: psbtBase64);
+    try{ final res = await loaderApi.getFeeRate(psbtStr: psbtBase64);
     if (res == null) return null;
-    return FeeRate(satPerVb: res);
+    return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Return feeAmount
   Future<int?> feeAmount() async {
-    final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
+    try{ final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
     return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 }
 
-class FeeRate {
-  final double satPerVb;
-  FeeRate({required this.satPerVb});
-  double asSatPerVb() {
-    return satPerVb;
-  }
-}
 
 ///A transaction builder
 ///
@@ -389,7 +427,7 @@ class TxBuilder {
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
     if (data.isEmpty) {
-      throw const TxBuilderException.unexpected("List must not be empty");
+      throw const BdkException.unExpected("List must not be empty");
     }
     _data = typed_data.Uint8List.fromList(data);
     return this;
@@ -529,7 +567,7 @@ class TxBuilder {
   /// Returns the BIP174 “PSBT”.
   Future<PartiallySignedTransaction> finish(Wallet wallet) async {
     if (_recipients.isEmpty) {
-      throw const TxBuilderException.unexpected("No Recipients Added");
+      throw const BdkException.unExpected("No Recipients Added");
     }
     try {
       final res = await loaderApi.txBuilderFinish(
@@ -550,12 +588,7 @@ class TxBuilder {
       final psbt = PartiallySignedTransaction(psbtBase64: res.psbt);
       return psbt;
     } on FfiException catch (e) {
-      if (e.message.contains("InsufficientFunds")) {
-        final msg = e.message.split("value:");
-        throw TxBuilderException.insufficientBroadcastAmount(msg.last);
-      } else {
-        throw TxBuilderException.unexpected(e.message);
-      }
+      throw configException(e.message);
     }
   }
 }
@@ -612,12 +645,7 @@ class BumpFeeTxBuilder {
       final psbt = PartiallySignedTransaction(psbtBase64: res);
       return psbt;
     } on FfiException catch (e) {
-      if (e.message.contains("Txid")) {
-        final msg = e.message.split("value:");
-        throw TxBuilderException.invalidTxid(msg.last);
-      } else {
-        throw TxBuilderException.unexpected(e.message);
-      }
+      throw configException(e.message);
     }
   }
 }
@@ -638,8 +666,11 @@ class Script {
 
   /// [Script] constructor
   static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
-    final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
+    try{final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
     return Script._()._setScriptHex(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   @override
@@ -665,16 +696,19 @@ class Address {
       final res = await loaderApi.initAddress(address: address);
       return Address._()._setAddress(res);
     } on FfiException catch (e) {
-      throw WalletException.invalidAddress(e.message);
+      throw configException(e.message);
     }
   }
 
   /// Returns the script pub key of the [Address] object
   Future<Script> scriptPubKey() async {
-    final res =
+    try{ final res =
     await loaderApi.addressToScriptPubkeyHex(address: _address.toString());
     final script = Script._()._setScriptHex(res);
     return script;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   @override
@@ -698,7 +732,7 @@ class DerivationPath {
       final res = await loaderApi.createDerivationPath(path: path);
       return DerivationPath._()._setDerivationPath(res);
     } on FfiException catch (e) {
-      throw PathException.invalidPath(e.message);
+      throw configException(e.message);
     }
   }
 }
@@ -715,21 +749,30 @@ class Mnemonic {
 
   /// Generates [Mnemonic] with given [WordCount]
   static Future<Mnemonic> create(WordCount wordCount) async {
-    final res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+    try{  final res = await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
     return Mnemonic._()._setMnemonic(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Parse a [Mnemonic] with given string
   static Future<Mnemonic> fromString(String mnemonic) async {
-    final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
+    try{ final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
     return Mnemonic._()._setMnemonic(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Create a new [Mnemonic] in the specified language from the given entropy.
   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
   static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
-    final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
+    try{ final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
     return Mnemonic._()._setMnemonic(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Returns [Mnemonic] as string
@@ -756,7 +799,7 @@ class DescriptorPublicKey {
           derive: true);
       return DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -768,7 +811,7 @@ class DescriptorPublicKey {
           derive: false);
       return DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.message);
+      throw configException(e.message);
     }
   }
 
@@ -792,9 +835,12 @@ class DescriptorSecretKey {
       {required Network network,
         required Mnemonic mnemonic,
         String? password}) async {
-    final res = await loaderApi.createDescriptorSecret(
+    try{ final res = await loaderApi.createDescriptorSecret(
         network: network, mnemonic: mnemonic.asString(), password: password);
     return DescriptorSecretKey._()._setXprv(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Derived the `XPrv` using the derivation path
@@ -804,7 +850,7 @@ class DescriptorSecretKey {
           xprv: _xprv.toString(), path: derivationPath._path.toString());
       return this;
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.toString());
+      throw configException(e.message);
     }
   }
 
@@ -815,7 +861,7 @@ class DescriptorSecretKey {
           xprv: _xprv.toString(), path: derivationPath._path.toString());
       return this;
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.toString());
+      throw configException(e.message);
     }
   }
 
@@ -828,7 +874,7 @@ class DescriptorSecretKey {
           xprv: _xprv, descriptorSecret: _descriptorSecretKey);
       return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.toString());
+      throw configException(e.message);
     }
   }
 
@@ -839,7 +885,7 @@ class DescriptorSecretKey {
           xprv: _xprv, descriptorSecret: _descriptorSecretKey);
       return res;
     } on FfiException catch (e) {
-      throw KeyException.unexpected(e.toString());
+      throw configException(e.message);
     }
   }
 

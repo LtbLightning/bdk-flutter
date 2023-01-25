@@ -50,17 +50,13 @@ class _MyAppState extends State<MyApp> {
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
-    final res = await Descriptor.newBip44(
+    final descriptor = await Descriptor.newBip44(
         descriptorSecretKey: descriptorSecretKey,
         network: Network.Testnet,
-        keyChainKind: KeyChainKind.External);
+        keyChainKind: KeychainKind.External);
 
-    final publicDescriptor = await Descriptor.newBip84Public(
-        network: Network.Testnet,
-        publicKey: 'tpubDDpWvmUrPZrhSPmUzCMBHffvC3HyMAPnWDSAQNBTnj1iZeJa7BZQEttFiP4DS4GCcXQHezdXhn86Hj6LHX5EDstXPWrMaSneRWM8yUf6NFd',
-        keyChainKind: KeyChainKind.External);
     setState(() {
-      aliceDescriptor = res;
+      aliceDescriptor = descriptor;
     });
   }
 

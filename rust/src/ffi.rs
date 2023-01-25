@@ -102,6 +102,14 @@ impl From<&OutPoint> for BdkOutPoint {
         }
     }
 }
+impl From<BdkOutPoint> for OutPoint {
+    fn from(x: BdkOutPoint) -> OutPoint {
+        OutPoint {
+            txid: x.txid.to_string(),
+            vout: x.clone().vout,
+        }
+    }
+}
 
 impl From<BdkBalance> for Balance {
     fn from(bdk_balance: BdkBalance) -> Self {

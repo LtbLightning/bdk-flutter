@@ -1,4 +1,4 @@
-use crate::r_api::WalletInstance;
+use crate::r_api::{ WalletInstance};
 use bdk::blockchain::rpc::Auth as BdkAuth;
 use bdk::database::AnyDatabaseConfig;
 use flutter_rust_bridge::RustOpaque;
@@ -260,16 +260,25 @@ pub enum DatabaseConfig {
 }
 
 ///Types of keychains
-pub enum KeyChainKind {
+pub enum KeychainKind {
     External,
     ///Internal, usually used for change outputs
     Internal,
 }
-impl From<KeyChainKind> for bdk::KeychainKind {
-    fn from(kind: KeyChainKind) -> Self {
+
+impl From<bdk::KeychainKind> for KeychainKind {
+    fn from(e: bdk::KeychainKind) -> Self {
+      match e {
+          bdk::KeychainKind::External => KeychainKind::External,
+          bdk::KeychainKind::Internal => KeychainKind::Internal
+      }
+    }
+}
+impl From<KeychainKind> for bdk::KeychainKind {
+    fn from(kind: KeychainKind) -> Self {
         match kind {
-            KeyChainKind::External => bdk::KeychainKind::External,
-            KeyChainKind::Internal => bdk::KeychainKind::Internal,
+            KeychainKind::External => bdk::KeychainKind::External,
+            KeychainKind::Internal => bdk::KeychainKind::Internal,
         }
     }
 }

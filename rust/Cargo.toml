@@ -14,6 +14,7 @@ bdk = { version = "0.26.0", features = ["all-keys", "use-esplora-ureq", "sqlite-
 #bdk-ffi = { git = "https://github.com/bitcoindevkit/bdk-ffi", package = "bdk-ffi", branch="master"}
 flutter_rust_bridge = "1.60.0"
 serde = "1.0.89"
+anyhow = "1.0.68"
 
 [profile.release]
 strip = true  # Automatically strip symbols from the binary.

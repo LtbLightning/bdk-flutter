@@ -139,6 +139,10 @@ typedef struct wire_DatabaseConfig {
   union DatabaseConfigKind *kind;
 } wire_DatabaseConfig;
 
+typedef struct wire_FeeRate {
+  float field0;
+} wire_FeeRate;
+
 typedef struct DartCObject *WireSyncReturn;
 
 void store_dart_post_cobject(DartPostCObjectFnType ptr);
@@ -305,6 +309,8 @@ void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnem
 
 void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
 
+void wire_as_sat_per_vb__method__FeeRate(int64_t port_, struct wire_FeeRate *that);
+
 struct wire_BdkDescriptor new_BdkDescriptor(void);
 
 struct wire_BlockchainInstance new_BlockchainInstance(void);
@@ -322,6 +328,8 @@ struct wire_ElectrumConfig *new_box_autoadd_electrum_config_0(void);
 struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 
 float *new_box_autoadd_f32_0(float value);
+
+struct wire_FeeRate *new_box_autoadd_fee_rate_0(void);
 
 struct wire_RpcConfig *new_box_autoadd_rpc_config_0(void);
 
@@ -413,6 +421,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
+    dummy_var ^= ((int64_t) (void*) wire_as_sat_per_vb__method__FeeRate);
     dummy_var ^= ((int64_t) (void*) new_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
@@ -422,6 +431,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_fee_rate_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sled_db_configuration_0);

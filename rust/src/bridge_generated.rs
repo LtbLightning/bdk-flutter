@@ -27,7 +27,7 @@ use crate::types::BlockchainConfig;
 use crate::types::DatabaseConfig;
 use crate::types::ElectrumConfig;
 use crate::types::EsploraConfig;
-use crate::types::KeyChainKind;
+use crate::types::KeychainKind;
 use crate::types::LocalUtxo;
 use crate::types::Network;
 use crate::types::OutPoint;
@@ -56,7 +56,7 @@ fn wire_blockchain_init_impl(
         },
         move || {
             let api_config = config.wire2api();
-            move |task_callback| Ok(blockchain_init(api_config))
+            move |task_callback| blockchain_init(api_config)
         },
     )
 }
@@ -72,7 +72,7 @@ fn wire_get_blockchain_height_impl(
         },
         move || {
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| Ok(get_blockchain_height(api_blockchain))
+            move |task_callback| get_blockchain_height(api_blockchain)
         },
     )
 }
@@ -90,7 +90,7 @@ fn wire_get_blockchain_hash_impl(
         move || {
             let api_blockchain_height = blockchain_height.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| Ok(get_blockchain_hash(api_blockchain_height, api_blockchain))
+            move |task_callback| get_blockchain_hash(api_blockchain_height, api_blockchain)
         },
     )
 }
@@ -108,7 +108,7 @@ fn wire_broadcast_impl(
         move || {
             let api_psbt_str = psbt_str.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| Ok(broadcast(api_psbt_str, api_blockchain))
+            move |task_callback| broadcast(api_psbt_str, api_blockchain)
         },
     )
 }
@@ -121,7 +121,7 @@ fn wire_psbt_to_txid_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + 
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(psbt_to_txid(api_psbt_str))
+            move |task_callback| psbt_to_txid(api_psbt_str)
         },
     )
 }
@@ -134,7 +134,7 @@ fn wire_extract_tx_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + Un
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(extract_tx(api_psbt_str))
+            move |task_callback| extract_tx(api_psbt_str)
         },
     )
 }
@@ -178,7 +178,7 @@ fn wire_combine_psbt_impl(
         move || {
             let api_psbt_str = psbt_str.wire2api();
             let api_other = other.wire2api();
-            move |task_callback| Ok(combine_psbt(api_psbt_str, api_other))
+            move |task_callback| combine_psbt(api_psbt_str, api_other)
         },
     )
 }
@@ -221,7 +221,7 @@ fn wire_tx_builder_finish_impl(
             let api_n_sequence = n_sequence.wire2api();
             let api_data = data.wire2api();
             move |task_callback| {
-                Ok(tx_builder_finish(
+                tx_builder_finish(
                     api_wallet,
                     api_recipients,
                     api_utxos,
@@ -236,7 +236,7 @@ fn wire_tx_builder_finish_impl(
                     api_enable_rbf,
                     api_n_sequence,
                     api_data,
-                ))
+                )
             }
         },
     )
@@ -264,14 +264,14 @@ fn wire_bump_fee_tx_builder_finish_impl(
             let api_enable_rbf = enable_rbf.wire2api();
             let api_n_sequence = n_sequence.wire2api();
             move |task_callback| {
-                Ok(bump_fee_tx_builder_finish(
+                bump_fee_tx_builder_finish(
                     api_txid,
                     api_fee_rate,
                     api_allow_shrinking,
                     api_wallet,
                     api_enable_rbf,
                     api_n_sequence,
-                ))
+                )
             }
         },
     )
@@ -290,13 +290,13 @@ fn wire_new_descriptor_impl(
         move || {
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| Ok(new_descriptor(api_descriptor, api_network))
+            move |task_callback| new_descriptor(api_descriptor, api_network)
         },
     )
 }
 fn wire_new_bip44_descriptor_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
@@ -322,7 +322,7 @@ fn wire_new_bip44_descriptor_impl(
 }
 fn wire_new_bip44_public_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
     fingerprint: impl Wire2Api<String> + UnwindSafe,
@@ -351,7 +351,7 @@ fn wire_new_bip44_public_impl(
 }
 fn wire_new_bip49_descriptor_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
@@ -377,7 +377,7 @@ fn wire_new_bip49_descriptor_impl(
 }
 fn wire_new_bip49_public_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
     fingerprint: impl Wire2Api<String> + UnwindSafe,
@@ -406,7 +406,7 @@ fn wire_new_bip49_public_impl(
 }
 fn wire_new_bip84_descriptor_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
@@ -432,7 +432,7 @@ fn wire_new_bip84_descriptor_impl(
 }
 fn wire_new_bip84_public_impl(
     port_: MessagePort,
-    key_chain_kind: impl Wire2Api<KeyChainKind> + UnwindSafe,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
     fingerprint: impl Wire2Api<String> + UnwindSafe,
@@ -541,12 +541,7 @@ fn wire_descriptor_secret_as_secret_bytes_impl(
         move || {
             let api_descriptor_secret = descriptor_secret.wire2api();
             let api_xprv = xprv.wire2api();
-            move |task_callback| {
-                Ok(descriptor_secret_as_secret_bytes(
-                    api_descriptor_secret,
-                    api_xprv,
-                ))
-            }
+            move |task_callback| descriptor_secret_as_secret_bytes(api_descriptor_secret, api_xprv)
         },
     )
 }
@@ -564,7 +559,7 @@ fn wire_descriptor_secret_as_public_impl(
         move || {
             let api_descriptor_secret = descriptor_secret.wire2api();
             let api_xprv = xprv.wire2api();
-            move |task_callback| Ok(descriptor_secret_as_public(api_descriptor_secret, api_xprv))
+            move |task_callback| descriptor_secret_as_public(api_descriptor_secret, api_xprv)
         },
     )
 }
@@ -584,13 +579,7 @@ fn wire_create_descriptor_secret_impl(
             let api_network = network.wire2api();
             let api_mnemonic = mnemonic.wire2api();
             let api_password = password.wire2api();
-            move |task_callback| {
-                Ok(create_descriptor_secret(
-                    api_network,
-                    api_mnemonic,
-                    api_password,
-                ))
-            }
+            move |task_callback| create_descriptor_secret(api_network, api_mnemonic, api_password)
         },
     )
 }
@@ -603,7 +592,7 @@ fn wire_create_derivation_path_impl(port_: MessagePort, path: impl Wire2Api<Stri
         },
         move || {
             let api_path = path.wire2api();
-            move |task_callback| Ok(create_derivation_path(api_path))
+            move |task_callback| create_derivation_path(api_path)
         },
     )
 }
@@ -623,7 +612,7 @@ fn wire_create_descriptor_public_impl(
             let api_xpub = xpub.wire2api();
             let api_path = path.wire2api();
             let api_derive = derive.wire2api();
-            move |task_callback| Ok(create_descriptor_public(api_xpub, api_path, api_derive))
+            move |task_callback| create_descriptor_public(api_xpub, api_path, api_derive)
         },
     )
 }
@@ -639,7 +628,7 @@ fn wire_init_script_impl(
         },
         move || {
             let api_raw_output_script = raw_output_script.wire2api();
-            move |task_callback| Ok(init_script(api_raw_output_script))
+            move |task_callback| init_script(api_raw_output_script)
         },
     )
 }
@@ -652,7 +641,7 @@ fn wire_init_address_impl(port_: MessagePort, address: impl Wire2Api<String> + U
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| Ok(init_address(api_address))
+            move |task_callback| init_address(api_address)
         },
     )
 }
@@ -691,12 +680,12 @@ fn wire_wallet_init_impl(
             let api_network = network.wire2api();
             let api_database_config = database_config.wire2api();
             move |task_callback| {
-                Ok(wallet_init(
+                wallet_init(
                     api_descriptor,
                     api_change_descriptor,
                     api_network,
                     api_database_config,
-                ))
+                )
             }
         },
     )
@@ -715,7 +704,7 @@ fn wire_get_address_impl(
         move || {
             let api_wallet = wallet.wire2api();
             let api_address_index = address_index.wire2api();
-            move |task_callback| Ok(get_address(api_wallet, api_address_index))
+            move |task_callback| get_address(api_wallet, api_address_index)
         },
     )
 }
@@ -749,7 +738,7 @@ fn wire_get_balance_impl(
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| Ok(get_balance(api_wallet))
+            move |task_callback| get_balance(api_wallet)
         },
     )
 }
@@ -765,7 +754,7 @@ fn wire_list_unspent_outputs_impl(
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| Ok(list_unspent_outputs(api_wallet))
+            move |task_callback| list_unspent_outputs(api_wallet)
         },
     )
 }
@@ -781,7 +770,7 @@ fn wire_get_transactions_impl(
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| Ok(get_transactions(api_wallet))
+            move |task_callback| get_transactions(api_wallet)
         },
     )
 }
@@ -833,7 +822,7 @@ fn wire_list_unspent_impl(
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| Ok(list_unspent(api_wallet))
+            move |task_callback| list_unspent(api_wallet)
         },
     )
 }
@@ -865,7 +854,7 @@ fn wire_generate_seed_from_string_impl(
         },
         move || {
             let api_mnemonic = mnemonic.wire2api();
-            move |task_callback| Ok(generate_seed_from_string(api_mnemonic))
+            move |task_callback| generate_seed_from_string(api_mnemonic)
         },
     )
 }
@@ -881,7 +870,23 @@ fn wire_generate_seed_from_entropy_impl(
         },
         move || {
             let api_entropy = entropy.wire2api();
-            move |task_callback| Ok(generate_seed_from_entropy(api_entropy))
+            move |task_callback| generate_seed_from_entropy(api_entropy)
+        },
+    )
+}
+fn wire_as_sat_per_vb__method__FeeRate_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<FeeRate> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "as_sat_per_vb__method__FeeRate",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            move |task_callback| Ok(FeeRate::as_sat_per_vb(&api_that))
         },
     )
 }
@@ -929,17 +934,18 @@ impl Wire2Api<f32> for f32 {
         self
     }
 }
+
 impl Wire2Api<i32> for i32 {
     fn wire2api(self) -> i32 {
         self
     }
 }
-impl Wire2Api<KeyChainKind> for i32 {
-    fn wire2api(self) -> KeyChainKind {
+impl Wire2Api<KeychainKind> for i32 {
+    fn wire2api(self) -> KeychainKind {
         match self {
-            0 => KeyChainKind::External,
-            1 => KeyChainKind::Internal,
-            _ => unreachable!("Invalid variant for KeyChainKind: {}", self),
+            0 => KeychainKind::External,
+            1 => KeychainKind::Internal,
+            _ => unreachable!("Invalid variant for KeychainKind: {}", self),
         }
     }
 }
@@ -1012,6 +1018,13 @@ impl support::IntoDart for BlockTime {
     }
 }
 impl support::IntoDartExceptPrimitive for BlockTime {}
+
+impl support::IntoDart for FeeRate {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.0.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for FeeRate {}
 
 impl support::IntoDart for LocalUtxo {
     fn into_dart(self) -> support::DartAbi {
