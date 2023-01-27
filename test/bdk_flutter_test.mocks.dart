@@ -1041,30 +1041,6 @@ class MockAddress extends _i1.Mock implements _i3.Address {
       ) as _i4.Future<_i3.Script>);
 }
 
-/// A class which mocks [Descriptor].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDescriptor extends _i1.Mock implements _i3.Descriptor {
-  @override
-  _i4.Future<String> asPrivateString() => (super.noSuchMethod(
-        Invocation.method(
-          #asPrivateString,
-          [],
-        ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
-  @override
-  _i4.Future<String> asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
-}
-
 /// A class which mocks [DerivationPath].
 ///
 /// See the documentation for Mockito's code generation for more information.

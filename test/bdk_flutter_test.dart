@@ -15,7 +15,6 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
-@GenerateNiceMocks([MockSpec<Descriptor>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
 void main() {
   final mockWallet = MockWallet();
@@ -27,7 +26,7 @@ void main() {
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
-  final mockDescriptor = MockDescriptor();
+
   group('Blockchain', () {
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
