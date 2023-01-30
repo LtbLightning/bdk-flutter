@@ -90,8 +90,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getNewAddress() async {
-    final alice =
-        await aliceWallet.getAddress(addressIndex: AddressIndex.New);
+    final alice = await aliceWallet.getAddress(addressIndex: AddressIndex.New);
     if (kDebugMode) {
       print(alice.address);
       print(alice.index);

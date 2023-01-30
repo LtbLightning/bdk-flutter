@@ -144,23 +144,21 @@ void main() {
     test('Should return aTxBuilderException when no recipients are added',
         () async {
       try {
-        when(mockTxBuilder.finish(mockWallet)).thenThrow(
-            const BdkException.noRecipients());
+        when(mockTxBuilder.finish(mockWallet))
+            .thenThrow(const BdkException.noRecipients());
         await mockTxBuilder.finish(mockWallet);
       } catch (error) {
-        expect(
-            error, const BdkException.noRecipients());
+        expect(error, const BdkException.noRecipients());
         expect(error, isA<BdkException>());
       }
     });
     test('Verify addData() Exception', () async {
       try {
-        when(mockTxBuilder.addData(data: List.empty())).thenThrow(
-            const BdkException.unExpected("List must not be empty"));
+        when(mockTxBuilder.addData(data: List.empty()))
+            .thenThrow(const BdkException.unExpected("List must not be empty"));
         mockTxBuilder.addData(data: []);
       } catch (error) {
-        expect(error,
-            const BdkException.unExpected("List must not be empty"));
+        expect(error, const BdkException.unExpected("List must not be empty"));
         expect(error, isA<BdkException>());
       }
     });
