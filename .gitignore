@@ -7,7 +7,6 @@
 .atom/
 .buildlog/
 .history
-_DelSyncFiles
 .svn/
 migrate_working_dir/
 .vscode/settings.json

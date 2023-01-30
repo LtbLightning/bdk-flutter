@@ -1,4 +1,9 @@
+use crate::r_api::{ WalletInstance};
+use bdk::blockchain::rpc::Auth as BdkAuth;
+use bdk::database::AnyDatabaseConfig;
+use flutter_rust_bridge::RustOpaque;
 use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 ///A transaction output, which defines new coins to be created from old ones.
 pub struct TxOut {
@@ -114,6 +119,50 @@ pub struct TxBuilderResult {
     pub transaction_details: TransactionDetails,
 }
 
+impl From<Auth> for BdkAuth {
+    fn from(auth: Auth) -> Self {
+        match auth {
+            Auth::None => BdkAuth::None,
+            Auth::UserPass { username, password } => BdkAuth::UserPass { username, password },
+            Auth::Cookie { file } => BdkAuth::Cookie {
+                file: PathBuf::from(file),
+            },
+        }
+    }
+}
+
+pub enum Auth {
+    None,
+    /// Authentication with username and password, usually [Auth::Cookie] should be preferred
+    UserPass {
+        /// Username
+        username: String,
+        /// Password
+        password: String,
+    },
+    /// Authentication with a cookie file
+    Cookie {
+        /// Cookie file
+        file: String,
+    },
+}
+/// Sync parameters for Bitcoin Core RPC.
+///
+/// In general, BDK tries to sync `scriptPubKey`s cached in `Database` with
+/// `scriptPubKey`s imported in the Bitcoin Core Wallet. These parameters are used for determining
+/// how the `importdescriptors` RPC calls are to be made.
+///
+#[derive(Clone, Default)]
+pub struct RpcSyncParams {
+    /// The minimum number of scripts to scan for on initial sync.
+    pub start_script_count: u64,
+    /// Time in unix seconds in which initial sync will start scanning from (0 to start from genesis).
+    pub start_time: u64,
+    /// Forces every sync to use `start_time` as import timestamp.
+    pub force_start_time: bool,
+    /// RPC poll rate (in seconds) to get state updates.
+    pub poll_rate_sec: u64,
+}
 /// Configuration for an ElectrumBlockchain
 pub struct ElectrumConfig {
     ///URL of the Electrum server (such as ElectrumX, Esplora, BWT) may start with ssl:// or tcp:// and include a port
@@ -127,6 +176,8 @@ pub struct ElectrumConfig {
     pub timeout: Option<u8>,
     ///Stop searching addresses for transactions after finding an unused gap of this length
     pub stop_gap: u64,
+    /// Validate the domain when using SSL
+    pub validate_domain: bool,
 }
 ///Configuration for an EsploraBlockchain
 pub struct EsploraConfig {
@@ -147,12 +198,37 @@ pub struct EsploraConfig {
     pub timeout: Option<u64>,
 }
 
-/// Type that can contain any of the blockchain configurations defined by the library
-///This allows storing a single configuration that can be loaded into an Blockchain instance.
-///Wallets that plan to offer users the ability to switch blockchain backend at runtime will find this particularly useful.
+/// RpcBlockchain configuration options
+///
+pub struct UserPass {
+    /// Username
+    pub username: String,
+    /// Password
+    pub password: String,
+}
+
+pub struct RpcConfig {
+    /// The bitcoin node url
+    pub url: String,
+    /// The bitcoin node authentication mechanism
+    pub auth_cookie: Option<String>,
+    pub auth_user_pass: Option<UserPass>,
+    /// The network we are using (it will be checked the bitcoin node network matches this)
+    pub network: Network,
+    /// The wallet name in the bitcoin node
+    pub wallet_name: String,
+    /// Sync parameters
+    pub sync_params: Option<RpcSyncParams>,
+}
+
+/// Type that can contain any of the blockchain configurations defined by the library.
 pub enum BlockchainConfig {
+    /// Electrum client
     Electrum { config: ElectrumConfig },
+    /// Esplora client
     Esplora { config: EsploraConfig },
+    /// Bitcoin Core RPC client
+    Rpc { config: RpcConfig },
 }
 ///Configuration type for a SqliteDatabase database
 pub struct SqliteDbConfiguration {
@@ -183,14 +259,54 @@ pub enum DatabaseConfig {
     },
 }
 
-#[allow(dead_code)]
 ///Types of keychains
-pub enum KeyChainKind {
+pub enum KeychainKind {
     External,
     ///Internal, usually used for change outputs
     Internal,
 }
 
+impl From<bdk::KeychainKind> for KeychainKind {
+    fn from(e: bdk::KeychainKind) -> Self {
+      match e {
+          bdk::KeychainKind::External => KeychainKind::External,
+          bdk::KeychainKind::Internal => KeychainKind::Internal
+      }
+    }
+}
+impl From<KeychainKind> for bdk::KeychainKind {
+    fn from(kind: KeychainKind) -> Self {
+        match kind {
+            KeychainKind::External => bdk::KeychainKind::External,
+            KeychainKind::Internal => bdk::KeychainKind::Internal,
+        }
+    }
+}
+
+impl From<DatabaseConfig> for AnyDatabaseConfig {
+    fn from(config: DatabaseConfig) -> Self {
+        match config {
+            DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
+            DatabaseConfig::Sqlite { config } => {
+                AnyDatabaseConfig::Sqlite(bdk::database::any::SqliteDbConfiguration {
+                    path: config.path,
+                })
+            }
+            DatabaseConfig::Sled { config } => {
+                AnyDatabaseConfig::Sled(bdk::database::any::SledDbConfiguration {
+                    path: config.path,
+                    tree_name: config.tree_name,
+                })
+            }
+        }
+    }
+}
+
+impl Default for Network {
+    fn default() -> Self {
+        Network::Testnet
+    }
+}
 #[derive(Clone)]
 ///The cryptocurrency to act on
 pub enum Network {
@@ -203,6 +319,35 @@ pub enum Network {
     ///Bitcoin’s signet
     Signet,
 }
+impl From<Network> for bdk::bitcoin::Network {
+    fn from(network: Network) -> Self {
+        match network {
+            Network::Signet => bdk::bitcoin::Network::Signet,
+            Network::Testnet => bdk::bitcoin::Network::Testnet,
+            Network::Regtest => bdk::bitcoin::Network::Regtest,
+            Network::Bitcoin => bdk::bitcoin::Network::Bitcoin,
+        }
+    }
+}
+
+impl From<bdk::bitcoin::Network> for Network {
+    fn from(network: bdk::bitcoin::Network) -> Self {
+        match network {
+            bdk::bitcoin::Network::Signet => Network::Signet,
+            bdk::bitcoin::Network::Testnet => Network::Testnet,
+            bdk::bitcoin::Network::Regtest => Network::Regtest,
+            bdk::bitcoin::Network::Bitcoin => Network::Bitcoin,
+        }
+    }
+}
+
+// Internally stored as satoshi/vbyte
+
+impl From<WalletInstance> for RustOpaque<WalletInstance> {
+    fn from(wallet: WalletInstance) -> Self {
+        RustOpaque::new(wallet)
+    }
+}
 
 ///Type describing entropy length (aka word count) in the mnemonic
 pub enum WordCount {
@@ -212,4 +357,13 @@ pub enum WordCount {
     Words18,
     ///24 words mnemonic (256 bits entropy)
     Words24,
+}
+impl From<WordCount> for bdk::keys::bip39::WordCount {
+    fn from(word_count: WordCount) -> Self {
+        match word_count {
+            WordCount::Words12 => bdk::keys::bip39::WordCount::Words12,
+            WordCount::Words18 => bdk::keys::bip39::WordCount::Words18,
+            WordCount::Words24 => bdk::keys::bip39::WordCount::Words24,
+        }
+    }
 }

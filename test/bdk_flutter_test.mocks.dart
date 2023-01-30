@@ -2,10 +2,10 @@
 // in bdk_flutter/example/ios/.symlinks/plugins/bdk_flutter/test/bdk_flutter_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, override_on_non_overriding_member
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:bdk_flutter/src/generated/bindings.dart' as _i2;
+import 'package:bdk_flutter/src/generated/bridge_definitions.dart' as _i2;
 import 'package:bdk_flutter/src/root.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -348,14 +348,14 @@ class MockDescriptorSecretKey extends _i1.Mock
         returnValueForMissingStub: _i4.Future<List<int>>.value(<int>[]),
       ) as _i4.Future<List<int>>);
   @override
-  _i4.Future<String> asString() => (super.noSuchMethod(
+  String asString() => (super.noSuchMethod(
         Invocation.method(
           #asString,
           [],
         ),
-        returnValue: _i4.Future<String>.value(''),
-        returnValueForMissingStub: _i4.Future<String>.value(''),
-      ) as _i4.Future<String>);
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
 }
 
 /// A class which mocks [DescriptorPublicKey].
@@ -496,6 +496,24 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+  @override
+  _i4.Future<_i2.FeeRate?> feeRate() => (super.noSuchMethod(
+        Invocation.method(
+          #feeRate,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.FeeRate?>.value(),
+        returnValueForMissingStub: _i4.Future<_i2.FeeRate?>.value(),
+      ) as _i4.Future<_i2.FeeRate?>);
+  @override
+  _i4.Future<int?> feeAmount() => (super.noSuchMethod(
+        Invocation.method(
+          #feeAmount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
 }
 
 /// A class which mocks [TxBuilder].

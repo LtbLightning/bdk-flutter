@@ -15,13 +15,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Wallet aliceWallet;
-
-  late Blockchain blockchain;
+  Descriptor? aliceDescriptor;
+  late Descriptor aliceChangeDescriptor;
+  Blockchain? blockchain;
 
   @override
   void initState() {
     restoreWallet();
-    createDescriptorSecret();
     super.initState();
   }
 
@@ -33,9 +33,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
+    await createDescriptorSecret();
     aliceWallet = await Wallet.create(
-        descriptor:
-            "wpkh(tprv8ZgxMBicQKsPczV7D2zfMr7oUzHDhNPEuBUgrwRoWM3ijLRvhG87xYiqh9JFLPqojuhmqwMdo1oJzbe5GUpxCbDHnqyGhQa5Jg1Wt6rc9di/84'/1'/0'/1/*)",
+        descriptor: aliceDescriptor!,
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     if (kDebugMode) {
@@ -50,39 +50,48 @@ class _MyAppState extends State<MyApp> {
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
+    final descriptor = await Descriptor.newBip44(
+        descriptorSecretKey: descriptorSecretKey,
+        network: Network.Testnet,
+        keyChainKind: KeychainKind.External);
 
-    final path = await DerivationPath.create(path: "m/84'/1'/0'");
-    final xprv = await descriptorSecretKey.asString();
-    final sec = await descriptorSecretKey.secretBytes();
-    final xpub = await descriptorSecretKey.asPublic();
-    final xpubString = xpub.asString();
-    final derivedXprv = await descriptorSecretKey.extend(path);
-    final derivedXpub = await xpub.extend(path);
-    final derivedXprvStr = await derivedXprv.asString();
-    final derivedXpubStr = derivedXpub.asString();
-    if (kDebugMode) {
-      print("sec: $sec");
-      print("xpub: $xpubString");
-      print("xprv: $xprv");
-      print("derivedXpub: $derivedXpubStr");
-      print("derivedXprv: $derivedXprvStr");
+    setState(() {
+      aliceDescriptor = descriptor;
+    });
+  }
+
+  initElectrumBlockchain(bool isElectrum) async {
+    if (blockchain == null) {
+      if (!isElectrum) {
+        blockchain = await Blockchain.create(
+            config: BlockchainConfig.rpc(
+                config: RpcConfig(
+                    url: 'http://127.0.0.1:18446',
+                    authUserPass:
+                        UserPass(username: 'polaruser', password: 'polarpass'),
+                    network: Network.Regtest,
+                    walletName: 'default')));
+      } else {
+        blockchain = await Blockchain.create(
+            config: BlockchainConfig.electrum(
+                config: ElectrumConfig(
+                    stopGap: 10,
+                    timeout: 5,
+                    retry: 5,
+                    url: "ssl://electrum.blockstream.info:60002",
+                    validateDomain: true)));
+      }
     }
   }
 
   sync() async {
-    blockchain = await Blockchain.create(
-        config: BlockchainConfig.electrum(
-            config: ElectrumConfig(
-                stopGap: 10,
-                timeout: 5,
-                retry: 5,
-                url: "ssl://electrum.blockstream.info:60002")));
-    aliceWallet.sync(blockchain);
+    await initElectrumBlockchain(true);
+    aliceWallet.sync(blockchain!);
   }
 
   getNewAddress() async {
     final alice =
-        await aliceWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+        await aliceWallet.getAddress(addressIndex: AddressIndex.New);
     if (kDebugMode) {
       print(alice.address);
       print(alice.index);
@@ -146,7 +155,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<int> getBlockHeight() async {
-    final res = await blockchain.getHeight();
+    final res = await blockchain!.getHeight();
     if (kDebugMode) {
       print(res);
     }
@@ -155,7 +164,7 @@ class _MyAppState extends State<MyApp> {
 
   getBlockHash() async {
     final height = await getBlockHeight();
-    final blockHash = await blockchain.getBlockHash(height);
+    final blockHash = await blockchain!.getBlockHash(height);
     if (kDebugMode) {
       print(blockHash);
     }
@@ -163,15 +172,15 @@ class _MyAppState extends State<MyApp> {
 
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address = await Address.create(
-        address: "tb1ql7w62elx9ucw4pj5lgw4l028hmuw80sndtntxt");
+    final address =
+        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder
-        .addRecipient(script, 1000)
+        .addRecipient(script, 700)
         .feeRate(1.1)
         .finish(aliceWallet);
     final res = await aliceWallet.sign(psbt);
-    await blockchain.broadcast(res);
+    await blockchain!.broadcast(res);
     sync();
   }
 
