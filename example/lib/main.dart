@@ -51,9 +51,9 @@ class _MyAppState extends State<MyApp> {
       mnemonic: mnemonic,
     );
     final descriptor = await Descriptor.newBip44(
-        descriptorSecretKey: descriptorSecretKey,
+        secretKey: descriptorSecretKey,
         network: Network.Testnet,
-        keyChainKind: KeychainKind.External);
+        keychain: KeychainKind.External);
 
     setState(() {
       aliceDescriptor = descriptor;

@@ -4,8 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 
 import 'generated/bridge_definitions.dart';
-import 'utils/exceptions/bdk_exception.dart';
-import 'utils/exceptions/config.dart';
 import 'utils/utils.dart';
 
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
@@ -87,14 +85,14 @@ class Descriptor {
   ///
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip44(
-      {required DescriptorSecretKey descriptorSecretKey,
+      {required DescriptorSecretKey secretKey,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Descriptor(
-          secretKey: descriptorSecretKey.asString(),
+          secretKey: secretKey.asString(),
           network: network,
-          keyChainKind: keyChainKind);
+          keyChainKind: keychain);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -107,14 +105,14 @@ class Descriptor {
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip44Public(
-      {required String publicKey,
+      {required DescriptorPublicKey publicKey,
       String? fingerPrint,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Public(
-          keyChainKind: keyChainKind,
-          publicKey: publicKey,
+          keyChainKind: keychain,
+          publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint ?? '00000000');
       return Descriptor._()._setDescriptor(res);
@@ -127,12 +125,14 @@ class Descriptor {
   ///
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip49(
-      {required String secretKey,
+      {required DescriptorSecretKey secretKey,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Descriptor(
-          secretKey: secretKey, network: network, keyChainKind: keyChainKind);
+          secretKey: secretKey.asString(),
+          network: network,
+          keyChainKind: keychain);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -145,14 +145,14 @@ class Descriptor {
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip49Public(
-      {required String publicKey,
+      {required DescriptorPublicKey publicKey,
       String? fingerPrint,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Public(
-          keyChainKind: keyChainKind,
-          publicKey: publicKey,
+          keyChainKind: keychain,
+          publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint ?? '00000000');
       return Descriptor._()._setDescriptor(res);
@@ -165,12 +165,14 @@ class Descriptor {
   ///
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip84(
-      {required String secretKey,
+      {required DescriptorSecretKey secretKey,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Descriptor(
-          secretKey: secretKey, network: network, keyChainKind: keyChainKind);
+          secretKey: secretKey.asString(),
+          network: network,
+          keyChainKind: keychain);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -183,14 +185,14 @@ class Descriptor {
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip84Public(
-      {required String publicKey,
+      {required DescriptorPublicKey publicKey,
       String? fingerPrint,
       required Network network,
-      required KeychainKind keyChainKind}) async {
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Public(
-          keyChainKind: keyChainKind,
-          publicKey: publicKey,
+          keyChainKind: keychain,
+          publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint ?? '00000000');
       return Descriptor._()._setDescriptor(res);
