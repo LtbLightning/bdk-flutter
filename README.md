@@ -15,7 +15,8 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.3.0
+  bdk_flutter: ^0.3.2
+
 ```
 
 `bdk-flutter` can then be imported and used in your Flutter code. For example:
