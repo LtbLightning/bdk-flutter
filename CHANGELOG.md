@@ -3,10 +3,6 @@
 ### Fixed
 - iOS build issue when using flovors 
 - Added toString method for all objects
-### Fixed
-- Pub.dev analysis score 
-- Type mismatch for descriptorSecretKey
-https://github.com/LtbLightning/bdk-flutter/issues/52
 ## [0.3.1]
 
 ### Fixed
