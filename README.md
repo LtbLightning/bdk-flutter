@@ -15,7 +15,8 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.3.0
+  bdk_flutter: ^0.3.2
+
 ```
 
 `bdk-flutter` can then be imported and used in your Flutter code. For example:
@@ -55,7 +56,7 @@ The latest API documentation is available [here](https://pub.dev/documentation/b
 ### Example Projects
 - ***BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app)
   is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
-  
+
 ### How to build
 
 _Note that Flutter version `3.0` or later is required to build the plugin._

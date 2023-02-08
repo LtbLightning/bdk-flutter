@@ -420,6 +420,11 @@ class PartiallySignedTransaction {
       throw configException(e.message);
     }
   }
+
+  @override
+  String toString() {
+    return psbtBase64;
+  }
 }
 
 ///A transaction builder
@@ -754,6 +759,11 @@ class DerivationPath {
       throw configException(e.message);
     }
   }
+
+  @override
+  String toString() {
+    return _path!;
+  }
 }
 
 /// Mnemonic phrases are a human-readable version of the private keys.
@@ -802,6 +812,11 @@ class Mnemonic {
   String asString() {
     return _mnemonic.toString();
   }
+
+  @override
+  String toString() {
+    return asString();
+  }
 }
 
 class DescriptorPublicKey {
@@ -841,6 +856,11 @@ class DescriptorPublicKey {
   /// Get the public key as string.
   String asString() {
     return _descriptorPublicKey.toString();
+  }
+
+  @override
+  String toString() {
+    return asString();
   }
 }
 
@@ -916,5 +936,10 @@ class DescriptorSecretKey {
   /// Get the private key as string.
   String asString() {
     return _descriptorSecretKey ?? _xprv.toString();
+  }
+
+  @override
+  String toString() {
+    return asString();
   }
 }
