@@ -1,6 +1,10 @@
-pub use crate::ffi::BlockchainInstance;
-pub use crate::ffi::WalletInstance;
-use bdk::bitcoin::hashes::hex::ToHex;
+pub use  crate::blockchain::{BlockchainConfig, BlockchainInstance};
+pub use crate::descriptor::BdkDescriptor;
+use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
+use crate::psbt::{PartiallySignedTransaction};
+pub use crate::psbt::Transaction;
+use crate::types::{Address, AddressIndex, AddressInfo, Balance, KeychainKind, Network, OutPoint, Script, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount};
+pub use crate::wallet::{DatabaseConfig, WalletInstance};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::wallet::tx_builder::ChangeSpendPolicy;
@@ -9,69 +13,80 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
-pub use crate::ffi::BdkDescriptor;
-use crate::ffi::{
-    to_script_pubkey, Address, DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic,
-    PartiallySignedTransaction, Script,
-};
-use crate::types::{AddressIndex, AddressInfo, Balance, BlockchainConfig, DatabaseConfig, KeychainKind, LocalUtxo, Network, OutPoint, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount};
+use bdk::bitcoin::hashes::hex::ToHex;
 //========Blockchain==========
 
-pub fn blockchain_init(config: BlockchainConfig) ->anyhow::Result<RustOpaque<BlockchainInstance>,anyhow::Error>  {
+pub fn blockchain_init(
+    config: BlockchainConfig,
+) -> anyhow::Result<RustOpaque<BlockchainInstance>, anyhow::Error> {
     let blockchain = BlockchainInstance::new(config);
     return match blockchain {
         Ok(e) => Ok(RustOpaque::new(e)),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
-pub fn get_blockchain_height(blockchain: RustOpaque<BlockchainInstance>) -> anyhow::Result<u32, anyhow::Error> {
-   return match  blockchain.get_height() {
-       Ok(e) => Ok(e),
-       Err(e) => anyhow::bail!( "{:?}", e),
-   }
+pub fn get_blockchain_height(
+    blockchain: RustOpaque<BlockchainInstance>,
+) -> anyhow::Result<u32, anyhow::Error> {
+    return match blockchain.get_height() {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 
 pub fn get_blockchain_hash(
     blockchain_height: u32,
     blockchain: RustOpaque<BlockchainInstance>,
-) -> anyhow::Result<String, anyhow::Error>  {
-    return  match blockchain.get_block_hash(blockchain_height) {
+) -> anyhow::Result<String, anyhow::Error> {
+    return match blockchain.get_block_hash(blockchain_height) {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
-    }
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 
-pub fn broadcast(psbt_str: String, blockchain: RustOpaque<BlockchainInstance>) -> anyhow::Result<String,anyhow::Error>  {
-    let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
-    return  match  blockchain.broadcast(&psbt) {
+pub fn broadcast(
+    tx: RustOpaque<Transaction>,
+    blockchain: RustOpaque<BlockchainInstance>,
+) -> anyhow::Result<String, anyhow::Error> {
+    return match blockchain.broadcast(tx.into()) {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
+}
+//=========Transaction===========
+pub fn new_transaction(tx:Vec<u8>)->anyhow::Result<RustOpaque<Transaction>, anyhow::Error> {
+    let res = Transaction::new(tx);
+    match res {
+        Ok(e) => Ok(RustOpaque::new(e)),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
-
+pub fn serialize_transaction(tx:RustOpaque<Transaction>)->anyhow::Result<Vec<u8>, anyhow::Error> {
+     Ok(tx.serialize())
+}
 //========Psbt==========
 
-pub fn psbt_to_txid(psbt_str: String) -> anyhow::Result<String, anyhow::Error>  {
+pub fn psbt_to_txid(psbt_str: String) -> anyhow::Result<String, anyhow::Error> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
-    return  match psbt{
+    return match psbt {
         Ok(e) => Ok(e.txid()),
-        Err(e) => anyhow::bail!( "{:?}", e),
-    }
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 
-pub fn extract_tx(psbt_str: String) ->  anyhow::Result<Vec<u8>,anyhow::Error> {
+pub fn extract_tx(psbt_str: String) -> anyhow::Result<RustOpaque<Transaction>, anyhow::Error> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
-    return  match psbt{
-        Ok(e) => Ok(e.extract_tx()),
-        Err(e) => anyhow::bail!( "{:?}", e),
-    }
+    return match psbt {
+        Ok(e) => Ok(RustOpaque::from(e.extract_tx())),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 pub fn get_fee_rate(psbt_str: String) -> Option<FeeRate> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
     match psbt.unwrap().fee_rate() {
         None => None,
-        Some(e) =>Some( e.into()),
+        Some(e) => Some(e.into()),
     }
 }
 pub fn get_fee_amount(psbt_str: String) -> Option<u64> {
@@ -81,10 +96,10 @@ pub fn get_fee_amount(psbt_str: String) -> Option<u64> {
 pub fn combine_psbt(psbt_str: String, other: String) -> anyhow::Result<String, anyhow::Error> {
     let psbt = PartiallySignedTransaction::new(psbt_str).unwrap();
     let other = PartiallySignedTransaction::new(other).unwrap();
-    return  match psbt.combine(Arc::new(other)){
+    return match psbt.combine(Arc::new(other)) {
         Ok(e) => Ok(e.serialize()),
-        Err(e) => anyhow::bail!( "{:?}", e),
-    }
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 
 //========TxBuilder==========
@@ -103,7 +118,7 @@ pub fn tx_builder_finish(
     enable_rbf: bool,
     n_sequence: Option<u32>,
     data: Vec<u8>,
-) ->anyhow::Result<TxBuilderResult, anyhow::Error>   {
+) -> anyhow::Result<TxBuilderResult, anyhow::Error> {
     let binding = wallet.get_wallet();
     let mut tx_builder = binding.build_tx();
 
@@ -139,8 +154,9 @@ pub fn tx_builder_finish(
     if drain_wallet {
         tx_builder.drain_wallet();
     }
-    if let Some(address) = drain_to {
-        tx_builder.drain_to(to_script_pubkey(address.as_str()).unwrap());
+    if let Some(script_) = drain_to {
+        let script = Script::from_hex(script_).unwrap();
+        tx_builder.drain_to(script.script);
     }
     if enable_rbf {
         tx_builder.enable_rbf();
@@ -152,19 +168,16 @@ pub fn tx_builder_finish(
         tx_builder.add_data(data.as_slice());
     }
 
-    return  match tx_builder.finish(){
-        Ok(e ) => {
-            Ok(TxBuilderResult {
-                psbt: Arc::new(PartiallySignedTransaction {
-                    internal: Mutex::new(e.0),
-                })
-                    .serialize(),
-                transaction_details: TransactionDetails::from(&e.1),
+    return match tx_builder.finish() {
+        Ok(e) => Ok(TxBuilderResult {
+            psbt: Arc::new(PartiallySignedTransaction {
+                internal: Mutex::new(e.0),
             })
-        }
-        Err(e) => anyhow::bail!( "{:?}", e),
-    }
-
+            .serialize(),
+            transaction_details: TransactionDetails::from(&e.1),
+        }),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
 }
 
 //========BumpFeeTxBuilder==========
@@ -176,12 +189,12 @@ pub fn bump_fee_tx_builder_finish(
     wallet: RustOpaque<WalletInstance>,
     enable_rbf: bool,
     n_sequence: Option<u32>,
-) -> anyhow::Result<String, anyhow::Error>  {
+) -> anyhow::Result<String, anyhow::Error> {
     let txid = Txid::from_str(txid.as_str()).unwrap();
     let bdk_wallet = wallet.get_wallet();
     let mut tx_builder = match bdk_wallet.build_fee_bump(txid) {
         Ok(e) => e,
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
     tx_builder.fee_rate(bdk::FeeRate::from_sat_per_vb(fee_rate));
     if let Some(allow_shrinking) = &allow_shrinking {
@@ -204,29 +217,31 @@ pub fn bump_fee_tx_builder_finish(
         .serialize()
     });
 
-    match psbt{
+    match psbt {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
 //================Descriptor Secret=========
 
-pub fn new_descriptor(descriptor: String, network: Network) -> anyhow::Result<RustOpaque<BdkDescriptor> , anyhow::Error>  {
-    return  match BdkDescriptor::new(descriptor, network.into()) {
-        Ok(e) => Ok( RustOpaque::new(e)),
-        Err(e) => anyhow::bail!( "{:?}", e),
+pub fn new_descriptor(
+    descriptor: String,
+    network: Network,
+) -> anyhow::Result<RustOpaque<BdkDescriptor>, anyhow::Error> {
+    return match BdkDescriptor::new(descriptor, network.into()) {
+        Ok(e) => Ok(RustOpaque::new(e)),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
-
 }
 pub fn new_bip44_descriptor(
     key_chain_kind: KeychainKind,
     secret_key: String,
     network: Network,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match  DescriptorSecretKey::from_string(secret_key) {
+    let key = match DescriptorSecretKey::from_string(secret_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor = BdkDescriptor::new_bip44(key, key_chain_kind.into(), network.into());
     RustOpaque::new(descriptor)
@@ -237,9 +252,9 @@ pub fn new_bip44_public(
     network: Network,
     fingerprint: String,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match DescriptorPublicKey::from_string(public_key){
+    let key = match DescriptorPublicKey::from_string(public_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor =
         BdkDescriptor::new_bip44_public(key, fingerprint, key_chain_kind.into(), network.into());
@@ -251,9 +266,9 @@ pub fn new_bip49_descriptor(
     secret_key: String,
     network: Network,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match  DescriptorSecretKey::from_string(secret_key) {
+    let key = match DescriptorSecretKey::from_string(secret_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor = BdkDescriptor::new_bip49(key, key_chain_kind.into(), network.into());
     RustOpaque::new(descriptor)
@@ -264,9 +279,9 @@ pub fn new_bip49_public(
     network: Network,
     fingerprint: String,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match DescriptorPublicKey::from_string(public_key){
+    let key = match DescriptorPublicKey::from_string(public_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor =
         BdkDescriptor::new_bip49_public(key, fingerprint, key_chain_kind.into(), network.into());
@@ -278,9 +293,9 @@ pub fn new_bip84_descriptor(
     secret_key: String,
     network: Network,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match  DescriptorSecretKey::from_string(secret_key) {
+    let key = match DescriptorSecretKey::from_string(secret_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor = BdkDescriptor::new_bip84(key, key_chain_kind.into(), network.into());
     RustOpaque::new(descriptor)
@@ -291,9 +306,9 @@ pub fn new_bip84_public(
     network: Network,
     fingerprint: String,
 ) -> RustOpaque<BdkDescriptor> {
-    let key = match DescriptorPublicKey::from_string(public_key){
+    let key = match DescriptorPublicKey::from_string(public_key) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor =
         BdkDescriptor::new_bip84_public(key, fingerprint, key_chain_kind.into(), network.into());
@@ -327,14 +342,14 @@ pub fn descriptor_secret_as_secret_bytes(
     };
     let secret = match BdkDescriptorSecretKey::from_str(key.as_str()) {
         Ok(e) => e,
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
     let descriptor_secret = DescriptorSecretKey {
         descriptor_secret_key_mutex: Mutex::new(secret),
     };
-   return  match descriptor_secret.secret_bytes() {
+    return match descriptor_secret.secret_bytes() {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
@@ -348,14 +363,14 @@ pub fn descriptor_secret_as_public(
     };
     let secret = match BdkDescriptorSecretKey::from_str(key.as_str()) {
         Ok(e) => e,
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
     let descriptor_secret = DescriptorSecretKey {
         descriptor_secret_key_mutex: Mutex::new(secret),
     };
     match descriptor_secret.as_public() {
         Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
@@ -366,7 +381,7 @@ fn descriptor_secret_config(
 ) -> Arc<DescriptorSecretKey> {
     let secret = match BdkDescriptorSecretKey::from_str(xprv.as_str()) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     let descriptor_secret = DescriptorSecretKey {
         descriptor_secret_key_mutex: Mutex::new(secret),
@@ -379,12 +394,12 @@ fn descriptor_secret_config(
     return if is_derive {
         match descriptor_secret.derive(derivation_path) {
             Ok(e) => e,
-            Err(e) => panic!( "{:?}", e),
+            Err(e) => panic!("{:?}", e),
         }
     } else {
         match descriptor_secret.extend(derivation_path) {
             Ok(e) => e,
-            Err(e) => panic!( "{:?}", e),
+            Err(e) => panic!("{:?}", e),
         }
     };
 }
@@ -397,7 +412,7 @@ pub fn create_descriptor_secret(
     let mnemonic = Mnemonic::from_str(mnemonic).unwrap();
     return match DescriptorSecretKey::new(network.into(), mnemonic, password) {
         Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
@@ -405,24 +420,28 @@ pub fn create_descriptor_secret(
 pub fn create_derivation_path(path: String) -> anyhow::Result<String, anyhow::Error> {
     return match DerivationPath::new(path) {
         Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
 //================Descriptor Public=========
 
-pub fn create_descriptor_public(xpub: Option<String>, path: String, derive: bool) -> anyhow::Result<String, anyhow::Error> {
+pub fn create_descriptor_public(
+    xpub: Option<String>,
+    path: String,
+    derive: bool,
+) -> anyhow::Result<String, anyhow::Error> {
     let derivation_path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
     let descriptor_public = DescriptorPublicKey::from_string(xpub.unwrap()).unwrap();
     return if derive {
         match descriptor_public.clone().derive(derivation_path) {
             Ok(e) => Ok(e.as_string()),
-            Err(e) => anyhow::bail!( "{:?}", e),
+            Err(e) => anyhow::bail!("{:?}", e),
         }
     } else {
         match descriptor_public.clone().extend(derivation_path) {
             Ok(e) => Ok(e.as_string()),
-            Err(e) => anyhow::bail!( "{:?}", e),
+            Err(e) => anyhow::bail!("{:?}", e),
         }
     };
 }
@@ -431,7 +450,7 @@ pub fn create_descriptor_public(xpub: Option<String>, path: String, derive: bool
 pub fn init_script(raw_output_script: Vec<u8>) -> anyhow::Result<String, anyhow::Error> {
     return match Script::new(raw_output_script) {
         Ok(e) => Ok(e.script.to_hex()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
@@ -439,7 +458,7 @@ pub fn init_script(raw_output_script: Vec<u8>) -> anyhow::Result<String, anyhow:
 pub fn init_address(address: String) -> anyhow::Result<String, anyhow::Error> {
     return match Address::new(address) {
         Ok(e) => Ok(e.address.to_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 
@@ -456,23 +475,35 @@ pub fn wallet_init(
     network: Network,
     database_config: DatabaseConfig,
 ) -> anyhow::Result<RustOpaque<WalletInstance>, anyhow::Error> {
-    match  WalletInstance::new(
+    match WalletInstance::new(
         Arc::new(descriptor),
         change_descriptor.map(|x| Arc::new(x)),
         network.into(),
         database_config,
     ) {
         Ok(e) => Ok(e.into()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
 //Return a derived address using the external descriptor,
 
-pub fn get_address(wallet: RustOpaque<WalletInstance>, address_index: AddressIndex) ->anyhow::Result<AddressInfo, anyhow::Error>  {
-    match wallet.get_address(address_index){
+pub fn get_address(
+    wallet: RustOpaque<WalletInstance>,
+    address_index: AddressIndex,
+) -> anyhow::Result<AddressInfo, anyhow::Error> {
+    match wallet.get_address(address_index) {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    }
+}
+pub fn get_internalized_address(
+    wallet: RustOpaque<WalletInstance>,
+    address_index: AddressIndex,
+) -> anyhow::Result<AddressInfo, anyhow::Error> {
+    match wallet.get_internal_address(address_index) {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
@@ -481,25 +512,29 @@ pub fn sync_wallet(wallet: RustOpaque<WalletInstance>, blockchain: RustOpaque<Bl
 }
 
 pub fn get_balance(wallet: RustOpaque<WalletInstance>) -> anyhow::Result<Balance, anyhow::Error> {
- match wallet.get_balance() {
-     Ok(e) => Ok(e),
-     Err(e) => anyhow::bail!( "{:?}", e),
- }
+    match wallet.get_balance() {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    }
 }
 
 //Return the list of unspent outputs of this wallet
-pub fn list_unspent_outputs(wallet: RustOpaque<WalletInstance>) -> anyhow::Result<Vec<LocalUtxo>, anyhow::Error> {
-   match  wallet.list_unspent(){
-       Ok(e) => Ok(e),
-       Err(e) => anyhow::bail!( "{:?}", e),
-   }
+pub fn list_unspent_outputs(
+    wallet: RustOpaque<WalletInstance>,
+) -> anyhow::Result<Vec<crate::wallet::LocalUtxo>, anyhow::Error> {
+    match wallet.list_unspent() {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    }
 }
 
-pub fn get_transactions(wallet: RustOpaque<WalletInstance>) -> anyhow::Result<Vec<TransactionDetails>, anyhow::Error> {
-  match   wallet.list_transactions(){
-      Ok(e) => Ok(e),
-      Err(e) => anyhow::bail!( "{:?}", e),
-  }
+pub fn get_transactions(
+    wallet: RustOpaque<WalletInstance>,
+) -> anyhow::Result<Vec<TransactionDetails>, anyhow::Error> {
+    match wallet.list_transactions() {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    }
 }
 
 pub fn sign(
@@ -507,9 +542,9 @@ pub fn sign(
     psbt_str: String,
     is_multi_sig: bool,
 ) -> Option<String> {
-    let psbt = match PartiallySignedTransaction::new(psbt_str){
+    let psbt = match PartiallySignedTransaction::new(psbt_str) {
         Ok(e) => e,
-        Err(e) => panic!( "{:?}", e),
+        Err(e) => panic!("{:?}", e),
     };
     return match wallet.sign(&psbt).unwrap() {
         true => Some(psbt.serialize()),
@@ -527,10 +562,12 @@ pub fn get_network(wallet: RustOpaque<WalletInstance>) -> Network {
     wallet.get_wallet().network().into()
 }
 
-pub fn list_unspent(wallet: RustOpaque<WalletInstance>) -> anyhow::Result<Vec<LocalUtxo>, anyhow::Error> {
-    match wallet.list_unspent(){
+pub fn list_unspent(
+    wallet: RustOpaque<WalletInstance>,
+) -> anyhow::Result<Vec<crate::wallet::LocalUtxo>, anyhow::Error> {
+    match wallet.list_unspent() {
         Ok(e) => Ok(e),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
@@ -545,7 +582,7 @@ pub fn generate_seed_from_string(mnemonic: String) -> anyhow::Result<String, any
     let mnemonic = Mnemonic::from_str(mnemonic);
     match mnemonic {
         Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
@@ -553,19 +590,19 @@ pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> anyhow::Result<String, an
     let mnemonic = Mnemonic::from_entropy(entropy);
     match mnemonic {
         Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!( "{:?}", e),
+        Err(e) => anyhow::bail!("{:?}", e),
     }
 }
 
 pub struct FeeRate(pub f32);
-impl From<bdk::FeeRate> for FeeRate{
-    fn from(fee_rate: bdk::FeeRate) -> Self {
+impl From<Arc<bdk::FeeRate>> for FeeRate {
+    fn from(fee_rate: Arc<bdk::FeeRate>) -> Self {
         FeeRate(fee_rate.as_sat_per_vb())
     }
 }
-impl FeeRate{
+impl FeeRate {
     /// Return the value as satoshi/vbyte
-    pub fn as_sat_per_vb(&self) -> f32 {
-        self.0
+    pub fn as_sat_per_vb(fee_rate:FeeRate) -> f32 {
+        fee_rate.0
     }
 }

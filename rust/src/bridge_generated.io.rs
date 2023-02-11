@@ -23,10 +23,20 @@ pub extern "C" fn wire_get_blockchain_hash(
 #[no_mangle]
 pub extern "C" fn wire_broadcast(
     port_: i64,
-    psbt_str: *mut wire_uint_8_list,
+    tx: wire_Transaction,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_broadcast_impl(port_, psbt_str, blockchain)
+    wire_broadcast_impl(port_, tx, blockchain)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_new_transaction_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_serialize_transaction(port_: i64, tx: wire_Transaction) {
+    wire_serialize_transaction_impl(port_, tx)
 }
 
 #[no_mangle]
@@ -288,8 +298,21 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_address(port_: i64, wallet: wire_WalletInstance, address_index: i32) {
+pub extern "C" fn wire_get_address(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    address_index: *mut wire_AddressIndex,
+) {
     wire_get_address_impl(port_, wallet, address_index)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_internalized_address(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    address_index: *mut wire_AddressIndex,
+) {
+    wire_get_internalized_address_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
@@ -352,8 +375,11 @@ pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_sat_per_vb__method__FeeRate(port_: i64, that: *mut wire_FeeRate) {
-    wire_as_sat_per_vb__method__FeeRate_impl(port_, that)
+pub extern "C" fn wire_as_sat_per_vb__static_method__FeeRate(
+    port_: i64,
+    fee_rate: *mut wire_FeeRate,
+) {
+    wire_as_sat_per_vb__static_method__FeeRate_impl(port_, fee_rate)
 }
 
 // Section: allocate functions
@@ -369,6 +395,11 @@ pub extern "C" fn new_BlockchainInstance() -> wire_BlockchainInstance {
 }
 
 #[no_mangle]
+pub extern "C" fn new_Transaction() -> wire_Transaction {
+    wire_Transaction::new_with_null_ptr()
+}
+
+#[no_mangle]
 pub extern "C" fn new_WalletInstance() -> wire_WalletInstance {
     wire_WalletInstance::new_with_null_ptr()
 }
@@ -376,6 +407,11 @@ pub extern "C" fn new_WalletInstance() -> wire_WalletInstance {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_BdkDescriptor_0() -> *mut wire_BdkDescriptor {
     support::new_leak_box_ptr(wire_BdkDescriptor::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
+    support::new_leak_box_ptr(wire_AddressIndex::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -508,6 +544,21 @@ pub extern "C" fn share_opaque_BlockchainInstance(ptr: *const c_void) -> *const 
 }
 
 #[no_mangle]
+pub extern "C" fn drop_opaque_Transaction(ptr: *const c_void) {
+    unsafe {
+        Arc::<Transaction>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn share_opaque_Transaction(ptr: *const c_void) -> *const c_void {
+    unsafe {
+        Arc::<Transaction>::increment_strong_count(ptr as _);
+        ptr
+    }
+}
+
+#[no_mangle]
 pub extern "C" fn drop_opaque_WalletInstance(ptr: *const c_void) {
     unsafe {
         Arc::<WalletInstance>::decrement_strong_count(ptr as _);
@@ -540,12 +591,32 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
         String::from_utf8_lossy(&vec).into_owned()
     }
 }
+impl Wire2Api<RustOpaque<Transaction>> for wire_Transaction {
+    fn wire2api(self) -> RustOpaque<Transaction> {
+        unsafe { support::opaque_from_dart(self.ptr as _) }
+    }
+}
 impl Wire2Api<RustOpaque<WalletInstance>> for wire_WalletInstance {
     fn wire2api(self) -> RustOpaque<WalletInstance> {
         unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
-
+impl Wire2Api<AddressIndex> for wire_AddressIndex {
+    fn wire2api(self) -> AddressIndex {
+        match self.tag {
+            0 => AddressIndex::New,
+            1 => AddressIndex::LastUnused,
+            2 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Peek);
+                AddressIndex::Peek {
+                    index: ans.index.wire2api(),
+                }
+            },
+            _ => unreachable!(),
+        }
+    }
+}
 impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         match self.tag {
@@ -579,6 +650,12 @@ impl Wire2Api<RustOpaque<BdkDescriptor>> for *mut wire_BdkDescriptor {
     fn wire2api(self) -> RustOpaque<BdkDescriptor> {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<RustOpaque<BdkDescriptor>>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
+    fn wire2api(self) -> AddressIndex {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<AddressIndex>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
@@ -819,6 +896,12 @@ pub struct wire_BlockchainInstance {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_Transaction {
+    ptr: *const core::ffi::c_void,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_WalletInstance {
     ptr: *const core::ffi::c_void,
 }
@@ -927,6 +1010,33 @@ pub struct wire_UserPass {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_AddressIndex {
+    tag: i32,
+    kind: *mut AddressIndexKind,
+}
+
+#[repr(C)]
+pub union AddressIndexKind {
+    New: *mut wire_AddressIndex_New,
+    LastUnused: *mut wire_AddressIndex_LastUnused,
+    Peek: *mut wire_AddressIndex_Peek,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_New {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_LastUnused {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_Peek {
+    index: u32,
+}
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_BlockchainConfig {
     tag: i32,
     kind: *mut BlockchainConfigKind,
@@ -1014,12 +1124,36 @@ impl NewWithNullPtr for wire_BlockchainInstance {
     }
 }
 
+impl NewWithNullPtr for wire_Transaction {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: core::ptr::null(),
+        }
+    }
+}
 impl NewWithNullPtr for wire_WalletInstance {
     fn new_with_null_ptr() -> Self {
         Self {
             ptr: core::ptr::null(),
         }
     }
+}
+impl NewWithNullPtr for wire_AddressIndex {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_AddressIndex_Peek() -> *mut AddressIndexKind {
+    support::new_leak_box_ptr(AddressIndexKind {
+        Peek: support::new_leak_box_ptr(wire_AddressIndex_Peek {
+            index: Default::default(),
+        }),
+    })
 }
 
 impl NewWithNullPtr for wire_BlockchainConfig {

@@ -1,9 +1,10 @@
-use crate::r_api::{ WalletInstance};
-use bdk::blockchain::rpc::Auth as BdkAuth;
-use bdk::database::AnyDatabaseConfig;
-use flutter_rust_bridge::RustOpaque;
+use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint,  Txid};
+use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
+use std::str::FromStr;
+use std::sync::Arc;
+use bdk::bitcoin::blockdata::script::Script as BdkScript;
+use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 
 ///A transaction output, which defines new coins to be created from old ones.
 pub struct TxOut {
@@ -21,14 +22,21 @@ pub struct OutPoint {
     /// The index of the referenced output in its transaction's vout.
     pub(crate) vout: u32,
 }
-/// Unspent outputs of this wallet
-pub struct LocalUtxo {
-    /// Reference to a transaction output
-    pub outpoint: OutPoint,
-    ///Transaction output
-    pub txout: TxOut,
-    ///Whether this UTXO is spent or not
-    pub is_spent: bool,
+impl From<&OutPoint> for BdkOutPoint {
+    fn from(x: &OutPoint) -> BdkOutPoint {
+        BdkOutPoint {
+            txid: Txid::from_str(&x.clone().txid).unwrap(),
+            vout: x.clone().vout,
+        }
+    }
+}
+impl From<BdkOutPoint> for OutPoint {
+    fn from(x: BdkOutPoint) -> OutPoint {
+        OutPoint {
+            txid: x.txid.to_string(),
+            vout: x.clone().vout,
+        }
+    }
 }
 
 /// Local Wallet's Balance
@@ -47,6 +55,19 @@ pub struct Balance {
     /// Get the whole balance visible to the wallet
     pub total: u64,
 }
+impl From<BdkBalance> for Balance {
+    fn from(bdk_balance: BdkBalance) -> Self {
+        Balance {
+            immature: bdk_balance.immature,
+            trusted_pending: bdk_balance.trusted_pending,
+            untrusted_pending: bdk_balance.untrusted_pending,
+            confirmed: bdk_balance.confirmed,
+            spendable: bdk_balance.get_spendable(),
+            total: bdk_balance.get_total(),
+        }
+    }
+}
+
 /// The address index selection strategy to use to derived an address from the wallet's external
 /// descriptor.
 pub enum AddressIndex {
@@ -55,6 +76,31 @@ pub enum AddressIndex {
     ///Return the address for the current descriptor index if it has not been used in a received transaction. Otherwise return a new address as with AddressIndex.New.
     ///Use with caution, if the wallet has not yet detected an address has been used it could return an already used address. This function is primarily meant for situations where the caller is untrusted; for example when deriving donation addresses on-demand for a public web page.
     LastUnused,
+    /// Return the address for a specific descriptor index. Does not change the current descriptor
+    /// index used by `AddressIndex::New` and `AddressIndex::LastUsed`.
+    /// Use with caution, if an index is given that is less than the current descriptor index
+    /// then the returned address may have already been used.
+    Peek {
+        index: u32,
+    },
+    /// Return the address for a specific descriptor index and reset the current descriptor index
+    /// used by `AddressIndex.New` and `AddressIndex::LastUsed` to this value.
+    /// Use with caution, if an index is given that is less than the current descriptor index
+    /// then the returned address and subsequent addresses returned by calls to `AddressIndex::New`
+    /// and `AddressIndex::LastUsed` may have already been used. Also if the index is reset to a
+    /// value earlier than the [`Blockchain`] stopGap (default is 20) then a
+    /// larger stopGap should be used to monitor for all possibly used addresses.
+    Reset { index: u32 },
+}
+impl From<AddressIndex> for bdk::wallet::AddressIndex {
+    fn from(x: AddressIndex) -> bdk::wallet::AddressIndex {
+        match x {
+            AddressIndex::New => bdk::wallet::AddressIndex::New,
+            AddressIndex::LastUnused => bdk::wallet::AddressIndex::LastUnused,
+            AddressIndex::Peek { index } => bdk::wallet::AddressIndex::Peek(index),
+            AddressIndex::Reset { index} =>  bdk::wallet::AddressIndex::Reset(index)
+        }
+    }
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address
@@ -63,6 +109,14 @@ pub struct AddressInfo {
     pub index: u32,
     /// Address
     pub address: String,
+}
+impl From<bdk::wallet::AddressInfo> for AddressInfo {
+    fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
+        AddressInfo {
+            index: x.index,
+            address: x.address.to_string(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize)]
@@ -85,9 +139,28 @@ pub struct TransactionDetails {
     /// transaction, unconfirmed transaction contains `None`.
     pub confirmation_time: Option<BlockTime>,
 }
+/// A wallet transaction
+impl From<&bdk::TransactionDetails> for TransactionDetails {
+    fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
+        TransactionDetails {
+            fee: x.clone().fee,
+            txid: x.clone().txid.to_string(),
+            received: x.clone().received,
+            sent: x.clone().sent,
+            confirmation_time: set_block_time(x.confirmation_time.clone()),
+        }
+    }
+}
+
+fn set_block_time(time: Option<bdk::BlockTime>) -> Option<BlockTime> {
+    if let Some(time) = time {
+        Some(time.into())
+    } else {
+        None
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
-
 ///Block height and timestamp of a block
 pub struct BlockTime {
     ///Confirmation block height
@@ -96,11 +169,18 @@ pub struct BlockTime {
     pub timestamp: u64,
 }
 
+impl From<bdk::BlockTime> for BlockTime {
+    fn from(x: bdk::BlockTime) -> Self {
+        BlockTime {
+            height: x.height,
+            timestamp: x.timestamp,
+        }
+    }
+}
+
 /// A output script and an amount of satoshis.
-#[derive(Clone, Serialize, Deserialize)]
 pub struct ScriptAmount {
     pub script: String,
-    //Transaction amount
     pub amount: u64,
 }
 
@@ -119,159 +199,18 @@ pub struct TxBuilderResult {
     pub transaction_details: TransactionDetails,
 }
 
-impl From<Auth> for BdkAuth {
-    fn from(auth: Auth) -> Self {
-        match auth {
-            Auth::None => BdkAuth::None,
-            Auth::UserPass { username, password } => BdkAuth::UserPass { username, password },
-            Auth::Cookie { file } => BdkAuth::Cookie {
-                file: PathBuf::from(file),
-            },
-        }
-    }
-}
-
-pub enum Auth {
-    None,
-    /// Authentication with username and password, usually [Auth::Cookie] should be preferred
-    UserPass {
-        /// Username
-        username: String,
-        /// Password
-        password: String,
-    },
-    /// Authentication with a cookie file
-    Cookie {
-        /// Cookie file
-        file: String,
-    },
-}
-/// Sync parameters for Bitcoin Core RPC.
-///
-/// In general, BDK tries to sync `scriptPubKey`s cached in `Database` with
-/// `scriptPubKey`s imported in the Bitcoin Core Wallet. These parameters are used for determining
-/// how the `importdescriptors` RPC calls are to be made.
-///
-#[derive(Clone, Default)]
-pub struct RpcSyncParams {
-    /// The minimum number of scripts to scan for on initial sync.
-    pub start_script_count: u64,
-    /// Time in unix seconds in which initial sync will start scanning from (0 to start from genesis).
-    pub start_time: u64,
-    /// Forces every sync to use `start_time` as import timestamp.
-    pub force_start_time: bool,
-    /// RPC poll rate (in seconds) to get state updates.
-    pub poll_rate_sec: u64,
-}
-/// Configuration for an ElectrumBlockchain
-pub struct ElectrumConfig {
-    ///URL of the Electrum server (such as ElectrumX, Esplora, BWT) may start with ssl:// or tcp:// and include a port
-    ///eg. ssl://electrum.blockstream.info:60002
-    pub url: String,
-    ///URL of the socks5 proxy server or a Tor service
-    pub socks5: Option<String>,
-    ///Request retry count
-    pub retry: u8,
-    ///Request timeout (seconds)
-    pub timeout: Option<u8>,
-    ///Stop searching addresses for transactions after finding an unused gap of this length
-    pub stop_gap: u64,
-    /// Validate the domain when using SSL
-    pub validate_domain: bool,
-}
-///Configuration for an EsploraBlockchain
-pub struct EsploraConfig {
-    ///Base URL of the esplora service
-    ///eg. https://blockstream.info/api/
-    pub base_url: String,
-    ///  Optional URL of the proxy to use to make requests to the Esplora server
-    /// The string should be formatted as: <protocol>://<user>:<password>@host:<port>.
-    /// Note that the format of this value and the supported protocols change slightly between the sync version of esplora (using ureq) and the async version (using reqwest).
-    ///  For more details check with the documentation of the two crates. Both of them are compiled with the socks feature enabled.
-    /// The proxy is ignored when targeting wasm32.  
-    pub proxy: Option<String>,
-    ///Number of parallel requests sent to the esplora service (default: 4)
-    pub concurrency: Option<u8>,
-    ///Stop searching addresses for transactions after finding an unused gap of this length.
-    pub stop_gap: u64,
-    ///Socket timeout.
-    pub timeout: Option<u64>,
-}
-
-/// RpcBlockchain configuration options
-///
-pub struct UserPass {
-    /// Username
-    pub username: String,
-    /// Password
-    pub password: String,
-}
-
-pub struct RpcConfig {
-    /// The bitcoin node url
-    pub url: String,
-    /// The bitcoin node authentication mechanism
-    pub auth_cookie: Option<String>,
-    pub auth_user_pass: Option<UserPass>,
-    /// The network we are using (it will be checked the bitcoin node network matches this)
-    pub network: Network,
-    /// The wallet name in the bitcoin node
-    pub wallet_name: String,
-    /// Sync parameters
-    pub sync_params: Option<RpcSyncParams>,
-}
-
-/// Type that can contain any of the blockchain configurations defined by the library.
-pub enum BlockchainConfig {
-    /// Electrum client
-    Electrum { config: ElectrumConfig },
-    /// Esplora client
-    Esplora { config: EsploraConfig },
-    /// Bitcoin Core RPC client
-    Rpc { config: RpcConfig },
-}
-///Configuration type for a SqliteDatabase database
-pub struct SqliteDbConfiguration {
-    ///Main directory of the db
-    pub path: String,
-}
-///Configuration type for a sled Tree database
-pub struct SledDbConfiguration {
-    ///Main directory of the db
-    pub path: String,
-    ///Name of the database tree, a separated namespace for the data
-    pub tree_name: String,
-}
-
-/// Type that can contain any of the database configurations defined by the library
-/// This allows storing a single configuration that can be loaded into an DatabaseConfig
-/// instance. Wallets that plan to offer users the ability to switch blockchain backend at runtime
-/// will find this particularly useful.
-pub enum DatabaseConfig {
-    Memory,
-    ///Simple key-value embedded database based on sled
-    Sqlite {
-        config: SqliteDbConfiguration,
-    },
-    ///Sqlite embedded database using rusqlite
-    Sled {
-        config: SledDbConfiguration,
-    },
-}
-
 ///Types of keychains
 pub enum KeychainKind {
     External,
     ///Internal, usually used for change outputs
     Internal,
 }
-
 impl From<bdk::KeychainKind> for KeychainKind {
     fn from(e: bdk::KeychainKind) -> Self {
-      match e {
-          bdk::KeychainKind::External => KeychainKind::External,
-          bdk::KeychainKind::Internal => KeychainKind::Internal
-      }
+        match e {
+            bdk::KeychainKind::External => KeychainKind::External,
+            bdk::KeychainKind::Internal => KeychainKind::Internal,
+        }
     }
 }
 impl From<KeychainKind> for bdk::KeychainKind {
@@ -283,30 +222,6 @@ impl From<KeychainKind> for bdk::KeychainKind {
     }
 }
 
-impl From<DatabaseConfig> for AnyDatabaseConfig {
-    fn from(config: DatabaseConfig) -> Self {
-        match config {
-            DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
-            DatabaseConfig::Sqlite { config } => {
-                AnyDatabaseConfig::Sqlite(bdk::database::any::SqliteDbConfiguration {
-                    path: config.path,
-                })
-            }
-            DatabaseConfig::Sled { config } => {
-                AnyDatabaseConfig::Sled(bdk::database::any::SledDbConfiguration {
-                    path: config.path,
-                    tree_name: config.tree_name,
-                })
-            }
-        }
-    }
-}
-
-impl Default for Network {
-    fn default() -> Self {
-        Network::Testnet
-    }
-}
 #[derive(Clone)]
 ///The cryptocurrency to act on
 pub enum Network {
@@ -319,6 +234,11 @@ pub enum Network {
     ///Bitcoin’s signet
     Signet,
 }
+impl Default for Network {
+    fn default() -> Self {
+        Network::Testnet
+    }
+}
 impl From<Network> for bdk::bitcoin::Network {
     fn from(network: Network) -> Self {
         match network {
@@ -329,7 +249,6 @@ impl From<Network> for bdk::bitcoin::Network {
         }
     }
 }
-
 impl From<bdk::bitcoin::Network> for Network {
     fn from(network: bdk::bitcoin::Network) -> Self {
         match network {
@@ -338,14 +257,6 @@ impl From<bdk::bitcoin::Network> for Network {
             bdk::bitcoin::Network::Regtest => Network::Regtest,
             bdk::bitcoin::Network::Bitcoin => Network::Bitcoin,
         }
-    }
-}
-
-// Internally stored as satoshi/vbyte
-
-impl From<WalletInstance> for RustOpaque<WalletInstance> {
-    fn from(wallet: WalletInstance) -> Self {
-        RustOpaque::new(wallet)
     }
 }
 
@@ -365,5 +276,39 @@ impl From<WordCount> for bdk::keys::bip39::WordCount {
             WordCount::Words18 => bdk::keys::bip39::WordCount::Words18,
             WordCount::Words24 => bdk::keys::bip39::WordCount::Words24,
         }
+    }
+}
+pub struct Address {
+    pub address: BdkAddress,
+}
+impl Address {
+    pub fn new(address: String) -> Result<Self, BdkError> {
+        BdkAddress::from_str(address.as_str())
+            .map(|a| Address { address: a })
+            .map_err(|e| BdkError::Generic(e.to_string()))
+    }
+
+    pub fn script_pubkey(&self) -> Arc<Script> {
+        Arc::new(Script {
+            script: self.address.script_pubkey(),
+        })
+    }
+}
+/// A Bitcoin script.
+#[derive(Clone)]
+pub struct Script {
+    pub script: BdkScript,
+}
+
+
+impl Script {
+    //Custom function for rApi
+    pub fn from_hex(script: String) -> Result<Self, BdkError> {
+        let script = BdkScript::from_hex(script.as_str()).unwrap();
+        Ok(Script { script })
+    }
+    pub fn new(raw_output_script: Vec<u8>) -> Result<Self, BdkError> {
+        let script = raw_output_script.as_slice().to_hex();
+        Script::from_hex(script)
     }
 }
