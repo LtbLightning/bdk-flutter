@@ -79,6 +79,10 @@ typedef struct wire_BlockchainInstance {
   const void *ptr;
 } wire_BlockchainInstance;
 
+typedef struct wire_Transaction {
+  const void *ptr;
+} wire_Transaction;
+
 typedef struct wire_WalletInstance {
   const void *ptr;
 } wire_WalletInstance;
@@ -139,6 +143,34 @@ typedef struct wire_DatabaseConfig {
   union DatabaseConfigKind *kind;
 } wire_DatabaseConfig;
 
+typedef struct wire_AddressIndex_New {
+
+} wire_AddressIndex_New;
+
+typedef struct wire_AddressIndex_LastUnused {
+
+} wire_AddressIndex_LastUnused;
+
+typedef struct wire_AddressIndex_Peek {
+  uint32_t index;
+} wire_AddressIndex_Peek;
+
+typedef struct wire_AddressIndex_Reset {
+  uint32_t index;
+} wire_AddressIndex_Reset;
+
+typedef union AddressIndexKind {
+  struct wire_AddressIndex_New *New;
+  struct wire_AddressIndex_LastUnused *LastUnused;
+  struct wire_AddressIndex_Peek *Peek;
+  struct wire_AddressIndex_Reset *Reset;
+} AddressIndexKind;
+
+typedef struct wire_AddressIndex {
+  int32_t tag;
+  union AddressIndexKind *kind;
+} wire_AddressIndex;
+
 typedef struct wire_FeeRate {
   float field0;
 } wire_FeeRate;
@@ -164,8 +196,12 @@ void wire_get_blockchain_hash(int64_t port_,
                               struct wire_BlockchainInstance blockchain);
 
 void wire_broadcast(int64_t port_,
-                    struct wire_uint_8_list *psbt_str,
+                    struct wire_Transaction tx,
                     struct wire_BlockchainInstance blockchain);
+
+void wire_new_transaction(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_serialize_transaction(int64_t port_, struct wire_Transaction tx);
 
 void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
@@ -282,7 +318,13 @@ void wire_wallet_init(int64_t port_,
                       int32_t network,
                       struct wire_DatabaseConfig *database_config);
 
-void wire_get_address(int64_t port_, struct wire_WalletInstance wallet, int32_t address_index);
+void wire_get_address(int64_t port_,
+                      struct wire_WalletInstance wallet,
+                      struct wire_AddressIndex *address_index);
+
+void wire_get_internalized_address(int64_t port_,
+                                   struct wire_WalletInstance wallet,
+                                   struct wire_AddressIndex *address_index);
 
 void wire_sync_wallet(int64_t port_,
                       struct wire_WalletInstance wallet,
@@ -309,15 +351,19 @@ void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnem
 
 void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
 
-void wire_as_sat_per_vb__method__FeeRate(int64_t port_, struct wire_FeeRate *that);
+void wire_as_sat_per_vb__static_method__FeeRate(int64_t port_, struct wire_FeeRate *fee_rate);
 
 struct wire_BdkDescriptor new_BdkDescriptor(void);
 
 struct wire_BlockchainInstance new_BlockchainInstance(void);
 
+struct wire_Transaction new_Transaction(void);
+
 struct wire_WalletInstance new_WalletInstance(void);
 
 struct wire_BdkDescriptor *new_box_autoadd_BdkDescriptor_0(void);
+
+struct wire_AddressIndex *new_box_autoadd_address_index_0(void);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
@@ -361,9 +407,17 @@ void drop_opaque_BlockchainInstance(const void *ptr);
 
 const void *share_opaque_BlockchainInstance(const void *ptr);
 
+void drop_opaque_Transaction(const void *ptr);
+
+const void *share_opaque_Transaction(const void *ptr);
+
 void drop_opaque_WalletInstance(const void *ptr);
 
 const void *share_opaque_WalletInstance(const void *ptr);
+
+union AddressIndexKind *inflate_AddressIndex_Peek(void);
+
+union AddressIndexKind *inflate_AddressIndex_Reset(void);
 
 union BlockchainConfigKind *inflate_BlockchainConfig_Electrum(void);
 
@@ -383,6 +437,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_blockchain_height);
     dummy_var ^= ((int64_t) (void*) wire_get_blockchain_hash);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
+    dummy_var ^= ((int64_t) (void*) wire_new_transaction);
+    dummy_var ^= ((int64_t) (void*) wire_serialize_transaction);
     dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
     dummy_var ^= ((int64_t) (void*) wire_get_fee_rate);
@@ -411,6 +467,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_get_address);
+    dummy_var ^= ((int64_t) (void*) wire_get_internalized_address);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_balance);
     dummy_var ^= ((int64_t) (void*) wire_list_unspent_outputs);
@@ -421,11 +478,13 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
-    dummy_var ^= ((int64_t) (void*) wire_as_sat_per_vb__method__FeeRate);
+    dummy_var ^= ((int64_t) (void*) wire_as_sat_per_vb__static_method__FeeRate);
     dummy_var ^= ((int64_t) (void*) new_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
+    dummy_var ^= ((int64_t) (void*) new_Transaction);
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_BdkDescriptor_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
@@ -447,8 +506,12 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) share_opaque_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) drop_opaque_BlockchainInstance);
     dummy_var ^= ((int64_t) (void*) share_opaque_BlockchainInstance);
+    dummy_var ^= ((int64_t) (void*) drop_opaque_Transaction);
+    dummy_var ^= ((int64_t) (void*) share_opaque_Transaction);
     dummy_var ^= ((int64_t) (void*) drop_opaque_WalletInstance);
     dummy_var ^= ((int64_t) (void*) share_opaque_WalletInstance);
+    dummy_var ^= ((int64_t) (void*) inflate_AddressIndex_Peek);
+    dummy_var ^= ((int64_t) (void*) inflate_AddressIndex_Reset);
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Electrum);
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Esplora);
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Rpc);

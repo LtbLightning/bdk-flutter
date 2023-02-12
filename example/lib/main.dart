@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getNewAddress() async {
-    final alice = await aliceWallet.getAddress(addressIndex: AddressIndex.New);
+    final alice = await aliceWallet.getAddress(addressIndex: AddressIndex.new());
     if (kDebugMode) {
       print(alice.address);
       print(alice.index);
@@ -178,8 +178,9 @@ class _MyAppState extends State<MyApp> {
         .addRecipient(script, 700)
         .feeRate(1.1)
         .finish(aliceWallet);
-    final res = await aliceWallet.sign(psbt);
-    await blockchain!.broadcast(res);
+    final sbt = await aliceWallet.sign(psbt);
+    final tx = await sbt.extractTx();
+    await blockchain!.broadcast(tx);
     sync();
   }
 

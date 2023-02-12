@@ -47,10 +47,9 @@ class Blockchain {
   }
 
   /// The function for broadcasting a transaction
-  Future<void> broadcast(PartiallySignedTransaction psbt) async {
+  Future<void> broadcast(Transaction tx) async {
     try {
-      final txid = await loaderApi.broadcast(
-          psbtStr: psbt.psbtBase64, blockchain: _blockchain!);
+      final txid = await loaderApi.broadcast(blockchain: _blockchain!, tx: tx);
       if (kDebugMode) {
         print(txid);
       }
@@ -367,7 +366,7 @@ class PartiallySignedTransaction {
   }
 
   /// Return the transaction as bytes.
-  Future<List<int>> extractTx() async {
+  Future<Transaction> extractTx() async {
     try {
       final res = await loaderApi.extractTx(psbtStr: psbtBase64);
       return res;

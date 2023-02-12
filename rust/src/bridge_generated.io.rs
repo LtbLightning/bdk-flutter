@@ -613,6 +613,13 @@ impl Wire2Api<AddressIndex> for wire_AddressIndex {
                     index: ans.index.wire2api(),
                 }
             },
+            3 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Reset);
+                AddressIndex::Reset {
+                    index: ans.index.wire2api(),
+                }
+            },
             _ => unreachable!(),
         }
     }
@@ -1020,6 +1027,7 @@ pub union AddressIndexKind {
     New: *mut wire_AddressIndex_New,
     LastUnused: *mut wire_AddressIndex_LastUnused,
     Peek: *mut wire_AddressIndex_Peek,
+    Reset: *mut wire_AddressIndex_Reset,
 }
 
 #[repr(C)]
@@ -1033,6 +1041,12 @@ pub struct wire_AddressIndex_LastUnused {}
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_AddressIndex_Peek {
+    index: u32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_Reset {
     index: u32,
 }
 #[repr(C)]
@@ -1151,6 +1165,15 @@ impl NewWithNullPtr for wire_AddressIndex {
 pub extern "C" fn inflate_AddressIndex_Peek() -> *mut AddressIndexKind {
     support::new_leak_box_ptr(AddressIndexKind {
         Peek: support::new_leak_box_ptr(wire_AddressIndex_Peek {
+            index: Default::default(),
+        }),
+    })
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
+    support::new_leak_box_ptr(AddressIndexKind {
+        Reset: support::new_leak_box_ptr(wire_AddressIndex_Reset {
             index: Default::default(),
         }),
     })

@@ -44,25 +44,25 @@ void main() {
   });
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
+      final res = await mockWallet.getAddress(addressIndex: AddressIndex.new());
       expect(res, isA<AddressInfo>());
     });
     test('Should return a new AddressInfo', () async {
-      when(mockWallet.getAddress(addressIndex: AddressIndex.New)).thenAnswer(
+      when(mockWallet.getAddress(addressIndex: AddressIndex.new())).thenAnswer(
           (e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
+      final res = await mockWallet.getAddress(addressIndex: AddressIndex.new());
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
     test('Should return a last unused AddressInfo', () async {
-      when(mockWallet.getAddress(addressIndex: AddressIndex.LastUnused))
+      when(mockWallet.getAddress(addressIndex: AddressIndex.lastUnused()))
           .thenAnswer((e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res =
-          await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+          await mockWallet.getAddress(addressIndex: AddressIndex.lastUnused());
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
