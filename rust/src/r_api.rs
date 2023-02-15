@@ -44,6 +44,15 @@ pub fn get_blockchain_hash(
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
+pub fn estimate_fee(
+    target: u64,
+    blockchain: RustOpaque<BlockchainInstance>,
+) -> anyhow::Result<FeeRate, anyhow::Error> {
+    return match blockchain.estimate_fee(target) {
+        Ok(e) => Ok(e.into()),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
+}
 
 pub fn broadcast(
     tx: RustOpaque<Transaction>,
@@ -82,7 +91,7 @@ pub fn extract_tx(psbt_str: String) -> anyhow::Result<RustOpaque<Transaction>, a
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
-pub fn get_fee_rate(psbt_str: String) -> Option<FeeRate> {
+pub fn get_psbt_fee_rate(psbt_str: String) -> Option<FeeRate> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
     match psbt.unwrap().fee_rate() {
         None => None,

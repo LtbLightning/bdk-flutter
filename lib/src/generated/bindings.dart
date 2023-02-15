@@ -72,6 +72,23 @@ class RustImpl implements Rust {
         argNames: ["blockchainHeight", "blockchain"],
       );
 
+  Future<FeeRate> estimateFee({required int target, required BlockchainInstance blockchain, dynamic hint}) {
+    var arg0 = _platform.api2wire_u64(target);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_estimate_fee(port_, arg0, arg1),
+      parseSuccessData: (d) => _wire2api_fee_rate(d),
+      constMeta: kEstimateFeeConstMeta,
+      argValues: [target, blockchain],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kEstimateFeeConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "estimate_fee",
+        argNames: ["target", "blockchain"],
+      );
+
   Future<String> broadcast({required Transaction tx, required BlockchainInstance blockchain, dynamic hint}) {
     var arg0 = _platform.api2wire_Transaction(tx);
     var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
@@ -153,19 +170,19 @@ class RustImpl implements Rust {
         argNames: ["psbtStr"],
       );
 
-  Future<FeeRate?> getFeeRate({required String psbtStr, dynamic hint}) {
+  Future<FeeRate?> getPsbtFeeRate({required String psbtStr, dynamic hint}) {
     var arg0 = _platform.api2wire_String(psbtStr);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_get_fee_rate(port_, arg0),
+      callFfi: (port_) => _platform.inner.wire_get_psbt_fee_rate(port_, arg0),
       parseSuccessData: _wire2api_opt_box_autoadd_fee_rate,
-      constMeta: kGetFeeRateConstMeta,
+      constMeta: kGetPsbtFeeRateConstMeta,
       argValues: [psbtStr],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kGetFeeRateConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_fee_rate",
+  FlutterRustBridgeTaskConstMeta get kGetPsbtFeeRateConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_psbt_fee_rate",
         argNames: ["psbtStr"],
       );
 
@@ -1700,6 +1717,23 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_get_blockchain_hash =
       _wire_get_blockchain_hashPtr.asFunction<void Function(int, int, wire_BlockchainInstance)>();
 
+  void wire_estimate_fee(
+    int port_,
+    int target,
+    wire_BlockchainInstance blockchain,
+  ) {
+    return _wire_estimate_fee(
+      port_,
+      target,
+      blockchain,
+    );
+  }
+
+  late final _wire_estimate_feePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Uint64, wire_BlockchainInstance)>>(
+          'wire_estimate_fee');
+  late final _wire_estimate_fee = _wire_estimate_feePtr.asFunction<void Function(int, int, wire_BlockchainInstance)>();
+
   void wire_broadcast(
     int port_,
     wire_Transaction tx,
@@ -1776,19 +1810,21 @@ class RustWire implements FlutterRustBridgeWireBase {
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_extract_tx');
   late final _wire_extract_tx = _wire_extract_txPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_get_fee_rate(
+  void wire_get_psbt_fee_rate(
     int port_,
     ffi.Pointer<wire_uint_8_list> psbt_str,
   ) {
-    return _wire_get_fee_rate(
+    return _wire_get_psbt_fee_rate(
       port_,
       psbt_str,
     );
   }
 
-  late final _wire_get_fee_ratePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_get_fee_rate');
-  late final _wire_get_fee_rate = _wire_get_fee_ratePtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_get_psbt_fee_ratePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+          'wire_get_psbt_fee_rate');
+  late final _wire_get_psbt_fee_rate =
+      _wire_get_psbt_fee_ratePtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_get_fee_amount(
     int port_,

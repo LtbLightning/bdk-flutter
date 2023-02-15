@@ -94,6 +94,24 @@ fn wire_get_blockchain_hash_impl(
         },
     )
 }
+fn wire_estimate_fee_impl(
+    port_: MessagePort,
+    target: impl Wire2Api<u64> + UnwindSafe,
+    blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "estimate_fee",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_target = target.wire2api();
+            let api_blockchain = blockchain.wire2api();
+            move |task_callback| estimate_fee(api_target, api_blockchain)
+        },
+    )
+}
 fn wire_broadcast_impl(
     port_: MessagePort,
     tx: impl Wire2Api<RustOpaque<Transaction>> + UnwindSafe,
@@ -167,16 +185,16 @@ fn wire_extract_tx_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + Un
         },
     )
 }
-fn wire_get_fee_rate_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_get_psbt_fee_rate_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_fee_rate",
+            debug_name: "get_psbt_fee_rate",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(get_fee_rate(api_psbt_str))
+            move |task_callback| Ok(get_psbt_fee_rate(api_psbt_str))
         },
     )
 }

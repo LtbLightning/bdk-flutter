@@ -7,9 +7,9 @@ use bdk::blockchain::{
     AnyBlockchain, AnyBlockchainConfig, Blockchain, ConfigurableBlockchain,
     ElectrumBlockchainConfig, GetBlockHash, GetHeight,
 };
-use bdk::Error as BdkError;
+use bdk::{Error as BdkError, FeeRate};
 use std::path::PathBuf;
-use std::sync::{Mutex, MutexGuard};
+use std::sync::{Arc, Mutex, MutexGuard};
 
 pub struct BlockchainInstance {
     pub blockchain_mutex: Mutex<AnyBlockchain>,
@@ -80,7 +80,11 @@ impl BlockchainInstance {
     pub fn get_height(&self) -> Result<u32, BdkError> {
         self.get_blockchain().get_height()
     }
-
+    pub fn estimate_fee(&self, target: u64) -> Result<Arc<FeeRate>, BdkError> {
+        let result: Result<FeeRate, bdk::Error> =
+            self.get_blockchain().estimate_fee(target as usize);
+        result.map(Arc::new)
+    }
     pub fn get_block_hash(&self, height: u32) -> Result<String, BdkError> {
         self.get_blockchain()
             .get_block_hash(u64::from(height))

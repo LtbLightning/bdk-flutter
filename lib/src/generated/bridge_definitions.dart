@@ -24,6 +24,10 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta;
 
+  Future<FeeRate> estimateFee({required int target, required BlockchainInstance blockchain, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kEstimateFeeConstMeta;
+
   Future<String> broadcast({required Transaction tx, required BlockchainInstance blockchain, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
@@ -44,9 +48,9 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kExtractTxConstMeta;
 
-  Future<FeeRate?> getFeeRate({required String psbtStr, dynamic hint});
+  Future<FeeRate?> getPsbtFeeRate({required String psbtStr, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kGetFeeRateConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetPsbtFeeRateConstMeta;
 
   Future<int?> getFeeAmount({required String psbtStr, dynamic hint});
 

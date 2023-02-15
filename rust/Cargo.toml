@@ -1,6 +1,6 @@
 [package]
 name = "rust"
-version = "0.3.0"
+version = "0.3.3"
 edition = "2021"
 
 [lib]
@@ -10,8 +10,7 @@ crate-type = ["staticlib", "cdylib"]
 flutter_rust_bridge_codegen = { version = "1.63.0"  }
 [dependencies]
 rand = "0.8"
-bdk = { version = "0.26.0", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled", "rpc"] }
-#bdk-ffi = { git = "https://github.com/bitcoindevkit/bdk-ffi", package = "bdk-ffi", branch="master"}
+bdk = { version = "0.27.0", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled", "rpc"] }
 flutter_rust_bridge = { version = "1.63.0"  }
 serde = "1.0.89"
 anyhow = "1.0.68"

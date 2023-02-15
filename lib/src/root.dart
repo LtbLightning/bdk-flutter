@@ -46,6 +46,16 @@ class Blockchain {
     }
   }
 
+  /// The function for getting the current height of the blockchain.
+  Future<FeeRate> estimateFee(int target) async {
+    try {
+      var res = await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   /// The function for broadcasting a transaction
   Future<void> broadcast(Transaction tx) async {
     try {
@@ -402,7 +412,7 @@ class PartiallySignedTransaction {
   /// Return Fee Rate
   Future<FeeRate?> feeRate() async {
     try {
-      final res = await loaderApi.getFeeRate(psbtStr: psbtBase64);
+      final res = await loaderApi.getPsbtFeeRate(psbtStr: psbtBase64);
       if (res == null) return null;
       return res;
     } on FfiException catch (e) {

@@ -21,6 +21,11 @@ pub extern "C" fn wire_get_blockchain_hash(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_estimate_fee(port_: i64, target: u64, blockchain: wire_BlockchainInstance) {
+    wire_estimate_fee_impl(port_, target, blockchain)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_broadcast(
     port_: i64,
     tx: wire_Transaction,
@@ -50,8 +55,8 @@ pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_fee_rate_impl(port_, psbt_str)
+pub extern "C" fn wire_get_psbt_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_get_psbt_fee_rate_impl(port_, psbt_str)
 }
 
 #[no_mangle]

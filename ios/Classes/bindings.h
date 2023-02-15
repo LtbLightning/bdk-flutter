@@ -195,6 +195,8 @@ void wire_get_blockchain_hash(int64_t port_,
                               uint32_t blockchain_height,
                               struct wire_BlockchainInstance blockchain);
 
+void wire_estimate_fee(int64_t port_, uint64_t target, struct wire_BlockchainInstance blockchain);
+
 void wire_broadcast(int64_t port_,
                     struct wire_Transaction tx,
                     struct wire_BlockchainInstance blockchain);
@@ -207,7 +209,7 @@ void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 void wire_extract_tx(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_get_fee_rate(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_get_psbt_fee_rate(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 void wire_get_fee_amount(int64_t port_, struct wire_uint_8_list *psbt_str);
 
@@ -436,12 +438,13 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_blockchain_init);
     dummy_var ^= ((int64_t) (void*) wire_get_blockchain_height);
     dummy_var ^= ((int64_t) (void*) wire_get_blockchain_hash);
+    dummy_var ^= ((int64_t) (void*) wire_estimate_fee);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_new_transaction);
     dummy_var ^= ((int64_t) (void*) wire_serialize_transaction);
     dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
-    dummy_var ^= ((int64_t) (void*) wire_get_fee_rate);
+    dummy_var ^= ((int64_t) (void*) wire_get_psbt_fee_rate);
     dummy_var ^= ((int64_t) (void*) wire_get_fee_amount);
     dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
     dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
