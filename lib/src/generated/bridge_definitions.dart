@@ -11,24 +11,34 @@ import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'bridge_definitions.freezed.dart';
 
 abstract class Rust {
-  Future<BlockchainInstance> blockchainInit({required BlockchainConfig config, dynamic hint});
+  Future<BlockchainInstance> blockchainInit(
+      {required BlockchainConfig config, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBlockchainInitConstMeta;
 
-  Future<int> getBlockchainHeight({required BlockchainInstance blockchain, dynamic hint});
+  Future<int> getBlockchainHeight(
+      {required BlockchainInstance blockchain, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBlockchainHeightConstMeta;
 
   Future<String> getBlockchainHash(
-      {required int blockchainHeight, required BlockchainInstance blockchain, dynamic hint});
+      {required int blockchainHeight,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBlockchainHashConstMeta;
 
-  Future<FeeRate> estimateFee({required int target, required BlockchainInstance blockchain, dynamic hint});
+  Future<FeeRate> estimateFee(
+      {required int target,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEstimateFeeConstMeta;
 
-  Future<String> broadcast({required Transaction tx, required BlockchainInstance blockchain, dynamic hint});
+  Future<String> broadcast(
+      {required Transaction tx,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastConstMeta;
 
@@ -36,7 +46,8 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kNewTransactionConstMeta;
 
-  Future<Uint8List> serializeTransaction({required Transaction tx, dynamic hint});
+  Future<Uint8List> serializeTransaction(
+      {required Transaction tx, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSerializeTransactionConstMeta;
 
@@ -56,7 +67,8 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetFeeAmountConstMeta;
 
-  Future<String> combinePsbt({required String psbtStr, required String other, dynamic hint});
+  Future<String> combinePsbt(
+      {required String psbtStr, required String other, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCombinePsbtConstMeta;
 
@@ -90,12 +102,16 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kBumpFeeTxBuilderFinishConstMeta;
 
-  Future<BdkDescriptor> newDescriptor({required String descriptor, required Network network, dynamic hint});
+  Future<BdkDescriptor> newDescriptor(
+      {required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewDescriptorConstMeta;
 
   Future<BdkDescriptor> newBip44Descriptor(
-      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
+      {required KeychainKind keyChainKind,
+      required String secretKey,
+      required Network network,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewBip44DescriptorConstMeta;
 
@@ -109,7 +125,10 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kNewBip44PublicConstMeta;
 
   Future<BdkDescriptor> newBip49Descriptor(
-      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
+      {required KeychainKind keyChainKind,
+      required String secretKey,
+      required Network network,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewBip49DescriptorConstMeta;
 
@@ -123,7 +142,10 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kNewBip49PublicConstMeta;
 
   Future<BdkDescriptor> newBip84Descriptor(
-      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
+      {required KeychainKind keyChainKind,
+      required String secretKey,
+      required Network network,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewBip84DescriptorConstMeta;
 
@@ -136,7 +158,8 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kNewBip84PublicConstMeta;
 
-  Future<String> asStringPrivate({required BdkDescriptor descriptor, dynamic hint});
+  Future<String> asStringPrivate(
+      {required BdkDescriptor descriptor, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringPrivateConstMeta;
 
@@ -144,24 +167,31 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kAsStringConstMeta;
 
-  Future<String> descriptorSecretExtend({required String xprv, required String path, dynamic hint});
+  Future<String> descriptorSecretExtend(
+      {required String xprv, required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretExtendConstMeta;
 
-  Future<String> descriptorSecretDerive({required String xprv, required String path, dynamic hint});
+  Future<String> descriptorSecretDerive(
+      {required String xprv, required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretDeriveConstMeta;
 
-  Future<Uint8List> descriptorSecretAsSecretBytes({String? descriptorSecret, String? xprv, dynamic hint});
+  Future<Uint8List> descriptorSecretAsSecretBytes(
+      {String? descriptorSecret, String? xprv, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesConstMeta;
 
-  Future<String> descriptorSecretAsPublic({String? descriptorSecret, String? xprv, dynamic hint});
+  Future<String> descriptorSecretAsPublic(
+      {String? descriptorSecret, String? xprv, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicConstMeta;
 
   Future<String> createDescriptorSecret(
-      {required Network network, required String mnemonic, String? password, dynamic hint});
+      {required Network network,
+      required String mnemonic,
+      String? password,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretConstMeta;
 
@@ -169,7 +199,8 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateDerivationPathConstMeta;
 
-  Future<String> createDescriptorPublic({String? xpub, required String path, required bool derive, dynamic hint});
+  Future<String> createDescriptorPublic(
+      {String? xpub, required String path, required bool derive, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorPublicConstMeta;
 
@@ -181,7 +212,8 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kInitAddressConstMeta;
 
-  Future<String> addressToScriptPubkeyHex({required String address, dynamic hint});
+  Future<String> addressToScriptPubkeyHex(
+      {required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyHexConstMeta;
 
@@ -194,16 +226,24 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kWalletInitConstMeta;
 
-  Future<AddressInfo> getAddress({required WalletInstance wallet, required AddressIndex addressIndex, dynamic hint});
+  Future<AddressInfo> getAddress(
+      {required WalletInstance wallet,
+      required AddressIndex addressIndex,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetAddressConstMeta;
 
   Future<AddressInfo> getInternalizedAddress(
-      {required WalletInstance wallet, required AddressIndex addressIndex, dynamic hint});
+      {required WalletInstance wallet,
+      required AddressIndex addressIndex,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetInternalizedAddressConstMeta;
 
-  Future<void> syncWallet({required WalletInstance wallet, required BlockchainInstance blockchain, dynamic hint});
+  Future<void> syncWallet(
+      {required WalletInstance wallet,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletConstMeta;
 
@@ -211,16 +251,21 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceConstMeta;
 
-  Future<List<LocalUtxo>> listUnspentOutputs({required WalletInstance wallet, dynamic hint});
+  Future<List<LocalUtxo>> listUnspentOutputs(
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentOutputsConstMeta;
 
-  Future<List<TransactionDetails>> getTransactions({required WalletInstance wallet, dynamic hint});
+  Future<List<TransactionDetails>> getTransactions(
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetTransactionsConstMeta;
 
   Future<String?> sign(
-      {required WalletInstance wallet, required String psbtStr, required bool isMultiSig, dynamic hint});
+      {required WalletInstance wallet,
+      required String psbtStr,
+      required bool isMultiSig,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignConstMeta;
 
@@ -228,23 +273,28 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetNetworkConstMeta;
 
-  Future<List<LocalUtxo>> listUnspent({required WalletInstance wallet, dynamic hint});
+  Future<List<LocalUtxo>> listUnspent(
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentConstMeta;
 
-  Future<String> generateSeedFromWordCount({required WordCount wordCount, dynamic hint});
+  Future<String> generateSeedFromWordCount(
+      {required WordCount wordCount, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;
 
-  Future<String> generateSeedFromString({required String mnemonic, dynamic hint});
+  Future<String> generateSeedFromString(
+      {required String mnemonic, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromStringConstMeta;
 
-  Future<String> generateSeedFromEntropy({required Uint8List entropy, dynamic hint});
+  Future<String> generateSeedFromEntropy(
+      {required Uint8List entropy, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
 
-  Future<double> asSatPerVbStaticMethodFeeRate({required FeeRate feeRate, dynamic hint});
+  Future<double> asSatPerVbStaticMethodFeeRate(
+      {required FeeRate feeRate, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsSatPerVbStaticMethodFeeRateConstMeta;
 
@@ -268,7 +318,8 @@ abstract class Rust {
 @sealed
 class BdkDescriptor extends FrbOpaque {
   final Rust bridge;
-  BdkDescriptor.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  BdkDescriptor.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBdkDescriptor;
 
@@ -282,7 +333,8 @@ class BdkDescriptor extends FrbOpaque {
 @sealed
 class BlockchainInstance extends FrbOpaque {
   final Rust bridge;
-  BlockchainInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  BlockchainInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBlockchainInstance;
 
@@ -310,7 +362,8 @@ class Transaction extends FrbOpaque {
 @sealed
 class WalletInstance extends FrbOpaque {
   final Rust bridge;
-  WalletInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  WalletInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueWalletInstance;
 
@@ -511,7 +564,8 @@ class FeeRate {
     required this.field0,
   });
 
-  static Future<double> asSatPerVb({required Rust bridge, required FeeRate feeRate, dynamic hint}) =>
+  static Future<double> asSatPerVb(
+          {required Rust bridge, required FeeRate feeRate, dynamic hint}) =>
       bridge.asSatPerVbStaticMethodFeeRate(feeRate: feeRate, hint: hint);
 }
 

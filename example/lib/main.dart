@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   generateMnemonicKeys() async {
     final res = await Mnemonic.create(WordCount.Words12);
     setState(() {
-      displayText= res.toString();
+      displayText = res.toString();
     });
     if (kDebugMode) {
       print(res.asString());
@@ -43,7 +43,8 @@ class _MyAppState extends State<MyApp> {
         descriptor: aliceDescriptor!,
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
-    final address = await bdkWallet.getAddress(addressIndex: const AddressIndex.new());
+    final address =
+        await bdkWallet.getAddress(addressIndex: const AddressIndex());
 
     setState(() {
       displayText = "Wallet restored with address: ${address.address} ";
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                 config: RpcConfig(
                     url: 'http://127.0.0.1:18446',
                     authUserPass:
-                    UserPass(username: 'polaruser', password: 'polarpass'),
+                        UserPass(username: 'polaruser', password: 'polarpass'),
                     network: Network.Regtest,
                     walletName: 'default')));
       } else {
@@ -95,17 +96,17 @@ class _MyAppState extends State<MyApp> {
     await initBlockchain(true);
     bdkWallet.sync(blockchain!);
     setState(() {
-      displayText ="Syncing completed";
+      displayText = "Syncing completed";
     });
   }
 
   getNewAddress() async {
-    final res = await bdkWallet.getAddress(addressIndex:  const AddressIndex.new());
+    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
     if (kDebugMode) {
       print(res.address);
     }
     setState(() {
-      displayText ="Address: ${res.address} \n Index: ${res.index}";
+      displayText = "Address: ${res.address} \n Index: ${res.index}";
     });
   }
 
@@ -117,7 +118,7 @@ class _MyAppState extends State<MyApp> {
       if (e.confirmationTime == null) unConfirmed.add(e);
     }
     setState(() {
-      displayText ="You have ${unConfirmed.length} unConfirmed transactions";
+      displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
     for (var e in unConfirmed) {
       if (kDebugMode) {
@@ -137,7 +138,7 @@ class _MyAppState extends State<MyApp> {
       if (e.confirmationTime != null) confirmed.add(e);
     }
     setState(() {
-      displayText ="You have ${confirmed.length} confirmed transactions";
+      displayText = "You have ${confirmed.length} confirmed transactions";
     });
     for (var e in confirmed) {
       if (kDebugMode) {
@@ -156,19 +157,22 @@ class _MyAppState extends State<MyApp> {
     final res = await bdkWallet.getBalance();
     setState(() {
       balance = res.total;
-      displayText ="Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
+      displayText =
+          "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
     });
   }
 
   listUnspent() async {
     final res = await bdkWallet.listUnspent();
     setState(() {
-      displayText =" OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
+      displayText =
+          " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
     });
     for (var e in res) {
       if (kDebugMode) {
         print("isSpent: ${e.isSpent}");
-        print("outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
+        print(
+            "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
         print("===========================");
       }
@@ -181,7 +185,7 @@ class _MyAppState extends State<MyApp> {
       print(res);
     }
     setState(() {
-      displayText ="Height: $res";
+      displayText = "Height: $res";
     });
     return res;
   }
@@ -190,7 +194,7 @@ class _MyAppState extends State<MyApp> {
     final height = await getBlockHeight();
     final blockHash = await blockchain!.getBlockHash(height);
     setState(() {
-      displayText ="BlockHash: $blockHash";
+      displayText = "BlockHash: $blockHash";
     });
     if (kDebugMode) {
       print(blockHash);
@@ -200,7 +204,7 @@ class _MyAppState extends State<MyApp> {
   sendBit() async {
     final txBuilder = TxBuilder();
     final address =
-    await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final psbt = await txBuilder
         .addRecipient(script, 700)
@@ -217,47 +221,46 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar:  PreferredSize(
+        appBar: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
           child: Container(
             padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
             color: Colors.blue,
-            child: Column(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text('Bdk Wallet',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                      height: 2.5,
+                      color: Colors.white)),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Bdk Wallet',
+                  const Text("Response: ",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
-                          height: 2.5,
-                          color: Colors.white)),
-                  const SizedBox(
-                    height: 5,
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
+                  Expanded(
+                    child: SelectableText(
+                      displayText,
+                      maxLines: 3,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Response: ",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700)),
-                      Expanded(
-                        child: SelectableText(
-                          displayText,
-                          maxLines: 3,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
-                  ),
-                ]),
+                ],
+              ),
+            ]),
           ),
         ),
         body: Center(
@@ -285,7 +288,8 @@ class _MyAppState extends State<MyApp> {
               ),
               TextButton(
                   onPressed: () => getNewAddress(),
-                  child: const Text('Press to create new Address',
+                  child: const Text(
+                    'Press to create new Address',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
@@ -293,69 +297,85 @@ class _MyAppState extends State<MyApp> {
                         fontWeight: FontWeight.w800),
                   )),
               TextButton(
-                  onPressed: () => sync(), child: const Text('Press to  sync',
-                style: TextStyle(
-                    color: Colors.indigoAccent,
-                    fontSize: 12,
-                    height: 1.5,
-                    fontWeight: FontWeight.w800),)),
+                  onPressed: () => sync(),
+                  child: const Text(
+                    'Press to  sync',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getConfirmedTransactions(),
-                  child: const Text('Get ConfirmedTransactions',
+                  child: const Text(
+                    'Get ConfirmedTransactions',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getUnConfirmedTransactions(),
-                  child: const Text('getPendingTransactions',
+                  child: const Text(
+                    'getPendingTransactions',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getBalance(),
-                  child: const Text('get Balance',
+                  child: const Text(
+                    'get Balance',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => listUnspent(),
-                  child: const Text('list Unspent',
+                  child: const Text(
+                    'list Unspent',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => sendBit(),
-                  child: const Text('Press to send 1200 satoshi',
+                  child: const Text(
+                    'Press to send 1200 satoshi',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getBlockHash(),
-                  child: const Text('get BlockHash',
+                  child: const Text(
+                    'get BlockHash',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => generateMnemonicKeys(),
-                  child: const Text('generate Mnemonic',
+                  child: const Text(
+                    'generate Mnemonic',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
                         height: 1.5,
-                        fontWeight: FontWeight.w800),)),
-
+                        fontWeight: FontWeight.w800),
+                  )),
             ],
           ),
         ),

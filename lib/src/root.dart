@@ -49,7 +49,8 @@ class Blockchain {
   /// The function for getting the current height of the blockchain.
   Future<FeeRate> estimateFee(int target) async {
     try {
-      var res = await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
+      var res =
+          await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
