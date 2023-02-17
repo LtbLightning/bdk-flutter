@@ -5,6 +5,8 @@ edition = "2021"
 
 [lib]
 crate-type = ["staticlib", "cdylib"]
+[dev-dependencies]
+assert_matches = "1.5"
 
 [build-dependencies]
 flutter_rust_bridge_codegen = { version = "1.63.0"  }

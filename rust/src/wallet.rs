@@ -15,6 +15,7 @@ use crate::types::{AddressIndex, AddressInfo, Balance, OutPoint, TransactionDeta
 ///     1. Output descriptors from which it can derive addresses.
 ///     2. A Database where it tracks transactions and utxos related to the descriptors.
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
+#[derive(Debug)]
 pub struct WalletInstance {
     pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
