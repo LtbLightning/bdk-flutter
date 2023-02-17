@@ -178,3 +178,83 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+
+    use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
+    use bdk::bitcoin::{Network};
+    use bdk::wallet::get_funded_wallet;
+    use std::str::FromStr;
+    use std::sync::{Arc};
+    use flutter_rust_bridge::RustOpaque;
+    use crate::descriptor::BdkDescriptor;
+    
+
+    #[test]
+    fn test_get_address() {
+        let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
+        let descriptor = RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
+        let change_descriptor =   RustOpaque::new(BdkDescriptor::new(
+            test_wpkh.to_string().replace("/0/*", "/1/*"),
+            Network::Regtest,
+        )
+            .unwrap());
+
+        let wallet = WalletInstance::new(
+            Arc::new(descriptor),
+            Some(Arc::new(change_descriptor)),
+            Network::Regtest,
+            DatabaseConfig::Memory,
+        )
+            .unwrap();
+
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1qqjn9gky9mkrm3c28e5e87t5akd3twg6xezp0tv"
+        );
+
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::LastUnused)
+                .unwrap()
+                .address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+
+        assert_eq!(
+            wallet
+                .get_internal_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1qpmz73cyx00r4a5dea469j40ax6d6kqyd67nnpj"
+        );
+
+        assert_eq!(
+            wallet
+                .get_internal_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1qaux734vuhykww9632v8cmdnk7z2mw5lsf74v6k"
+        );
+
+        assert_eq!(
+            wallet
+                .get_internal_address(AddressIndex::LastUnused)
+                .unwrap()
+                .address,
+            "bcrt1qaux734vuhykww9632v8cmdnk7z2mw5lsf74v6k"
+        );
+    }
+}
