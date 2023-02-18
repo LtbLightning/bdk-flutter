@@ -189,8 +189,92 @@ mod test {
     use std::sync::{Arc};
     use flutter_rust_bridge::RustOpaque;
     use crate::descriptor::BdkDescriptor;
-    
 
+    #[test]
+    fn test_peek_reset_address() {
+        let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
+        let descriptor = RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
+        let change_descriptor =   RustOpaque::new(BdkDescriptor::new(
+            test_wpkh.to_string().replace("/0/*", "/1/*"),
+            Network::Regtest,
+        )
+            .unwrap());
+
+        let wallet = WalletInstance::new(
+            Arc::new(descriptor),
+            Some(Arc::new(change_descriptor)),
+            Network::Regtest,
+            DatabaseConfig::Memory,
+        )
+            .unwrap();
+
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::Peek { index: 2 })
+                .unwrap()
+                .address,
+            "bcrt1q5g0mq6dkmwzvxscqwgc932jhgcxuqqkjv09tkj"
+        );
+
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::Peek { index: 1 })
+                .unwrap()
+                .address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+
+        // new index still 0
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1qqjn9gky9mkrm3c28e5e87t5akd3twg6xezp0tv"
+        );
+
+        // new index now 1
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+
+        // new index now 2
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::New)
+                .unwrap()
+                .address,
+            "bcrt1q5g0mq6dkmwzvxscqwgc932jhgcxuqqkjv09tkj"
+        );
+
+        // peek index 1
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::Peek { index: 1 })
+                .unwrap()
+                .address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+
+        // reset to index 0
+        assert_eq!(
+            wallet
+                .get_address(AddressIndex::Reset { index: 0 })
+                .unwrap()
+                .address,
+            "bcrt1qqjn9gky9mkrm3c28e5e87t5akd3twg6xezp0tv"
+        );
+
+        // new index 1 again
+        assert_eq!(
+            wallet.get_address(AddressIndex::New).unwrap().address,
+            "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
+        );
+    }
     #[test]
     fn test_get_address() {
         let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
