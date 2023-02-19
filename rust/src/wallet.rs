@@ -184,8 +184,6 @@ mod test {
 
     use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
     use bdk::bitcoin::{Network};
-    use bdk::wallet::get_funded_wallet;
-    use std::str::FromStr;
     use std::sync::{Arc};
     use flutter_rust_bridge::RustOpaque;
     use crate::descriptor::BdkDescriptor;
