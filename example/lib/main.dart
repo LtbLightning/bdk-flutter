@@ -200,15 +200,23 @@ class _MyAppState extends State<MyApp> {
       print(blockHash);
     }
   }
+  Future<FeeRate> estimateFeeRate(int blocks) async {
+    final feeRate= await blockchain!.estimateFee(blocks);
+    setState(() {
+      displayText = "feeRate: ${feeRate.asSatPerVb()}";
+    });
+  return feeRate;
+  }
 
   sendBit() async {
     final txBuilder = TxBuilder();
     final address =
         await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
+    final feeRate = await estimateFeeRate(25);
     final psbt = await txBuilder
         .addRecipient(script, 700)
-        .feeRate(1.1)
+        .feeRate(feeRate.asSatPerVb())
         .finish(bdkWallet);
     final sbt = await bdkWallet.sign(psbt);
     final tx = await sbt.extractTx();

@@ -16,6 +16,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
+
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -33,7 +34,6 @@ void main() {
       final res = await mockBlockchain.getHeight();
       expect(res, 2396450);
     });
-
     test('verify getHash', () async {
       when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
@@ -41,6 +41,7 @@ void main() {
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
+
   });
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {

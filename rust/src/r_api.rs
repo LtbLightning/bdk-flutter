@@ -47,9 +47,9 @@ pub fn get_blockchain_hash(
 pub fn estimate_fee(
     target: u64,
     blockchain: RustOpaque<BlockchainInstance>,
-) -> anyhow::Result<FeeRate, anyhow::Error> {
+) -> anyhow::Result<f32, anyhow::Error> {
     return match blockchain.estimate_fee(target) {
-        Ok(e) => Ok(e.into()),
+        Ok(e) => Ok(e.as_sat_per_vb()),
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
@@ -91,11 +91,11 @@ pub fn extract_tx(psbt_str: String) -> anyhow::Result<RustOpaque<Transaction>, a
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
-pub fn get_psbt_fee_rate(psbt_str: String) -> Option<FeeRate> {
+pub fn get_psbt_fee_rate(psbt_str: String) -> Option<f32> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
     match psbt.unwrap().fee_rate() {
         None => None,
-        Some(e) => Some(e.into()),
+        Some(e) => Some(e.as_sat_per_vb()),
     }
 }
 pub fn get_fee_amount(psbt_str: String) -> Option<u64> {
@@ -603,15 +603,3 @@ pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> anyhow::Result<String, an
     }
 }
 
-pub struct FeeRate(pub f32);
-impl From<Arc<bdk::FeeRate>> for FeeRate {
-    fn from(fee_rate: Arc<bdk::FeeRate>) -> Self {
-        FeeRate(fee_rate.as_sat_per_vb())
-    }
-}
-impl FeeRate {
-    /// Return the value as satoshi/vbyte
-    pub fn as_sat_per_vb(fee_rate:FeeRate) -> f32 {
-        fee_rate.0
-    }
-}

@@ -939,22 +939,6 @@ fn wire_generate_seed_from_entropy_impl(
         },
     )
 }
-fn wire_as_sat_per_vb__static_method__FeeRate_impl(
-    port_: MessagePort,
-    fee_rate: impl Wire2Api<FeeRate> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "as_sat_per_vb__static_method__FeeRate",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_fee_rate = fee_rate.wire2api();
-            move |task_callback| Ok(FeeRate::as_sat_per_vb(api_fee_rate))
-        },
-    )
-}
 // Section: wrapper structs
 
 // Section: static checks
@@ -989,7 +973,6 @@ impl Wire2Api<f32> for f32 {
         self
     }
 }
-
 impl Wire2Api<i32> for i32 {
     fn wire2api(self) -> i32 {
         self
@@ -1073,13 +1056,6 @@ impl support::IntoDart for BlockTime {
     }
 }
 impl support::IntoDartExceptPrimitive for BlockTime {}
-
-impl support::IntoDart for FeeRate {
-    fn into_dart(self) -> support::DartAbi {
-        vec![self.0.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for FeeRate {}
 
 impl support::IntoDart for LocalUtxo {
     fn into_dart(self) -> support::DartAbi {

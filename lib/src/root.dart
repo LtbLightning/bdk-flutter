@@ -46,12 +46,11 @@ class Blockchain {
     }
   }
 
-  /// The function for getting the current height of the blockchain.
+  /// Estimate the fee rate required to confirm a transaction in a given target of blocks
   Future<FeeRate> estimateFee(int target) async {
     try {
-      var res =
-          await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
-      return res;
+      var res = await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
+      return FeeRate._()._setFeeRate(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -67,6 +66,19 @@ class Blockchain {
     } on FfiException catch (e) {
       throw configException(e.message);
     }
+  }
+}
+
+class FeeRate{
+  double? _feeRate;
+  FeeRate._();
+  FeeRate _setFeeRate(double feeRate) {
+    _feeRate = feeRate;
+    return this;
+  }
+
+  double asSatPerVb(){
+    return _feeRate!;
   }
 }
 
@@ -96,8 +108,8 @@ class Descriptor {
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip44(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Descriptor(
           secretKey: secretKey.asString(),
@@ -116,9 +128,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+        String? fingerPrint,
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Public(
           keyChainKind: keychain,
@@ -136,8 +148,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip49(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Descriptor(
           secretKey: secretKey.asString(),
@@ -156,9 +168,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip49Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+        String? fingerPrint,
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Public(
           keyChainKind: keychain,
@@ -176,8 +188,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip84(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Descriptor(
           secretKey: secretKey.asString(),
@@ -196,9 +208,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip84Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+        String? fingerPrint,
+        required Network network,
+        required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Public(
           keyChainKind: keychain,
@@ -214,7 +226,7 @@ class Descriptor {
   Future<String> asPrivateString() async {
     try {
       final res =
-          await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
+      await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -415,7 +427,7 @@ class PartiallySignedTransaction {
     try {
       final res = await loaderApi.getPsbtFeeRate(psbtStr: psbtBase64);
       if (res == null) return null;
-      return res;
+      return FeeRate._()._setFeeRate(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -790,7 +802,7 @@ class Mnemonic {
   static Future<Mnemonic> create(WordCount wordCount) async {
     try {
       final res =
-          await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+      await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
       return Mnemonic._()._setMnemonic(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -886,8 +898,8 @@ class DescriptorSecretKey {
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> create(
       {required Network network,
-      required Mnemonic mnemonic,
-      String? password}) async {
+        required Mnemonic mnemonic,
+        String? password}) async {
     try {
       final res = await loaderApi.createDescriptorSecret(
           network: network, mnemonic: mnemonic.asString(), password: password);
