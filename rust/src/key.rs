@@ -155,7 +155,7 @@ impl DescriptorSecretKey {
 
         Ok(secret_bytes)
     }
-    #[allow(dead_code)]
+
     pub fn from_string(key_str: String) -> Result<Arc<Self>, BdkError> {
         let key = BdkDescriptorSecretKey::from_str(&*key_str).unwrap();
         Ok(Arc::new(Self {
@@ -232,11 +232,11 @@ impl DescriptorPublicKey {
 }
 #[cfg(test)]
 mod test {
+    use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
     use bdk::bitcoin::hashes::hex::ToHex;
     use bdk::bitcoin::Network;
-    use std::sync::Arc;
     use bdk::Error as BdkError;
-    use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
+    use std::sync::Arc;
 
     fn get_descriptor_secret_key() -> Result<DescriptorSecretKey, BdkError> {
         let mnemonic = Mnemonic::from_str("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string()).unwrap();

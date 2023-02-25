@@ -79,10 +79,6 @@ typedef struct wire_BlockchainInstance {
   const void *ptr;
 } wire_BlockchainInstance;
 
-typedef struct wire_Transaction {
-  const void *ptr;
-} wire_Transaction;
-
 typedef struct wire_WalletInstance {
   const void *ptr;
 } wire_WalletInstance;
@@ -194,12 +190,10 @@ void wire_get_blockchain_hash(int64_t port_,
 void wire_estimate_fee(int64_t port_, uint64_t target, struct wire_BlockchainInstance blockchain);
 
 void wire_broadcast(int64_t port_,
-                    struct wire_Transaction tx,
+                    struct wire_uint_8_list *tx,
                     struct wire_BlockchainInstance blockchain);
 
 void wire_new_transaction(int64_t port_, struct wire_uint_8_list *tx);
-
-void wire_serialize_transaction(int64_t port_, struct wire_Transaction tx);
 
 void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
@@ -276,6 +270,13 @@ void wire_as_string_private(int64_t port_, struct wire_BdkDescriptor descriptor)
 
 void wire_as_string(int64_t port_, struct wire_BdkDescriptor descriptor);
 
+void wire_create_descriptor_secret(int64_t port_,
+                                   int32_t network,
+                                   struct wire_uint_8_list *mnemonic,
+                                   struct wire_uint_8_list *password);
+
+void wire_descriptor_secret_from_string(int64_t port_, struct wire_uint_8_list *xprv);
+
 void wire_descriptor_secret_extend(int64_t port_,
                                    struct wire_uint_8_list *xprv,
                                    struct wire_uint_8_list *path);
@@ -292,12 +293,9 @@ void wire_descriptor_secret_as_public(int64_t port_,
                                       struct wire_uint_8_list *descriptor_secret,
                                       struct wire_uint_8_list *xprv);
 
-void wire_create_descriptor_secret(int64_t port_,
-                                   int32_t network,
-                                   struct wire_uint_8_list *mnemonic,
-                                   struct wire_uint_8_list *password);
-
 void wire_create_derivation_path(int64_t port_, struct wire_uint_8_list *path);
+
+void wire_descriptor_public_from_string(int64_t port_, struct wire_uint_8_list *public_key);
 
 void wire_create_descriptor_public(int64_t port_,
                                    struct wire_uint_8_list *xpub,
@@ -353,8 +351,6 @@ struct wire_BdkDescriptor new_BdkDescriptor(void);
 
 struct wire_BlockchainInstance new_BlockchainInstance(void);
 
-struct wire_Transaction new_Transaction(void);
-
 struct wire_WalletInstance new_WalletInstance(void);
 
 struct wire_BdkDescriptor *new_box_autoadd_BdkDescriptor_0(void);
@@ -401,10 +397,6 @@ void drop_opaque_BlockchainInstance(const void *ptr);
 
 const void *share_opaque_BlockchainInstance(const void *ptr);
 
-void drop_opaque_Transaction(const void *ptr);
-
-const void *share_opaque_Transaction(const void *ptr);
-
 void drop_opaque_WalletInstance(const void *ptr);
 
 const void *share_opaque_WalletInstance(const void *ptr);
@@ -433,7 +425,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_estimate_fee);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_new_transaction);
-    dummy_var ^= ((int64_t) (void*) wire_serialize_transaction);
     dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
     dummy_var ^= ((int64_t) (void*) wire_get_psbt_fee_rate);
@@ -450,12 +441,14 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_public);
     dummy_var ^= ((int64_t) (void*) wire_as_string_private);
     dummy_var ^= ((int64_t) (void*) wire_as_string);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_extend);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_derive);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public);
-    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret);
     dummy_var ^= ((int64_t) (void*) wire_create_derivation_path);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_public_from_string);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public);
     dummy_var ^= ((int64_t) (void*) wire_init_script);
     dummy_var ^= ((int64_t) (void*) wire_init_address);
@@ -475,7 +468,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
     dummy_var ^= ((int64_t) (void*) new_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
-    dummy_var ^= ((int64_t) (void*) new_Transaction);
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_BdkDescriptor_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
@@ -499,8 +491,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) share_opaque_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) drop_opaque_BlockchainInstance);
     dummy_var ^= ((int64_t) (void*) share_opaque_BlockchainInstance);
-    dummy_var ^= ((int64_t) (void*) drop_opaque_Transaction);
-    dummy_var ^= ((int64_t) (void*) share_opaque_Transaction);
     dummy_var ^= ((int64_t) (void*) drop_opaque_WalletInstance);
     dummy_var ^= ((int64_t) (void*) share_opaque_WalletInstance);
     dummy_var ^= ((int64_t) (void*) inflate_AddressIndex_Peek);

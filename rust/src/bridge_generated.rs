@@ -114,7 +114,7 @@ fn wire_estimate_fee_impl(
 }
 fn wire_broadcast_impl(
     port_: MessagePort,
-    tx: impl Wire2Api<RustOpaque<Transaction>> + UnwindSafe,
+    tx: impl Wire2Api<Vec<u8>> + UnwindSafe,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -140,22 +140,6 @@ fn wire_new_transaction_impl(port_: MessagePort, tx: impl Wire2Api<Vec<u8>> + Un
         move || {
             let api_tx = tx.wire2api();
             move |task_callback| new_transaction(api_tx)
-        },
-    )
-}
-fn wire_serialize_transaction_impl(
-    port_: MessagePort,
-    tx: impl Wire2Api<RustOpaque<Transaction>> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "serialize_transaction",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_tx = tx.wire2api();
-            move |task_callback| serialize_transaction(api_tx)
         },
     )
 }
@@ -538,6 +522,42 @@ fn wire_as_string_impl(
         },
     )
 }
+fn wire_create_descriptor_secret_impl(
+    port_: MessagePort,
+    network: impl Wire2Api<Network> + UnwindSafe,
+    mnemonic: impl Wire2Api<String> + UnwindSafe,
+    password: impl Wire2Api<Option<String>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_descriptor_secret",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.wire2api();
+            let api_mnemonic = mnemonic.wire2api();
+            let api_password = password.wire2api();
+            move |task_callback| create_descriptor_secret(api_network, api_mnemonic, api_password)
+        },
+    )
+}
+fn wire_descriptor_secret_from_string_impl(
+    port_: MessagePort,
+    xprv: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_secret_from_string",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_xprv = xprv.wire2api();
+            move |task_callback| descriptor_secret_from_string(api_xprv)
+        },
+    )
+}
 fn wire_descriptor_secret_extend_impl(
     port_: MessagePort,
     xprv: impl Wire2Api<String> + UnwindSafe,
@@ -610,26 +630,6 @@ fn wire_descriptor_secret_as_public_impl(
         },
     )
 }
-fn wire_create_descriptor_secret_impl(
-    port_: MessagePort,
-    network: impl Wire2Api<Network> + UnwindSafe,
-    mnemonic: impl Wire2Api<String> + UnwindSafe,
-    password: impl Wire2Api<Option<String>> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "create_descriptor_secret",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_network = network.wire2api();
-            let api_mnemonic = mnemonic.wire2api();
-            let api_password = password.wire2api();
-            move |task_callback| create_descriptor_secret(api_network, api_mnemonic, api_password)
-        },
-    )
-}
 fn wire_create_derivation_path_impl(port_: MessagePort, path: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -640,6 +640,22 @@ fn wire_create_derivation_path_impl(port_: MessagePort, path: impl Wire2Api<Stri
         move || {
             let api_path = path.wire2api();
             move |task_callback| create_derivation_path(api_path)
+        },
+    )
+}
+fn wire_descriptor_public_from_string_impl(
+    port_: MessagePort,
+    public_key: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "descriptor_public_from_string",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.wire2api();
+            move |task_callback| descriptor_public_from_string(api_public_key)
         },
     )
 }

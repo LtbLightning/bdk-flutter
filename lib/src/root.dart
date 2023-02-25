@@ -6,6 +6,45 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'generated/bridge_definitions.dart';
 import 'utils/utils.dart';
 
+///A Bitcoin address.
+class Address {
+  String? _address;
+  Address._();
+  Address _setAddress(String address) {
+    _address = address;
+    return this;
+  }
+
+  /// Creates an instance of [Address] from address given.
+  ///
+  /// Throws a [WalletException] if the address is not valid
+  static Future<Address> create({required String address}) async {
+    try {
+      final res = await loaderApi.initAddress(address: address);
+      return Address._()._setAddress(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Returns the script pub key of the [Address] object
+  Future<Script> scriptPubKey() async {
+    try {
+      final res = await loaderApi.addressToScriptPubkeyHex(
+          address: _address.toString());
+      final script = Script._()._setScriptHex(res);
+      return script;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  @override
+  String toString() {
+    return _address.toString();
+  }
+}
+
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
 class Blockchain {
   BlockchainInstance? _blockchain;
@@ -49,7 +88,8 @@ class Blockchain {
   /// Estimate the fee rate required to confirm a transaction in a given target of blocks
   Future<FeeRate> estimateFee(int target) async {
     try {
-      var res = await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
+      var res =
+          await loaderApi.estimateFee(blockchain: _blockchain!, target: target);
       return FeeRate._()._setFeeRate(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -59,7 +99,9 @@ class Blockchain {
   /// The function for broadcasting a transaction
   Future<void> broadcast(Transaction tx) async {
     try {
-      final txid = await loaderApi.broadcast(blockchain: _blockchain!, tx: tx);
+      final txid = await loaderApi.broadcast(
+          blockchain: _blockchain!,
+          tx: Uint8List.fromList(tx._transactionBytes!));
       if (kDebugMode) {
         print(txid);
       }
@@ -69,16 +111,85 @@ class Blockchain {
   }
 }
 
-class FeeRate{
-  double? _feeRate;
-  FeeRate._();
-  FeeRate _setFeeRate(double feeRate) {
-    _feeRate = feeRate;
+/// The BumpFeeTxBuilder is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
+class BumpFeeTxBuilder {
+  int? _nSequence;
+  String? _allowShrinking;
+  bool _enableRbf = false;
+  final String txid;
+  final double feeRate;
+
+  BumpFeeTxBuilder({required this.txid, required this.feeRate});
+
+  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this `address` in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
+  ///
+  /// Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
+  ///
+  /// Throws and exception if address can’t be found among the recipients of the transaction we are bumping.
+  BumpFeeTxBuilder allowShrinking(String address) {
+    _allowShrinking = address;
     return this;
   }
 
-  double asSatPerVb(){
-    return _feeRate!;
+  ///Enable signaling RBF
+  ///
+  /// This will use the default nSequence value of `0xFFFFFFFD`
+  BumpFeeTxBuilder enableRbf() {
+    _enableRbf = true;
+    return this;
+  }
+
+  ///Enable signaling RBF with a specific nSequence value
+  ///
+  /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
+  ///
+  /// If the nsequence is higher than `0xFFFFFFFD` an error will be thrown, since it would not be a valid nSequence to signal RBF.
+
+  BumpFeeTxBuilder enableRbfWithSequence(int nSequence) {
+    _nSequence = nSequence;
+    return this;
+  }
+
+  /// Finish building the transaction. Returns the BIP174 [PartiallySignedTransaction].
+  Future<PartiallySignedTransaction> finish(Wallet wallet) async {
+    try {
+      final res = await loaderApi.bumpFeeTxBuilderFinish(
+          txid: txid.toString(),
+          enableRbf: _enableRbf,
+          feeRate: feeRate,
+          wallet: wallet._wallet!,
+          nSequence: _nSequence,
+          allowShrinking: _allowShrinking);
+      final psbt = PartiallySignedTransaction(psbtBase64: res);
+      return psbt;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+}
+
+///A `BIP-32` derivation path
+class DerivationPath {
+  String? _path;
+  DerivationPath._();
+  DerivationPath _setDerivationPath(String path) {
+    _path = path;
+    return this;
+  }
+
+  ///  [DerivationPath] constructor
+  static Future<DerivationPath> create({required String path}) async {
+    try {
+      final res = await loaderApi.createDerivationPath(path: path);
+      return DerivationPath._()._setDerivationPath(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  @override
+  String toString() {
+    return _path!;
   }
 }
 
@@ -108,8 +219,8 @@ class Descriptor {
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip44(
       {required DescriptorSecretKey secretKey,
-        required Network network,
-        required KeychainKind keychain}) async {
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Descriptor(
           secretKey: secretKey.asString(),
@@ -128,9 +239,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keychain}) async {
+      String? fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44Public(
           keyChainKind: keychain,
@@ -148,8 +259,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip49(
       {required DescriptorSecretKey secretKey,
-        required Network network,
-        required KeychainKind keychain}) async {
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Descriptor(
           secretKey: secretKey.asString(),
@@ -168,9 +279,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip49Public(
       {required DescriptorPublicKey publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keychain}) async {
+      String? fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49Public(
           keyChainKind: keychain,
@@ -188,8 +299,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip84(
       {required DescriptorSecretKey secretKey,
-        required Network network,
-        required KeychainKind keychain}) async {
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Descriptor(
           secretKey: secretKey.asString(),
@@ -208,9 +319,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip84Public(
       {required DescriptorPublicKey publicKey,
-        String? fingerPrint,
-        required Network network,
-        required KeychainKind keychain}) async {
+      String? fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84Public(
           keyChainKind: keychain,
@@ -223,16 +334,18 @@ class Descriptor {
     }
   }
 
-  Future<String> asPrivateString() async {
+  ///Return the private version of the output descriptor if available, otherwise return the public version.
+  Future<String> asStringPrivate() async {
     try {
       final res =
-      await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
+          await loaderApi.asStringPrivate(descriptor: _descriptorInstance!);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
+  ///Return the public version of the output descriptor.
   Future<String> asString() async {
     try {
       final res = await loaderApi.asString(descriptor: _descriptorInstance!);
@@ -243,131 +356,208 @@ class Descriptor {
   }
 }
 
-/// A Bitcoin wallet.
-///
-/// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
-///
-///     1. Output descriptors from which it can derive addresses.
-///
-///     2. A Database where it tracks transactions and utxos related to the descriptors.
-///
-///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
-///
-class Wallet {
-  WalletInstance? _wallet;
-  Wallet._();
-  Wallet _setWallet(WalletInstance? walletInstance) {
-    _wallet = walletInstance;
+///An extended public key.
+class DescriptorPublicKey {
+  String? _descriptorPublicKey;
+
+  DescriptorPublicKey._();
+
+  DescriptorPublicKey _setDescriptorPublicKey(String descriptorPublicKey) {
+    _descriptorPublicKey = descriptorPublicKey;
     return this;
   }
 
-  ///  [Wallet] constructor
-  static Future<Wallet> create({
-    required Descriptor descriptor,
-    Descriptor? changeDescriptor,
-    required Network network,
-    required DatabaseConfig databaseConfig,
-  }) async {
+  /// Get the public key as string.
+  String asString() {
+    return _descriptorPublicKey.toString();
+  }
+
+  ///Derive a public descriptor at a given path.
+  Future<DescriptorPublicKey> derive(DerivationPath derivationPath) async {
     try {
-      final res = await loaderApi.walletInit(
-        descriptor: descriptor._descriptorInstance!,
-        changeDescriptor: changeDescriptor?._descriptorInstance,
-        network: network,
-        databaseConfig: databaseConfig,
-      );
-      return Wallet._()._setWallet(res);
+      final res = await loaderApi.createDescriptorPublic(
+          xpub: _descriptorPublicKey,
+          path: derivationPath._path.toString(),
+          derive: true);
+      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Return a derived address using the external descriptor, see [AddressIndex] for available address index selection strategies.
-  /// If none of the keys in the descriptor are derivable (i.e. does not end with /*) then the same address will always be returned for any AddressIndex.
-  Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
+  ///Extend the public descriptor with a custom path.
+  Future<DescriptorPublicKey> extend(DerivationPath derivationPath) async {
     try {
-      var res = await loaderApi.getAddress(
-          wallet: _wallet!, addressIndex: addressIndex);
-      return res;
+      final res = await loaderApi.createDescriptorPublic(
+          xpub: _descriptorPublicKey,
+          path: derivationPath._path.toString(),
+          derive: false);
+      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Return the [Balance], separated into available, trusted-pending, untrusted-pending and immature values.
+  ///Build a DescriptorPublicKey from a String.
+  Future<DescriptorPublicKey> fromString(String publicKey) async {
+    try {
+      final res =
+          await loaderApi.descriptorPublicFromString(publicKey: publicKey);
+      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  @override
+  String toString() {
+    return asString();
+  }
+}
+
+class DescriptorSecretKey {
+  String? _descriptorSecretKey;
+  String? _xprv;
+  DescriptorSecretKey._();
+  DescriptorSecretKey _setXprv(String key) {
+    _xprv = key;
+    return this;
+  }
+
+  ///Returns the public version of this key.
   ///
-  ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
-  Future<Balance> getBalance() async {
+  /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
+  Future<DescriptorPublicKey> asPublic() async {
     try {
-      var res = await loaderApi.getBalance(wallet: _wallet!);
+      final xpub = await loaderApi.descriptorSecretAsPublic(
+          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
+      return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Get the private key as string.
+  String asString() {
+    return _descriptorSecretKey ?? _xprv.toString();
+  }
+
+  /// [DescriptorSecretKey] constructor
+  static Future<DescriptorSecretKey> create(
+      {required Network network,
+      required Mnemonic mnemonic,
+      String? password}) async {
+    try {
+      final res = await loaderApi.createDescriptorSecret(
+          network: network, mnemonic: mnemonic.asString(), password: password);
+      return DescriptorSecretKey._()._setXprv(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Derived the `XPrv` using the derivation path
+  Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
+    try {
+      _descriptorSecretKey = await loaderApi.descriptorSecretDerive(
+          xprv: _xprv.toString(), path: derivationPath._path.toString());
+      return this;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Extends the “XPrv” using the derivation path
+  Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
+    try {
+      _descriptorSecretKey = await loaderApi.descriptorSecretExtend(
+          xprv: _xprv.toString(), path: derivationPath._path.toString());
+      return this;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Get the private key as bytes.
+  Future<List<int>> secretBytes() async {
+    try {
+      final res = await loaderApi.descriptorSecretAsSecretBytes(
+          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Get the Bitcoin network the wallet is using.
-  Future<Network> network() async {
+  @override
+  String toString() {
+    return asString();
+  }
+}
+
+class FeeRate {
+  double? _feeRate;
+  FeeRate._();
+  FeeRate _setFeeRate(double feeRate) {
+    _feeRate = feeRate;
+    return this;
+  }
+
+  double asSatPerVb() {
+    return _feeRate!;
+  }
+}
+
+/// Mnemonic phrases are a human-readable version of the private keys.
+/// Supported number of words are 12, 18, and 24.
+class Mnemonic {
+  String? _mnemonic;
+  Mnemonic._();
+  Mnemonic _setMnemonic(String mnemonic) {
+    _mnemonic = mnemonic;
+    return this;
+  }
+
+  /// Generates [Mnemonic] with given [WordCount]
+  static Future<Mnemonic> create(WordCount wordCount) async {
     try {
-      var res = await loaderApi.getNetwork(wallet: _wallet!);
-      return res;
+      final res =
+          await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
+      return Mnemonic._()._setMnemonic(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Return the list of unspent outputs of this wallet
-  ///
-  /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
-  Future<List<LocalUtxo>> listUnspent() async {
+  /// Returns [Mnemonic] as string
+  String asString() {
+    return _mnemonic.toString();
+  }
+
+  /// Create a new [Mnemonic] in the specified language from the given entropy.
+  /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
+  static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
     try {
-      var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
-      return res;
+      final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
+      return Mnemonic._()._setMnemonic(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Sync the internal database with the [Blockchain]
-  Future sync(Blockchain blockchain) async {
+  /// Parse a [Mnemonic] with given string
+  static Future<Mnemonic> fromString(String mnemonic) async {
     try {
-      if (kDebugMode) {
-        print("Syncing wallet");
-      }
-      await loaderApi.syncWallet(
-          wallet: _wallet!, blockchain: blockchain._blockchain!);
-      if (kDebugMode) {
-        print("Sync complete");
-      }
+      final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
+      return Mnemonic._()._setMnemonic(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  ///Return an unsorted list of transactions made and received by the wallet
-  Future<List<TransactionDetails>> listTransactions() async {
-    try {
-      final res = await loaderApi.getTransactions(wallet: _wallet!);
-      return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  ///Sign a transaction with all the wallet’s signers, in the order specified by every signer’s SignerOrdering
-  ///
-  /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
-  Future<PartiallySignedTransaction> sign(
-      PartiallySignedTransaction psbt) async {
-    try {
-      final sbt = await loaderApi.sign(
-          psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
-      if (sbt == null) {
-        throw const BdkException.unExpected("Unable to sign transaction");
-      }
-      return PartiallySignedTransaction(psbtBase64: sbt);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
+  @override
+  String toString() {
+    return asString();
   }
 }
 
@@ -377,26 +567,6 @@ class PartiallySignedTransaction {
   TransactionDetails? txDetails;
 
   PartiallySignedTransaction({required this.psbtBase64});
-
-  /// Returns the [PartiallySignedTransaction] transaction id
-  Future<String> txId() async {
-    try {
-      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
-      return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Return the transaction as bytes.
-  Future<Transaction> extractTx() async {
-    try {
-      final res = await loaderApi.extractTx(psbtStr: psbtBase64);
-      return res;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
 
   /// Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
   ///
@@ -412,10 +582,20 @@ class PartiallySignedTransaction {
     }
   }
 
-  /// Return txid as string
-  Future<String> serialize() async {
+  /// Return the transaction as bytes.
+  Future<Transaction> extractTx() async {
     try {
-      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+      final res = await loaderApi.extractTx(psbtStr: psbtBase64);
+      return Transaction._()._setTransaction(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Return feeAmount
+  Future<int?> feeAmount() async {
+    try {
+      final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -433,10 +613,10 @@ class PartiallySignedTransaction {
     }
   }
 
-  /// Return feeAmount
-  Future<int?> feeAmount() async {
+  /// Return txid as string
+  Future<String> serialize() async {
     try {
-      final res = await loaderApi.getFeeAmount(psbtStr: psbtBase64);
+      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -446,6 +626,74 @@ class PartiallySignedTransaction {
   @override
   String toString() {
     return psbtBase64;
+  }
+
+  /// Returns the [PartiallySignedTransaction] transaction id
+  Future<String> txId() async {
+    try {
+      final res = await loaderApi.psbtToTxid(psbtStr: psbtBase64);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+}
+
+///Bitcoin script.
+///
+/// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
+///
+/// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
+class Script {
+  String? _scriptHex;
+  Script._();
+
+  Script _setScriptHex(String hex) {
+    _scriptHex = hex;
+    return this;
+  }
+
+  /// [Script] constructor
+  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+    try {
+      final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
+      return Script._()._setScriptHex(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  @override
+  String toString() {
+    return _scriptHex.toString();
+  }
+}
+
+///A bitcoin transaction.
+class Transaction {
+  List<int>? _transactionBytes;
+  Transaction._();
+  Transaction _setTransaction(List<int> transactionBytes) {
+    _transactionBytes = transactionBytes;
+    return this;
+  }
+
+  ///  [Transaction] constructor
+  static Future<Transaction> create({
+    required List<int> transactionBytes,
+  }) async {
+    try {
+      final tx = Uint8List.fromList(transactionBytes);
+      final res = await loaderApi.newTransaction(tx: tx);
+      return Transaction._()._setTransaction(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Return the transaction bytes, bitcoin consensus encoded.
+  List<int> serialize() {
+    return _transactionBytes!;
   }
 }
 
@@ -637,331 +885,130 @@ class TxBuilder {
   }
 }
 
-/// The BumpFeeTxBuilder is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
-class BumpFeeTxBuilder {
-  int? _nSequence;
-  String? _allowShrinking;
-  bool _enableRbf = false;
-  final String txid;
-  final double feeRate;
-
-  BumpFeeTxBuilder({required this.txid, required this.feeRate});
-
-  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this `address` in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
-  ///
-  /// Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
-  ///
-  /// Throws and exception if address can’t be found among the recipients of the transaction we are bumping.
-  BumpFeeTxBuilder allowShrinking(String address) {
-    _allowShrinking = address;
-    return this;
-  }
-
-  ///Enable signaling RBF
-  ///
-  /// This will use the default nSequence value of `0xFFFFFFFD`
-  BumpFeeTxBuilder enableRbf() {
-    _enableRbf = true;
-    return this;
-  }
-
-  ///Enable signaling RBF with a specific nSequence value
-  ///
-  /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
-  ///
-  /// If the nsequence is higher than `0xFFFFFFFD` an error will be thrown, since it would not be a valid nSequence to signal RBF.
-
-  BumpFeeTxBuilder enableRbfWithSequence(int nSequence) {
-    _nSequence = nSequence;
-    return this;
-  }
-
-  /// Finish building the transaction. Returns the BIP174 [PartiallySignedTransaction].
-  Future<PartiallySignedTransaction> finish(Wallet wallet) async {
-    try {
-      final res = await loaderApi.bumpFeeTxBuilderFinish(
-          txid: txid.toString(),
-          enableRbf: _enableRbf,
-          feeRate: feeRate,
-          wallet: wallet._wallet!,
-          nSequence: _nSequence,
-          allowShrinking: _allowShrinking);
-      final psbt = PartiallySignedTransaction(psbtBase64: res);
-      return psbt;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-}
-
-///Bitcoin script.
+/// A Bitcoin wallet.
 ///
-/// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
+/// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
 ///
-/// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
-class Script {
-  String? _scriptHex;
-  Script._();
-
-  Script _setScriptHex(String hex) {
-    _scriptHex = hex;
+///     1. Output descriptors from which it can derive addresses.
+///
+///     2. A Database where it tracks transactions and utxos related to the descriptors.
+///
+///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
+///
+class Wallet {
+  WalletInstance? _wallet;
+  Wallet._();
+  Wallet _setWallet(WalletInstance? walletInstance) {
+    _wallet = walletInstance;
     return this;
   }
 
-  /// [Script] constructor
-  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  ///  [Wallet] constructor
+  static Future<Wallet> create({
+    required Descriptor descriptor,
+    Descriptor? changeDescriptor,
+    required Network network,
+    required DatabaseConfig databaseConfig,
+  }) async {
     try {
-      final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
-      return Script._()._setScriptHex(res);
+      final res = await loaderApi.walletInit(
+        descriptor: descriptor._descriptorInstance!,
+        changeDescriptor: changeDescriptor?._descriptorInstance,
+        network: network,
+        databaseConfig: databaseConfig,
+      );
+      return Wallet._()._setWallet(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  @override
-  String toString() {
-    return _scriptHex.toString();
-  }
-}
-
-///A Bitcoin address.
-class Address {
-  String? _address;
-  Address._();
-  Address _setAddress(String address) {
-    _address = address;
-    return this;
-  }
-
-  /// Creates an instance of [Address] from address given.
-  ///
-  /// Throws a [WalletException] if the address is not valid
-  static Future<Address> create({required String address}) async {
+  ///Return a derived address using the external descriptor, see [AddressIndex] for available address index selection strategies.
+  /// If none of the keys in the descriptor are derivable (i.e. does not end with /*) then the same address will always be returned for any AddressIndex.
+  Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
-      final res = await loaderApi.initAddress(address: address);
-      return Address._()._setAddress(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Returns the script pub key of the [Address] object
-  Future<Script> scriptPubKey() async {
-    try {
-      final res = await loaderApi.addressToScriptPubkeyHex(
-          address: _address.toString());
-      final script = Script._()._setScriptHex(res);
-      return script;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  @override
-  String toString() {
-    return _address.toString();
-  }
-}
-
-///A `BIP-32` derivation path
-class DerivationPath {
-  String? _path;
-  DerivationPath._();
-  DerivationPath _setDerivationPath(String path) {
-    _path = path;
-    return this;
-  }
-
-  ///  [DerivationPath] constructor
-  static Future<DerivationPath> create({required String path}) async {
-    try {
-      final res = await loaderApi.createDerivationPath(path: path);
-      return DerivationPath._()._setDerivationPath(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  @override
-  String toString() {
-    return _path!;
-  }
-}
-
-/// Mnemonic phrases are a human-readable version of the private keys.
-/// Supported number of words are 12, 18, and 24.
-class Mnemonic {
-  String? _mnemonic;
-  Mnemonic._();
-  Mnemonic _setMnemonic(String mnemonic) {
-    _mnemonic = mnemonic;
-    return this;
-  }
-
-  /// Generates [Mnemonic] with given [WordCount]
-  static Future<Mnemonic> create(WordCount wordCount) async {
-    try {
-      final res =
-      await loaderApi.generateSeedFromWordCount(wordCount: wordCount);
-      return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Parse a [Mnemonic] with given string
-  static Future<Mnemonic> fromString(String mnemonic) async {
-    try {
-      final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
-      return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Create a new [Mnemonic] in the specified language from the given entropy.
-  /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
-  static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
-    try {
-      final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
-      return Mnemonic._()._setMnemonic(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Returns [Mnemonic] as string
-  String asString() {
-    return _mnemonic.toString();
-  }
-
-  @override
-  String toString() {
-    return asString();
-  }
-}
-
-class DescriptorPublicKey {
-  String? _descriptorPublicKey;
-
-  DescriptorPublicKey._();
-
-  DescriptorPublicKey _setDescriptorPublicKey(String descriptorPublicKey) {
-    _descriptorPublicKey = descriptorPublicKey;
-    return this;
-  }
-
-  Future<DescriptorPublicKey> derive(DerivationPath derivationPath) async {
-    try {
-      final res = await loaderApi.createDescriptorPublic(
-          xpub: _descriptorPublicKey,
-          path: derivationPath._path.toString(),
-          derive: true);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  Future<DescriptorPublicKey> extend(DerivationPath derivationPath) async {
-    try {
-      final res = await loaderApi.createDescriptorPublic(
-          xpub: _descriptorPublicKey,
-          path: derivationPath._path.toString(),
-          derive: false);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Get the public key as string.
-  String asString() {
-    return _descriptorPublicKey.toString();
-  }
-
-  @override
-  String toString() {
-    return asString();
-  }
-}
-
-class DescriptorSecretKey {
-  String? _descriptorSecretKey;
-  String? _xprv;
-  DescriptorSecretKey._();
-  DescriptorSecretKey _setXprv(String key) {
-    _xprv = key;
-    return this;
-  }
-
-  /// [DescriptorSecretKey] constructor
-  static Future<DescriptorSecretKey> create(
-      {required Network network,
-        required Mnemonic mnemonic,
-        String? password}) async {
-    try {
-      final res = await loaderApi.createDescriptorSecret(
-          network: network, mnemonic: mnemonic.asString(), password: password);
-      return DescriptorSecretKey._()._setXprv(res);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Derived the `XPrv` using the derivation path
-  Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
-    try {
-      _descriptorSecretKey = await loaderApi.descriptorSecretDerive(
-          xprv: _xprv.toString(), path: derivationPath._path.toString());
-      return this;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Extends the “XPrv” using the derivation path
-  Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
-    try {
-      _descriptorSecretKey = await loaderApi.descriptorSecretExtend(
-          xprv: _xprv.toString(), path: derivationPath._path.toString());
-      return this;
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  ///Returns the public version of this key.
-  ///
-  /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
-  Future<DescriptorPublicKey> asPublic() async {
-    try {
-      final xpub = await loaderApi.descriptorSecretAsPublic(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
-    } on FfiException catch (e) {
-      throw configException(e.message);
-    }
-  }
-
-  /// Get the private key as bytes.
-  Future<List<int>> secretBytes() async {
-    try {
-      final res = await loaderApi.descriptorSecretAsSecretBytes(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
+      var res = await loaderApi.getAddress(
+          wallet: _wallet!, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  /// Get the private key as string.
-  String asString() {
-    return _descriptorSecretKey ?? _xprv.toString();
+  ///Return the [Balance], separated into available, trusted-pending, untrusted-pending and immature values.
+  ///
+  ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
+  Future<Balance> getBalance() async {
+    try {
+      var res = await loaderApi.getBalance(wallet: _wallet!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
-  @override
-  String toString() {
-    return asString();
+  ///Get the Bitcoin network the wallet is using.
+  Future<Network> network() async {
+    try {
+      var res = await loaderApi.getNetwork(wallet: _wallet!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Return the list of unspent outputs of this wallet
+  ///
+  /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
+  Future<List<LocalUtxo>> listUnspent() async {
+    try {
+      var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Sync the internal database with the [Blockchain]
+  Future sync(Blockchain blockchain) async {
+    try {
+      if (kDebugMode) {
+        print("Syncing wallet");
+      }
+      await loaderApi.syncWallet(
+          wallet: _wallet!, blockchain: blockchain._blockchain!);
+      if (kDebugMode) {
+        print("Sync complete");
+      }
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Return an unsorted list of transactions made and received by the wallet
+  Future<List<TransactionDetails>> listTransactions() async {
+    try {
+      final res = await loaderApi.getTransactions(wallet: _wallet!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Sign a transaction with all the wallet’s signers, in the order specified by every signer’s SignerOrdering
+  ///
+  /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
+  Future<PartiallySignedTransaction> sign(
+      PartiallySignedTransaction psbt) async {
+    try {
+      final sbt = await loaderApi.sign(
+          psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
+      if (sbt == null) {
+        throw const BdkException.unExpected("Unable to sign transaction");
+      }
+      return PartiallySignedTransaction(psbtBase64: sbt);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 }

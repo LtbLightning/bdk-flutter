@@ -1,13 +1,14 @@
-use std::io::Cursor;
-use bdk::bitcoin::{Transaction as BdkTransaction};
+use bdk::bitcoin::consensus::Decodable;
 use bdk::bitcoin::hashes::hex::ToHex;
+use bdk::bitcoin::psbt::serialize::Serialize;
 use bdk::bitcoin::util::psbt::PartiallySignedTransaction as BdkPartiallySignedTransaction;
+use bdk::bitcoin::Transaction as BdkTransaction;
 use bdk::psbt::PsbtUtils;
+use bdk::{Error as BdkError, FeeRate};
+use flutter_rust_bridge::RustOpaque;
+use std::io::Cursor;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
-use bdk::{Error as BdkError,  FeeRate};
-use bdk::bitcoin::consensus::Decodable;
-use flutter_rust_bridge::RustOpaque;
 
 #[derive(Debug)]
 pub struct PartiallySignedTransaction {
@@ -79,27 +80,27 @@ pub struct Transaction {
 impl From<RustOpaque<Transaction>> for Transaction {
     fn from(tx: RustOpaque<Transaction>) -> Self {
         let vec = tx.serialize();
-       let tx_ =  Transaction::new(vec);
-        match tx_{
+        let tx_ = Transaction::new(vec);
+        match tx_ {
             Ok(e) => e,
-            Err(_) => panic!("Invalid transaction")
+            Err(_) => panic!("Invalid transaction"),
         }
     }
 }
 
 impl From<Transaction> for RustOpaque<Transaction> {
     fn from(tx: Transaction) -> Self {
-    RustOpaque::new(tx)
+        RustOpaque::new(tx)
     }
 }
 impl Transaction {
-   pub fn new(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
+    pub fn new(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);
         let tx: BdkTransaction = BdkTransaction::consensus_decode(&mut decoder)?;
         Ok(Transaction { internal: tx })
     }
 
-  pub  fn serialize(&self) -> Vec<u8> {
-        bdk::bitcoin::psbt::serialize::Serialize::serialize(&self.internal)
+    pub fn serialize(&self) -> Vec<u8> {
+        self.internal.serialize()
     }
 }

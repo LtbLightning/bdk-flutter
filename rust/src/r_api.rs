@@ -1,10 +1,14 @@
-pub use  crate::blockchain::{BlockchainConfig, BlockchainInstance};
+pub use crate::blockchain::{BlockchainConfig, BlockchainInstance};
 pub use crate::descriptor::BdkDescriptor;
 use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
-use crate::psbt::{PartiallySignedTransaction};
+use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
-use crate::types::{Address, AddressIndex, AddressInfo, Balance, KeychainKind, Network, OutPoint, Script, ScriptAmount, TransactionDetails, TxBuilderResult, WordCount};
+use crate::types::{
+    Address, AddressIndex, AddressInfo, Balance, KeychainKind, Network, OutPoint, Script,
+    ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
+};
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
+use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::wallet::tx_builder::ChangeSpendPolicy;
@@ -13,7 +17,6 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
-use bdk::bitcoin::hashes::hex::ToHex;
 //========Blockchain==========
 
 pub fn blockchain_init(
@@ -55,25 +58,24 @@ pub fn estimate_fee(
 }
 
 pub fn broadcast(
-    tx: RustOpaque<Transaction>,
+    tx: Vec<u8>,
     blockchain: RustOpaque<BlockchainInstance>,
 ) -> anyhow::Result<String, anyhow::Error> {
-    return match blockchain.broadcast(tx.into()) {
+    let transaction = Transaction::new(tx).unwrap();
+    return match blockchain.broadcast(transaction) {
         Ok(e) => Ok(e),
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
 //=========Transaction===========
-pub fn new_transaction(tx:Vec<u8>)->anyhow::Result<RustOpaque<Transaction>, anyhow::Error> {
+pub fn new_transaction(tx: Vec<u8>) -> anyhow::Result<Vec<u8>, anyhow::Error> {
     let res = Transaction::new(tx);
     match res {
-        Ok(e) => Ok(RustOpaque::new(e)),
+        Ok(e) => Ok(e.serialize()),
         Err(e) => anyhow::bail!("{:?}", e),
     }
 }
-pub fn serialize_transaction(tx:RustOpaque<Transaction>)->anyhow::Result<Vec<u8>, anyhow::Error> {
-     Ok(tx.serialize())
-}
+
 //========Psbt==========
 
 pub fn psbt_to_txid(psbt_str: String) -> anyhow::Result<String, anyhow::Error> {
@@ -84,10 +86,10 @@ pub fn psbt_to_txid(psbt_str: String) -> anyhow::Result<String, anyhow::Error> {
     };
 }
 
-pub fn extract_tx(psbt_str: String) -> anyhow::Result<RustOpaque<Transaction>, anyhow::Error> {
+pub fn extract_tx(psbt_str: String) -> anyhow::Result<Vec<u8>, anyhow::Error> {
     let psbt = PartiallySignedTransaction::new(psbt_str);
     return match psbt {
-        Ok(e) => Ok(RustOpaque::from(e.extract_tx())),
+        Ok(e) => Ok(e.extract_tx().serialize()),
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
@@ -331,6 +333,25 @@ pub fn as_string(descriptor: RustOpaque<BdkDescriptor>) -> String {
     descriptor.as_string()
 }
 
+//======================
+
+pub fn create_descriptor_secret(
+    network: Network,
+    mnemonic: String,
+    password: Option<String>,
+) -> anyhow::Result<String, anyhow::Error> {
+    let mnemonic = Mnemonic::from_str(mnemonic).unwrap();
+    return match DescriptorSecretKey::new(network.into(), mnemonic, password) {
+        Ok(e) => Ok(e.as_string()),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
+}
+pub fn descriptor_secret_from_string(xprv: String) -> anyhow::Result<String, anyhow::Error> {
+    return match DescriptorSecretKey::from_string(xprv) {
+        Ok(e) => Ok(e.as_string()),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
+}
 pub fn descriptor_secret_extend(xprv: String, path: String) -> String {
     let res = descriptor_secret_config(xprv, Some(path), false);
     res.as_string()
@@ -413,18 +434,6 @@ fn descriptor_secret_config(
     };
 }
 
-pub fn create_descriptor_secret(
-    network: Network,
-    mnemonic: String,
-    password: Option<String>,
-) -> anyhow::Result<String, anyhow::Error> {
-    let mnemonic = Mnemonic::from_str(mnemonic).unwrap();
-    return match DescriptorSecretKey::new(network.into(), mnemonic, password) {
-        Ok(e) => Ok(e.as_string()),
-        Err(e) => anyhow::bail!("{:?}", e),
-    };
-}
-
 //==============Derivation Path ==========
 pub fn create_derivation_path(path: String) -> anyhow::Result<String, anyhow::Error> {
     return match DerivationPath::new(path) {
@@ -434,7 +443,12 @@ pub fn create_derivation_path(path: String) -> anyhow::Result<String, anyhow::Er
 }
 
 //================Descriptor Public=========
-
+pub fn descriptor_public_from_string(public_key: String) -> anyhow::Result<String, anyhow::Error> {
+    return match DescriptorPublicKey::from_string(public_key) {
+        Ok(e) => Ok(e.as_string()),
+        Err(e) => anyhow::bail!("{:?}", e),
+    };
+}
 pub fn create_descriptor_public(
     xpub: Option<String>,
     path: String,
@@ -602,4 +616,3 @@ pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> anyhow::Result<String, an
         Err(e) => anyhow::bail!("{:?}", e),
     }
 }
-

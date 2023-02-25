@@ -28,7 +28,7 @@ pub extern "C" fn wire_estimate_fee(port_: i64, target: u64, blockchain: wire_Bl
 #[no_mangle]
 pub extern "C" fn wire_broadcast(
     port_: i64,
-    tx: wire_Transaction,
+    tx: *mut wire_uint_8_list,
     blockchain: wire_BlockchainInstance,
 ) {
     wire_broadcast_impl(port_, tx, blockchain)
@@ -37,11 +37,6 @@ pub extern "C" fn wire_broadcast(
 #[no_mangle]
 pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
     wire_new_transaction_impl(port_, tx)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_serialize_transaction(port_: i64, tx: wire_Transaction) {
-    wire_serialize_transaction_impl(port_, tx)
 }
 
 #[no_mangle]
@@ -210,6 +205,21 @@ pub extern "C" fn wire_as_string(port_: i64, descriptor: wire_BdkDescriptor) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_create_descriptor_secret(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_secret_from_string(port_: i64, xprv: *mut wire_uint_8_list) {
+    wire_descriptor_secret_from_string_impl(port_, xprv)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_descriptor_secret_extend(
     port_: i64,
     xprv: *mut wire_uint_8_list,
@@ -246,18 +256,16 @@ pub extern "C" fn wire_descriptor_secret_as_public(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret(
-    port_: i64,
-    network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
+    wire_create_derivation_path_impl(port_, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
-    wire_create_derivation_path_impl(port_, path)
+pub extern "C" fn wire_descriptor_public_from_string(
+    port_: i64,
+    public_key: *mut wire_uint_8_list,
+) {
+    wire_descriptor_public_from_string_impl(port_, public_key)
 }
 
 #[no_mangle]
@@ -389,11 +397,6 @@ pub extern "C" fn new_BdkDescriptor() -> wire_BdkDescriptor {
 #[no_mangle]
 pub extern "C" fn new_BlockchainInstance() -> wire_BlockchainInstance {
     wire_BlockchainInstance::new_with_null_ptr()
-}
-
-#[no_mangle]
-pub extern "C" fn new_Transaction() -> wire_Transaction {
-    wire_Transaction::new_with_null_ptr()
 }
 
 #[no_mangle]
@@ -536,21 +539,6 @@ pub extern "C" fn share_opaque_BlockchainInstance(ptr: *const c_void) -> *const 
 }
 
 #[no_mangle]
-pub extern "C" fn drop_opaque_Transaction(ptr: *const c_void) {
-    unsafe {
-        Arc::<Transaction>::decrement_strong_count(ptr as _);
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn share_opaque_Transaction(ptr: *const c_void) -> *const c_void {
-    unsafe {
-        Arc::<Transaction>::increment_strong_count(ptr as _);
-        ptr
-    }
-}
-
-#[no_mangle]
 pub extern "C" fn drop_opaque_WalletInstance(ptr: *const c_void) {
     unsafe {
         Arc::<WalletInstance>::decrement_strong_count(ptr as _);
@@ -581,11 +569,6 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
     fn wire2api(self) -> String {
         let vec: Vec<u8> = self.wire2api();
         String::from_utf8_lossy(&vec).into_owned()
-    }
-}
-impl Wire2Api<RustOpaque<Transaction>> for wire_Transaction {
-    fn wire2api(self) -> RustOpaque<Transaction> {
-        unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
 impl Wire2Api<RustOpaque<WalletInstance>> for wire_WalletInstance {
@@ -883,12 +866,6 @@ pub struct wire_BlockchainInstance {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_Transaction {
-    ptr: *const core::ffi::c_void,
-}
-
-#[repr(C)]
-#[derive(Clone)]
 pub struct wire_WalletInstance {
     ptr: *const core::ffi::c_void,
 }
@@ -1112,13 +1089,6 @@ impl NewWithNullPtr for wire_BlockchainInstance {
     }
 }
 
-impl NewWithNullPtr for wire_Transaction {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            ptr: core::ptr::null(),
-        }
-    }
-}
 impl NewWithNullPtr for wire_WalletInstance {
     fn new_with_null_ptr() -> Self {
         Self {

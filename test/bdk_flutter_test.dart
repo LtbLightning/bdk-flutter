@@ -16,7 +16,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
-
+@GenerateNiceMocks([MockSpec<FeeRate>()])
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -41,8 +41,23 @@ void main() {
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
-
   });
+
+  group('FeeRate', () {
+    test('Should return a double when called', () async {
+      when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
+      final res = await mockBlockchain.getHeight();
+      expect(res, 2396450);
+    });
+    test('verify getHash', () async {
+      when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
+          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+      final res = await mockBlockchain.getBlockHash(2396450);
+      expect(res,
+          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+    });
+  });
+
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
       final res = await mockWallet.getAddress(addressIndex: AddressIndex());

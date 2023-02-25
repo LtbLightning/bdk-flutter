@@ -200,12 +200,13 @@ class _MyAppState extends State<MyApp> {
       print(blockHash);
     }
   }
+
   Future<FeeRate> estimateFeeRate(int blocks) async {
-    final feeRate= await blockchain!.estimateFee(blocks);
+    final feeRate = await blockchain!.estimateFee(blocks);
     setState(() {
       displayText = "feeRate: ${feeRate.asSatPerVb()}";
     });
-  return feeRate;
+    return feeRate;
   }
 
   sendBit() async {
