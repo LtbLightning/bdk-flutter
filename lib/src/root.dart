@@ -239,7 +239,7 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
+      required String fingerPrint,
       required Network network,
       required KeychainKind keychain}) async {
     try {
@@ -247,7 +247,7 @@ class Descriptor {
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
-          fingerprint: fingerPrint ?? '00000000');
+          fingerprint: fingerPrint);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -279,7 +279,7 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip49Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
+      required String fingerPrint,
       required Network network,
       required KeychainKind keychain}) async {
     try {
@@ -287,7 +287,7 @@ class Descriptor {
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
-          fingerprint: fingerPrint ?? '00000000');
+          fingerprint: fingerPrint);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -319,7 +319,7 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip84Public(
       {required DescriptorPublicKey publicKey,
-      String? fingerPrint,
+      required fingerPrint,
       required Network network,
       required KeychainKind keychain}) async {
     try {
@@ -327,7 +327,7 @@ class Descriptor {
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
-          fingerprint: fingerPrint ?? '00000000');
+          fingerprint: fingerPrint);
       return Descriptor._()._setDescriptor(res);
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -398,8 +398,8 @@ class DescriptorPublicKey {
     }
   }
 
-  ///Build a DescriptorPublicKey from a String.
-  Future<DescriptorPublicKey> fromString(String publicKey) async {
+  /// [DescriptorPublicKey] constructor
+  static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
       final res =
           await loaderApi.descriptorPublicFromString(publicKey: publicKey);
@@ -421,6 +421,11 @@ class DescriptorSecretKey {
   DescriptorSecretKey._();
   DescriptorSecretKey _setXprv(String key) {
     _xprv = key;
+    return this;
+  }
+
+  DescriptorSecretKey _setDescriptorSecretKey(String secretKey) {
+    _descriptorSecretKey = secretKey;
     return this;
   }
 
@@ -478,6 +483,16 @@ class DescriptorSecretKey {
     }
   }
 
+  /// [DescriptorSecretKey] constructor
+  static Future<DescriptorSecretKey> fromString(String secretKey) async {
+    try {
+      final res = await loaderApi.descriptorSecretFromString(xprv: secretKey);
+      return DescriptorSecretKey._()._setDescriptorSecretKey(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   /// Get the private key as bytes.
   Future<List<int>> secretBytes() async {
     try {
@@ -519,6 +534,8 @@ class Mnemonic {
   }
 
   /// Generates [Mnemonic] with given [WordCount]
+  ///
+  /// [Mnemonic] constructor
   static Future<Mnemonic> create(WordCount wordCount) async {
     try {
       final res =
@@ -536,6 +553,8 @@ class Mnemonic {
 
   /// Create a new [Mnemonic] in the specified language from the given entropy.
   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
+  ///
+  /// [Mnemonic] constructor
   static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
     try {
       final res = await loaderApi.generateSeedFromEntropy(entropy: entropy);
@@ -546,6 +565,8 @@ class Mnemonic {
   }
 
   /// Parse a [Mnemonic] with given string
+  ///
+  /// [Mnemonic] constructor
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
       final res = await loaderApi.generateSeedFromString(mnemonic: mnemonic);
