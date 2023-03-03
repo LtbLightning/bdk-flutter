@@ -3,20 +3,20 @@ Updated Rust ( Bdk to latest version 0.27.1 ) and Flutter dependencies.
 
 #### APIs added
   - New `Transaction` class that can be created from or serialized to consensus encoded bytes. 
+  - Add estimateFee(int Target) function for `Blockchain`
   - Add getInternalAddress() function for `Wallet`
-  - Add AddressIndex.reset(index: index) & AddressIndex.peek(index: index)
+  - Add AddressIndex.reset(int index) & AddressIndex.peek(int index)
 
 #### APIs changed
   - partiallySignedTransaction.extractTx() returns a `Transaction` instead of a the transaction bytes.
   - blockchain.broadcast() takes a `Transaction` instead of a `PartiallySignedTransaction`
 
 ## [0.3.2]
-
 ### Fixed
-- iOS build issue when using flovors 
+- iOS build issue when using flavors 
 - Added toString method for all objects
-## [0.3.1]
 
+## [0.3.1]
 ### Fixed
 - Pub.dev analysis score 
 - Type mismatch for descriptorSecretKey
