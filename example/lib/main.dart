@@ -72,13 +72,10 @@ class _MyAppState extends State<MyApp> {
     if (blockchain == null) {
       if (!isElectrumBlockchain) {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.rpc(
-                config: RpcConfig(
-                    url: 'http://127.0.0.1:18446',
-                    authUserPass:
-                        UserPass(username: 'polaruser', password: 'polarpass'),
-                    network: Network.Regtest,
-                    walletName: 'default')));
+            config: BlockchainConfig.esplora(
+                config: EsploraConfig(
+                    baseUrl: 'https://blockstream.info/testnet/api',
+                    stopGap: 10)));
       } else {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.electrum(

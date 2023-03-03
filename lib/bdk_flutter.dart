@@ -11,6 +11,11 @@ export './src/generated/bridge_definitions.dart'
         BlockchainConfig_Esplora,
         DatabaseConfig_Memory,
         DatabaseConfig_Sqlite,
+        AddressIndex_Reset,
+        AddressIndex_Peek,
+        AddressIndex_New,
+        AddressIndex_LastUnused,
+        BdkDescriptor,
         DatabaseConfig_Sled;
 
 export './src/root.dart';

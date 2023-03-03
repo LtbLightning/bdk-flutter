@@ -366,7 +366,7 @@ class AddressIndex with _$AddressIndex {
   const factory AddressIndex.lastUnused() = AddressIndex_LastUnused;
 
   /// Return the address for a specific descriptor index. Does not change the current descriptor
-  /// index used by `AddressIndex::New` and `AddressIndex::LastUsed`.
+  /// index used by `AddressIndex` and `AddressIndex.LastUsed`.
   /// Use with caution, if an index is given that is less than the current descriptor index
   /// then the returned address may have already been used.
   const factory AddressIndex.peek({
@@ -374,11 +374,11 @@ class AddressIndex with _$AddressIndex {
   }) = AddressIndex_Peek;
 
   /// Return the address for a specific descriptor index and reset the current descriptor index
-  /// used by `AddressIndex.New` and `AddressIndex::LastUsed` to this value.
+  /// used by `AddressIndex` and `AddressIndex.LastUsed` to this value.
   /// Use with caution, if an index is given that is less than the current descriptor index
-  /// then the returned address and subsequent addresses returned by calls to `AddressIndex::New`
-  /// and `AddressIndex::LastUsed` may have already been used. Also if the index is reset to a
-  /// value earlier than the [`Blockchain`] stopGap (default is 20) then a
+  /// then the returned address and subsequent addresses returned by calls to `AddressIndex`
+  /// and `AddressIndex.LastUsed` may have already been used. Also if the index is reset to a
+  /// value earlier than the Blockchain stopGap (default is 20) then a
   /// larger stopGap should be used to monitor for all possibly used addresses.
   const factory AddressIndex.reset({
     required int index,

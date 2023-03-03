@@ -17,7 +17,7 @@ class Address {
 
   /// Creates an instance of [Address] from address given.
   ///
-  /// Throws a [WalletException] if the address is not valid
+  /// Throws a [BdkException] if the address is not valid
   static Future<Address> create({required String address}) async {
     try {
       final res = await loaderApi.initAddress(address: address);
