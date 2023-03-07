@@ -21,12 +21,22 @@ pub extern "C" fn wire_get_blockchain_hash(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_estimate_fee(port_: i64, target: u64, blockchain: wire_BlockchainInstance) {
+    wire_estimate_fee_impl(port_, target, blockchain)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_broadcast(
     port_: i64,
-    psbt_str: *mut wire_uint_8_list,
+    tx: *mut wire_uint_8_list,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_broadcast_impl(port_, psbt_str, blockchain)
+    wire_broadcast_impl(port_, tx, blockchain)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_new_transaction_impl(port_, tx)
 }
 
 #[no_mangle]
@@ -40,8 +50,8 @@ pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_fee_rate_impl(port_, psbt_str)
+pub extern "C" fn wire_get_psbt_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_get_psbt_fee_rate_impl(port_, psbt_str)
 }
 
 #[no_mangle]
@@ -195,6 +205,21 @@ pub extern "C" fn wire_as_string(port_: i64, descriptor: wire_BdkDescriptor) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_create_descriptor_secret(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_uint_8_list,
+    password: *mut wire_uint_8_list,
+) {
+    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_descriptor_secret_from_string(port_: i64, xprv: *mut wire_uint_8_list) {
+    wire_descriptor_secret_from_string_impl(port_, xprv)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_descriptor_secret_extend(
     port_: i64,
     xprv: *mut wire_uint_8_list,
@@ -231,18 +256,16 @@ pub extern "C" fn wire_descriptor_secret_as_public(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret(
-    port_: i64,
-    network: i32,
-    mnemonic: *mut wire_uint_8_list,
-    password: *mut wire_uint_8_list,
-) {
-    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
+    wire_create_derivation_path_impl(port_, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
-    wire_create_derivation_path_impl(port_, path)
+pub extern "C" fn wire_descriptor_public_from_string(
+    port_: i64,
+    public_key: *mut wire_uint_8_list,
+) {
+    wire_descriptor_public_from_string_impl(port_, public_key)
 }
 
 #[no_mangle]
@@ -288,8 +311,21 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_address(port_: i64, wallet: wire_WalletInstance, address_index: i32) {
+pub extern "C" fn wire_get_address(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    address_index: *mut wire_AddressIndex,
+) {
     wire_get_address_impl(port_, wallet, address_index)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_internalized_address(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    address_index: *mut wire_AddressIndex,
+) {
+    wire_get_internalized_address_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
@@ -351,11 +387,6 @@ pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire
     wire_generate_seed_from_entropy_impl(port_, entropy)
 }
 
-#[no_mangle]
-pub extern "C" fn wire_as_sat_per_vb__method__FeeRate(port_: i64, that: *mut wire_FeeRate) {
-    wire_as_sat_per_vb__method__FeeRate_impl(port_, that)
-}
-
 // Section: allocate functions
 
 #[no_mangle]
@@ -376,6 +407,11 @@ pub extern "C" fn new_WalletInstance() -> wire_WalletInstance {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_BdkDescriptor_0() -> *mut wire_BdkDescriptor {
     support::new_leak_box_ptr(wire_BdkDescriptor::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
+    support::new_leak_box_ptr(wire_AddressIndex::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -401,11 +437,6 @@ pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
     support::new_leak_box_ptr(value)
-}
-
-#[no_mangle]
-pub extern "C" fn new_box_autoadd_fee_rate_0() -> *mut wire_FeeRate {
-    support::new_leak_box_ptr(wire_FeeRate::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -545,7 +576,29 @@ impl Wire2Api<RustOpaque<WalletInstance>> for wire_WalletInstance {
         unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
-
+impl Wire2Api<AddressIndex> for wire_AddressIndex {
+    fn wire2api(self) -> AddressIndex {
+        match self.tag {
+            0 => AddressIndex::New,
+            1 => AddressIndex::LastUnused,
+            2 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Peek);
+                AddressIndex::Peek {
+                    index: ans.index.wire2api(),
+                }
+            },
+            3 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Reset);
+                AddressIndex::Reset {
+                    index: ans.index.wire2api(),
+                }
+            },
+            _ => unreachable!(),
+        }
+    }
+}
 impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         match self.tag {
@@ -581,6 +634,12 @@ impl Wire2Api<RustOpaque<BdkDescriptor>> for *mut wire_BdkDescriptor {
         Wire2Api::<RustOpaque<BdkDescriptor>>::wire2api(*wrap).into()
     }
 }
+impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
+    fn wire2api(self) -> AddressIndex {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<AddressIndex>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -608,12 +667,6 @@ impl Wire2Api<EsploraConfig> for *mut wire_EsploraConfig {
 impl Wire2Api<f32> for *mut f32 {
     fn wire2api(self) -> f32 {
         unsafe { *support::box_from_leak_ptr(self) }
-    }
-}
-impl Wire2Api<FeeRate> for *mut wire_FeeRate {
-    fn wire2api(self) -> FeeRate {
-        let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<FeeRate>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
@@ -704,12 +757,6 @@ impl Wire2Api<EsploraConfig> for wire_EsploraConfig {
             stop_gap: self.stop_gap.wire2api(),
             timeout: self.timeout.wire2api(),
         }
-    }
-}
-
-impl Wire2Api<FeeRate> for wire_FeeRate {
-    fn wire2api(self) -> FeeRate {
-        FeeRate(self.field0.wire2api())
     }
 }
 
@@ -846,12 +893,6 @@ pub struct wire_EsploraConfig {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_FeeRate {
-    field0: f32,
-}
-
-#[repr(C)]
-#[derive(Clone)]
 pub struct wire_list_out_point {
     ptr: *mut wire_OutPoint,
     len: i32,
@@ -925,6 +966,40 @@ pub struct wire_UserPass {
     password: *mut wire_uint_8_list,
 }
 
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex {
+    tag: i32,
+    kind: *mut AddressIndexKind,
+}
+
+#[repr(C)]
+pub union AddressIndexKind {
+    New: *mut wire_AddressIndex_New,
+    LastUnused: *mut wire_AddressIndex_LastUnused,
+    Peek: *mut wire_AddressIndex_Peek,
+    Reset: *mut wire_AddressIndex_Reset,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_New {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_LastUnused {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_Peek {
+    index: u32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_AddressIndex_Reset {
+    index: u32,
+}
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_BlockchainConfig {
@@ -1021,6 +1096,32 @@ impl NewWithNullPtr for wire_WalletInstance {
         }
     }
 }
+impl NewWithNullPtr for wire_AddressIndex {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_AddressIndex_Peek() -> *mut AddressIndexKind {
+    support::new_leak_box_ptr(AddressIndexKind {
+        Peek: support::new_leak_box_ptr(wire_AddressIndex_Peek {
+            index: Default::default(),
+        }),
+    })
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
+    support::new_leak_box_ptr(AddressIndexKind {
+        Reset: support::new_leak_box_ptr(wire_AddressIndex_Reset {
+            index: Default::default(),
+        }),
+    })
+}
 
 impl NewWithNullPtr for wire_BlockchainConfig {
     fn new_with_null_ptr() -> Self {
@@ -1106,14 +1207,6 @@ impl NewWithNullPtr for wire_EsploraConfig {
             concurrency: core::ptr::null_mut(),
             stop_gap: Default::default(),
             timeout: core::ptr::null_mut(),
-        }
-    }
-}
-
-impl NewWithNullPtr for wire_FeeRate {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            field0: Default::default(),
         }
     }
 }

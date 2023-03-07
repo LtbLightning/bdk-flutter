@@ -15,18 +15,19 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.3.2
-
+  bdk_flutter: ^0.27.1
 ```
 
-`bdk-flutter` can then be imported and used in your Flutter code. For example:
+### Examples
+
+### Create a Wallet & sync the balance of a descriptor
 
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
 
 // ....
 
-final mnemonic  = await Mnemonic.create(WordCount.Words12);
+final mnemonic = await Mnemonic.create(WordCount.Words12);
 final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
                                                               mnemonic: mnemonic );
 final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
@@ -45,8 +46,26 @@ final wallet = await Wallet.create( descriptor: externalDescriptor,
                                     changeDescriptor: internalDescriptor,
                                     network: Network.TESTNET,
                                     databaseConfig: const DatabaseConfig.memory() );
-final addressInfo = await wallet.getAddress( addressIndex: AddressIndex.New );
-await wallet.sync( blockchain );
+final _ = await wallet.sync( blockchain );
+```
+
+### Create a `public` wallet descriptor
+
+```dart
+import 'package:bdk_flutter/bdk_flutter.dart';
+
+// ....
+
+final mnemonic = await Mnemonic.create(WordCount.Words12);
+final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
+                                                              mnemonic: mnemonic );
+final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
+                                                      network: Network.Testnet,
+                                                      keychain: KeyChainKind.External );
+final externalPublicDescriptorStr = await externalDescriptor.asString();
+final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
+                                                    network: Network.Testnet);
+
 ```
 
 ### API Documentation

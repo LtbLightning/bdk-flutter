@@ -14,7 +14,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Wallet aliceWallet;
+  String displayText = "";
+  int balance = 0;
+  late Wallet bdkWallet;
   Descriptor? aliceDescriptor;
   late Descriptor aliceChangeDescriptor;
   Blockchain? blockchain;
@@ -27,6 +29,9 @@ class _MyAppState extends State<MyApp> {
 
   generateMnemonicKeys() async {
     final res = await Mnemonic.create(WordCount.Words12);
+    setState(() {
+      displayText = res.toString();
+    });
     if (kDebugMode) {
       print(res.asString());
     }
@@ -34,13 +39,16 @@ class _MyAppState extends State<MyApp> {
 
   restoreWallet() async {
     await createDescriptorSecret();
-    aliceWallet = await Wallet.create(
+    bdkWallet = await Wallet.create(
         descriptor: aliceDescriptor!,
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
-    if (kDebugMode) {
-      print("init Complete");
-    }
+    final address =
+        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+
+    setState(() {
+      displayText = "Wallet restored with address: ${address.address} ";
+    });
   }
 
   createDescriptorSecret() async {
@@ -60,17 +68,14 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  initElectrumBlockchain(bool isElectrum) async {
+  initBlockchain(bool isElectrumBlockchain) async {
     if (blockchain == null) {
-      if (!isElectrum) {
+      if (!isElectrumBlockchain) {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.rpc(
-                config: RpcConfig(
-                    url: 'http://127.0.0.1:18446',
-                    authUserPass:
-                        UserPass(username: 'polaruser', password: 'polarpass'),
-                    network: Network.Regtest,
-                    walletName: 'default')));
+            config: BlockchainConfig.esplora(
+                config: EsploraConfig(
+                    baseUrl: 'https://blockstream.info/testnet/api',
+                    stopGap: 10)));
       } else {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.electrum(
@@ -85,24 +90,33 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    await initElectrumBlockchain(true);
-    aliceWallet.sync(blockchain!);
+    await initBlockchain(true);
+    bdkWallet.sync(blockchain!);
+    setState(() {
+      displayText = "Syncing completed";
+    });
   }
 
   getNewAddress() async {
-    final alice = await aliceWallet.getAddress(addressIndex: AddressIndex.New);
+    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
     if (kDebugMode) {
-      print(alice.address);
-      print(alice.index);
+      print(res.address);
     }
+    setState(() {
+      displayText = "Address: ${res.address} \n Index: ${res.index}";
+    });
   }
 
   getUnConfirmedTransactions() async {
     List<TransactionDetails> unConfirmed = [];
-    final res = await aliceWallet.listTransactions();
+    final res = await bdkWallet.listTransactions();
+
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
     }
+    setState(() {
+      displayText = "You have ${unConfirmed.length} unConfirmed transactions";
+    });
     for (var e in unConfirmed) {
       if (kDebugMode) {
         print(" txid: ${e.txid}");
@@ -116,10 +130,13 @@ class _MyAppState extends State<MyApp> {
 
   getConfirmedTransactions() async {
     List<TransactionDetails> confirmed = [];
-    final res = await aliceWallet.listTransactions();
+    final res = await bdkWallet.listTransactions();
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
     }
+    setState(() {
+      displayText = "You have ${confirmed.length} confirmed transactions";
+    });
     for (var e in confirmed) {
       if (kDebugMode) {
         print(" txid: ${e.txid}");
@@ -134,14 +151,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await aliceWallet.getBalance();
-    if (kDebugMode) {
-      print("alice ${res.total}");
-    }
+    final res = await bdkWallet.getBalance();
+    setState(() {
+      balance = res.total;
+      displayText =
+          "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
+    });
   }
 
   listUnspent() async {
-    final res = await aliceWallet.listUnspent();
+    final res = await bdkWallet.listUnspent();
+    setState(() {
+      displayText =
+          " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
+    });
     for (var e in res) {
       if (kDebugMode) {
         print("isSpent: ${e.isSpent}");
@@ -158,15 +181,29 @@ class _MyAppState extends State<MyApp> {
     if (kDebugMode) {
       print(res);
     }
+    setState(() {
+      displayText = "Height: $res";
+    });
     return res;
   }
 
   getBlockHash() async {
     final height = await getBlockHeight();
     final blockHash = await blockchain!.getBlockHash(height);
+    setState(() {
+      displayText = "BlockHash: $blockHash";
+    });
     if (kDebugMode) {
       print(blockHash);
     }
+  }
+
+  Future<FeeRate> estimateFeeRate(int blocks) async {
+    final feeRate = await blockchain!.estimateFee(blocks);
+    setState(() {
+      displayText = "feeRate: ${feeRate.asSatPerVb()}";
+    });
+    return feeRate;
   }
 
   sendBit() async {
@@ -174,12 +211,14 @@ class _MyAppState extends State<MyApp> {
     final address =
         await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
+    final feeRate = await estimateFeeRate(25);
     final psbt = await txBuilder
         .addRecipient(script, 700)
-        .feeRate(1.1)
-        .finish(aliceWallet);
-    final res = await aliceWallet.sign(psbt);
-    await blockchain!.broadcast(res);
+        .feeRate(feeRate.asSatPerVb())
+        .finish(bdkWallet);
+    final sbt = await bdkWallet.sign(psbt);
+    final tx = await sbt.extractTx();
+    await blockchain!.broadcast(tx);
     sync();
   }
 
@@ -188,46 +227,161 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: const Text(
-            'Bdk Flutter',
-            style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 20,
-                fontWeight: FontWeight.w900),
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
+          child: Container(
+            padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+            color: Colors.blue,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text('Bdk Wallet',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                      height: 2.5,
+                      color: Colors.white)),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Response: ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
+                  Expanded(
+                    child: SelectableText(
+                      displayText,
+                      maxLines: 3,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
           ),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    balance.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 40,
+                        color: Colors.blue),
+                  ),
+                  const Text(
+                    " sats",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 20,
+                        color: Colors.blue),
+                  ),
+                ],
+              ),
               TextButton(
                   onPressed: () => getNewAddress(),
-                  child: const Text('Press to create new Address')),
+                  child: const Text(
+                    'Press to create new Address',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
-                  onPressed: () => sendBit(),
-                  child: const Text('Press to send 1200 satoshi')),
-              TextButton(
-                  onPressed: () => sync(), child: const Text('Press to  sync')),
+                  onPressed: () => sync(),
+                  child: const Text(
+                    'Press to  sync',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getConfirmedTransactions(),
-                  child: const Text('Get ConfirmedTransactions')),
+                  child: const Text(
+                    'Get ConfirmedTransactions',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getUnConfirmedTransactions(),
-                  child: const Text('getPendingTransactions')),
+                  child: const Text(
+                    'getPendingTransactions',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getBalance(),
-                  child: const Text('get Balance')),
+                  child: const Text(
+                    'get Balance',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => listUnspent(),
-                  child: const Text('list Unspent')),
+                  child: const Text(
+                    'list Unspent',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
+              TextButton(
+                  onPressed: () => sendBit(),
+                  child: const Text(
+                    'Press to send 1200 satoshi',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => getBlockHash(),
-                  child: const Text('get BlockHash')),
+                  child: const Text(
+                    'get BlockHash',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
               TextButton(
                   onPressed: () => generateMnemonicKeys(),
-                  child: const Text('generate Mnemonic')),
+                  child: const Text(
+                    'generate Mnemonic',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
             ],
           ),
         ),

@@ -16,6 +16,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Script>()])
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
+@GenerateNiceMocks([MockSpec<FeeRate>()])
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -33,7 +34,6 @@ void main() {
       final res = await mockBlockchain.getHeight();
       expect(res, 2396450);
     });
-
     test('verify getHash', () async {
       when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
@@ -42,27 +42,43 @@ void main() {
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
   });
+
+  group('FeeRate', () {
+    test('Should return a double when called', () async {
+      when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
+      final res = await mockBlockchain.getHeight();
+      expect(res, 2396450);
+    });
+    test('verify getHash', () async {
+      when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
+          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+      final res = await mockBlockchain.getBlockHash(2396450);
+      expect(res,
+          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
+    });
+  });
+
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
+      final res = await mockWallet.getAddress(addressIndex: AddressIndex());
       expect(res, isA<AddressInfo>());
     });
     test('Should return a new AddressInfo', () async {
-      when(mockWallet.getAddress(addressIndex: AddressIndex.New)).thenAnswer(
+      when(mockWallet.getAddress(addressIndex: AddressIndex())).thenAnswer(
           (e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex.New);
+      final res = await mockWallet.getAddress(addressIndex: AddressIndex());
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
     test('Should return a last unused AddressInfo', () async {
-      when(mockWallet.getAddress(addressIndex: AddressIndex.LastUnused))
+      when(mockWallet.getAddress(addressIndex: AddressIndex.lastUnused()))
           .thenAnswer((e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
       final res =
-          await mockWallet.getAddress(addressIndex: AddressIndex.LastUnused);
+          await mockWallet.getAddress(addressIndex: AddressIndex.lastUnused());
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
