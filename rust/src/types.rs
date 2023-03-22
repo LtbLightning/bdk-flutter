@@ -193,11 +193,8 @@ pub enum RbfValue {
 
 /// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
 /// transaction details.
-pub struct TxBuilderResult {
-    pub psbt: String,
-    ///A wallet transaction
-    pub transaction_details: TransactionDetails,
-}
+pub struct BdkTxBuilderResult (pub String, pub TransactionDetails);
+
 
 ///Types of keychains
 pub enum KeychainKind {

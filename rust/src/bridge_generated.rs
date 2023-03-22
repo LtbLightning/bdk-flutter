@@ -28,13 +28,13 @@ use crate::blockchain::UserPass;
 use crate::types::AddressIndex;
 use crate::types::AddressInfo;
 use crate::types::Balance;
+use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
 use crate::types::ScriptAmount;
 use crate::types::TransactionDetails;
-use crate::types::TxBuilderResult;
 use crate::types::TxOut;
 use crate::types::WordCount;
 use crate::wallet::DatabaseConfig;
@@ -1066,6 +1066,13 @@ impl support::IntoDart for Balance {
 }
 impl support::IntoDartExceptPrimitive for Balance {}
 
+impl support::IntoDart for BdkTxBuilderResult {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.0.into_dart(), self.1.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for BdkTxBuilderResult {}
+
 impl support::IntoDart for BlockTime {
     fn into_dart(self) -> support::DartAbi {
         vec![self.height.into_dart(), self.timestamp.into_dart()].into_dart()
@@ -1117,13 +1124,6 @@ impl support::IntoDart for TransactionDetails {
     }
 }
 impl support::IntoDartExceptPrimitive for TransactionDetails {}
-
-impl support::IntoDart for TxBuilderResult {
-    fn into_dart(self) -> support::DartAbi {
-        vec![self.psbt.into_dart(), self.transaction_details.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for TxBuilderResult {}
 
 impl support::IntoDart for TxOut {
     fn into_dart(self) -> support::DartAbi {

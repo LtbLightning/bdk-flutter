@@ -150,8 +150,8 @@ class BumpFeeTxBuilder {
     return this;
   }
 
-  /// Finish building the transaction. Returns the BIP174 [PartiallySignedTransaction].
-  Future<PartiallySignedTransaction> finish(Wallet wallet) async {
+  /// Finish building the transaction. Returns the  [TxBuilderResult].
+  Future<TxBuilderResult> finish(Wallet wallet) async {
     try {
       final res = await loaderApi.bumpFeeTxBuilderFinish(
           txid: txid.toString(),
@@ -160,8 +160,9 @@ class BumpFeeTxBuilder {
           wallet: wallet._wallet!,
           nSequence: _nSequence,
           allowShrinking: _allowShrinking);
-      final psbt = PartiallySignedTransaction(psbtBase64: res);
-      return psbt;
+      return TxBuilderResult(
+          psbt: PartiallySignedTransaction(psbtBase64: res.field0),
+          txDetails: res.field1);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -585,7 +586,6 @@ class Mnemonic {
 ///A Partially Signed Transaction
 class PartiallySignedTransaction {
   final String psbtBase64;
-  TransactionDetails? txDetails;
 
   PartiallySignedTransaction({required this.psbtBase64});
 
@@ -877,8 +877,9 @@ class TxBuilder {
 
   ///Finish building the transaction.
   ///
-  /// Returns the BIP174 “PSBT”.
-  Future<PartiallySignedTransaction> finish(Wallet wallet) async {
+  /// Returns a [TxBuilderResult].
+
+  Future<TxBuilderResult> finish(Wallet wallet) async {
     if (_recipients.isEmpty) {
       throw const BdkException.unExpected("No Recipients Added");
     }
@@ -898,12 +899,24 @@ class TxBuilder {
           feeAbsolute: _feeAbsolute,
           feeRate: _feeRate,
           data: _data);
-      final psbt = PartiallySignedTransaction(psbtBase64: res.psbt);
-      return psbt;
+
+      return TxBuilderResult(
+          psbt: PartiallySignedTransaction(psbtBase64: res.field0),
+          txDetails: res.field1);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
+}
+
+///The value returned from calling the .finish() method on the [TxBuilder] or [BumpFeeTxBuilder].
+class TxBuilderResult {
+  final PartiallySignedTransaction psbt;
+
+  ///The transaction details.
+  final TransactionDetails txDetails;
+
+  TxBuilderResult({required this.psbt, required this.txDetails});
 }
 
 /// A Bitcoin wallet.
