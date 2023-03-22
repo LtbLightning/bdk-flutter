@@ -16,6 +16,6 @@ export './src/generated/bridge_definitions.dart'
         AddressIndex_New,
         AddressIndex_LastUnused,
         BdkDescriptor,
+        BdkTxBuilderResult,
         DatabaseConfig_Sled;
-
 export './src/root.dart';

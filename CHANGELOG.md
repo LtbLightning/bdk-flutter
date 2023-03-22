@@ -1,3 +1,7 @@
+## [0.27.2]
+### API changed
+- txBuilder.finish() & bumpFeeTxBuilder.finish() returns a `TxBuilderResult` instead of a `PartiallySignedTransaction`.
+
 ## [0.27.1]
 Updated Rust ( Bdk to latest version 0.27.1 ) and Flutter dependencies.
 
