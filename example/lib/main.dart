@@ -206,17 +206,33 @@ class _MyAppState extends State<MyApp> {
     return feeRate;
   }
 
+  getTransactionDetails(TxBuilderResult txBuilderResult) async {
+    final tx = await txBuilderResult.psbt.extractTx();
+    final serializedTx = tx.serialize();
+    final txid = await txBuilderResult.psbt.txId();
+    if (kDebugMode) {
+      print("txid: $txid");
+      print("serializedTx: $serializedTx");
+      print("===================");
+      print("received: ${txBuilderResult.txDetails.received}");
+      print("send: ${txBuilderResult.txDetails.sent}");
+      print("confirmation time: ${txBuilderResult.txDetails.confirmationTime}");
+      print("fee: ${txBuilderResult.txDetails.fee}");
+    }
+  }
+
   sendBit() async {
     final txBuilder = TxBuilder();
     final address =
         await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
-    final psbt = await txBuilder
+    final txBuilderResult = await txBuilder
         .addRecipient(script, 700)
         .feeRate(feeRate.asSatPerVb())
         .finish(bdkWallet);
-    final sbt = await bdkWallet.sign(psbt);
+    getTransactionDetails(txBuilderResult);
+    final sbt = await bdkWallet.sign(txBuilderResult.psbt);
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);
     sync();

@@ -196,13 +196,11 @@ void main() {
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.finish(mockWallet)).thenAnswer(
-          (_) async => PartiallySignedTransaction(psbtBase64: psbt));
 
       final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
       final res = await txBuilder.finish(mockWallet);
-      expect(res.psbtBase64, psbt);
+      expect(res.psbt, psbt);
     });
   });
   group('Bump Fee Tx Builder', () {

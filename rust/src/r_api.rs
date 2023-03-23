@@ -3,10 +3,7 @@ pub use crate::descriptor::BdkDescriptor;
 use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
 use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
-use crate::types::{
-    Address, AddressIndex, AddressInfo, Balance, KeychainKind, Network, OutPoint, Script,
-    ScriptAmount, TransactionDetails, TxBuilderResult, WordCount,
-};
+use crate::types::{Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, KeychainKind, Network, OutPoint, Script, ScriptAmount, TransactionDetails,  WordCount};
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
@@ -129,7 +126,7 @@ pub fn tx_builder_finish(
     enable_rbf: bool,
     n_sequence: Option<u32>,
     data: Vec<u8>,
-) -> anyhow::Result<TxBuilderResult, anyhow::Error> {
+) -> anyhow::Result<BdkTxBuilderResult, anyhow::Error> {
     let binding = wallet.get_wallet();
     let mut tx_builder = binding.build_tx();
 
@@ -180,13 +177,13 @@ pub fn tx_builder_finish(
     }
 
     return match tx_builder.finish() {
-        Ok(e) => Ok(TxBuilderResult {
-            psbt: Arc::new(PartiallySignedTransaction {
+        Ok(e) => Ok(
+            BdkTxBuilderResult(Arc::new(PartiallySignedTransaction {
                 internal: Mutex::new(e.0),
             })
             .serialize(),
-            transaction_details: TransactionDetails::from(&e.1),
-        }),
+             TransactionDetails::from(&e.1),)
+        ),
         Err(e) => anyhow::bail!("{:?}", e),
     };
 }
@@ -200,7 +197,7 @@ pub fn bump_fee_tx_builder_finish(
     wallet: RustOpaque<WalletInstance>,
     enable_rbf: bool,
     n_sequence: Option<u32>,
-) -> anyhow::Result<String, anyhow::Error> {
+) -> anyhow::Result<BdkTxBuilderResult, anyhow::Error> {
     let txid = Txid::from_str(txid.as_str()).unwrap();
     let bdk_wallet = wallet.get_wallet();
     let mut tx_builder = match bdk_wallet.build_fee_bump(txid) {
@@ -221,17 +218,17 @@ pub fn bump_fee_tx_builder_finish(
     if enable_rbf {
         tx_builder.enable_rbf();
     }
-    let psbt = tx_builder.finish().map(|(psbt, _)| {
-        PartiallySignedTransaction {
-            internal: Mutex::new(psbt),
-        }
-        .serialize()
-    });
-
-    match psbt {
-        Ok(e) => Ok(e),
+    return match tx_builder.finish() {
+        Ok(e) => Ok(
+            BdkTxBuilderResult(Arc::new(PartiallySignedTransaction {
+                internal: Mutex::new(e.0),
+            })
+                                   .serialize(),
+                               TransactionDetails::from(&e.1),)
+        ),
         Err(e) => anyhow::bail!("{:?}", e),
-    }
+    };
+
 }
 
 //================Descriptor Secret=========

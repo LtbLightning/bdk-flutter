@@ -103,9 +103,9 @@ class _FakeTxBuilder_7 extends _i1.SmartFake implements _i3.TxBuilder {
         );
 }
 
-class _FakeBumpFeeTxBuilder_8 extends _i1.SmartFake
-    implements _i3.BumpFeeTxBuilder {
-  _FakeBumpFeeTxBuilder_8(
+class _FakeTxBuilderResult_8 extends _i1.SmartFake
+    implements _i3.TxBuilderResult {
+  _FakeTxBuilderResult_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -114,8 +114,19 @@ class _FakeBumpFeeTxBuilder_8 extends _i1.SmartFake
         );
 }
 
-class _FakeScript_9 extends _i1.SmartFake implements _i3.Script {
-  _FakeScript_9(
+class _FakeBumpFeeTxBuilder_9 extends _i1.SmartFake
+    implements _i3.BumpFeeTxBuilder {
+  _FakeBumpFeeTxBuilder_9(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeScript_10 extends _i1.SmartFake implements _i3.Script {
+  _FakeScript_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -475,14 +486,6 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-  @override
-  set txDetails(_i2.TransactionDetails? _txDetails) => super.noSuchMethod(
-        Invocation.setter(
-          #txDetails,
-          _txDetails,
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   _i4.Future<_i3.PartiallySignedTransaction> combine(
           _i3.PartiallySignedTransaction? other) =>
@@ -929,14 +932,14 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
         ),
       ) as _i3.TxBuilder);
   @override
-  _i4.Future<_i3.PartiallySignedTransaction> finish(_i3.Wallet? wallet) =>
+  _i4.Future<_i3.TxBuilderResult> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
         Invocation.method(
           #finish,
           [wallet],
         ),
-        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
-            _FakePartiallySignedTransaction_2(
+        returnValue:
+            _i4.Future<_i3.TxBuilderResult>.value(_FakeTxBuilderResult_8(
           this,
           Invocation.method(
             #finish,
@@ -944,15 +947,14 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i3.PartiallySignedTransaction>.value(
-                _FakePartiallySignedTransaction_2(
+            _i4.Future<_i3.TxBuilderResult>.value(_FakeTxBuilderResult_8(
           this,
           Invocation.method(
             #finish,
             [wallet],
           ),
         )),
-      ) as _i4.Future<_i3.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.TxBuilderResult>);
 }
 
 /// A class which mocks [BumpFeeTxBuilder].
@@ -977,14 +979,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           #allowShrinking,
           [address],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_8(
+        returnValue: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #allowShrinking,
             [address],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_8(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #allowShrinking,
@@ -998,14 +1000,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           #enableRbf,
           [],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_8(
+        returnValue: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #enableRbf,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_8(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #enableRbf,
@@ -1020,14 +1022,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           #enableRbfWithSequence,
           [nSequence],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_8(
+        returnValue: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #enableRbfWithSequence,
             [nSequence],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_8(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_9(
           this,
           Invocation.method(
             #enableRbfWithSequence,
@@ -1036,14 +1038,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
         ),
       ) as _i3.BumpFeeTxBuilder);
   @override
-  _i4.Future<_i3.PartiallySignedTransaction> finish(_i3.Wallet? wallet) =>
+  _i4.Future<_i3.TxBuilderResult> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
         Invocation.method(
           #finish,
           [wallet],
         ),
-        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
-            _FakePartiallySignedTransaction_2(
+        returnValue:
+            _i4.Future<_i3.TxBuilderResult>.value(_FakeTxBuilderResult_8(
           this,
           Invocation.method(
             #finish,
@@ -1051,15 +1053,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i3.PartiallySignedTransaction>.value(
-                _FakePartiallySignedTransaction_2(
+            _i4.Future<_i3.TxBuilderResult>.value(_FakeTxBuilderResult_8(
           this,
           Invocation.method(
             #finish,
             [wallet],
           ),
         )),
-      ) as _i4.Future<_i3.PartiallySignedTransaction>);
+      ) as _i4.Future<_i3.TxBuilderResult>);
 }
 
 /// A class which mocks [Script].
@@ -1077,14 +1078,14 @@ class MockAddress extends _i1.Mock implements _i3.Address {
           #scriptPubKey,
           [],
         ),
-        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_9(
+        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_10(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_9(
+        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_10(
           this,
           Invocation.method(
             #scriptPubKey,

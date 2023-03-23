@@ -67,7 +67,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCombinePsbtConstMeta;
 
-  Future<TxBuilderResult> txBuilderFinish(
+  Future<BdkTxBuilderResult> txBuilderFinish(
       {required WalletInstance wallet,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
@@ -86,7 +86,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kTxBuilderFinishConstMeta;
 
-  Future<String> bumpFeeTxBuilderFinish(
+  Future<BdkTxBuilderResult> bumpFeeTxBuilderFinish(
       {required String txid,
       required double feeRate,
       String? allowShrinking,
@@ -428,6 +428,18 @@ class Balance {
   });
 }
 
+/// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
+/// transaction details.
+class BdkTxBuilderResult {
+  final String field0;
+  final TransactionDetails field1;
+
+  BdkTxBuilderResult({
+    required this.field0,
+    required this.field1,
+  });
+}
+
 ///Block height and timestamp of a block
 class BlockTime {
   ///Confirmation block height
@@ -710,20 +722,6 @@ class TransactionDetails {
     required this.sent,
     this.fee,
     this.confirmationTime,
-  });
-}
-
-/// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
-/// transaction details.
-class TxBuilderResult {
-  final String psbt;
-
-  ///A wallet transaction
-  final TransactionDetails transactionDetails;
-
-  TxBuilderResult({
-    required this.psbt,
-    required this.transactionDetails,
   });
 }
 
