@@ -74,9 +74,11 @@ pub extern "C" fn wire_tx_builder_finish(
     wallet: wire_WalletInstance,
     recipients: *mut wire_list_script_amount,
     utxos: *mut wire_list_out_point,
+    foreign_utxo: *mut wire_ForeignUtxo,
     unspendable: *mut wire_list_out_point,
     manually_selected_only: bool,
     only_spend_change: bool,
+    only_witness_utxo: bool,
     do_not_spend_change: bool,
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
@@ -91,9 +93,11 @@ pub extern "C" fn wire_tx_builder_finish(
         wallet,
         recipients,
         utxos,
+        foreign_utxo,
         unspendable,
         manually_selected_only,
         only_spend_change,
+        only_witness_utxo,
         do_not_spend_change,
         fee_rate,
         fee_absolute,
@@ -202,6 +206,11 @@ pub extern "C" fn wire_as_string_private(port_: i64, descriptor: wire_BdkDescrip
 #[no_mangle]
 pub extern "C" fn wire_as_string(port_: i64, descriptor: wire_BdkDescriptor) {
     wire_as_string_impl(port_, descriptor)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_max_satisfaction_weight(port_: i64, descriptor: wire_BdkDescriptor) {
+    wire_max_satisfaction_weight_impl(port_, descriptor)
 }
 
 #[no_mangle]
@@ -343,11 +352,6 @@ pub extern "C" fn wire_get_balance(port_: i64, wallet: wire_WalletInstance) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent_outputs(port_: i64, wallet: wire_WalletInstance) {
-    wire_list_unspent_outputs_impl(port_, wallet)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_get_transactions(port_: i64, wallet: wire_WalletInstance) {
     wire_get_transactions_impl(port_, wallet)
 }
@@ -357,9 +361,9 @@ pub extern "C" fn wire_sign(
     port_: i64,
     wallet: wire_WalletInstance,
     psbt_str: *mut wire_uint_8_list,
-    is_multi_sig: bool,
+    trust_witness_utxo: bool,
 ) {
-    wire_sign_impl(port_, wallet, psbt_str, is_multi_sig)
+    wire_sign_impl(port_, wallet, psbt_str, trust_witness_utxo)
 }
 
 #[no_mangle]
@@ -370,6 +374,25 @@ pub extern "C" fn wire_get_network(port_: i64, wallet: wire_WalletInstance) {
 #[no_mangle]
 pub extern "C" fn wire_list_unspent(port_: i64, wallet: wire_WalletInstance) {
     wire_list_unspent_impl(port_, wallet)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_descriptor_for_keychain(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    keychain: i32,
+) {
+    wire_get_descriptor_for_keychain_impl(port_, wallet, keychain)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_psbt_input(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    utxo: *mut wire_LocalUtxo,
+    only_witness_utxo: bool,
+) {
+    wire_get_psbt_input_impl(port_, wallet, utxo, only_witness_utxo)
 }
 
 #[no_mangle]
@@ -437,6 +460,16 @@ pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
     support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_foreign_utxo_0() -> *mut wire_ForeignUtxo {
+    support::new_leak_box_ptr(wire_ForeignUtxo::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_local_utxo_0() -> *mut wire_LocalUtxo {
+    support::new_leak_box_ptr(wire_LocalUtxo::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -669,6 +702,18 @@ impl Wire2Api<f32> for *mut f32 {
         unsafe { *support::box_from_leak_ptr(self) }
     }
 }
+impl Wire2Api<ForeignUtxo> for *mut wire_ForeignUtxo {
+    fn wire2api(self) -> ForeignUtxo {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<ForeignUtxo>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<LocalUtxo> for *mut wire_LocalUtxo {
+    fn wire2api(self) -> LocalUtxo {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<LocalUtxo>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -760,6 +805,16 @@ impl Wire2Api<EsploraConfig> for wire_EsploraConfig {
     }
 }
 
+impl Wire2Api<ForeignUtxo> for wire_ForeignUtxo {
+    fn wire2api(self) -> ForeignUtxo {
+        ForeignUtxo {
+            outpoint: self.outpoint.wire2api(),
+            psbt_input: self.psbt_input.wire2api(),
+            satisfaction_weight: self.satisfaction_weight.wire2api(),
+        }
+    }
+}
+
 impl Wire2Api<Vec<OutPoint>> for *mut wire_list_out_point {
     fn wire2api(self) -> Vec<OutPoint> {
         let vec = unsafe {
@@ -776,6 +831,16 @@ impl Wire2Api<Vec<ScriptAmount>> for *mut wire_list_script_amount {
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
         };
         vec.into_iter().map(Wire2Api::wire2api).collect()
+    }
+}
+impl Wire2Api<LocalUtxo> for wire_LocalUtxo {
+    fn wire2api(self) -> LocalUtxo {
+        LocalUtxo {
+            outpoint: self.outpoint.wire2api(),
+            txout: self.txout.wire2api(),
+            is_spent: self.is_spent.wire2api(),
+            keychain: self.keychain.wire2api(),
+        }
     }
 }
 
@@ -829,6 +894,14 @@ impl Wire2Api<SqliteDbConfiguration> for wire_SqliteDbConfiguration {
     fn wire2api(self) -> SqliteDbConfiguration {
         SqliteDbConfiguration {
             path: self.path.wire2api(),
+        }
+    }
+}
+impl Wire2Api<TxOut> for wire_TxOut {
+    fn wire2api(self) -> TxOut {
+        TxOut {
+            value: self.value.wire2api(),
+            address: self.address.wire2api(),
         }
     }
 }
@@ -893,6 +966,14 @@ pub struct wire_EsploraConfig {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_ForeignUtxo {
+    outpoint: wire_OutPoint,
+    psbt_input: *mut wire_uint_8_list,
+    satisfaction_weight: usize,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_list_out_point {
     ptr: *mut wire_OutPoint,
     len: i32,
@@ -903,6 +984,15 @@ pub struct wire_list_out_point {
 pub struct wire_list_script_amount {
     ptr: *mut wire_ScriptAmount,
     len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_LocalUtxo {
+    outpoint: wire_OutPoint,
+    txout: wire_TxOut,
+    is_spent: bool,
+    keychain: i32,
 }
 
 #[repr(C)]
@@ -950,6 +1040,13 @@ pub struct wire_SledDbConfiguration {
 #[derive(Clone)]
 pub struct wire_SqliteDbConfiguration {
     path: *mut wire_uint_8_list,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_TxOut {
+    value: u64,
+    address: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
@@ -1199,6 +1296,12 @@ impl NewWithNullPtr for wire_ElectrumConfig {
     }
 }
 
+impl Default for wire_ElectrumConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_EsploraConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1211,12 +1314,57 @@ impl NewWithNullPtr for wire_EsploraConfig {
     }
 }
 
+impl Default for wire_EsploraConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_ForeignUtxo {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            outpoint: Default::default(),
+            psbt_input: core::ptr::null_mut(),
+            satisfaction_weight: Default::default(),
+        }
+    }
+}
+
+impl Default for wire_ForeignUtxo {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_LocalUtxo {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            outpoint: Default::default(),
+            txout: Default::default(),
+            is_spent: Default::default(),
+            keychain: Default::default(),
+        }
+    }
+}
+
+impl Default for wire_LocalUtxo {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_OutPoint {
     fn new_with_null_ptr() -> Self {
         Self {
             txid: core::ptr::null_mut(),
             vout: Default::default(),
         }
+    }
+}
+
+impl Default for wire_OutPoint {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1233,6 +1381,12 @@ impl NewWithNullPtr for wire_RpcConfig {
     }
 }
 
+impl Default for wire_RpcConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_RpcSyncParams {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1241,6 +1395,12 @@ impl NewWithNullPtr for wire_RpcSyncParams {
             force_start_time: Default::default(),
             poll_rate_sec: Default::default(),
         }
+    }
+}
+
+impl Default for wire_RpcSyncParams {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1253,12 +1413,24 @@ impl NewWithNullPtr for wire_ScriptAmount {
     }
 }
 
+impl Default for wire_ScriptAmount {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_SledDbConfiguration {
     fn new_with_null_ptr() -> Self {
         Self {
             path: core::ptr::null_mut(),
             tree_name: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_SledDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1270,12 +1442,39 @@ impl NewWithNullPtr for wire_SqliteDbConfiguration {
     }
 }
 
+impl Default for wire_SqliteDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_TxOut {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            value: Default::default(),
+            address: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_TxOut {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_UserPass {
     fn new_with_null_ptr() -> Self {
         Self {
             username: core::ptr::null_mut(),
             password: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_UserPass {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 

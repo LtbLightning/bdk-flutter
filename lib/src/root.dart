@@ -335,6 +335,19 @@ class Descriptor {
     }
   }
 
+  ///Computes an upper bound on the weight of a satisfying witness to the transaction.
+  //
+  // Assumes all ec-signatures are 73 bytes, including push opcode and sighash suffix. Includes the weight of the VarInts encoding the scriptSig and witness stack length.
+  Future<int> maxSatisfactionWeight() async {
+    try {
+      final res = await loaderApi.maxSatisfactionWeight(
+          descriptor: _descriptorInstance!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   ///Return the private version of the output descriptor if available, otherwise return the public version.
   Future<String> asStringPrivate() async {
     try {
@@ -729,6 +742,8 @@ class TxBuilder {
   final List<OutPoint> _unSpendable = [];
   bool _manuallySelectedOnly = false;
   bool _onlySpendChange = false;
+  bool _onlyWitnessUtxo = false;
+  ForeignUtxo? _foreignUtxo;
   double? _feeRate;
   int? _feeAbsolute;
   bool _enableRbf = false;
@@ -771,6 +786,30 @@ class TxBuilder {
     return this;
   }
 
+  /// Add a foreign UTXO i.e. a UTXO not owned by this wallet.
+  /// At a minimum to add a foreign UTXO we need:
+  /// outPoint: To add it to the raw transaction.
+  ///psbtInput: To know the value.
+  /// satisfactionWeight: To know how much weight/vbytes the input will add to the transaction for fee calculation.
+  ///
+  /// There are several security concerns about adding foreign UTXOs that application developers should consider. First, how do you know the value of the input is correct? If a non_witness_utxo is provided in the psbt_input then this method implicitly verifies the value by checking it against the transaction. If only a witness_utxo is provided then this method doesn't verify the value but just takes it as a given -- it is up to you to check that whoever sent you the input_psbt was not lying!
+  /// Secondly, you must somehow provide satisfaction_weight of the input. Depending on your application it may be important that this be known precisely. If not, a malicious counterparty may fool you into putting in a value that is too low, giving the transaction a lower than expected feerate. They could also fool you into putting a value that is too high causing you to pay a fee that is too high. The party who is broadcasting the transaction can of course check the real input weight matches the expected weight prior to broadcasting.
+  /// To guarantee the satisfaction_weight is correct, you can require the party providing the psbt_input provide a miniscript descriptor for the input so you can check it against the script_pubkey and then ask it for the max_satisfaction_weight.
+  /// This is an EXPERIMENTAL feature, API and other major changes are expected.
+  /// Errors
+  /// This method returns errors in the following circumstances:
+  /// The psbtInput does not contain a witness_utxo or non_witness_utxo.
+  /// The data in non_witness_utxo does not match what is in outpoint.
+  /// Note unless you set only_witness_utxo any non-taproot psbt_input you pass to this method must have non_witness_utxo set otherwise you will get an error when finish is called.
+  TxBuilder addForeignUxto(
+      OutPoint outPoint, Input psbtInput, int satisfactionWeight) {
+    _foreignUtxo = ForeignUtxo(
+        outpoint: outPoint,
+        psbtInput: psbtInput.toString(),
+        satisfactionWeight: satisfactionWeight);
+    return this;
+  }
+
   ///Add the list of outpoints to the internal list of UTXOs that must be spent.
   ///
   ///If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
@@ -788,6 +827,14 @@ class TxBuilder {
   /// This effectively adds all the change outputs to the “unspendable” list. See TxBuilder().addUtxos
   TxBuilder doNotSpendChange() {
     _doNotSpendChange = true;
+    return this;
+  }
+
+  ///Only Fill-in the witnessUtxo field when spending from SegWit descriptors.
+  // This reduces the size of the PSBT, but some signers might reject them due to the lack of the non_witness_utxo.
+
+  TxBuilder onlyWitnessUtxo() {
+    _onlyWitnessUtxo = true;
     return this;
   }
 
@@ -888,6 +935,7 @@ class TxBuilder {
           wallet: wallet._wallet!,
           recipients: _recipients,
           utxos: _utxos,
+          foreignUtxo: _foreignUtxo,
           unspendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           onlySpendChange: _onlySpendChange,
@@ -898,7 +946,8 @@ class TxBuilder {
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,
           feeRate: _feeRate,
-          data: _data);
+          data: _data,
+          onlyWitnessUtxo: _onlyWitnessUtxo);
 
       return TxBuilderResult(
           psbt: PartiallySignedTransaction(psbtBase64: res.field0),
@@ -996,7 +1045,7 @@ class Wallet {
   /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<List<LocalUtxo>> listUnspent() async {
     try {
-      var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
+      var res = await loaderApi.listUnspent(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1033,10 +1082,13 @@ class Wallet {
   ///
   /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
   Future<PartiallySignedTransaction> sign(
-      PartiallySignedTransaction psbt) async {
+      {bool trustWitnessUtxo = false,
+      required PartiallySignedTransaction psbt}) async {
     try {
       final sbt = await loaderApi.sign(
-          psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
+          psbtStr: psbt.psbtBase64,
+          wallet: _wallet!,
+          trustWitnessUtxo: trustWitnessUtxo);
       if (sbt == null) {
         throw const BdkException.unExpected("Unable to sign transaction");
       }
@@ -1044,5 +1096,35 @@ class Wallet {
     } on FfiException catch (e) {
       throw configException(e.message);
     }
+  }
+
+  ///Returns the descriptor used to create addresses for a particular [KeychainKind].
+  Future<Descriptor> getDescriptorForKeychain(KeychainKind keychain) async {
+    final res = await loaderApi.getDescriptorForKeychain(
+        wallet: _wallet!, keychain: keychain);
+    return Descriptor._()._setDescriptor(res);
+  }
+
+  Future<Input> getPsbtInput(LocalUtxo utxo, bool onlyWitnessUtxo) async {
+    final res = await loaderApi.getPsbtInput(
+        wallet: _wallet!, utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+    print(res);
+    return Input._()._setPsbtInput(res);
+  }
+}
+
+/// A key-value map for an input of the corresponding index in the unsigned
+/// transaction.
+class Input {
+  String? _input;
+  Input._();
+  Input _setPsbtInput(String psbtInput) {
+    _input = psbtInput;
+    return this;
+  }
+
+  @override
+  String toString() {
+    return _input.toString();
   }
 }

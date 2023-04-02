@@ -103,6 +103,12 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
+typedef struct wire_ForeignUtxo {
+  struct wire_OutPoint outpoint;
+  struct wire_uint_8_list *psbt_input;
+  uintptr_t satisfaction_weight;
+} wire_ForeignUtxo;
+
 typedef struct wire_BdkDescriptor {
   const void *ptr;
 } wire_BdkDescriptor;
@@ -167,6 +173,18 @@ typedef struct wire_AddressIndex {
   union AddressIndexKind *kind;
 } wire_AddressIndex;
 
+typedef struct wire_TxOut {
+  uint64_t value;
+  struct wire_uint_8_list *address;
+} wire_TxOut;
+
+typedef struct wire_LocalUtxo {
+  struct wire_OutPoint outpoint;
+  struct wire_TxOut txout;
+  bool is_spent;
+  int32_t keychain;
+} wire_LocalUtxo;
+
 typedef struct DartCObject *WireSyncReturn;
 
 void store_dart_post_cobject(DartPostCObjectFnType ptr);
@@ -211,9 +229,11 @@ void wire_tx_builder_finish(int64_t port_,
                             struct wire_WalletInstance wallet,
                             struct wire_list_script_amount *recipients,
                             struct wire_list_out_point *utxos,
+                            struct wire_ForeignUtxo *foreign_utxo,
                             struct wire_list_out_point *unspendable,
                             bool manually_selected_only,
                             bool only_spend_change,
+                            bool only_witness_utxo,
                             bool do_not_spend_change,
                             float *fee_rate,
                             uint64_t *fee_absolute,
@@ -269,6 +289,8 @@ void wire_new_bip84_public(int64_t port_,
 void wire_as_string_private(int64_t port_, struct wire_BdkDescriptor descriptor);
 
 void wire_as_string(int64_t port_, struct wire_BdkDescriptor descriptor);
+
+void wire_max_satisfaction_weight(int64_t port_, struct wire_BdkDescriptor descriptor);
 
 void wire_create_descriptor_secret(int64_t port_,
                                    int32_t network,
@@ -328,18 +350,25 @@ void wire_sync_wallet(int64_t port_,
 
 void wire_get_balance(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_list_unspent_outputs(int64_t port_, struct wire_WalletInstance wallet);
-
 void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet);
 
 void wire_sign(int64_t port_,
                struct wire_WalletInstance wallet,
                struct wire_uint_8_list *psbt_str,
-               bool is_multi_sig);
+               bool trust_witness_utxo);
 
 void wire_get_network(int64_t port_, struct wire_WalletInstance wallet);
 
 void wire_list_unspent(int64_t port_, struct wire_WalletInstance wallet);
+
+void wire_get_descriptor_for_keychain(int64_t port_,
+                                      struct wire_WalletInstance wallet,
+                                      int32_t keychain);
+
+void wire_get_psbt_input(int64_t port_,
+                         struct wire_WalletInstance wallet,
+                         struct wire_LocalUtxo *utxo,
+                         bool only_witness_utxo);
 
 void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
 
@@ -366,6 +395,10 @@ struct wire_ElectrumConfig *new_box_autoadd_electrum_config_0(void);
 struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 
 float *new_box_autoadd_f32_0(float value);
+
+struct wire_ForeignUtxo *new_box_autoadd_foreign_utxo_0(void);
+
+struct wire_LocalUtxo *new_box_autoadd_local_utxo_0(void);
 
 struct wire_RpcConfig *new_box_autoadd_rpc_config_0(void);
 
@@ -441,6 +474,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_public);
     dummy_var ^= ((int64_t) (void*) wire_as_string_private);
     dummy_var ^= ((int64_t) (void*) wire_as_string);
+    dummy_var ^= ((int64_t) (void*) wire_max_satisfaction_weight);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_extend);
@@ -458,11 +492,12 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_internalized_address);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_balance);
-    dummy_var ^= ((int64_t) (void*) wire_list_unspent_outputs);
     dummy_var ^= ((int64_t) (void*) wire_get_transactions);
     dummy_var ^= ((int64_t) (void*) wire_sign);
     dummy_var ^= ((int64_t) (void*) wire_get_network);
     dummy_var ^= ((int64_t) (void*) wire_list_unspent);
+    dummy_var ^= ((int64_t) (void*) wire_get_descriptor_for_keychain);
+    dummy_var ^= ((int64_t) (void*) wire_get_psbt_input);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
@@ -476,6 +511,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_foreign_utxo_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_local_utxo_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sled_db_configuration_0);

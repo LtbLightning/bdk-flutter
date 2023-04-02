@@ -1,12 +1,16 @@
+use std::borrow::Borrow;
 use crate::blockchain::BlockchainInstance;
 use crate::descriptor::BdkDescriptor;
 use crate::psbt::PartiallySignedTransaction;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::{Error as BdkError, SyncOptions};
+use bdk::{bitcoin, Error as BdkError, Error, KeychainKind, SyncOptions};
 use bdk::{SignOptions, Wallet as BdkWallet};
 use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
+use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
+use bdk::bitcoin::psbt::Input;
+use bdk::descriptor::{ KeyMap};
 
 use crate::types::{AddressIndex, AddressInfo, Balance, OutPoint, TransactionDetails, TxOut};
 
@@ -94,9 +98,21 @@ impl WalletInstance {
             .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
             .collect())
     }
-    pub fn sign(&self, psbt: &PartiallySignedTransaction) -> Result<bool, BdkError> {
+    pub fn sign(&self, psbt: &PartiallySignedTransaction, trust_witness_utxo:bool) -> Result<bool, BdkError> {
         let mut psbt = psbt.internal.lock().unwrap();
-        self.get_wallet().sign(&mut psbt, SignOptions::default())
+        self.get_wallet().sign(&mut psbt, SignOptions {
+             trust_witness_utxo,
+            ..Default::default()
+        })
+    }
+    /// Returns the descriptor used to create addresses for a particular `keychain`.
+    pub fn get_descriptor_for_keychain(&self, keychain: KeychainKind) ->  Result<BdkDescriptor , BdkError>{
+        let wallet = self.get_wallet();
+        Ok(BdkDescriptor{ extended_descriptor: wallet.get_descriptor_for_keychain(keychain).to_owned(), key_map: KeyMap::new() })
+    }
+    pub fn  get_psbt_input(&self, utxo: LocalUtxo, only_witness_utxo: bool) -> Result<Input, Error> {
+        let wallet = self.get_wallet();
+        wallet.get_psbt_input(LocalUtxo::to_utxo(utxo), None, only_witness_utxo)
     }
 }
 /// Unspent outputs of this wallet
@@ -107,11 +123,15 @@ pub struct LocalUtxo {
     pub txout: TxOut,
     ///Whether this UTXO is spent or not
     pub is_spent: bool,
+
+     pub keychain: crate::types::KeychainKind,
 }
+
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
 trait NetworkLocalUtxo {
     fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo;
+    fn to_utxo(x: LocalUtxo ) -> bdk::LocalUtxo;
 }
 impl NetworkLocalUtxo for LocalUtxo {
     fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo {
@@ -122,7 +142,7 @@ impl NetworkLocalUtxo for LocalUtxo {
             },
             txout: TxOut {
                 value: x.clone().txout.value,
-                address: bdk::bitcoin::util::address::Address::from_script(
+                address: bitcoin::util::address::Address::from_script(
                     &x.txout.script_pubkey,
                     network,
                 )
@@ -130,6 +150,17 @@ impl NetworkLocalUtxo for LocalUtxo {
                 .to_string(),
             },
             is_spent: x.clone().is_spent,
+            keychain: x.keychain.into()
+        }
+    }
+
+    fn to_utxo(x: LocalUtxo) -> bdk::LocalUtxo {
+        bdk::LocalUtxo{
+            outpoint: x.outpoint.borrow().into(),
+            txout: bitcoin::blockdata::transaction::TxOut{ value: x.txout.value,
+                script_pubkey: bitcoin::util::address::Address::from_str(&*x.txout.address).unwrap().script_pubkey()},
+            keychain: x.keychain.into(),
+            is_spent: x.is_spent
         }
     }
 }

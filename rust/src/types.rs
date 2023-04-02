@@ -22,6 +22,14 @@ pub struct OutPoint {
     /// The index of the referenced output in its transaction's vout.
     pub(crate) vout: u32,
 }
+
+pub struct ForeignUtxo{
+    pub outpoint:OutPoint,
+    pub psbt_input:String,
+    pub satisfaction_weight:usize
+}
+
+
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
         BdkOutPoint {
