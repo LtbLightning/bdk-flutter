@@ -370,6 +370,8 @@ void wire_get_psbt_input(int64_t port_,
                          struct wire_LocalUtxo *utxo,
                          bool only_witness_utxo);
 
+void wire_is_input_deserializable(int64_t port_, struct wire_uint_8_list *input_str);
+
 void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
 
 void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnemonic);
@@ -498,6 +500,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_list_unspent);
     dummy_var ^= ((int64_t) (void*) wire_get_descriptor_for_keychain);
     dummy_var ^= ((int64_t) (void*) wire_get_psbt_input);
+    dummy_var ^= ((int64_t) (void*) wire_is_input_deserializable);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);

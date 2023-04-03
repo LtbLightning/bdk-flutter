@@ -396,6 +396,11 @@ pub extern "C" fn wire_get_psbt_input(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_is_input_deserializable(port_: i64, input_str: *mut wire_uint_8_list) {
+    wire_is_input_deserializable_impl(port_, input_str)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
     wire_generate_seed_from_word_count_impl(port_, word_count)
 }

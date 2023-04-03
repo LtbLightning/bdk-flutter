@@ -249,6 +249,10 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetPsbtInputConstMeta;
 
+  Future<bool> isInputDeserializable({required String inputStr, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kIsInputDeserializableConstMeta;
+
   Future<String> generateSeedFromWordCount({required WordCount wordCount, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountConstMeta;

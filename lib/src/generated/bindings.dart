@@ -907,6 +907,22 @@ class RustImpl implements Rust {
         argNames: ["wallet", "utxo", "onlyWitnessUtxo"],
       );
 
+  Future<bool> isInputDeserializable({required String inputStr, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(inputStr);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_is_input_deserializable(port_, arg0),
+      parseSuccessData: _wire2api_bool,
+      constMeta: kIsInputDeserializableConstMeta,
+      argValues: [inputStr],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kIsInputDeserializableConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "is_input_deserializable",
+        argNames: ["inputStr"],
+      );
+
   Future<String> generateSeedFromWordCount({required WordCount wordCount, dynamic hint}) {
     var arg0 = api2wire_word_count(wordCount);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -2609,6 +2625,22 @@ class RustWire implements FlutterRustBridgeWireBase {
       'wire_get_psbt_input');
   late final _wire_get_psbt_input =
       _wire_get_psbt_inputPtr.asFunction<void Function(int, wire_WalletInstance, ffi.Pointer<wire_LocalUtxo>, bool)>();
+
+  void wire_is_input_deserializable(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> input_str,
+  ) {
+    return _wire_is_input_deserializable(
+      port_,
+      input_str,
+    );
+  }
+
+  late final _wire_is_input_deserializablePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+          'wire_is_input_deserializable');
+  late final _wire_is_input_deserializable =
+      _wire_is_input_deserializablePtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_generate_seed_from_word_count(
     int port_,

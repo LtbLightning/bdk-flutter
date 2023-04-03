@@ -1105,10 +1105,10 @@ class Wallet {
     return Descriptor._()._setDescriptor(res);
   }
 
+  ///get the corresponding PSBT Input for a LocalUtxo
   Future<Input> getPsbtInput(LocalUtxo utxo, bool onlyWitnessUtxo) async {
     final res = await loaderApi.getPsbtInput(
         wallet: _wallet!, utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
-    print(res);
     return Input._()._setPsbtInput(res);
   }
 }
@@ -1121,6 +1121,15 @@ class Input {
   Input _setPsbtInput(String psbtInput) {
     _input = psbtInput;
     return this;
+  }
+
+  static Future<Input> create(String psbtInput) async {
+    final res = await loaderApi.isInputDeserializable(inputStr: psbtInput);
+    if (res) {
+      return Input._()._setPsbtInput(psbtInput);
+    } else {
+      throw BdkException.unknownUtxo();
+    }
   }
 
   @override

@@ -41,12 +41,9 @@ class _MyAppState extends State<MyApp> {
 
   restoreWallets() async {
     aliceWallet = await restoreWallet(
-        'safe lemon nurse faculty resist until anxiety beyond recycle panther ticket board');
-    bobWallet = await restoreWallet(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
-    final address =
-        await bobWallet.getAddress(addressIndex: const AddressIndex());
-    print(address.address);
+    bobWallet = await restoreWallet(
+        'safe lemon nurse faculty resist until anxiety beyond recycle panther ticket board');
   }
 
   Future<Wallet> restoreWallet(String mnemonic) async {
@@ -242,13 +239,17 @@ class _MyAppState extends State<MyApp> {
         await Address.create(address: "mvpKDbG9sYZPT8PqcGMnPp3FmdA946mppE");
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
+    //return the list of unspent outputs of this wallet
     final aliceUtxos = await aliceWallet.listUnspent();
+    //get the corresponding PSBT Input for a LocalUtxo
     final aliceInput = await aliceWallet.getPsbtInput(aliceUtxos.last, true);
+    //Returns the descriptor used to create addresses for a particular KeychainKind
     final descriptor =
         await aliceWallet.getDescriptorForKeychain(KeychainKind.External);
+    //Computes an upper bound on the weight of a satisfying witness to the transaction
     final satisfactionWeight = await descriptor.maxSatisfactionWeight();
     final txBuilderResult = await txBuilder
-        .addRecipient(script, 3000)
+        .addRecipient(script, 1000)
         .feeRate(feeRate.asSatPerVb())
         .addForeignUxto(
             aliceUtxos.last.outpoint, aliceInput, satisfactionWeight)
@@ -257,7 +258,6 @@ class _MyAppState extends State<MyApp> {
     final bobSbt = await bobWallet.sign(psbt: aliceSbt);
     final tx = await bobSbt.extractTx();
     await blockchain!.broadcast(tx);
-    sync();
   }
 
   @override

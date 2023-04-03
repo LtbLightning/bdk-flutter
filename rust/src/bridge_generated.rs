@@ -963,6 +963,22 @@ fn wire_get_psbt_input_impl(
         },
     )
 }
+fn wire_is_input_deserializable_impl(
+    port_: MessagePort,
+    input_str: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "is_input_deserializable",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_input_str = input_str.wire2api();
+            move |task_callback| Ok(is_input_deserializable(api_input_str))
+        },
+    )
+}
 fn wire_generate_seed_from_word_count_impl(
     port_: MessagePort,
     word_count: impl Wire2Api<WordCount> + UnwindSafe,

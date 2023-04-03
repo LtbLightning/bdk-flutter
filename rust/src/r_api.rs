@@ -157,7 +157,8 @@ pub fn tx_builder_finish(
         tx_builder.only_witness_utxo();
     }
     if let Some(f_utxo) = foreign_utxo {
-        let input:Input = serde_json::from_str(&f_utxo.psbt_input).expect("Invalid Psbt Input");
+        // let input:Input = deserialize_input(f_utxo.psbt_input);
+        let input:Input = deserialize_input(f_utxo.psbt_input).expect("Invalid input");
         tx_builder.add_foreign_utxo(f_utxo.outpoint.borrow().into(), input, f_utxo.satisfaction_weight).expect("Error adding foreign_utxo!");
     }
     if !unspendable.is_empty() {
@@ -191,7 +192,7 @@ pub fn tx_builder_finish(
     }
 
     return match tx_builder.finish() {
-        Ok(e) => 
+        Ok(e) =>
             BdkTxBuilderResult(Arc::new(PartiallySignedTransaction {
                 internal: Mutex::new(e.0),
             })
@@ -233,7 +234,7 @@ pub fn bump_fee_tx_builder_finish(
         tx_builder.enable_rbf();
     }
     return match tx_builder.finish() {
-        Ok(e) => 
+        Ok(e) =>
             BdkTxBuilderResult(Arc::new(PartiallySignedTransaction {
                 internal: Mutex::new(e.0),
             })
@@ -607,8 +608,24 @@ pub fn get_descriptor_for_keychain(wallet: RustOpaque<WalletInstance>, keychain:
 }
 pub fn  get_psbt_input(wallet: RustOpaque<WalletInstance>, utxo: LocalUtxo, only_witness_utxo: bool) -> String {
     match wallet.get_psbt_input(utxo, only_witness_utxo) {
-        Ok(e) => serde_json::to_string(&e).expect("Unable to serialize the Input"),
+        Ok(e) => serialize_input(&e),
         Err(e) =>panic!("{:?}", e),
+    }
+}
+ fn serialize_input(input:&Input)-> String{
+    match  serde_json::to_string(input){
+        Ok(e) => e,
+        Err(e) =>panic!("Unable to deserialize the Input {:?}", e),
+    }
+ }
+ fn deserialize_input(input_str:String)->  Result<Input, ()>{
+     let input:Input = serde_json::from_str(&input_str).expect("Invalid Psbt Input");
+     Ok(input)
+ }
+pub fn is_input_deserializable(input_str:String)-> bool{
+    match deserialize_input(input_str) {
+        Ok(_) => true,
+        Err(_) => false,
     }
 }
 
