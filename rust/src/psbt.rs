@@ -9,6 +9,7 @@ use flutter_rust_bridge::RustOpaque;
 use std::io::Cursor;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
+use crate::types::{TxIn, TxOut};
 
 #[derive(Debug)]
 pub struct PartiallySignedTransaction {
@@ -100,7 +101,51 @@ impl Transaction {
         Ok(Transaction { internal: tx })
     }
 
+    pub fn txid(&self) -> String {
+        self.internal.txid().to_string()
+    }
+
+    pub fn weight(&self) -> u64 {
+        self.internal.weight() as u64
+    }
+
+    pub fn size(&self) -> u64 {
+        self.internal.size() as u64
+    }
+
+    pub fn vsize(&self) -> u64 {
+        self.internal.vsize() as u64
+    }
+
     pub fn serialize(&self) -> Vec<u8> {
         self.internal.serialize()
+    }
+
+    pub fn is_coin_base(&self) -> bool {
+        self.internal.is_coin_base()
+    }
+
+    pub fn is_explicitly_rbf(&self) -> bool {
+        self.internal.is_explicitly_rbf()
+    }
+
+    pub fn is_lock_time_enabled(&self) -> bool {
+        self.internal.is_lock_time_enabled()
+    }
+
+    pub fn version(&self) -> i32 {
+        self.internal.version
+    }
+
+    pub fn lock_time(&self) -> u32 {
+        self.internal.lock_time.0
+    }
+
+    pub fn input(&self) -> Vec<TxIn> {
+        self.internal.input.iter().map(|x| x.into()).collect()
+    }
+
+    pub fn output(&self) -> Vec<TxOut> {
+        self.internal.output.iter().map(|x| x.into()).collect()
     }
 }

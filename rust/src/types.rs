@@ -3,15 +3,43 @@ use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use std::sync::Arc;
-use bdk::bitcoin::blockdata::script::Script as BdkScript;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
+use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
+use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
+#[derive(Debug, Clone)]
+pub struct TxIn {
+    pub previous_output: OutPoint,
+    pub script_sig: BdkScript,
+    pub sequence: u32,
+    pub witness: Vec<Vec<u8>>,
+}
 
+impl From<&BdkTxIn> for TxIn {
+    fn from(x: &BdkTxIn) -> Self {
+        TxIn {
+            previous_output: x.previous_output.into(),
+            script_sig: BdkScript{script_hex:x.script_sig.to_hex()},
+            sequence: x.sequence.0,
+            witness: x.witness.to_vec(),
+        }
+    }
+}
 ///A transaction output, which defines new coins to be created from old ones.
 pub struct TxOut {
     /// The value of the output, in satoshis.
     pub value: u64,
     /// The address of the output.
-    pub address: String,
+    pub script_pubkey: BdkScript,
+}
+impl From<&BdkTxOut> for TxOut {
+    fn from(x: &BdkTxOut) -> Self {
+        TxOut {
+            value: x.value,
+            script_pubkey: BdkScript {
+                script_hex: x.script_pubkey.to_hex(),
+            }
+        }
+    }
 }
 
 /// A reference to a transaction output.
@@ -22,10 +50,18 @@ pub struct OutPoint {
     /// The index of the referenced output in its transaction's vout.
     pub(crate) vout: u32,
 }
+
+pub struct ForeignUtxo{
+    pub outpoint:OutPoint,
+    pub psbt_input:String,
+    pub satisfaction_weight:usize
+}
+
+
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
         BdkOutPoint {
-            txid: Txid::from_str(&x.clone().txid).unwrap(),
+            txid: Txid::from_str(&*x.clone().txid).unwrap(),
             vout: x.clone().vout,
         }
     }
@@ -177,10 +213,10 @@ impl From<bdk::BlockTime> for BlockTime {
         }
     }
 }
-
+#[derive(Debug, Clone)]
 /// A output script and an amount of satoshis.
 pub struct ScriptAmount {
-    pub script: String,
+    pub script: BdkScript,
     pub amount: u64,
 }
 
@@ -285,27 +321,19 @@ impl Address {
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 
-    pub fn script_pubkey(&self) -> Arc<Script> {
-        Arc::new(Script {
-            script: self.address.script_pubkey(),
-        })
+    pub fn script_pubkey(&self) -> Arc<bdk::bitcoin::Script> {
+        Arc::new(self.address.script_pubkey())
     }
 }
 /// A Bitcoin script.
-#[derive(Clone)]
-pub struct Script {
-    pub script: BdkScript,
+#[derive(Clone,Debug)]
+pub struct BdkScript {
+    pub script_hex: String,
 }
 
-
-impl Script {
-    //Custom function for rApi
-    pub fn from_hex(script: String) -> Result<Self, BdkError> {
-        let script = BdkScript::from_hex(script.as_str()).unwrap();
-        Ok(Script { script })
-    }
-    pub fn new(raw_output_script: Vec<u8>) -> Result<Self, BdkError> {
-        let script = raw_output_script.as_slice().to_hex();
-        Script::from_hex(script)
+impl From<BdkScript> for bdk::bitcoin::Script {
+    fn from(value: BdkScript) -> Self {
+        bdk::bitcoin::Script::from_hex(value.script_hex.as_str()).unwrap()
     }
 }
+

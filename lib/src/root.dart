@@ -32,7 +32,7 @@ class Address {
     try {
       final res = await loaderApi.addressToScriptPubkeyHex(
           address: _address.toString());
-      final script = Script._()._setScriptHex(res);
+      final script = Script(scriptHex: res.scriptHex);
       return script;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -330,6 +330,19 @@ class Descriptor {
           network: network,
           fingerprint: fingerPrint);
       return Descriptor._()._setDescriptor(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  ///Computes an upper bound on the weight of a satisfying witness to the transaction.
+  //
+  // Assumes all ec-signatures are 73 bytes, including push opcode and sighash suffix. Includes the weight of the VarInts encoding the scriptSig and witness stack length.
+  Future<int> maxSatisfactionWeight() async {
+    try {
+      final res = await loaderApi.maxSatisfactionWeight(
+          descriptor: _descriptorInstance!);
+      return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -660,25 +673,29 @@ class PartiallySignedTransaction {
   }
 }
 
+class BdkBalance extends Balance {
+  BdkBalance(
+      {required super.immature,
+      required super.trustedPending,
+      required super.untrustedPending,
+      required super.confirmed,
+      required super.spendable,
+      required super.total});
+}
+
 ///Bitcoin script.
 ///
 /// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
-class Script {
-  String? _scriptHex;
-  Script._();
-
-  Script _setScriptHex(String hex) {
-    _scriptHex = hex;
-    return this;
-  }
+class Script extends BdkScript {
+  Script({required super.scriptHex});
 
   /// [Script] constructor
-  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  Future<Script> create(typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
-      return Script._()._setScriptHex(res);
+      return Script(scriptHex: res.scriptHex);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -686,7 +703,7 @@ class Script {
 
   @override
   String toString() {
-    return _scriptHex.toString();
+    return scriptHex.toString();
   }
 }
 
@@ -729,11 +746,13 @@ class TxBuilder {
   final List<OutPoint> _unSpendable = [];
   bool _manuallySelectedOnly = false;
   bool _onlySpendChange = false;
+  bool _onlyWitnessUtxo = false;
+  ForeignUtxo? _foreignUtxo;
   double? _feeRate;
   int? _feeAbsolute;
   bool _enableRbf = false;
   bool _drainWallet = false;
-  String? _drainTo;
+  Script? _script;
   int? _nSequence;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
@@ -748,7 +767,7 @@ class TxBuilder {
 
   ///Add a recipient to the internal list
   TxBuilder addRecipient(Script script, int amount) {
-    _recipients.add(ScriptAmount(script: script.toString(), amount: amount));
+    _recipients.add(ScriptAmount(script: script, amount: amount));
     return this;
   }
 
@@ -768,6 +787,30 @@ class TxBuilder {
   /// These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
   TxBuilder addUtxo(OutPoint outpoint) {
     _utxos.add(outpoint);
+    return this;
+  }
+
+  /// Add a foreign UTXO i.e. a UTXO not owned by this wallet.
+  /// At a minimum to add a foreign UTXO we need:
+  /// outPoint: To add it to the raw transaction.
+  ///psbtInput: To know the value.
+  /// satisfactionWeight: To know how much weight/vbytes the input will add to the transaction for fee calculation.
+  ///
+  /// There are several security concerns about adding foreign UTXOs that application developers should consider. First, how do you know the value of the input is correct? If a non_witness_utxo is provided in the psbt_input then this method implicitly verifies the value by checking it against the transaction. If only a witness_utxo is provided then this method doesn't verify the value but just takes it as a given -- it is up to you to check that whoever sent you the input_psbt was not lying!
+  /// Secondly, you must somehow provide satisfaction_weight of the input. Depending on your application it may be important that this be known precisely. If not, a malicious counterparty may fool you into putting in a value that is too low, giving the transaction a lower than expected feerate. They could also fool you into putting a value that is too high causing you to pay a fee that is too high. The party who is broadcasting the transaction can of course check the real input weight matches the expected weight prior to broadcasting.
+  /// To guarantee the satisfaction_weight is correct, you can require the party providing the psbt_input provide a miniscript descriptor for the input so you can check it against the script_pubkey and then ask it for the max_satisfaction_weight.
+  /// This is an EXPERIMENTAL feature, API and other major changes are expected.
+  /// Errors
+  /// This method returns errors in the following circumstances:
+  /// The psbtInput does not contain a witness_utxo or non_witness_utxo.
+  /// The data in non_witness_utxo does not match what is in outpoint.
+  /// Note unless you set only_witness_utxo any non-taproot psbt_input you pass to this method must have non_witness_utxo set otherwise you will get an error when finish is called.
+  TxBuilder addForeignUxto(
+      OutPoint outPoint, Input psbtInput, int satisfactionWeight) {
+    _foreignUtxo = ForeignUtxo(
+        outpoint: outPoint,
+        psbtInput: psbtInput.toString(),
+        satisfactionWeight: satisfactionWeight);
     return this;
   }
 
@@ -791,6 +834,14 @@ class TxBuilder {
     return this;
   }
 
+  ///Only Fill-in the witnessUtxo field when spending from SegWit descriptors.
+  // This reduces the size of the PSBT, but some signers might reject them due to the lack of the non_witness_utxo.
+
+  TxBuilder onlyWitnessUtxo() {
+    _onlyWitnessUtxo = true;
+    return this;
+  }
+
   ///Spend all the available inputs. This respects filters like TxBuilder().unSpendable and the change policy.
   TxBuilder drainWallet() {
     _drainWallet = true;
@@ -807,8 +858,8 @@ class TxBuilder {
   /// If you choose not to set any recipients, you should either provide the utxos that the transaction should spend via add_utxos, or set drainWallet to spend all of them.
   ///
   /// When bumping the fees of a transaction made with this option, you probably want to use allowShrinking to allow this output to be reduced to pay for the extra fees.
-  TxBuilder drainTo(String address) {
-    _drainTo = address;
+  TxBuilder drainTo(Script script) {
+    _script = script;
     return this;
   }
 
@@ -888,6 +939,7 @@ class TxBuilder {
           wallet: wallet._wallet!,
           recipients: _recipients,
           utxos: _utxos,
+          foreignUtxo: _foreignUtxo,
           unspendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           onlySpendChange: _onlySpendChange,
@@ -895,10 +947,11 @@ class TxBuilder {
           drainWallet: _drainWallet,
           nSequence: _nSequence,
           enableRbf: _enableRbf,
-          drainTo: _drainTo,
+          drainTo: _script,
           feeAbsolute: _feeAbsolute,
           feeRate: _feeRate,
-          data: _data);
+          data: _data,
+          onlyWitnessUtxo: _onlyWitnessUtxo);
 
       return TxBuilderResult(
           psbt: PartiallySignedTransaction(psbtBase64: res.field0),
@@ -996,7 +1049,7 @@ class Wallet {
   /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<List<LocalUtxo>> listUnspent() async {
     try {
-      var res = await loaderApi.listUnspentOutputs(wallet: _wallet!);
+      var res = await loaderApi.listUnspent(wallet: _wallet!);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1033,10 +1086,13 @@ class Wallet {
   ///
   /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
   Future<PartiallySignedTransaction> sign(
-      PartiallySignedTransaction psbt) async {
+      {bool trustWitnessUtxo = false,
+      required PartiallySignedTransaction psbt}) async {
     try {
       final sbt = await loaderApi.sign(
-          psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
+          psbtStr: psbt.psbtBase64,
+          wallet: _wallet!,
+          trustWitnessUtxo: trustWitnessUtxo);
       if (sbt == null) {
         throw const BdkException.unExpected("Unable to sign transaction");
       }
@@ -1044,5 +1100,44 @@ class Wallet {
     } on FfiException catch (e) {
       throw configException(e.message);
     }
+  }
+
+  ///Returns the descriptor used to create addresses for a particular [KeychainKind].
+  Future<Descriptor> getDescriptorForKeychain(KeychainKind keychain) async {
+    final res = await loaderApi.getDescriptorForKeychain(
+        wallet: _wallet!, keychain: keychain);
+    return Descriptor._()._setDescriptor(res);
+  }
+
+  ///get the corresponding PSBT Input for a LocalUtxo
+  Future<Input> getPsbtInput(LocalUtxo utxo, bool onlyWitnessUtxo) async {
+    final res = await loaderApi.getPsbtInput(
+        wallet: _wallet!, utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+    return Input._()._setPsbtInput(res);
+  }
+}
+
+/// A key-value map for an input of the corresponding index in the unsigned
+/// transaction.
+class Input {
+  String? _input;
+  Input._();
+  Input _setPsbtInput(String psbtInput) {
+    _input = psbtInput;
+    return this;
+  }
+
+  static Future<Input> create(String psbtInput) async {
+    final res = await loaderApi.isInputDeserializable(inputStr: psbtInput);
+    if (res) {
+      return Input._()._setPsbtInput(psbtInput);
+    } else {
+      throw BdkException.unknownUtxo();
+    }
+  }
+
+  @override
+  String toString() {
+    return _input.toString();
   }
 }

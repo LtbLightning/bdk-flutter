@@ -16,18 +16,19 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
-  late Wallet bdkWallet;
+  late Wallet aliceWallet;
+  late Wallet bobWallet;
   Descriptor? aliceDescriptor;
   late Descriptor aliceChangeDescriptor;
   Blockchain? blockchain;
 
   @override
   void initState() {
-    restoreWallet();
+    restoreWallets();
     super.initState();
   }
 
-  generateMnemonicKeys() async {
+  Future<Mnemonic> generateMnemonicKeys() async {
     final res = await Mnemonic.create(WordCount.Words12);
     setState(() {
       displayText = res.toString();
@@ -35,12 +36,20 @@ class _MyAppState extends State<MyApp> {
     if (kDebugMode) {
       print(res.asString());
     }
+    return res;
   }
 
-  restoreWallet() async {
-    await createDescriptorSecret();
-    bdkWallet = await Wallet.create(
-        descriptor: aliceDescriptor!,
+  restoreWallets() async {
+    aliceWallet = await restoreWallet(
+        'puppy interest whip tonight dad never sudden response push zone pig patch');
+    bobWallet = await restoreWallet(
+        'safe lemon nurse faculty resist until anxiety beyond recycle panther ticket board');
+  }
+
+  Future<Wallet> restoreWallet(String mnemonic) async {
+    final descriptor = await createDescriptorSecret(mnemonic);
+    final bdkWallet = await Wallet.create(
+        descriptor: descriptor,
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     final address =
@@ -49,11 +58,11 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       displayText = "Wallet restored with address: ${address.address} ";
     });
+    return bdkWallet;
   }
 
-  createDescriptorSecret() async {
-    final mnemonic = await Mnemonic.fromString(
-        'puppy interest whip tonight dad never sudden response push zone pig patch');
+  Future<Descriptor> createDescriptorSecret(String mnemonicStr) async {
+    final mnemonic = await Mnemonic.fromString(mnemonicStr);
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic,
@@ -63,22 +72,20 @@ class _MyAppState extends State<MyApp> {
         network: Network.Testnet,
         keychain: KeychainKind.External);
 
-    setState(() {
-      aliceDescriptor = descriptor;
-    });
+    return descriptor;
   }
 
   initBlockchain(bool isElectrumBlockchain) async {
     if (blockchain == null) {
       if (!isElectrumBlockchain) {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.esplora(
+            config: const BlockchainConfig.esplora(
                 config: EsploraConfig(
                     baseUrl: 'https://blockstream.info/testnet/api',
                     stopGap: 10)));
       } else {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.electrum(
+            config: const BlockchainConfig.electrum(
                 config: ElectrumConfig(
                     stopGap: 10,
                     timeout: 5,
@@ -90,15 +97,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    await initBlockchain(true);
-    bdkWallet.sync(blockchain!);
+    if (blockchain == null) await initBlockchain(true);
+    aliceWallet.sync(blockchain!);
+    bobWallet.sync(blockchain!);
     setState(() {
       displayText = "Syncing completed";
     });
   }
 
   getNewAddress() async {
-    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+    final res =
+        await aliceWallet.getAddress(addressIndex: const AddressIndex());
     if (kDebugMode) {
       print(res.address);
     }
@@ -109,7 +118,7 @@ class _MyAppState extends State<MyApp> {
 
   getUnConfirmedTransactions() async {
     List<TransactionDetails> unConfirmed = [];
-    final res = await bdkWallet.listTransactions();
+    final res = await aliceWallet.listTransactions();
 
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
@@ -130,7 +139,7 @@ class _MyAppState extends State<MyApp> {
 
   getConfirmedTransactions() async {
     List<TransactionDetails> confirmed = [];
-    final res = await bdkWallet.listTransactions();
+    final res = await aliceWallet.listTransactions();
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
     }
@@ -151,7 +160,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await bdkWallet.getBalance();
+    final res = await aliceWallet.getBalance();
+    final bob = await bobWallet.getBalance();
+    print(bob.total);
     setState(() {
       balance = res.total;
       displayText =
@@ -160,7 +171,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   listUnspent() async {
-    final res = await bdkWallet.listUnspent();
+    final res = await aliceWallet.listUnspent();
     setState(() {
       displayText =
           " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
@@ -170,7 +181,8 @@ class _MyAppState extends State<MyApp> {
         print("isSpent: ${e.isSpent}");
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
-        print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
+        print(
+            "txout: { address:${e.txout.scriptPubkey.scriptHex}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -224,18 +236,28 @@ class _MyAppState extends State<MyApp> {
   sendBit() async {
     final txBuilder = TxBuilder();
     final address =
-        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+        await Address.create(address: "mvpKDbG9sYZPT8PqcGMnPp3FmdA946mppE");
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
+    //return the list of unspent outputs of this wallet
+    final aliceUtxos = await aliceWallet.listUnspent();
+    //get the corresponding PSBT Input for a LocalUtxo
+    final aliceInput = await aliceWallet.getPsbtInput(aliceUtxos.last, true);
+    //Returns the descriptor used to create addresses for a particular KeychainKind
+    final descriptor =
+        await aliceWallet.getDescriptorForKeychain(KeychainKind.External);
+    //Computes an upper bound on the weight of a satisfying witness to the transaction
+    final satisfactionWeight = await descriptor.maxSatisfactionWeight();
     final txBuilderResult = await txBuilder
-        .addRecipient(script, 700)
+        .addRecipient(script, 1000)
         .feeRate(feeRate.asSatPerVb())
-        .finish(bdkWallet);
-    getTransactionDetails(txBuilderResult);
-    final sbt = await bdkWallet.sign(txBuilderResult.psbt);
-    final tx = await sbt.extractTx();
+        .addForeignUxto(
+            aliceUtxos.last.outpoint, aliceInput, satisfactionWeight)
+        .finish(bobWallet);
+    final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
+    final bobSbt = await bobWallet.sign(psbt: aliceSbt);
+    final tx = await bobSbt.extractTx();
     await blockchain!.broadcast(tx);
-    sync();
   }
 
   @override

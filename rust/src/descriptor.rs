@@ -14,6 +14,7 @@ use bdk::KeychainKind;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::Arc;
+use bdk::miniscript::Error;
 
 #[derive(Debug)]
 pub struct BdkDescriptor {
@@ -22,6 +23,7 @@ pub struct BdkDescriptor {
 }
 
 impl BdkDescriptor {
+
     pub(crate) fn new(descriptor: String, network: Network) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let (extended_descriptor, key_map) = descriptor.into_wallet_descriptor(&secp, network)?;
@@ -190,6 +192,10 @@ impl BdkDescriptor {
         descriptor.to_string_with_secret(key_map)
     }
 
+    pub(crate) fn max_satisfaction_weight(&self) -> Result<usize, Error> {
+        let descriptor = &self.extended_descriptor;
+        descriptor.max_satisfaction_weight()
+    }
     pub(crate) fn as_string(&self) -> String {
         self.extended_descriptor.to_string()
     }
