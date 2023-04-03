@@ -4,7 +4,7 @@ pub use crate::descriptor::BdkDescriptor;
 use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
 use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
-use crate::types::{Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ForeignUtxo, KeychainKind, Network, OutPoint, Script, ScriptAmount, TransactionDetails, WordCount};
+use crate::types::{Address, AddressIndex, AddressInfo, Balance, BdkScript, BdkTxBuilderResult, ForeignUtxo, KeychainKind, Network, OutPoint,ScriptAmount, TransactionDetails, WordCount};
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
@@ -15,6 +15,7 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
+use bdk::bitcoin::consensus::Decodable;
 use bdk::bitcoin::psbt::Input;
 pub use bdk::bitcoin::psbt::Input as PsbtInput;
 
@@ -129,7 +130,7 @@ pub fn tx_builder_finish(
     fee_rate: Option<f32>,
     fee_absolute: Option<u64>,
     drain_wallet: bool,
-    drain_to: Option<String>,
+    drain_to: Option<BdkScript>,
     enable_rbf: bool,
     n_sequence: Option<u32>,
     data: Vec<u8>,
@@ -138,8 +139,8 @@ pub fn tx_builder_finish(
     let mut tx_builder = binding.build_tx();
 
     for e in recipients {
-        let script = Script::from_hex(e.script).unwrap();
-        tx_builder.add_recipient(script.script, e.amount);
+        let script = e.script.into();
+        tx_builder.add_recipient(script, e.amount);
     }
     if do_not_spend_change {
         tx_builder.change_policy(ChangeSpendPolicy::ChangeForbidden);
@@ -178,8 +179,8 @@ pub fn tx_builder_finish(
         tx_builder.drain_wallet();
     }
     if let Some(script_) = drain_to {
-        let script = Script::from_hex(script_).unwrap();
-        tx_builder.drain_to(script.script);
+        let script = script_.into();
+        tx_builder.drain_to(script);
     }
     if enable_rbf {
         tx_builder.enable_rbf();
@@ -350,7 +351,6 @@ pub fn max_satisfaction_weight(descriptor: RustOpaque<BdkDescriptor>) -> usize {
         Ok(e) => e,
         Err(e) =>panic!("{:?}", e),
     }
-
 }
 //======================
 
@@ -489,11 +489,9 @@ pub fn create_descriptor_public(
 }
 
 //============ Script Class===========
-pub fn init_script(raw_output_script: Vec<u8>) -> String {
-    return match Script::new(raw_output_script) {
-        Ok(e) => e.script.to_hex(),
-        Err(e) =>panic!("{:?}", e),
-    };
+pub fn init_script(raw_output_script: Vec<u8>) -> BdkScript {
+    let script = raw_output_script.as_slice().to_hex();
+    BdkScript{ script_hex:script }
 }
 
 //================Address============
@@ -504,12 +502,13 @@ pub fn init_address(address: String) -> String {
     };
 }
 
-pub fn address_to_script_pubkey_hex(address: String) -> String {
+pub fn address_to_script_pubkey_hex(address: String) -> BdkScript {
     let script = Address::new(address).unwrap();
-    script.script_pubkey().script.to_hex()
+    BdkScript{ script_hex:script.script_pubkey().to_hex() }
+
 }
 
-//========Wallet==========
+//========Wallet=========
 
 pub fn wallet_init(
     descriptor: RustOpaque<BdkDescriptor>,
@@ -560,8 +559,6 @@ pub fn get_balance(wallet: RustOpaque<WalletInstance>) -> Balance {
     }
 }
 
-
-
 pub fn get_transactions(
     wallet: RustOpaque<WalletInstance>,
 ) -> Vec<TransactionDetails> {
@@ -570,7 +567,6 @@ pub fn get_transactions(
         Err(e) =>panic!("{:?}", e),
     }
 }
-
 
 pub fn sign(
     wallet: RustOpaque<WalletInstance>,
@@ -651,3 +647,5 @@ pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> String {
         Err(e) =>panic!("{:?}", e),
     }
 }
+
+

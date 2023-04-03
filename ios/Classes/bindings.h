@@ -83,8 +83,12 @@ typedef struct wire_WalletInstance {
   const void *ptr;
 } wire_WalletInstance;
 
+typedef struct wire_BdkScript {
+  struct wire_uint_8_list *script_hex;
+} wire_BdkScript;
+
 typedef struct wire_ScriptAmount {
-  struct wire_uint_8_list *script;
+  struct wire_BdkScript script;
   uint64_t amount;
 } wire_ScriptAmount;
 
@@ -175,7 +179,7 @@ typedef struct wire_AddressIndex {
 
 typedef struct wire_TxOut {
   uint64_t value;
-  struct wire_uint_8_list *address;
+  struct wire_BdkScript script_pubkey;
 } wire_TxOut;
 
 typedef struct wire_LocalUtxo {
@@ -184,6 +188,10 @@ typedef struct wire_LocalUtxo {
   bool is_spent;
   int32_t keychain;
 } wire_LocalUtxo;
+
+typedef struct wire_LdkTransaction {
+  struct wire_uint_8_list *transaction_bytes;
+} wire_LdkTransaction;
 
 typedef struct DartCObject *WireSyncReturn;
 
@@ -238,7 +246,7 @@ void wire_tx_builder_finish(int64_t port_,
                             float *fee_rate,
                             uint64_t *fee_absolute,
                             bool drain_wallet,
-                            struct wire_uint_8_list *drain_to,
+                            struct wire_BdkScript *drain_to,
                             bool enable_rbf,
                             uint32_t *n_sequence,
                             struct wire_uint_8_list *data);
@@ -378,6 +386,10 @@ void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnem
 
 void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
 
+void wire_txid__method__LdkTransaction(int64_t port_, struct wire_LdkTransaction *that);
+
+void wire_weight__method__LdkTransaction(int64_t port_, struct wire_LdkTransaction *that);
+
 struct wire_BdkDescriptor new_BdkDescriptor(void);
 
 struct wire_BlockchainInstance new_BlockchainInstance(void);
@@ -387,6 +399,8 @@ struct wire_WalletInstance new_WalletInstance(void);
 struct wire_BdkDescriptor *new_box_autoadd_BdkDescriptor_0(void);
 
 struct wire_AddressIndex *new_box_autoadd_address_index_0(void);
+
+struct wire_BdkScript *new_box_autoadd_bdk_script_0(void);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
@@ -399,6 +413,8 @@ struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 float *new_box_autoadd_f32_0(float value);
 
 struct wire_ForeignUtxo *new_box_autoadd_foreign_utxo_0(void);
+
+struct wire_LdkTransaction *new_box_autoadd_ldk_transaction_0(void);
 
 struct wire_LocalUtxo *new_box_autoadd_local_utxo_0(void);
 
@@ -504,17 +520,21 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
+    dummy_var ^= ((int64_t) (void*) wire_txid__method__LdkTransaction);
+    dummy_var ^= ((int64_t) (void*) wire_weight__method__LdkTransaction);
     dummy_var ^= ((int64_t) (void*) new_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_BdkDescriptor_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_bdk_script_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_foreign_utxo_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_ldk_transaction_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_local_utxo_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);

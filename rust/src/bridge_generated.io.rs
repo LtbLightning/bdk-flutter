@@ -83,7 +83,7 @@ pub extern "C" fn wire_tx_builder_finish(
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
     drain_wallet: bool,
-    drain_to: *mut wire_uint_8_list,
+    drain_to: *mut wire_BdkScript,
     enable_rbf: bool,
     n_sequence: *mut u32,
     data: *mut wire_uint_8_list,
@@ -415,6 +415,16 @@ pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire
     wire_generate_seed_from_entropy_impl(port_, entropy)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_txid__method__LdkTransaction(port_: i64, that: *mut wire_LdkTransaction) {
+    wire_txid__method__LdkTransaction_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_weight__method__LdkTransaction(port_: i64, that: *mut wire_LdkTransaction) {
+    wire_weight__method__LdkTransaction_impl(port_, that)
+}
+
 // Section: allocate functions
 
 #[no_mangle]
@@ -440,6 +450,11 @@ pub extern "C" fn new_box_autoadd_BdkDescriptor_0() -> *mut wire_BdkDescriptor {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
     support::new_leak_box_ptr(wire_AddressIndex::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_bdk_script_0() -> *mut wire_BdkScript {
+    support::new_leak_box_ptr(wire_BdkScript::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -470,6 +485,11 @@ pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_foreign_utxo_0() -> *mut wire_ForeignUtxo {
     support::new_leak_box_ptr(wire_ForeignUtxo::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_ldk_transaction_0() -> *mut wire_LdkTransaction {
+    support::new_leak_box_ptr(wire_LdkTransaction::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -637,6 +657,13 @@ impl Wire2Api<AddressIndex> for wire_AddressIndex {
         }
     }
 }
+impl Wire2Api<BdkScript> for wire_BdkScript {
+    fn wire2api(self) -> BdkScript {
+        BdkScript {
+            script_hex: self.script_hex.wire2api(),
+        }
+    }
+}
 impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         match self.tag {
@@ -678,6 +705,12 @@ impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
         Wire2Api::<AddressIndex>::wire2api(*wrap).into()
     }
 }
+impl Wire2Api<BdkScript> for *mut wire_BdkScript {
+    fn wire2api(self) -> BdkScript {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<BdkScript>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -711,6 +744,12 @@ impl Wire2Api<ForeignUtxo> for *mut wire_ForeignUtxo {
     fn wire2api(self) -> ForeignUtxo {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<ForeignUtxo>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<LdkTransaction> for *mut wire_LdkTransaction {
+    fn wire2api(self) -> LdkTransaction {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<LdkTransaction>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<LocalUtxo> for *mut wire_LocalUtxo {
@@ -820,6 +859,13 @@ impl Wire2Api<ForeignUtxo> for wire_ForeignUtxo {
     }
 }
 
+impl Wire2Api<LdkTransaction> for wire_LdkTransaction {
+    fn wire2api(self) -> LdkTransaction {
+        LdkTransaction {
+            transaction_bytes: self.transaction_bytes.wire2api(),
+        }
+    }
+}
 impl Wire2Api<Vec<OutPoint>> for *mut wire_list_out_point {
     fn wire2api(self) -> Vec<OutPoint> {
         let vec = unsafe {
@@ -906,7 +952,7 @@ impl Wire2Api<TxOut> for wire_TxOut {
     fn wire2api(self) -> TxOut {
         TxOut {
             value: self.value.wire2api(),
-            address: self.address.wire2api(),
+            script_pubkey: self.script_pubkey.wire2api(),
         }
     }
 }
@@ -950,6 +996,12 @@ pub struct wire_WalletInstance {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_BdkScript {
+    script_hex: *mut wire_uint_8_list,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_ElectrumConfig {
     url: *mut wire_uint_8_list,
     socks5: *mut wire_uint_8_list,
@@ -975,6 +1027,12 @@ pub struct wire_ForeignUtxo {
     outpoint: wire_OutPoint,
     psbt_input: *mut wire_uint_8_list,
     satisfaction_weight: usize,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_LdkTransaction {
+    transaction_bytes: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
@@ -1030,7 +1088,7 @@ pub struct wire_RpcSyncParams {
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_ScriptAmount {
-    script: *mut wire_uint_8_list,
+    script: wire_BdkScript,
     amount: u64,
 }
 
@@ -1051,7 +1109,7 @@ pub struct wire_SqliteDbConfiguration {
 #[derive(Clone)]
 pub struct wire_TxOut {
     value: u64,
-    address: *mut wire_uint_8_list,
+    script_pubkey: wire_BdkScript,
 }
 
 #[repr(C)]
@@ -1102,6 +1160,7 @@ pub struct wire_AddressIndex_Peek {
 pub struct wire_AddressIndex_Reset {
     index: u32,
 }
+
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_BlockchainConfig {
@@ -1225,6 +1284,20 @@ pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
     })
 }
 
+impl NewWithNullPtr for wire_BdkScript {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            script_hex: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_BdkScript {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_BlockchainConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1341,6 +1414,20 @@ impl Default for wire_ForeignUtxo {
     }
 }
 
+impl NewWithNullPtr for wire_LdkTransaction {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            transaction_bytes: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_LdkTransaction {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_LocalUtxo {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1412,7 +1499,7 @@ impl Default for wire_RpcSyncParams {
 impl NewWithNullPtr for wire_ScriptAmount {
     fn new_with_null_ptr() -> Self {
         Self {
-            script: core::ptr::null_mut(),
+            script: Default::default(),
             amount: Default::default(),
         }
     }
@@ -1457,7 +1544,7 @@ impl NewWithNullPtr for wire_TxOut {
     fn new_with_null_ptr() -> Self {
         Self {
             value: Default::default(),
-            address: core::ptr::null_mut(),
+            script_pubkey: Default::default(),
         }
     }
 }

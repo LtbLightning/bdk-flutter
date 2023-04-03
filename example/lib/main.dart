@@ -172,7 +172,6 @@ class _MyAppState extends State<MyApp> {
 
   listUnspent() async {
     final res = await aliceWallet.listUnspent();
-
     setState(() {
       displayText =
           " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
@@ -182,7 +181,8 @@ class _MyAppState extends State<MyApp> {
         print("isSpent: ${e.isSpent}");
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
-        print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
+        print(
+            "txout: { address:${e.txout.scriptPubkey.scriptHex}, value: ${e.txout.value} }");
         print("===========================");
       }
     }

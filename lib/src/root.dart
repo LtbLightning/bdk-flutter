@@ -32,7 +32,7 @@ class Address {
     try {
       final res = await loaderApi.addressToScriptPubkeyHex(
           address: _address.toString());
-      final script = Script._()._setScriptHex(res);
+      final script = Script(scriptHex: res.scriptHex);
       return script;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -673,25 +673,29 @@ class PartiallySignedTransaction {
   }
 }
 
+class BdkBalance extends Balance {
+  BdkBalance(
+      {required super.immature,
+      required super.trustedPending,
+      required super.untrustedPending,
+      required super.confirmed,
+      required super.spendable,
+      required super.total});
+}
+
 ///Bitcoin script.
 ///
 /// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
-class Script {
-  String? _scriptHex;
-  Script._();
-
-  Script _setScriptHex(String hex) {
-    _scriptHex = hex;
-    return this;
-  }
+class Script extends BdkScript {
+  Script({required super.scriptHex});
 
   /// [Script] constructor
-  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  Future<Script> create(typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
-      return Script._()._setScriptHex(res);
+      return Script(scriptHex: res.scriptHex);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -699,7 +703,7 @@ class Script {
 
   @override
   String toString() {
-    return _scriptHex.toString();
+    return scriptHex.toString();
   }
 }
 
@@ -748,7 +752,7 @@ class TxBuilder {
   int? _feeAbsolute;
   bool _enableRbf = false;
   bool _drainWallet = false;
-  String? _drainTo;
+  Script? _script;
   int? _nSequence;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
@@ -763,7 +767,7 @@ class TxBuilder {
 
   ///Add a recipient to the internal list
   TxBuilder addRecipient(Script script, int amount) {
-    _recipients.add(ScriptAmount(script: script.toString(), amount: amount));
+    _recipients.add(ScriptAmount(script: script, amount: amount));
     return this;
   }
 
@@ -854,8 +858,8 @@ class TxBuilder {
   /// If you choose not to set any recipients, you should either provide the utxos that the transaction should spend via add_utxos, or set drainWallet to spend all of them.
   ///
   /// When bumping the fees of a transaction made with this option, you probably want to use allowShrinking to allow this output to be reduced to pay for the extra fees.
-  TxBuilder drainTo(String address) {
-    _drainTo = address;
+  TxBuilder drainTo(Script script) {
+    _script = script;
     return this;
   }
 
@@ -943,7 +947,7 @@ class TxBuilder {
           drainWallet: _drainWallet,
           nSequence: _nSequence,
           enableRbf: _enableRbf,
-          drainTo: _drainTo,
+          drainTo: _script,
           feeAbsolute: _feeAbsolute,
           feeRate: _feeRate,
           data: _data,

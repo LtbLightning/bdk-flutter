@@ -7,12 +7,12 @@ use bdk::{bitcoin, Error as BdkError, Error, KeychainKind, SyncOptions};
 use bdk::{SignOptions, Wallet as BdkWallet};
 use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
-use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
+use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::psbt::Input;
 use bdk::descriptor::{ KeyMap};
 
-use crate::types::{AddressIndex, AddressInfo, Balance, OutPoint, TransactionDetails, TxOut};
+use crate::types::{AddressIndex, AddressInfo, Balance, OutPoint, BdkScript, TransactionDetails, TxOut};
 
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
@@ -32,7 +32,7 @@ impl WalletInstance {
     pub fn new(
         descriptor: Arc<RustOpaque<BdkDescriptor>>,
         change_descriptor: Option<Arc<RustOpaque<BdkDescriptor>>>,
-        network: bdk::bitcoin::Network,
+        network: bitcoin::Network,
         database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
         let database = AnyDatabase::from_config(&database_config.into()).unwrap();
@@ -95,7 +95,7 @@ impl WalletInstance {
         let unspents = self.get_wallet().list_unspent()?;
         Ok(unspents
             .iter()
-            .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
+            .map(|u| u.into())
             .collect())
     }
     pub fn sign(&self, psbt: &PartiallySignedTransaction, trust_witness_utxo:bool) -> Result<bool, BdkError> {
@@ -112,7 +112,7 @@ impl WalletInstance {
     }
     pub fn  get_psbt_input(&self, utxo: LocalUtxo, only_witness_utxo: bool) -> Result<Input, Error> {
         let wallet = self.get_wallet();
-        wallet.get_psbt_input(LocalUtxo::to_utxo(utxo), None, only_witness_utxo)
+        wallet.get_psbt_input(utxo.into(), None, only_witness_utxo)
     }
 }
 /// Unspent outputs of this wallet
@@ -129,36 +129,30 @@ pub struct LocalUtxo {
 
 // This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
 // into the bdk-ffi TxOut type which has a field `address: String` instead
-trait NetworkLocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo;
-    fn to_utxo(x: LocalUtxo ) -> bdk::LocalUtxo;
-}
-impl NetworkLocalUtxo for LocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo {
+
+impl From<&bdk::LocalUtxo> for LocalUtxo {
+    fn from(local_utxo: &bdk::LocalUtxo) -> Self {
         LocalUtxo {
             outpoint: OutPoint {
-                txid: x.clone().outpoint.txid.to_string(),
-                vout: x.clone().outpoint.vout,
+                txid: local_utxo.outpoint.txid.to_string(),
+                vout: local_utxo.outpoint.vout,
             },
             txout: TxOut {
-                value: x.clone().txout.value,
-                address: bitcoin::util::address::Address::from_script(
-                    &x.txout.script_pubkey,
-                    network,
-                )
-                .unwrap()
-                .to_string(),
+                value: local_utxo.txout.value,
+                script_pubkey: BdkScript {
+                    script_hex: local_utxo.txout.script_pubkey.clone().to_hex(),
+                },
             },
-            is_spent: x.clone().is_spent,
-            keychain: x.keychain.into()
+            is_spent: local_utxo.clone().is_spent,
+            keychain: local_utxo.keychain.into()
         }
     }
-
-    fn to_utxo(x: LocalUtxo) -> bdk::LocalUtxo {
-        bdk::LocalUtxo{
+}
+impl From<LocalUtxo> for bdk::LocalUtxo {
+    fn from(x: LocalUtxo) -> Self {
+        bdk::LocalUtxo {
             outpoint: x.outpoint.borrow().into(),
-            txout: bitcoin::blockdata::transaction::TxOut{ value: x.txout.value,
-                script_pubkey: bitcoin::util::address::Address::from_str(&*x.txout.address).unwrap().script_pubkey()},
+            txout:bitcoin::blockdata::transaction::TxOut{ value: x.txout.value, script_pubkey: x.txout.script_pubkey.into() },
             keychain: x.keychain.into(),
             is_spent: x.is_spent
         }

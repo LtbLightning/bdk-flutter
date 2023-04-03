@@ -218,7 +218,7 @@ class RustImpl implements Rust {
       double? feeRate,
       int? feeAbsolute,
       required bool drainWallet,
-      String? drainTo,
+      BdkScript? drainTo,
       required bool enableRbf,
       int? nSequence,
       required Uint8List data,
@@ -235,7 +235,7 @@ class RustImpl implements Rust {
     var arg9 = _platform.api2wire_opt_box_autoadd_f32(feeRate);
     var arg10 = _platform.api2wire_opt_box_autoadd_u64(feeAbsolute);
     var arg11 = drainWallet;
-    var arg12 = _platform.api2wire_opt_String(drainTo);
+    var arg12 = _platform.api2wire_opt_box_autoadd_bdk_script(drainTo);
     var arg13 = enableRbf;
     var arg14 = _platform.api2wire_opt_box_autoadd_u32(nSequence);
     var arg15 = _platform.api2wire_uint_8_list(data);
@@ -663,11 +663,11 @@ class RustImpl implements Rust {
         argNames: ["xpub", "path", "derive"],
       );
 
-  Future<String> initScript({required Uint8List rawOutputScript, dynamic hint}) {
+  Future<BdkScript> initScript({required Uint8List rawOutputScript, dynamic hint}) {
     var arg0 = _platform.api2wire_uint_8_list(rawOutputScript);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_init_script(port_, arg0),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_bdk_script,
       constMeta: kInitScriptConstMeta,
       argValues: [rawOutputScript],
       hint: hint,
@@ -695,11 +695,11 @@ class RustImpl implements Rust {
         argNames: ["address"],
       );
 
-  Future<String> addressToScriptPubkeyHex({required String address, dynamic hint}) {
+  Future<BdkScript> addressToScriptPubkeyHex({required String address, dynamic hint}) {
     var arg0 = _platform.api2wire_String(address);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_address_to_script_pubkey_hex(port_, arg0),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_bdk_script,
       constMeta: kAddressToScriptPubkeyHexConstMeta,
       argValues: [address],
       hint: hint,
@@ -971,6 +971,38 @@ class RustImpl implements Rust {
         argNames: ["entropy"],
       );
 
+  Future<String> txidMethodLdkTransaction({required LdkTransaction that, dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_ldk_transaction(that);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_txid__method__LdkTransaction(port_, arg0),
+      parseSuccessData: _wire2api_String,
+      constMeta: kTxidMethodLdkTransactionConstMeta,
+      argValues: [that],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kTxidMethodLdkTransactionConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "txid__method__LdkTransaction",
+        argNames: ["that"],
+      );
+
+  Future<int> weightMethodLdkTransaction({required LdkTransaction that, dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_ldk_transaction(that);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_weight__method__LdkTransaction(port_, arg0),
+      parseSuccessData: _wire2api_u64,
+      constMeta: kWeightMethodLdkTransactionConstMeta,
+      argValues: [that],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kWeightMethodLdkTransactionConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "weight__method__LdkTransaction",
+        argNames: ["that"],
+      );
+
   DropFnType get dropOpaqueBdkDescriptor => _platform.inner.drop_opaque_BdkDescriptor;
   ShareFnType get shareOpaqueBdkDescriptor => _platform.inner.share_opaque_BdkDescriptor;
   OpaqueTypeFinalizer get BdkDescriptorFinalizer => _platform.BdkDescriptorFinalizer;
@@ -1023,6 +1055,14 @@ class RustImpl implements Rust {
       confirmed: _wire2api_u64(arr[3]),
       spendable: _wire2api_u64(arr[4]),
       total: _wire2api_u64(arr[5]),
+    );
+  }
+
+  BdkScript _wire2api_bdk_script(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1) throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return BdkScript(
+      scriptHex: _wire2api_String(arr[0]),
     );
   }
 
@@ -1137,7 +1177,7 @@ class RustImpl implements Rust {
     if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return TxOut(
       value: _wire2api_u64(arr[0]),
-      address: _wire2api_String(arr[1]),
+      scriptPubkey: _wire2api_bdk_script(arr[1]),
     );
   }
 
@@ -1260,6 +1300,13 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
+  ffi.Pointer<wire_BdkScript> api2wire_box_autoadd_bdk_script(BdkScript raw) {
+    final ptr = inner.new_box_autoadd_bdk_script_0();
+    _api_fill_to_wire_bdk_script(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_BlockchainConfig> api2wire_box_autoadd_blockchain_config(BlockchainConfig raw) {
     final ptr = inner.new_box_autoadd_blockchain_config_0();
     _api_fill_to_wire_blockchain_config(raw, ptr.ref);
@@ -1296,6 +1343,13 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   ffi.Pointer<wire_ForeignUtxo> api2wire_box_autoadd_foreign_utxo(ForeignUtxo raw) {
     final ptr = inner.new_box_autoadd_foreign_utxo_0();
     _api_fill_to_wire_foreign_utxo(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_LdkTransaction> api2wire_box_autoadd_ldk_transaction(LdkTransaction raw) {
+    final ptr = inner.new_box_autoadd_ldk_transaction_0();
+    _api_fill_to_wire_ldk_transaction(raw, ptr.ref);
     return ptr;
   }
 
@@ -1382,6 +1436,11 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   @protected
   ffi.Pointer<wire_BdkDescriptor> api2wire_opt_box_autoadd_BdkDescriptor(BdkDescriptor? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_BdkDescriptor(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_BdkScript> api2wire_opt_box_autoadd_bdk_script(BdkScript? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_bdk_script(raw);
   }
 
   @protected
@@ -1479,6 +1538,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     }
   }
 
+  void _api_fill_to_wire_bdk_script(BdkScript apiObj, wire_BdkScript wireObj) {
+    wireObj.script_hex = api2wire_String(apiObj.scriptHex);
+  }
+
   void _api_fill_to_wire_blockchain_config(BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
     if (apiObj is BlockchainConfig_Electrum) {
       var pre_config = api2wire_box_autoadd_electrum_config(apiObj.config);
@@ -1511,6 +1574,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     _api_fill_to_wire_address_index(apiObj, wireObj.ref);
   }
 
+  void _api_fill_to_wire_box_autoadd_bdk_script(BdkScript apiObj, ffi.Pointer<wire_BdkScript> wireObj) {
+    _api_fill_to_wire_bdk_script(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_box_autoadd_blockchain_config(
       BlockchainConfig apiObj, ffi.Pointer<wire_BlockchainConfig> wireObj) {
     _api_fill_to_wire_blockchain_config(apiObj, wireObj.ref);
@@ -1530,6 +1597,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
   void _api_fill_to_wire_box_autoadd_foreign_utxo(ForeignUtxo apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
     _api_fill_to_wire_foreign_utxo(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_ldk_transaction(LdkTransaction apiObj, ffi.Pointer<wire_LdkTransaction> wireObj) {
+    _api_fill_to_wire_ldk_transaction(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_box_autoadd_local_utxo(LocalUtxo apiObj, ffi.Pointer<wire_LocalUtxo> wireObj) {
@@ -1602,6 +1673,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     wireObj.satisfaction_weight = api2wire_usize(apiObj.satisfactionWeight);
   }
 
+  void _api_fill_to_wire_ldk_transaction(LdkTransaction apiObj, wire_LdkTransaction wireObj) {
+    wireObj.transaction_bytes = api2wire_uint_8_list(apiObj.transactionBytes);
+  }
+
   void _api_fill_to_wire_local_utxo(LocalUtxo apiObj, wire_LocalUtxo wireObj) {
     _api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
     _api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
@@ -1611,6 +1686,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
   void _api_fill_to_wire_opt_box_autoadd_BdkDescriptor(BdkDescriptor? apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
     if (apiObj != null) _api_fill_to_wire_box_autoadd_BdkDescriptor(apiObj, wireObj);
+  }
+
+  void _api_fill_to_wire_opt_box_autoadd_bdk_script(BdkScript? apiObj, ffi.Pointer<wire_BdkScript> wireObj) {
+    if (apiObj != null) _api_fill_to_wire_box_autoadd_bdk_script(apiObj, wireObj);
   }
 
   void _api_fill_to_wire_opt_box_autoadd_foreign_utxo(ForeignUtxo? apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
@@ -1648,7 +1727,7 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   void _api_fill_to_wire_script_amount(ScriptAmount apiObj, wire_ScriptAmount wireObj) {
-    wireObj.script = api2wire_String(apiObj.script);
+    _api_fill_to_wire_bdk_script(apiObj.script, wireObj.script);
     wireObj.amount = api2wire_u64(apiObj.amount);
   }
 
@@ -1663,7 +1742,7 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
   void _api_fill_to_wire_tx_out(TxOut apiObj, wire_TxOut wireObj) {
     wireObj.value = api2wire_u64(apiObj.value);
-    wireObj.address = api2wire_String(apiObj.address);
+    _api_fill_to_wire_bdk_script(apiObj.scriptPubkey, wireObj.script_pubkey);
   }
 
   void _api_fill_to_wire_user_pass(UserPass apiObj, wire_UserPass wireObj) {
@@ -1941,7 +2020,7 @@ class RustWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<ffi.Float> fee_rate,
     ffi.Pointer<ffi.Uint64> fee_absolute,
     bool drain_wallet,
-    ffi.Pointer<wire_uint_8_list> drain_to,
+    ffi.Pointer<wire_BdkScript> drain_to,
     bool enable_rbf,
     ffi.Pointer<ffi.Uint32> n_sequence,
     ffi.Pointer<wire_uint_8_list> data,
@@ -1983,7 +2062,7 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<ffi.Float>,
               ffi.Pointer<ffi.Uint64>,
               ffi.Bool,
-              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_BdkScript>,
               ffi.Bool,
               ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_tx_builder_finish');
@@ -2002,7 +2081,7 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<ffi.Float>,
           ffi.Pointer<ffi.Uint64>,
           bool,
-          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_BdkScript>,
           bool,
           ffi.Pointer<ffi.Uint32>,
           ffi.Pointer<wire_uint_8_list>)>();
@@ -2689,6 +2768,38 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_generate_seed_from_entropy =
       _wire_generate_seed_from_entropyPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_txid__method__LdkTransaction(
+    int port_,
+    ffi.Pointer<wire_LdkTransaction> that,
+  ) {
+    return _wire_txid__method__LdkTransaction(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_txid__method__LdkTransactionPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_LdkTransaction>)>>(
+          'wire_txid__method__LdkTransaction');
+  late final _wire_txid__method__LdkTransaction =
+      _wire_txid__method__LdkTransactionPtr.asFunction<void Function(int, ffi.Pointer<wire_LdkTransaction>)>();
+
+  void wire_weight__method__LdkTransaction(
+    int port_,
+    ffi.Pointer<wire_LdkTransaction> that,
+  ) {
+    return _wire_weight__method__LdkTransaction(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_weight__method__LdkTransactionPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_LdkTransaction>)>>(
+          'wire_weight__method__LdkTransaction');
+  late final _wire_weight__method__LdkTransaction =
+      _wire_weight__method__LdkTransactionPtr.asFunction<void Function(int, ffi.Pointer<wire_LdkTransaction>)>();
+
   wire_BdkDescriptor new_BdkDescriptor() {
     return _new_BdkDescriptor();
   }
@@ -2728,6 +2839,15 @@ class RustWire implements FlutterRustBridgeWireBase {
       _lookup<ffi.NativeFunction<ffi.Pointer<wire_AddressIndex> Function()>>('new_box_autoadd_address_index_0');
   late final _new_box_autoadd_address_index_0 =
       _new_box_autoadd_address_index_0Ptr.asFunction<ffi.Pointer<wire_AddressIndex> Function()>();
+
+  ffi.Pointer<wire_BdkScript> new_box_autoadd_bdk_script_0() {
+    return _new_box_autoadd_bdk_script_0();
+  }
+
+  late final _new_box_autoadd_bdk_script_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_BdkScript> Function()>>('new_box_autoadd_bdk_script_0');
+  late final _new_box_autoadd_bdk_script_0 =
+      _new_box_autoadd_bdk_script_0Ptr.asFunction<ffi.Pointer<wire_BdkScript> Function()>();
 
   ffi.Pointer<wire_BlockchainConfig> new_box_autoadd_blockchain_config_0() {
     return _new_box_autoadd_blockchain_config_0();
@@ -2785,6 +2905,15 @@ class RustWire implements FlutterRustBridgeWireBase {
       _lookup<ffi.NativeFunction<ffi.Pointer<wire_ForeignUtxo> Function()>>('new_box_autoadd_foreign_utxo_0');
   late final _new_box_autoadd_foreign_utxo_0 =
       _new_box_autoadd_foreign_utxo_0Ptr.asFunction<ffi.Pointer<wire_ForeignUtxo> Function()>();
+
+  ffi.Pointer<wire_LdkTransaction> new_box_autoadd_ldk_transaction_0() {
+    return _new_box_autoadd_ldk_transaction_0();
+  }
+
+  late final _new_box_autoadd_ldk_transaction_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_LdkTransaction> Function()>>('new_box_autoadd_ldk_transaction_0');
+  late final _new_box_autoadd_ldk_transaction_0 =
+      _new_box_autoadd_ldk_transaction_0Ptr.asFunction<ffi.Pointer<wire_LdkTransaction> Function()>();
 
   ffi.Pointer<wire_LocalUtxo> new_box_autoadd_local_utxo_0() {
     return _new_box_autoadd_local_utxo_0();
@@ -3180,8 +3309,12 @@ class wire_WalletInstance extends ffi.Struct {
   external ffi.Pointer<ffi.Void> ptr;
 }
 
+class wire_BdkScript extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> script_hex;
+}
+
 class wire_ScriptAmount extends ffi.Struct {
-  external ffi.Pointer<wire_uint_8_list> script;
+  external wire_BdkScript script;
 
   @ffi.Uint64()
   external int amount;
@@ -3291,7 +3424,7 @@ class wire_TxOut extends ffi.Struct {
   @ffi.Uint64()
   external int value;
 
-  external ffi.Pointer<wire_uint_8_list> address;
+  external wire_BdkScript script_pubkey;
 }
 
 class wire_LocalUtxo extends ffi.Struct {
@@ -3304,6 +3437,10 @@ class wire_LocalUtxo extends ffi.Struct {
 
   @ffi.Int32()
   external int keychain;
+}
+
+class wire_LdkTransaction extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> transaction_bytes;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;

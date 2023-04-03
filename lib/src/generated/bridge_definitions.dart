@@ -70,7 +70,7 @@ abstract class Rust {
       double? feeRate,
       int? feeAbsolute,
       required bool drainWallet,
-      String? drainTo,
+      BdkScript? drainTo,
       required bool enableRbf,
       int? nSequence,
       required Uint8List data,
@@ -184,7 +184,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorPublicConstMeta;
 
-  Future<String> initScript({required Uint8List rawOutputScript, dynamic hint});
+  Future<BdkScript> initScript({required Uint8List rawOutputScript, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kInitScriptConstMeta;
 
@@ -192,7 +192,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kInitAddressConstMeta;
 
-  Future<String> addressToScriptPubkeyHex({required String address, dynamic hint});
+  Future<BdkScript> addressToScriptPubkeyHex({required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyHexConstMeta;
 
@@ -264,6 +264,14 @@ abstract class Rust {
   Future<String> generateSeedFromEntropy({required Uint8List entropy, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyConstMeta;
+
+  Future<String> txidMethodLdkTransaction({required LdkTransaction that, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kTxidMethodLdkTransactionConstMeta;
+
+  Future<int> weightMethodLdkTransaction({required LdkTransaction that, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kWeightMethodLdkTransactionConstMeta;
 
   DropFnType get dropOpaqueBdkDescriptor;
   ShareFnType get shareOpaqueBdkDescriptor;
@@ -389,6 +397,15 @@ class Balance {
     required this.confirmed,
     required this.spendable,
     required this.total,
+  });
+}
+
+/// A Bitcoin script.
+class BdkScript {
+  final String scriptHex;
+
+  const BdkScript({
+    required this.scriptHex,
   });
 }
 
@@ -533,6 +550,24 @@ enum KeychainKind {
   Internal,
 }
 
+class LdkTransaction {
+  final Rust bridge;
+  final Uint8List transactionBytes;
+
+  const LdkTransaction({
+    required this.bridge,
+    required this.transactionBytes,
+  });
+
+  Future<String> txid({dynamic hint}) => bridge.txidMethodLdkTransaction(
+        that: this,
+      );
+
+  Future<int> weight({dynamic hint}) => bridge.weightMethodLdkTransaction(
+        that: this,
+      );
+}
+
 /// Unspent outputs of this wallet
 class LocalUtxo {
   /// Reference to a transaction output
@@ -638,7 +673,7 @@ class RpcSyncParams {
 
 /// A output script and an amount of satoshis.
 class ScriptAmount {
-  final String script;
+  final BdkScript script;
   final int amount;
 
   const ScriptAmount({
@@ -709,11 +744,11 @@ class TxOut {
   final int value;
 
   /// The address of the output.
-  final String address;
+  final BdkScript scriptPubkey;
 
   const TxOut({
     required this.value,
-    required this.address,
+    required this.scriptPubkey,
   });
 }
 

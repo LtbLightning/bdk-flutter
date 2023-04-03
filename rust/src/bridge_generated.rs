@@ -28,6 +28,7 @@ use crate::blockchain::UserPass;
 use crate::types::AddressIndex;
 use crate::types::AddressInfo;
 use crate::types::Balance;
+use crate::types::BdkScript;
 use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::ForeignUtxo;
@@ -228,7 +229,7 @@ fn wire_tx_builder_finish_impl(
     fee_rate: impl Wire2Api<Option<f32>> + UnwindSafe,
     fee_absolute: impl Wire2Api<Option<u64>> + UnwindSafe,
     drain_wallet: impl Wire2Api<bool> + UnwindSafe,
-    drain_to: impl Wire2Api<Option<String>> + UnwindSafe,
+    drain_to: impl Wire2Api<Option<BdkScript>> + UnwindSafe,
     enable_rbf: impl Wire2Api<bool> + UnwindSafe,
     n_sequence: impl Wire2Api<Option<u32>> + UnwindSafe,
     data: impl Wire2Api<Vec<u8>> + UnwindSafe,
@@ -1027,6 +1028,38 @@ fn wire_generate_seed_from_entropy_impl(
         },
     )
 }
+fn wire_txid__method__LdkTransaction_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<LdkTransaction> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "txid__method__LdkTransaction",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            move |task_callback| Ok(LdkTransaction::txid(&api_that))
+        },
+    )
+}
+fn wire_weight__method__LdkTransaction_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<LdkTransaction> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "weight__method__LdkTransaction",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            move |task_callback| Ok(LdkTransaction::weight(&api_that))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -1144,6 +1177,13 @@ impl support::IntoDart for Balance {
 }
 impl support::IntoDartExceptPrimitive for Balance {}
 
+impl support::IntoDart for BdkScript {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.script_hex.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for BdkScript {}
+
 impl support::IntoDart for BdkTxBuilderResult {
     fn into_dart(self) -> support::DartAbi {
         vec![self.0.into_dart(), self.1.into_dart()].into_dart()
@@ -1218,7 +1258,7 @@ impl support::IntoDartExceptPrimitive for TransactionDetails {}
 
 impl support::IntoDart for TxOut {
     fn into_dart(self) -> support::DartAbi {
-        vec![self.value.into_dart(), self.address.into_dart()].into_dart()
+        vec![self.value.into_dart(), self.script_pubkey.into_dart()].into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for TxOut {}
