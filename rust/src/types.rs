@@ -1,21 +1,58 @@
-use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint,  Txid};
+use bdk::bitcoin::blockdata::script::Script as BdkScript;
+use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
+use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use std::sync::Arc;
-use bdk::bitcoin::blockdata::script::Script as BdkScript;
-use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 
+/// Bitcoin transaction input.
+///
+/// It contains the location of the previous transaction's output,
+/// that it spends and set of scripts that satisfy its spending
+/// conditions.
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub struct TxIn {
+    /// The reference to the previous output that is being used an an input.
+    pub previous_output: OutPoint,
+    /// The script which pushes values on the stack which will cause
+    /// the referenced output's script to be accepted.
+    pub script_sig: String,
+    /// The sequence number, which suggests to miners which of two
+    /// conflicting transactions should be preferred, or 0xFFFFFFFF
+    /// to ignore this feature. This is generally never used since
+    /// the miner behaviour cannot be enforced.
+    pub sequence: Sequence,
+    // pub witness: Vec<u8>,
+}
+impl From<bdk::bitcoin::TxIn> for TxIn {
+    fn from(x: bdk::bitcoin::TxIn) -> Self {
+        TxIn {
+            previous_output: x.previous_output.into(),
+            script_sig: x.script_sig.to_string(),
+            sequence: x.sequence.into(),
+            // witness: x.witness.to_vec(),
+        }
+    }
+}
 ///A transaction output, which defines new coins to be created from old ones.
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 pub struct TxOut {
     /// The value of the output, in satoshis.
     pub value: u64,
     /// The address of the output.
     pub address: String,
 }
-
+impl From<bdk::bitcoin::TxOut> for TxOut {
+    fn from(x: bdk::bitcoin::TxOut) -> Self {
+        TxOut {
+            value: x.value,
+            address: x.script_pubkey.to_string(),
+        }
+    }
+}
 /// A reference to a transaction output.
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct OutPoint {
     /// The referenced transaction's txid.
     pub(crate) txid: String,
@@ -30,8 +67,8 @@ impl From<&OutPoint> for BdkOutPoint {
         }
     }
 }
-impl From<BdkOutPoint> for OutPoint {
-    fn from(x: BdkOutPoint) -> OutPoint {
+impl From<bdk::bitcoin::OutPoint> for OutPoint {
+    fn from(x: bdk::bitcoin::OutPoint) -> Self {
         OutPoint {
             txid: x.txid.to_string(),
             vout: x.clone().vout,
@@ -80,9 +117,7 @@ pub enum AddressIndex {
     /// index used by `AddressIndex` and `AddressIndex.LastUsed`.
     /// Use with caution, if an index is given that is less than the current descriptor index
     /// then the returned address may have already been used.
-    Peek {
-        index: u32,
-    },
+    Peek { index: u32 },
     /// Return the address for a specific descriptor index and reset the current descriptor index
     /// used by `AddressIndex` and `AddressIndex.LastUsed` to this value.
     /// Use with caution, if an index is given that is less than the current descriptor index
@@ -98,7 +133,7 @@ impl From<AddressIndex> for bdk::wallet::AddressIndex {
             AddressIndex::New => bdk::wallet::AddressIndex::New,
             AddressIndex::LastUnused => bdk::wallet::AddressIndex::LastUnused,
             AddressIndex::Peek { index } => bdk::wallet::AddressIndex::Peek(index),
-            AddressIndex::Reset { index} =>  bdk::wallet::AddressIndex::Reset(index)
+            AddressIndex::Reset { index } => bdk::wallet::AddressIndex::Reset(index),
         }
     }
 }
@@ -119,9 +154,49 @@ impl From<bdk::wallet::AddressInfo> for AddressInfo {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub struct Transaction2 {
+    /// The protocol version, is currently expected to be 1 or 2 (BIP 68).
+    pub version: i32,
+    /// Block height or timestamp. Transaction cannot be included in a block until this height/time.
+    /// ### Relevant BIPs
+    /// * [BIP-65 OP_CHECKLOCKTIMEVERIFY](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki)
+    /// * [BIP-113 Median time-past as endpoint for lock-time calculations](https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki)
+    pub lock_time: PackedLockTime,
+    /// List of transaction inputs.
+    pub input: Vec<TxIn>,
+    /// List of transaction outputs.
+    pub output: Vec<TxOut>,
+}
+
+impl From<bdk::bitcoin::Transaction> for Transaction2 {
+    fn from(x: bdk::bitcoin::Transaction) -> Self {
+        Transaction2 {
+            version: x.version,
+            lock_time: x.lock_time.into(),
+            input: set_inputs(x.input),
+            output: set_outputs(x.output),
+        }
+    }
+}
+fn set_inputs(x: Vec<bdk::bitcoin::TxIn>) -> Vec<TxIn> {
+    let mut vec = Vec::new();
+    for input in x {
+        vec.push(input.into())
+    }
+    return vec;
+}
+fn set_outputs(x: Vec<bdk::bitcoin::TxOut>) -> Vec<TxOut> {
+    let mut vec = Vec::new();
+    for output in x {
+        vec.push(output.into())
+    }
+    return vec;
+}
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize)]
 ///A wallet transaction
 pub struct TransactionDetails {
+    pub transaction: Option<Transaction2>,
     /// Transaction id.
     pub txid: String,
     /// Received value (sats)
@@ -139,10 +214,10 @@ pub struct TransactionDetails {
     /// transaction, unconfirmed transaction contains `None`.
     pub confirmation_time: Option<BlockTime>,
 }
-/// A wallet transaction
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
+            transaction: set_transaction(x.transaction.clone()),
             fee: x.clone().fee,
             txid: x.clone().txid.to_string(),
             received: x.clone().received,
@@ -151,7 +226,13 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
         }
     }
 }
-
+fn set_transaction(transaction: Option<bdk::bitcoin::Transaction>) -> Option<Transaction2> {
+    if let Some(transaction) = transaction {
+        Some(transaction.into())
+    } else {
+        None
+    }
+}
 fn set_block_time(time: Option<bdk::BlockTime>) -> Option<BlockTime> {
     if let Some(time) = time {
         Some(time.into())
@@ -168,7 +249,6 @@ pub struct BlockTime {
     ///Confirmation block timestamp
     pub timestamp: u64,
 }
-
 impl From<bdk::BlockTime> for BlockTime {
     fn from(x: bdk::BlockTime) -> Self {
         BlockTime {
@@ -193,8 +273,7 @@ pub enum RbfValue {
 
 /// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
 /// transaction details.
-pub struct BdkTxBuilderResult (pub String, pub TransactionDetails);
-
+pub struct BdkTxBuilderResult(pub String, pub TransactionDetails);
 
 ///Types of keychains
 pub enum KeychainKind {
@@ -296,8 +375,6 @@ impl Address {
 pub struct Script {
     pub script: BdkScript,
 }
-
-
 impl Script {
     //Custom function for rApi
     pub fn from_hex(script: String) -> Result<Self, BdkError> {
@@ -307,5 +384,20 @@ impl Script {
     pub fn new(raw_output_script: Vec<u8>) -> Result<Self, BdkError> {
         let script = raw_output_script.as_slice().to_hex();
         Script::from_hex(script)
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub struct Sequence(pub u32);
+impl From<bdk::bitcoin::Sequence> for Sequence {
+    fn from(x: bdk::bitcoin::Sequence) -> Self {
+        Sequence(x.0)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub struct PackedLockTime(pub u32);
+impl From<bdk::bitcoin::PackedLockTime> for PackedLockTime {
+    fn from(x: bdk::bitcoin::PackedLockTime) -> Self {
+        PackedLockTime(x.0)
     }
 }

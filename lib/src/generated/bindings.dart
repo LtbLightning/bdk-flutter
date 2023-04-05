@@ -1161,6 +1161,10 @@ class RustImpl implements Rust {
     return raw as double;
   }
 
+  Transaction2 _wire2api_box_autoadd_transaction_2(dynamic raw) {
+    return _wire2api_transaction_2(raw);
+  }
+
   int _wire2api_box_autoadd_u64(dynamic raw) {
     return _wire2api_u64(raw);
   }
@@ -1179,6 +1183,14 @@ class RustImpl implements Rust {
 
   List<TransactionDetails> _wire2api_list_transaction_details(dynamic raw) {
     return (raw as List<dynamic>).map(_wire2api_transaction_details).toList();
+  }
+
+  List<TxIn> _wire2api_list_tx_in(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_tx_in).toList();
+  }
+
+  List<TxOut> _wire2api_list_tx_out(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_tx_out).toList();
   }
 
   LocalUtxo _wire2api_local_utxo(dynamic raw) {
@@ -1208,6 +1220,10 @@ class RustImpl implements Rust {
     return raw == null ? null : _wire2api_box_autoadd_f32(raw);
   }
 
+  Transaction2? _wire2api_opt_box_autoadd_transaction_2(dynamic raw) {
+    return raw == null ? null : _wire2api_box_autoadd_transaction_2(raw);
+  }
+
   int? _wire2api_opt_box_autoadd_u64(dynamic raw) {
     return raw == null ? null : _wire2api_box_autoadd_u64(raw);
   }
@@ -1222,16 +1238,58 @@ class RustImpl implements Rust {
     );
   }
 
+  PackedLockTime _wire2api_packed_lock_time(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return PackedLockTime(
+      field0: _wire2api_u32(arr[0]),
+    );
+  }
+
+  Sequence _wire2api_sequence(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return Sequence(
+      field0: _wire2api_u32(arr[0]),
+    );
+  }
+
+  Transaction2 _wire2api_transaction_2(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return Transaction2(
+      version: _wire2api_i32(arr[0]),
+      lockTime: _wire2api_packed_lock_time(arr[1]),
+      input: _wire2api_list_tx_in(arr[2]),
+      output: _wire2api_list_tx_out(arr[3]),
+    );
+  }
+
   TransactionDetails _wire2api_transaction_details(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 5)
-      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
     return TransactionDetails(
-      txid: _wire2api_String(arr[0]),
-      received: _wire2api_u64(arr[1]),
-      sent: _wire2api_u64(arr[2]),
-      fee: _wire2api_opt_box_autoadd_u64(arr[3]),
-      confirmationTime: _wire2api_opt_box_autoadd_block_time(arr[4]),
+      transaction: _wire2api_opt_box_autoadd_transaction_2(arr[0]),
+      txid: _wire2api_String(arr[1]),
+      received: _wire2api_u64(arr[2]),
+      sent: _wire2api_u64(arr[3]),
+      fee: _wire2api_opt_box_autoadd_u64(arr[4]),
+      confirmationTime: _wire2api_opt_box_autoadd_block_time(arr[5]),
+    );
+  }
+
+  TxIn _wire2api_tx_in(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TxIn(
+      previousOutput: _wire2api_out_point(arr[0]),
+      scriptSig: _wire2api_String(arr[1]),
+      sequence: _wire2api_sequence(arr[2]),
     );
   }
 
@@ -3498,5 +3556,6 @@ class wire_AddressIndex extends ffi.Struct {
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<
-    ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
+    ffi.NativeFunction<
+        ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
 typedef DartPort = ffi.Int64;

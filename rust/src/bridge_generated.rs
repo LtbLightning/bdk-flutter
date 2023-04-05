@@ -33,8 +33,12 @@ use crate::types::BlockTime;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
+use crate::types::PackedLockTime;
 use crate::types::ScriptAmount;
+use crate::types::Sequence;
+use crate::types::Transaction2;
 use crate::types::TransactionDetails;
+use crate::types::TxIn;
 use crate::types::TxOut;
 use crate::types::WordCount;
 use crate::wallet::DatabaseConfig;
@@ -1111,9 +1115,37 @@ impl support::IntoDart for OutPoint {
 }
 impl support::IntoDartExceptPrimitive for OutPoint {}
 
+impl support::IntoDart for PackedLockTime {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.0.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for PackedLockTime {}
+
+impl support::IntoDart for Sequence {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.0.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Sequence {}
+
+impl support::IntoDart for Transaction2 {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.version.into_dart(),
+            self.lock_time.into_dart(),
+            self.input.into_dart(),
+            self.output.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Transaction2 {}
+
 impl support::IntoDart for TransactionDetails {
     fn into_dart(self) -> support::DartAbi {
         vec![
+            self.transaction.into_dart(),
             self.txid.into_dart(),
             self.received.into_dart(),
             self.sent.into_dart(),
@@ -1124,6 +1156,18 @@ impl support::IntoDart for TransactionDetails {
     }
 }
 impl support::IntoDartExceptPrimitive for TransactionDetails {}
+
+impl support::IntoDart for TxIn {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.previous_output.into_dart(),
+            self.script_sig.into_dart(),
+            self.sequence.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TxIn {}
 
 impl support::IntoDart for TxOut {
     fn into_dart(self) -> support::DartAbi {
