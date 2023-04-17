@@ -1006,14 +1006,8 @@ class Wallet {
   ///Sync the internal database with the [Blockchain]
   Future sync(Blockchain blockchain) async {
     try {
-      if (kDebugMode) {
-        print("Syncing wallet");
-      }
       await loaderApi.syncWallet(
           wallet: _wallet!, blockchain: blockchain._blockchain!);
-      if (kDebugMode) {
-        print("Sync complete");
-      }
     } on FfiException catch (e) {
       throw configException(e.message);
     }
