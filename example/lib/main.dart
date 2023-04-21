@@ -228,8 +228,8 @@ class _MyAppState extends State<MyApp> {
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
     final txBuilderResult = await txBuilder
-        .addRecipient(script, 700)
         .feeRate(feeRate.asSatPerVb())
+        .addRecipient(script, 1200)
         .finish(bdkWallet);
     getTransactionDetails(txBuilderResult);
     final sbt = await bdkWallet.sign(txBuilderResult.psbt);
