@@ -27,13 +27,31 @@ class Address {
     }
   }
 
+  /// [Constructor]
+  ///
+  Future<Address> fromScript(Script script, Network network) async {
+    final res = await loaderApi.fromScript(script: script, network: network);
+    return Address._()._setAddress(res);
+  }
+
+  ///The type of the address.
+  ///
+  Future<Payload> payload() async {
+    final res = await loaderApi.addressPayload(address: _address!);
+    return res;
+  }
+
+  Future<Network> network() async {
+    final res = await loaderApi.addressNetwork(address: _address!);
+    return res;
+  }
+
   /// Returns the script pub key of the [Address] object
   Future<Script> scriptPubKey() async {
     try {
       final res = await loaderApi.addressToScriptPubkeyHex(
           address: _address.toString());
-      final script = Script._()._setScriptHex(res);
-      return script;
+      return Script(scriptHex: res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -99,9 +117,8 @@ class Blockchain {
   /// The function for broadcasting a transaction
   Future<void> broadcast(Transaction tx) async {
     try {
-      final txid = await loaderApi.broadcast(
-          blockchain: _blockchain!,
-          tx: Uint8List.fromList(tx._transactionBytes!));
+      final txid =
+          await loaderApi.broadcast(blockchain: _blockchain!, tx: tx._tx!);
       if (kDebugMode) {
         print(txid);
       }
@@ -644,6 +661,15 @@ class PartiallySignedTransaction {
     }
   }
 
+  Future<String> jsonSerialize() async {
+    try {
+      final res = await loaderApi.psbtJsonSerialize(psbtStr: psbtBase64);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   @override
   String toString() {
     return psbtBase64;
@@ -665,20 +691,14 @@ class PartiallySignedTransaction {
 /// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
-class Script {
-  String? _scriptHex;
-  Script._();
-
-  Script _setScriptHex(String hex) {
-    _scriptHex = hex;
-    return this;
-  }
+class Script extends BdkScript {
+  Script({required super.scriptHex});
 
   /// [Script] constructor
-  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  Future<Script> create(typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.initScript(rawOutputScript: rawOutputScript);
-      return Script._()._setScriptHex(res);
+      return Script(scriptHex: res.scriptHex);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -686,16 +706,16 @@ class Script {
 
   @override
   String toString() {
-    return _scriptHex.toString();
+    return scriptHex;
   }
 }
 
 ///A bitcoin transaction.
 class Transaction {
-  List<int>? _transactionBytes;
+  String? _tx;
   Transaction._();
-  Transaction _setTransaction(List<int> transactionBytes) {
-    _transactionBytes = transactionBytes;
+  Transaction _setTransaction(String tx) {
+    _tx = tx;
     return this;
   }
 
@@ -713,8 +733,69 @@ class Transaction {
   }
 
   ///Return the transaction bytes, bitcoin consensus encoded.
-  List<int> serialize() {
-    return _transactionBytes!;
+  Future<List<int>> serialize() async {
+    final res = await loaderApi.serialize(tx: _tx!);
+    return res;
+  }
+
+  Future<String> txid() async {
+    final res = await loaderApi.txid(tx: _tx!);
+    return res;
+  }
+
+  Future<int> weight() async {
+    final res = await loaderApi.weight(tx: _tx!);
+    return res;
+  }
+
+  Future<int> size() async {
+    final res = await loaderApi.size(tx: _tx!);
+    return res;
+  }
+
+  Future<int> vsize() async {
+    final res = await loaderApi.vsize(tx: _tx!);
+    return res;
+  }
+
+  Future<bool> isCoinBase() async {
+    final res = await loaderApi.isCoinBase(tx: _tx!);
+    return res;
+  }
+
+  Future<bool> isExplicitlyRbf() async {
+    final res = await loaderApi.isExplicitlyRbf(tx: _tx!);
+    return res;
+  }
+
+  Future<bool> isLockTimeEnabled() async {
+    final res = await loaderApi.isLockTimeEnabled(tx: _tx!);
+    return res;
+  }
+
+  Future<int> version() async {
+    final res = await loaderApi.version(tx: _tx!);
+    return res;
+  }
+
+  Future<int> lockTime() async {
+    final res = await loaderApi.lockTime(tx: _tx!);
+    return res;
+  }
+
+  Future<List<TxIn>> input() async {
+    final res = await loaderApi.input(tx: _tx!);
+    return res;
+  }
+
+  Future<List<TxOut>> output() async {
+    final res = await loaderApi.output(tx: _tx!);
+    return res;
+  }
+
+  @override
+  String toString() {
+    return _tx!;
   }
 }
 
@@ -733,7 +814,7 @@ class TxBuilder {
   int? _feeAbsolute;
   bool _enableRbf = false;
   bool _drainWallet = false;
-  String? _drainTo;
+  Script? _drainTo;
   int? _nSequence;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
@@ -748,7 +829,7 @@ class TxBuilder {
 
   ///Add a recipient to the internal list
   TxBuilder addRecipient(Script script, int amount) {
-    _recipients.add(ScriptAmount(script: script.toString(), amount: amount));
+    _recipients.add(ScriptAmount(script: script, amount: amount));
     return this;
   }
 
@@ -807,8 +888,8 @@ class TxBuilder {
   /// If you choose not to set any recipients, you should either provide the utxos that the transaction should spend via add_utxos, or set drainWallet to spend all of them.
   ///
   /// When bumping the fees of a transaction made with this option, you probably want to use allowShrinking to allow this output to be reduced to pay for the extra fees.
-  TxBuilder drainTo(String address) {
-    _drainTo = address;
+  TxBuilder drainTo(Script script) {
+    _drainTo = script;
     return this;
   }
 

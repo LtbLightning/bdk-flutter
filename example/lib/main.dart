@@ -170,7 +170,8 @@ class _MyAppState extends State<MyApp> {
         print("isSpent: ${e.isSpent}");
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
-        print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
+        print(
+            "txout: { address:${e.txout.scriptPubkey.scriptHex}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -208,7 +209,7 @@ class _MyAppState extends State<MyApp> {
 
   getTransactionDetails(TxBuilderResult txBuilderResult) async {
     final tx = await txBuilderResult.psbt.extractTx();
-    final serializedTx = tx.serialize();
+    final serializedTx = await tx.serialize();
     final txid = await txBuilderResult.psbt.txId();
     if (kDebugMode) {
       print("txid: $txid");
@@ -232,6 +233,7 @@ class _MyAppState extends State<MyApp> {
         .feeRate(feeRate.asSatPerVb())
         .finish(bdkWallet);
     getTransactionDetails(txBuilderResult);
+    final ser = await txBuilderResult.psbt.jsonSerialize();
     final sbt = await bdkWallet.sign(txBuilderResult.psbt);
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);

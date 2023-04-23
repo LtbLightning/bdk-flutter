@@ -8,7 +8,10 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use crate::types::{AddressIndex, AddressInfo, Balance, OutPoint, TransactionDetails, TxOut};
+use crate::types::{
+    AddressIndex, AddressInfo, Balance, BdkScript, KeychainKind, OutPoint, TransactionDetails,
+    TxOut,
+};
 
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
@@ -89,16 +92,14 @@ impl WalletInstance {
     // which first needs to be Wallet.sync manually.
     pub fn list_unspent(&self) -> Result<Vec<LocalUtxo>, BdkError> {
         let unspents = self.get_wallet().list_unspent()?;
-        Ok(unspents
-            .iter()
-            .map(|u| LocalUtxo::from_utxo(u, self.get_wallet().network()))
-            .collect())
+        Ok(unspents.into_iter().map(LocalUtxo::from).collect())
     }
     pub fn sign(&self, psbt: &PartiallySignedTransaction) -> Result<bool, BdkError> {
         let mut psbt = psbt.internal.lock().unwrap();
         self.get_wallet().sign(&mut psbt, SignOptions::default())
     }
 }
+
 /// Unspent outputs of this wallet
 pub struct LocalUtxo {
     /// Reference to a transaction output
@@ -107,29 +108,24 @@ pub struct LocalUtxo {
     pub txout: TxOut,
     ///Whether this UTXO is spent or not
     pub is_spent: bool,
+    pub keychain: KeychainKind,
 }
-// This trait is used to convert the bdk TxOut type with field `script_pubkey: Script`
-// into the bdk-ffi TxOut type which has a field `address: String` instead
-trait NetworkLocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo;
-}
-impl NetworkLocalUtxo for LocalUtxo {
-    fn from_utxo(x: &bdk::LocalUtxo, network: bdk::bitcoin::Network) -> LocalUtxo {
+
+impl From<bdk::LocalUtxo> for LocalUtxo {
+    fn from(local_utxo: bdk::LocalUtxo) -> Self {
         LocalUtxo {
             outpoint: OutPoint {
-                txid: x.clone().outpoint.txid.to_string(),
-                vout: x.clone().outpoint.vout,
+                txid: local_utxo.outpoint.txid.to_string(),
+                vout: local_utxo.outpoint.vout,
             },
             txout: TxOut {
-                value: x.clone().txout.value,
-                address: bdk::bitcoin::util::address::Address::from_script(
-                    &x.txout.script_pubkey,
-                    network,
-                )
-                .unwrap()
-                .to_string(),
+                value: local_utxo.txout.value,
+                script_pubkey: BdkScript {
+                    script_hex: local_utxo.txout.script_pubkey.to_string(),
+                },
             },
-            is_spent: x.clone().is_spent,
+            keychain: local_utxo.keychain.into(),
+            is_spent: local_utxo.is_spent,
         }
     }
 }
@@ -182,21 +178,24 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
 #[cfg(test)]
 mod test {
 
-    use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
-    use bdk::bitcoin::{Network};
-    use std::sync::{Arc};
-    use flutter_rust_bridge::RustOpaque;
     use crate::descriptor::BdkDescriptor;
+    use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
+    use bdk::bitcoin::Network;
+    use flutter_rust_bridge::RustOpaque;
+    use std::sync::Arc;
 
     #[test]
     fn test_peek_reset_address() {
         let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
-        let descriptor = RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
-        let change_descriptor =   RustOpaque::new(BdkDescriptor::new(
-            test_wpkh.to_string().replace("/0/*", "/1/*"),
-            Network::Regtest,
-        )
-            .unwrap());
+        let descriptor =
+            RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
+        let change_descriptor = RustOpaque::new(
+            BdkDescriptor::new(
+                test_wpkh.to_string().replace("/0/*", "/1/*"),
+                Network::Regtest,
+            )
+            .unwrap(),
+        );
 
         let wallet = WalletInstance::new(
             Arc::new(descriptor),
@@ -204,7 +203,7 @@ mod test {
             Network::Regtest,
             DatabaseConfig::Memory,
         )
-            .unwrap();
+        .unwrap();
 
         assert_eq!(
             wallet
@@ -224,28 +223,19 @@ mod test {
 
         // new index still 0
         assert_eq!(
-            wallet
-                .get_address(AddressIndex::New)
-                .unwrap()
-                .address,
+            wallet.get_address(AddressIndex::New).unwrap().address,
             "bcrt1qqjn9gky9mkrm3c28e5e87t5akd3twg6xezp0tv"
         );
 
         // new index now 1
         assert_eq!(
-            wallet
-                .get_address(AddressIndex::New)
-                .unwrap()
-                .address,
+            wallet.get_address(AddressIndex::New).unwrap().address,
             "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
         );
 
         // new index now 2
         assert_eq!(
-            wallet
-                .get_address(AddressIndex::New)
-                .unwrap()
-                .address,
+            wallet.get_address(AddressIndex::New).unwrap().address,
             "bcrt1q5g0mq6dkmwzvxscqwgc932jhgcxuqqkjv09tkj"
         );
 
@@ -276,12 +266,15 @@ mod test {
     #[test]
     fn test_get_address() {
         let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
-        let descriptor = RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
-        let change_descriptor =   RustOpaque::new(BdkDescriptor::new(
-            test_wpkh.to_string().replace("/0/*", "/1/*"),
-            Network::Regtest,
-        )
-            .unwrap());
+        let descriptor =
+            RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
+        let change_descriptor = RustOpaque::new(
+            BdkDescriptor::new(
+                test_wpkh.to_string().replace("/0/*", "/1/*"),
+                Network::Regtest,
+            )
+            .unwrap(),
+        );
 
         let wallet = WalletInstance::new(
             Arc::new(descriptor),
@@ -289,21 +282,15 @@ mod test {
             Network::Regtest,
             DatabaseConfig::Memory,
         )
-            .unwrap();
+        .unwrap();
 
         assert_eq!(
-            wallet
-                .get_address(AddressIndex::New)
-                .unwrap()
-                .address,
+            wallet.get_address(AddressIndex::New).unwrap().address,
             "bcrt1qqjn9gky9mkrm3c28e5e87t5akd3twg6xezp0tv"
         );
 
         assert_eq!(
-            wallet
-                .get_address(AddressIndex::New)
-                .unwrap()
-                .address,
+            wallet.get_address(AddressIndex::New).unwrap().address,
             "bcrt1q0xs7dau8af22rspp4klya4f7lhggcnqfun2y3a"
         );
 

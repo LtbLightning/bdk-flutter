@@ -83,8 +83,12 @@ typedef struct wire_WalletInstance {
   const void *ptr;
 } wire_WalletInstance;
 
+typedef struct wire_BdkScript {
+  struct wire_uint_8_list *script_hex;
+} wire_BdkScript;
+
 typedef struct wire_ScriptAmount {
-  struct wire_uint_8_list *script;
+  struct wire_BdkScript script;
   uint64_t amount;
 } wire_ScriptAmount;
 
@@ -195,6 +199,30 @@ void wire_broadcast(int64_t port_,
 
 void wire_new_transaction(int64_t port_, struct wire_uint_8_list *tx);
 
+void wire_txid(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_weight(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_size(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_vsize(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_serialize(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_is_coin_base(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_is_explicitly_rbf(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_is_lock_time_enabled(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_version(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_lock_time(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_input(int64_t port_, struct wire_uint_8_list *tx);
+
+void wire_output(int64_t port_, struct wire_uint_8_list *tx);
+
 void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
 
 void wire_extract_tx(int64_t port_, struct wire_uint_8_list *psbt_str);
@@ -207,6 +235,8 @@ void wire_combine_psbt(int64_t port_,
                        struct wire_uint_8_list *psbt_str,
                        struct wire_uint_8_list *other);
 
+void wire_psbt_json_serialize(int64_t port_, struct wire_uint_8_list *psbt_str);
+
 void wire_tx_builder_finish(int64_t port_,
                             struct wire_WalletInstance wallet,
                             struct wire_list_script_amount *recipients,
@@ -218,7 +248,7 @@ void wire_tx_builder_finish(int64_t port_,
                             float *fee_rate,
                             uint64_t *fee_absolute,
                             bool drain_wallet,
-                            struct wire_uint_8_list *drain_to,
+                            struct wire_BdkScript *drain_to,
                             bool enable_rbf,
                             uint32_t *n_sequence,
                             struct wire_uint_8_list *data);
@@ -306,7 +336,13 @@ void wire_init_script(int64_t port_, struct wire_uint_8_list *raw_output_script)
 
 void wire_init_address(int64_t port_, struct wire_uint_8_list *address);
 
+void wire_from_script(int64_t port_, struct wire_BdkScript *script, int32_t network);
+
 void wire_address_to_script_pubkey_hex(int64_t port_, struct wire_uint_8_list *address);
+
+void wire_address_payload(int64_t port_, struct wire_uint_8_list *address);
+
+void wire_address_network(int64_t port_, struct wire_uint_8_list *address);
 
 void wire_wallet_init(int64_t port_,
                       struct wire_BdkDescriptor descriptor,
@@ -356,6 +392,8 @@ struct wire_WalletInstance new_WalletInstance(void);
 struct wire_BdkDescriptor *new_box_autoadd_BdkDescriptor_0(void);
 
 struct wire_AddressIndex *new_box_autoadd_address_index_0(void);
+
+struct wire_BdkScript *new_box_autoadd_bdk_script_0(void);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
@@ -425,11 +463,24 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_estimate_fee);
     dummy_var ^= ((int64_t) (void*) wire_broadcast);
     dummy_var ^= ((int64_t) (void*) wire_new_transaction);
+    dummy_var ^= ((int64_t) (void*) wire_txid);
+    dummy_var ^= ((int64_t) (void*) wire_weight);
+    dummy_var ^= ((int64_t) (void*) wire_size);
+    dummy_var ^= ((int64_t) (void*) wire_vsize);
+    dummy_var ^= ((int64_t) (void*) wire_serialize);
+    dummy_var ^= ((int64_t) (void*) wire_is_coin_base);
+    dummy_var ^= ((int64_t) (void*) wire_is_explicitly_rbf);
+    dummy_var ^= ((int64_t) (void*) wire_is_lock_time_enabled);
+    dummy_var ^= ((int64_t) (void*) wire_version);
+    dummy_var ^= ((int64_t) (void*) wire_lock_time);
+    dummy_var ^= ((int64_t) (void*) wire_input);
+    dummy_var ^= ((int64_t) (void*) wire_output);
     dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
     dummy_var ^= ((int64_t) (void*) wire_extract_tx);
     dummy_var ^= ((int64_t) (void*) wire_get_psbt_fee_rate);
     dummy_var ^= ((int64_t) (void*) wire_get_fee_amount);
     dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
+    dummy_var ^= ((int64_t) (void*) wire_psbt_json_serialize);
     dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) wire_new_descriptor);
@@ -452,7 +503,10 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public);
     dummy_var ^= ((int64_t) (void*) wire_init_script);
     dummy_var ^= ((int64_t) (void*) wire_init_address);
+    dummy_var ^= ((int64_t) (void*) wire_from_script);
     dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
+    dummy_var ^= ((int64_t) (void*) wire_address_payload);
+    dummy_var ^= ((int64_t) (void*) wire_address_network);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_get_address);
     dummy_var ^= ((int64_t) (void*) wire_get_internalized_address);
@@ -471,6 +525,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_BdkDescriptor_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_bdk_script_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);

@@ -40,6 +40,66 @@ pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_txid(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_txid_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_weight(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_weight_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_size(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_size_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_vsize(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_vsize_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_serialize(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_serialize_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_coin_base(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_is_coin_base_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_explicitly_rbf(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_is_explicitly_rbf_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_lock_time_enabled(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_is_lock_time_enabled_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_version(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_version_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_lock_time(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_lock_time_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_input(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_input_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_output(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_output_impl(port_, tx)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_psbt_to_txid(port_: i64, psbt_str: *mut wire_uint_8_list) {
     wire_psbt_to_txid_impl(port_, psbt_str)
 }
@@ -69,6 +129,11 @@ pub extern "C" fn wire_combine_psbt(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_psbt_json_serialize(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_psbt_json_serialize_impl(port_, psbt_str)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_tx_builder_finish(
     port_: i64,
     wallet: wire_WalletInstance,
@@ -81,7 +146,7 @@ pub extern "C" fn wire_tx_builder_finish(
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
     drain_wallet: bool,
-    drain_to: *mut wire_uint_8_list,
+    drain_to: *mut wire_BdkScript,
     enable_rbf: bool,
     n_sequence: *mut u32,
     data: *mut wire_uint_8_list,
@@ -289,8 +354,23 @@ pub extern "C" fn wire_init_address(port_: i64, address: *mut wire_uint_8_list) 
 }
 
 #[no_mangle]
+pub extern "C" fn wire_from_script(port_: i64, script: *mut wire_BdkScript, network: i32) {
+    wire_from_script_impl(port_, script, network)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_address_to_script_pubkey_hex(port_: i64, address: *mut wire_uint_8_list) {
     wire_address_to_script_pubkey_hex_impl(port_, address)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_address_payload(port_: i64, address: *mut wire_uint_8_list) {
+    wire_address_payload_impl(port_, address)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_address_network(port_: i64, address: *mut wire_uint_8_list) {
+    wire_address_network_impl(port_, address)
 }
 
 #[no_mangle]
@@ -412,6 +492,11 @@ pub extern "C" fn new_box_autoadd_BdkDescriptor_0() -> *mut wire_BdkDescriptor {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
     support::new_leak_box_ptr(wire_AddressIndex::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_bdk_script_0() -> *mut wire_BdkScript {
+    support::new_leak_box_ptr(wire_BdkScript::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -599,6 +684,13 @@ impl Wire2Api<AddressIndex> for wire_AddressIndex {
         }
     }
 }
+impl Wire2Api<BdkScript> for wire_BdkScript {
+    fn wire2api(self) -> BdkScript {
+        BdkScript {
+            script_hex: self.script_hex.wire2api(),
+        }
+    }
+}
 impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         match self.tag {
@@ -638,6 +730,12 @@ impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
     fn wire2api(self) -> AddressIndex {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<AddressIndex>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<BdkScript> for *mut wire_BdkScript {
+    fn wire2api(self) -> BdkScript {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<BdkScript>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
@@ -872,6 +970,12 @@ pub struct wire_WalletInstance {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_BdkScript {
+    script_hex: *mut wire_uint_8_list,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_ElectrumConfig {
     url: *mut wire_uint_8_list,
     socks5: *mut wire_uint_8_list,
@@ -935,7 +1039,7 @@ pub struct wire_RpcSyncParams {
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_ScriptAmount {
-    script: *mut wire_uint_8_list,
+    script: wire_BdkScript,
     amount: u64,
 }
 
@@ -1000,6 +1104,7 @@ pub struct wire_AddressIndex_Peek {
 pub struct wire_AddressIndex_Reset {
     index: u32,
 }
+
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_BlockchainConfig {
@@ -1123,6 +1228,20 @@ pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
     })
 }
 
+impl NewWithNullPtr for wire_BdkScript {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            script_hex: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_BdkScript {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_BlockchainConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1199,6 +1318,12 @@ impl NewWithNullPtr for wire_ElectrumConfig {
     }
 }
 
+impl Default for wire_ElectrumConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_EsploraConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1211,12 +1336,24 @@ impl NewWithNullPtr for wire_EsploraConfig {
     }
 }
 
+impl Default for wire_EsploraConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_OutPoint {
     fn new_with_null_ptr() -> Self {
         Self {
             txid: core::ptr::null_mut(),
             vout: Default::default(),
         }
+    }
+}
+
+impl Default for wire_OutPoint {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1233,6 +1370,12 @@ impl NewWithNullPtr for wire_RpcConfig {
     }
 }
 
+impl Default for wire_RpcConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_RpcSyncParams {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1244,12 +1387,24 @@ impl NewWithNullPtr for wire_RpcSyncParams {
     }
 }
 
+impl Default for wire_RpcSyncParams {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_ScriptAmount {
     fn new_with_null_ptr() -> Self {
         Self {
-            script: core::ptr::null_mut(),
+            script: Default::default(),
             amount: Default::default(),
         }
+    }
+}
+
+impl Default for wire_ScriptAmount {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1262,11 +1417,23 @@ impl NewWithNullPtr for wire_SledDbConfiguration {
     }
 }
 
+impl Default for wire_SledDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_SqliteDbConfiguration {
     fn new_with_null_ptr() -> Self {
         Self {
             path: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_SqliteDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1276,6 +1443,12 @@ impl NewWithNullPtr for wire_UserPass {
             username: core::ptr::null_mut(),
             password: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_UserPass {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
