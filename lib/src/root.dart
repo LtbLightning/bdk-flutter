@@ -961,7 +961,7 @@ class TxBuilder {
   /// Returns a [TxBuilderResult].
 
   Future<TxBuilderResult> finish(Wallet wallet) async {
-    if (_recipients.isEmpty) {
+    if (_recipients.isEmpty && _drainTo == null) {
       throw const BdkException.unExpected("No Recipients Added");
     }
     try {
@@ -1043,6 +1043,24 @@ class Wallet {
   Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getAddress(
+          wallet: _wallet!, addressIndex: addressIndex);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Return a derived address using the internal (change) descriptor.
+  ///
+  /// If the wallet doesn't have an internal descriptor it will use the external descriptor.
+  ///
+  /// see [AddressIndex] for available address index selection strategies. If none of the keys
+  /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
+  /// be returned for any [AddressIndex].
+  Future<AddressInfo> getInternalAddress(
+      {required AddressIndex addressIndex}) async {
+    try {
+      var res = await loaderApi.getInternalizedAddress(
           wallet: _wallet!, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {

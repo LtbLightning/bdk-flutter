@@ -72,13 +72,13 @@ class _MyAppState extends State<MyApp> {
     if (blockchain == null) {
       if (!isElectrumBlockchain) {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.esplora(
+            config: const BlockchainConfig.esplora(
                 config: EsploraConfig(
                     baseUrl: 'https://blockstream.info/testnet/api',
                     stopGap: 10)));
       } else {
         blockchain = await Blockchain.create(
-            config: BlockchainConfig.electrum(
+            config: const BlockchainConfig.electrum(
                 config: ElectrumConfig(
                     stopGap: 10,
                     timeout: 5,
@@ -232,8 +232,8 @@ class _MyAppState extends State<MyApp> {
         .addRecipient(script, 700)
         .feeRate(feeRate.asSatPerVb())
         .finish(bdkWallet);
+
     getTransactionDetails(txBuilderResult);
-    final ser = await txBuilderResult.psbt.jsonSerialize();
     final sbt = await bdkWallet.sign(txBuilderResult.psbt);
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);

@@ -17,6 +17,8 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
 @GenerateNiceMocks([MockSpec<FeeRate>()])
+@GenerateNiceMocks([MockSpec<TxBuilderResult>()])
+@GenerateNiceMocks([MockSpec<TransactionDetails>()])
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -186,17 +188,23 @@ void main() {
       expect(res, isNot(mockTxBuilder));
     });
     test('Create a proper psbt transaction ', () async {
-      const psbt = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
+      const psbtBase64 = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
           "QhnLkDCYpTYfnY4+lUgjFAAAAAAD+////Ag5EAAAAAAAAFgAUxYD3fd+pId3hWxeuvuWmiUlS+1PoAwAAAAAAABYAFP+dpWfmLzDqhlT6HV+9R774474TxqQkAAABAN4"
           "BAAAAAAEBViD1JkR+REQpHyOkKYkuVcOIiPzB0wUr8hFmrebQxe8AAAAAAP7///8ClEgAAAAAAAAWABTwV07KrKa1zWpwKzW+ve93pbQ4R+gDAAAAAAAAFgAU/52lZ+YvMOqGVPodX71Hv"
           "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
-
+      final psbt = PartiallySignedTransaction(psbtBase64: psbtBase64);
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
 
+      when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
+      when(mockTxBuilder.finish(mockWallet))
+          .thenAnswer((_) async => Future.value(TxBuilderResult(
+                psbt: psbt,
+                txDetails: MockTransactionDetails(),
+              )));
       final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
       final res = await txBuilder.finish(mockWallet);

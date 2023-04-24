@@ -156,6 +156,17 @@ class _FakePayload_12 extends _i1.SmartFake implements _i2.Payload {
         );
 }
 
+class _FakeTransactionDetails_13 extends _i1.SmartFake
+    implements _i2.TransactionDetails {
+  _FakeTransactionDetails_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [Wallet].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -577,6 +588,15 @@ class MockPartiallySignedTransaction extends _i1.Mock
   _i4.Future<String> serialize() => (super.noSuchMethod(
         Invocation.method(
           #serialize,
+          [],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+        returnValueForMissingStub: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
+  @override
+  _i4.Future<String> jsonSerialize() => (super.noSuchMethod(
+        Invocation.method(
+          #jsonSerialize,
           [],
         ),
         returnValue: _i4.Future<String>.value(''),
@@ -1230,4 +1250,59 @@ class MockFeeRate extends _i1.Mock implements _i3.FeeRate {
         returnValue: 0.0,
         returnValueForMissingStub: 0.0,
       ) as double);
+}
+
+/// A class which mocks [TxBuilderResult].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTxBuilderResult extends _i1.Mock implements _i3.TxBuilderResult {
+  @override
+  _i3.PartiallySignedTransaction get psbt => (super.noSuchMethod(
+        Invocation.getter(#psbt),
+        returnValue: _FakePartiallySignedTransaction_2(
+          this,
+          Invocation.getter(#psbt),
+        ),
+        returnValueForMissingStub: _FakePartiallySignedTransaction_2(
+          this,
+          Invocation.getter(#psbt),
+        ),
+      ) as _i3.PartiallySignedTransaction);
+  @override
+  _i2.TransactionDetails get txDetails => (super.noSuchMethod(
+        Invocation.getter(#txDetails),
+        returnValue: _FakeTransactionDetails_13(
+          this,
+          Invocation.getter(#txDetails),
+        ),
+        returnValueForMissingStub: _FakeTransactionDetails_13(
+          this,
+          Invocation.getter(#txDetails),
+        ),
+      ) as _i2.TransactionDetails);
+}
+
+/// A class which mocks [TransactionDetails].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransactionDetails extends _i1.Mock
+    implements _i2.TransactionDetails {
+  @override
+  String get txid => (super.noSuchMethod(
+        Invocation.getter(#txid),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  int get received => (super.noSuchMethod(
+        Invocation.getter(#received),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  int get sent => (super.noSuchMethod(
+        Invocation.getter(#sent),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
 }
