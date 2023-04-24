@@ -914,6 +914,7 @@ class TxBuilderResult {
   final PartiallySignedTransaction psbt;
 
   ///The transaction details.
+  ///
   final TransactionDetails txDetails;
 
   TxBuilderResult({required this.psbt, required this.txDetails});

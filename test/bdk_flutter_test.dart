@@ -197,7 +197,6 @@ void main() {
       when(mockTxBuilder.drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB"))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.feeRate(any)).thenReturn(mockTxBuilder);
-      ;
       when(mockTxBuilder.finish(mockWallet))
           .thenAnswer((_) async => mockTxBuilderResult);
       final txBuilder = mockTxBuilder
