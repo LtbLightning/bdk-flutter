@@ -171,6 +171,16 @@ typedef struct wire_AddressIndex {
   union AddressIndexKind *kind;
 } wire_AddressIndex;
 
+typedef struct wire_SignOptions {
+  bool trust_witness_utxo;
+  uint32_t *assume_height;
+  bool allow_all_sighashes;
+  bool remove_partial_sigs;
+  bool try_finalize;
+  bool sign_with_tap_internal_key;
+  bool allow_grinding;
+} wire_SignOptions;
+
 typedef struct DartCObject *WireSyncReturn;
 
 void store_dart_post_cobject(DartPostCObjectFnType ptr);
@@ -371,7 +381,7 @@ void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet);
 void wire_sign(int64_t port_,
                struct wire_WalletInstance wallet,
                struct wire_uint_8_list *psbt_str,
-               bool is_multi_sig);
+               struct wire_SignOptions *sign_options);
 
 void wire_get_network(int64_t port_, struct wire_WalletInstance wallet);
 
@@ -408,6 +418,8 @@ float *new_box_autoadd_f32_0(float value);
 struct wire_RpcConfig *new_box_autoadd_rpc_config_0(void);
 
 struct wire_RpcSyncParams *new_box_autoadd_rpc_sync_params_0(void);
+
+struct wire_SignOptions *new_box_autoadd_sign_options_0(void);
 
 struct wire_SledDbConfiguration *new_box_autoadd_sled_db_configuration_0(void);
 
@@ -533,6 +545,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_sign_options_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sled_db_configuration_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sqlite_db_configuration_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u32_0);

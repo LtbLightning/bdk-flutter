@@ -1228,16 +1228,16 @@ class RustImpl implements Rust {
   Future<String?> sign(
       {required WalletInstance wallet,
       required String psbtStr,
-      required bool isMultiSig,
+      SignOptions? signOptions,
       dynamic hint}) {
     var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = _platform.api2wire_String(psbtStr);
-    var arg2 = isMultiSig;
+    var arg2 = _platform.api2wire_opt_box_autoadd_sign_options(signOptions);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_sign(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_opt_String,
       constMeta: kSignConstMeta,
-      argValues: [wallet, psbtStr, isMultiSig],
+      argValues: [wallet, psbtStr, signOptions],
       hint: hint,
     ));
   }
@@ -1245,7 +1245,7 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kSignConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sign",
-        argNames: ["wallet", "psbtStr", "isMultiSig"],
+        argNames: ["wallet", "psbtStr", "signOptions"],
       );
 
   Future<Network> getNetwork({required WalletInstance wallet, dynamic hint}) {
@@ -1755,6 +1755,14 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
+  ffi.Pointer<wire_SignOptions> api2wire_box_autoadd_sign_options(
+      SignOptions raw) {
+    final ptr = inner.new_box_autoadd_sign_options_0();
+    _api_fill_to_wire_sign_options(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_SledDbConfiguration>
       api2wire_box_autoadd_sled_db_configuration(SledDbConfiguration raw) {
     final ptr = inner.new_box_autoadd_sled_db_configuration_0();
@@ -1839,6 +1847,12 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     return raw == null
         ? ffi.nullptr
         : api2wire_box_autoadd_rpc_sync_params(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_SignOptions> api2wire_opt_box_autoadd_sign_options(
+      SignOptions? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_sign_options(raw);
   }
 
   @protected
@@ -2002,6 +2016,11 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     _api_fill_to_wire_rpc_sync_params(apiObj, wireObj.ref);
   }
 
+  void _api_fill_to_wire_box_autoadd_sign_options(
+      SignOptions apiObj, ffi.Pointer<wire_SignOptions> wireObj) {
+    _api_fill_to_wire_sign_options(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_box_autoadd_sled_db_configuration(
       SledDbConfiguration apiObj,
       ffi.Pointer<wire_SledDbConfiguration> wireObj) {
@@ -2080,6 +2099,12 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
       _api_fill_to_wire_box_autoadd_rpc_sync_params(apiObj, wireObj);
   }
 
+  void _api_fill_to_wire_opt_box_autoadd_sign_options(
+      SignOptions? apiObj, ffi.Pointer<wire_SignOptions> wireObj) {
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_sign_options(apiObj, wireObj);
+  }
+
   void _api_fill_to_wire_opt_box_autoadd_user_pass(
       UserPass? apiObj, ffi.Pointer<wire_UserPass> wireObj) {
     if (apiObj != null)
@@ -2114,6 +2139,18 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
       ScriptAmount apiObj, wire_ScriptAmount wireObj) {
     _api_fill_to_wire_bdk_script(apiObj.script, wireObj.script);
     wireObj.amount = api2wire_u64(apiObj.amount);
+  }
+
+  void _api_fill_to_wire_sign_options(
+      SignOptions apiObj, wire_SignOptions wireObj) {
+    wireObj.trust_witness_utxo = api2wire_bool(apiObj.trustWitnessUtxo);
+    wireObj.assume_height = api2wire_opt_box_autoadd_u32(apiObj.assumeHeight);
+    wireObj.allow_all_sighashes = api2wire_bool(apiObj.allowAllSighashes);
+    wireObj.remove_partial_sigs = api2wire_bool(apiObj.removePartialSigs);
+    wireObj.try_finalize = api2wire_bool(apiObj.tryFinalize);
+    wireObj.sign_with_tap_internal_key =
+        api2wire_bool(apiObj.signWithTapInternalKey);
+    wireObj.allow_grinding = api2wire_bool(apiObj.allowGrinding);
   }
 
   void _api_fill_to_wire_sled_db_configuration(
@@ -3397,23 +3434,26 @@ class RustWire implements FlutterRustBridgeWireBase {
     int port_,
     wire_WalletInstance wallet,
     ffi.Pointer<wire_uint_8_list> psbt_str,
-    bool is_multi_sig,
+    ffi.Pointer<wire_SignOptions> sign_options,
   ) {
     return _wire_sign(
       port_,
       wallet,
       psbt_str,
-      is_multi_sig,
+      sign_options,
     );
   }
 
   late final _wire_signPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, wire_WalletInstance,
-              ffi.Pointer<wire_uint_8_list>, ffi.Bool)>>('wire_sign');
+          ffi.Void Function(
+              ffi.Int64,
+              wire_WalletInstance,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_SignOptions>)>>('wire_sign');
   late final _wire_sign = _wire_signPtr.asFunction<
-      void Function(
-          int, wire_WalletInstance, ffi.Pointer<wire_uint_8_list>, bool)>();
+      void Function(int, wire_WalletInstance, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_SignOptions>)>();
 
   void wire_get_network(
     int port_,
@@ -3642,6 +3682,17 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _new_box_autoadd_rpc_sync_params_0 =
       _new_box_autoadd_rpc_sync_params_0Ptr
           .asFunction<ffi.Pointer<wire_RpcSyncParams> Function()>();
+
+  ffi.Pointer<wire_SignOptions> new_box_autoadd_sign_options_0() {
+    return _new_box_autoadd_sign_options_0();
+  }
+
+  late final _new_box_autoadd_sign_options_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_SignOptions> Function()>>(
+          'new_box_autoadd_sign_options_0');
+  late final _new_box_autoadd_sign_options_0 =
+      _new_box_autoadd_sign_options_0Ptr
+          .asFunction<ffi.Pointer<wire_SignOptions> Function()>();
 
   ffi.Pointer<wire_SledDbConfiguration>
       new_box_autoadd_sled_db_configuration_0() {
@@ -4150,6 +4201,28 @@ class wire_AddressIndex extends ffi.Struct {
   external int tag;
 
   external ffi.Pointer<AddressIndexKind> kind;
+}
+
+class wire_SignOptions extends ffi.Struct {
+  @ffi.Bool()
+  external bool trust_witness_utxo;
+
+  external ffi.Pointer<ffi.Uint32> assume_height;
+
+  @ffi.Bool()
+  external bool allow_all_sighashes;
+
+  @ffi.Bool()
+  external bool remove_partial_sigs;
+
+  @ffi.Bool()
+  external bool try_finalize;
+
+  @ffi.Bool()
+  external bool sign_with_tap_internal_key;
+
+  @ffi.Bool()
+  external bool allow_grinding;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<

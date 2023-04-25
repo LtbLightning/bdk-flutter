@@ -1105,9 +1105,6 @@ class Wallet {
   ///Sync the internal database with the [Blockchain]
   Future sync(Blockchain blockchain) async {
     try {
-      if (kDebugMode) {
-        print("Syncing wallet");
-      }
       await loaderApi.syncWallet(
           wallet: _wallet!, blockchain: blockchain._blockchain!);
       if (kDebugMode) {
@@ -1132,10 +1129,11 @@ class Wallet {
   ///
   /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
   Future<PartiallySignedTransaction> sign(
-      PartiallySignedTransaction psbt) async {
+      {required PartiallySignedTransaction psbt,
+      SignOptions? signOptions}) async {
     try {
       final sbt = await loaderApi.sign(
-          psbtStr: psbt.psbtBase64, wallet: _wallet!, isMultiSig: false);
+          signOptions: signOptions, psbtStr: psbt.psbtBase64, wallet: _wallet!);
       if (sbt == null) {
         throw const BdkException.unExpected("Unable to sign transaction");
       }

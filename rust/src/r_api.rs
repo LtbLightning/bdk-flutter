@@ -17,6 +17,7 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
+use crate::wallet::SignOptions;
 //========Blockchain==========
 
 pub fn blockchain_init(config: BlockchainConfig) -> anyhow::Result<RustOpaque<BlockchainInstance>> {
@@ -636,21 +637,15 @@ pub fn get_transactions(
 pub fn sign(
     wallet: RustOpaque<WalletInstance>,
     psbt_str: String,
-    is_multi_sig: bool,
+    sign_options: Option<SignOptions>
 ) -> Option<String> {
     let psbt = match PartiallySignedTransaction::new(psbt_str) {
         Ok(e) => e,
         Err(e) => panic!("{:?}", e),
     };
-    return match wallet.sign(&psbt).unwrap() {
+    return match wallet.sign(&psbt, sign_options).unwrap() {
         true => Some(psbt.serialize()),
-        false => {
-            if is_multi_sig {
-                Some(psbt.serialize())
-            } else {
-                None
-            }
-        }
+        false => None
     };
 }
 

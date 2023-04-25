@@ -3,7 +3,7 @@ use crate::descriptor::BdkDescriptor;
 use crate::psbt::PartiallySignedTransaction;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::{Error as BdkError, SyncOptions};
-use bdk::{SignOptions, Wallet as BdkWallet};
+use bdk::{SignOptions as BdkSignOptions, Wallet as BdkWallet};
 use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::sync::{Arc, Mutex, MutexGuard};
@@ -94,11 +94,94 @@ impl WalletInstance {
         let unspents = self.get_wallet().list_unspent()?;
         Ok(unspents.into_iter().map(LocalUtxo::from).collect())
     }
-    pub fn sign(&self, psbt: &PartiallySignedTransaction) -> Result<bool, BdkError> {
+    pub(crate) fn sign(
+        &self,
+        psbt: &PartiallySignedTransaction,
+        sign_options: Option<SignOptions>,
+    ) -> Result<bool, BdkError> {
         let mut psbt = psbt.internal.lock().unwrap();
-        self.get_wallet().sign(&mut psbt, SignOptions::default())
+        self.get_wallet().sign(
+            &mut psbt,
+            sign_options.map(SignOptions::into).unwrap_or_default(),
+        )
     }
 }
+
+/// Options for a software signer
+///
+/// Adjust the behavior of our software signers and the way a transaction is finalized
+#[derive(Debug, Clone, Default)]
+pub struct SignOptions {
+    /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
+    /// provided
+    ///
+    /// Defaults to `false` to mitigate the "SegWit bug" which should trick the wallet into
+    /// paying a fee larger than expected.
+    ///
+    /// Some wallets, especially if relatively old, might not provide the `non_witness_utxo` for
+    /// SegWit transactions in the PSBT they generate: in those cases setting this to `true`
+    /// should correctly produce a signature, at the expense of an increased trust in the creator
+    /// of the PSBT.
+    ///
+    /// For more details see: <https://blog.trezor.io/details-of-firmware-updates-for-trezor-one-version-1-9-1-and-trezor-model-t-version-2-3-1-1eba8f60f2dd>
+    pub trust_witness_utxo: bool,
+
+    /// Whether the wallet should assume a specific height has been reached when trying to finalize
+    /// a transaction
+    ///
+    /// The wallet will only "use" a timelock to satisfy the spending policy of an input if the
+    /// timelock height has already been reached. This option allows overriding the "current height" to let the
+    /// wallet use timelocks in the future to spend a coin.
+    pub assume_height: Option<u32>,
+
+    /// Whether the signer should use the `sighash_type` set in the PSBT when signing, no matter
+    /// what its value is
+    ///
+    /// Defaults to `false` which will only allow signing using `SIGHASH_ALL`.
+    pub allow_all_sighashes: bool,
+
+    /// Whether to remove partial signatures from the PSBT inputs while finalizing PSBT.
+    ///
+    /// Defaults to `true` which will remove partial signatures during finalization.
+    pub remove_partial_sigs: bool,
+
+    /// Whether to try finalizing the PSBT after the inputs are signed.
+    ///
+    /// Defaults to `true` which will try finalizing PSBT after inputs are signed.
+    pub try_finalize: bool,
+
+    // Specifies which Taproot script-spend leaves we should sign for. This option is
+    // ignored if we're signing a non-taproot PSBT.
+    //
+    // Defaults to All, i.e., the wallet will sign all the leaves it has a key for.
+    // TODO pub tap_leaves_options: TapLeavesOptions,
+    /// Whether we should try to sign a taproot transaction with the taproot internal key
+    /// or not. This option is ignored if we're signing a non-taproot PSBT.
+    ///
+    /// Defaults to `true`, i.e., we always try to sign with the taproot internal key.
+    pub sign_with_tap_internal_key: bool,
+
+    /// Whether we should grind ECDSA signature to ensure signing with low r
+    /// or not.
+    /// Defaults to `true`, i.e., we always grind ECDSA signature to sign with low r.
+    pub allow_grinding: bool,
+}
+
+impl From<SignOptions> for BdkSignOptions {
+    fn from(sign_options: SignOptions) -> Self {
+        BdkSignOptions {
+            trust_witness_utxo: sign_options.trust_witness_utxo,
+            assume_height: sign_options.assume_height,
+            allow_all_sighashes: sign_options.allow_all_sighashes,
+            remove_partial_sigs: sign_options.remove_partial_sigs,
+            try_finalize: sign_options.try_finalize,
+            tap_leaves_options: Default::default(),
+            sign_with_tap_internal_key: sign_options.sign_with_tap_internal_key,
+            allow_grinding: sign_options.allow_grinding,
+        }
+    }
+}
+
 
 /// Unspent outputs of this wallet
 pub struct LocalUtxo {

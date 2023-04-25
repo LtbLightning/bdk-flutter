@@ -199,6 +199,33 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         )),
       ) as _i4.Future<_i2.AddressInfo>);
   @override
+  _i4.Future<_i2.AddressInfo> getInternalAddress(
+          {required _i2.AddressIndex? addressIndex}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getInternalAddress,
+          [],
+          {#addressIndex: addressIndex},
+        ),
+        returnValue: _i4.Future<_i2.AddressInfo>.value(_FakeAddressInfo_0(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {#addressIndex: addressIndex},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.AddressInfo>.value(_FakeAddressInfo_0(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {#addressIndex: addressIndex},
+          ),
+        )),
+      ) as _i4.Future<_i2.AddressInfo>);
+  @override
   _i4.Future<_i2.Balance> getBalance() => (super.noSuchMethod(
         Invocation.method(
           #getBalance,
@@ -240,6 +267,30 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             _i4.Future<List<_i2.LocalUtxo>>.value(<_i2.LocalUtxo>[]),
       ) as _i4.Future<List<_i2.LocalUtxo>>);
   @override
+  dynamic isolateSync(_i2.BlockchainConfig? config) => super.noSuchMethod(
+        Invocation.method(
+          #isolateSync,
+          [config],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  dynamic uploadImageStorage(List<dynamic>? args) => super.noSuchMethod(
+        Invocation.method(
+          #uploadImageStorage,
+          [args],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  dynamic secondSync(_i2.BlockchainConfig? config) => super.noSuchMethod(
+        Invocation.method(
+          #secondSync,
+          [config],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i4.Future<dynamic> sync(_i3.Blockchain? blockchain) => (super.noSuchMethod(
         Invocation.method(
           #sync,
@@ -262,19 +313,29 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
                 <_i2.TransactionDetails>[]),
       ) as _i4.Future<List<_i2.TransactionDetails>>);
   @override
-  _i4.Future<_i3.PartiallySignedTransaction> sign(
-          _i3.PartiallySignedTransaction? psbt) =>
+  _i4.Future<_i3.PartiallySignedTransaction> sign({
+    required _i3.PartiallySignedTransaction? psbt,
+    _i2.SignOptions? signOptions,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #sign,
-          [psbt],
+          [],
+          {
+            #psbt: psbt,
+            #signOptions: signOptions,
+          },
         ),
         returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
             #sign,
-            [psbt],
+            [],
+            {
+              #psbt: psbt,
+              #signOptions: signOptions,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -283,7 +344,11 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           this,
           Invocation.method(
             #sign,
-            [psbt],
+            [],
+            {
+              #psbt: psbt,
+              #signOptions: signOptions,
+            },
           ),
         )),
       ) as _i4.Future<_i3.PartiallySignedTransaction>);

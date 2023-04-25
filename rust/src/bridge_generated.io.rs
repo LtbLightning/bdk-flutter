@@ -437,9 +437,9 @@ pub extern "C" fn wire_sign(
     port_: i64,
     wallet: wire_WalletInstance,
     psbt_str: *mut wire_uint_8_list,
-    is_multi_sig: bool,
+    sign_options: *mut wire_SignOptions,
 ) {
-    wire_sign_impl(port_, wallet, psbt_str, is_multi_sig)
+    wire_sign_impl(port_, wallet, psbt_str, sign_options)
 }
 
 #[no_mangle]
@@ -532,6 +532,11 @@ pub extern "C" fn new_box_autoadd_rpc_config_0() -> *mut wire_RpcConfig {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_rpc_sync_params_0() -> *mut wire_RpcSyncParams {
     support::new_leak_box_ptr(wire_RpcSyncParams::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_sign_options_0() -> *mut wire_SignOptions {
+    support::new_leak_box_ptr(wire_SignOptions::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -779,6 +784,12 @@ impl Wire2Api<RpcSyncParams> for *mut wire_RpcSyncParams {
         Wire2Api::<RpcSyncParams>::wire2api(*wrap).into()
     }
 }
+impl Wire2Api<SignOptions> for *mut wire_SignOptions {
+    fn wire2api(self) -> SignOptions {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<SignOptions>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<SledDbConfiguration> for *mut wire_SledDbConfiguration {
     fn wire2api(self) -> SledDbConfiguration {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -915,6 +926,19 @@ impl Wire2Api<ScriptAmount> for wire_ScriptAmount {
         }
     }
 }
+impl Wire2Api<SignOptions> for wire_SignOptions {
+    fn wire2api(self) -> SignOptions {
+        SignOptions {
+            trust_witness_utxo: self.trust_witness_utxo.wire2api(),
+            assume_height: self.assume_height.wire2api(),
+            allow_all_sighashes: self.allow_all_sighashes.wire2api(),
+            remove_partial_sigs: self.remove_partial_sigs.wire2api(),
+            try_finalize: self.try_finalize.wire2api(),
+            sign_with_tap_internal_key: self.sign_with_tap_internal_key.wire2api(),
+            allow_grinding: self.allow_grinding.wire2api(),
+        }
+    }
+}
 impl Wire2Api<SledDbConfiguration> for wire_SledDbConfiguration {
     fn wire2api(self) -> SledDbConfiguration {
         SledDbConfiguration {
@@ -1041,6 +1065,18 @@ pub struct wire_RpcSyncParams {
 pub struct wire_ScriptAmount {
     script: wire_BdkScript,
     amount: u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_SignOptions {
+    trust_witness_utxo: bool,
+    assume_height: *mut u32,
+    allow_all_sighashes: bool,
+    remove_partial_sigs: bool,
+    try_finalize: bool,
+    sign_with_tap_internal_key: bool,
+    allow_grinding: bool,
 }
 
 #[repr(C)]
@@ -1403,6 +1439,26 @@ impl NewWithNullPtr for wire_ScriptAmount {
 }
 
 impl Default for wire_ScriptAmount {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_SignOptions {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            trust_witness_utxo: Default::default(),
+            assume_height: core::ptr::null_mut(),
+            allow_all_sighashes: Default::default(),
+            remove_partial_sigs: Default::default(),
+            try_finalize: Default::default(),
+            sign_with_tap_internal_key: Default::default(),
+            allow_grinding: Default::default(),
+        }
+    }
+}
+
+impl Default for wire_SignOptions {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }

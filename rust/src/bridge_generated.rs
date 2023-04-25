@@ -43,6 +43,7 @@ use crate::types::WitnessVersion;
 use crate::types::WordCount;
 use crate::wallet::DatabaseConfig;
 use crate::wallet::LocalUtxo;
+use crate::wallet::SignOptions;
 use crate::wallet::SledDbConfiguration;
 use crate::wallet::SqliteDbConfiguration;
 
@@ -1076,7 +1077,7 @@ fn wire_sign_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     psbt_str: impl Wire2Api<String> + UnwindSafe,
-    is_multi_sig: impl Wire2Api<bool> + UnwindSafe,
+    sign_options: impl Wire2Api<Option<SignOptions>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -1087,8 +1088,8 @@ fn wire_sign_impl(
         move || {
             let api_wallet = wallet.wire2api();
             let api_psbt_str = psbt_str.wire2api();
-            let api_is_multi_sig = is_multi_sig.wire2api();
-            move |task_callback| Ok(sign(api_wallet, api_psbt_str, api_is_multi_sig))
+            let api_sign_options = sign_options.wire2api();
+            move |task_callback| Ok(sign(api_wallet, api_psbt_str, api_sign_options))
         },
     )
 }

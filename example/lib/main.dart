@@ -90,7 +90,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    await initBlockchain(true);
+    if (blockchain == null) {
+      await initBlockchain(true);
+    }
     bdkWallet.sync(blockchain!);
     setState(() {
       displayText = "Syncing completed";
@@ -234,7 +236,7 @@ class _MyAppState extends State<MyApp> {
         .finish(bdkWallet);
 
     getTransactionDetails(txBuilderResult);
-    final sbt = await bdkWallet.sign(txBuilderResult.psbt);
+    final sbt = await bdkWallet.sign(psbt: txBuilderResult.psbt);
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);
     sync();
