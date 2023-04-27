@@ -17,13 +17,14 @@ class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
   late Wallet bdkWallet;
+  Descriptor? predefinedDescriptor;
   Descriptor? aliceDescriptor;
   Descriptor? aliceDescriptorChange;
   Blockchain? blockchain;
 
   @override
   void initState() {
-    restoreWallet();
+    restoreWalletTwoDescriptors();
     super.initState();
   }
 
@@ -37,8 +38,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  restoreWallet() async {
-    await createDescriptors();
+  restoreWalletTwoDescriptors() async {
+    await createDescriptorsFromPath();
     bdkWallet = await Wallet.create(
       descriptor: aliceDescriptor!,
       changeDescriptor: aliceDescriptorChange!,
@@ -54,7 +55,33 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  createDescriptors() async {
+  restoreWalletPredefinedDescriptor() async {
+    await createPredefinedDescriptorSecret();
+    bdkWallet = await Wallet.create(
+        descriptor: aliceDescriptor!, network: Network.Testnet, databaseConfig: const DatabaseConfig.memory());
+    final address = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+
+    setState(() {
+      displayText = "Wallet restored with address: ${address.address} ";
+    });
+  }
+
+  createPredefinedDescriptorSecret() async {
+    final mnemonic =
+        await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
+    final descriptorSecretKey = await DescriptorSecretKey.create(
+      network: Network.Testnet,
+      mnemonic: mnemonic,
+    );
+    final descriptor = await Descriptor.newBip44(
+        secretKey: descriptorSecretKey, network: Network.Testnet, keychain: KeychainKind.External);
+
+    setState(() {
+      predefinedDescriptor = descriptor;
+    });
+  }
+
+  createDescriptorsFromPath() async {
     final mnemonic =
         await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = await DescriptorSecretKey.create(
