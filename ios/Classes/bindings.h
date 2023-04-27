@@ -318,6 +318,10 @@ void wire_get_address(int64_t port_,
                       struct wire_WalletInstance wallet,
                       struct wire_AddressIndex *address_index);
 
+void wire_get_internal_address(int64_t port_,
+                               struct wire_WalletInstance wallet,
+                               struct wire_AddressIndex *address_index);
+
 void wire_get_internalized_address(int64_t port_,
                                    struct wire_WalletInstance wallet,
                                    struct wire_AddressIndex *address_index);
@@ -455,6 +459,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
     dummy_var ^= ((int64_t) (void*) wire_wallet_init);
     dummy_var ^= ((int64_t) (void*) wire_get_address);
+    dummy_var ^= ((int64_t) (void*) wire_get_internal_address);
     dummy_var ^= ((int64_t) (void*) wire_get_internalized_address);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
     dummy_var ^= ((int64_t) (void*) wire_get_balance);

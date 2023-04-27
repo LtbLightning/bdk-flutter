@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
   int balance = 0;
   late Wallet bdkWallet;
   Descriptor? aliceDescriptor;
+  Descriptor? aliceDescriptorPublic;
   late Descriptor aliceChangeDescriptor;
   Blockchain? blockchain;
 
@@ -40,31 +41,46 @@ class _MyAppState extends State<MyApp> {
   restoreWallet() async {
     await createDescriptorSecret();
     bdkWallet = await Wallet.create(
-        descriptor: aliceDescriptor!,
-        network: Network.Testnet,
-        databaseConfig: const DatabaseConfig.memory());
-    final address =
-        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+      descriptor: aliceDescriptor!,
+      changeDescriptor: aliceDescriptorPublic!,
+      network: Network.Testnet,
+      databaseConfig: const DatabaseConfig.memory(),
+    );
+
+    final address = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+    final internalAddress = await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
 
     setState(() {
-      displayText = "Wallet restored with address: ${address.address} ";
+      displayText = "Wallet restored with address: ${address.address} and internal ${internalAddress.address}";
     });
   }
 
   createDescriptorSecret() async {
-    final mnemonic = await Mnemonic.fromString(
-        'puppy interest whip tonight dad never sudden response push zone pig patch');
+    final mnemonic =
+        await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
-    final descriptor = await Descriptor.newBip44(
-        secretKey: descriptorSecretKey,
-        network: Network.Testnet,
-        keychain: KeychainKind.External);
+    final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h");
+    final descriptorPrivateKey = await descriptorSecretKey.derive(derivationPath);
+    final descriptorPublicKey = await descriptorPrivateKey.asPublic();
+
+    print('descriptorPrivateString -  ${descriptorPrivateKey.toString()}');
+    print('descriptorPublicString - ${descriptorPublicKey.asString()}');
+
+    final Descriptor descriptorPrivate = await Descriptor.create(
+      descriptor: "pkh(${descriptorPrivateKey.toString()})",
+      network: Network.Testnet,
+    );
+    final Descriptor descriptorPublic = await Descriptor.create(
+      descriptor: "pkh(${descriptorPublicKey.asString()})",
+      network: Network.Testnet,
+    );
 
     setState(() {
-      aliceDescriptor = descriptor;
+      aliceDescriptor = descriptorPrivate;
+      aliceDescriptorPublic = descriptorPublic;
     });
   }
 
@@ -73,9 +89,7 @@ class _MyAppState extends State<MyApp> {
       if (!isElectrumBlockchain) {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.esplora(
-                config: EsploraConfig(
-                    baseUrl: 'https://blockstream.info/testnet/api',
-                    stopGap: 10)));
+                config: EsploraConfig(baseUrl: 'https://blockstream.info/testnet/api', stopGap: 10)));
       } else {
         blockchain = await Blockchain.create(
             config: BlockchainConfig.electrum(
@@ -98,12 +112,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   getNewAddress() async {
-    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+    final addressExt = await bdkWallet.getAddress(addressIndex: const AddressIndex.lastUnused());
+    final addressInt = await bdkWallet.getInternalAddress(addressIndex: const AddressIndex.lastUnused());
     if (kDebugMode) {
-      print(res.address);
+      print('addressExt - ${addressExt.address}');
+      print('addressInt - ${addressInt.address}');
     }
     setState(() {
-      displayText = "Address: ${res.address} \n Index: ${res.index}";
+      displayText = "Address: ${addressExt.address} \n Index: ${addressExt.index}";
     });
   }
 
@@ -154,22 +170,19 @@ class _MyAppState extends State<MyApp> {
     final res = await bdkWallet.getBalance();
     setState(() {
       balance = res.total;
-      displayText =
-          "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
+      displayText = "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
     });
   }
 
   listUnspent() async {
     final res = await bdkWallet.listUnspent();
     setState(() {
-      displayText =
-          " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
+      displayText = " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
     });
     for (var e in res) {
       if (kDebugMode) {
         print("isSpent: ${e.isSpent}");
-        print(
-            "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
+        print("outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print("txout: { address:${e.txout.address}, value: ${e.txout.value} }");
         print("===========================");
       }
@@ -223,14 +236,10 @@ class _MyAppState extends State<MyApp> {
 
   sendBit() async {
     final txBuilder = TxBuilder();
-    final address =
-        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    final address = await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
-    final txBuilderResult = await txBuilder
-        .addRecipient(script, 700)
-        .feeRate(feeRate.asSatPerVb())
-        .finish(bdkWallet);
+    final txBuilderResult = await txBuilder.addRecipient(script, 700).feeRate(feeRate.asSatPerVb()).finish(bdkWallet);
     getTransactionDetails(txBuilderResult);
     final sbt = await bdkWallet.sign(txBuilderResult.psbt);
     final tx = await sbt.extractTx();
@@ -244,45 +253,37 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
+          preferredSize: const Size(double.infinity, kToolbarHeight * 2),
           child: Container(
             padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
             color: Colors.blue,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Bdk Wallet',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16,
-                      height: 2.5,
-                      color: Colors.white)),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Response: ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700)),
-                  Expanded(
-                    child: SelectableText(
-                      displayText,
-                      maxLines: 3,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Bdk Wallet',
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, height: 2.5, color: Colors.white)),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Response: ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
+                    Expanded(
+                      child: SelectableText(
+                        displayText,
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ]),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         body: Center(
@@ -294,17 +295,11 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   Text(
                     balance.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 40,
-                        color: Colors.blue),
+                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 40, color: Colors.blue),
                   ),
                   const Text(
                     " sats",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                        color: Colors.blue),
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: Colors.blue),
                   ),
                 ],
               ),
@@ -312,91 +307,64 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getNewAddress(),
                   child: const Text(
                     'Press to create new Address',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => sync(),
                   child: const Text(
                     'Press to  sync',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => getConfirmedTransactions(),
                   child: const Text(
                     'Get ConfirmedTransactions',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => getUnConfirmedTransactions(),
                   child: const Text(
                     'getPendingTransactions',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => getBalance(),
                   child: const Text(
                     'get Balance',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => listUnspent(),
                   child: const Text(
                     'list Unspent',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => sendBit(),
                   child: const Text(
                     'Press to send 1200 satoshi',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => getBlockHash(),
                   child: const Text(
                     'get BlockHash',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
               TextButton(
                   onPressed: () => generateMnemonicKeys(),
                   child: const Text(
                     'generate Mnemonic',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(color: Colors.indigoAccent, fontSize: 12, height: 1.5, fontWeight: FontWeight.w800),
                   )),
             ],
           ),

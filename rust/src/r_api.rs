@@ -517,6 +517,18 @@ pub fn get_address(
         Err(e) => anyhow::bail!("{:?}", e),
     }
 }
+
+//Return a derived address using the internal descriptor,
+pub fn get_internal_address(
+    wallet: RustOpaque<WalletInstance>,
+    address_index: AddressIndex,
+) -> anyhow::Result<AddressInfo, anyhow::Error> {
+    match wallet.get_internal_address(address_index) {
+        Ok(e) => Ok(e),
+        Err(e) => anyhow::bail!("{:?}", e),
+    }
+}
+
 pub fn get_internalized_address(
     wallet: RustOpaque<WalletInstance>,
     address_index: AddressIndex,
