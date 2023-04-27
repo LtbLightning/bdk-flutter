@@ -58,7 +58,10 @@ class _MyAppState extends State<MyApp> {
   restoreWalletPredefinedDescriptor() async {
     await createPredefinedDescriptorSecret();
     bdkWallet = await Wallet.create(
-        descriptor: aliceDescriptor!, network: Network.Testnet, databaseConfig: const DatabaseConfig.memory());
+      descriptor: aliceDescriptor!,
+      network: Network.Testnet,
+      databaseConfig: const DatabaseConfig.memory(),
+    );
     final address = await bdkWallet.getAddress(addressIndex: const AddressIndex());
 
     setState(() {

@@ -20,7 +20,7 @@ dependencies:
 
 ### Examples
 
-### Create a Wallet & sync the balance of a descriptor
+### Create a Wallet & sync the balance of a predefined descriptor
 
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -66,6 +66,45 @@ final externalPublicDescriptorStr = await externalDescriptor.asString();
 final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
                                                     network: Network.Testnet);
 
+```
+
+### Create an `internal` and `extarnal` wallet descriptors from derivation path.
+
+And get internal and external addresses.
+
+```dart
+import 'package:bdk_flutter/bdk_flutter.dart';
+
+// ....
+
+final mnemonic = await Mnemonic.create(WordCount.Words12);
+final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
+                                                              mnemonic: mnemonic );
+// create external descriptor
+final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
+final descriptorPrivateKey = await descriptorSecretKey.derive(derivationPath);
+final Descriptor descriptorPrivate = await Descriptor.create(
+descriptor: "pkh(${descriptorPrivateKey.toString()})",
+network: Network.Testnet,
+);
+
+// create internal descriptor
+final derivationPathInt = await DerivationPath.create(path: "m/44h/1h/0h/1");
+final descriptorPrivateKeyInt = await descriptorSecretKey.derive(derivationPathInt);
+final Descriptor descriptorPrivateInt = await Descriptor.create(
+descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
+network: Network.Testnet,
+);
+
+final bdkWallet = await Wallet.create(
+descriptor: aliceDescriptor!,
+changeDescriptor: aliceDescriptorChange!,
+network: Network.Testnet,
+databaseConfig: const DatabaseConfig.memory(),
+);
+
+final address = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+final internalAddress = await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
 ```
 
 ### API Documentation
