@@ -140,15 +140,13 @@ pub extern "C" fn wire_tx_builder_finish(
     recipients: *mut wire_list_script_amount,
     utxos: *mut wire_list_out_point,
     unspendable: *mut wire_list_out_point,
+    change_policy: i32,
     manually_selected_only: bool,
-    only_spend_change: bool,
-    do_not_spend_change: bool,
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
     drain_wallet: bool,
     drain_to: *mut wire_BdkScript,
-    enable_rbf: bool,
-    n_sequence: *mut u32,
+    rbf: *mut wire_RbfValue,
     data: *mut wire_uint_8_list,
 ) {
     wire_tx_builder_finish_impl(
@@ -157,15 +155,13 @@ pub extern "C" fn wire_tx_builder_finish(
         recipients,
         utxos,
         unspendable,
+        change_policy,
         manually_selected_only,
-        only_spend_change,
-        do_not_spend_change,
         fee_rate,
         fee_absolute,
         drain_wallet,
         drain_to,
-        enable_rbf,
-        n_sequence,
+        rbf,
         data,
     )
 }
@@ -428,8 +424,12 @@ pub extern "C" fn wire_list_unspent_outputs(port_: i64, wallet: wire_WalletInsta
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_transactions(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_transactions_impl(port_, wallet)
+pub extern "C" fn wire_get_transactions(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    include_raw: bool,
+) {
+    wire_get_transactions_impl(port_, wallet, include_raw)
 }
 
 #[no_mangle]
@@ -522,6 +522,11 @@ pub extern "C" fn new_box_autoadd_esplora_config_0() -> *mut wire_EsploraConfig 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
     support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_rbf_value_0() -> *mut wire_RbfValue {
+    support::new_leak_box_ptr(wire_RbfValue::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -772,6 +777,12 @@ impl Wire2Api<f32> for *mut f32 {
         unsafe { *support::box_from_leak_ptr(self) }
     }
 }
+impl Wire2Api<RbfValue> for *mut wire_RbfValue {
+    fn wire2api(self) -> RbfValue {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<RbfValue>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -823,6 +834,7 @@ impl Wire2Api<UserPass> for *mut wire_UserPass {
         Wire2Api::<UserPass>::wire2api(*wrap).into()
     }
 }
+
 impl Wire2Api<DatabaseConfig> for wire_DatabaseConfig {
     fn wire2api(self) -> DatabaseConfig {
         match self.tag {
@@ -893,6 +905,19 @@ impl Wire2Api<OutPoint> for wire_OutPoint {
         OutPoint {
             txid: self.txid.wire2api(),
             vout: self.vout.wire2api(),
+        }
+    }
+}
+impl Wire2Api<RbfValue> for wire_RbfValue {
+    fn wire2api(self) -> RbfValue {
+        match self.tag {
+            0 => RbfValue::RbfDefault,
+            1 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Value);
+                RbfValue::Value(ans.field0.wire2api())
+            },
+            _ => unreachable!(),
         }
     }
 }
@@ -1203,6 +1228,29 @@ pub struct wire_DatabaseConfig_Sled {
     config: *mut wire_SledDbConfiguration,
 }
 
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue {
+    tag: i32,
+    kind: *mut RbfValueKind,
+}
+
+#[repr(C)]
+pub union RbfValueKind {
+    RbfDefault: *mut wire_RbfValue_RbfDefault,
+    Value: *mut wire_RbfValue_Value,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue_RbfDefault {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue_Value {
+    field0: u32,
+}
+
 // Section: impl NewWithNullPtr
 
 pub trait NewWithNullPtr {
@@ -1391,6 +1439,24 @@ impl Default for wire_OutPoint {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
+}
+
+impl NewWithNullPtr for wire_RbfValue {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_RbfValue_Value() -> *mut RbfValueKind {
+    support::new_leak_box_ptr(RbfValueKind {
+        Value: support::new_leak_box_ptr(wire_RbfValue_Value {
+            field0: Default::default(),
+        }),
+    })
 }
 
 impl NewWithNullPtr for wire_RpcConfig {

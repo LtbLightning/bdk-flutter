@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +113,7 @@ class _MyAppState extends State<MyApp> {
 
   getUnConfirmedTransactions() async {
     List<TransactionDetails> unConfirmed = [];
-    final res = await bdkWallet.listTransactions();
+    final res = await bdkWallet.listTransactions(true);
 
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
@@ -132,7 +134,7 @@ class _MyAppState extends State<MyApp> {
 
   getConfirmedTransactions() async {
     List<TransactionDetails> confirmed = [];
-    final res = await bdkWallet.listTransactions();
+    final res = await bdkWallet.listTransactions(true);
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
     }
@@ -210,12 +212,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   getTransactionDetails(TxBuilderResult txBuilderResult) async {
-    final tx = await txBuilderResult.psbt.extractTx();
-    final serializedTx = await tx.serialize();
+    final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
     final txid = await txBuilderResult.psbt.txId();
+    JsonEncoder encoder = const JsonEncoder.withIndent('  ');
     if (kDebugMode) {
       print("txid: $txid");
-      print("serializedTx: $serializedTx");
+      print(
+          "serializedPsbtTx: ${encoder.convert(json.decode(serializedPsbtTx))}");
       print("===================");
       print("received: ${txBuilderResult.txDetails.received}");
       print("send: ${txBuilderResult.txDetails.sent}");
@@ -236,7 +239,15 @@ class _MyAppState extends State<MyApp> {
         .finish(bdkWallet);
 
     getTransactionDetails(txBuilderResult);
-    final sbt = await bdkWallet.sign(psbt: txBuilderResult.psbt);
+    final sbt = await bdkWallet.sign(
+        psbt: txBuilderResult.psbt,
+        signOptions: const SignOptions(
+            trustWitnessUtxo: true,
+            allowAllSighashes: true,
+            removePartialSigs: false,
+            tryFinalize: true,
+            signWithTapInternalKey: false,
+            allowGrinding: false));
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);
     sync();

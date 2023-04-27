@@ -1,3 +1,5 @@
+use std::fmt;
+use std::fmt::Debug;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
@@ -8,6 +10,7 @@ use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use std::sync::Arc;
+use bdk::blockchain::Progress as BdkProgress;
 #[derive(Debug, Clone)]
 pub struct TxIn {
     pub previous_output: OutPoint,
@@ -443,3 +446,42 @@ pub enum Payload {
         program: Vec<u8>,
     },
 }
+
+/// Trait that logs at level INFO every update received (if any).
+pub trait Progress: Send + Sync + 'static {
+    /// Send a new progress update. The progress value should be in the range 0.0 - 100.0, and the message value is an
+    /// optional text message that can be displayed to the user.
+    fn update(&self, progress: f32, message: Option<String>);
+}
+
+pub struct ProgressHolder {
+   pub progress: Box<dyn Progress>,
+}
+
+impl BdkProgress for ProgressHolder {
+    fn update(&self, progress: f32, message: Option<String>) -> Result<(), BdkError> {
+        self.progress.update(progress, message);
+        Ok(())
+    }
+}
+
+impl Debug for ProgressHolder {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("ProgressHolder").finish_non_exhaustive()
+    }
+}
+pub enum ChangeSpendPolicy {
+    ChangeAllowed,
+    OnlyChange,
+    ChangeForbidden,
+}
+impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy{
+    fn from(value: ChangeSpendPolicy) -> Self {
+        match value {
+            ChangeSpendPolicy::ChangeAllowed => bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeAllowed,
+            ChangeSpendPolicy::OnlyChange => bdk::wallet::tx_builder::ChangeSpendPolicy::OnlyChange,
+            ChangeSpendPolicy::ChangeForbidden => bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeForbidden
+        }
+    }
+}
+

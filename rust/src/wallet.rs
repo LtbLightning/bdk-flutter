@@ -8,10 +8,7 @@ use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use crate::types::{
-    AddressIndex, AddressInfo, Balance, BdkScript, KeychainKind, OutPoint, TransactionDetails,
-    TxOut,
-};
+use crate::types::{AddressIndex, AddressInfo, Balance, BdkScript, KeychainKind, OutPoint, Progress, ProgressHolder, TransactionDetails, TxOut};
 
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
@@ -47,10 +44,16 @@ impl WalletInstance {
         self.wallet_mutex.lock().expect("wallet")
     }
 
-    pub fn sync(&self, blockchain: &BlockchainInstance) {
+    pub fn sync(&self, blockchain: &BlockchainInstance, progress: Option<Box<dyn Progress>>) {
+        let bdk_sync_option: SyncOptions  = if let Some(p) = progress {
+            SyncOptions {
+                progress: Some(Box::new(ProgressHolder { progress: p }) as Box<(dyn bdk::blockchain::Progress + 'static)>) }
+        } else {
+            SyncOptions{ progress: None }
+        };
         let blockchain = blockchain.get_blockchain();
         self.get_wallet()
-            .sync(blockchain.deref(), SyncOptions::default())
+            .sync(blockchain.deref(), bdk_sync_option)
             .unwrap()
     }
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
@@ -81,8 +84,8 @@ impl WalletInstance {
     }
 
     /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
-    pub fn list_transactions(&self) -> Result<Vec<TransactionDetails>, BdkError> {
-        let transaction_details = self.get_wallet().list_transactions(true).unwrap();
+    pub fn list_transactions(&self, include_raw:bool) -> Result<Vec<TransactionDetails>, BdkError> {
+        let transaction_details = self.get_wallet().list_transactions(include_raw).unwrap();
         Ok(transaction_details
             .iter()
             .map(TransactionDetails::from)

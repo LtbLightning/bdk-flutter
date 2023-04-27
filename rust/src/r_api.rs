@@ -3,15 +3,11 @@ pub use crate::descriptor::BdkDescriptor;
 use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemonic};
 use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
-use crate::types::{
-    Address, AddressIndex, AddressInfo, Balance, BdkScript, BdkTxBuilderResult, KeychainKind,
-    Network, OutPoint, Payload, ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount,
-};
+use crate::types::{Address, AddressIndex, AddressInfo, Balance, BdkScript, BdkTxBuilderResult, ChangeSpendPolicy, KeychainKind, Network, OutPoint, Payload, RbfValue, ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount};
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
 use bdk::bitcoin::hashes::hex::ToHex;
-use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
+use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
-use bdk::wallet::tx_builder::ChangeSpendPolicy;
 use bdk::Error;
 use flutter_rust_bridge::RustOpaque;
 use std::ops::Deref;
@@ -176,15 +172,13 @@ pub fn tx_builder_finish(
     recipients: Vec<ScriptAmount>,
     utxos: Vec<OutPoint>,
     unspendable: Vec<OutPoint>,
+    change_policy:ChangeSpendPolicy,
     manually_selected_only: bool,
-    only_spend_change: bool,
-    do_not_spend_change: bool,
     fee_rate: Option<f32>,
     fee_absolute: Option<u64>,
     drain_wallet: bool,
     drain_to: Option<BdkScript>,
-    enable_rbf: bool,
-    n_sequence: Option<u32>,
+    rbf: Option<RbfValue>,
     data: Vec<u8>,
 ) -> anyhow::Result<BdkTxBuilderResult> {
     let binding = wallet.get_wallet();
@@ -193,13 +187,8 @@ pub fn tx_builder_finish(
     for e in recipients {
         tx_builder.add_recipient(e.script.into(), e.amount);
     }
-    if do_not_spend_change {
-        tx_builder.change_policy(ChangeSpendPolicy::ChangeForbidden);
-    }
-    if only_spend_change {
-        tx_builder.change_policy(ChangeSpendPolicy::OnlyChange);
-    }
-    tx_builder.change_policy(ChangeSpendPolicy::ChangeAllowed);
+    tx_builder.change_policy(change_policy.into());
+
     if !utxos.is_empty() {
         let bdk_utxos: Vec<BdkOutPoint> = utxos.iter().map(BdkOutPoint::from).collect();
         let utxos: &[BdkOutPoint] = &bdk_utxos;
@@ -224,11 +213,15 @@ pub fn tx_builder_finish(
     if let Some(script_) = drain_to {
         tx_builder.drain_to(script_.into());
     }
-    if enable_rbf {
-        tx_builder.enable_rbf();
-    }
-    if let Some(n_sequence) = n_sequence {
-        tx_builder.enable_rbf_with_sequence(bdk::bitcoin::Sequence(n_sequence));
+    if let Some(rbf) = &rbf {
+        match *rbf {
+            RbfValue::RbfDefault => {
+                tx_builder.enable_rbf();
+            }
+            RbfValue::Value(nsequence) => {
+                tx_builder.enable_rbf_with_sequence(Sequence(nsequence));
+            }
+        }
     }
     if !data.is_empty() {
         tx_builder.add_data(data.as_slice());
@@ -605,7 +598,7 @@ pub fn get_internalized_address(
 }
 
 pub fn sync_wallet(wallet: RustOpaque<WalletInstance>, blockchain: RustOpaque<BlockchainInstance>) {
-    wallet.sync(blockchain.deref());
+    wallet.sync(blockchain.deref(), None);
 }
 
 pub fn get_balance(wallet: RustOpaque<WalletInstance>) -> anyhow::Result<Balance> {
@@ -627,8 +620,9 @@ pub fn list_unspent_outputs(
 
 pub fn get_transactions(
     wallet: RustOpaque<WalletInstance>,
+    include_raw:bool,
 ) -> anyhow::Result<Vec<TransactionDetails>> {
-    match wallet.list_transactions() {
+    match wallet.list_transactions(include_raw) {
         Ok(e) => Ok(e),
         Err(e) => anyhow::bail!("{:?}", e),
     }

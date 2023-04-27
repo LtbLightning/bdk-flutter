@@ -97,17 +97,18 @@ void main() {
       expect(res, isA<List<LocalUtxo>>());
     });
     test('Should return an empty list of TransactionDetails', () async {
-      when(mockWallet.listTransactions()).thenAnswer((e) async => List.empty());
-      final res = await mockWallet.listTransactions();
+      when(mockWallet.listTransactions(any))
+          .thenAnswer((e) async => List.empty());
+      final res = await mockWallet.listTransactions(true);
       expect(res, isA<List<TransactionDetails>>());
       expect(res, List.empty());
     });
     test('verify function call order', () async {
       await mockWallet.sync(mockBlockchain);
-      await mockWallet.listTransactions();
+      await mockWallet.listTransactions(true);
       verifyInOrder([
         await mockWallet.sync(mockBlockchain),
-        await mockWallet.listTransactions()
+        await mockWallet.listTransactions(true)
       ]);
     });
   });

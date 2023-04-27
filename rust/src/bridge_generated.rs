@@ -31,10 +31,12 @@ use crate::types::Balance;
 use crate::types::BdkScript;
 use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
+use crate::types::ChangeSpendPolicy;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
 use crate::types::Payload;
+use crate::types::RbfValue;
 use crate::types::ScriptAmount;
 use crate::types::TransactionDetails;
 use crate::types::TxIn;
@@ -393,15 +395,13 @@ fn wire_tx_builder_finish_impl(
     recipients: impl Wire2Api<Vec<ScriptAmount>> + UnwindSafe,
     utxos: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
     unspendable: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
+    change_policy: impl Wire2Api<ChangeSpendPolicy> + UnwindSafe,
     manually_selected_only: impl Wire2Api<bool> + UnwindSafe,
-    only_spend_change: impl Wire2Api<bool> + UnwindSafe,
-    do_not_spend_change: impl Wire2Api<bool> + UnwindSafe,
     fee_rate: impl Wire2Api<Option<f32>> + UnwindSafe,
     fee_absolute: impl Wire2Api<Option<u64>> + UnwindSafe,
     drain_wallet: impl Wire2Api<bool> + UnwindSafe,
     drain_to: impl Wire2Api<Option<BdkScript>> + UnwindSafe,
-    enable_rbf: impl Wire2Api<bool> + UnwindSafe,
-    n_sequence: impl Wire2Api<Option<u32>> + UnwindSafe,
+    rbf: impl Wire2Api<Option<RbfValue>> + UnwindSafe,
     data: impl Wire2Api<Vec<u8>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -415,15 +415,13 @@ fn wire_tx_builder_finish_impl(
             let api_recipients = recipients.wire2api();
             let api_utxos = utxos.wire2api();
             let api_unspendable = unspendable.wire2api();
+            let api_change_policy = change_policy.wire2api();
             let api_manually_selected_only = manually_selected_only.wire2api();
-            let api_only_spend_change = only_spend_change.wire2api();
-            let api_do_not_spend_change = do_not_spend_change.wire2api();
             let api_fee_rate = fee_rate.wire2api();
             let api_fee_absolute = fee_absolute.wire2api();
             let api_drain_wallet = drain_wallet.wire2api();
             let api_drain_to = drain_to.wire2api();
-            let api_enable_rbf = enable_rbf.wire2api();
-            let api_n_sequence = n_sequence.wire2api();
+            let api_rbf = rbf.wire2api();
             let api_data = data.wire2api();
             move |task_callback| {
                 tx_builder_finish(
@@ -431,15 +429,13 @@ fn wire_tx_builder_finish_impl(
                     api_recipients,
                     api_utxos,
                     api_unspendable,
+                    api_change_policy,
                     api_manually_selected_only,
-                    api_only_spend_change,
-                    api_do_not_spend_change,
                     api_fee_rate,
                     api_fee_absolute,
                     api_drain_wallet,
                     api_drain_to,
-                    api_enable_rbf,
-                    api_n_sequence,
+                    api_rbf,
                     api_data,
                 )
             }
@@ -1060,6 +1056,7 @@ fn wire_list_unspent_outputs_impl(
 fn wire_get_transactions_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
+    include_raw: impl Wire2Api<bool> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -1069,7 +1066,8 @@ fn wire_get_transactions_impl(
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| get_transactions(api_wallet)
+            let api_include_raw = include_raw.wire2api();
+            move |task_callback| get_transactions(api_wallet, api_include_raw)
         },
     )
 }
@@ -1199,6 +1197,17 @@ where
 impl Wire2Api<bool> for bool {
     fn wire2api(self) -> bool {
         self
+    }
+}
+
+impl Wire2Api<ChangeSpendPolicy> for i32 {
+    fn wire2api(self) -> ChangeSpendPolicy {
+        match self {
+            0 => ChangeSpendPolicy::ChangeAllowed,
+            1 => ChangeSpendPolicy::OnlyChange,
+            2 => ChangeSpendPolicy::ChangeForbidden,
+            _ => unreachable!("Invalid variant for ChangeSpendPolicy: {}", self),
+        }
     }
 }
 

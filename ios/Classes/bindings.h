@@ -107,6 +107,24 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
+typedef struct wire_RbfValue_RbfDefault {
+
+} wire_RbfValue_RbfDefault;
+
+typedef struct wire_RbfValue_Value {
+  uint32_t field0;
+} wire_RbfValue_Value;
+
+typedef union RbfValueKind {
+  struct wire_RbfValue_RbfDefault *RbfDefault;
+  struct wire_RbfValue_Value *Value;
+} RbfValueKind;
+
+typedef struct wire_RbfValue {
+  int32_t tag;
+  union RbfValueKind *kind;
+} wire_RbfValue;
+
 typedef struct wire_BdkDescriptor {
   const void *ptr;
 } wire_BdkDescriptor;
@@ -252,15 +270,13 @@ void wire_tx_builder_finish(int64_t port_,
                             struct wire_list_script_amount *recipients,
                             struct wire_list_out_point *utxos,
                             struct wire_list_out_point *unspendable,
+                            int32_t change_policy,
                             bool manually_selected_only,
-                            bool only_spend_change,
-                            bool do_not_spend_change,
                             float *fee_rate,
                             uint64_t *fee_absolute,
                             bool drain_wallet,
                             struct wire_BdkScript *drain_to,
-                            bool enable_rbf,
-                            uint32_t *n_sequence,
+                            struct wire_RbfValue *rbf,
                             struct wire_uint_8_list *data);
 
 void wire_bump_fee_tx_builder_finish(int64_t port_,
@@ -376,7 +392,7 @@ void wire_get_balance(int64_t port_, struct wire_WalletInstance wallet);
 
 void wire_list_unspent_outputs(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet);
+void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet, bool include_raw);
 
 void wire_sign(int64_t port_,
                struct wire_WalletInstance wallet,
@@ -414,6 +430,8 @@ struct wire_ElectrumConfig *new_box_autoadd_electrum_config_0(void);
 struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 
 float *new_box_autoadd_f32_0(float value);
+
+struct wire_RbfValue *new_box_autoadd_rbf_value_0(void);
 
 struct wire_RpcConfig *new_box_autoadd_rpc_config_0(void);
 
@@ -464,6 +482,8 @@ union BlockchainConfigKind *inflate_BlockchainConfig_Rpc(void);
 union DatabaseConfigKind *inflate_DatabaseConfig_Sqlite(void);
 
 union DatabaseConfigKind *inflate_DatabaseConfig_Sled(void);
+
+union RbfValueKind *inflate_RbfValue_Value(void);
 
 void free_WireSyncReturn(WireSyncReturn ptr);
 
@@ -543,6 +563,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_rbf_value_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sign_options_0);
@@ -568,6 +589,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) inflate_BlockchainConfig_Rpc);
     dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_Sqlite);
     dummy_var ^= ((int64_t) (void*) inflate_DatabaseConfig_Sled);
+    dummy_var ^= ((int64_t) (void*) inflate_RbfValue_Value);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturn);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);
     dummy_var ^= ((int64_t) (void*) get_dart_object);

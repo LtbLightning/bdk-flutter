@@ -267,30 +267,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             _i4.Future<List<_i2.LocalUtxo>>.value(<_i2.LocalUtxo>[]),
       ) as _i4.Future<List<_i2.LocalUtxo>>);
   @override
-  dynamic isolateSync(_i2.BlockchainConfig? config) => super.noSuchMethod(
-        Invocation.method(
-          #isolateSync,
-          [config],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  dynamic uploadImageStorage(List<dynamic>? args) => super.noSuchMethod(
-        Invocation.method(
-          #uploadImageStorage,
-          [args],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  dynamic secondSync(_i2.BlockchainConfig? config) => super.noSuchMethod(
-        Invocation.method(
-          #secondSync,
-          [config],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
   _i4.Future<dynamic> sync(_i3.Blockchain? blockchain) => (super.noSuchMethod(
         Invocation.method(
           #sync,
@@ -300,11 +276,11 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValueForMissingStub: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
   @override
-  _i4.Future<List<_i2.TransactionDetails>> listTransactions() =>
+  _i4.Future<List<_i2.TransactionDetails>> listTransactions(bool? includeRaw) =>
       (super.noSuchMethod(
         Invocation.method(
           #listTransactions,
-          [],
+          [includeRaw],
         ),
         returnValue: _i4.Future<List<_i2.TransactionDetails>>.value(
             <_i2.TransactionDetails>[]),

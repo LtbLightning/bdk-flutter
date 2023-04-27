@@ -806,16 +806,14 @@ class Transaction {
 class TxBuilder {
   final List<ScriptAmount> _recipients = [];
   final List<OutPoint> _utxos = [];
-  bool _doNotSpendChange = false;
   final List<OutPoint> _unSpendable = [];
   bool _manuallySelectedOnly = false;
-  bool _onlySpendChange = false;
   double? _feeRate;
+  ChangeSpendPolicy _changeSpendPolicy = ChangeSpendPolicy.ChangeAllowed;
   int? _feeAbsolute;
-  bool _enableRbf = false;
   bool _drainWallet = false;
   Script? _drainTo;
-  int? _nSequence;
+  RbfValue? _rbfValue;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
   ///Add data as an output, using OP_RETURN
@@ -868,7 +866,7 @@ class TxBuilder {
   ///
   /// This effectively adds all the change outputs to the “unspendable” list. See TxBuilder().addUtxos
   TxBuilder doNotSpendChange() {
-    _doNotSpendChange = true;
+    _changeSpendPolicy = ChangeSpendPolicy.ChangeForbidden;
     return this;
   }
 
@@ -899,7 +897,7 @@ class TxBuilder {
   ///
   ///If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
   TxBuilder enableRbfWithSequence(int nSequence) {
-    _nSequence = nSequence;
+    _rbfValue = RbfValue.value(nSequence);
     return this;
   }
 
@@ -907,7 +905,7 @@ class TxBuilder {
   ///
   /// This will use the default nSequence value of 0xFFFFFFFD.
   TxBuilder enableRbf() {
-    _enableRbf = true;
+    _rbfValue = RbfValue.rbfDefault();
     return this;
   }
 
@@ -952,7 +950,7 @@ class TxBuilder {
   ///
   /// This effectively adds all the non-change outputs to the “unspendable” list.
   TxBuilder onlySpendChange() {
-    _onlySpendChange = true;
+    _changeSpendPolicy = ChangeSpendPolicy.OnlyChange;
     return this;
   }
 
@@ -971,15 +969,13 @@ class TxBuilder {
           utxos: _utxos,
           unspendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
-          onlySpendChange: _onlySpendChange,
-          doNotSpendChange: _doNotSpendChange,
           drainWallet: _drainWallet,
-          nSequence: _nSequence,
-          enableRbf: _enableRbf,
+          rbf: _rbfValue,
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,
           feeRate: _feeRate,
-          data: _data);
+          data: _data,
+          changePolicy: _changeSpendPolicy);
 
       return TxBuilderResult(
           psbt: PartiallySignedTransaction(psbtBase64: res.field0),
@@ -1116,9 +1112,10 @@ class Wallet {
   }
 
   ///Return an unsorted list of transactions made and received by the wallet
-  Future<List<TransactionDetails>> listTransactions() async {
+  Future<List<TransactionDetails>> listTransactions(bool includeRaw) async {
     try {
-      final res = await loaderApi.getTransactions(wallet: _wallet!);
+      final res = await loaderApi.getTransactions(
+          wallet: _wallet!, includeRaw: includeRaw);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
