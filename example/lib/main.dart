@@ -18,8 +18,7 @@ class _MyAppState extends State<MyApp> {
   int balance = 0;
   late Wallet bdkWallet;
   Descriptor? aliceDescriptor;
-  Descriptor? aliceDescriptorPublic;
-  late Descriptor aliceChangeDescriptor;
+  Descriptor? aliceDescriptorChange;
   Blockchain? blockchain;
 
   @override
@@ -39,10 +38,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
-    await createDescriptorSecret();
+    await createDescriptors();
     bdkWallet = await Wallet.create(
       descriptor: aliceDescriptor!,
-      changeDescriptor: aliceDescriptorPublic!,
+      changeDescriptor: aliceDescriptorChange!,
       network: Network.Testnet,
       databaseConfig: const DatabaseConfig.memory(),
     );
@@ -55,32 +54,35 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  createDescriptorSecret() async {
+  createDescriptors() async {
     final mnemonic =
         await Mnemonic.fromString('puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
-    final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h");
+
+    // create external descriptor
+    final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
     final descriptorPrivateKey = await descriptorSecretKey.derive(derivationPath);
-    final descriptorPublicKey = await descriptorPrivateKey.asPublic();
-
-    print('descriptorPrivateString -  ${descriptorPrivateKey.toString()}');
-    print('descriptorPublicString - ${descriptorPublicKey.asString()}');
-
+    print('descriptorPrivateExtString -  ${descriptorPrivateKey.toString()}');
     final Descriptor descriptorPrivate = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKey.toString()})",
       network: Network.Testnet,
     );
-    final Descriptor descriptorPublic = await Descriptor.create(
-      descriptor: "pkh(${descriptorPublicKey.asString()})",
+
+    // create internal descriptor
+    final derivationPathInt = await DerivationPath.create(path: "m/44h/1h/0h/1");
+    final descriptorPrivateKeyInt = await descriptorSecretKey.derive(derivationPathInt);
+    print('descriptorPrivateExtString -  ${descriptorPrivateKeyInt.toString()}');
+    final Descriptor descriptorPrivateInt = await Descriptor.create(
+      descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
       network: Network.Testnet,
     );
 
     setState(() {
       aliceDescriptor = descriptorPrivate;
-      aliceDescriptorPublic = descriptorPublic;
+      aliceDescriptorChange = descriptorPrivateInt;
     });
   }
 
