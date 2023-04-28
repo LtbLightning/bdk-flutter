@@ -17,6 +17,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
 @GenerateNiceMocks([MockSpec<FeeRate>()])
+@GenerateNiceMocks([MockSpec<TxBuilderResult>()])
 void main() {
   final mockWallet = MockWallet();
   final mockSDescriptorSecret = MockDescriptorSecretKey();
@@ -27,6 +28,7 @@ void main() {
   final mockAddress = MockAddress();
   final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
+  final mockTxBuilderResult = MockTxBuilderResult();
 
   group('Blockchain', () {
     test('verify getHeight', () async {
@@ -157,7 +159,7 @@ void main() {
         expect(error, isA<BdkException>());
       }
     });
-    test('Should return aTxBuilderException when no recipients are added',
+    test('Should return a TxBuilderException when no recipients are added',
         () async {
       try {
         when(mockTxBuilder.finish(mockWallet))
@@ -168,6 +170,7 @@ void main() {
         expect(error, isA<BdkException>());
       }
     });
+
     test('Verify addData() Exception', () async {
       try {
         when(mockTxBuilder.addData(data: List.empty()))
@@ -185,22 +188,48 @@ void main() {
           vout: 1));
       expect(res, isNot(mockTxBuilder));
     });
-    test('Create a proper psbt transaction ', () async {
-      const psbt = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
-          "QhnLkDCYpTYfnY4+lUgjFAAAAAAD+////Ag5EAAAAAAAAFgAUxYD3fd+pId3hWxeuvuWmiUlS+1PoAwAAAAAAABYAFP+dpWfmLzDqhlT6HV+9R774474TxqQkAAABAN4"
-          "BAAAAAAEBViD1JkR+REQpHyOkKYkuVcOIiPzB0wUr8hFmrebQxe8AAAAAAP7///8ClEgAAAAAAAAWABTwV07KrKa1zWpwKzW+ve93pbQ4R+gDAAAAAAAAFgAU/52lZ+YvMOqGVPodX71Hv"
-          "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
-          "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
-          "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
 
+    test(
+        'Should not return a TxBuilderException when, a drainTo script address is added (with feeRate)',
+        () async {
+      when(mockTxBuilder.drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB"))
+          .thenReturn(mockTxBuilder);
+      when(mockTxBuilder.drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB"))
+          .thenReturn(mockTxBuilder);
+      when(mockTxBuilder.feeRate(any)).thenReturn(mockTxBuilder);
+      when(mockTxBuilder.finish(mockWallet))
+          .thenAnswer((_) async => mockTxBuilderResult);
+      final txBuilder = mockTxBuilder
+          .drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB")
+          .feeRate(25);
+      final res = await txBuilder.finish(mockWallet);
+      expect(res.psbt, isA<PartiallySignedTransaction>());
+      expect(res.txDetails, isA<TransactionDetails>());
+    });
+    test(
+        'Should not return a TxBuilderException when, a drainTo script address is added, instead of addRecipients',
+        () async {
+      when(mockTxBuilder.drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB"))
+          .thenReturn(mockTxBuilder);
+      when(mockTxBuilder.finish(mockWallet))
+          .thenAnswer((_) async => mockTxBuilderResult);
+      final txBuilder =
+          mockTxBuilder.drainTo("mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+      final res = await txBuilder.finish(mockWallet);
+      expect(res.psbt, isA<PartiallySignedTransaction>());
+      expect(res.txDetails, isA<TransactionDetails>());
+    });
+
+    test('Create a proper psbt transaction ', () async {
       when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
-
+      when(mockTxBuilder.finish(mockWallet))
+          .thenAnswer((_) async => mockTxBuilderResult);
       final script = await mockAddress.scriptPubKey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
       final res = await txBuilder.finish(mockWallet);
-      expect(res.psbt, psbt);
+      expect(res, mockTxBuilderResult);
     });
   });
   group('Bump Fee Tx Builder', () {

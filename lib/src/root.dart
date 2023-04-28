@@ -880,7 +880,7 @@ class TxBuilder {
   /// Returns a [TxBuilderResult].
 
   Future<TxBuilderResult> finish(Wallet wallet) async {
-    if (_recipients.isEmpty) {
+    if (_recipients.isEmpty && _drainTo == null) {
       throw const BdkException.unExpected("No Recipients Added");
     }
     try {
@@ -914,6 +914,7 @@ class TxBuilderResult {
   final PartiallySignedTransaction psbt;
 
   ///The transaction details.
+  ///
   final TransactionDetails txDetails;
 
   TxBuilderResult({required this.psbt, required this.txDetails});
