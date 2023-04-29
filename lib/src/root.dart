@@ -970,6 +970,19 @@ class Wallet {
     }
   }
 
+  ///Return a derived address using the internal descriptor, see [AddressIndex] for available address index selection strategies.
+  /// If none of the keys in the descriptor are derivable (i.e. does not end with /*) then the same address will always be returned for any AddressIndex.
+  Future<AddressInfo> getInternalAddress(
+      {required AddressIndex addressIndex}) async {
+    try {
+      var res = await loaderApi.getInternalAddress(
+          wallet: _wallet!, addressIndex: addressIndex);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   ///Return the [Balance], separated into available, trusted-pending, untrusted-pending and immature values.
   ///
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.

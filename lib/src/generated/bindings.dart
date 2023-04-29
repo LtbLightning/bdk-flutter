@@ -851,6 +851,28 @@ class RustImpl implements Rust {
         argNames: ["wallet", "addressIndex"],
       );
 
+  Future<AddressInfo> getInternalAddress(
+      {required WalletInstance wallet,
+      required AddressIndex addressIndex,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
+    var arg1 = _platform.api2wire_box_autoadd_address_index(addressIndex);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) =>
+          _platform.inner.wire_get_internal_address(port_, arg0, arg1),
+      parseSuccessData: _wire2api_address_info,
+      constMeta: kGetInternalAddressConstMeta,
+      argValues: [wallet, addressIndex],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetInternalAddressConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_internal_address",
+        argNames: ["wallet", "addressIndex"],
+      );
+
   Future<AddressInfo> getInternalizedAddress(
       {required WalletInstance wallet,
       required AddressIndex addressIndex,
@@ -2660,6 +2682,27 @@ class RustWire implements FlutterRustBridgeWireBase {
       void Function(
           int, wire_WalletInstance, ffi.Pointer<wire_AddressIndex>)>();
 
+  void wire_get_internal_address(
+    int port_,
+    wire_WalletInstance wallet,
+    ffi.Pointer<wire_AddressIndex> address_index,
+  ) {
+    return _wire_get_internal_address(
+      port_,
+      wallet,
+      address_index,
+    );
+  }
+
+  late final _wire_get_internal_addressPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, wire_WalletInstance,
+              ffi.Pointer<wire_AddressIndex>)>>('wire_get_internal_address');
+  late final _wire_get_internal_address =
+      _wire_get_internal_addressPtr.asFunction<
+          void Function(
+              int, wire_WalletInstance, ffi.Pointer<wire_AddressIndex>)>();
+
   void wire_get_internalized_address(
     int port_,
     wire_WalletInstance wallet,
@@ -3498,5 +3541,6 @@ class wire_AddressIndex extends ffi.Struct {
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<
-    ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
+    ffi.NativeFunction<
+        ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
 typedef DartPort = ffi.Int64;

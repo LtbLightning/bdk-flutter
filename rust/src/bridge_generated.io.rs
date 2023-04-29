@@ -320,6 +320,15 @@ pub extern "C" fn wire_get_address(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_internal_address(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    address_index: *mut wire_AddressIndex,
+) {
+    wire_get_internal_address_impl(port_, wallet, address_index)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_get_internalized_address(
     port_: i64,
     wallet: wire_WalletInstance,

@@ -17,13 +17,14 @@ class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
   late Wallet bdkWallet;
+  Descriptor? predefinedDescriptor;
   Descriptor? aliceDescriptor;
-  late Descriptor aliceChangeDescriptor;
+  Descriptor? aliceDescriptorChange;
   Blockchain? blockchain;
 
   @override
   void initState() {
-    restoreWallet();
+    restoreWalletTwoDescriptors();
     super.initState();
   }
 
@@ -37,12 +38,33 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  restoreWallet() async {
-    await createDescriptorSecret();
+  restoreWalletTwoDescriptors() async {
+    await createDescriptorsFromPath();
     bdkWallet = await Wallet.create(
-        descriptor: aliceDescriptor!,
-        network: Network.Testnet,
-        databaseConfig: const DatabaseConfig.memory());
+      descriptor: aliceDescriptor!,
+      changeDescriptor: aliceDescriptorChange!,
+      network: Network.Testnet,
+      databaseConfig: const DatabaseConfig.memory(),
+    );
+
+    final address =
+        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+    final internalAddress =
+        await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
+
+    setState(() {
+      displayText =
+          "Wallet restored with address: ${address.address} and internal ${internalAddress.address}";
+    });
+  }
+
+  restoreWalletPredefinedDescriptor() async {
+    await createPredefinedDescriptorSecret();
+    bdkWallet = await Wallet.create(
+      descriptor: aliceDescriptor!,
+      network: Network.Testnet,
+      databaseConfig: const DatabaseConfig.memory(),
+    );
     final address =
         await bdkWallet.getAddress(addressIndex: const AddressIndex());
 
@@ -51,7 +73,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  createDescriptorSecret() async {
+  createPredefinedDescriptorSecret() async {
     final mnemonic = await Mnemonic.fromString(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
     final descriptorSecretKey = await DescriptorSecretKey.create(
@@ -64,7 +86,43 @@ class _MyAppState extends State<MyApp> {
         keychain: KeychainKind.External);
 
     setState(() {
-      aliceDescriptor = descriptor;
+      predefinedDescriptor = descriptor;
+    });
+  }
+
+  createDescriptorsFromPath() async {
+    final mnemonic = await Mnemonic.fromString(
+        'puppy interest whip tonight dad never sudden response push zone pig patch');
+    final descriptorSecretKey = await DescriptorSecretKey.create(
+      network: Network.Testnet,
+      mnemonic: mnemonic,
+    );
+
+    // create external descriptor
+    final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
+    final descriptorPrivateKey =
+        await descriptorSecretKey.derive(derivationPath);
+    print('descriptorPrivateExtString -  ${descriptorPrivateKey.toString()}');
+    final Descriptor descriptorPrivate = await Descriptor.create(
+      descriptor: "pkh(${descriptorPrivateKey.toString()})",
+      network: Network.Testnet,
+    );
+
+    // create internal descriptor
+    final derivationPathInt =
+        await DerivationPath.create(path: "m/44h/1h/0h/1");
+    final descriptorPrivateKeyInt =
+        await descriptorSecretKey.derive(derivationPathInt);
+    print(
+        'descriptorPrivateExtString -  ${descriptorPrivateKeyInt.toString()}');
+    final Descriptor descriptorPrivateInt = await Descriptor.create(
+      descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
+      network: Network.Testnet,
+    );
+
+    setState(() {
+      aliceDescriptor = descriptorPrivate;
+      aliceDescriptorChange = descriptorPrivateInt;
     });
   }
 
@@ -98,12 +156,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   getNewAddress() async {
-    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
+    final addressExt = await bdkWallet.getAddress(
+        addressIndex: const AddressIndex.lastUnused());
+    final addressInt = await bdkWallet.getInternalAddress(
+        addressIndex: const AddressIndex.lastUnused());
     if (kDebugMode) {
-      print(res.address);
+      print('addressExt - ${addressExt.address}');
+      print('addressInt - ${addressInt.address}');
     }
     setState(() {
-      displayText = "Address: ${res.address} \n Index: ${res.index}";
+      displayText =
+          "Address: ${addressExt.address} \n Index: ${addressExt.index}";
     });
   }
 
@@ -244,45 +307,47 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
+          preferredSize: const Size(double.infinity, kToolbarHeight * 2),
           child: Container(
             padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
             color: Colors.blue,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Bdk Wallet',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16,
-                      height: 2.5,
-                      color: Colors.white)),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Response: ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700)),
-                  Expanded(
-                    child: SelectableText(
-                      displayText,
-                      maxLines: 3,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Bdk Wallet',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16,
+                        height: 2.5,
+                        color: Colors.white)),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Response: ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700)),
+                    Expanded(
+                      child: SelectableText(
+                        displayText,
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ]),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         body: Center(

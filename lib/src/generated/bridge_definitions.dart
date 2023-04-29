@@ -238,6 +238,13 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kGetAddressConstMeta;
 
+  Future<AddressInfo> getInternalAddress(
+      {required WalletInstance wallet,
+      required AddressIndex addressIndex,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetInternalAddressConstMeta;
+
   Future<AddressInfo> getInternalizedAddress(
       {required WalletInstance wallet,
       required AddressIndex addressIndex,

@@ -771,6 +771,24 @@ fn wire_get_address_impl(
         },
     )
 }
+fn wire_get_internal_address_impl(
+    port_: MessagePort,
+    wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
+    address_index: impl Wire2Api<AddressIndex> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_internal_address",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            let api_address_index = address_index.wire2api();
+            move |task_callback| get_internal_address(api_wallet, api_address_index)
+        },
+    )
+}
 fn wire_get_internalized_address_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
