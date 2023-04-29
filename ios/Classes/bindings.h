@@ -211,203 +211,226 @@ uintptr_t new_dart_opaque(Dart_Handle handle);
 
 intptr_t init_frb_dart_api_dl(void *obj);
 
-void wire_blockchain_init(int64_t port_, struct wire_BlockchainConfig *config);
+void wire_create_blockchain__static_method__Api(int64_t port_,
+                                                struct wire_BlockchainConfig *config);
 
-void wire_get_blockchain_height(int64_t port_, struct wire_BlockchainInstance blockchain);
+void wire_get_height__static_method__Api(int64_t port_, struct wire_BlockchainInstance blockchain);
 
-void wire_get_blockchain_hash(int64_t port_,
-                              uint32_t blockchain_height,
-                              struct wire_BlockchainInstance blockchain);
+void wire_get_blockchain_hash__static_method__Api(int64_t port_,
+                                                  uint32_t blockchain_height,
+                                                  struct wire_BlockchainInstance blockchain);
 
-void wire_estimate_fee(int64_t port_, uint64_t target, struct wire_BlockchainInstance blockchain);
+void wire_estimate_fee__static_method__Api(int64_t port_,
+                                           uint64_t target,
+                                           struct wire_BlockchainInstance blockchain);
 
-void wire_broadcast(int64_t port_,
-                    struct wire_uint_8_list *tx,
-                    struct wire_BlockchainInstance blockchain);
+void wire_broadcast__static_method__Api(int64_t port_,
+                                        struct wire_uint_8_list *tx,
+                                        struct wire_BlockchainInstance blockchain);
 
-void wire_new_transaction(int64_t port_, struct wire_uint_8_list *tx);
+void wire_create_transaction__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_txid(int64_t port_, struct wire_uint_8_list *tx);
+void wire_tx_txid__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_weight(int64_t port_, struct wire_uint_8_list *tx);
+void wire_weight__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_size(int64_t port_, struct wire_uint_8_list *tx);
+void wire_size__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_vsize(int64_t port_, struct wire_uint_8_list *tx);
+void wire_vsize__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_serialize(int64_t port_, struct wire_uint_8_list *tx);
+void wire_serialize_tx__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_is_coin_base(int64_t port_, struct wire_uint_8_list *tx);
+void wire_is_coin_base__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_is_explicitly_rbf(int64_t port_, struct wire_uint_8_list *tx);
+void wire_is_explicitly_rbf__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_is_lock_time_enabled(int64_t port_, struct wire_uint_8_list *tx);
+void wire_is_lock_time_enabled__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_version(int64_t port_, struct wire_uint_8_list *tx);
+void wire_version__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_lock_time(int64_t port_, struct wire_uint_8_list *tx);
+void wire_lock_time__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_input(int64_t port_, struct wire_uint_8_list *tx);
+void wire_input__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_output(int64_t port_, struct wire_uint_8_list *tx);
+void wire_output__static_method__Api(int64_t port_, struct wire_uint_8_list *tx);
 
-void wire_psbt_to_txid(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_serialize_psbt__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_extract_tx(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_psbt_txid__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_get_psbt_fee_rate(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_extract_tx__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_get_fee_amount(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_psbt_fee_rate__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_combine_psbt(int64_t port_,
-                       struct wire_uint_8_list *psbt_str,
-                       struct wire_uint_8_list *other);
+void wire_psbt_fee_amount__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_psbt_json_serialize(int64_t port_, struct wire_uint_8_list *psbt_str);
+void wire_combine_psbt__static_method__Api(int64_t port_,
+                                           struct wire_uint_8_list *psbt_str,
+                                           struct wire_uint_8_list *other);
 
-void wire_tx_builder_finish(int64_t port_,
-                            struct wire_WalletInstance wallet,
-                            struct wire_list_script_amount *recipients,
-                            struct wire_list_out_point *utxos,
-                            struct wire_list_out_point *unspendable,
-                            int32_t change_policy,
-                            bool manually_selected_only,
-                            float *fee_rate,
-                            uint64_t *fee_absolute,
-                            bool drain_wallet,
-                            struct wire_BdkScript *drain_to,
-                            struct wire_RbfValue *rbf,
-                            struct wire_uint_8_list *data);
+void wire_json_serialize__static_method__Api(int64_t port_, struct wire_uint_8_list *psbt_str);
 
-void wire_bump_fee_tx_builder_finish(int64_t port_,
-                                     struct wire_uint_8_list *txid,
-                                     float fee_rate,
-                                     struct wire_uint_8_list *allow_shrinking,
-                                     struct wire_WalletInstance wallet,
-                                     bool enable_rbf,
-                                     uint32_t *n_sequence);
+void wire_tx_builder_finish__static_method__Api(int64_t port_,
+                                                struct wire_WalletInstance wallet,
+                                                struct wire_list_script_amount *recipients,
+                                                struct wire_list_out_point *utxos,
+                                                struct wire_list_out_point *unspendable,
+                                                int32_t change_policy,
+                                                bool manually_selected_only,
+                                                float *fee_rate,
+                                                uint64_t *fee_absolute,
+                                                bool drain_wallet,
+                                                struct wire_BdkScript *drain_to,
+                                                struct wire_RbfValue *rbf,
+                                                struct wire_uint_8_list *data);
 
-void wire_new_descriptor(int64_t port_, struct wire_uint_8_list *descriptor, int32_t network);
+void wire_bump_fee_tx_builder_finish__static_method__Api(int64_t port_,
+                                                         struct wire_uint_8_list *txid,
+                                                         float fee_rate,
+                                                         struct wire_uint_8_list *allow_shrinking,
+                                                         struct wire_WalletInstance wallet,
+                                                         bool enable_rbf,
+                                                         uint32_t *n_sequence);
 
-void wire_new_bip44_descriptor(int64_t port_,
-                               int32_t key_chain_kind,
-                               struct wire_uint_8_list *secret_key,
-                               int32_t network);
+void wire_create_descriptor__static_method__Api(int64_t port_,
+                                                struct wire_uint_8_list *descriptor,
+                                                int32_t network);
 
-void wire_new_bip44_public(int64_t port_,
-                           int32_t key_chain_kind,
-                           struct wire_uint_8_list *public_key,
-                           int32_t network,
-                           struct wire_uint_8_list *fingerprint);
+void wire_new_bip44_descriptor__static_method__Api(int64_t port_,
+                                                   int32_t key_chain_kind,
+                                                   struct wire_uint_8_list *secret_key,
+                                                   int32_t network);
 
-void wire_new_bip49_descriptor(int64_t port_,
-                               int32_t key_chain_kind,
-                               struct wire_uint_8_list *secret_key,
-                               int32_t network);
+void wire_new_bip44_public__static_method__Api(int64_t port_,
+                                               int32_t key_chain_kind,
+                                               struct wire_uint_8_list *public_key,
+                                               int32_t network,
+                                               struct wire_uint_8_list *fingerprint);
 
-void wire_new_bip49_public(int64_t port_,
-                           int32_t key_chain_kind,
-                           struct wire_uint_8_list *public_key,
-                           int32_t network,
-                           struct wire_uint_8_list *fingerprint);
+void wire_new_bip49_descriptor__static_method__Api(int64_t port_,
+                                                   int32_t key_chain_kind,
+                                                   struct wire_uint_8_list *secret_key,
+                                                   int32_t network);
 
-void wire_new_bip84_descriptor(int64_t port_,
-                               int32_t key_chain_kind,
-                               struct wire_uint_8_list *secret_key,
-                               int32_t network);
+void wire_new_bip49_public__static_method__Api(int64_t port_,
+                                               int32_t key_chain_kind,
+                                               struct wire_uint_8_list *public_key,
+                                               int32_t network,
+                                               struct wire_uint_8_list *fingerprint);
 
-void wire_new_bip84_public(int64_t port_,
-                           int32_t key_chain_kind,
-                           struct wire_uint_8_list *public_key,
-                           int32_t network,
-                           struct wire_uint_8_list *fingerprint);
+void wire_new_bip84_descriptor__static_method__Api(int64_t port_,
+                                                   int32_t key_chain_kind,
+                                                   struct wire_uint_8_list *secret_key,
+                                                   int32_t network);
 
-void wire_as_string_private(int64_t port_, struct wire_BdkDescriptor descriptor);
+void wire_new_bip84_public__static_method__Api(int64_t port_,
+                                               int32_t key_chain_kind,
+                                               struct wire_uint_8_list *public_key,
+                                               int32_t network,
+                                               struct wire_uint_8_list *fingerprint);
 
-void wire_as_string(int64_t port_, struct wire_BdkDescriptor descriptor);
+void wire_as_string_private__static_method__Api(int64_t port_,
+                                                struct wire_BdkDescriptor descriptor);
 
-void wire_create_descriptor_secret(int64_t port_,
-                                   int32_t network,
-                                   struct wire_uint_8_list *mnemonic,
-                                   struct wire_uint_8_list *password);
+void wire_as_string__static_method__Api(int64_t port_, struct wire_BdkDescriptor descriptor);
 
-void wire_descriptor_secret_from_string(int64_t port_, struct wire_uint_8_list *xprv);
+void wire_create_descriptor_secret__static_method__Api(int64_t port_,
+                                                       int32_t network,
+                                                       struct wire_uint_8_list *mnemonic,
+                                                       struct wire_uint_8_list *password);
 
-void wire_descriptor_secret_extend(int64_t port_,
-                                   struct wire_uint_8_list *xprv,
-                                   struct wire_uint_8_list *path);
+void wire_descriptor_secret_from_string__static_method__Api(int64_t port_,
+                                                            struct wire_uint_8_list *xprv);
 
-void wire_descriptor_secret_derive(int64_t port_,
-                                   struct wire_uint_8_list *xprv,
-                                   struct wire_uint_8_list *path);
+void wire_extend_descriptor_secret__static_method__Api(int64_t port_,
+                                                       struct wire_uint_8_list *xprv,
+                                                       struct wire_uint_8_list *path);
 
-void wire_descriptor_secret_as_secret_bytes(int64_t port_,
-                                            struct wire_uint_8_list *descriptor_secret,
-                                            struct wire_uint_8_list *xprv);
+void wire_derive_descriptor_secret__static_method__Api(int64_t port_,
+                                                       struct wire_uint_8_list *xprv,
+                                                       struct wire_uint_8_list *path);
 
-void wire_descriptor_secret_as_public(int64_t port_,
-                                      struct wire_uint_8_list *descriptor_secret,
-                                      struct wire_uint_8_list *xprv);
+void wire_as_secret_bytes__static_method__Api(int64_t port_,
+                                              struct wire_uint_8_list *descriptor_secret,
+                                              struct wire_uint_8_list *xprv);
 
-void wire_create_derivation_path(int64_t port_, struct wire_uint_8_list *path);
+void wire_as_public__static_method__Api(int64_t port_,
+                                        struct wire_uint_8_list *descriptor_secret,
+                                        struct wire_uint_8_list *xprv);
 
-void wire_descriptor_public_from_string(int64_t port_, struct wire_uint_8_list *public_key);
+void wire_create_derivation_path__static_method__Api(int64_t port_, struct wire_uint_8_list *path);
 
-void wire_create_descriptor_public(int64_t port_,
-                                   struct wire_uint_8_list *xpub,
-                                   struct wire_uint_8_list *path,
-                                   bool derive);
+void wire_descriptor_public_from_string__static_method__Api(int64_t port_,
+                                                            struct wire_uint_8_list *public_key);
 
-void wire_init_script(int64_t port_, struct wire_uint_8_list *raw_output_script);
+void wire_create_descriptor_public__static_method__Api(int64_t port_,
+                                                       struct wire_uint_8_list *xpub,
+                                                       struct wire_uint_8_list *path,
+                                                       bool derive);
 
-void wire_init_address(int64_t port_, struct wire_uint_8_list *address);
+void wire_create_script__static_method__Api(int64_t port_,
+                                            struct wire_uint_8_list *raw_output_script);
 
-void wire_from_script(int64_t port_, struct wire_BdkScript *script, int32_t network);
+void wire_create_address__static_method__Api(int64_t port_, struct wire_uint_8_list *address);
 
-void wire_address_to_script_pubkey_hex(int64_t port_, struct wire_uint_8_list *address);
+void wire_address_from_script__static_method__Api(int64_t port_,
+                                                  struct wire_BdkScript *script,
+                                                  int32_t network);
 
-void wire_address_payload(int64_t port_, struct wire_uint_8_list *address);
+void wire_address_to_script_pubkey_hex__static_method__Api(int64_t port_,
+                                                           struct wire_uint_8_list *address);
 
-void wire_address_network(int64_t port_, struct wire_uint_8_list *address);
+void wire_payload__static_method__Api(int64_t port_, struct wire_uint_8_list *address);
 
-void wire_wallet_init(int64_t port_,
-                      struct wire_BdkDescriptor descriptor,
-                      struct wire_BdkDescriptor *change_descriptor,
-                      int32_t network,
-                      struct wire_DatabaseConfig *database_config);
+void wire_address_network__static_method__Api(int64_t port_, struct wire_uint_8_list *address);
 
-void wire_get_address(int64_t port_,
-                      struct wire_WalletInstance wallet,
-                      struct wire_AddressIndex *address_index);
+void wire_create_wallet__static_method__Api(int64_t port_,
+                                            struct wire_BdkDescriptor descriptor,
+                                            struct wire_BdkDescriptor *change_descriptor,
+                                            int32_t network,
+                                            struct wire_DatabaseConfig *database_config);
 
-void wire_get_internalized_address(int64_t port_,
+void wire_get_address__static_method__Api(int64_t port_,
+                                          struct wire_WalletInstance wallet,
+                                          struct wire_AddressIndex *address_index);
+
+void wire_get_internal_address__static_method__Api(int64_t port_,
+                                                   struct wire_WalletInstance wallet,
+                                                   struct wire_AddressIndex *address_index);
+
+void wire_sync_wallet__static_method__Api(int64_t port_,
+                                          struct wire_WalletInstance wallet,
+                                          struct wire_BlockchainInstance blockchain);
+
+void wire_sync_wallet_thread__static_method__Api(int64_t port_,
+                                                 struct wire_WalletInstance wallet,
+                                                 struct wire_BlockchainInstance blockchain);
+
+void wire_get_balance__static_method__Api(int64_t port_, struct wire_WalletInstance wallet);
+
+void wire_list_unspent_outputs__static_method__Api(int64_t port_,
+                                                   struct wire_WalletInstance wallet);
+
+void wire_get_transactions__static_method__Api(int64_t port_,
+                                               struct wire_WalletInstance wallet,
+                                               bool include_raw);
+
+void wire_sign__static_method__Api(int64_t port_,
                                    struct wire_WalletInstance wallet,
-                                   struct wire_AddressIndex *address_index);
+                                   struct wire_uint_8_list *psbt_str,
+                                   struct wire_SignOptions *sign_options);
 
-void wire_sync_wallet(int64_t port_,
-                      struct wire_WalletInstance wallet,
-                      struct wire_BlockchainInstance blockchain);
+void wire_wallet_network__static_method__Api(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_get_balance(int64_t port_, struct wire_WalletInstance wallet);
+void wire_list_unspent__static_method__Api(int64_t port_, struct wire_WalletInstance wallet);
 
-void wire_list_unspent_outputs(int64_t port_, struct wire_WalletInstance wallet);
+void wire_generate_seed_from_word_count__static_method__Api(int64_t port_, int32_t word_count);
 
-void wire_get_transactions(int64_t port_, struct wire_WalletInstance wallet, bool include_raw);
+void wire_generate_seed_from_string__static_method__Api(int64_t port_,
+                                                        struct wire_uint_8_list *mnemonic);
 
-void wire_sign(int64_t port_,
-               struct wire_WalletInstance wallet,
-               struct wire_uint_8_list *psbt_str,
-               struct wire_SignOptions *sign_options);
-
-void wire_get_network(int64_t port_, struct wire_WalletInstance wallet);
-
-void wire_list_unspent(int64_t port_, struct wire_WalletInstance wallet);
-
-void wire_generate_seed_from_word_count(int64_t port_, int32_t word_count);
-
-void wire_generate_seed_from_string(int64_t port_, struct wire_uint_8_list *mnemonic);
-
-void wire_generate_seed_from_entropy(int64_t port_, struct wire_uint_8_list *entropy);
+void wire_generate_seed_from_entropy__static_method__Api(int64_t port_,
+                                                         struct wire_uint_8_list *entropy);
 
 struct wire_BdkDescriptor new_BdkDescriptor(void);
 
@@ -489,69 +512,71 @@ void free_WireSyncReturn(WireSyncReturn ptr);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
-    dummy_var ^= ((int64_t) (void*) wire_blockchain_init);
-    dummy_var ^= ((int64_t) (void*) wire_get_blockchain_height);
-    dummy_var ^= ((int64_t) (void*) wire_get_blockchain_hash);
-    dummy_var ^= ((int64_t) (void*) wire_estimate_fee);
-    dummy_var ^= ((int64_t) (void*) wire_broadcast);
-    dummy_var ^= ((int64_t) (void*) wire_new_transaction);
-    dummy_var ^= ((int64_t) (void*) wire_txid);
-    dummy_var ^= ((int64_t) (void*) wire_weight);
-    dummy_var ^= ((int64_t) (void*) wire_size);
-    dummy_var ^= ((int64_t) (void*) wire_vsize);
-    dummy_var ^= ((int64_t) (void*) wire_serialize);
-    dummy_var ^= ((int64_t) (void*) wire_is_coin_base);
-    dummy_var ^= ((int64_t) (void*) wire_is_explicitly_rbf);
-    dummy_var ^= ((int64_t) (void*) wire_is_lock_time_enabled);
-    dummy_var ^= ((int64_t) (void*) wire_version);
-    dummy_var ^= ((int64_t) (void*) wire_lock_time);
-    dummy_var ^= ((int64_t) (void*) wire_input);
-    dummy_var ^= ((int64_t) (void*) wire_output);
-    dummy_var ^= ((int64_t) (void*) wire_psbt_to_txid);
-    dummy_var ^= ((int64_t) (void*) wire_extract_tx);
-    dummy_var ^= ((int64_t) (void*) wire_get_psbt_fee_rate);
-    dummy_var ^= ((int64_t) (void*) wire_get_fee_amount);
-    dummy_var ^= ((int64_t) (void*) wire_combine_psbt);
-    dummy_var ^= ((int64_t) (void*) wire_psbt_json_serialize);
-    dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish);
-    dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish);
-    dummy_var ^= ((int64_t) (void*) wire_new_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip44_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip44_public);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip49_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip49_public);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip84_descriptor);
-    dummy_var ^= ((int64_t) (void*) wire_new_bip84_public);
-    dummy_var ^= ((int64_t) (void*) wire_as_string_private);
-    dummy_var ^= ((int64_t) (void*) wire_as_string);
-    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_extend);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_derive);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public);
-    dummy_var ^= ((int64_t) (void*) wire_create_derivation_path);
-    dummy_var ^= ((int64_t) (void*) wire_descriptor_public_from_string);
-    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public);
-    dummy_var ^= ((int64_t) (void*) wire_init_script);
-    dummy_var ^= ((int64_t) (void*) wire_init_address);
-    dummy_var ^= ((int64_t) (void*) wire_from_script);
-    dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex);
-    dummy_var ^= ((int64_t) (void*) wire_address_payload);
-    dummy_var ^= ((int64_t) (void*) wire_address_network);
-    dummy_var ^= ((int64_t) (void*) wire_wallet_init);
-    dummy_var ^= ((int64_t) (void*) wire_get_address);
-    dummy_var ^= ((int64_t) (void*) wire_get_internalized_address);
-    dummy_var ^= ((int64_t) (void*) wire_sync_wallet);
-    dummy_var ^= ((int64_t) (void*) wire_get_balance);
-    dummy_var ^= ((int64_t) (void*) wire_list_unspent_outputs);
-    dummy_var ^= ((int64_t) (void*) wire_get_transactions);
-    dummy_var ^= ((int64_t) (void*) wire_sign);
-    dummy_var ^= ((int64_t) (void*) wire_get_network);
-    dummy_var ^= ((int64_t) (void*) wire_list_unspent);
-    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count);
-    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string);
-    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy);
+    dummy_var ^= ((int64_t) (void*) wire_create_blockchain__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_height__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_blockchain_hash__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_estimate_fee__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_broadcast__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_transaction__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_tx_txid__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_weight__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_size__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_vsize__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_serialize_tx__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_is_coin_base__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_is_explicitly_rbf__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_is_lock_time_enabled__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_version__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_lock_time__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_input__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_output__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_serialize_psbt__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_psbt_txid__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_extract_tx__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_psbt_fee_rate__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_psbt_fee_amount__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_combine_psbt__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_json_serialize__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_tx_builder_finish__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_bump_fee_tx_builder_finish__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip44_descriptor__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip44_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip49_descriptor__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip49_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip84_descriptor__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip84_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_as_string_private__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_as_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_extend_descriptor_secret__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_derive_descriptor_secret__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_as_secret_bytes__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_as_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_derivation_path__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_public_from_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_script__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_address__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_address_from_script__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_payload__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_address_network__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_create_wallet__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_address__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_internal_address__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_sync_wallet__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_sync_wallet_thread__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_balance__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_list_unspent_outputs__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_transactions__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_sign__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_wallet_network__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_list_unspent__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy__static_method__Api);
     dummy_var ^= ((int64_t) (void*) new_BdkDescriptor);
     dummy_var ^= ((int64_t) (void*) new_BlockchainInstance);
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);

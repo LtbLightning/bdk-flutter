@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 printf "\e[33;1m%s\e[0m\n" 'Running flutter format'
+
 dart format .
-printf "\e[33;1m%s\e[0m\n" 'Finished running flutter format'
+
+printf "\e[33;1m%s\e[0m\n" 'Running cargo fmt'
+cd rust || exit
+cargo fmt
+cd ../
+git add .
+
+printf "\e[33;1m%s\e[0m\n" 'Finished formatting'
 
 printf "\e[33;1m%s\e[0m\n" 'Running flutter analyze'
 flutter analyze

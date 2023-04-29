@@ -1,16 +1,16 @@
-use std::fmt;
-use std::fmt::Debug;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
 use bdk::bitcoin::locktime::Error;
 use bdk::bitcoin::util::address::{Payload as BdkPayload, WitnessVersion as BdkWitnessVersion};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
+use bdk::blockchain::Progress as BdkProgress;
 use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
+use std::fmt;
+use std::fmt::Debug;
 use std::str::FromStr;
 use std::sync::Arc;
-use bdk::blockchain::Progress as BdkProgress;
 #[derive(Debug, Clone)]
 pub struct TxIn {
     pub previous_output: OutPoint,
@@ -455,7 +455,7 @@ pub trait Progress: Send + Sync + 'static {
 }
 
 pub struct ProgressHolder {
-   pub progress: Box<dyn Progress>,
+    pub progress: Box<dyn Progress>,
 }
 
 impl BdkProgress for ProgressHolder {
@@ -475,13 +475,16 @@ pub enum ChangeSpendPolicy {
     OnlyChange,
     ChangeForbidden,
 }
-impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy{
+impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy {
     fn from(value: ChangeSpendPolicy) -> Self {
         match value {
-            ChangeSpendPolicy::ChangeAllowed => bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeAllowed,
+            ChangeSpendPolicy::ChangeAllowed => {
+                bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeAllowed
+            }
             ChangeSpendPolicy::OnlyChange => bdk::wallet::tx_builder::ChangeSpendPolicy::OnlyChange,
-            ChangeSpendPolicy::ChangeForbidden => bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeForbidden
+            ChangeSpendPolicy::ChangeForbidden => {
+                bdk::wallet::tx_builder::ChangeSpendPolicy::ChangeForbidden
+            }
         }
     }
 }
-

@@ -2,139 +2,175 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_blockchain_init(port_: i64, config: *mut wire_BlockchainConfig) {
-    wire_blockchain_init_impl(port_, config)
+pub extern "C" fn wire_create_blockchain__static_method__Api(
+    port_: i64,
+    config: *mut wire_BlockchainConfig,
+) {
+    wire_create_blockchain__static_method__Api_impl(port_, config)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_blockchain_height(port_: i64, blockchain: wire_BlockchainInstance) {
-    wire_get_blockchain_height_impl(port_, blockchain)
+pub extern "C" fn wire_get_height__static_method__Api(
+    port_: i64,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_get_height__static_method__Api_impl(port_, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_blockchain_hash(
+pub extern "C" fn wire_get_blockchain_hash__static_method__Api(
     port_: i64,
     blockchain_height: u32,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_get_blockchain_hash_impl(port_, blockchain_height, blockchain)
+    wire_get_blockchain_hash__static_method__Api_impl(port_, blockchain_height, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_estimate_fee(port_: i64, target: u64, blockchain: wire_BlockchainInstance) {
-    wire_estimate_fee_impl(port_, target, blockchain)
+pub extern "C" fn wire_estimate_fee__static_method__Api(
+    port_: i64,
+    target: u64,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_estimate_fee__static_method__Api_impl(port_, target, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_broadcast(
+pub extern "C" fn wire_broadcast__static_method__Api(
     port_: i64,
     tx: *mut wire_uint_8_list,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_broadcast_impl(port_, tx, blockchain)
+    wire_broadcast__static_method__Api_impl(port_, tx, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_new_transaction_impl(port_, tx)
+pub extern "C" fn wire_create_transaction__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_create_transaction__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_txid(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_txid_impl(port_, tx)
+pub extern "C" fn wire_tx_txid__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_tx_txid__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_weight(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_weight_impl(port_, tx)
+pub extern "C" fn wire_weight__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_weight__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_size(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_size_impl(port_, tx)
+pub extern "C" fn wire_size__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_size__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_vsize(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_vsize_impl(port_, tx)
+pub extern "C" fn wire_vsize__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_vsize__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_serialize(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_serialize_impl(port_, tx)
+pub extern "C" fn wire_serialize_tx__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_serialize_tx__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_is_coin_base(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_is_coin_base_impl(port_, tx)
+pub extern "C" fn wire_is_coin_base__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_is_coin_base__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_is_explicitly_rbf(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_is_explicitly_rbf_impl(port_, tx)
+pub extern "C" fn wire_is_explicitly_rbf__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_is_explicitly_rbf__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_is_lock_time_enabled(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_is_lock_time_enabled_impl(port_, tx)
+pub extern "C" fn wire_is_lock_time_enabled__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_is_lock_time_enabled__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_version(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_version_impl(port_, tx)
+pub extern "C" fn wire_version__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_version__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_lock_time(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_lock_time_impl(port_, tx)
+pub extern "C" fn wire_lock_time__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_lock_time__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_input(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_input_impl(port_, tx)
+pub extern "C" fn wire_input__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_input__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_output(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_output_impl(port_, tx)
+pub extern "C" fn wire_output__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_output__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_psbt_to_txid(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_psbt_to_txid_impl(port_, psbt_str)
+pub extern "C" fn wire_serialize_psbt__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_serialize_psbt__static_method__Api_impl(port_, psbt_str)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_extract_tx_impl(port_, psbt_str)
+pub extern "C" fn wire_psbt_txid__static_method__Api(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_psbt_txid__static_method__Api_impl(port_, psbt_str)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_psbt_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_psbt_fee_rate_impl(port_, psbt_str)
+pub extern "C" fn wire_extract_tx__static_method__Api(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_extract_tx__static_method__Api_impl(port_, psbt_str)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_fee_amount(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_fee_amount_impl(port_, psbt_str)
+pub extern "C" fn wire_psbt_fee_rate__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_psbt_fee_rate__static_method__Api_impl(port_, psbt_str)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_combine_psbt(
+pub extern "C" fn wire_psbt_fee_amount__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_psbt_fee_amount__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_combine_psbt__static_method__Api(
     port_: i64,
     psbt_str: *mut wire_uint_8_list,
     other: *mut wire_uint_8_list,
 ) {
-    wire_combine_psbt_impl(port_, psbt_str, other)
+    wire_combine_psbt__static_method__Api_impl(port_, psbt_str, other)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_psbt_json_serialize(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_psbt_json_serialize_impl(port_, psbt_str)
+pub extern "C" fn wire_json_serialize__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_json_serialize__static_method__Api_impl(port_, psbt_str)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_tx_builder_finish(
+pub extern "C" fn wire_tx_builder_finish__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     recipients: *mut wire_list_script_amount,
@@ -149,7 +185,7 @@ pub extern "C" fn wire_tx_builder_finish(
     rbf: *mut wire_RbfValue,
     data: *mut wire_uint_8_list,
 ) {
-    wire_tx_builder_finish_impl(
+    wire_tx_builder_finish__static_method__Api_impl(
         port_,
         wallet,
         recipients,
@@ -167,7 +203,7 @@ pub extern "C" fn wire_tx_builder_finish(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_bump_fee_tx_builder_finish(
+pub extern "C" fn wire_bump_fee_tx_builder_finish__static_method__Api(
     port_: i64,
     txid: *mut wire_uint_8_list,
     fee_rate: f32,
@@ -176,7 +212,7 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish(
     enable_rbf: bool,
     n_sequence: *mut u32,
 ) {
-    wire_bump_fee_tx_builder_finish_impl(
+    wire_bump_fee_tx_builder_finish__static_method__Api_impl(
         port_,
         txid,
         fee_rate,
@@ -188,196 +224,243 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_descriptor(port_: i64, descriptor: *mut wire_uint_8_list, network: i32) {
-    wire_new_descriptor_impl(port_, descriptor, network)
+pub extern "C" fn wire_create_descriptor__static_method__Api(
+    port_: i64,
+    descriptor: *mut wire_uint_8_list,
+    network: i32,
+) {
+    wire_create_descriptor__static_method__Api_impl(port_, descriptor, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip44_descriptor(
+pub extern "C" fn wire_new_bip44_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip44_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip44_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip44_public(
+pub extern "C" fn wire_new_bip44_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip44_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip44_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip49_descriptor(
+pub extern "C" fn wire_new_bip49_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip49_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip49_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip49_public(
+pub extern "C" fn wire_new_bip49_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip49_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip49_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip84_descriptor(
+pub extern "C" fn wire_new_bip84_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip84_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip84_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip84_public(
+pub extern "C" fn wire_new_bip84_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip84_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip84_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_string_private(port_: i64, descriptor: wire_BdkDescriptor) {
-    wire_as_string_private_impl(port_, descriptor)
+pub extern "C" fn wire_as_string_private__static_method__Api(
+    port_: i64,
+    descriptor: wire_BdkDescriptor,
+) {
+    wire_as_string_private__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_string(port_: i64, descriptor: wire_BdkDescriptor) {
-    wire_as_string_impl(port_, descriptor)
+pub extern "C" fn wire_as_string__static_method__Api(port_: i64, descriptor: wire_BdkDescriptor) {
+    wire_as_string__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret(
+pub extern "C" fn wire_create_descriptor_secret__static_method__Api(
     port_: i64,
     network: i32,
     mnemonic: *mut wire_uint_8_list,
     password: *mut wire_uint_8_list,
 ) {
-    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+    wire_create_descriptor_secret__static_method__Api_impl(port_, network, mnemonic, password)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_from_string(port_: i64, xprv: *mut wire_uint_8_list) {
-    wire_descriptor_secret_from_string_impl(port_, xprv)
+pub extern "C" fn wire_descriptor_secret_from_string__static_method__Api(
+    port_: i64,
+    xprv: *mut wire_uint_8_list,
+) {
+    wire_descriptor_secret_from_string__static_method__Api_impl(port_, xprv)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_extend(
+pub extern "C" fn wire_extend_descriptor_secret__static_method__Api(
     port_: i64,
     xprv: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_extend_impl(port_, xprv, path)
+    wire_extend_descriptor_secret__static_method__Api_impl(port_, xprv, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_derive(
+pub extern "C" fn wire_derive_descriptor_secret__static_method__Api(
     port_: i64,
     xprv: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_derive_impl(port_, xprv, path)
+    wire_derive_descriptor_secret__static_method__Api_impl(port_, xprv, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_as_secret_bytes(
+pub extern "C" fn wire_as_secret_bytes__static_method__Api(
     port_: i64,
     descriptor_secret: *mut wire_uint_8_list,
     xprv: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_as_secret_bytes_impl(port_, descriptor_secret, xprv)
+    wire_as_secret_bytes__static_method__Api_impl(port_, descriptor_secret, xprv)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_as_public(
+pub extern "C" fn wire_as_public__static_method__Api(
     port_: i64,
     descriptor_secret: *mut wire_uint_8_list,
     xprv: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_as_public_impl(port_, descriptor_secret, xprv)
+    wire_as_public__static_method__Api_impl(port_, descriptor_secret, xprv)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
-    wire_create_derivation_path_impl(port_, path)
+pub extern "C" fn wire_create_derivation_path__static_method__Api(
+    port_: i64,
+    path: *mut wire_uint_8_list,
+) {
+    wire_create_derivation_path__static_method__Api_impl(port_, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_public_from_string(
+pub extern "C" fn wire_descriptor_public_from_string__static_method__Api(
     port_: i64,
     public_key: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_public_from_string_impl(port_, public_key)
+    wire_descriptor_public_from_string__static_method__Api_impl(port_, public_key)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_public(
+pub extern "C" fn wire_create_descriptor_public__static_method__Api(
     port_: i64,
     xpub: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
     derive: bool,
 ) {
-    wire_create_descriptor_public_impl(port_, xpub, path, derive)
+    wire_create_descriptor_public__static_method__Api_impl(port_, xpub, path, derive)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_init_script(port_: i64, raw_output_script: *mut wire_uint_8_list) {
-    wire_init_script_impl(port_, raw_output_script)
+pub extern "C" fn wire_create_script__static_method__Api(
+    port_: i64,
+    raw_output_script: *mut wire_uint_8_list,
+) {
+    wire_create_script__static_method__Api_impl(port_, raw_output_script)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_init_address(port_: i64, address: *mut wire_uint_8_list) {
-    wire_init_address_impl(port_, address)
+pub extern "C" fn wire_create_address__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_create_address__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_from_script(port_: i64, script: *mut wire_BdkScript, network: i32) {
-    wire_from_script_impl(port_, script, network)
+pub extern "C" fn wire_address_from_script__static_method__Api(
+    port_: i64,
+    script: *mut wire_BdkScript,
+    network: i32,
+) {
+    wire_address_from_script__static_method__Api_impl(port_, script, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_address_to_script_pubkey_hex(port_: i64, address: *mut wire_uint_8_list) {
-    wire_address_to_script_pubkey_hex_impl(port_, address)
+pub extern "C" fn wire_address_to_script_pubkey_hex__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_address_to_script_pubkey_hex__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_address_payload(port_: i64, address: *mut wire_uint_8_list) {
-    wire_address_payload_impl(port_, address)
+pub extern "C" fn wire_payload__static_method__Api(port_: i64, address: *mut wire_uint_8_list) {
+    wire_payload__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_address_network(port_: i64, address: *mut wire_uint_8_list) {
-    wire_address_network_impl(port_, address)
+pub extern "C" fn wire_address_network__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_address_network__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_wallet_init(
+pub extern "C" fn wire_create_wallet__static_method__Api(
     port_: i64,
     descriptor: wire_BdkDescriptor,
     change_descriptor: *mut wire_BdkDescriptor,
     network: i32,
     database_config: *mut wire_DatabaseConfig,
 ) {
-    wire_wallet_init_impl(
+    wire_create_wallet__static_method__Api_impl(
         port_,
         descriptor,
         change_descriptor,
@@ -387,84 +470,105 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_address(
+pub extern "C" fn wire_get_address__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_address_impl(port_, wallet, address_index)
+    wire_get_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_internalized_address(
+pub extern "C" fn wire_get_internal_address__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_internalized_address_impl(port_, wallet, address_index)
+    wire_get_internal_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_sync_wallet(
+pub extern "C" fn wire_sync_wallet__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_sync_wallet_impl(port_, wallet, blockchain)
+    wire_sync_wallet__static_method__Api_impl(port_, wallet, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_balance(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_balance_impl(port_, wallet)
+pub extern "C" fn wire_sync_wallet_thread__static_method__Api(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_sync_wallet_thread__static_method__Api_impl(port_, wallet, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent_outputs(port_: i64, wallet: wire_WalletInstance) {
-    wire_list_unspent_outputs_impl(port_, wallet)
+pub extern "C" fn wire_get_balance__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_get_balance__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_transactions(
+pub extern "C" fn wire_list_unspent_outputs__static_method__Api(
+    port_: i64,
+    wallet: wire_WalletInstance,
+) {
+    wire_list_unspent_outputs__static_method__Api_impl(port_, wallet)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_transactions__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     include_raw: bool,
 ) {
-    wire_get_transactions_impl(port_, wallet, include_raw)
+    wire_get_transactions__static_method__Api_impl(port_, wallet, include_raw)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_sign(
+pub extern "C" fn wire_sign__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     psbt_str: *mut wire_uint_8_list,
     sign_options: *mut wire_SignOptions,
 ) {
-    wire_sign_impl(port_, wallet, psbt_str, sign_options)
+    wire_sign__static_method__Api_impl(port_, wallet, psbt_str, sign_options)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_network(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_network_impl(port_, wallet)
+pub extern "C" fn wire_wallet_network__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_wallet_network__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent(port_: i64, wallet: wire_WalletInstance) {
-    wire_list_unspent_impl(port_, wallet)
+pub extern "C" fn wire_list_unspent__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_list_unspent__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
-    wire_generate_seed_from_word_count_impl(port_, word_count)
+pub extern "C" fn wire_generate_seed_from_word_count__static_method__Api(
+    port_: i64,
+    word_count: i32,
+) {
+    wire_generate_seed_from_word_count__static_method__Api_impl(port_, word_count)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_string(port_: i64, mnemonic: *mut wire_uint_8_list) {
-    wire_generate_seed_from_string_impl(port_, mnemonic)
+pub extern "C" fn wire_generate_seed_from_string__static_method__Api(
+    port_: i64,
+    mnemonic: *mut wire_uint_8_list,
+) {
+    wire_generate_seed_from_string__static_method__Api_impl(port_, mnemonic)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire_uint_8_list) {
-    wire_generate_seed_from_entropy_impl(port_, entropy)
+pub extern "C" fn wire_generate_seed_from_entropy__static_method__Api(
+    port_: i64,
+    entropy: *mut wire_uint_8_list,
+) {
+    wire_generate_seed_from_entropy__static_method__Api_impl(port_, entropy)
 }
 
 // Section: allocate functions

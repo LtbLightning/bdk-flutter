@@ -51,345 +51,406 @@ use crate::wallet::SqliteDbConfiguration;
 
 // Section: wire functions
 
-fn wire_blockchain_init_impl(
+fn wire_create_blockchain__static_method__Api_impl(
     port_: MessagePort,
     config: impl Wire2Api<BlockchainConfig> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "blockchain_init",
+            debug_name: "create_blockchain__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_config = config.wire2api();
-            move |task_callback| blockchain_init(api_config)
+            move |task_callback| Api::create_blockchain(api_config)
         },
     )
 }
-fn wire_get_blockchain_height_impl(
+fn wire_get_height__static_method__Api_impl(
     port_: MessagePort,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_blockchain_height",
+            debug_name: "get_height__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| get_blockchain_height(api_blockchain)
+            move |task_callback| Api::get_height(api_blockchain)
         },
     )
 }
-fn wire_get_blockchain_hash_impl(
+fn wire_get_blockchain_hash__static_method__Api_impl(
     port_: MessagePort,
     blockchain_height: impl Wire2Api<u32> + UnwindSafe,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_blockchain_hash",
+            debug_name: "get_blockchain_hash__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_blockchain_height = blockchain_height.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| get_blockchain_hash(api_blockchain_height, api_blockchain)
+            move |task_callback| Api::get_blockchain_hash(api_blockchain_height, api_blockchain)
         },
     )
 }
-fn wire_estimate_fee_impl(
+fn wire_estimate_fee__static_method__Api_impl(
     port_: MessagePort,
     target: impl Wire2Api<u64> + UnwindSafe,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "estimate_fee",
+            debug_name: "estimate_fee__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_target = target.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| estimate_fee(api_target, api_blockchain)
+            move |task_callback| Api::estimate_fee(api_target, api_blockchain)
         },
     )
 }
-fn wire_broadcast_impl(
+fn wire_broadcast__static_method__Api_impl(
     port_: MessagePort,
     tx: impl Wire2Api<String> + UnwindSafe,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "broadcast",
+            debug_name: "broadcast__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| broadcast(api_tx, api_blockchain)
+            move |task_callback| Api::broadcast(api_tx, api_blockchain)
         },
     )
 }
-fn wire_new_transaction_impl(port_: MessagePort, tx: impl Wire2Api<Vec<u8>> + UnwindSafe) {
+fn wire_create_transaction__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<Vec<u8>> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_transaction",
+            debug_name: "create_transaction__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| new_transaction(api_tx)
+            move |task_callback| Api::create_transaction(api_tx)
         },
     )
 }
-fn wire_txid_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_tx_txid__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "txid",
+            debug_name: "tx_txid__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| txid(api_tx)
+            move |task_callback| Api::tx_txid(api_tx)
         },
     )
 }
-fn wire_weight_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_weight__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "weight",
+            debug_name: "weight__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(weight(api_tx))
+            move |task_callback| Ok(Api::weight(api_tx))
         },
     )
 }
-fn wire_size_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_size__static_method__Api_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "size",
+            debug_name: "size__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(size(api_tx))
+            move |task_callback| Ok(Api::size(api_tx))
         },
     )
 }
-fn wire_vsize_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_vsize__static_method__Api_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "vsize",
+            debug_name: "vsize__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(vsize(api_tx))
+            move |task_callback| Ok(Api::vsize(api_tx))
         },
     )
 }
-fn wire_serialize_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_serialize_tx__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "serialize",
+            debug_name: "serialize_tx__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(serialize(api_tx))
+            move |task_callback| Ok(Api::serialize_tx(api_tx))
         },
     )
 }
-fn wire_is_coin_base_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_is_coin_base__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "is_coin_base",
+            debug_name: "is_coin_base__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(is_coin_base(api_tx))
+            move |task_callback| Ok(Api::is_coin_base(api_tx))
         },
     )
 }
-fn wire_is_explicitly_rbf_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_is_explicitly_rbf__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "is_explicitly_rbf",
+            debug_name: "is_explicitly_rbf__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(is_explicitly_rbf(api_tx))
+            move |task_callback| Ok(Api::is_explicitly_rbf(api_tx))
         },
     )
 }
-fn wire_is_lock_time_enabled_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_is_lock_time_enabled__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "is_lock_time_enabled",
+            debug_name: "is_lock_time_enabled__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(is_lock_time_enabled(api_tx))
+            move |task_callback| Ok(Api::is_lock_time_enabled(api_tx))
         },
     )
 }
-fn wire_version_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_version__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "version",
+            debug_name: "version__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(version(api_tx))
+            move |task_callback| Ok(Api::version(api_tx))
         },
     )
 }
-fn wire_lock_time_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_lock_time__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "lock_time",
+            debug_name: "lock_time__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(lock_time(api_tx))
+            move |task_callback| Ok(Api::lock_time(api_tx))
         },
     )
 }
-fn wire_input_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_input__static_method__Api_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "input",
+            debug_name: "input__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(input(api_tx))
+            move |task_callback| Ok(Api::input(api_tx))
         },
     )
 }
-fn wire_output_impl(port_: MessagePort, tx: impl Wire2Api<String> + UnwindSafe) {
+fn wire_output__static_method__Api_impl(
+    port_: MessagePort,
+    tx: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "output",
+            debug_name: "output__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_tx = tx.wire2api();
-            move |task_callback| Ok(output(api_tx))
+            move |task_callback| Ok(Api::output(api_tx))
         },
     )
 }
-fn wire_psbt_to_txid_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_serialize_psbt__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "psbt_to_txid",
+            debug_name: "serialize_psbt__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| psbt_to_txid(api_psbt_str)
+            move |task_callback| Api::serialize_psbt(api_psbt_str)
         },
     )
 }
-fn wire_extract_tx_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_psbt_txid__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "extract_tx",
+            debug_name: "psbt_txid__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| extract_tx(api_psbt_str)
+            move |task_callback| Api::psbt_txid(api_psbt_str)
         },
     )
 }
-fn wire_get_psbt_fee_rate_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_extract_tx__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_psbt_fee_rate",
+            debug_name: "extract_tx__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(get_psbt_fee_rate(api_psbt_str))
+            move |task_callback| Api::extract_tx(api_psbt_str)
         },
     )
 }
-fn wire_get_fee_amount_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_psbt_fee_rate__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_fee_amount",
+            debug_name: "psbt_fee_rate__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| Ok(get_fee_amount(api_psbt_str))
+            move |task_callback| Ok(Api::psbt_fee_rate(api_psbt_str))
         },
     )
 }
-fn wire_combine_psbt_impl(
+fn wire_psbt_fee_amount__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "psbt_fee_amount__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_psbt_str = psbt_str.wire2api();
+            move |task_callback| Ok(Api::psbt_fee_amount(api_psbt_str))
+        },
+    )
+}
+fn wire_combine_psbt__static_method__Api_impl(
     port_: MessagePort,
     psbt_str: impl Wire2Api<String> + UnwindSafe,
     other: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "combine_psbt",
+            debug_name: "combine_psbt__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
             let api_other = other.wire2api();
-            move |task_callback| combine_psbt(api_psbt_str, api_other)
+            move |task_callback| Api::combine_psbt(api_psbt_str, api_other)
         },
     )
 }
-fn wire_psbt_json_serialize_impl(port_: MessagePort, psbt_str: impl Wire2Api<String> + UnwindSafe) {
+fn wire_json_serialize__static_method__Api_impl(
+    port_: MessagePort,
+    psbt_str: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "psbt_json_serialize",
+            debug_name: "json_serialize__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_psbt_str = psbt_str.wire2api();
-            move |task_callback| psbt_json_serialize(api_psbt_str)
+            move |task_callback| Api::json_serialize(api_psbt_str)
         },
     )
 }
-fn wire_tx_builder_finish_impl(
+fn wire_tx_builder_finish__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     recipients: impl Wire2Api<Vec<ScriptAmount>> + UnwindSafe,
@@ -406,7 +467,7 @@ fn wire_tx_builder_finish_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "tx_builder_finish",
+            debug_name: "tx_builder_finish__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -424,7 +485,7 @@ fn wire_tx_builder_finish_impl(
             let api_rbf = rbf.wire2api();
             let api_data = data.wire2api();
             move |task_callback| {
-                tx_builder_finish(
+                Api::tx_builder_finish(
                     api_wallet,
                     api_recipients,
                     api_utxos,
@@ -442,7 +503,7 @@ fn wire_tx_builder_finish_impl(
         },
     )
 }
-fn wire_bump_fee_tx_builder_finish_impl(
+fn wire_bump_fee_tx_builder_finish__static_method__Api_impl(
     port_: MessagePort,
     txid: impl Wire2Api<String> + UnwindSafe,
     fee_rate: impl Wire2Api<f32> + UnwindSafe,
@@ -453,7 +514,7 @@ fn wire_bump_fee_tx_builder_finish_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "bump_fee_tx_builder_finish",
+            debug_name: "bump_fee_tx_builder_finish__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -465,7 +526,7 @@ fn wire_bump_fee_tx_builder_finish_impl(
             let api_enable_rbf = enable_rbf.wire2api();
             let api_n_sequence = n_sequence.wire2api();
             move |task_callback| {
-                bump_fee_tx_builder_finish(
+                Api::bump_fee_tx_builder_finish(
                     api_txid,
                     api_fee_rate,
                     api_allow_shrinking,
@@ -477,25 +538,25 @@ fn wire_bump_fee_tx_builder_finish_impl(
         },
     )
 }
-fn wire_new_descriptor_impl(
+fn wire_create_descriptor__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_descriptor",
+            debug_name: "create_descriptor__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| new_descriptor(api_descriptor, api_network)
+            move |task_callback| Api::create_descriptor(api_descriptor, api_network)
         },
     )
 }
-fn wire_new_bip44_descriptor_impl(
+fn wire_new_bip44_descriptor__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
@@ -503,7 +564,7 @@ fn wire_new_bip44_descriptor_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip44_descriptor",
+            debug_name: "new_bip44_descriptor__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -512,7 +573,7 @@ fn wire_new_bip44_descriptor_impl(
             let api_secret_key = secret_key.wire2api();
             let api_network = network.wire2api();
             move |task_callback| {
-                Ok(new_bip44_descriptor(
+                Ok(Api::new_bip44_descriptor(
                     api_key_chain_kind,
                     api_secret_key,
                     api_network,
@@ -521,7 +582,7 @@ fn wire_new_bip44_descriptor_impl(
         },
     )
 }
-fn wire_new_bip44_public_impl(
+fn wire_new_bip44_public__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
@@ -530,7 +591,7 @@ fn wire_new_bip44_public_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip44_public",
+            debug_name: "new_bip44_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -540,7 +601,7 @@ fn wire_new_bip44_public_impl(
             let api_network = network.wire2api();
             let api_fingerprint = fingerprint.wire2api();
             move |task_callback| {
-                Ok(new_bip44_public(
+                Ok(Api::new_bip44_public(
                     api_key_chain_kind,
                     api_public_key,
                     api_network,
@@ -550,7 +611,7 @@ fn wire_new_bip44_public_impl(
         },
     )
 }
-fn wire_new_bip49_descriptor_impl(
+fn wire_new_bip49_descriptor__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
@@ -558,7 +619,7 @@ fn wire_new_bip49_descriptor_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip49_descriptor",
+            debug_name: "new_bip49_descriptor__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -567,7 +628,7 @@ fn wire_new_bip49_descriptor_impl(
             let api_secret_key = secret_key.wire2api();
             let api_network = network.wire2api();
             move |task_callback| {
-                Ok(new_bip49_descriptor(
+                Ok(Api::new_bip49_descriptor(
                     api_key_chain_kind,
                     api_secret_key,
                     api_network,
@@ -576,7 +637,7 @@ fn wire_new_bip49_descriptor_impl(
         },
     )
 }
-fn wire_new_bip49_public_impl(
+fn wire_new_bip49_public__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
@@ -585,7 +646,7 @@ fn wire_new_bip49_public_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip49_public",
+            debug_name: "new_bip49_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -595,7 +656,7 @@ fn wire_new_bip49_public_impl(
             let api_network = network.wire2api();
             let api_fingerprint = fingerprint.wire2api();
             move |task_callback| {
-                Ok(new_bip49_public(
+                Ok(Api::new_bip49_public(
                     api_key_chain_kind,
                     api_public_key,
                     api_network,
@@ -605,7 +666,7 @@ fn wire_new_bip49_public_impl(
         },
     )
 }
-fn wire_new_bip84_descriptor_impl(
+fn wire_new_bip84_descriptor__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     secret_key: impl Wire2Api<String> + UnwindSafe,
@@ -613,7 +674,7 @@ fn wire_new_bip84_descriptor_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip84_descriptor",
+            debug_name: "new_bip84_descriptor__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -622,7 +683,7 @@ fn wire_new_bip84_descriptor_impl(
             let api_secret_key = secret_key.wire2api();
             let api_network = network.wire2api();
             move |task_callback| {
-                Ok(new_bip84_descriptor(
+                Ok(Api::new_bip84_descriptor(
                     api_key_chain_kind,
                     api_secret_key,
                     api_network,
@@ -631,7 +692,7 @@ fn wire_new_bip84_descriptor_impl(
         },
     )
 }
-fn wire_new_bip84_public_impl(
+fn wire_new_bip84_public__static_method__Api_impl(
     port_: MessagePort,
     key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
     public_key: impl Wire2Api<String> + UnwindSafe,
@@ -640,7 +701,7 @@ fn wire_new_bip84_public_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "new_bip84_public",
+            debug_name: "new_bip84_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -650,7 +711,7 @@ fn wire_new_bip84_public_impl(
             let api_network = network.wire2api();
             let api_fingerprint = fingerprint.wire2api();
             move |task_callback| {
-                Ok(new_bip84_public(
+                Ok(Api::new_bip84_public(
                     api_key_chain_kind,
                     api_public_key,
                     api_network,
@@ -660,39 +721,39 @@ fn wire_new_bip84_public_impl(
         },
     )
 }
-fn wire_as_string_private_impl(
+fn wire_as_string_private__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<RustOpaque<BdkDescriptor>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "as_string_private",
+            debug_name: "as_string_private__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor = descriptor.wire2api();
-            move |task_callback| Ok(as_string_private(api_descriptor))
+            move |task_callback| Ok(Api::as_string_private(api_descriptor))
         },
     )
 }
-fn wire_as_string_impl(
+fn wire_as_string__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<RustOpaque<BdkDescriptor>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "as_string",
+            debug_name: "as_string__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor = descriptor.wire2api();
-            move |task_callback| Ok(as_string(api_descriptor))
+            move |task_callback| Ok(Api::as_string(api_descriptor))
         },
     )
 }
-fn wire_create_descriptor_secret_impl(
+fn wire_create_descriptor_secret__static_method__Api_impl(
     port_: MessagePort,
     network: impl Wire2Api<Network> + UnwindSafe,
     mnemonic: impl Wire2Api<String> + UnwindSafe,
@@ -700,7 +761,7 @@ fn wire_create_descriptor_secret_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "create_descriptor_secret",
+            debug_name: "create_descriptor_secret__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -708,128 +769,133 @@ fn wire_create_descriptor_secret_impl(
             let api_network = network.wire2api();
             let api_mnemonic = mnemonic.wire2api();
             let api_password = password.wire2api();
-            move |task_callback| create_descriptor_secret(api_network, api_mnemonic, api_password)
+            move |task_callback| {
+                Api::create_descriptor_secret(api_network, api_mnemonic, api_password)
+            }
         },
     )
 }
-fn wire_descriptor_secret_from_string_impl(
+fn wire_descriptor_secret_from_string__static_method__Api_impl(
     port_: MessagePort,
     xprv: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "descriptor_secret_from_string",
+            debug_name: "descriptor_secret_from_string__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_xprv = xprv.wire2api();
-            move |task_callback| descriptor_secret_from_string(api_xprv)
+            move |task_callback| Api::descriptor_secret_from_string(api_xprv)
         },
     )
 }
-fn wire_descriptor_secret_extend_impl(
-    port_: MessagePort,
-    xprv: impl Wire2Api<String> + UnwindSafe,
-    path: impl Wire2Api<String> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "descriptor_secret_extend",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_xprv = xprv.wire2api();
-            let api_path = path.wire2api();
-            move |task_callback| Ok(descriptor_secret_extend(api_xprv, api_path))
-        },
-    )
-}
-fn wire_descriptor_secret_derive_impl(
+fn wire_extend_descriptor_secret__static_method__Api_impl(
     port_: MessagePort,
     xprv: impl Wire2Api<String> + UnwindSafe,
     path: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "descriptor_secret_derive",
+            debug_name: "extend_descriptor_secret__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_xprv = xprv.wire2api();
             let api_path = path.wire2api();
-            move |task_callback| Ok(descriptor_secret_derive(api_xprv, api_path))
+            move |task_callback| Ok(Api::extend_descriptor_secret(api_xprv, api_path))
         },
     )
 }
-fn wire_descriptor_secret_as_secret_bytes_impl(
+fn wire_derive_descriptor_secret__static_method__Api_impl(
+    port_: MessagePort,
+    xprv: impl Wire2Api<String> + UnwindSafe,
+    path: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "derive_descriptor_secret__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_xprv = xprv.wire2api();
+            let api_path = path.wire2api();
+            move |task_callback| Ok(Api::derive_descriptor_secret(api_xprv, api_path))
+        },
+    )
+}
+fn wire_as_secret_bytes__static_method__Api_impl(
     port_: MessagePort,
     descriptor_secret: impl Wire2Api<Option<String>> + UnwindSafe,
     xprv: impl Wire2Api<Option<String>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "descriptor_secret_as_secret_bytes",
+            debug_name: "as_secret_bytes__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor_secret = descriptor_secret.wire2api();
             let api_xprv = xprv.wire2api();
-            move |task_callback| descriptor_secret_as_secret_bytes(api_descriptor_secret, api_xprv)
+            move |task_callback| Api::as_secret_bytes(api_descriptor_secret, api_xprv)
         },
     )
 }
-fn wire_descriptor_secret_as_public_impl(
+fn wire_as_public__static_method__Api_impl(
     port_: MessagePort,
     descriptor_secret: impl Wire2Api<Option<String>> + UnwindSafe,
     xprv: impl Wire2Api<Option<String>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "descriptor_secret_as_public",
+            debug_name: "as_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor_secret = descriptor_secret.wire2api();
             let api_xprv = xprv.wire2api();
-            move |task_callback| descriptor_secret_as_public(api_descriptor_secret, api_xprv)
+            move |task_callback| Api::as_public(api_descriptor_secret, api_xprv)
         },
     )
 }
-fn wire_create_derivation_path_impl(port_: MessagePort, path: impl Wire2Api<String> + UnwindSafe) {
+fn wire_create_derivation_path__static_method__Api_impl(
+    port_: MessagePort,
+    path: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "create_derivation_path",
+            debug_name: "create_derivation_path__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_path = path.wire2api();
-            move |task_callback| create_derivation_path(api_path)
+            move |task_callback| Api::create_derivation_path(api_path)
         },
     )
 }
-fn wire_descriptor_public_from_string_impl(
+fn wire_descriptor_public_from_string__static_method__Api_impl(
     port_: MessagePort,
     public_key: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "descriptor_public_from_string",
+            debug_name: "descriptor_public_from_string__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_public_key = public_key.wire2api();
-            move |task_callback| descriptor_public_from_string(api_public_key)
+            move |task_callback| Api::descriptor_public_from_string(api_public_key)
         },
     )
 }
-fn wire_create_descriptor_public_impl(
+fn wire_create_descriptor_public__static_method__Api_impl(
     port_: MessagePort,
     xpub: impl Wire2Api<Option<String>> + UnwindSafe,
     path: impl Wire2Api<String> + UnwindSafe,
@@ -837,7 +903,7 @@ fn wire_create_descriptor_public_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "create_descriptor_public",
+            debug_name: "create_descriptor_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -845,100 +911,109 @@ fn wire_create_descriptor_public_impl(
             let api_xpub = xpub.wire2api();
             let api_path = path.wire2api();
             let api_derive = derive.wire2api();
-            move |task_callback| create_descriptor_public(api_xpub, api_path, api_derive)
+            move |task_callback| Api::create_descriptor_public(api_xpub, api_path, api_derive)
         },
     )
 }
-fn wire_init_script_impl(
+fn wire_create_script__static_method__Api_impl(
     port_: MessagePort,
     raw_output_script: impl Wire2Api<Vec<u8>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "init_script",
+            debug_name: "create_script__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_raw_output_script = raw_output_script.wire2api();
-            move |task_callback| init_script(api_raw_output_script)
+            move |task_callback| Api::create_script(api_raw_output_script)
         },
     )
 }
-fn wire_init_address_impl(port_: MessagePort, address: impl Wire2Api<String> + UnwindSafe) {
+fn wire_create_address__static_method__Api_impl(
+    port_: MessagePort,
+    address: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "init_address",
+            debug_name: "create_address__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| init_address(api_address)
+            move |task_callback| Api::create_address(api_address)
         },
     )
 }
-fn wire_from_script_impl(
+fn wire_address_from_script__static_method__Api_impl(
     port_: MessagePort,
     script: impl Wire2Api<BdkScript> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "from_script",
+            debug_name: "address_from_script__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_script = script.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| from_script(api_script, api_network)
+            move |task_callback| Api::address_from_script(api_script, api_network)
         },
     )
 }
-fn wire_address_to_script_pubkey_hex_impl(
+fn wire_address_to_script_pubkey_hex__static_method__Api_impl(
     port_: MessagePort,
     address: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "address_to_script_pubkey_hex",
+            debug_name: "address_to_script_pubkey_hex__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| address_to_script_pubkey_hex(api_address)
+            move |task_callback| Api::address_to_script_pubkey_hex(api_address)
         },
     )
 }
-fn wire_address_payload_impl(port_: MessagePort, address: impl Wire2Api<String> + UnwindSafe) {
+fn wire_payload__static_method__Api_impl(
+    port_: MessagePort,
+    address: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "address_payload",
+            debug_name: "payload__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| address_payload(api_address)
+            move |task_callback| Api::payload(api_address)
         },
     )
 }
-fn wire_address_network_impl(port_: MessagePort, address: impl Wire2Api<String> + UnwindSafe) {
+fn wire_address_network__static_method__Api_impl(
+    port_: MessagePort,
+    address: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "address_network",
+            debug_name: "address_network__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| address_network(api_address)
+            move |task_callback| Api::address_network(api_address)
         },
     )
 }
-fn wire_wallet_init_impl(
+fn wire_create_wallet__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<RustOpaque<BdkDescriptor>> + UnwindSafe,
     change_descriptor: impl Wire2Api<Option<RustOpaque<BdkDescriptor>>> + UnwindSafe,
@@ -947,7 +1022,7 @@ fn wire_wallet_init_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "wallet_init",
+            debug_name: "create_wallet__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -957,7 +1032,7 @@ fn wire_wallet_init_impl(
             let api_network = network.wire2api();
             let api_database_config = database_config.wire2api();
             move |task_callback| {
-                wallet_init(
+                Api::create_wallet(
                     api_descriptor,
                     api_change_descriptor,
                     api_network,
@@ -967,111 +1042,129 @@ fn wire_wallet_init_impl(
         },
     )
 }
-fn wire_get_address_impl(
+fn wire_get_address__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     address_index: impl Wire2Api<AddressIndex> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_address",
+            debug_name: "get_address__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
             let api_address_index = address_index.wire2api();
-            move |task_callback| get_address(api_wallet, api_address_index)
+            move |task_callback| Api::get_address(api_wallet, api_address_index)
         },
     )
 }
-fn wire_get_internalized_address_impl(
+fn wire_get_internal_address__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     address_index: impl Wire2Api<AddressIndex> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_internalized_address",
+            debug_name: "get_internal_address__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
             let api_address_index = address_index.wire2api();
-            move |task_callback| get_internalized_address(api_wallet, api_address_index)
+            move |task_callback| Api::get_internal_address(api_wallet, api_address_index)
         },
     )
 }
-fn wire_sync_wallet_impl(
+fn wire_sync_wallet__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "sync_wallet",
+            debug_name: "sync_wallet__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
             let api_blockchain = blockchain.wire2api();
-            move |task_callback| Ok(sync_wallet(api_wallet, api_blockchain))
+            move |task_callback| Ok(Api::sync_wallet(api_wallet, api_blockchain))
         },
     )
 }
-fn wire_get_balance_impl(
+fn wire_sync_wallet_thread__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
+    blockchain: impl Wire2Api<RustOpaque<BlockchainInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_balance",
+            debug_name: "sync_wallet_thread__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| get_balance(api_wallet)
+            let api_blockchain = blockchain.wire2api();
+            move |task_callback| Ok(Api::sync_wallet_thread(api_wallet, api_blockchain))
         },
     )
 }
-fn wire_list_unspent_outputs_impl(
+fn wire_get_balance__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "list_unspent_outputs",
+            debug_name: "get_balance__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| list_unspent_outputs(api_wallet)
+            move |task_callback| Api::get_balance(api_wallet)
         },
     )
 }
-fn wire_get_transactions_impl(
+fn wire_list_unspent_outputs__static_method__Api_impl(
+    port_: MessagePort,
+    wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "list_unspent_outputs__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet = wallet.wire2api();
+            move |task_callback| Api::list_unspent_outputs(api_wallet)
+        },
+    )
+}
+fn wire_get_transactions__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     include_raw: impl Wire2Api<bool> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_transactions",
+            debug_name: "get_transactions__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
             let api_include_raw = include_raw.wire2api();
-            move |task_callback| get_transactions(api_wallet, api_include_raw)
+            move |task_callback| Api::get_transactions(api_wallet, api_include_raw)
         },
     )
 }
-fn wire_sign_impl(
+fn wire_sign__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
     psbt_str: impl Wire2Api<String> + UnwindSafe,
@@ -1079,7 +1172,7 @@ fn wire_sign_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "sign",
+            debug_name: "sign__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
@@ -1087,87 +1180,87 @@ fn wire_sign_impl(
             let api_wallet = wallet.wire2api();
             let api_psbt_str = psbt_str.wire2api();
             let api_sign_options = sign_options.wire2api();
-            move |task_callback| Ok(sign(api_wallet, api_psbt_str, api_sign_options))
+            move |task_callback| Ok(Api::sign(api_wallet, api_psbt_str, api_sign_options))
         },
     )
 }
-fn wire_get_network_impl(
+fn wire_wallet_network__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_network",
+            debug_name: "wallet_network__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| Ok(get_network(api_wallet))
+            move |task_callback| Ok(Api::wallet_network(api_wallet))
         },
     )
 }
-fn wire_list_unspent_impl(
+fn wire_list_unspent__static_method__Api_impl(
     port_: MessagePort,
     wallet: impl Wire2Api<RustOpaque<WalletInstance>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "list_unspent",
+            debug_name: "list_unspent__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_wallet = wallet.wire2api();
-            move |task_callback| list_unspent(api_wallet)
+            move |task_callback| Api::list_unspent(api_wallet)
         },
     )
 }
-fn wire_generate_seed_from_word_count_impl(
+fn wire_generate_seed_from_word_count__static_method__Api_impl(
     port_: MessagePort,
     word_count: impl Wire2Api<WordCount> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_seed_from_word_count",
+            debug_name: "generate_seed_from_word_count__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_word_count = word_count.wire2api();
-            move |task_callback| Ok(generate_seed_from_word_count(api_word_count))
+            move |task_callback| Ok(Api::generate_seed_from_word_count(api_word_count))
         },
     )
 }
-fn wire_generate_seed_from_string_impl(
+fn wire_generate_seed_from_string__static_method__Api_impl(
     port_: MessagePort,
     mnemonic: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_seed_from_string",
+            debug_name: "generate_seed_from_string__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_mnemonic = mnemonic.wire2api();
-            move |task_callback| generate_seed_from_string(api_mnemonic)
+            move |task_callback| Api::generate_seed_from_string(api_mnemonic)
         },
     )
 }
-fn wire_generate_seed_from_entropy_impl(
+fn wire_generate_seed_from_entropy__static_method__Api_impl(
     port_: MessagePort,
     entropy: impl Wire2Api<Vec<u8>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "generate_seed_from_entropy",
+            debug_name: "generate_seed_from_entropy__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_entropy = entropy.wire2api();
-            move |task_callback| generate_seed_from_entropy(api_entropy)
+            move |task_callback| Api::generate_seed_from_entropy(api_entropy)
         },
     )
 }
