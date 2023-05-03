@@ -694,9 +694,7 @@ class PartiallySignedTransaction {
   /// Returns the [PartiallySignedTransaction] transaction id
   Future<String> txId() async {
     try {
-      //Todo
-      final res =
-          await loaderApi.jsonSerializeStaticMethodApi(psbtStr: psbtBase64);
+      final res = await loaderApi.psbtTxidStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);

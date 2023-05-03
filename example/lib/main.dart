@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -211,19 +212,36 @@ class _MyAppState extends State<MyApp> {
     return feeRate;
   }
 
+  getInputOutPuts(TxBuilderResult txBuilderResult) async {
+    final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
+    final jsonObj = json.decode(serializedPsbtTx);
+    final outputs = jsonObj['unsigned_tx']['output'] as List;
+    final inputs = jsonObj['inputs'][0]['non_witness_utxo']['output'] as List;
+    debugPrint("=========Inputs=====");
+    for (var e in inputs) {
+      debugPrint("amount: ${e['value']}");
+      debugPrint("script_pubkey: ${e['script_pubkey']}");
+    }
+    debugPrint(" ");
+    debugPrint("=========Outputs=====");
+    for (var e in outputs) {
+      debugPrint("amount: ${e['value']}");
+      debugPrint("script_pubkey: ${e['script_pubkey']}");
+    }
+  }
+
   getTransactionDetails(TxBuilderResult txBuilderResult) async {
     final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
     final txid = await txBuilderResult.psbt.txId();
     JsonEncoder encoder = const JsonEncoder.withIndent('  ');
     if (kDebugMode) {
-      print("txid: $txid");
-      print(
-          "serializedPsbtTx: ${encoder.convert(json.decode(serializedPsbtTx))}");
-      print("===================");
       print("received: ${txBuilderResult.txDetails.received}");
       print("send: ${txBuilderResult.txDetails.sent}");
       print("confirmation time: ${txBuilderResult.txDetails.confirmationTime}");
       print("fee: ${txBuilderResult.txDetails.fee}");
+      print("===================");
+      print("txid: $txid");
+      log("serializedPsbtTx: ${encoder.convert(json.decode(serializedPsbtTx))}");
     }
   }
 
@@ -235,10 +253,9 @@ class _MyAppState extends State<MyApp> {
     final feeRate = await estimateFeeRate(25);
     final txBuilderResult = await txBuilder
         .feeRate(feeRate.asSatPerVb())
-        .addRecipient(script, 1200)
+        .addRecipient(script, 2000)
         .finish(bdkWallet);
-
-    getTransactionDetails(txBuilderResult);
+    getInputOutPuts(txBuilderResult);
     final sbt = await bdkWallet.sign(
         psbt: txBuilderResult.psbt,
         signOptions: const SignOptions(
