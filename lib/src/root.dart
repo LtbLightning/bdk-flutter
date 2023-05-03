@@ -30,7 +30,7 @@ class Address {
 
   /// [Constructor]
   ///
-  Future<Address> fromScript(Script script, Network network) async {
+  static Future<Address> fromScript(Script script, Network network) async {
     final res = await loaderApi.addressFromScriptStaticMethodApi(
         script: script, network: network);
     return Address._()._setAddress(res);
@@ -261,7 +261,7 @@ class Descriptor {
   /// This assumes that the key used has already been derived with m/44'/0'/0' for Mainnet or m/44'/1'/0' for Testnet.
   ///
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-  static Future<Descriptor> newBip44PublicStaticMethodApi(
+  static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
       required Network network,
@@ -711,7 +711,7 @@ class Script extends BdkScript {
   Script({required super.scriptHex});
 
   /// [Script] constructor
-  Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.createScriptStaticMethodApi(
           rawOutputScript: rawOutputScript);

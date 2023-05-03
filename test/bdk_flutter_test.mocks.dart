@@ -4,7 +4,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:typed_data' as _i5;
 
 import 'package:bdk_flutter/src/generated/bridge_definitions.dart' as _i2;
 import 'package:bdk_flutter/src/root.dart' as _i3;
@@ -126,8 +125,8 @@ class _FakeBumpFeeTxBuilder_9 extends _i1.SmartFake
         );
 }
 
-class _FakeScript_10 extends _i1.SmartFake implements _i3.Script {
-  _FakeScript_10(
+class _FakePayload_10 extends _i1.SmartFake implements _i2.Payload {
+  _FakePayload_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -136,8 +135,8 @@ class _FakeScript_10 extends _i1.SmartFake implements _i3.Script {
         );
 }
 
-class _FakeAddress_11 extends _i1.SmartFake implements _i3.Address {
-  _FakeAddress_11(
+class _FakeScript_11 extends _i1.SmartFake implements _i3.Script {
+  _FakeScript_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -146,19 +145,9 @@ class _FakeAddress_11 extends _i1.SmartFake implements _i3.Address {
         );
 }
 
-class _FakePayload_12 extends _i1.SmartFake implements _i2.Payload {
-  _FakePayload_12(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTransactionDetails_13 extends _i1.SmartFake
+class _FakeTransactionDetails_12 extends _i1.SmartFake
     implements _i2.TransactionDetails {
-  _FakeTransactionDetails_13(
+  _FakeTransactionDetails_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1155,28 +1144,6 @@ class MockScript extends _i1.Mock implements _i3.Script {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-  @override
-  _i4.Future<_i3.Script> create(_i5.Uint8List? rawOutputScript) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #create,
-          [rawOutputScript],
-        ),
-        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_10(
-          this,
-          Invocation.method(
-            #create,
-            [rawOutputScript],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_10(
-          this,
-          Invocation.method(
-            #create,
-            [rawOutputScript],
-          ),
-        )),
-      ) as _i4.Future<_i3.Script>);
 }
 
 /// A class which mocks [Address].
@@ -1184,47 +1151,12 @@ class MockScript extends _i1.Mock implements _i3.Script {
 /// See the documentation for Mockito's code generation for more information.
 class MockAddress extends _i1.Mock implements _i3.Address {
   @override
-  _i4.Future<_i3.Address> fromScript(
-    _i3.Script? script,
-    _i2.Network? network,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fromScript,
-          [
-            script,
-            network,
-          ],
-        ),
-        returnValue: _i4.Future<_i3.Address>.value(_FakeAddress_11(
-          this,
-          Invocation.method(
-            #fromScript,
-            [
-              script,
-              network,
-            ],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i3.Address>.value(_FakeAddress_11(
-          this,
-          Invocation.method(
-            #fromScript,
-            [
-              script,
-              network,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i3.Address>);
-  @override
   _i4.Future<_i2.Payload> payload() => (super.noSuchMethod(
         Invocation.method(
           #payload,
           [],
         ),
-        returnValue: _i4.Future<_i2.Payload>.value(_FakePayload_12(
+        returnValue: _i4.Future<_i2.Payload>.value(_FakePayload_10(
           this,
           Invocation.method(
             #payload,
@@ -1232,7 +1164,7 @@ class MockAddress extends _i1.Mock implements _i3.Address {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Payload>.value(_FakePayload_12(
+            _i4.Future<_i2.Payload>.value(_FakePayload_10(
           this,
           Invocation.method(
             #payload,
@@ -1256,14 +1188,14 @@ class MockAddress extends _i1.Mock implements _i3.Address {
           #scriptPubKey,
           [],
         ),
-        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_10(
+        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_10(
+        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
@@ -1312,11 +1244,11 @@ class MockTxBuilderResult extends _i1.Mock implements _i3.TxBuilderResult {
   @override
   _i2.TransactionDetails get txDetails => (super.noSuchMethod(
         Invocation.getter(#txDetails),
-        returnValue: _FakeTransactionDetails_13(
+        returnValue: _FakeTransactionDetails_12(
           this,
           Invocation.getter(#txDetails),
         ),
-        returnValueForMissingStub: _FakeTransactionDetails_13(
+        returnValueForMissingStub: _FakeTransactionDetails_12(
           this,
           Invocation.getter(#txDetails),
         ),
