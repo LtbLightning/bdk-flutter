@@ -1,3 +1,4 @@
+use crate::psbt::Transaction;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
 use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
@@ -11,6 +12,7 @@ use std::fmt;
 use std::fmt::Debug;
 use std::str::FromStr;
 use std::sync::Arc;
+
 #[derive(Debug, Clone)]
 pub struct TxIn {
     pub previous_output: OutPoint,
@@ -47,9 +49,9 @@ pub struct TxOut {
 impl From<&BdkTxOut> for TxOut {
     fn from(x: &BdkTxOut) -> Self {
         TxOut {
-            value: x.value,
+            value: x.clone().value,
             script_pubkey: BdkScript {
-                script_hex: x.script_pubkey.to_hex(),
+                script_hex: x.clone().script_pubkey.to_hex(),
             },
         }
     }
@@ -161,6 +163,7 @@ impl From<bdk::wallet::AddressInfo> for AddressInfo {
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize)]
 ///A wallet transaction
 pub struct TransactionDetails {
+    pub serialized_tx: Option<String>,
     /// Transaction id.
     pub txid: String,
     /// Received value (sats)
@@ -182,6 +185,10 @@ pub struct TransactionDetails {
 impl From<&bdk::TransactionDetails> for TransactionDetails {
     fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
         TransactionDetails {
+            serialized_tx: x
+                .clone()
+                .transaction
+                .map(|x| Transaction { internal: x }.into()),
             fee: x.clone().fee,
             txid: x.clone().txid.to_string(),
             received: x.clone().received,

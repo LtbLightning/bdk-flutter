@@ -1159,3 +1159,9 @@ class Wallet {
     }
   }
 }
+
+extension Tx on TransactionDetails {
+  Transaction? get transaction => serializedTx == null
+      ? null
+      : Transaction._()._setTransaction(serializedTx!);
+}

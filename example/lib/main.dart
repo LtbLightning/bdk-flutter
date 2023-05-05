@@ -115,7 +115,6 @@ class _MyAppState extends State<MyApp> {
   getUnConfirmedTransactions() async {
     List<TransactionDetails> unConfirmed = [];
     final res = await bdkWallet.listTransactions(true);
-
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
     }
@@ -128,7 +127,8 @@ class _MyAppState extends State<MyApp> {
         print(" fee: ${e.fee}");
         print(" received: ${e.received}");
         print(" send: ${e.sent}");
-        print("===========================");
+        final txOut = await e.transaction!.output();
+        print(" output address: ${txOut.last.scriptPubkey.scriptHex}");
       }
     }
   }
@@ -150,6 +150,8 @@ class _MyAppState extends State<MyApp> {
         print(" send: ${e.sent}");
         print(" confirmationTime: ${e.confirmationTime?.timestamp}");
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
+        final txOut = await e.transaction!.output();
+        print(" output address: ${txOut.last.scriptPubkey.scriptHex}");
         print("===========================");
       }
     }
@@ -222,7 +224,6 @@ class _MyAppState extends State<MyApp> {
       debugPrint("amount: ${e['value']}");
       debugPrint("script_pubkey: ${e['script_pubkey']}");
     }
-    debugPrint(" ");
     debugPrint("=========Outputs=====");
     for (var e in outputs) {
       debugPrint("amount: ${e['value']}");
