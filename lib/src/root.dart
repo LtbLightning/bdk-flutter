@@ -52,9 +52,9 @@ class Address {
   /// Returns the script pub key of the [Address] object
   Future<Script> scriptPubKey() async {
     try {
-      final res = await loaderApi.addressToScriptPubkeyHexStaticMethodApi(
+      final res = await loaderApi.addressToScriptPubkeyStaticMethodApi(
           address: _address.toString());
-      return Script(scriptHex: res);
+      return Script(internal: res.internal);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -708,22 +708,17 @@ class PartiallySignedTransaction {
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
 class Script extends BdkScript {
-  Script({required super.scriptHex});
+  Script({required super.internal});
 
   /// [Script] constructor
   static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.createScriptStaticMethodApi(
           rawOutputScript: rawOutputScript);
-      return Script(scriptHex: res.scriptHex);
+      return Script(internal: res.internal);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
-  }
-
-  @override
-  String toString() {
-    return scriptHex;
   }
 }
 

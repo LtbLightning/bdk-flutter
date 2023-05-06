@@ -84,7 +84,7 @@ typedef struct wire_WalletInstance {
 } wire_WalletInstance;
 
 typedef struct wire_BdkScript {
-  struct wire_uint_8_list *script_hex;
+  struct wire_uint_8_list *internal;
 } wire_BdkScript;
 
 typedef struct wire_ScriptAmount {
@@ -377,8 +377,8 @@ void wire_address_from_script__static_method__Api(int64_t port_,
                                                   struct wire_BdkScript *script,
                                                   int32_t network);
 
-void wire_address_to_script_pubkey_hex__static_method__Api(int64_t port_,
-                                                           struct wire_uint_8_list *address);
+void wire_address_to_script_pubkey__static_method__Api(int64_t port_,
+                                                       struct wire_uint_8_list *address);
 
 void wire_payload__static_method__Api(int64_t port_, struct wire_uint_8_list *address);
 
@@ -560,7 +560,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_create_script__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_address__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_address_from_script__static_method__Api);
-    dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey_hex__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_address_to_script_pubkey__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_payload__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_address_network__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_wallet__static_method__Api);

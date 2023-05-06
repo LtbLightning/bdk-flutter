@@ -432,11 +432,11 @@ pub extern "C" fn wire_address_from_script__static_method__Api(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_address_to_script_pubkey_hex__static_method__Api(
+pub extern "C" fn wire_address_to_script_pubkey__static_method__Api(
     port_: i64,
     address: *mut wire_uint_8_list,
 ) {
-    wire_address_to_script_pubkey_hex__static_method__Api_impl(port_, address)
+    wire_address_to_script_pubkey__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
@@ -801,7 +801,7 @@ impl Wire2Api<AddressIndex> for wire_AddressIndex {
 impl Wire2Api<BdkScript> for wire_BdkScript {
     fn wire2api(self) -> BdkScript {
         BdkScript {
-            script_hex: self.script_hex.wire2api(),
+            internal: self.internal.wire2api(),
         }
     }
 }
@@ -1124,7 +1124,7 @@ pub struct wire_WalletInstance {
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_BdkScript {
-    script_hex: *mut wire_uint_8_list,
+    internal: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
@@ -1419,7 +1419,7 @@ pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
 impl NewWithNullPtr for wire_BdkScript {
     fn new_with_null_ptr() -> Self {
         Self {
-            script_hex: core::ptr::null_mut(),
+            internal: core::ptr::null_mut(),
         }
     }
 }

@@ -122,13 +122,14 @@ class _MyAppState extends State<MyApp> {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
     for (var e in unConfirmed) {
+      final txOut = await e.transaction!.output();
       if (kDebugMode) {
         print(" txid: ${e.txid}");
         print(" fee: ${e.fee}");
         print(" received: ${e.received}");
         print(" send: ${e.sent}");
-        final txOut = await e.transaction!.output();
-        print(" output address: ${txOut.last.scriptPubkey.scriptHex}");
+        print(" output address: ${txOut.last.scriptPubkey.internal}");
+        print("===========================");
       }
     }
   }
@@ -143,6 +144,7 @@ class _MyAppState extends State<MyApp> {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
     for (var e in confirmed) {
+      final txOut = await e.transaction!.output();
       if (kDebugMode) {
         print(" txid: ${e.txid}");
         print(" fee: ${e.fee}");
@@ -150,8 +152,7 @@ class _MyAppState extends State<MyApp> {
         print(" send: ${e.sent}");
         print(" confirmationTime: ${e.confirmationTime?.timestamp}");
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
-        final txOut = await e.transaction!.output();
-        print(" output address: ${txOut.last.scriptPubkey.scriptHex}");
+        print(" output address: ${txOut.last.scriptPubkey.internal}");
         print("===========================");
       }
     }
@@ -178,7 +179,7 @@ class _MyAppState extends State<MyApp> {
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print(
-            "txout: { address:${e.txout.scriptPubkey.scriptHex}, value: ${e.txout.value} }");
+            "txout: { address:${e.txout.scriptPubkey}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -253,8 +254,8 @@ class _MyAppState extends State<MyApp> {
     final script = await address.scriptPubKey();
     final feeRate = await estimateFeeRate(25);
     final txBuilderResult = await txBuilder
+        .addRecipient(script, 1500)
         .feeRate(feeRate.asSatPerVb())
-        .addRecipient(script, 2000)
         .finish(bdkWallet);
     getInputOutPuts(txBuilderResult);
     final sbt = await bdkWallet.sign(

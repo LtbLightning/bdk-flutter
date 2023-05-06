@@ -9,8 +9,8 @@ use std::ops::Deref;
 use std::sync::{Arc, Mutex, MutexGuard};
 
 use crate::types::{
-    AddressIndex, AddressInfo, Balance, BdkScript, KeychainKind, OutPoint, Progress,
-    ProgressHolder, TransactionDetails, TxOut,
+    AddressIndex, AddressInfo, Balance, KeychainKind, OutPoint, Progress, ProgressHolder,
+    TransactionDetails, TxOut,
 };
 
 /// A Bitcoin wallet.
@@ -212,10 +212,8 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
                 vout: local_utxo.outpoint.vout,
             },
             txout: TxOut {
-                value: local_utxo.txout.value,
-                script_pubkey: BdkScript {
-                    script_hex: local_utxo.txout.script_pubkey.to_string(),
-                },
+                value: local_utxo.clone().txout.value,
+                script_pubkey: local_utxo.clone().txout.script_pubkey.into(),
             },
             keychain: local_utxo.keychain.into(),
             is_spent: local_utxo.is_spent,

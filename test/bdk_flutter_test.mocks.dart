@@ -1139,8 +1139,8 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
 /// See the documentation for Mockito's code generation for more information.
 class MockScript extends _i1.Mock implements _i3.Script {
   @override
-  String get scriptHex => (super.noSuchMethod(
-        Invocation.getter(#scriptHex),
+  String get internal => (super.noSuchMethod(
+        Invocation.getter(#internal),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);

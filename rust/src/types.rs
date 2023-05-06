@@ -1,7 +1,7 @@
 use crate::psbt::Transaction;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
-use bdk::bitcoin::hashes::hex::{FromHex, ToHex};
+
 use bdk::bitcoin::locktime::Error;
 use bdk::bitcoin::util::address::{Payload as BdkPayload, WitnessVersion as BdkWitnessVersion};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
@@ -11,7 +11,6 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::fmt::Debug;
 use std::str::FromStr;
-use std::sync::Arc;
 
 #[derive(Debug, Clone)]
 pub struct TxIn {
@@ -25,9 +24,7 @@ impl From<&BdkTxIn> for TxIn {
     fn from(x: &BdkTxIn) -> Self {
         TxIn {
             previous_output: x.previous_output.into(),
-            script_sig: BdkScript {
-                script_hex: x.script_sig.to_hex(),
-            },
+            script_sig: x.clone().script_sig.into(),
             sequence: x.sequence.0,
             witness: x
                 .witness
@@ -50,9 +47,7 @@ impl From<&BdkTxOut> for TxOut {
     fn from(x: &BdkTxOut) -> Self {
         TxOut {
             value: x.clone().value,
-            script_pubkey: BdkScript {
-                script_hex: x.clone().script_pubkey.to_hex(),
-            },
+            script_pubkey: x.clone().script_pubkey.into(),
         }
     }
 }
@@ -354,27 +349,40 @@ impl Address {
         self.address.network.into()
     }
 
-    pub fn script_pubkey(&self) -> Arc<bdk::bitcoin::Script> {
-        Arc::new(self.address.script_pubkey())
+    pub fn script_pubkey(&self) -> bdk::bitcoin::Script {
+        self.address.script_pubkey()
     }
 }
 /// A Bitcoin script.
 #[derive(Clone, Default, Debug)]
 pub struct BdkScript {
-    pub script_hex: String,
+    pub internal: String,
 }
 impl BdkScript {
     pub fn new(raw_output_script: Vec<u8>) -> Result<BdkScript, Error> {
         let script = bdk::bitcoin::Script::from(raw_output_script);
         Ok(BdkScript {
-            script_hex: script.to_hex(),
+            internal: script.script_hash().to_string(),
         })
     }
 }
 
 impl From<BdkScript> for bdk::bitcoin::Script {
     fn from(value: BdkScript) -> Self {
-        bdk::bitcoin::Script::from_hex(value.script_hex.as_str()).unwrap()
+        let script: serde_json::error::Result<bdk::bitcoin::Script> =
+            serde_json::from_str(&value.internal);
+        match script {
+            Ok(e) => e,
+            Err(e) => panic!("{:?}", e),
+        }
+    }
+}
+impl From<bdk::bitcoin::Script> for BdkScript {
+    fn from(value: bdk::bitcoin::Script) -> Self {
+        match serde_json::to_string(&value) {
+            Ok(e) => BdkScript { internal: e },
+            Err(e) => panic!("{:?}", e),
+        }
     }
 }
 

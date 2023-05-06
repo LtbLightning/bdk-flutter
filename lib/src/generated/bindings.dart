@@ -1085,23 +1085,23 @@ class RustImpl implements Rust {
             argNames: ["script", "network"],
           );
 
-  Future<String> addressToScriptPubkeyHexStaticMethodApi(
+  Future<BdkScript> addressToScriptPubkeyStaticMethodApi(
       {required String address, dynamic hint}) {
     var arg0 = _platform.api2wire_String(address);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
-          .wire_address_to_script_pubkey_hex__static_method__Api(port_, arg0),
-      parseSuccessData: _wire2api_String,
-      constMeta: kAddressToScriptPubkeyHexStaticMethodApiConstMeta,
+          .wire_address_to_script_pubkey__static_method__Api(port_, arg0),
+      parseSuccessData: _wire2api_bdk_script,
+      constMeta: kAddressToScriptPubkeyStaticMethodApiConstMeta,
       argValues: [address],
       hint: hint,
     ));
   }
 
   FlutterRustBridgeTaskConstMeta
-      get kAddressToScriptPubkeyHexStaticMethodApiConstMeta =>
+      get kAddressToScriptPubkeyStaticMethodApiConstMeta =>
           const FlutterRustBridgeTaskConstMeta(
-            debugName: "address_to_script_pubkey_hex__static_method__Api",
+            debugName: "address_to_script_pubkey__static_method__Api",
             argNames: ["address"],
           );
 
@@ -1524,7 +1524,7 @@ class RustImpl implements Rust {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return BdkScript(
-      scriptHex: _wire2api_String(arr[0]),
+      internal: _wire2api_String(arr[0]),
     );
   }
 
@@ -2070,7 +2070,7 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   void _api_fill_to_wire_bdk_script(BdkScript apiObj, wire_BdkScript wireObj) {
-    wireObj.script_hex = api2wire_String(apiObj.scriptHex);
+    wireObj.internal = api2wire_String(apiObj.internal);
   }
 
   void _api_fill_to_wire_blockchain_config(
@@ -3451,23 +3451,22 @@ class RustWire implements FlutterRustBridgeWireBase {
       _wire_address_from_script__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_BdkScript>, int)>();
 
-  void wire_address_to_script_pubkey_hex__static_method__Api(
+  void wire_address_to_script_pubkey__static_method__Api(
     int port_,
     ffi.Pointer<wire_uint_8_list> address,
   ) {
-    return _wire_address_to_script_pubkey_hex__static_method__Api(
+    return _wire_address_to_script_pubkey__static_method__Api(
       port_,
       address,
     );
   }
 
-  late final _wire_address_to_script_pubkey_hex__static_method__ApiPtr =
-      _lookup<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-          'wire_address_to_script_pubkey_hex__static_method__Api');
-  late final _wire_address_to_script_pubkey_hex__static_method__Api =
-      _wire_address_to_script_pubkey_hex__static_method__ApiPtr
+  late final _wire_address_to_script_pubkey__static_method__ApiPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_address_to_script_pubkey__static_method__Api');
+  late final _wire_address_to_script_pubkey__static_method__Api =
+      _wire_address_to_script_pubkey__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_payload__static_method__Api(
@@ -4377,7 +4376,7 @@ class wire_WalletInstance extends ffi.Struct {
 }
 
 class wire_BdkScript extends ffi.Struct {
-  external ffi.Pointer<wire_uint_8_list> script_hex;
+  external ffi.Pointer<wire_uint_8_list> internal;
 }
 
 class wire_ScriptAmount extends ffi.Struct {

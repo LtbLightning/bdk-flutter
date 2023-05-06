@@ -9,7 +9,6 @@ use crate::types::{
     TxOut, WordCount,
 };
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
-use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::Error;
@@ -549,9 +548,9 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn address_to_script_pubkey_hex(address: String) -> anyhow::Result<String> {
+    pub fn address_to_script_pubkey(address: String) -> anyhow::Result<BdkScript> {
         match Address::new(address) {
-            Ok(e) => Ok(e.script_pubkey().to_hex()),
+            Ok(e) => Ok(e.script_pubkey().into()),
             Err(e) => anyhow::bail!("{:?}", e),
         }
     }

@@ -302,11 +302,11 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kAddressFromScriptStaticMethodApiConstMeta;
 
-  Future<String> addressToScriptPubkeyHexStaticMethodApi(
+  Future<BdkScript> addressToScriptPubkeyStaticMethodApi(
       {required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
-      get kAddressToScriptPubkeyHexStaticMethodApiConstMeta;
+      get kAddressToScriptPubkeyStaticMethodApiConstMeta;
 
   Future<Payload> payloadStaticMethodApi(
       {required String address, dynamic hint});
@@ -540,10 +540,10 @@ class Balance {
 
 /// A Bitcoin script.
 class BdkScript {
-  final String scriptHex;
+  final String internal;
 
   const BdkScript({
-    required this.scriptHex,
+    required this.internal,
   });
 }
 

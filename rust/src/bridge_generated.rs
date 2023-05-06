@@ -965,19 +965,19 @@ fn wire_address_from_script__static_method__Api_impl(
         },
     )
 }
-fn wire_address_to_script_pubkey_hex__static_method__Api_impl(
+fn wire_address_to_script_pubkey__static_method__Api_impl(
     port_: MessagePort,
     address: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "address_to_script_pubkey_hex__static_method__Api",
+            debug_name: "address_to_script_pubkey__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_address = address.wire2api();
-            move |task_callback| Api::address_to_script_pubkey_hex(api_address)
+            move |task_callback| Api::address_to_script_pubkey(api_address)
         },
     )
 }
@@ -1388,7 +1388,7 @@ impl support::IntoDartExceptPrimitive for Balance {}
 
 impl support::IntoDart for BdkScript {
     fn into_dart(self) -> support::DartAbi {
-        vec![self.script_hex.into_dart()].into_dart()
+        vec![self.internal.into_dart()].into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for BdkScript {}
