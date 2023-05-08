@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:typed_data' as _i5;
 
 import 'package:bdk_flutter/src/generated/bridge_definitions.dart' as _i2;
 import 'package:bdk_flutter/src/root.dart' as _i3;
@@ -135,7 +136,7 @@ class _FakePayload_10 extends _i1.SmartFake implements _i2.Payload {
         );
 }
 
-class _FakeScript_11 extends _i1.SmartFake implements _i3.Script {
+class _FakeScript_11 extends _i1.SmartFake implements _i2.Script {
   _FakeScript_11(
     Object parent,
     Invocation parentInvocation,
@@ -673,7 +674,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
       ) as _i3.TxBuilder);
   @override
   _i3.TxBuilder addRecipient(
-    _i3.Script? script,
+    _i2.Script? script,
     int? amount,
   ) =>
       (super.noSuchMethod(
@@ -812,7 +813,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
         ),
       ) as _i3.TxBuilder);
   @override
-  _i3.TxBuilder drainTo(_i3.Script? script) => (super.noSuchMethod(
+  _i3.TxBuilder drainTo(_i2.Script? script) => (super.noSuchMethod(
         Invocation.method(
           #drainTo,
           [script],
@@ -1139,11 +1140,11 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
 /// See the documentation for Mockito's code generation for more information.
 class MockScript extends _i1.Mock implements _i3.Script {
   @override
-  String get internal => (super.noSuchMethod(
+  _i5.Uint8List get internal => (super.noSuchMethod(
         Invocation.getter(#internal),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
 }
 
 /// A class which mocks [Address].
@@ -1183,26 +1184,26 @@ class MockAddress extends _i1.Mock implements _i3.Address {
             _i4.Future<_i2.Network>.value(_i2.Network.Testnet),
       ) as _i4.Future<_i2.Network>);
   @override
-  _i4.Future<_i3.Script> scriptPubKey() => (super.noSuchMethod(
+  _i4.Future<_i2.Script> scriptPubKey() => (super.noSuchMethod(
         Invocation.method(
           #scriptPubKey,
           [],
         ),
-        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_11(
+        returnValue: _i4.Future<_i2.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_11(
+        returnValueForMissingStub: _i4.Future<_i2.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-      ) as _i4.Future<_i3.Script>);
+      ) as _i4.Future<_i2.Script>);
 }
 
 /// A class which mocks [DerivationPath].

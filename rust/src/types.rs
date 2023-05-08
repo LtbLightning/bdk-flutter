@@ -1,6 +1,7 @@
 use crate::psbt::Transaction;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
+use std::borrow::Borrow;
 
 use bdk::bitcoin::locktime::Error;
 use bdk::bitcoin::util::address::{Payload as BdkPayload, WitnessVersion as BdkWitnessVersion};
@@ -15,7 +16,7 @@ use std::str::FromStr;
 #[derive(Debug, Clone)]
 pub struct TxIn {
     pub previous_output: OutPoint,
-    pub script_sig: BdkScript,
+    pub script_sig: Script,
     pub sequence: u32,
     pub witness: Vec<String>,
 }
@@ -25,7 +26,7 @@ impl From<&BdkTxIn> for TxIn {
         TxIn {
             previous_output: x.previous_output.into(),
             script_sig: x.clone().script_sig.into(),
-            sequence: x.sequence.0,
+            sequence: x.clone().sequence.0,
             witness: x
                 .witness
                 .to_vec()
@@ -41,7 +42,7 @@ pub struct TxOut {
     /// The value of the output, in satoshis.
     pub value: u64,
     /// The address of the output.
-    pub script_pubkey: BdkScript,
+    pub script_pubkey: Script,
 }
 impl From<&BdkTxOut> for TxOut {
     fn from(x: &BdkTxOut) -> Self {
@@ -63,7 +64,7 @@ pub struct OutPoint {
 impl From<&OutPoint> for BdkOutPoint {
     fn from(x: &OutPoint) -> BdkOutPoint {
         BdkOutPoint {
-            txid: Txid::from_str(&x.clone().txid).unwrap(),
+            txid: Txid::from_str(x.clone().txid.borrow()).unwrap(),
             vout: x.clone().vout,
         }
     }
@@ -221,7 +222,7 @@ impl From<bdk::BlockTime> for BlockTime {
 
 /// A output script and an amount of satoshis.
 pub struct ScriptAmount {
-    pub script: BdkScript,
+    pub script: Script,
     pub amount: u64,
 }
 
@@ -325,7 +326,7 @@ impl Address {
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 
-    pub fn from_script(script: BdkScript, network: Network) -> Result<Self, BdkError> {
+    pub fn from_script(script: Script, network: Network) -> Result<Self, BdkError> {
         BdkAddress::from_script(&script.into(), network.into())
             .map(|a| Address { address: a })
             .map_err(|e| BdkError::Generic(e.to_string()))
@@ -355,33 +356,27 @@ impl Address {
 }
 /// A Bitcoin script.
 #[derive(Clone, Default, Debug)]
-pub struct BdkScript {
-    pub internal: String,
+pub struct Script {
+    pub internal: Vec<u8>,
 }
-impl BdkScript {
-    pub fn new(raw_output_script: Vec<u8>) -> Result<BdkScript, Error> {
+impl Script {
+    pub fn new(raw_output_script: Vec<u8>) -> Result<Script, Error> {
         let script = bdk::bitcoin::Script::from(raw_output_script);
-        Ok(BdkScript {
-            internal: script.script_hash().to_string(),
+        Ok(Script {
+            internal: script.into_bytes(),
         })
     }
 }
 
-impl From<BdkScript> for bdk::bitcoin::Script {
-    fn from(value: BdkScript) -> Self {
-        let script: serde_json::error::Result<bdk::bitcoin::Script> =
-            serde_json::from_str(&value.internal);
-        match script {
-            Ok(e) => e,
-            Err(e) => panic!("{:?}", e),
-        }
+impl From<Script> for bdk::bitcoin::Script {
+    fn from(value: Script) -> Self {
+        bdk::bitcoin::Script::from(value.internal)
     }
 }
-impl From<bdk::bitcoin::Script> for BdkScript {
+impl From<bdk::bitcoin::Script> for Script {
     fn from(value: bdk::bitcoin::Script) -> Self {
-        match serde_json::to_string(&value) {
-            Ok(e) => BdkScript { internal: e },
-            Err(e) => panic!("{:?}", e),
+        Script {
+            internal: value.into_bytes(),
         }
     }
 }

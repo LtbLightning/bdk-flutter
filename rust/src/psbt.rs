@@ -5,6 +5,7 @@ use bdk::bitcoin::util::psbt::PartiallySignedTransaction as BdkPartiallySignedTr
 use bdk::bitcoin::Transaction as BdkTransaction;
 use bdk::psbt::PsbtUtils;
 use bdk::{Error as BdkError, FeeRate};
+use std::borrow::Borrow;
 use std::io::Cursor;
 use std::ops::Deref;
 use std::str::FromStr;
@@ -20,7 +21,7 @@ pub struct PartiallySignedTransaction {
 impl PartiallySignedTransaction {
     pub(crate) fn new(psbt_base64: String) -> Result<Self, BdkError> {
         let psbt: BdkPartiallySignedTransaction =
-            BdkPartiallySignedTransaction::from_str(&psbt_base64)?;
+            BdkPartiallySignedTransaction::from_str(psbt_base64.borrow())?;
         Ok(PartiallySignedTransaction {
             internal: Mutex::new(psbt),
         })

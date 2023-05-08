@@ -28,7 +28,6 @@ use crate::blockchain::UserPass;
 use crate::types::AddressIndex;
 use crate::types::AddressInfo;
 use crate::types::Balance;
-use crate::types::BdkScript;
 use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::ChangeSpendPolicy;
@@ -37,6 +36,7 @@ use crate::types::Network;
 use crate::types::OutPoint;
 use crate::types::Payload;
 use crate::types::RbfValue;
+use crate::types::Script;
 use crate::types::ScriptAmount;
 use crate::types::TransactionDetails;
 use crate::types::TxIn;
@@ -461,7 +461,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
     fee_rate: impl Wire2Api<Option<f32>> + UnwindSafe,
     fee_absolute: impl Wire2Api<Option<u64>> + UnwindSafe,
     drain_wallet: impl Wire2Api<bool> + UnwindSafe,
-    drain_to: impl Wire2Api<Option<BdkScript>> + UnwindSafe,
+    drain_to: impl Wire2Api<Option<Script>> + UnwindSafe,
     rbf: impl Wire2Api<Option<RbfValue>> + UnwindSafe,
     data: impl Wire2Api<Vec<u8>> + UnwindSafe,
 ) {
@@ -777,7 +777,7 @@ fn wire_create_descriptor_secret__static_method__Api_impl(
 }
 fn wire_descriptor_secret_from_string__static_method__Api_impl(
     port_: MessagePort,
-    xprv: impl Wire2Api<String> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -786,14 +786,14 @@ fn wire_descriptor_secret_from_string__static_method__Api_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_xprv = xprv.wire2api();
-            move |task_callback| Api::descriptor_secret_from_string(api_xprv)
+            let api_secret = secret.wire2api();
+            move |task_callback| Api::descriptor_secret_from_string(api_secret)
         },
     )
 }
 fn wire_extend_descriptor_secret__static_method__Api_impl(
     port_: MessagePort,
-    xprv: impl Wire2Api<String> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
     path: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -803,15 +803,15 @@ fn wire_extend_descriptor_secret__static_method__Api_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_xprv = xprv.wire2api();
+            let api_secret = secret.wire2api();
             let api_path = path.wire2api();
-            move |task_callback| Ok(Api::extend_descriptor_secret(api_xprv, api_path))
+            move |task_callback| Ok(Api::extend_descriptor_secret(api_secret, api_path))
         },
     )
 }
 fn wire_derive_descriptor_secret__static_method__Api_impl(
     port_: MessagePort,
-    xprv: impl Wire2Api<String> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
     path: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -821,16 +821,15 @@ fn wire_derive_descriptor_secret__static_method__Api_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_xprv = xprv.wire2api();
+            let api_secret = secret.wire2api();
             let api_path = path.wire2api();
-            move |task_callback| Ok(Api::derive_descriptor_secret(api_xprv, api_path))
+            move |task_callback| Ok(Api::derive_descriptor_secret(api_secret, api_path))
         },
     )
 }
 fn wire_as_secret_bytes__static_method__Api_impl(
     port_: MessagePort,
-    descriptor_secret: impl Wire2Api<Option<String>> + UnwindSafe,
-    xprv: impl Wire2Api<Option<String>> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -839,16 +838,14 @@ fn wire_as_secret_bytes__static_method__Api_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_descriptor_secret = descriptor_secret.wire2api();
-            let api_xprv = xprv.wire2api();
-            move |task_callback| Api::as_secret_bytes(api_descriptor_secret, api_xprv)
+            let api_secret = secret.wire2api();
+            move |task_callback| Api::as_secret_bytes(api_secret)
         },
     )
 }
 fn wire_as_public__static_method__Api_impl(
     port_: MessagePort,
-    descriptor_secret: impl Wire2Api<Option<String>> + UnwindSafe,
-    xprv: impl Wire2Api<Option<String>> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -857,9 +854,8 @@ fn wire_as_public__static_method__Api_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_descriptor_secret = descriptor_secret.wire2api();
-            let api_xprv = xprv.wire2api();
-            move |task_callback| Api::as_public(api_descriptor_secret, api_xprv)
+            let api_secret = secret.wire2api();
+            move |task_callback| Api::as_public(api_secret)
         },
     )
 }
@@ -949,7 +945,7 @@ fn wire_create_address__static_method__Api_impl(
 }
 fn wire_address_from_script__static_method__Api_impl(
     port_: MessagePort,
-    script: impl Wire2Api<BdkScript> + UnwindSafe,
+    script: impl Wire2Api<Script> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
@@ -1386,13 +1382,6 @@ impl support::IntoDart for Balance {
 }
 impl support::IntoDartExceptPrimitive for Balance {}
 
-impl support::IntoDart for BdkScript {
-    fn into_dart(self) -> support::DartAbi {
-        vec![self.internal.into_dart()].into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for BdkScript {}
-
 impl support::IntoDart for BdkTxBuilderResult {
     fn into_dart(self) -> support::DartAbi {
         vec![self.0.into_dart(), self.1.into_dart()].into_dart()
@@ -1464,6 +1453,13 @@ impl support::IntoDart for Payload {
     }
 }
 impl support::IntoDartExceptPrimitive for Payload {}
+impl support::IntoDart for Script {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.internal.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Script {}
+
 impl support::IntoDart for TransactionDetails {
     fn into_dart(self) -> support::DartAbi {
         vec![

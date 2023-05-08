@@ -179,7 +179,7 @@ class _MyAppState extends State<MyApp> {
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print(
-            "txout: { address:${e.txout.scriptPubkey}, value: ${e.txout.value} }");
+            "txout: { address:${e.txout.scriptPubkey.internal.toString()}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -218,17 +218,17 @@ class _MyAppState extends State<MyApp> {
   getInputOutPuts(TxBuilderResult txBuilderResult) async {
     final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
     final jsonObj = json.decode(serializedPsbtTx);
-    final outputs = jsonObj['unsigned_tx']['output'] as List;
-    final inputs = jsonObj['inputs'][0]['non_witness_utxo']['output'] as List;
+    final outputs = jsonObj["unsigned_tx"]["output"] as List;
+    final inputs = jsonObj["inputs"][0]["non_witness_utxo"]["output"] as List;
     debugPrint("=========Inputs=====");
     for (var e in inputs) {
-      debugPrint("amount: ${e['value']}");
-      debugPrint("script_pubkey: ${e['script_pubkey']}");
+      debugPrint("amount: ${e["value"]}");
+      debugPrint("script_pubkey: ${e["script_pubkey"]}");
     }
     debugPrint("=========Outputs=====");
     for (var e in outputs) {
-      debugPrint("amount: ${e['value']}");
-      debugPrint("script_pubkey: ${e['script_pubkey']}");
+      debugPrint("amount: ${e["value"]}");
+      debugPrint("script_pubkey: ${e["script_pubkey"]}");
     }
   }
 
@@ -278,9 +278,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
+          preferredSize: const Size(double.infinity, kToolbarHeight * 2),
           child: Container(
-            padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+            padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
             color: Colors.blue,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

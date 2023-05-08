@@ -3,17 +3,14 @@ import 'dart:typed_data' as typed_data;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 
-import 'generated/bridge_definitions.dart';
+import 'generated/bridge_definitions.dart' hide Script;
+import 'generated/bridge_definitions.dart' as bridge;
 import 'utils/utils.dart';
 
 ///A Bitcoin address.
 class Address {
-  String? _address;
-  Address._();
-  Address _setAddress(String address) {
-    _address = address;
-    return this;
-  }
+  final String? _address;
+  Address._(this._address);
 
   /// Creates an instance of [Address] from address given.
   ///
@@ -22,39 +19,52 @@ class Address {
     try {
       final res =
           await loaderApi.createAddressStaticMethodApi(address: address);
-      return Address._()._setAddress(res);
+      return Address._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
   }
 
-  /// [Constructor]
+  /// Creates an instance of [Address] from address given [Script].
   ///
-  static Future<Address> fromScript(Script script, Network network) async {
-    final res = await loaderApi.addressFromScriptStaticMethodApi(
-        script: script, network: network);
-    return Address._()._setAddress(res);
+  static Future<Address> fromScript(
+      bridge.Script script, Network network) async {
+    try {
+      final res = await loaderApi.addressFromScriptStaticMethodApi(
+          script: script, network: network);
+      return Address._(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   ///The type of the address.
   ///
   Future<Payload> payload() async {
-    final res = await loaderApi.payloadStaticMethodApi(address: _address!);
-    return res;
+    try {
+      final res = await loaderApi.payloadStaticMethodApi(address: _address!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<Network> network() async {
-    final res =
-        await loaderApi.addressNetworkStaticMethodApi(address: _address!);
-    return res;
+    try {
+      final res =
+          await loaderApi.addressNetworkStaticMethodApi(address: _address!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Returns the script pub key of the [Address] object
-  Future<Script> scriptPubKey() async {
+  Future<bridge.Script> scriptPubKey() async {
     try {
       final res = await loaderApi.addressToScriptPubkeyStaticMethodApi(
           address: _address.toString());
-      return Script(internal: res.internal);
+      return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -68,19 +78,15 @@ class Address {
 
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
 class Blockchain {
-  BlockchainInstance? _blockchain;
-  Blockchain._();
-  Blockchain _setBlockchain(BlockchainInstance blockchain) {
-    _blockchain = blockchain;
-    return this;
-  }
+  final BlockchainInstance? _blockchain;
+  Blockchain._(this._blockchain);
 
   ///  [Blockchain] constructor
   static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
       final res =
           await loaderApi.createBlockchainStaticMethodApi(config: config);
-      return Blockchain._()._setBlockchain(res);
+      return Blockchain._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -113,7 +119,7 @@ class Blockchain {
     try {
       var res = await loaderApi.estimateFeeStaticMethodApi(
           blockchain: _blockchain!, target: target);
-      return FeeRate._()._setFeeRate(res);
+      return FeeRate._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -179,7 +185,7 @@ class BumpFeeTxBuilder {
           txid: txid.toString(),
           enableRbf: _enableRbf,
           feeRate: feeRate,
-          wallet: wallet._wallet!,
+          wallet: wallet._wallet,
           nSequence: _nSequence,
           allowShrinking: _allowShrinking);
       return TxBuilderResult(
@@ -193,19 +199,15 @@ class BumpFeeTxBuilder {
 
 ///A `BIP-32` derivation path
 class DerivationPath {
-  String? _path;
-  DerivationPath._();
-  DerivationPath _setDerivationPath(String path) {
-    _path = path;
-    return this;
-  }
+  final String? _path;
+  DerivationPath._(this._path);
 
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
       final res =
           await loaderApi.createDerivationPathStaticMethodApi(path: path);
-      return DerivationPath._()._setDerivationPath(res);
+      return DerivationPath._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -219,12 +221,8 @@ class DerivationPath {
 
 ///Script descriptor
 class Descriptor {
-  BdkDescriptor? _descriptorInstance;
-  Descriptor._();
-  Descriptor _setDescriptor(BdkDescriptor? descriptorInstance) {
-    _descriptorInstance = descriptorInstance;
-    return this;
-  }
+  final BdkDescriptor? _descriptorInstance;
+  Descriptor._(this._descriptorInstance);
 
   ///  [Descriptor] constructor
   static Future<Descriptor> create(
@@ -232,7 +230,7 @@ class Descriptor {
     try {
       final res = await loaderApi.createDescriptorStaticMethodApi(
           descriptor: descriptor, network: network);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -250,7 +248,7 @@ class Descriptor {
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -272,7 +270,7 @@ class Descriptor {
           publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -290,7 +288,7 @@ class Descriptor {
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -312,7 +310,7 @@ class Descriptor {
           publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -330,7 +328,7 @@ class Descriptor {
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -352,7 +350,7 @@ class Descriptor {
           publicKey: publicKey.asString(),
           network: network,
           fingerprint: fingerPrint);
-      return Descriptor._()._setDescriptor(res);
+      return Descriptor._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -383,14 +381,9 @@ class Descriptor {
 
 ///An extended public key.
 class DescriptorPublicKey {
-  String? _descriptorPublicKey;
+  final String? _descriptorPublicKey;
 
-  DescriptorPublicKey._();
-
-  DescriptorPublicKey _setDescriptorPublicKey(String descriptorPublicKey) {
-    _descriptorPublicKey = descriptorPublicKey;
-    return this;
-  }
+  DescriptorPublicKey._(this._descriptorPublicKey);
 
   /// Get the public key as string.
   String asString() {
@@ -404,7 +397,7 @@ class DescriptorPublicKey {
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: true);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+      return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -417,7 +410,7 @@ class DescriptorPublicKey {
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: false);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+      return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -428,7 +421,7 @@ class DescriptorPublicKey {
     try {
       final res = await loaderApi.descriptorPublicFromStringStaticMethodApi(
           publicKey: publicKey);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(res);
+      return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -441,27 +434,17 @@ class DescriptorPublicKey {
 }
 
 class DescriptorSecretKey {
-  String? _descriptorSecretKey;
-  String? _xprv;
-  DescriptorSecretKey._();
-  DescriptorSecretKey _setXprv(String key) {
-    _xprv = key;
-    return this;
-  }
-
-  DescriptorSecretKey _setDescriptorSecretKey(String secretKey) {
-    _descriptorSecretKey = secretKey;
-    return this;
-  }
+  final String _descriptorSecretKey;
+  DescriptorSecretKey._(this._descriptorSecretKey);
 
   ///Returns the public version of this key.
   ///
   /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
-      final xpub = await loaderApi.asPublicStaticMethodApi(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
-      return DescriptorPublicKey._()._setDescriptorPublicKey(xpub);
+      final xpub =
+          await loaderApi.asPublicStaticMethodApi(secret: _descriptorSecretKey);
+      return DescriptorPublicKey._(xpub);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -469,7 +452,7 @@ class DescriptorSecretKey {
 
   /// Get the private key as string.
   String asString() {
-    return _descriptorSecretKey ?? _xprv.toString();
+    return _descriptorSecretKey;
   }
 
   /// [DescriptorSecretKey] constructor
@@ -480,7 +463,7 @@ class DescriptorSecretKey {
     try {
       final res = await loaderApi.createDescriptorSecretStaticMethodApi(
           network: network, mnemonic: mnemonic.asString(), password: password);
-      return DescriptorSecretKey._()._setXprv(res);
+      return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -489,10 +472,9 @@ class DescriptorSecretKey {
   /// Derived the `XPrv` using the derivation path
   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
     try {
-      _descriptorSecretKey =
-          await loaderApi.deriveDescriptorSecretStaticMethodApi(
-              xprv: _xprv.toString(), path: derivationPath._path.toString());
-      return this;
+      final res = await loaderApi.deriveDescriptorSecretStaticMethodApi(
+          secret: _descriptorSecretKey, path: derivationPath._path.toString());
+      return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -501,10 +483,9 @@ class DescriptorSecretKey {
   /// Extends the “XPrv” using the derivation path
   Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
     try {
-      _descriptorSecretKey =
-          await loaderApi.extendDescriptorSecretStaticMethodApi(
-              xprv: _xprv.toString(), path: derivationPath._path.toString());
-      return this;
+      final res = await loaderApi.extendDescriptorSecretStaticMethodApi(
+          secret: _descriptorSecretKey, path: derivationPath._path.toString());
+      return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -514,8 +495,8 @@ class DescriptorSecretKey {
   static Future<DescriptorSecretKey> fromString(String secretKey) async {
     try {
       final res = await loaderApi.descriptorSecretFromStringStaticMethodApi(
-          xprv: secretKey);
-      return DescriptorSecretKey._()._setDescriptorSecretKey(res);
+          secret: secretKey);
+      return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -525,7 +506,7 @@ class DescriptorSecretKey {
   Future<List<int>> secretBytes() async {
     try {
       final res = await loaderApi.asSecretBytesStaticMethodApi(
-          xprv: _xprv, descriptorSecret: _descriptorSecretKey);
+          secret: _descriptorSecretKey);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -539,27 +520,19 @@ class DescriptorSecretKey {
 }
 
 class FeeRate {
-  double? _feeRate;
-  FeeRate._();
-  FeeRate _setFeeRate(double feeRate) {
-    _feeRate = feeRate;
-    return this;
-  }
+  final double _feeRate;
+  FeeRate._(this._feeRate);
 
   double asSatPerVb() {
-    return _feeRate!;
+    return _feeRate;
   }
 }
 
 /// Mnemonic phrases are a human-readable version of the private keys.
 /// Supported number of words are 12, 18, and 24.
 class Mnemonic {
-  String? _mnemonic;
-  Mnemonic._();
-  Mnemonic _setMnemonic(String mnemonic) {
-    _mnemonic = mnemonic;
-    return this;
-  }
+  final String? _mnemonic;
+  Mnemonic._(this._mnemonic);
 
   /// Generates [Mnemonic] with given [WordCount]
   ///
@@ -568,7 +541,7 @@ class Mnemonic {
     try {
       final res = await loaderApi.generateSeedFromWordCountStaticMethodApi(
           wordCount: wordCount);
-      return Mnemonic._()._setMnemonic(res);
+      return Mnemonic._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -587,7 +560,7 @@ class Mnemonic {
     try {
       final res = await loaderApi.generateSeedFromEntropyStaticMethodApi(
           entropy: entropy);
-      return Mnemonic._()._setMnemonic(res);
+      return Mnemonic._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -600,7 +573,7 @@ class Mnemonic {
     try {
       final res = await loaderApi.generateSeedFromStringStaticMethodApi(
           mnemonic: mnemonic);
-      return Mnemonic._()._setMnemonic(res);
+      return Mnemonic._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -636,7 +609,7 @@ class PartiallySignedTransaction {
   Future<Transaction> extractTx() async {
     try {
       final res = await loaderApi.extractTxStaticMethodApi(psbtStr: psbtBase64);
-      return Transaction._()._setTransaction(res);
+      return Transaction._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -659,7 +632,7 @@ class PartiallySignedTransaction {
       final res =
           await loaderApi.psbtFeeRateStaticMethodApi(psbtStr: psbtBase64);
       if (res == null) return null;
-      return FeeRate._()._setFeeRate(res);
+      return FeeRate._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -707,15 +680,16 @@ class PartiallySignedTransaction {
 /// A list of instructions in a simple, Forth-like, stack-based programming language that Bitcoin uses.
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
-class Script extends BdkScript {
-  Script({required super.internal});
+class Script extends bridge.Script {
+  Script._({required super.internal});
 
   /// [Script] constructor
-  static Future<Script> create(typed_data.Uint8List rawOutputScript) async {
+  static Future<bridge.Script> create(
+      typed_data.Uint8List rawOutputScript) async {
     try {
       final res = await loaderApi.createScriptStaticMethodApi(
           rawOutputScript: rawOutputScript);
-      return Script(internal: res.internal);
+      return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -724,12 +698,8 @@ class Script extends BdkScript {
 
 ///A bitcoin transaction.
 class Transaction {
-  String? _tx;
-  Transaction._();
-  Transaction _setTransaction(String tx) {
-    _tx = tx;
-    return this;
-  }
+  final String? _tx;
+  Transaction._(this._tx);
 
   ///  [Transaction] constructor
   static Future<Transaction> create({
@@ -738,7 +708,7 @@ class Transaction {
     try {
       final tx = Uint8List.fromList(transactionBytes);
       final res = await loaderApi.createTransactionStaticMethodApi(tx: tx);
-      return Transaction._()._setTransaction(res);
+      return Transaction._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -746,63 +716,111 @@ class Transaction {
 
   ///Return the transaction bytes, bitcoin consensus encoded.
   Future<List<int>> serialize() async {
-    final res = await loaderApi.serializeTxStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.serializeTxStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<String> txid() async {
-    final res = await loaderApi.txTxidStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.txTxidStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<int> weight() async {
-    final res = await loaderApi.weightStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.weightStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<int> size() async {
-    final res = await loaderApi.sizeStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.sizeStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<int> vsize() async {
-    final res = await loaderApi.vsizeStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.vsizeStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<bool> isCoinBase() async {
-    final res = await loaderApi.isCoinBaseStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.isCoinBaseStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<bool> isExplicitlyRbf() async {
-    final res = await loaderApi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<bool> isLockTimeEnabled() async {
-    final res = await loaderApi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<int> version() async {
-    final res = await loaderApi.versionStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.versionStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<int> lockTime() async {
-    final res = await loaderApi.lockTimeStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.lockTimeStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<List<TxIn>> input() async {
-    final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   Future<List<TxOut>> output() async {
-    final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
-    return res;
+    try {
+      final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   @override
@@ -824,7 +842,7 @@ class TxBuilder {
   ChangeSpendPolicy _changeSpendPolicy = ChangeSpendPolicy.ChangeAllowed;
   int? _feeAbsolute;
   bool _drainWallet = false;
-  Script? _drainTo;
+  bridge.Script? _drainTo;
   RbfValue? _rbfValue;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
@@ -838,7 +856,7 @@ class TxBuilder {
   }
 
   ///Add a recipient to the internal list
-  TxBuilder addRecipient(Script script, int amount) {
+  TxBuilder addRecipient(bridge.Script script, int amount) {
     _recipients.add(ScriptAmount(script: script, amount: amount));
     return this;
   }
@@ -898,7 +916,7 @@ class TxBuilder {
   /// If you choose not to set any recipients, you should either provide the utxos that the transaction should spend via add_utxos, or set drainWallet to spend all of them.
   ///
   /// When bumping the fees of a transaction made with this option, you probably want to use allowShrinking to allow this output to be reduced to pay for the extra fees.
-  TxBuilder drainTo(Script script) {
+  TxBuilder drainTo(bridge.Script script) {
     _drainTo = script;
     return this;
   }
@@ -976,7 +994,7 @@ class TxBuilder {
     }
     try {
       final res = await loaderApi.txBuilderFinishStaticMethodApi(
-          wallet: wallet._wallet!,
+          wallet: wallet._wallet,
           recipients: _recipients,
           utxos: _utxos,
           unspendable: _unSpendable,
@@ -1020,12 +1038,8 @@ class TxBuilderResult {
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 ///
 class Wallet {
-  WalletInstance? _wallet;
-  Wallet._();
-  Wallet _setWallet(WalletInstance? walletInstance) {
-    _wallet = walletInstance;
-    return this;
-  }
+  final WalletInstance _wallet;
+  Wallet._(this._wallet);
 
   ///  [Wallet] constructor
   static Future<Wallet> create({
@@ -1041,7 +1055,7 @@ class Wallet {
         network: network,
         databaseConfig: databaseConfig,
       );
-      return Wallet._()._setWallet(res);
+      return Wallet._(res);
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -1052,7 +1066,7 @@ class Wallet {
   Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getAddressStaticMethodApi(
-          wallet: _wallet!, addressIndex: addressIndex);
+          wallet: _wallet, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1070,7 +1084,7 @@ class Wallet {
       {required AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getInternalAddressStaticMethodApi(
-          wallet: _wallet!, addressIndex: addressIndex);
+          wallet: _wallet, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1082,7 +1096,7 @@ class Wallet {
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<Balance> getBalance() async {
     try {
-      var res = await loaderApi.getBalanceStaticMethodApi(wallet: _wallet!);
+      var res = await loaderApi.getBalanceStaticMethodApi(wallet: _wallet);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1092,7 +1106,7 @@ class Wallet {
   ///Get the Bitcoin network the wallet is using.
   Future<Network> network() async {
     try {
-      var res = await loaderApi.walletNetworkStaticMethodApi(wallet: _wallet!);
+      var res = await loaderApi.walletNetworkStaticMethodApi(wallet: _wallet);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1105,7 +1119,7 @@ class Wallet {
   Future<List<LocalUtxo>> listUnspent() async {
     try {
       var res =
-          await loaderApi.listUnspentOutputsStaticMethodApi(wallet: _wallet!);
+          await loaderApi.listUnspentOutputsStaticMethodApi(wallet: _wallet);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1116,7 +1130,7 @@ class Wallet {
   Future sync(Blockchain blockchain) async {
     try {
       await loaderApi.syncWalletStaticMethodApi(
-          wallet: _wallet!, blockchain: blockchain._blockchain!);
+          wallet: _wallet, blockchain: blockchain._blockchain!);
       if (kDebugMode) {
         print("Sync complete");
       }
@@ -1129,7 +1143,7 @@ class Wallet {
   Future<List<TransactionDetails>> listTransactions(bool includeRaw) async {
     try {
       final res = await loaderApi.getTransactionsStaticMethodApi(
-          wallet: _wallet!, includeRaw: includeRaw);
+          wallet: _wallet, includeRaw: includeRaw);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);
@@ -1144,7 +1158,7 @@ class Wallet {
       SignOptions? signOptions}) async {
     try {
       final sbt = await loaderApi.signStaticMethodApi(
-          signOptions: signOptions, psbtStr: psbt.psbtBase64, wallet: _wallet!);
+          signOptions: signOptions, psbtStr: psbt.psbtBase64, wallet: _wallet);
       if (sbt == null) {
         throw const BdkException.unExpected("Unable to sign transaction");
       }
@@ -1156,7 +1170,6 @@ class Wallet {
 }
 
 extension Tx on TransactionDetails {
-  Transaction? get transaction => serializedTx == null
-      ? null
-      : Transaction._()._setTransaction(serializedTx!);
+  Transaction? get transaction =>
+      serializedTx == null ? null : Transaction._(serializedTx);
 }

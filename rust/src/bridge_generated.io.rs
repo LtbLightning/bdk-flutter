@@ -181,7 +181,7 @@ pub extern "C" fn wire_tx_builder_finish__static_method__Api(
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
     drain_wallet: bool,
-    drain_to: *mut wire_BdkScript,
+    drain_to: *mut wire_Script,
     rbf: *mut wire_RbfValue,
     data: *mut wire_uint_8_list,
 ) {
@@ -339,45 +339,40 @@ pub extern "C" fn wire_create_descriptor_secret__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_descriptor_secret_from_string__static_method__Api(
     port_: i64,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_from_string__static_method__Api_impl(port_, xprv)
+    wire_descriptor_secret_from_string__static_method__Api_impl(port_, secret)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_extend_descriptor_secret__static_method__Api(
     port_: i64,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_extend_descriptor_secret__static_method__Api_impl(port_, xprv, path)
+    wire_extend_descriptor_secret__static_method__Api_impl(port_, secret, path)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_derive_descriptor_secret__static_method__Api(
     port_: i64,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_derive_descriptor_secret__static_method__Api_impl(port_, xprv, path)
+    wire_derive_descriptor_secret__static_method__Api_impl(port_, secret, path)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_as_secret_bytes__static_method__Api(
     port_: i64,
-    descriptor_secret: *mut wire_uint_8_list,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
 ) {
-    wire_as_secret_bytes__static_method__Api_impl(port_, descriptor_secret, xprv)
+    wire_as_secret_bytes__static_method__Api_impl(port_, secret)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_public__static_method__Api(
-    port_: i64,
-    descriptor_secret: *mut wire_uint_8_list,
-    xprv: *mut wire_uint_8_list,
-) {
-    wire_as_public__static_method__Api_impl(port_, descriptor_secret, xprv)
+pub extern "C" fn wire_as_public__static_method__Api(port_: i64, secret: *mut wire_uint_8_list) {
+    wire_as_public__static_method__Api_impl(port_, secret)
 }
 
 #[no_mangle]
@@ -425,7 +420,7 @@ pub extern "C" fn wire_create_address__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_address_from_script__static_method__Api(
     port_: i64,
-    script: *mut wire_BdkScript,
+    script: *mut wire_Script,
     network: i32,
 ) {
     wire_address_from_script__static_method__Api_impl(port_, script, network)
@@ -599,11 +594,6 @@ pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
 }
 
 #[no_mangle]
-pub extern "C" fn new_box_autoadd_bdk_script_0() -> *mut wire_BdkScript {
-    support::new_leak_box_ptr(wire_BdkScript::new_with_null_ptr())
-}
-
-#[no_mangle]
 pub extern "C" fn new_box_autoadd_blockchain_config_0() -> *mut wire_BlockchainConfig {
     support::new_leak_box_ptr(wire_BlockchainConfig::new_with_null_ptr())
 }
@@ -641,6 +631,11 @@ pub extern "C" fn new_box_autoadd_rpc_config_0() -> *mut wire_RpcConfig {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_rpc_sync_params_0() -> *mut wire_RpcSyncParams {
     support::new_leak_box_ptr(wire_RpcSyncParams::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_script_0() -> *mut wire_Script {
+    support::new_leak_box_ptr(wire_Script::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -798,13 +793,6 @@ impl Wire2Api<AddressIndex> for wire_AddressIndex {
         }
     }
 }
-impl Wire2Api<BdkScript> for wire_BdkScript {
-    fn wire2api(self) -> BdkScript {
-        BdkScript {
-            internal: self.internal.wire2api(),
-        }
-    }
-}
 impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     fn wire2api(self) -> BlockchainConfig {
         match self.tag {
@@ -844,12 +832,6 @@ impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
     fn wire2api(self) -> AddressIndex {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<AddressIndex>::wire2api(*wrap).into()
-    }
-}
-impl Wire2Api<BdkScript> for *mut wire_BdkScript {
-    fn wire2api(self) -> BdkScript {
-        let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<BdkScript>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<BlockchainConfig> for *mut wire_BlockchainConfig {
@@ -897,6 +879,12 @@ impl Wire2Api<RpcSyncParams> for *mut wire_RpcSyncParams {
     fn wire2api(self) -> RpcSyncParams {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<RpcSyncParams>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<Script> for *mut wire_Script {
+    fn wire2api(self) -> Script {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<Script>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<SignOptions> for *mut wire_SignOptions {
@@ -1047,6 +1035,13 @@ impl Wire2Api<RpcSyncParams> for wire_RpcSyncParams {
         }
     }
 }
+impl Wire2Api<Script> for wire_Script {
+    fn wire2api(self) -> Script {
+        Script {
+            internal: self.internal.wire2api(),
+        }
+    }
+}
 impl Wire2Api<ScriptAmount> for wire_ScriptAmount {
     fn wire2api(self) -> ScriptAmount {
         ScriptAmount {
@@ -1123,12 +1118,6 @@ pub struct wire_WalletInstance {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_BdkScript {
-    internal: *mut wire_uint_8_list,
-}
-
-#[repr(C)]
-#[derive(Clone)]
 pub struct wire_ElectrumConfig {
     url: *mut wire_uint_8_list,
     socks5: *mut wire_uint_8_list,
@@ -1191,8 +1180,14 @@ pub struct wire_RpcSyncParams {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_Script {
+    internal: *mut wire_uint_8_list,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_ScriptAmount {
-    script: wire_BdkScript,
+    script: wire_Script,
     amount: u64,
 }
 
@@ -1269,7 +1264,6 @@ pub struct wire_AddressIndex_Peek {
 pub struct wire_AddressIndex_Reset {
     index: u32,
 }
-
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_BlockchainConfig {
@@ -1414,20 +1408,6 @@ pub extern "C" fn inflate_AddressIndex_Reset() -> *mut AddressIndexKind {
             index: Default::default(),
         }),
     })
-}
-
-impl NewWithNullPtr for wire_BdkScript {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            internal: core::ptr::null_mut(),
-        }
-    }
-}
-
-impl Default for wire_BdkScript {
-    fn default() -> Self {
-        Self::new_with_null_ptr()
-    }
 }
 
 impl NewWithNullPtr for wire_BlockchainConfig {
@@ -1594,6 +1574,20 @@ impl NewWithNullPtr for wire_RpcSyncParams {
 }
 
 impl Default for wire_RpcSyncParams {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_Script {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            internal: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_Script {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }

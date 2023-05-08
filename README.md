@@ -65,7 +65,7 @@ final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descr
 final externalPublicDescriptorStr = await externalDescriptor.asString();
 final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
                                                     network: Network.Testnet);
-
+```
 
 ### Get the transaction details
 
@@ -107,7 +107,6 @@ debugPrint("=========Outputs=====");
 
 ### Create an `internal` and `extarnal` wallet descriptors from derivation path.
 
-
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
 
@@ -124,6 +123,7 @@ final Descriptor descriptorPrivate = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKey.toString()})",
       network: Network.Testnet,
     );
+
 // create internal descriptor
 final derivationPathInt =
         await DerivationPath.create(path: "m/44h/1h/0h/1");
@@ -133,20 +133,20 @@ final Descriptor descriptorPrivateInt = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
       network: Network.Testnet,
     );
+
 final bdkWallet = await Wallet.create(
       descriptor: descriptorPrivate,
       changeDescriptor: descriptorPrivateInt,
       network: Network.Testnet,
       databaseConfig: const DatabaseConfig.memory(),
     );
+
 final address =
         await bdkWallet.getAddress(addressIndex: const AddressIndex());
 final internalAddress =
         await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
     
 ```
-
-
 
 ### API Documentation
 

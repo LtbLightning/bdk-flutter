@@ -196,11 +196,12 @@ void main() {
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
       final psbt = PartiallySignedTransaction(psbtBase64: psbtBase64);
-      when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
+      when(mockAddress.scriptPubKey()).thenAnswer((_) async => MockScript());
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
 
-      when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
+      when(mockAddress.scriptPubKey())
+          .thenAnswer((_) async => Future.value(mockScript));
       when(mockTxBuilder.finish(mockWallet))
           .thenAnswer((_) async => Future.value(TxBuilderResult(
                 psbt: psbt,
@@ -225,8 +226,15 @@ void main() {
     });
   });
   group('Address', () {
+    test('verify network()', () async {
+      final res = await mockAddress.network();
+      expect(res, isA<Network>());
+    });
+    test('verify payload()', () async {
+      final res = await mockAddress.network();
+      expect(res, isA<Network>());
+    });
     test('verify scriptPubKey()', () async {
-      when(mockAddress.scriptPubKey()).thenAnswer((_) async => mockScript);
       final res = await mockAddress.scriptPubKey();
       expect(res, isA<Script>());
     });

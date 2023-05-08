@@ -4,9 +4,9 @@ use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemo
 use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
 use crate::types::{
-    Address, AddressIndex, AddressInfo, Balance, BdkScript, BdkTxBuilderResult, ChangeSpendPolicy,
-    KeychainKind, Network, OutPoint, Payload, RbfValue, ScriptAmount, TransactionDetails, TxIn,
-    TxOut, WordCount,
+    Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ChangeSpendPolicy,
+    KeychainKind, Network, OutPoint, Payload, RbfValue, Script, ScriptAmount, TransactionDetails,
+    TxIn, TxOut, WordCount,
 };
 pub use crate::wallet::{DatabaseConfig, WalletInstance};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
@@ -185,7 +185,7 @@ impl Api {
         fee_rate: Option<f32>,
         fee_absolute: Option<u64>,
         drain_wallet: bool,
-        drain_to: Option<BdkScript>,
+        drain_to: Option<Script>,
         rbf: Option<RbfValue>,
         data: Vec<u8>,
     ) -> anyhow::Result<BdkTxBuilderResult> {
@@ -408,29 +408,22 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn descriptor_secret_from_string(xprv: String) -> anyhow::Result<String> {
-        return match DescriptorSecretKey::from_string(xprv) {
+    pub fn descriptor_secret_from_string(secret: String) -> anyhow::Result<String> {
+        return match DescriptorSecretKey::from_string(secret) {
             Ok(e) => Ok(e.as_string()),
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn extend_descriptor_secret(xprv: String, path: String) -> String {
-        let res = Self::descriptor_secret_config(xprv, Some(path), false);
+    pub fn extend_descriptor_secret(secret: String, path: String) -> String {
+        let res = Self::descriptor_secret_config(secret, Some(path), false);
         res.as_string()
     }
-    pub fn derive_descriptor_secret(xprv: String, path: String) -> String {
-        let res = Self::descriptor_secret_config(xprv, Some(path), true);
+    pub fn derive_descriptor_secret(secret: String, path: String) -> String {
+        let res = Self::descriptor_secret_config(secret, Some(path), true);
         res.as_string()
     }
-    pub fn as_secret_bytes(
-        descriptor_secret: Option<String>,
-        xprv: Option<String>,
-    ) -> anyhow::Result<Vec<u8>> {
-        let key = match descriptor_secret.is_some() {
-            true => descriptor_secret.unwrap(),
-            false => xprv.unwrap(),
-        };
-        let secret = match BdkDescriptorSecretKey::from_str(key.as_str()) {
+    pub fn as_secret_bytes(secret: String) -> anyhow::Result<Vec<u8>> {
+        let secret = match BdkDescriptorSecretKey::from_str(secret.as_str()) {
             Ok(e) => e,
             Err(e) => anyhow::bail!("{:?}", e),
         };
@@ -442,15 +435,8 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn as_public(
-        descriptor_secret: Option<String>,
-        xprv: Option<String>,
-    ) -> anyhow::Result<String> {
-        let key = match descriptor_secret.is_some() {
-            true => descriptor_secret.unwrap(),
-            false => xprv.unwrap(),
-        };
-        let secret = match BdkDescriptorSecretKey::from_str(key.as_str()) {
+    pub fn as_public(secret: String) -> anyhow::Result<String> {
+        let secret = match BdkDescriptorSecretKey::from_str(secret.as_str()) {
             Ok(e) => e,
             Err(e) => anyhow::bail!("{:?}", e),
         };
@@ -463,11 +449,11 @@ impl Api {
         }
     }
     fn descriptor_secret_config(
-        xprv: String,
+        secret: String,
         path: Option<String>,
-        is_derive: bool,
+        derive: bool,
     ) -> Arc<DescriptorSecretKey> {
-        let secret = match BdkDescriptorSecretKey::from_str(xprv.as_str()) {
+        let secret = match BdkDescriptorSecretKey::from_str(secret.as_str()) {
             Ok(e) => e,
             Err(e) => panic!("{:?}", e),
         };
@@ -478,8 +464,10 @@ impl Api {
         if path.is_none() {
             return Arc::new(descriptor_secret);
         }
-        let derivation_path = Arc::new(DerivationPath::new(path.unwrap().to_string()).unwrap());
-        return if is_derive {
+        let derivation_path = Arc::new(
+            DerivationPath::new(path.expect("Invalid derivation path").to_string()).unwrap(),
+        );
+        return if derive {
             match descriptor_secret.derive(derivation_path) {
                 Ok(e) => e,
                 Err(e) => panic!("{:?}", e),
@@ -528,8 +516,8 @@ impl Api {
     }
 
     //============ Script Class===========
-    pub fn create_script(raw_output_script: Vec<u8>) -> anyhow::Result<BdkScript> {
-        return match BdkScript::new(raw_output_script) {
+    pub fn create_script(raw_output_script: Vec<u8>) -> anyhow::Result<Script> {
+        return match Script::new(raw_output_script) {
             Ok(e) => Ok(e),
             Err(e) => anyhow::bail!("{:?}", e),
         };
@@ -542,13 +530,13 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn address_from_script(script: BdkScript, network: Network) -> anyhow::Result<String> {
+    pub fn address_from_script(script: Script, network: Network) -> anyhow::Result<String> {
         return match Address::from_script(script, network) {
             Ok(e) => Ok(e.address.to_string()),
             Err(e) => anyhow::bail!("{:?}", e),
         };
     }
-    pub fn address_to_script_pubkey(address: String) -> anyhow::Result<BdkScript> {
+    pub fn address_to_script_pubkey(address: String) -> anyhow::Result<Script> {
         match Address::new(address) {
             Ok(e) => Ok(e.script_pubkey().into()),
             Err(e) => anyhow::bail!("{:?}", e),

@@ -83,12 +83,12 @@ typedef struct wire_WalletInstance {
   const void *ptr;
 } wire_WalletInstance;
 
-typedef struct wire_BdkScript {
+typedef struct wire_Script {
   struct wire_uint_8_list *internal;
-} wire_BdkScript;
+} wire_Script;
 
 typedef struct wire_ScriptAmount {
-  struct wire_BdkScript script;
+  struct wire_Script script;
   uint64_t amount;
 } wire_ScriptAmount;
 
@@ -280,7 +280,7 @@ void wire_tx_builder_finish__static_method__Api(int64_t port_,
                                                 float *fee_rate,
                                                 uint64_t *fee_absolute,
                                                 bool drain_wallet,
-                                                struct wire_BdkScript *drain_to,
+                                                struct wire_Script *drain_to,
                                                 struct wire_RbfValue *rbf,
                                                 struct wire_uint_8_list *data);
 
@@ -340,23 +340,19 @@ void wire_create_descriptor_secret__static_method__Api(int64_t port_,
                                                        struct wire_uint_8_list *password);
 
 void wire_descriptor_secret_from_string__static_method__Api(int64_t port_,
-                                                            struct wire_uint_8_list *xprv);
+                                                            struct wire_uint_8_list *secret);
 
 void wire_extend_descriptor_secret__static_method__Api(int64_t port_,
-                                                       struct wire_uint_8_list *xprv,
+                                                       struct wire_uint_8_list *secret,
                                                        struct wire_uint_8_list *path);
 
 void wire_derive_descriptor_secret__static_method__Api(int64_t port_,
-                                                       struct wire_uint_8_list *xprv,
+                                                       struct wire_uint_8_list *secret,
                                                        struct wire_uint_8_list *path);
 
-void wire_as_secret_bytes__static_method__Api(int64_t port_,
-                                              struct wire_uint_8_list *descriptor_secret,
-                                              struct wire_uint_8_list *xprv);
+void wire_as_secret_bytes__static_method__Api(int64_t port_, struct wire_uint_8_list *secret);
 
-void wire_as_public__static_method__Api(int64_t port_,
-                                        struct wire_uint_8_list *descriptor_secret,
-                                        struct wire_uint_8_list *xprv);
+void wire_as_public__static_method__Api(int64_t port_, struct wire_uint_8_list *secret);
 
 void wire_create_derivation_path__static_method__Api(int64_t port_, struct wire_uint_8_list *path);
 
@@ -374,7 +370,7 @@ void wire_create_script__static_method__Api(int64_t port_,
 void wire_create_address__static_method__Api(int64_t port_, struct wire_uint_8_list *address);
 
 void wire_address_from_script__static_method__Api(int64_t port_,
-                                                  struct wire_BdkScript *script,
+                                                  struct wire_Script *script,
                                                   int32_t network);
 
 void wire_address_to_script_pubkey__static_method__Api(int64_t port_,
@@ -442,8 +438,6 @@ struct wire_BdkDescriptor *new_box_autoadd_BdkDescriptor_0(void);
 
 struct wire_AddressIndex *new_box_autoadd_address_index_0(void);
 
-struct wire_BdkScript *new_box_autoadd_bdk_script_0(void);
-
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
 
 struct wire_DatabaseConfig *new_box_autoadd_database_config_0(void);
@@ -459,6 +453,8 @@ struct wire_RbfValue *new_box_autoadd_rbf_value_0(void);
 struct wire_RpcConfig *new_box_autoadd_rpc_config_0(void);
 
 struct wire_RpcSyncParams *new_box_autoadd_rpc_sync_params_0(void);
+
+struct wire_Script *new_box_autoadd_script_0(void);
 
 struct wire_SignOptions *new_box_autoadd_sign_options_0(void);
 
@@ -582,7 +578,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_WalletInstance);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_BdkDescriptor_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
-    dummy_var ^= ((int64_t) (void*) new_box_autoadd_bdk_script_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
@@ -591,6 +586,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rbf_value_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_script_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sign_options_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sled_db_configuration_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_sqlite_db_configuration_0);

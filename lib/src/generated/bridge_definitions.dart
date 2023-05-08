@@ -144,7 +144,7 @@ abstract class Rust {
       double? feeRate,
       int? feeAbsolute,
       required bool drainWallet,
-      BdkScript? drainTo,
+      Script? drainTo,
       RbfValue? rbf,
       required Uint8List data,
       dynamic hint});
@@ -242,30 +242,30 @@ abstract class Rust {
       get kCreateDescriptorSecretStaticMethodApiConstMeta;
 
   Future<String> descriptorSecretFromStringStaticMethodApi(
-      {required String xprv, dynamic hint});
+      {required String secret, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
       get kDescriptorSecretFromStringStaticMethodApiConstMeta;
 
   Future<String> extendDescriptorSecretStaticMethodApi(
-      {required String xprv, required String path, dynamic hint});
+      {required String secret, required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
       get kExtendDescriptorSecretStaticMethodApiConstMeta;
 
   Future<String> deriveDescriptorSecretStaticMethodApi(
-      {required String xprv, required String path, dynamic hint});
+      {required String secret, required String path, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
       get kDeriveDescriptorSecretStaticMethodApiConstMeta;
 
   Future<Uint8List> asSecretBytesStaticMethodApi(
-      {String? descriptorSecret, String? xprv, dynamic hint});
+      {required String secret, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsSecretBytesStaticMethodApiConstMeta;
 
   Future<String> asPublicStaticMethodApi(
-      {String? descriptorSecret, String? xprv, dynamic hint});
+      {required String secret, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsPublicStaticMethodApiConstMeta;
 
@@ -287,7 +287,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta
       get kCreateDescriptorPublicStaticMethodApiConstMeta;
 
-  Future<BdkScript> createScriptStaticMethodApi(
+  Future<Script> createScriptStaticMethodApi(
       {required Uint8List rawOutputScript, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateScriptStaticMethodApiConstMeta;
@@ -298,11 +298,11 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kCreateAddressStaticMethodApiConstMeta;
 
   Future<String> addressFromScriptStaticMethodApi(
-      {required BdkScript script, required Network network, dynamic hint});
+      {required Script script, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressFromScriptStaticMethodApiConstMeta;
 
-  Future<BdkScript> addressToScriptPubkeyStaticMethodApi(
+  Future<Script> addressToScriptPubkeyStaticMethodApi(
       {required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
@@ -535,15 +535,6 @@ class Balance {
     required this.confirmed,
     required this.spendable,
     required this.total,
-  });
-}
-
-/// A Bitcoin script.
-class BdkScript {
-  final String internal;
-
-  const BdkScript({
-    required this.internal,
   });
 }
 
@@ -815,9 +806,18 @@ class RpcSyncParams {
   });
 }
 
+/// A Bitcoin script.
+class Script {
+  final Uint8List internal;
+
+  const Script({
+    required this.internal,
+  });
+}
+
 /// A output script and an amount of satoshis.
 class ScriptAmount {
-  final BdkScript script;
+  final Script script;
   final int amount;
 
   const ScriptAmount({
@@ -951,7 +951,7 @@ class TransactionDetails {
 
 class TxIn {
   final OutPoint previousOutput;
-  final BdkScript scriptSig;
+  final Script scriptSig;
   final int sequence;
   final List<String> witness;
 
@@ -969,7 +969,7 @@ class TxOut {
   final int value;
 
   /// The address of the output.
-  final BdkScript scriptPubkey;
+  final Script scriptPubkey;
 
   const TxOut({
     required this.value,
