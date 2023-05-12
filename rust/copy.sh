@@ -11,5 +11,5 @@
        cp target/armv7-linux-androideabi/release/librust.so  ../android/src/main/cmakeLibs/armeabi-v7a
        cp target/i686-linux-android/release/librust.so  ../android/src/main/cmakeLibs/x86
 
-       cp target/universal/release/librust.a  ../ios/
+       cp target/universal/release/librust.a  ../ios/librustbdk.a
 
