@@ -5,5 +5,5 @@ import '../generated/bindings.dart';
 
 final dylib = Platform.isIOS
     ? DynamicLibrary.process()
-    : DynamicLibrary.open('librust.so');
+    : DynamicLibrary.open('libbdk.so');
 final loaderApi = RustImpl(dylib);
