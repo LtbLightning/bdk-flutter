@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  bdk_flutter: 0ec3ddfad3120c34d6a4aa7c338906fbcf8e35c4
+  bdk_flutter: 74117dfdac7c8cdedc18ea6209bfabe6d5c218b5
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
 
 PODFILE CHECKSUM: 6998435987a000fdec9b2e1b5b1eef6d54bdba77

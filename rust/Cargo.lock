@@ -1278,7 +1278,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust_bdk_ffi"
+name = "rust"
 version = "0.28.0"
 dependencies = [
  "anyhow",

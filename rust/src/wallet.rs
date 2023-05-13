@@ -1,17 +1,27 @@
-use crate::blockchain::BlockchainInstance;
-use crate::descriptor::BdkDescriptor;
+use crate::blockchain::Blockchain;
 use crate::psbt::PartiallySignedTransaction;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::{Error as BdkError, SyncOptions};
 use bdk::{SignOptions as BdkSignOptions, Wallet as BdkWallet};
 use flutter_rust_bridge::RustOpaque;
+use lazy_static::lazy_static;
+use std::collections::HashMap;
 use std::ops::Deref;
+use std::sync::RwLock;
 use std::sync::{Arc, Mutex, MutexGuard};
 
 use crate::types::{
     AddressIndex, AddressInfo, Balance, KeychainKind, OutPoint, Progress, ProgressHolder,
     TransactionDetails, TxOut,
 };
+lazy_static! {
+    static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
+}
+fn persist_wallet(id: String, wallet: Wallet) {
+    let mut wallet_lock = WALLET.write().unwrap();
+    wallet_lock.insert(id, Arc::new(wallet));
+    return;
+}
 
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
@@ -19,35 +29,43 @@ use crate::types::{
 ///     2. A Database where it tracks transactions and utxos related to the descriptors.
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 #[derive(Debug)]
-pub struct WalletInstance {
+pub struct Wallet {
     pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
-impl From<WalletInstance> for RustOpaque<WalletInstance> {
-    fn from(wallet: WalletInstance) -> Self {
+impl From<Wallet> for RustOpaque<Wallet> {
+    fn from(wallet: Wallet) -> Self {
         RustOpaque::new(wallet)
     }
 }
-impl WalletInstance {
+impl Wallet {
+    pub fn retrieve_wallet(id: String) -> Arc<Wallet> {
+        let wallet_lock = WALLET.read().unwrap();
+        wallet_lock.get(id.as_str()).unwrap().clone()
+    }
     pub fn new(
-        descriptor: Arc<RustOpaque<BdkDescriptor>>,
-        change_descriptor: Option<Arc<RustOpaque<BdkDescriptor>>>,
+        descriptor: String,
+        change_descriptor: Option<String>,
         network: bdk::bitcoin::Network,
         database_config: DatabaseConfig,
-    ) -> Result<Self, BdkError> {
+    ) -> Result<String, BdkError> {
+        // let wallet_name = wallet_name_from_descriptor(descriptor.clone(), change_descriptor.clone(), network.clone(), &Default::default())?;
+
         let database = AnyDatabase::from_config(&database_config.into()).unwrap();
-        let descriptor: String = descriptor.as_string_private();
-        let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
+        // let descriptor: String = descriptor.as_string_private();
+        // let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
 
         let wallet_mutex = Mutex::new(
             BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
         );
-        Ok(WalletInstance { wallet_mutex })
+        let wallet = Wallet { wallet_mutex };
+        let wallet_name = rand::random::<char>().to_string();
+        persist_wallet(wallet_name.clone(), wallet);
+        Ok(wallet_name)
     }
-    pub fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }
-
-    pub fn sync(&self, blockchain: &BlockchainInstance, progress: Option<Box<dyn Progress>>) {
+    pub fn sync(&self, blockchain: &Blockchain, progress: Option<Box<dyn Progress>>) {
         let bdk_sync_option: SyncOptions = if let Some(p) = progress {
             SyncOptions {
                 progress: Some(Box::new(ProgressHolder { progress: p })
@@ -270,7 +288,7 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
 mod test {
 
     use crate::descriptor::BdkDescriptor;
-    use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
+    use crate::wallet::{AddressIndex, DatabaseConfig, Wallet};
     use bdk::bitcoin::Network;
     use flutter_rust_bridge::RustOpaque;
     use std::sync::Arc;
@@ -288,9 +306,9 @@ mod test {
             .unwrap(),
         );
 
-        let wallet = WalletInstance::new(
-            Arc::new(descriptor),
-            Some(Arc::new(change_descriptor)),
+        let wallet = Wallet::new(
+            descriptor.as_string_private(),
+            Some(change_descriptor.as_string_private()),
             Network::Regtest,
             DatabaseConfig::Memory,
         )
@@ -367,9 +385,9 @@ mod test {
             .unwrap(),
         );
 
-        let wallet = WalletInstance::new(
-            Arc::new(descriptor),
-            Some(Arc::new(change_descriptor)),
+        let wallet = Wallet::new(
+            descriptor.as_string_private(),
+            Some(change_descriptor.as_string_private()),
             Network::Regtest,
             DatabaseConfig::Memory,
         )
