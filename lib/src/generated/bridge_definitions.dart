@@ -424,8 +424,7 @@ abstract class Rust {
 @sealed
 class BdkDescriptor extends FrbOpaque {
   final Rust bridge;
-  BdkDescriptor.fromRaw(int ptr, int size, this.bridge)
-      : super.unsafe(ptr, size);
+  BdkDescriptor.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBdkDescriptor;
 
@@ -439,8 +438,7 @@ class BdkDescriptor extends FrbOpaque {
 @sealed
 class BlockchainInstance extends FrbOpaque {
   final Rust bridge;
-  BlockchainInstance.fromRaw(int ptr, int size, this.bridge)
-      : super.unsafe(ptr, size);
+  BlockchainInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBlockchainInstance;
 
@@ -454,8 +452,7 @@ class BlockchainInstance extends FrbOpaque {
 @sealed
 class WalletInstance extends FrbOpaque {
   final Rust bridge;
-  WalletInstance.fromRaw(int ptr, int size, this.bridge)
-      : super.unsafe(ptr, size);
+  WalletInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueWalletInstance;
 
