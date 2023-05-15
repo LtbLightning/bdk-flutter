@@ -12,36 +12,36 @@ pub extern "C" fn wire_create_blockchain__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_get_height__static_method__Api(
     port_: i64,
-    blockchain_id: *mut wire_uint_8_list,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_get_height__static_method__Api_impl(port_, blockchain_id)
+    wire_get_height__static_method__Api_impl(port_, blockchain)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_get_blockchain_hash__static_method__Api(
     port_: i64,
     blockchain_height: u32,
-    blockchain_id: *mut wire_uint_8_list,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_get_blockchain_hash__static_method__Api_impl(port_, blockchain_height, blockchain_id)
+    wire_get_blockchain_hash__static_method__Api_impl(port_, blockchain_height, blockchain)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_estimate_fee__static_method__Api(
     port_: i64,
     target: u64,
-    blockchain_id: *mut wire_uint_8_list,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_estimate_fee__static_method__Api_impl(port_, target, blockchain_id)
+    wire_estimate_fee__static_method__Api_impl(port_, target, blockchain)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_broadcast__static_method__Api(
     port_: i64,
     tx: *mut wire_uint_8_list,
-    blockchain_id: *mut wire_uint_8_list,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_broadcast__static_method__Api_impl(port_, tx, blockchain_id)
+    wire_broadcast__static_method__Api_impl(port_, tx, blockchain)
 }
 
 #[no_mangle]
@@ -172,7 +172,7 @@ pub extern "C" fn wire_json_serialize__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_tx_builder_finish__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     recipients: *mut wire_list_script_amount,
     utxos: *mut wire_list_out_point,
     unspendable: *mut wire_list_out_point,
@@ -187,7 +187,7 @@ pub extern "C" fn wire_tx_builder_finish__static_method__Api(
 ) {
     wire_tx_builder_finish__static_method__Api_impl(
         port_,
-        wallet_id,
+        wallet,
         recipients,
         utxos,
         unspendable,
@@ -208,7 +208,7 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish__static_method__Api(
     txid: *mut wire_uint_8_list,
     fee_rate: f32,
     allow_shrinking: *mut wire_uint_8_list,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     enable_rbf: bool,
     n_sequence: *mut u32,
 ) {
@@ -217,7 +217,7 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish__static_method__Api(
         txid,
         fee_rate,
         allow_shrinking,
-        wallet_id,
+        wallet,
         enable_rbf,
         n_sequence,
     )
@@ -316,19 +316,14 @@ pub extern "C" fn wire_new_bip84_public__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_as_string_private__static_method__Api(
     port_: i64,
-    descriptor: *mut wire_uint_8_list,
-    network: i32,
+    descriptor: wire_BdkDescriptor,
 ) {
-    wire_as_string_private__static_method__Api_impl(port_, descriptor, network)
+    wire_as_string_private__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_string__static_method__Api(
-    port_: i64,
-    descriptor: *mut wire_uint_8_list,
-    network: i32,
-) {
-    wire_as_string__static_method__Api_impl(port_, descriptor, network)
+pub extern "C" fn wire_as_string__static_method__Api(port_: i64, descriptor: wire_BdkDescriptor) {
+    wire_as_string__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
@@ -455,8 +450,8 @@ pub extern "C" fn wire_address_network__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_create_wallet__static_method__Api(
     port_: i64,
-    descriptor: *mut wire_uint_8_list,
-    change_descriptor: *mut wire_uint_8_list,
+    descriptor: wire_BdkDescriptor,
+    change_descriptor: *mut wire_BdkDescriptor,
     network: i32,
     database_config: *mut wire_DatabaseConfig,
 ) {
@@ -472,79 +467,79 @@ pub extern "C" fn wire_create_wallet__static_method__Api(
 #[no_mangle]
 pub extern "C" fn wire_get_address__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_address__static_method__Api_impl(port_, wallet_id, address_index)
+    wire_get_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_get_internal_address__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_internal_address__static_method__Api_impl(port_, wallet_id, address_index)
+    wire_get_internal_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_sync_wallet__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
-    blockchain_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_sync_wallet__static_method__Api_impl(port_, wallet_id, blockchain_id)
+    wire_sync_wallet__static_method__Api_impl(port_, wallet, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_balance__static_method__Api(
+pub extern "C" fn wire_sync_wallet_thread__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
+    blockchain: wire_BlockchainInstance,
 ) {
-    wire_get_balance__static_method__Api_impl(port_, wallet_id)
+    wire_sync_wallet_thread__static_method__Api_impl(port_, wallet, blockchain)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_balance__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_get_balance__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_list_unspent_outputs__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
 ) {
-    wire_list_unspent_outputs__static_method__Api_impl(port_, wallet_id)
+    wire_list_unspent_outputs__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_get_transactions__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     include_raw: bool,
 ) {
-    wire_get_transactions__static_method__Api_impl(port_, wallet_id, include_raw)
+    wire_get_transactions__static_method__Api_impl(port_, wallet, include_raw)
 }
 
 #[no_mangle]
 pub extern "C" fn wire_sign__static_method__Api(
     port_: i64,
-    wallet_id: *mut wire_uint_8_list,
+    wallet: wire_WalletInstance,
     psbt_str: *mut wire_uint_8_list,
     sign_options: *mut wire_SignOptions,
 ) {
-    wire_sign__static_method__Api_impl(port_, wallet_id, psbt_str, sign_options)
+    wire_sign__static_method__Api_impl(port_, wallet, psbt_str, sign_options)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_wallet_network__static_method__Api(
-    port_: i64,
-    wallet_id: *mut wire_uint_8_list,
-) {
-    wire_wallet_network__static_method__Api_impl(port_, wallet_id)
+pub extern "C" fn wire_wallet_network__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_wallet_network__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent__static_method__Api(
-    port_: i64,
-    wallet_id: *mut wire_uint_8_list,
-) {
-    wire_list_unspent__static_method__Api_impl(port_, wallet_id)
+pub extern "C" fn wire_list_unspent__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_list_unspent__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
@@ -572,6 +567,26 @@ pub extern "C" fn wire_generate_seed_from_entropy__static_method__Api(
 }
 
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_BdkDescriptor() -> wire_BdkDescriptor {
+    wire_BdkDescriptor::new_with_null_ptr()
+}
+
+#[no_mangle]
+pub extern "C" fn new_BlockchainInstance() -> wire_BlockchainInstance {
+    wire_BlockchainInstance::new_with_null_ptr()
+}
+
+#[no_mangle]
+pub extern "C" fn new_WalletInstance() -> wire_WalletInstance {
+    wire_WalletInstance::new_with_null_ptr()
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_BdkDescriptor_0() -> *mut wire_BdkDescriptor {
+    support::new_leak_box_ptr(wire_BdkDescriptor::new_with_null_ptr())
+}
 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
@@ -687,12 +702,72 @@ pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
 
 // Section: related functions
 
+#[no_mangle]
+pub extern "C" fn drop_opaque_BdkDescriptor(ptr: *const c_void) {
+    unsafe {
+        Arc::<BdkDescriptor>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn share_opaque_BdkDescriptor(ptr: *const c_void) -> *const c_void {
+    unsafe {
+        Arc::<BdkDescriptor>::increment_strong_count(ptr as _);
+        ptr
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn drop_opaque_BlockchainInstance(ptr: *const c_void) {
+    unsafe {
+        Arc::<BlockchainInstance>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn share_opaque_BlockchainInstance(ptr: *const c_void) -> *const c_void {
+    unsafe {
+        Arc::<BlockchainInstance>::increment_strong_count(ptr as _);
+        ptr
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn drop_opaque_WalletInstance(ptr: *const c_void) {
+    unsafe {
+        Arc::<WalletInstance>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn share_opaque_WalletInstance(ptr: *const c_void) -> *const c_void {
+    unsafe {
+        Arc::<WalletInstance>::increment_strong_count(ptr as _);
+        ptr
+    }
+}
+
 // Section: impl Wire2Api
 
+impl Wire2Api<RustOpaque<BdkDescriptor>> for wire_BdkDescriptor {
+    fn wire2api(self) -> RustOpaque<BdkDescriptor> {
+        unsafe { support::opaque_from_dart(self.ptr as _) }
+    }
+}
+impl Wire2Api<RustOpaque<BlockchainInstance>> for wire_BlockchainInstance {
+    fn wire2api(self) -> RustOpaque<BlockchainInstance> {
+        unsafe { support::opaque_from_dart(self.ptr as _) }
+    }
+}
 impl Wire2Api<String> for *mut wire_uint_8_list {
     fn wire2api(self) -> String {
         let vec: Vec<u8> = self.wire2api();
         String::from_utf8_lossy(&vec).into_owned()
+    }
+}
+impl Wire2Api<RustOpaque<WalletInstance>> for wire_WalletInstance {
+    fn wire2api(self) -> RustOpaque<WalletInstance> {
+        unsafe { support::opaque_from_dart(self.ptr as _) }
     }
 }
 impl Wire2Api<AddressIndex> for wire_AddressIndex {
@@ -747,6 +822,12 @@ impl Wire2Api<BlockchainConfig> for wire_BlockchainConfig {
     }
 }
 
+impl Wire2Api<RustOpaque<BdkDescriptor>> for *mut wire_BdkDescriptor {
+    fn wire2api(self) -> RustOpaque<BdkDescriptor> {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<RustOpaque<BdkDescriptor>>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
     fn wire2api(self) -> AddressIndex {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -1019,6 +1100,24 @@ impl Wire2Api<UserPass> for wire_UserPass {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_BdkDescriptor {
+    ptr: *const core::ffi::c_void,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_BlockchainInstance {
+    ptr: *const core::ffi::c_void,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_WalletInstance {
+    ptr: *const core::ffi::c_void,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_ElectrumConfig {
     url: *mut wire_uint_8_list,
     socks5: *mut wire_uint_8_list,
@@ -1262,6 +1361,28 @@ impl<T> NewWithNullPtr for *mut T {
     }
 }
 
+impl NewWithNullPtr for wire_BdkDescriptor {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: core::ptr::null(),
+        }
+    }
+}
+impl NewWithNullPtr for wire_BlockchainInstance {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: core::ptr::null(),
+        }
+    }
+}
+
+impl NewWithNullPtr for wire_WalletInstance {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: core::ptr::null(),
+        }
+    }
+}
 impl NewWithNullPtr for wire_AddressIndex {
     fn new_with_null_ptr() -> Self {
         Self {

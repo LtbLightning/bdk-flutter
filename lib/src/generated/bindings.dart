@@ -25,13 +25,13 @@ class RustImpl implements Rust {
   factory RustImpl.wasm(FutureOr<WasmModule> module) =>
       RustImpl(module as ExternalLibrary);
   RustImpl.raw(this._platform);
-  Future<String> createBlockchainStaticMethodApi(
+  Future<BlockchainInstance> createBlockchainStaticMethodApi(
       {required BlockchainConfig config, dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_blockchain_config(config);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_create_blockchain__static_method__Api(port_, arg0),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BlockchainInstance,
       constMeta: kCreateBlockchainStaticMethodApiConstMeta,
       argValues: [config],
       hint: hint,
@@ -46,14 +46,14 @@ class RustImpl implements Rust {
           );
 
   Future<int> getHeightStaticMethodApi(
-      {required String blockchainId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(blockchainId);
+      {required BlockchainInstance blockchain, dynamic hint}) {
+    var arg0 = _platform.api2wire_BlockchainInstance(blockchain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_get_height__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_u32,
       constMeta: kGetHeightStaticMethodApiConstMeta,
-      argValues: [blockchainId],
+      argValues: [blockchain],
       hint: hint,
     ));
   }
@@ -61,21 +61,21 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetHeightStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_height__static_method__Api",
-        argNames: ["blockchainId"],
+        argNames: ["blockchain"],
       );
 
   Future<String> getBlockchainHashStaticMethodApi(
       {required int blockchainHeight,
-      required String blockchainId,
+      required BlockchainInstance blockchain,
       dynamic hint}) {
     var arg0 = api2wire_u32(blockchainHeight);
-    var arg1 = _platform.api2wire_String(blockchainId);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_get_blockchain_hash__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
       constMeta: kGetBlockchainHashStaticMethodApiConstMeta,
-      argValues: [blockchainHeight, blockchainId],
+      argValues: [blockchainHeight, blockchain],
       hint: hint,
     ));
   }
@@ -84,19 +84,21 @@ class RustImpl implements Rust {
       get kGetBlockchainHashStaticMethodApiConstMeta =>
           const FlutterRustBridgeTaskConstMeta(
             debugName: "get_blockchain_hash__static_method__Api",
-            argNames: ["blockchainHeight", "blockchainId"],
+            argNames: ["blockchainHeight", "blockchain"],
           );
 
   Future<double> estimateFeeStaticMethodApi(
-      {required int target, required String blockchainId, dynamic hint}) {
+      {required int target,
+      required BlockchainInstance blockchain,
+      dynamic hint}) {
     var arg0 = _platform.api2wire_u64(target);
-    var arg1 = _platform.api2wire_String(blockchainId);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_estimate_fee__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_f32,
       constMeta: kEstimateFeeStaticMethodApiConstMeta,
-      argValues: [target, blockchainId],
+      argValues: [target, blockchain],
       hint: hint,
     ));
   }
@@ -104,19 +106,21 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kEstimateFeeStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "estimate_fee__static_method__Api",
-        argNames: ["target", "blockchainId"],
+        argNames: ["target", "blockchain"],
       );
 
   Future<String> broadcastStaticMethodApi(
-      {required String tx, required String blockchainId, dynamic hint}) {
+      {required String tx,
+      required BlockchainInstance blockchain,
+      dynamic hint}) {
     var arg0 = _platform.api2wire_String(tx);
-    var arg1 = _platform.api2wire_String(blockchainId);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_broadcast__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
       constMeta: kBroadcastStaticMethodApiConstMeta,
-      argValues: [tx, blockchainId],
+      argValues: [tx, blockchain],
       hint: hint,
     ));
   }
@@ -124,7 +128,7 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kBroadcastStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "broadcast__static_method__Api",
-        argNames: ["tx", "blockchainId"],
+        argNames: ["tx", "blockchain"],
       );
 
   Future<String> createTransactionStaticMethodApi(
@@ -503,7 +507,7 @@ class RustImpl implements Rust {
       );
 
   Future<BdkTxBuilderResult> txBuilderFinishStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
       required List<OutPoint> unspendable,
@@ -516,7 +520,7 @@ class RustImpl implements Rust {
       RbfValue? rbf,
       required Uint8List data,
       dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = _platform.api2wire_list_script_amount(recipients);
     var arg2 = _platform.api2wire_list_out_point(utxos);
     var arg3 = _platform.api2wire_list_out_point(unspendable);
@@ -535,7 +539,7 @@ class RustImpl implements Rust {
       parseSuccessData: _wire2api_bdk_tx_builder_result,
       constMeta: kTxBuilderFinishStaticMethodApiConstMeta,
       argValues: [
-        walletId,
+        wallet,
         recipients,
         utxos,
         unspendable,
@@ -556,7 +560,7 @@ class RustImpl implements Rust {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "tx_builder_finish__static_method__Api",
         argNames: [
-          "walletId",
+          "wallet",
           "recipients",
           "utxos",
           "unspendable",
@@ -575,14 +579,14 @@ class RustImpl implements Rust {
       {required String txid,
       required double feeRate,
       String? allowShrinking,
-      required String walletId,
+      required WalletInstance wallet,
       required bool enableRbf,
       int? nSequence,
       dynamic hint}) {
     var arg0 = _platform.api2wire_String(txid);
     var arg1 = api2wire_f32(feeRate);
     var arg2 = _platform.api2wire_opt_String(allowShrinking);
-    var arg3 = _platform.api2wire_String(walletId);
+    var arg3 = _platform.api2wire_WalletInstance(wallet);
     var arg4 = enableRbf;
     var arg5 = _platform.api2wire_opt_box_autoadd_u32(nSequence);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -591,14 +595,7 @@ class RustImpl implements Rust {
               port_, arg0, arg1, arg2, arg3, arg4, arg5),
       parseSuccessData: _wire2api_bdk_tx_builder_result,
       constMeta: kBumpFeeTxBuilderFinishStaticMethodApiConstMeta,
-      argValues: [
-        txid,
-        feeRate,
-        allowShrinking,
-        walletId,
-        enableRbf,
-        nSequence
-      ],
+      argValues: [txid, feeRate, allowShrinking, wallet, enableRbf, nSequence],
       hint: hint,
     ));
   }
@@ -611,20 +608,20 @@ class RustImpl implements Rust {
               "txid",
               "feeRate",
               "allowShrinking",
-              "walletId",
+              "wallet",
               "enableRbf",
               "nSequence"
             ],
           );
 
-  Future<String> createDescriptorStaticMethodApi(
+  Future<BdkDescriptor> createDescriptorStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint}) {
     var arg0 = _platform.api2wire_String(descriptor);
     var arg1 = api2wire_network(network);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_create_descriptor__static_method__Api(port_, arg0, arg1),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kCreateDescriptorStaticMethodApiConstMeta,
       argValues: [descriptor, network],
       hint: hint,
@@ -638,7 +635,7 @@ class RustImpl implements Rust {
             argNames: ["descriptor", "network"],
           );
 
-  Future<String> newBip44DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip44DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -650,7 +647,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip44_descriptor__static_method__Api(
               port_, arg0, arg1, arg2),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip44DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -664,7 +661,7 @@ class RustImpl implements Rust {
             argNames: ["keyChainKind", "secretKey", "network"],
           );
 
-  Future<String> newBip44PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip44PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -678,7 +675,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip44_public__static_method__Api(
               port_, arg0, arg1, arg2, arg3),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip44PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -691,7 +688,7 @@ class RustImpl implements Rust {
         argNames: ["keyChainKind", "publicKey", "network", "fingerprint"],
       );
 
-  Future<String> newBip49DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip49DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -703,7 +700,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip49_descriptor__static_method__Api(
               port_, arg0, arg1, arg2),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip49DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -717,7 +714,7 @@ class RustImpl implements Rust {
             argNames: ["keyChainKind", "secretKey", "network"],
           );
 
-  Future<String> newBip49PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip49PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -731,7 +728,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip49_public__static_method__Api(
               port_, arg0, arg1, arg2, arg3),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip49PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -744,7 +741,7 @@ class RustImpl implements Rust {
         argNames: ["keyChainKind", "publicKey", "network", "fingerprint"],
       );
 
-  Future<String> newBip84DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip84DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -756,7 +753,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip84_descriptor__static_method__Api(
               port_, arg0, arg1, arg2),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip84DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -770,7 +767,7 @@ class RustImpl implements Rust {
             argNames: ["keyChainKind", "secretKey", "network"],
           );
 
-  Future<String> newBip84PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip84PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -784,7 +781,7 @@ class RustImpl implements Rust {
       callFfi: (port_) => _platform.inner
           .wire_new_bip84_public__static_method__Api(
               port_, arg0, arg1, arg2, arg3),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_BdkDescriptor,
       constMeta: kNewBip84PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -798,15 +795,14 @@ class RustImpl implements Rust {
       );
 
   Future<String> asStringPrivateStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(descriptor);
-    var arg1 = api2wire_network(network);
+      {required BdkDescriptor descriptor, dynamic hint}) {
+    var arg0 = _platform.api2wire_BdkDescriptor(descriptor);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
-          .wire_as_string_private__static_method__Api(port_, arg0, arg1),
+          .wire_as_string_private__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
       constMeta: kAsStringPrivateStaticMethodApiConstMeta,
-      argValues: [descriptor, network],
+      argValues: [descriptor],
       hint: hint,
     ));
   }
@@ -814,19 +810,18 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kAsStringPrivateStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "as_string_private__static_method__Api",
-        argNames: ["descriptor", "network"],
+        argNames: ["descriptor"],
       );
 
   Future<String> asStringStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(descriptor);
-    var arg1 = api2wire_network(network);
+      {required BdkDescriptor descriptor, dynamic hint}) {
+    var arg0 = _platform.api2wire_BdkDescriptor(descriptor);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
-          _platform.inner.wire_as_string__static_method__Api(port_, arg0, arg1),
+          _platform.inner.wire_as_string__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
       constMeta: kAsStringStaticMethodApiConstMeta,
-      argValues: [descriptor, network],
+      argValues: [descriptor],
       hint: hint,
     ));
   }
@@ -834,7 +829,7 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "as_string__static_method__Api",
-        argNames: ["descriptor", "network"],
+        argNames: ["descriptor"],
       );
 
   Future<String> createDescriptorSecretStaticMethodApi(
@@ -1146,21 +1141,22 @@ class RustImpl implements Rust {
         argNames: ["address"],
       );
 
-  Future<String> createWalletStaticMethodApi(
-      {required String descriptor,
-      String? changeDescriptor,
+  Future<WalletInstance> createWalletStaticMethodApi(
+      {required BdkDescriptor descriptor,
+      BdkDescriptor? changeDescriptor,
       required Network network,
       required DatabaseConfig databaseConfig,
       dynamic hint}) {
-    var arg0 = _platform.api2wire_String(descriptor);
-    var arg1 = _platform.api2wire_opt_String(changeDescriptor);
+    var arg0 = _platform.api2wire_BdkDescriptor(descriptor);
+    var arg1 =
+        _platform.api2wire_opt_box_autoadd_BdkDescriptor(changeDescriptor);
     var arg2 = api2wire_network(network);
     var arg3 = _platform.api2wire_box_autoadd_database_config(databaseConfig);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_create_wallet__static_method__Api(
               port_, arg0, arg1, arg2, arg3),
-      parseSuccessData: _wire2api_String,
+      parseSuccessData: _wire2api_WalletInstance,
       constMeta: kCreateWalletStaticMethodApiConstMeta,
       argValues: [descriptor, changeDescriptor, network, databaseConfig],
       hint: hint,
@@ -1179,17 +1175,17 @@ class RustImpl implements Rust {
       );
 
   Future<AddressInfo> getAddressStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required AddressIndex addressIndex,
       dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = _platform.api2wire_box_autoadd_address_index(addressIndex);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_get_address__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_address_info,
       constMeta: kGetAddressStaticMethodApiConstMeta,
-      argValues: [walletId, addressIndex],
+      argValues: [wallet, addressIndex],
       hint: hint,
     ));
   }
@@ -1197,21 +1193,21 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetAddressStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_address__static_method__Api",
-        argNames: ["walletId", "addressIndex"],
+        argNames: ["wallet", "addressIndex"],
       );
 
   Future<AddressInfo> getInternalAddressStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required AddressIndex addressIndex,
       dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = _platform.api2wire_box_autoadd_address_index(addressIndex);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_get_internal_address__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_address_info,
       constMeta: kGetInternalAddressStaticMethodApiConstMeta,
-      argValues: [walletId, addressIndex],
+      argValues: [wallet, addressIndex],
       hint: hint,
     ));
   }
@@ -1220,19 +1216,21 @@ class RustImpl implements Rust {
       get kGetInternalAddressStaticMethodApiConstMeta =>
           const FlutterRustBridgeTaskConstMeta(
             debugName: "get_internal_address__static_method__Api",
-            argNames: ["walletId", "addressIndex"],
+            argNames: ["wallet", "addressIndex"],
           );
 
   Future<void> syncWalletStaticMethodApi(
-      {required String walletId, required String blockchainId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
-    var arg1 = _platform.api2wire_String(blockchainId);
+      {required WalletInstance wallet,
+      required BlockchainInstance blockchain,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_sync_wallet__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_unit,
       constMeta: kSyncWalletStaticMethodApiConstMeta,
-      argValues: [walletId, blockchainId],
+      argValues: [wallet, blockchain],
       hint: hint,
     ));
   }
@@ -1240,18 +1238,41 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kSyncWalletStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sync_wallet__static_method__Api",
-        argNames: ["walletId", "blockchainId"],
+        argNames: ["wallet", "blockchain"],
       );
 
+  Future<void> syncWalletThreadStaticMethodApi(
+      {required WalletInstance wallet,
+      required BlockchainInstance blockchain,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
+    var arg1 = _platform.api2wire_BlockchainInstance(blockchain);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_sync_wallet_thread__static_method__Api(port_, arg0, arg1),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSyncWalletThreadStaticMethodApiConstMeta,
+      argValues: [wallet, blockchain],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta
+      get kSyncWalletThreadStaticMethodApiConstMeta =>
+          const FlutterRustBridgeTaskConstMeta(
+            debugName: "sync_wallet_thread__static_method__Api",
+            argNames: ["wallet", "blockchain"],
+          );
+
   Future<Balance> getBalanceStaticMethodApi(
-      {required String walletId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+      {required WalletInstance wallet, dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_get_balance__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_balance,
       constMeta: kGetBalanceStaticMethodApiConstMeta,
-      argValues: [walletId],
+      argValues: [wallet],
       hint: hint,
     ));
   }
@@ -1259,18 +1280,18 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetBalanceStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_balance__static_method__Api",
-        argNames: ["walletId"],
+        argNames: ["wallet"],
       );
 
   Future<List<LocalUtxo>> listUnspentOutputsStaticMethodApi(
-      {required String walletId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+      {required WalletInstance wallet, dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_list_unspent_outputs__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_list_local_utxo,
       constMeta: kListUnspentOutputsStaticMethodApiConstMeta,
-      argValues: [walletId],
+      argValues: [wallet],
       hint: hint,
     ));
   }
@@ -1279,19 +1300,21 @@ class RustImpl implements Rust {
       get kListUnspentOutputsStaticMethodApiConstMeta =>
           const FlutterRustBridgeTaskConstMeta(
             debugName: "list_unspent_outputs__static_method__Api",
-            argNames: ["walletId"],
+            argNames: ["wallet"],
           );
 
   Future<List<TransactionDetails>> getTransactionsStaticMethodApi(
-      {required String walletId, required bool includeRaw, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+      {required WalletInstance wallet,
+      required bool includeRaw,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = includeRaw;
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_get_transactions__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_list_transaction_details,
       constMeta: kGetTransactionsStaticMethodApiConstMeta,
-      argValues: [walletId, includeRaw],
+      argValues: [wallet, includeRaw],
       hint: hint,
     ));
   }
@@ -1299,15 +1322,15 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kGetTransactionsStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "get_transactions__static_method__Api",
-        argNames: ["walletId", "includeRaw"],
+        argNames: ["wallet", "includeRaw"],
       );
 
   Future<String?> signStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required String psbtStr,
       SignOptions? signOptions,
       dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     var arg1 = _platform.api2wire_String(psbtStr);
     var arg2 = _platform.api2wire_opt_box_autoadd_sign_options(signOptions);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -1315,7 +1338,7 @@ class RustImpl implements Rust {
           .wire_sign__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_opt_String,
       constMeta: kSignStaticMethodApiConstMeta,
-      argValues: [walletId, psbtStr, signOptions],
+      argValues: [wallet, psbtStr, signOptions],
       hint: hint,
     ));
   }
@@ -1323,18 +1346,18 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kSignStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "sign__static_method__Api",
-        argNames: ["walletId", "psbtStr", "signOptions"],
+        argNames: ["wallet", "psbtStr", "signOptions"],
       );
 
   Future<Network> walletNetworkStaticMethodApi(
-      {required String walletId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+      {required WalletInstance wallet, dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_wallet_network__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_network,
       constMeta: kWalletNetworkStaticMethodApiConstMeta,
-      argValues: [walletId],
+      argValues: [wallet],
       hint: hint,
     ));
   }
@@ -1342,18 +1365,18 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kWalletNetworkStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "wallet_network__static_method__Api",
-        argNames: ["walletId"],
+        argNames: ["wallet"],
       );
 
   Future<List<LocalUtxo>> listUnspentStaticMethodApi(
-      {required String walletId, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(walletId);
+      {required WalletInstance wallet, dynamic hint}) {
+    var arg0 = _platform.api2wire_WalletInstance(wallet);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_list_unspent__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_list_local_utxo,
       constMeta: kListUnspentStaticMethodApiConstMeta,
-      argValues: [walletId],
+      argValues: [wallet],
       hint: hint,
     ));
   }
@@ -1361,7 +1384,7 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kListUnspentStaticMethodApiConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "list_unspent__static_method__Api",
-        argNames: ["walletId"],
+        argNames: ["wallet"],
       );
 
   Future<String> generateSeedFromWordCountStaticMethodApi(
@@ -1424,10 +1447,39 @@ class RustImpl implements Rust {
             argNames: ["entropy"],
           );
 
+  DropFnType get dropOpaqueBdkDescriptor =>
+      _platform.inner.drop_opaque_BdkDescriptor;
+  ShareFnType get shareOpaqueBdkDescriptor =>
+      _platform.inner.share_opaque_BdkDescriptor;
+  OpaqueTypeFinalizer get BdkDescriptorFinalizer =>
+      _platform.BdkDescriptorFinalizer;
+
+  DropFnType get dropOpaqueBlockchainInstance =>
+      _platform.inner.drop_opaque_BlockchainInstance;
+  ShareFnType get shareOpaqueBlockchainInstance =>
+      _platform.inner.share_opaque_BlockchainInstance;
+  OpaqueTypeFinalizer get BlockchainInstanceFinalizer =>
+      _platform.BlockchainInstanceFinalizer;
+
+  DropFnType get dropOpaqueWalletInstance =>
+      _platform.inner.drop_opaque_WalletInstance;
+  ShareFnType get shareOpaqueWalletInstance =>
+      _platform.inner.share_opaque_WalletInstance;
+  OpaqueTypeFinalizer get WalletInstanceFinalizer =>
+      _platform.WalletInstanceFinalizer;
+
   void dispose() {
     _platform.dispose();
   }
 // Section: wire2api
+
+  BdkDescriptor _wire2api_BdkDescriptor(dynamic raw) {
+    return BdkDescriptor.fromRaw(raw[0], raw[1], this);
+  }
+
+  BlockchainInstance _wire2api_BlockchainInstance(dynamic raw) {
+    return BlockchainInstance.fromRaw(raw[0], raw[1], this);
+  }
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
@@ -1435,6 +1487,10 @@ class RustImpl implements Rust {
 
   List<String> _wire2api_StringList(dynamic raw) {
     return (raw as List<dynamic>).cast<String>();
+  }
+
+  WalletInstance _wire2api_WalletInstance(dynamic raw) {
+    return WalletInstance.fromRaw(raw[0], raw[1], this);
   }
 
   AddressInfo _wire2api_address_info(dynamic raw) {
@@ -1711,8 +1767,37 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 // Section: api2wire
 
   @protected
+  wire_BdkDescriptor api2wire_BdkDescriptor(BdkDescriptor raw) {
+    final ptr = inner.new_BdkDescriptor();
+    _api_fill_to_wire_BdkDescriptor(raw, ptr);
+    return ptr;
+  }
+
+  @protected
+  wire_BlockchainInstance api2wire_BlockchainInstance(BlockchainInstance raw) {
+    final ptr = inner.new_BlockchainInstance();
+    _api_fill_to_wire_BlockchainInstance(raw, ptr);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
     return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  wire_WalletInstance api2wire_WalletInstance(WalletInstance raw) {
+    final ptr = inner.new_WalletInstance();
+    _api_fill_to_wire_WalletInstance(raw, ptr);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_BdkDescriptor> api2wire_box_autoadd_BdkDescriptor(
+      BdkDescriptor raw) {
+    final ptr = inner.new_box_autoadd_BdkDescriptor_0();
+    _api_fill_to_wire_BdkDescriptor(raw, ptr.ref);
+    return ptr;
   }
 
   @protected
@@ -1860,6 +1945,12 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
+  ffi.Pointer<wire_BdkDescriptor> api2wire_opt_box_autoadd_BdkDescriptor(
+      BdkDescriptor? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_BdkDescriptor(raw);
+  }
+
+  @protected
   ffi.Pointer<ffi.Float> api2wire_opt_box_autoadd_f32(double? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_f32(raw);
   }
@@ -1922,7 +2013,32 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
 // Section: finalizer
 
+  late final OpaqueTypeFinalizer _BdkDescriptorFinalizer =
+      OpaqueTypeFinalizer(inner._drop_opaque_BdkDescriptorPtr);
+  OpaqueTypeFinalizer get BdkDescriptorFinalizer => _BdkDescriptorFinalizer;
+  late final OpaqueTypeFinalizer _BlockchainInstanceFinalizer =
+      OpaqueTypeFinalizer(inner._drop_opaque_BlockchainInstancePtr);
+  OpaqueTypeFinalizer get BlockchainInstanceFinalizer =>
+      _BlockchainInstanceFinalizer;
+  late final OpaqueTypeFinalizer _WalletInstanceFinalizer =
+      OpaqueTypeFinalizer(inner._drop_opaque_WalletInstancePtr);
+  OpaqueTypeFinalizer get WalletInstanceFinalizer => _WalletInstanceFinalizer;
 // Section: api_fill_to_wire
+
+  void _api_fill_to_wire_BdkDescriptor(
+      BdkDescriptor apiObj, wire_BdkDescriptor wireObj) {
+    wireObj.ptr = apiObj.shareOrMove();
+  }
+
+  void _api_fill_to_wire_BlockchainInstance(
+      BlockchainInstance apiObj, wire_BlockchainInstance wireObj) {
+    wireObj.ptr = apiObj.shareOrMove();
+  }
+
+  void _api_fill_to_wire_WalletInstance(
+      WalletInstance apiObj, wire_WalletInstance wireObj) {
+    wireObj.ptr = apiObj.shareOrMove();
+  }
 
   void _api_fill_to_wire_address_index(
       AddressIndex apiObj, wire_AddressIndex wireObj) {
@@ -1973,6 +2089,11 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
       wireObj.kind.ref.Rpc.ref.config = pre_config;
       return;
     }
+  }
+
+  void _api_fill_to_wire_box_autoadd_BdkDescriptor(
+      BdkDescriptor apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
+    _api_fill_to_wire_BdkDescriptor(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_box_autoadd_address_index(
@@ -2083,6 +2204,12 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     wireObj.concurrency = api2wire_opt_box_autoadd_u8(apiObj.concurrency);
     wireObj.stop_gap = api2wire_u64(apiObj.stopGap);
     wireObj.timeout = api2wire_opt_box_autoadd_u64(apiObj.timeout);
+  }
+
+  void _api_fill_to_wire_opt_box_autoadd_BdkDescriptor(
+      BdkDescriptor? apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_BdkDescriptor(apiObj, wireObj);
   }
 
   void _api_fill_to_wire_opt_box_autoadd_rbf_value(
@@ -2307,85 +2434,84 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_get_height__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> blockchain_id,
+    wire_BlockchainInstance blockchain,
   ) {
     return _wire_get_height__static_method__Api(
       port_,
-      blockchain_id,
+      blockchain,
     );
   }
 
   late final _wire_get_height__static_method__ApiPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_get_height__static_method__Api');
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              wire_BlockchainInstance)>>('wire_get_height__static_method__Api');
   late final _wire_get_height__static_method__Api =
       _wire_get_height__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, wire_BlockchainInstance)>();
 
   void wire_get_blockchain_hash__static_method__Api(
     int port_,
     int blockchain_height,
-    ffi.Pointer<wire_uint_8_list> blockchain_id,
+    wire_BlockchainInstance blockchain,
   ) {
     return _wire_get_blockchain_hash__static_method__Api(
       port_,
       blockchain_height,
-      blockchain_id,
+      blockchain,
     );
   }
 
   late final _wire_get_blockchain_hash__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
               ffi.Void Function(
-                  ffi.Int64, ffi.Uint32, ffi.Pointer<wire_uint_8_list>)>>(
+                  ffi.Int64, ffi.Uint32, wire_BlockchainInstance)>>(
       'wire_get_blockchain_hash__static_method__Api');
   late final _wire_get_blockchain_hash__static_method__Api =
       _wire_get_blockchain_hash__static_method__ApiPtr
-          .asFunction<void Function(int, int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, int, wire_BlockchainInstance)>();
 
   void wire_estimate_fee__static_method__Api(
     int port_,
     int target,
-    ffi.Pointer<wire_uint_8_list> blockchain_id,
+    wire_BlockchainInstance blockchain,
   ) {
     return _wire_estimate_fee__static_method__Api(
       port_,
       target,
-      blockchain_id,
+      blockchain,
     );
   }
 
   late final _wire_estimate_fee__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
               ffi.Void Function(
-                  ffi.Int64, ffi.Uint64, ffi.Pointer<wire_uint_8_list>)>>(
+                  ffi.Int64, ffi.Uint64, wire_BlockchainInstance)>>(
       'wire_estimate_fee__static_method__Api');
   late final _wire_estimate_fee__static_method__Api =
       _wire_estimate_fee__static_method__ApiPtr
-          .asFunction<void Function(int, int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, int, wire_BlockchainInstance)>();
 
   void wire_broadcast__static_method__Api(
     int port_,
     ffi.Pointer<wire_uint_8_list> tx,
-    ffi.Pointer<wire_uint_8_list> blockchain_id,
+    wire_BlockchainInstance blockchain,
   ) {
     return _wire_broadcast__static_method__Api(
       port_,
       tx,
-      blockchain_id,
+      blockchain,
     );
   }
 
   late final _wire_broadcast__static_method__ApiPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_broadcast__static_method__Api');
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              wire_BlockchainInstance)>>('wire_broadcast__static_method__Api');
   late final _wire_broadcast__static_method__Api =
       _wire_broadcast__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>();
+          void Function(
+              int, ffi.Pointer<wire_uint_8_list>, wire_BlockchainInstance)>();
 
   void wire_create_transaction__static_method__Api(
     int port_,
@@ -2752,7 +2878,7 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_tx_builder_finish__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     ffi.Pointer<wire_list_script_amount> recipients,
     ffi.Pointer<wire_list_out_point> utxos,
     ffi.Pointer<wire_list_out_point> unspendable,
@@ -2767,7 +2893,7 @@ class RustWire implements FlutterRustBridgeWireBase {
   ) {
     return _wire_tx_builder_finish__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
       recipients,
       utxos,
       unspendable,
@@ -2786,7 +2912,7 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.Pointer<wire_uint_8_list>,
+                  wire_WalletInstance,
                   ffi.Pointer<wire_list_script_amount>,
                   ffi.Pointer<wire_list_out_point>,
                   ffi.Pointer<wire_list_out_point>,
@@ -2803,7 +2929,7 @@ class RustWire implements FlutterRustBridgeWireBase {
       _wire_tx_builder_finish__static_method__ApiPtr.asFunction<
           void Function(
               int,
-              ffi.Pointer<wire_uint_8_list>,
+              wire_WalletInstance,
               ffi.Pointer<wire_list_script_amount>,
               ffi.Pointer<wire_list_out_point>,
               ffi.Pointer<wire_list_out_point>,
@@ -2821,7 +2947,7 @@ class RustWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> txid,
     double fee_rate,
     ffi.Pointer<wire_uint_8_list> allow_shrinking,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     bool enable_rbf,
     ffi.Pointer<ffi.Uint32> n_sequence,
   ) {
@@ -2830,7 +2956,7 @@ class RustWire implements FlutterRustBridgeWireBase {
       txid,
       fee_rate,
       allow_shrinking,
-      wallet_id,
+      wallet,
       enable_rbf,
       n_sequence,
     );
@@ -2843,7 +2969,7 @@ class RustWire implements FlutterRustBridgeWireBase {
                   ffi.Pointer<wire_uint_8_list>,
                   ffi.Float,
                   ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>,
+                  wire_WalletInstance,
                   ffi.Bool,
                   ffi.Pointer<ffi.Uint32>)>>(
       'wire_bump_fee_tx_builder_finish__static_method__Api');
@@ -2854,7 +2980,7 @@ class RustWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               double,
               ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
+              wire_WalletInstance,
               bool,
               ffi.Pointer<ffi.Uint32>)>();
 
@@ -3036,43 +3162,37 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_as_string_private__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> descriptor,
-    int network,
+    wire_BdkDescriptor descriptor,
   ) {
     return _wire_as_string_private__static_method__Api(
       port_,
       descriptor,
-      network,
     );
   }
 
   late final _wire_as_string_private__static_method__ApiPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32)>>('wire_as_string_private__static_method__Api');
+          ffi.NativeFunction<ffi.Void Function(ffi.Int64, wire_BdkDescriptor)>>(
+      'wire_as_string_private__static_method__Api');
   late final _wire_as_string_private__static_method__Api =
       _wire_as_string_private__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+          .asFunction<void Function(int, wire_BdkDescriptor)>();
 
   void wire_as_string__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> descriptor,
-    int network,
+    wire_BdkDescriptor descriptor,
   ) {
     return _wire_as_string__static_method__Api(
       port_,
       descriptor,
-      network,
     );
   }
 
   late final _wire_as_string__static_method__ApiPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Int32)>>('wire_as_string__static_method__Api');
+          ffi.NativeFunction<ffi.Void Function(ffi.Int64, wire_BdkDescriptor)>>(
+      'wire_as_string__static_method__Api');
   late final _wire_as_string__static_method__Api =
       _wire_as_string__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+          .asFunction<void Function(int, wire_BdkDescriptor)>();
 
   void wire_create_descriptor_secret__static_method__Api(
     int port_,
@@ -3375,8 +3495,8 @@ class RustWire implements FlutterRustBridgeWireBase {
 
   void wire_create_wallet__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> descriptor,
-    ffi.Pointer<wire_uint_8_list> change_descriptor,
+    wire_BdkDescriptor descriptor,
+    ffi.Pointer<wire_BdkDescriptor> change_descriptor,
     int network,
     ffi.Pointer<wire_DatabaseConfig> database_config,
   ) {
@@ -3393,8 +3513,8 @@ class RustWire implements FlutterRustBridgeWireBase {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>,
+                  wire_BdkDescriptor,
+                  ffi.Pointer<wire_BdkDescriptor>,
                   ffi.Int32,
                   ffi.Pointer<wire_DatabaseConfig>)>>(
       'wire_create_wallet__static_method__Api');
@@ -3402,142 +3522,162 @@ class RustWire implements FlutterRustBridgeWireBase {
       _wire_create_wallet__static_method__ApiPtr.asFunction<
           void Function(
               int,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
+              wire_BdkDescriptor,
+              ffi.Pointer<wire_BdkDescriptor>,
               int,
               ffi.Pointer<wire_DatabaseConfig>)>();
 
   void wire_get_address__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     ffi.Pointer<wire_AddressIndex> address_index,
   ) {
     return _wire_get_address__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
       address_index,
     );
   }
 
   late final _wire_get_address__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Void Function(ffi.Int64, wire_WalletInstance,
                   ffi.Pointer<wire_AddressIndex>)>>(
       'wire_get_address__static_method__Api');
   late final _wire_get_address__static_method__Api =
       _wire_get_address__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_AddressIndex>)>();
+          void Function(
+              int, wire_WalletInstance, ffi.Pointer<wire_AddressIndex>)>();
 
   void wire_get_internal_address__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     ffi.Pointer<wire_AddressIndex> address_index,
   ) {
     return _wire_get_internal_address__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
       address_index,
     );
   }
 
   late final _wire_get_internal_address__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Void Function(ffi.Int64, wire_WalletInstance,
                   ffi.Pointer<wire_AddressIndex>)>>(
       'wire_get_internal_address__static_method__Api');
   late final _wire_get_internal_address__static_method__Api =
       _wire_get_internal_address__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_AddressIndex>)>();
+          void Function(
+              int, wire_WalletInstance, ffi.Pointer<wire_AddressIndex>)>();
 
   void wire_sync_wallet__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
-    ffi.Pointer<wire_uint_8_list> blockchain_id,
+    wire_WalletInstance wallet,
+    wire_BlockchainInstance blockchain,
   ) {
     return _wire_sync_wallet__static_method__Api(
       port_,
-      wallet_id,
-      blockchain_id,
+      wallet,
+      blockchain,
     );
   }
 
   late final _wire_sync_wallet__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>)>>(
+              ffi.Void Function(
+                  ffi.Int64, wire_WalletInstance, wire_BlockchainInstance)>>(
       'wire_sync_wallet__static_method__Api');
   late final _wire_sync_wallet__static_method__Api =
       _wire_sync_wallet__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>();
+          void Function(int, wire_WalletInstance, wire_BlockchainInstance)>();
+
+  void wire_sync_wallet_thread__static_method__Api(
+    int port_,
+    wire_WalletInstance wallet,
+    wire_BlockchainInstance blockchain,
+  ) {
+    return _wire_sync_wallet_thread__static_method__Api(
+      port_,
+      wallet,
+      blockchain,
+    );
+  }
+
+  late final _wire_sync_wallet_thread__static_method__ApiPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, wire_WalletInstance, wire_BlockchainInstance)>>(
+      'wire_sync_wallet_thread__static_method__Api');
+  late final _wire_sync_wallet_thread__static_method__Api =
+      _wire_sync_wallet_thread__static_method__ApiPtr.asFunction<
+          void Function(int, wire_WalletInstance, wire_BlockchainInstance)>();
 
   void wire_get_balance__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
   ) {
     return _wire_get_balance__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
     );
   }
 
   late final _wire_get_balance__static_method__ApiPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_get_balance__static_method__Api');
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              wire_WalletInstance)>>('wire_get_balance__static_method__Api');
   late final _wire_get_balance__static_method__Api =
       _wire_get_balance__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, wire_WalletInstance)>();
 
   void wire_list_unspent_outputs__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
   ) {
     return _wire_list_unspent_outputs__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
     );
   }
 
   late final _wire_list_unspent_outputs__static_method__ApiPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+              ffi.Void Function(ffi.Int64, wire_WalletInstance)>>(
       'wire_list_unspent_outputs__static_method__Api');
   late final _wire_list_unspent_outputs__static_method__Api =
       _wire_list_unspent_outputs__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, wire_WalletInstance)>();
 
   void wire_get_transactions__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     bool include_raw,
   ) {
     return _wire_get_transactions__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
       include_raw,
     );
   }
 
   late final _wire_get_transactions__static_method__ApiPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+          ffi.Void Function(ffi.Int64, wire_WalletInstance,
               ffi.Bool)>>('wire_get_transactions__static_method__Api');
   late final _wire_get_transactions__static_method__Api =
-      _wire_get_transactions__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>, bool)>();
+      _wire_get_transactions__static_method__ApiPtr
+          .asFunction<void Function(int, wire_WalletInstance, bool)>();
 
   void wire_sign__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
     ffi.Pointer<wire_uint_8_list> psbt_str,
     ffi.Pointer<wire_SignOptions> sign_options,
   ) {
     return _wire_sign__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
       psbt_str,
       sign_options,
     );
@@ -3547,49 +3687,49 @@ class RustWire implements FlutterRustBridgeWireBase {
       ffi.NativeFunction<
           ffi.Void Function(
               ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
+              wire_WalletInstance,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_SignOptions>)>>('wire_sign__static_method__Api');
   late final _wire_sign__static_method__Api =
       _wire_sign__static_method__ApiPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_SignOptions>)>();
+          void Function(int, wire_WalletInstance, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_SignOptions>)>();
 
   void wire_wallet_network__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
   ) {
     return _wire_wallet_network__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
     );
   }
 
   late final _wire_wallet_network__static_method__ApiPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_wallet_network__static_method__Api');
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              wire_WalletInstance)>>('wire_wallet_network__static_method__Api');
   late final _wire_wallet_network__static_method__Api =
       _wire_wallet_network__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, wire_WalletInstance)>();
 
   void wire_list_unspent__static_method__Api(
     int port_,
-    ffi.Pointer<wire_uint_8_list> wallet_id,
+    wire_WalletInstance wallet,
   ) {
     return _wire_list_unspent__static_method__Api(
       port_,
-      wallet_id,
+      wallet,
     );
   }
 
   late final _wire_list_unspent__static_method__ApiPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_list_unspent__static_method__Api');
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              wire_WalletInstance)>>('wire_list_unspent__static_method__Api');
   late final _wire_list_unspent__static_method__Api =
       _wire_list_unspent__static_method__ApiPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          .asFunction<void Function(int, wire_WalletInstance)>();
 
   void wire_generate_seed_from_word_count__static_method__Api(
     int port_,
@@ -3643,6 +3783,47 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _wire_generate_seed_from_entropy__static_method__Api =
       _wire_generate_seed_from_entropy__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  wire_BdkDescriptor new_BdkDescriptor() {
+    return _new_BdkDescriptor();
+  }
+
+  late final _new_BdkDescriptorPtr =
+      _lookup<ffi.NativeFunction<wire_BdkDescriptor Function()>>(
+          'new_BdkDescriptor');
+  late final _new_BdkDescriptor =
+      _new_BdkDescriptorPtr.asFunction<wire_BdkDescriptor Function()>();
+
+  wire_BlockchainInstance new_BlockchainInstance() {
+    return _new_BlockchainInstance();
+  }
+
+  late final _new_BlockchainInstancePtr =
+      _lookup<ffi.NativeFunction<wire_BlockchainInstance Function()>>(
+          'new_BlockchainInstance');
+  late final _new_BlockchainInstance = _new_BlockchainInstancePtr
+      .asFunction<wire_BlockchainInstance Function()>();
+
+  wire_WalletInstance new_WalletInstance() {
+    return _new_WalletInstance();
+  }
+
+  late final _new_WalletInstancePtr =
+      _lookup<ffi.NativeFunction<wire_WalletInstance Function()>>(
+          'new_WalletInstance');
+  late final _new_WalletInstance =
+      _new_WalletInstancePtr.asFunction<wire_WalletInstance Function()>();
+
+  ffi.Pointer<wire_BdkDescriptor> new_box_autoadd_BdkDescriptor_0() {
+    return _new_box_autoadd_BdkDescriptor_0();
+  }
+
+  late final _new_box_autoadd_BdkDescriptor_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_BdkDescriptor> Function()>>(
+          'new_box_autoadd_BdkDescriptor_0');
+  late final _new_box_autoadd_BdkDescriptor_0 =
+      _new_box_autoadd_BdkDescriptor_0Ptr
+          .asFunction<ffi.Pointer<wire_BdkDescriptor> Function()>();
 
   ffi.Pointer<wire_AddressIndex> new_box_autoadd_address_index_0() {
     return _new_box_autoadd_address_index_0();
@@ -3887,6 +4068,95 @@ class RustWire implements FlutterRustBridgeWireBase {
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
+  void drop_opaque_BdkDescriptor(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _drop_opaque_BdkDescriptor(
+      ptr,
+    );
+  }
+
+  late final _drop_opaque_BdkDescriptorPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_BdkDescriptor');
+  late final _drop_opaque_BdkDescriptor = _drop_opaque_BdkDescriptorPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ffi.Void> share_opaque_BdkDescriptor(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _share_opaque_BdkDescriptor(
+      ptr,
+    );
+  }
+
+  late final _share_opaque_BdkDescriptorPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_BdkDescriptor');
+  late final _share_opaque_BdkDescriptor = _share_opaque_BdkDescriptorPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+
+  void drop_opaque_BlockchainInstance(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _drop_opaque_BlockchainInstance(
+      ptr,
+    );
+  }
+
+  late final _drop_opaque_BlockchainInstancePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_BlockchainInstance');
+  late final _drop_opaque_BlockchainInstance =
+      _drop_opaque_BlockchainInstancePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ffi.Void> share_opaque_BlockchainInstance(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _share_opaque_BlockchainInstance(
+      ptr,
+    );
+  }
+
+  late final _share_opaque_BlockchainInstancePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_BlockchainInstance');
+  late final _share_opaque_BlockchainInstance =
+      _share_opaque_BlockchainInstancePtr
+          .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+
+  void drop_opaque_WalletInstance(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _drop_opaque_WalletInstance(
+      ptr,
+    );
+  }
+
+  late final _drop_opaque_WalletInstancePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_WalletInstance');
+  late final _drop_opaque_WalletInstance = _drop_opaque_WalletInstancePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ffi.Void> share_opaque_WalletInstance(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _share_opaque_WalletInstance(
+      ptr,
+    );
+  }
+
+  late final _share_opaque_WalletInstancePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_WalletInstance');
+  late final _share_opaque_WalletInstance = _share_opaque_WalletInstancePtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+
   ffi.Pointer<AddressIndexKind> inflate_AddressIndex_Peek() {
     return _inflate_AddressIndex_Peek();
   }
@@ -4085,6 +4355,14 @@ class wire_BlockchainConfig extends ffi.Struct {
   external ffi.Pointer<BlockchainConfigKind> kind;
 }
 
+class wire_BlockchainInstance extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> ptr;
+}
+
+class wire_WalletInstance extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> ptr;
+}
+
 class wire_Script extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> internal;
 }
@@ -4135,6 +4413,10 @@ class wire_RbfValue extends ffi.Struct {
   external int tag;
 
   external ffi.Pointer<RbfValueKind> kind;
+}
+
+class wire_BdkDescriptor extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> ptr;
 }
 
 class wire_DatabaseConfig_Memory extends ffi.Opaque {}

@@ -12,30 +12,34 @@ import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'bridge_definitions.freezed.dart';
 
 abstract class Rust {
-  Future<String> createBlockchainStaticMethodApi(
+  Future<BlockchainInstance> createBlockchainStaticMethodApi(
       {required BlockchainConfig config, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateBlockchainStaticMethodApiConstMeta;
 
   Future<int> getHeightStaticMethodApi(
-      {required String blockchainId, dynamic hint});
+      {required BlockchainInstance blockchain, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetHeightStaticMethodApiConstMeta;
 
   Future<String> getBlockchainHashStaticMethodApi(
       {required int blockchainHeight,
-      required String blockchainId,
+      required BlockchainInstance blockchain,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBlockchainHashStaticMethodApiConstMeta;
 
   Future<double> estimateFeeStaticMethodApi(
-      {required int target, required String blockchainId, dynamic hint});
+      {required int target,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEstimateFeeStaticMethodApiConstMeta;
 
   Future<String> broadcastStaticMethodApi(
-      {required String tx, required String blockchainId, dynamic hint});
+      {required String tx,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastStaticMethodApiConstMeta;
 
@@ -131,7 +135,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kJsonSerializeStaticMethodApiConstMeta;
 
   Future<BdkTxBuilderResult> txBuilderFinishStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
       required List<OutPoint> unspendable,
@@ -151,7 +155,7 @@ abstract class Rust {
       {required String txid,
       required double feeRate,
       String? allowShrinking,
-      required String walletId,
+      required WalletInstance wallet,
       required bool enableRbf,
       int? nSequence,
       dynamic hint});
@@ -159,12 +163,12 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta
       get kBumpFeeTxBuilderFinishStaticMethodApiConstMeta;
 
-  Future<String> createDescriptorStaticMethodApi(
+  Future<BdkDescriptor> createDescriptorStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorStaticMethodApiConstMeta;
 
-  Future<String> newBip44DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip44DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -173,7 +177,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta
       get kNewBip44DescriptorStaticMethodApiConstMeta;
 
-  Future<String> newBip44PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip44PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -182,7 +186,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kNewBip44PublicStaticMethodApiConstMeta;
 
-  Future<String> newBip49DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip49DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -191,7 +195,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta
       get kNewBip49DescriptorStaticMethodApiConstMeta;
 
-  Future<String> newBip49PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip49PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -200,7 +204,7 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kNewBip49PublicStaticMethodApiConstMeta;
 
-  Future<String> newBip84DescriptorStaticMethodApi(
+  Future<BdkDescriptor> newBip84DescriptorStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String secretKey,
       required Network network,
@@ -209,7 +213,7 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta
       get kNewBip84DescriptorStaticMethodApiConstMeta;
 
-  Future<String> newBip84PublicStaticMethodApi(
+  Future<BdkDescriptor> newBip84PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
       required String publicKey,
       required Network network,
@@ -219,12 +223,12 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kNewBip84PublicStaticMethodApiConstMeta;
 
   Future<String> asStringPrivateStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint});
+      {required BdkDescriptor descriptor, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringPrivateStaticMethodApiConstMeta;
 
   Future<String> asStringStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint});
+      {required BdkDescriptor descriptor, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta;
 
@@ -314,9 +318,9 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta get kAddressNetworkStaticMethodApiConstMeta;
 
-  Future<String> createWalletStaticMethodApi(
-      {required String descriptor,
-      String? changeDescriptor,
+  Future<WalletInstance> createWalletStaticMethodApi(
+      {required BdkDescriptor descriptor,
+      BdkDescriptor? changeDescriptor,
       required Network network,
       required DatabaseConfig databaseConfig,
       dynamic hint});
@@ -324,14 +328,14 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kCreateWalletStaticMethodApiConstMeta;
 
   Future<AddressInfo> getAddressStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required AddressIndex addressIndex,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetAddressStaticMethodApiConstMeta;
 
   Future<AddressInfo> getInternalAddressStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required AddressIndex addressIndex,
       dynamic hint});
 
@@ -339,28 +343,37 @@ abstract class Rust {
       get kGetInternalAddressStaticMethodApiConstMeta;
 
   Future<void> syncWalletStaticMethodApi(
-      {required String walletId, required String blockchainId, dynamic hint});
+      {required WalletInstance wallet,
+      required BlockchainInstance blockchain,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletStaticMethodApiConstMeta;
 
+  Future<void> syncWalletThreadStaticMethodApi(
+      {required WalletInstance wallet,
+      required BlockchainInstance blockchain,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSyncWalletThreadStaticMethodApiConstMeta;
+
   Future<Balance> getBalanceStaticMethodApi(
-      {required String walletId, dynamic hint});
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceStaticMethodApiConstMeta;
 
   Future<List<LocalUtxo>> listUnspentOutputsStaticMethodApi(
-      {required String walletId, dynamic hint});
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
       get kListUnspentOutputsStaticMethodApiConstMeta;
 
   Future<List<TransactionDetails>> getTransactionsStaticMethodApi(
-      {required String walletId, required bool includeRaw, dynamic hint});
+      {required WalletInstance wallet, required bool includeRaw, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetTransactionsStaticMethodApiConstMeta;
 
   Future<String?> signStaticMethodApi(
-      {required String walletId,
+      {required WalletInstance wallet,
       required String psbtStr,
       SignOptions? signOptions,
       dynamic hint});
@@ -368,12 +381,12 @@ abstract class Rust {
   FlutterRustBridgeTaskConstMeta get kSignStaticMethodApiConstMeta;
 
   Future<Network> walletNetworkStaticMethodApi(
-      {required String walletId, dynamic hint});
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletNetworkStaticMethodApiConstMeta;
 
   Future<List<LocalUtxo>> listUnspentStaticMethodApi(
-      {required String walletId, dynamic hint});
+      {required WalletInstance wallet, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentStaticMethodApiConstMeta;
 
@@ -394,6 +407,63 @@ abstract class Rust {
 
   FlutterRustBridgeTaskConstMeta
       get kGenerateSeedFromEntropyStaticMethodApiConstMeta;
+
+  DropFnType get dropOpaqueBdkDescriptor;
+  ShareFnType get shareOpaqueBdkDescriptor;
+  OpaqueTypeFinalizer get BdkDescriptorFinalizer;
+
+  DropFnType get dropOpaqueBlockchainInstance;
+  ShareFnType get shareOpaqueBlockchainInstance;
+  OpaqueTypeFinalizer get BlockchainInstanceFinalizer;
+
+  DropFnType get dropOpaqueWalletInstance;
+  ShareFnType get shareOpaqueWalletInstance;
+  OpaqueTypeFinalizer get WalletInstanceFinalizer;
+}
+
+@sealed
+class BdkDescriptor extends FrbOpaque {
+  final Rust bridge;
+  BdkDescriptor.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
+  @override
+  DropFnType get dropFn => bridge.dropOpaqueBdkDescriptor;
+
+  @override
+  ShareFnType get shareFn => bridge.shareOpaqueBdkDescriptor;
+
+  @override
+  OpaqueTypeFinalizer get staticFinalizer => bridge.BdkDescriptorFinalizer;
+}
+
+@sealed
+class BlockchainInstance extends FrbOpaque {
+  final Rust bridge;
+  BlockchainInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
+  @override
+  DropFnType get dropFn => bridge.dropOpaqueBlockchainInstance;
+
+  @override
+  ShareFnType get shareFn => bridge.shareOpaqueBlockchainInstance;
+
+  @override
+  OpaqueTypeFinalizer get staticFinalizer => bridge.BlockchainInstanceFinalizer;
+}
+
+@sealed
+class WalletInstance extends FrbOpaque {
+  final Rust bridge;
+  WalletInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
+  @override
+  DropFnType get dropFn => bridge.dropOpaqueWalletInstance;
+
+  @override
+  ShareFnType get shareFn => bridge.shareOpaqueWalletInstance;
+
+  @override
+  OpaqueTypeFinalizer get staticFinalizer => bridge.WalletInstanceFinalizer;
 }
 
 @freezed

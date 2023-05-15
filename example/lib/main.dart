@@ -93,14 +93,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   sync() async {
-    try {
-      if (blockchain == null) {
-        await initBlockchain(true);
-      }
-      await bdkWallet.sync(blockchain!);
-    } on FormatException catch (e) {
-      debugPrint(e.message);
+    if (blockchain == null) {
+      await initBlockchain(true);
     }
+    bdkWallet.sync(blockchain!);
+    setState(() {
+      displayText = "Syncing completed";
+    });
   }
 
   getNewAddress() async {
@@ -138,7 +137,6 @@ class _MyAppState extends State<MyApp> {
   getConfirmedTransactions() async {
     List<TransactionDetails> confirmed = [];
     final res = await bdkWallet.listTransactions(true);
-
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
     }
@@ -271,7 +269,7 @@ class _MyAppState extends State<MyApp> {
             allowGrinding: false));
     final tx = await sbt.extractTx();
     await blockchain!.broadcast(tx);
-    await getNewAddress();
+    sync();
   }
 
   @override
@@ -355,9 +353,7 @@ class _MyAppState extends State<MyApp> {
                         fontWeight: FontWeight.w800),
                   )),
               TextButton(
-                  onPressed: () async {
-                    await sync();
-                  },
+                  onPressed: () => sync(),
                   child: const Text(
                     'Press to  sync',
                     style: TextStyle(
