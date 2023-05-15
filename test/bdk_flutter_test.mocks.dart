@@ -178,6 +178,33 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         )),
       ) as _i4.Future<_i2.AddressInfo>);
   @override
+  _i4.Future<_i2.AddressInfo> getInternalAddress(
+          {required _i2.AddressIndex? addressIndex}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getInternalAddress,
+          [],
+          {#addressIndex: addressIndex},
+        ),
+        returnValue: _i4.Future<_i2.AddressInfo>.value(_FakeAddressInfo_0(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {#addressIndex: addressIndex},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.AddressInfo>.value(_FakeAddressInfo_0(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {#addressIndex: addressIndex},
+          ),
+        )),
+      ) as _i4.Future<_i2.AddressInfo>);
+  @override
   _i4.Future<_i2.Balance> getBalance() => (super.noSuchMethod(
         Invocation.method(
           #getBalance,
