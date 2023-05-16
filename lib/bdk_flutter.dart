@@ -5,7 +5,7 @@ export './src/generated/bridge_definitions.dart'
     hide
         BlockchainInstance,
         WalletInstance,
-        Rust,
+        RustBdkFfi,
         Script,
         BlockchainConfig_Electrum,
         BlockchainConfig_Rpc,

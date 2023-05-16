@@ -17,13 +17,15 @@ import 'package:uuid/uuid.dart';
 
 import 'dart:ffi' as ffi;
 
-class RustImpl implements Rust {
-  final RustPlatform _platform;
-  factory RustImpl(ExternalLibrary dylib) => RustImpl.raw(RustPlatform(dylib));
+class RustBdkFfiImpl implements RustBdkFfi {
+  final RustBdkFfiPlatform _platform;
+  factory RustBdkFfiImpl(ExternalLibrary dylib) =>
+      RustBdkFfiImpl.raw(RustBdkFfiPlatform(dylib));
 
   /// Only valid on web/WASM platforms.
-  factory RustImpl.wasm(FutureOr<WasmModule> module) => RustImpl(module as ExternalLibrary);
-  RustImpl.raw(this._platform);
+  factory RustBdkFfiImpl.wasm(FutureOr<WasmModule> module) =>
+      RustBdkFfiImpl(module as ExternalLibrary);
+  RustBdkFfiImpl.raw(this._platform);
   Future<BlockchainInstance> createBlockchainStaticMethodApi(
       {required BlockchainConfig config, dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_blockchain_config(config);
@@ -1147,7 +1149,8 @@ class RustImpl implements Rust {
       required DatabaseConfig databaseConfig,
       dynamic hint}) {
     var arg0 = _platform.api2wire_BdkDescriptor(descriptor);
-    var arg1 = _platform.api2wire_opt_box_autoadd_BdkDescriptor(changeDescriptor);
+    var arg1 =
+        _platform.api2wire_opt_box_autoadd_BdkDescriptor(changeDescriptor);
     var arg2 = api2wire_network(network);
     var arg3 = _platform.api2wire_box_autoadd_database_config(databaseConfig);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -1493,7 +1496,8 @@ class RustImpl implements Rust {
 
   AddressInfo _wire2api_address_info(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return AddressInfo(
       index: _wire2api_u32(arr[0]),
       address: _wire2api_String(arr[1]),
@@ -1502,7 +1506,8 @@ class RustImpl implements Rust {
 
   Balance _wire2api_balance(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 6) throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
     return Balance(
       immature: _wire2api_u64(arr[0]),
       trustedPending: _wire2api_u64(arr[1]),
@@ -1515,7 +1520,8 @@ class RustImpl implements Rust {
 
   BdkTxBuilderResult _wire2api_bdk_tx_builder_result(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return BdkTxBuilderResult(
       field0: _wire2api_String(arr[0]),
       field1: _wire2api_transaction_details(arr[1]),
@@ -1524,7 +1530,8 @@ class RustImpl implements Rust {
 
   BlockTime _wire2api_block_time(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return BlockTime(
       height: _wire2api_u32(arr[0]),
       timestamp: _wire2api_u64(arr[1]),
@@ -1609,7 +1616,8 @@ class RustImpl implements Rust {
 
   OutPoint _wire2api_out_point(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return OutPoint(
       txid: _wire2api_String(arr[0]),
       vout: _wire2api_u32(arr[1]),
@@ -1673,7 +1681,8 @@ class RustImpl implements Rust {
 
   TxOut _wire2api_tx_out(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return TxOut(
       value: _wire2api_u64(arr[0]),
       scriptPubkey: _wire2api_script(arr[1]),
@@ -1753,8 +1762,8 @@ int api2wire_word_count(WordCount raw) {
 }
 // Section: finalizer
 
-class RustPlatform extends FlutterRustBridgeBase<RustWire> {
-  RustPlatform(ffi.DynamicLibrary dylib) : super(RustWire(dylib));
+class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
+  RustBdkFfiPlatform(ffi.DynamicLibrary dylib) : super(RustBdkFfiWire(dylib));
 
 // Section: api2wire
 
@@ -1785,42 +1794,48 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
-  ffi.Pointer<wire_BdkDescriptor> api2wire_box_autoadd_BdkDescriptor(BdkDescriptor raw) {
+  ffi.Pointer<wire_BdkDescriptor> api2wire_box_autoadd_BdkDescriptor(
+      BdkDescriptor raw) {
     final ptr = inner.new_box_autoadd_BdkDescriptor_0();
     _api_fill_to_wire_BdkDescriptor(raw, ptr.ref);
     return ptr;
   }
 
   @protected
-  ffi.Pointer<wire_AddressIndex> api2wire_box_autoadd_address_index(AddressIndex raw) {
+  ffi.Pointer<wire_AddressIndex> api2wire_box_autoadd_address_index(
+      AddressIndex raw) {
     final ptr = inner.new_box_autoadd_address_index_0();
     _api_fill_to_wire_address_index(raw, ptr.ref);
     return ptr;
   }
 
   @protected
-  ffi.Pointer<wire_BlockchainConfig> api2wire_box_autoadd_blockchain_config(BlockchainConfig raw) {
+  ffi.Pointer<wire_BlockchainConfig> api2wire_box_autoadd_blockchain_config(
+      BlockchainConfig raw) {
     final ptr = inner.new_box_autoadd_blockchain_config_0();
     _api_fill_to_wire_blockchain_config(raw, ptr.ref);
     return ptr;
   }
 
   @protected
-  ffi.Pointer<wire_DatabaseConfig> api2wire_box_autoadd_database_config(DatabaseConfig raw) {
+  ffi.Pointer<wire_DatabaseConfig> api2wire_box_autoadd_database_config(
+      DatabaseConfig raw) {
     final ptr = inner.new_box_autoadd_database_config_0();
     _api_fill_to_wire_database_config(raw, ptr.ref);
     return ptr;
   }
 
   @protected
-  ffi.Pointer<wire_ElectrumConfig> api2wire_box_autoadd_electrum_config(ElectrumConfig raw) {
+  ffi.Pointer<wire_ElectrumConfig> api2wire_box_autoadd_electrum_config(
+      ElectrumConfig raw) {
     final ptr = inner.new_box_autoadd_electrum_config_0();
     _api_fill_to_wire_electrum_config(raw, ptr.ref);
     return ptr;
   }
 
   @protected
-  ffi.Pointer<wire_EsploraConfig> api2wire_box_autoadd_esplora_config(EsploraConfig raw) {
+  ffi.Pointer<wire_EsploraConfig> api2wire_box_autoadd_esplora_config(
+      EsploraConfig raw) {
     final ptr = inner.new_box_autoadd_esplora_config_0();
     _api_fill_to_wire_esplora_config(raw, ptr.ref);
     return ptr;
@@ -1846,7 +1861,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
-  ffi.Pointer<wire_RpcSyncParams> api2wire_box_autoadd_rpc_sync_params(RpcSyncParams raw) {
+  ffi.Pointer<wire_RpcSyncParams> api2wire_box_autoadd_rpc_sync_params(
+      RpcSyncParams raw) {
     final ptr = inner.new_box_autoadd_rpc_sync_params_0();
     _api_fill_to_wire_rpc_sync_params(raw, ptr.ref);
     return ptr;
@@ -1876,7 +1892,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
-  ffi.Pointer<wire_SqliteDbConfiguration> api2wire_box_autoadd_sqlite_db_configuration(SqliteDbConfiguration raw) {
+  ffi.Pointer<wire_SqliteDbConfiguration>
+      api2wire_box_autoadd_sqlite_db_configuration(SqliteDbConfiguration raw) {
     final ptr = inner.new_box_autoadd_sqlite_db_configuration_0();
     _api_fill_to_wire_sqlite_db_configuration(raw, ptr.ref);
     return ptr;
@@ -1914,7 +1931,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
-  ffi.Pointer<wire_list_script_amount> api2wire_list_script_amount(List<ScriptAmount> raw) {
+  ffi.Pointer<wire_list_script_amount> api2wire_list_script_amount(
+      List<ScriptAmount> raw) {
     final ans = inner.new_list_script_amount_0(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       _api_fill_to_wire_script_amount(raw[i], ans.ref.ptr[i]);
@@ -1928,7 +1946,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   @protected
-  ffi.Pointer<wire_BdkDescriptor> api2wire_opt_box_autoadd_BdkDescriptor(BdkDescriptor? raw) {
+  ffi.Pointer<wire_BdkDescriptor> api2wire_opt_box_autoadd_BdkDescriptor(
+      BdkDescriptor? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_BdkDescriptor(raw);
   }
 
@@ -1995,28 +2014,35 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
 // Section: finalizer
 
-  late final OpaqueTypeFinalizer _BdkDescriptorFinalizer = OpaqueTypeFinalizer(inner._drop_opaque_BdkDescriptorPtr);
+  late final OpaqueTypeFinalizer _BdkDescriptorFinalizer =
+      OpaqueTypeFinalizer(inner._drop_opaque_BdkDescriptorPtr);
   OpaqueTypeFinalizer get BdkDescriptorFinalizer => _BdkDescriptorFinalizer;
   late final OpaqueTypeFinalizer _BlockchainInstanceFinalizer =
       OpaqueTypeFinalizer(inner._drop_opaque_BlockchainInstancePtr);
-  OpaqueTypeFinalizer get BlockchainInstanceFinalizer => _BlockchainInstanceFinalizer;
-  late final OpaqueTypeFinalizer _WalletInstanceFinalizer = OpaqueTypeFinalizer(inner._drop_opaque_WalletInstancePtr);
+  OpaqueTypeFinalizer get BlockchainInstanceFinalizer =>
+      _BlockchainInstanceFinalizer;
+  late final OpaqueTypeFinalizer _WalletInstanceFinalizer =
+      OpaqueTypeFinalizer(inner._drop_opaque_WalletInstancePtr);
   OpaqueTypeFinalizer get WalletInstanceFinalizer => _WalletInstanceFinalizer;
 // Section: api_fill_to_wire
 
-  void _api_fill_to_wire_BdkDescriptor(BdkDescriptor apiObj, wire_BdkDescriptor wireObj) {
+  void _api_fill_to_wire_BdkDescriptor(
+      BdkDescriptor apiObj, wire_BdkDescriptor wireObj) {
     wireObj.ptr = apiObj.shareOrMove();
   }
 
-  void _api_fill_to_wire_BlockchainInstance(BlockchainInstance apiObj, wire_BlockchainInstance wireObj) {
+  void _api_fill_to_wire_BlockchainInstance(
+      BlockchainInstance apiObj, wire_BlockchainInstance wireObj) {
     wireObj.ptr = apiObj.shareOrMove();
   }
 
-  void _api_fill_to_wire_WalletInstance(WalletInstance apiObj, wire_WalletInstance wireObj) {
+  void _api_fill_to_wire_WalletInstance(
+      WalletInstance apiObj, wire_WalletInstance wireObj) {
     wireObj.ptr = apiObj.shareOrMove();
   }
 
-  void _api_fill_to_wire_address_index(AddressIndex apiObj, wire_AddressIndex wireObj) {
+  void _api_fill_to_wire_address_index(
+      AddressIndex apiObj, wire_AddressIndex wireObj) {
     if (apiObj is AddressIndex_New) {
       wireObj.tag = 0;
       return;
@@ -2041,7 +2067,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     }
   }
 
-  void _api_fill_to_wire_blockchain_config(BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
+  void _api_fill_to_wire_blockchain_config(
+      BlockchainConfig apiObj, wire_BlockchainConfig wireObj) {
     if (apiObj is BlockchainConfig_Electrum) {
       var pre_config = api2wire_box_autoadd_electrum_config(apiObj.config);
       wireObj.tag = 0;
@@ -2065,11 +2092,13 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     }
   }
 
-  void _api_fill_to_wire_box_autoadd_BdkDescriptor(BdkDescriptor apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
+  void _api_fill_to_wire_box_autoadd_BdkDescriptor(
+      BdkDescriptor apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
     _api_fill_to_wire_BdkDescriptor(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_address_index(AddressIndex apiObj, ffi.Pointer<wire_AddressIndex> wireObj) {
+  void _api_fill_to_wire_box_autoadd_address_index(
+      AddressIndex apiObj, ffi.Pointer<wire_AddressIndex> wireObj) {
     _api_fill_to_wire_address_index(apiObj, wireObj.ref);
   }
 
@@ -2078,15 +2107,18 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     _api_fill_to_wire_blockchain_config(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_database_config(DatabaseConfig apiObj, ffi.Pointer<wire_DatabaseConfig> wireObj) {
+  void _api_fill_to_wire_box_autoadd_database_config(
+      DatabaseConfig apiObj, ffi.Pointer<wire_DatabaseConfig> wireObj) {
     _api_fill_to_wire_database_config(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_electrum_config(ElectrumConfig apiObj, ffi.Pointer<wire_ElectrumConfig> wireObj) {
+  void _api_fill_to_wire_box_autoadd_electrum_config(
+      ElectrumConfig apiObj, ffi.Pointer<wire_ElectrumConfig> wireObj) {
     _api_fill_to_wire_electrum_config(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_esplora_config(EsploraConfig apiObj, ffi.Pointer<wire_EsploraConfig> wireObj) {
+  void _api_fill_to_wire_box_autoadd_esplora_config(
+      EsploraConfig apiObj, ffi.Pointer<wire_EsploraConfig> wireObj) {
     _api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
   }
 
@@ -2100,7 +2132,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     _api_fill_to_wire_rpc_config(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_rpc_sync_params(RpcSyncParams apiObj, ffi.Pointer<wire_RpcSyncParams> wireObj) {
+  void _api_fill_to_wire_box_autoadd_rpc_sync_params(
+      RpcSyncParams apiObj, ffi.Pointer<wire_RpcSyncParams> wireObj) {
     _api_fill_to_wire_rpc_sync_params(apiObj, wireObj.ref);
   }
 
@@ -2115,33 +2148,39 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   }
 
   void _api_fill_to_wire_box_autoadd_sled_db_configuration(
-      SledDbConfiguration apiObj, ffi.Pointer<wire_SledDbConfiguration> wireObj) {
+      SledDbConfiguration apiObj,
+      ffi.Pointer<wire_SledDbConfiguration> wireObj) {
     _api_fill_to_wire_sled_db_configuration(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_box_autoadd_sqlite_db_configuration(
-      SqliteDbConfiguration apiObj, ffi.Pointer<wire_SqliteDbConfiguration> wireObj) {
+      SqliteDbConfiguration apiObj,
+      ffi.Pointer<wire_SqliteDbConfiguration> wireObj) {
     _api_fill_to_wire_sqlite_db_configuration(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_user_pass(UserPass apiObj, ffi.Pointer<wire_UserPass> wireObj) {
+  void _api_fill_to_wire_box_autoadd_user_pass(
+      UserPass apiObj, ffi.Pointer<wire_UserPass> wireObj) {
     _api_fill_to_wire_user_pass(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_database_config(DatabaseConfig apiObj, wire_DatabaseConfig wireObj) {
+  void _api_fill_to_wire_database_config(
+      DatabaseConfig apiObj, wire_DatabaseConfig wireObj) {
     if (apiObj is DatabaseConfig_Memory) {
       wireObj.tag = 0;
       return;
     }
     if (apiObj is DatabaseConfig_Sqlite) {
-      var pre_config = api2wire_box_autoadd_sqlite_db_configuration(apiObj.config);
+      var pre_config =
+          api2wire_box_autoadd_sqlite_db_configuration(apiObj.config);
       wireObj.tag = 1;
       wireObj.kind = inner.inflate_DatabaseConfig_Sqlite();
       wireObj.kind.ref.Sqlite.ref.config = pre_config;
       return;
     }
     if (apiObj is DatabaseConfig_Sled) {
-      var pre_config = api2wire_box_autoadd_sled_db_configuration(apiObj.config);
+      var pre_config =
+          api2wire_box_autoadd_sled_db_configuration(apiObj.config);
       wireObj.tag = 2;
       wireObj.kind = inner.inflate_DatabaseConfig_Sled();
       wireObj.kind.ref.Sled.ref.config = pre_config;
@@ -2149,7 +2188,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     }
   }
 
-  void _api_fill_to_wire_electrum_config(ElectrumConfig apiObj, wire_ElectrumConfig wireObj) {
+  void _api_fill_to_wire_electrum_config(
+      ElectrumConfig apiObj, wire_ElectrumConfig wireObj) {
     wireObj.url = api2wire_String(apiObj.url);
     wireObj.socks5 = api2wire_opt_String(apiObj.socks5);
     wireObj.retry = api2wire_u8(apiObj.retry);
@@ -2158,7 +2198,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     wireObj.validate_domain = api2wire_bool(apiObj.validateDomain);
   }
 
-  void _api_fill_to_wire_esplora_config(EsploraConfig apiObj, wire_EsploraConfig wireObj) {
+  void _api_fill_to_wire_esplora_config(
+      EsploraConfig apiObj, wire_EsploraConfig wireObj) {
     wireObj.base_url = api2wire_String(apiObj.baseUrl);
     wireObj.proxy = api2wire_opt_String(apiObj.proxy);
     wireObj.concurrency = api2wire_opt_box_autoadd_u8(apiObj.concurrency);
@@ -2166,8 +2207,10 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     wireObj.timeout = api2wire_opt_box_autoadd_u64(apiObj.timeout);
   }
 
-  void _api_fill_to_wire_opt_box_autoadd_BdkDescriptor(BdkDescriptor? apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
-    if (apiObj != null) _api_fill_to_wire_box_autoadd_BdkDescriptor(apiObj, wireObj);
+  void _api_fill_to_wire_opt_box_autoadd_BdkDescriptor(
+      BdkDescriptor? apiObj, ffi.Pointer<wire_BdkDescriptor> wireObj) {
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_BdkDescriptor(apiObj, wireObj);
   }
 
   void _api_fill_to_wire_opt_box_autoadd_rbf_value(
@@ -2178,7 +2221,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 
   void _api_fill_to_wire_opt_box_autoadd_rpc_sync_params(
       RpcSyncParams? apiObj, ffi.Pointer<wire_RpcSyncParams> wireObj) {
-    if (apiObj != null) _api_fill_to_wire_box_autoadd_rpc_sync_params(apiObj, wireObj);
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_rpc_sync_params(apiObj, wireObj);
   }
 
   void _api_fill_to_wire_opt_box_autoadd_script(
@@ -2220,13 +2264,16 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
   void _api_fill_to_wire_rpc_config(RpcConfig apiObj, wire_RpcConfig wireObj) {
     wireObj.url = api2wire_String(apiObj.url);
     wireObj.auth_cookie = api2wire_opt_String(apiObj.authCookie);
-    wireObj.auth_user_pass = api2wire_opt_box_autoadd_user_pass(apiObj.authUserPass);
+    wireObj.auth_user_pass =
+        api2wire_opt_box_autoadd_user_pass(apiObj.authUserPass);
     wireObj.network = api2wire_network(apiObj.network);
     wireObj.wallet_name = api2wire_String(apiObj.walletName);
-    wireObj.sync_params = api2wire_opt_box_autoadd_rpc_sync_params(apiObj.syncParams);
+    wireObj.sync_params =
+        api2wire_opt_box_autoadd_rpc_sync_params(apiObj.syncParams);
   }
 
-  void _api_fill_to_wire_rpc_sync_params(RpcSyncParams apiObj, wire_RpcSyncParams wireObj) {
+  void _api_fill_to_wire_rpc_sync_params(
+      RpcSyncParams apiObj, wire_RpcSyncParams wireObj) {
     wireObj.start_script_count = api2wire_u64(apiObj.startScriptCount);
     wireObj.start_time = api2wire_u64(apiObj.startTime);
     wireObj.force_start_time = api2wire_bool(apiObj.forceStartTime);
@@ -2261,7 +2308,8 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
     wireObj.tree_name = api2wire_String(apiObj.treeName);
   }
 
-  void _api_fill_to_wire_sqlite_db_configuration(SqliteDbConfiguration apiObj, wire_SqliteDbConfiguration wireObj) {
+  void _api_fill_to_wire_sqlite_db_configuration(
+      SqliteDbConfiguration apiObj, wire_SqliteDbConfiguration wireObj) {
     wireObj.path = api2wire_String(apiObj.path);
   }
 
@@ -2279,18 +2327,23 @@ class RustPlatform extends FlutterRustBridgeBase<RustWire> {
 // ignore_for_file: type=lint
 
 /// generated by flutter_rust_bridge
-class RustWire implements FlutterRustBridgeWireBase {
+class RustBdkFfiWire implements FlutterRustBridgeWireBase {
   @internal
   late final dartApi = DartApiDl(init_frb_dart_api_dl);
 
   /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) _lookup;
+  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+      _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  RustWire(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
+  RustBdkFfiWire(ffi.DynamicLibrary dynamicLibrary)
+      : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
-  RustWire.fromLookup(ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup) : _lookup = lookup;
+  RustBdkFfiWire.fromLookup(
+      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+          lookup)
+      : _lookup = lookup;
 
   void store_dart_post_cobject(
     DartPostCObjectFnType ptr,
@@ -2301,8 +2354,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _store_dart_post_cobjectPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>('store_dart_post_cobject');
-  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr.asFunction<void Function(DartPostCObjectFnType)>();
+      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+          'store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
+      .asFunction<void Function(DartPostCObjectFnType)>();
 
   Object get_dart_object(
     int ptr,
@@ -2312,8 +2367,11 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _get_dart_objectPtr = _lookup<ffi.NativeFunction<ffi.Handle Function(ffi.UintPtr)>>('get_dart_object');
-  late final _get_dart_object = _get_dart_objectPtr.asFunction<Object Function(int)>();
+  late final _get_dart_objectPtr =
+      _lookup<ffi.NativeFunction<ffi.Handle Function(ffi.UintPtr)>>(
+          'get_dart_object');
+  late final _get_dart_object =
+      _get_dart_objectPtr.asFunction<Object Function(int)>();
 
   void drop_dart_object(
     int ptr,
@@ -2323,8 +2381,11 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _drop_dart_objectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>('drop_dart_object');
-  late final _drop_dart_object = _drop_dart_objectPtr.asFunction<void Function(int)>();
+  late final _drop_dart_objectPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>(
+          'drop_dart_object');
+  late final _drop_dart_object =
+      _drop_dart_objectPtr.asFunction<void Function(int)>();
 
   int new_dart_opaque(
     Object handle,
@@ -2334,8 +2395,11 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_dart_opaquePtr = _lookup<ffi.NativeFunction<ffi.UintPtr Function(ffi.Handle)>>('new_dart_opaque');
-  late final _new_dart_opaque = _new_dart_opaquePtr.asFunction<int Function(Object)>();
+  late final _new_dart_opaquePtr =
+      _lookup<ffi.NativeFunction<ffi.UintPtr Function(ffi.Handle)>>(
+          'new_dart_opaque');
+  late final _new_dart_opaque =
+      _new_dart_opaquePtr.asFunction<int Function(Object)>();
 
   int init_frb_dart_api_dl(
     ffi.Pointer<ffi.Void> obj,
@@ -2346,8 +2410,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _init_frb_dart_api_dlPtr =
-      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>('init_frb_dart_api_dl');
-  late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>(
+          'init_frb_dart_api_dl');
+  late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   void wire_create_blockchain__static_method__Api(
     int port_,
@@ -3724,77 +3790,97 @@ class RustWire implements FlutterRustBridgeWireBase {
     return _new_BdkDescriptor();
   }
 
-  late final _new_BdkDescriptorPtr = _lookup<ffi.NativeFunction<wire_BdkDescriptor Function()>>('new_BdkDescriptor');
-  late final _new_BdkDescriptor = _new_BdkDescriptorPtr.asFunction<wire_BdkDescriptor Function()>();
+  late final _new_BdkDescriptorPtr =
+      _lookup<ffi.NativeFunction<wire_BdkDescriptor Function()>>(
+          'new_BdkDescriptor');
+  late final _new_BdkDescriptor =
+      _new_BdkDescriptorPtr.asFunction<wire_BdkDescriptor Function()>();
 
   wire_BlockchainInstance new_BlockchainInstance() {
     return _new_BlockchainInstance();
   }
 
   late final _new_BlockchainInstancePtr =
-      _lookup<ffi.NativeFunction<wire_BlockchainInstance Function()>>('new_BlockchainInstance');
-  late final _new_BlockchainInstance = _new_BlockchainInstancePtr.asFunction<wire_BlockchainInstance Function()>();
+      _lookup<ffi.NativeFunction<wire_BlockchainInstance Function()>>(
+          'new_BlockchainInstance');
+  late final _new_BlockchainInstance = _new_BlockchainInstancePtr
+      .asFunction<wire_BlockchainInstance Function()>();
 
   wire_WalletInstance new_WalletInstance() {
     return _new_WalletInstance();
   }
 
-  late final _new_WalletInstancePtr = _lookup<ffi.NativeFunction<wire_WalletInstance Function()>>('new_WalletInstance');
-  late final _new_WalletInstance = _new_WalletInstancePtr.asFunction<wire_WalletInstance Function()>();
+  late final _new_WalletInstancePtr =
+      _lookup<ffi.NativeFunction<wire_WalletInstance Function()>>(
+          'new_WalletInstance');
+  late final _new_WalletInstance =
+      _new_WalletInstancePtr.asFunction<wire_WalletInstance Function()>();
 
   ffi.Pointer<wire_BdkDescriptor> new_box_autoadd_BdkDescriptor_0() {
     return _new_box_autoadd_BdkDescriptor_0();
   }
 
   late final _new_box_autoadd_BdkDescriptor_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_BdkDescriptor> Function()>>('new_box_autoadd_BdkDescriptor_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_BdkDescriptor> Function()>>(
+          'new_box_autoadd_BdkDescriptor_0');
   late final _new_box_autoadd_BdkDescriptor_0 =
-      _new_box_autoadd_BdkDescriptor_0Ptr.asFunction<ffi.Pointer<wire_BdkDescriptor> Function()>();
+      _new_box_autoadd_BdkDescriptor_0Ptr
+          .asFunction<ffi.Pointer<wire_BdkDescriptor> Function()>();
 
   ffi.Pointer<wire_AddressIndex> new_box_autoadd_address_index_0() {
     return _new_box_autoadd_address_index_0();
   }
 
   late final _new_box_autoadd_address_index_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_AddressIndex> Function()>>('new_box_autoadd_address_index_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_AddressIndex> Function()>>(
+          'new_box_autoadd_address_index_0');
   late final _new_box_autoadd_address_index_0 =
-      _new_box_autoadd_address_index_0Ptr.asFunction<ffi.Pointer<wire_AddressIndex> Function()>();
+      _new_box_autoadd_address_index_0Ptr
+          .asFunction<ffi.Pointer<wire_AddressIndex> Function()>();
 
   ffi.Pointer<wire_BlockchainConfig> new_box_autoadd_blockchain_config_0() {
     return _new_box_autoadd_blockchain_config_0();
   }
 
-  late final _new_box_autoadd_blockchain_config_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_BlockchainConfig> Function()>>('new_box_autoadd_blockchain_config_0');
+  late final _new_box_autoadd_blockchain_config_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_BlockchainConfig> Function()>>(
+      'new_box_autoadd_blockchain_config_0');
   late final _new_box_autoadd_blockchain_config_0 =
-      _new_box_autoadd_blockchain_config_0Ptr.asFunction<ffi.Pointer<wire_BlockchainConfig> Function()>();
+      _new_box_autoadd_blockchain_config_0Ptr
+          .asFunction<ffi.Pointer<wire_BlockchainConfig> Function()>();
 
   ffi.Pointer<wire_DatabaseConfig> new_box_autoadd_database_config_0() {
     return _new_box_autoadd_database_config_0();
   }
 
   late final _new_box_autoadd_database_config_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_DatabaseConfig> Function()>>('new_box_autoadd_database_config_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_DatabaseConfig> Function()>>(
+          'new_box_autoadd_database_config_0');
   late final _new_box_autoadd_database_config_0 =
-      _new_box_autoadd_database_config_0Ptr.asFunction<ffi.Pointer<wire_DatabaseConfig> Function()>();
+      _new_box_autoadd_database_config_0Ptr
+          .asFunction<ffi.Pointer<wire_DatabaseConfig> Function()>();
 
   ffi.Pointer<wire_ElectrumConfig> new_box_autoadd_electrum_config_0() {
     return _new_box_autoadd_electrum_config_0();
   }
 
   late final _new_box_autoadd_electrum_config_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_ElectrumConfig> Function()>>('new_box_autoadd_electrum_config_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_ElectrumConfig> Function()>>(
+          'new_box_autoadd_electrum_config_0');
   late final _new_box_autoadd_electrum_config_0 =
-      _new_box_autoadd_electrum_config_0Ptr.asFunction<ffi.Pointer<wire_ElectrumConfig> Function()>();
+      _new_box_autoadd_electrum_config_0Ptr
+          .asFunction<ffi.Pointer<wire_ElectrumConfig> Function()>();
 
   ffi.Pointer<wire_EsploraConfig> new_box_autoadd_esplora_config_0() {
     return _new_box_autoadd_esplora_config_0();
   }
 
   late final _new_box_autoadd_esplora_config_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_EsploraConfig> Function()>>('new_box_autoadd_esplora_config_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_EsploraConfig> Function()>>(
+          'new_box_autoadd_esplora_config_0');
   late final _new_box_autoadd_esplora_config_0 =
-      _new_box_autoadd_esplora_config_0Ptr.asFunction<ffi.Pointer<wire_EsploraConfig> Function()>();
+      _new_box_autoadd_esplora_config_0Ptr
+          .asFunction<ffi.Pointer<wire_EsploraConfig> Function()>();
 
   ffi.Pointer<ffi.Float> new_box_autoadd_f32_0(
     double value,
@@ -3805,8 +3891,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_f32_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Float> Function(ffi.Float)>>('new_box_autoadd_f32_0');
-  late final _new_box_autoadd_f32_0 = _new_box_autoadd_f32_0Ptr.asFunction<ffi.Pointer<ffi.Float> Function(double)>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Float> Function(ffi.Float)>>(
+          'new_box_autoadd_f32_0');
+  late final _new_box_autoadd_f32_0 = _new_box_autoadd_f32_0Ptr
+      .asFunction<ffi.Pointer<ffi.Float> Function(double)>();
 
   ffi.Pointer<wire_RbfValue> new_box_autoadd_rbf_value_0() {
     return _new_box_autoadd_rbf_value_0();
@@ -3823,18 +3911,21 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_rpc_config_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_RpcConfig> Function()>>('new_box_autoadd_rpc_config_0');
-  late final _new_box_autoadd_rpc_config_0 =
-      _new_box_autoadd_rpc_config_0Ptr.asFunction<ffi.Pointer<wire_RpcConfig> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_RpcConfig> Function()>>(
+          'new_box_autoadd_rpc_config_0');
+  late final _new_box_autoadd_rpc_config_0 = _new_box_autoadd_rpc_config_0Ptr
+      .asFunction<ffi.Pointer<wire_RpcConfig> Function()>();
 
   ffi.Pointer<wire_RpcSyncParams> new_box_autoadd_rpc_sync_params_0() {
     return _new_box_autoadd_rpc_sync_params_0();
   }
 
   late final _new_box_autoadd_rpc_sync_params_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_RpcSyncParams> Function()>>('new_box_autoadd_rpc_sync_params_0');
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_RpcSyncParams> Function()>>(
+          'new_box_autoadd_rpc_sync_params_0');
   late final _new_box_autoadd_rpc_sync_params_0 =
-      _new_box_autoadd_rpc_sync_params_0Ptr.asFunction<ffi.Pointer<wire_RpcSyncParams> Function()>();
+      _new_box_autoadd_rpc_sync_params_0Ptr
+          .asFunction<ffi.Pointer<wire_RpcSyncParams> Function()>();
 
   ffi.Pointer<wire_Script> new_box_autoadd_script_0() {
     return _new_box_autoadd_script_0();
@@ -3862,21 +3953,25 @@ class RustWire implements FlutterRustBridgeWireBase {
     return _new_box_autoadd_sled_db_configuration_0();
   }
 
-  late final _new_box_autoadd_sled_db_configuration_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>>(
-          'new_box_autoadd_sled_db_configuration_0');
+  late final _new_box_autoadd_sled_db_configuration_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>>(
+      'new_box_autoadd_sled_db_configuration_0');
   late final _new_box_autoadd_sled_db_configuration_0 =
-      _new_box_autoadd_sled_db_configuration_0Ptr.asFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>();
+      _new_box_autoadd_sled_db_configuration_0Ptr
+          .asFunction<ffi.Pointer<wire_SledDbConfiguration> Function()>();
 
-  ffi.Pointer<wire_SqliteDbConfiguration> new_box_autoadd_sqlite_db_configuration_0() {
+  ffi.Pointer<wire_SqliteDbConfiguration>
+      new_box_autoadd_sqlite_db_configuration_0() {
     return _new_box_autoadd_sqlite_db_configuration_0();
   }
 
-  late final _new_box_autoadd_sqlite_db_configuration_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>>(
-          'new_box_autoadd_sqlite_db_configuration_0');
+  late final _new_box_autoadd_sqlite_db_configuration_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_SqliteDbConfiguration>
+              Function()>>('new_box_autoadd_sqlite_db_configuration_0');
   late final _new_box_autoadd_sqlite_db_configuration_0 =
-      _new_box_autoadd_sqlite_db_configuration_0Ptr.asFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>();
+      _new_box_autoadd_sqlite_db_configuration_0Ptr
+          .asFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>();
 
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
@@ -3887,8 +3982,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_u32_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>('new_box_autoadd_u32_0');
-  late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr.asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
+          'new_box_autoadd_u32_0');
+  late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
 
   ffi.Pointer<ffi.Uint64> new_box_autoadd_u64_0(
     int value,
@@ -3899,8 +3996,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_u64_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>('new_box_autoadd_u64_0');
-  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr.asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
+          'new_box_autoadd_u64_0');
+  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
 
   ffi.Pointer<ffi.Uint8> new_box_autoadd_u8_0(
     int value,
@@ -3911,17 +4010,20 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_u8_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint8> Function(ffi.Uint8)>>('new_box_autoadd_u8_0');
-  late final _new_box_autoadd_u8_0 = _new_box_autoadd_u8_0Ptr.asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint8> Function(ffi.Uint8)>>(
+          'new_box_autoadd_u8_0');
+  late final _new_box_autoadd_u8_0 = _new_box_autoadd_u8_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
 
   ffi.Pointer<wire_UserPass> new_box_autoadd_user_pass_0() {
     return _new_box_autoadd_user_pass_0();
   }
 
   late final _new_box_autoadd_user_pass_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_UserPass> Function()>>('new_box_autoadd_user_pass_0');
-  late final _new_box_autoadd_user_pass_0 =
-      _new_box_autoadd_user_pass_0Ptr.asFunction<ffi.Pointer<wire_UserPass> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_UserPass> Function()>>(
+          'new_box_autoadd_user_pass_0');
+  late final _new_box_autoadd_user_pass_0 = _new_box_autoadd_user_pass_0Ptr
+      .asFunction<ffi.Pointer<wire_UserPass> Function()>();
 
   ffi.Pointer<wire_list_out_point> new_list_out_point_0(
     int len,
@@ -3931,10 +4033,12 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_list_out_point_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_list_out_point> Function(ffi.Int32)>>('new_list_out_point_0');
-  late final _new_list_out_point_0 =
-      _new_list_out_point_0Ptr.asFunction<ffi.Pointer<wire_list_out_point> Function(int)>();
+  late final _new_list_out_point_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_out_point> Function(
+              ffi.Int32)>>('new_list_out_point_0');
+  late final _new_list_out_point_0 = _new_list_out_point_0Ptr
+      .asFunction<ffi.Pointer<wire_list_out_point> Function(int)>();
 
   ffi.Pointer<wire_list_script_amount> new_list_script_amount_0(
     int len,
@@ -3944,10 +4048,12 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_list_script_amount_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_list_script_amount> Function(ffi.Int32)>>('new_list_script_amount_0');
-  late final _new_list_script_amount_0 =
-      _new_list_script_amount_0Ptr.asFunction<ffi.Pointer<wire_list_script_amount> Function(int)>();
+  late final _new_list_script_amount_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_script_amount> Function(
+              ffi.Int32)>>('new_list_script_amount_0');
+  late final _new_list_script_amount_0 = _new_list_script_amount_0Ptr
+      .asFunction<ffi.Pointer<wire_list_script_amount> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -3957,9 +4063,12 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_uint_8_list_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>('new_uint_8_list_0');
-  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr.asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+  late final _new_uint_8_list_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
+      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
   void drop_opaque_BdkDescriptor(
     ffi.Pointer<ffi.Void> ptr,
@@ -3970,9 +4079,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _drop_opaque_BdkDescriptorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('drop_opaque_BdkDescriptor');
-  late final _drop_opaque_BdkDescriptor =
-      _drop_opaque_BdkDescriptorPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_BdkDescriptor');
+  late final _drop_opaque_BdkDescriptor = _drop_opaque_BdkDescriptorPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<ffi.Void> share_opaque_BdkDescriptor(
     ffi.Pointer<ffi.Void> ptr,
@@ -3982,10 +4092,12 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _share_opaque_BdkDescriptorPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>('share_opaque_BdkDescriptor');
-  late final _share_opaque_BdkDescriptor =
-      _share_opaque_BdkDescriptorPtr.asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+  late final _share_opaque_BdkDescriptorPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_BdkDescriptor');
+  late final _share_opaque_BdkDescriptor = _share_opaque_BdkDescriptorPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   void drop_opaque_BlockchainInstance(
     ffi.Pointer<ffi.Void> ptr,
@@ -3996,9 +4108,11 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _drop_opaque_BlockchainInstancePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('drop_opaque_BlockchainInstance');
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_BlockchainInstance');
   late final _drop_opaque_BlockchainInstance =
-      _drop_opaque_BlockchainInstancePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+      _drop_opaque_BlockchainInstancePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<ffi.Void> share_opaque_BlockchainInstance(
     ffi.Pointer<ffi.Void> ptr,
@@ -4008,11 +4122,13 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _share_opaque_BlockchainInstancePtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
-          'share_opaque_BlockchainInstance');
+  late final _share_opaque_BlockchainInstancePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_BlockchainInstance');
   late final _share_opaque_BlockchainInstance =
-      _share_opaque_BlockchainInstancePtr.asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+      _share_opaque_BlockchainInstancePtr
+          .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   void drop_opaque_WalletInstance(
     ffi.Pointer<ffi.Void> ptr,
@@ -4023,9 +4139,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _drop_opaque_WalletInstancePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('drop_opaque_WalletInstance');
-  late final _drop_opaque_WalletInstance =
-      _drop_opaque_WalletInstancePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'drop_opaque_WalletInstance');
+  late final _drop_opaque_WalletInstance = _drop_opaque_WalletInstancePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<ffi.Void> share_opaque_WalletInstance(
     ffi.Pointer<ffi.Void> ptr,
@@ -4035,73 +4152,84 @@ class RustWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _share_opaque_WalletInstancePtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>('share_opaque_WalletInstance');
-  late final _share_opaque_WalletInstance =
-      _share_opaque_WalletInstancePtr.asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
+  late final _share_opaque_WalletInstancePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>)>>('share_opaque_WalletInstance');
+  late final _share_opaque_WalletInstance = _share_opaque_WalletInstancePtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<AddressIndexKind> inflate_AddressIndex_Peek() {
     return _inflate_AddressIndex_Peek();
   }
 
   late final _inflate_AddressIndex_PeekPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<AddressIndexKind> Function()>>('inflate_AddressIndex_Peek');
-  late final _inflate_AddressIndex_Peek =
-      _inflate_AddressIndex_PeekPtr.asFunction<ffi.Pointer<AddressIndexKind> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<AddressIndexKind> Function()>>(
+          'inflate_AddressIndex_Peek');
+  late final _inflate_AddressIndex_Peek = _inflate_AddressIndex_PeekPtr
+      .asFunction<ffi.Pointer<AddressIndexKind> Function()>();
 
   ffi.Pointer<AddressIndexKind> inflate_AddressIndex_Reset() {
     return _inflate_AddressIndex_Reset();
   }
 
   late final _inflate_AddressIndex_ResetPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<AddressIndexKind> Function()>>('inflate_AddressIndex_Reset');
-  late final _inflate_AddressIndex_Reset =
-      _inflate_AddressIndex_ResetPtr.asFunction<ffi.Pointer<AddressIndexKind> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<AddressIndexKind> Function()>>(
+          'inflate_AddressIndex_Reset');
+  late final _inflate_AddressIndex_Reset = _inflate_AddressIndex_ResetPtr
+      .asFunction<ffi.Pointer<AddressIndexKind> Function()>();
 
   ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_Electrum() {
     return _inflate_BlockchainConfig_Electrum();
   }
 
   late final _inflate_BlockchainConfig_ElectrumPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>('inflate_BlockchainConfig_Electrum');
+      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
+          'inflate_BlockchainConfig_Electrum');
   late final _inflate_BlockchainConfig_Electrum =
-      _inflate_BlockchainConfig_ElectrumPtr.asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
+      _inflate_BlockchainConfig_ElectrumPtr
+          .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
 
   ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_Esplora() {
     return _inflate_BlockchainConfig_Esplora();
   }
 
   late final _inflate_BlockchainConfig_EsploraPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>('inflate_BlockchainConfig_Esplora');
+      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
+          'inflate_BlockchainConfig_Esplora');
   late final _inflate_BlockchainConfig_Esplora =
-      _inflate_BlockchainConfig_EsploraPtr.asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
+      _inflate_BlockchainConfig_EsploraPtr
+          .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
 
   ffi.Pointer<BlockchainConfigKind> inflate_BlockchainConfig_Rpc() {
     return _inflate_BlockchainConfig_Rpc();
   }
 
   late final _inflate_BlockchainConfig_RpcPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>('inflate_BlockchainConfig_Rpc');
-  late final _inflate_BlockchainConfig_Rpc =
-      _inflate_BlockchainConfig_RpcPtr.asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<BlockchainConfigKind> Function()>>(
+          'inflate_BlockchainConfig_Rpc');
+  late final _inflate_BlockchainConfig_Rpc = _inflate_BlockchainConfig_RpcPtr
+      .asFunction<ffi.Pointer<BlockchainConfigKind> Function()>();
 
   ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_Sqlite() {
     return _inflate_DatabaseConfig_Sqlite();
   }
 
   late final _inflate_DatabaseConfig_SqlitePtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>('inflate_DatabaseConfig_Sqlite');
-  late final _inflate_DatabaseConfig_Sqlite =
-      _inflate_DatabaseConfig_SqlitePtr.asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
+          'inflate_DatabaseConfig_Sqlite');
+  late final _inflate_DatabaseConfig_Sqlite = _inflate_DatabaseConfig_SqlitePtr
+      .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
   ffi.Pointer<DatabaseConfigKind> inflate_DatabaseConfig_Sled() {
     return _inflate_DatabaseConfig_Sled();
   }
 
   late final _inflate_DatabaseConfig_SledPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>('inflate_DatabaseConfig_Sled');
-  late final _inflate_DatabaseConfig_Sled =
-      _inflate_DatabaseConfig_SledPtr.asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
+      _lookup<ffi.NativeFunction<ffi.Pointer<DatabaseConfigKind> Function()>>(
+          'inflate_DatabaseConfig_Sled');
+  late final _inflate_DatabaseConfig_Sled = _inflate_DatabaseConfig_SledPtr
+      .asFunction<ffi.Pointer<DatabaseConfigKind> Function()>();
 
   ffi.Pointer<RbfValueKind> inflate_RbfValue_Value() {
     return _inflate_RbfValue_Value();
@@ -4122,8 +4250,10 @@ class RustWire implements FlutterRustBridgeWireBase {
   }
 
   late final _free_WireSyncReturnPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturn)>>('free_WireSyncReturn');
-  late final _free_WireSyncReturn = _free_WireSyncReturnPtr.asFunction<void Function(WireSyncReturn)>();
+      _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturn)>>(
+          'free_WireSyncReturn');
+  late final _free_WireSyncReturn =
+      _free_WireSyncReturnPtr.asFunction<void Function(WireSyncReturn)>();
 }
 
 class _Dart_Handle extends ffi.Opaque {}

@@ -11,7 +11,7 @@ import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 
 part 'bridge_definitions.freezed.dart';
 
-abstract class Rust {
+abstract class RustBdkFfi {
   Future<BlockchainInstance> createBlockchainStaticMethodApi(
       {required BlockchainConfig config, dynamic hint});
 
@@ -423,8 +423,9 @@ abstract class Rust {
 
 @sealed
 class BdkDescriptor extends FrbOpaque {
-  final Rust bridge;
-  BdkDescriptor.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  final RustBdkFfi bridge;
+  BdkDescriptor.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBdkDescriptor;
 
@@ -437,8 +438,9 @@ class BdkDescriptor extends FrbOpaque {
 
 @sealed
 class BlockchainInstance extends FrbOpaque {
-  final Rust bridge;
-  BlockchainInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  final RustBdkFfi bridge;
+  BlockchainInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueBlockchainInstance;
 
@@ -451,8 +453,9 @@ class BlockchainInstance extends FrbOpaque {
 
 @sealed
 class WalletInstance extends FrbOpaque {
-  final Rust bridge;
-  WalletInstance.fromRaw(int ptr, int size, this.bridge) : super.unsafe(ptr, size);
+  final RustBdkFfi bridge;
+  WalletInstance.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
   @override
   DropFnType get dropFn => bridge.dropOpaqueWalletInstance;
 
