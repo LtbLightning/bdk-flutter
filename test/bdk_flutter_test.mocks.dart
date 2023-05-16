@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:typed_data' as _i5;
 
 import 'package:bdk_flutter/src/generated/bridge_definitions.dart' as _i2;
 import 'package:bdk_flutter/src/root.dart' as _i3;
@@ -125,8 +126,8 @@ class _FakeBumpFeeTxBuilder_9 extends _i1.SmartFake
         );
 }
 
-class _FakeScript_10 extends _i1.SmartFake implements _i3.Script {
-  _FakeScript_10(
+class _FakePayload_10 extends _i1.SmartFake implements _i2.Payload {
+  _FakePayload_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -135,9 +136,19 @@ class _FakeScript_10 extends _i1.SmartFake implements _i3.Script {
         );
 }
 
-class _FakeTransactionDetails_11 extends _i1.SmartFake
+class _FakeScript_11 extends _i1.SmartFake implements _i2.Script {
+  _FakeScript_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTransactionDetails_12 extends _i1.SmartFake
     implements _i2.TransactionDetails {
-  _FakeTransactionDetails_11(
+  _FakeTransactionDetails_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -255,11 +266,11 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValueForMissingStub: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
   @override
-  _i4.Future<List<_i2.TransactionDetails>> listTransactions() =>
+  _i4.Future<List<_i2.TransactionDetails>> listTransactions(bool? includeRaw) =>
       (super.noSuchMethod(
         Invocation.method(
           #listTransactions,
-          [],
+          [includeRaw],
         ),
         returnValue: _i4.Future<List<_i2.TransactionDetails>>.value(
             <_i2.TransactionDetails>[]),
@@ -268,19 +279,29 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
                 <_i2.TransactionDetails>[]),
       ) as _i4.Future<List<_i2.TransactionDetails>>);
   @override
-  _i4.Future<_i3.PartiallySignedTransaction> sign(
-          _i3.PartiallySignedTransaction? psbt) =>
+  _i4.Future<_i3.PartiallySignedTransaction> sign({
+    required _i3.PartiallySignedTransaction? psbt,
+    _i2.SignOptions? signOptions,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #sign,
-          [psbt],
+          [],
+          {
+            #psbt: psbt,
+            #signOptions: signOptions,
+          },
         ),
         returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
             _FakePartiallySignedTransaction_2(
           this,
           Invocation.method(
             #sign,
-            [psbt],
+            [],
+            {
+              #psbt: psbt,
+              #signOptions: signOptions,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -289,7 +310,11 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           this,
           Invocation.method(
             #sign,
-            [psbt],
+            [],
+            {
+              #psbt: psbt,
+              #signOptions: signOptions,
+            },
           ),
         )),
       ) as _i4.Future<_i3.PartiallySignedTransaction>);
@@ -600,6 +625,15 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
   @override
+  _i4.Future<String> jsonSerialize() => (super.noSuchMethod(
+        Invocation.method(
+          #jsonSerialize,
+          [],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+        returnValueForMissingStub: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
+  @override
   _i4.Future<String> txId() => (super.noSuchMethod(
         Invocation.method(
           #txId,
@@ -640,7 +674,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
       ) as _i3.TxBuilder);
   @override
   _i3.TxBuilder addRecipient(
-    _i3.Script? script,
+    _i2.Script? script,
     int? amount,
   ) =>
       (super.noSuchMethod(
@@ -779,23 +813,23 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
         ),
       ) as _i3.TxBuilder);
   @override
-  _i3.TxBuilder drainTo(String? address) => (super.noSuchMethod(
+  _i3.TxBuilder drainTo(_i2.Script? script) => (super.noSuchMethod(
         Invocation.method(
           #drainTo,
-          [address],
+          [script],
         ),
         returnValue: _FakeTxBuilder_7(
           this,
           Invocation.method(
             #drainTo,
-            [address],
+            [script],
           ),
         ),
         returnValueForMissingStub: _FakeTxBuilder_7(
           this,
           Invocation.method(
             #drainTo,
-            [address],
+            [script],
           ),
         ),
       ) as _i3.TxBuilder);
@@ -1104,33 +1138,72 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
 /// A class which mocks [Script].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockScript extends _i1.Mock implements _i3.Script {}
+class MockScript extends _i1.Mock implements _i3.Script {
+  @override
+  _i5.Uint8List get internal => (super.noSuchMethod(
+        Invocation.getter(#internal),
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
+}
 
 /// A class which mocks [Address].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAddress extends _i1.Mock implements _i3.Address {
   @override
-  _i4.Future<_i3.Script> scriptPubKey() => (super.noSuchMethod(
+  _i4.Future<_i2.Payload> payload() => (super.noSuchMethod(
+        Invocation.method(
+          #payload,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Payload>.value(_FakePayload_10(
+          this,
+          Invocation.method(
+            #payload,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Payload>.value(_FakePayload_10(
+          this,
+          Invocation.method(
+            #payload,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Payload>);
+  @override
+  _i4.Future<_i2.Network> network() => (super.noSuchMethod(
+        Invocation.method(
+          #network,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Network>.value(_i2.Network.Testnet),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Network>.value(_i2.Network.Testnet),
+      ) as _i4.Future<_i2.Network>);
+  @override
+  _i4.Future<_i2.Script> scriptPubKey() => (super.noSuchMethod(
         Invocation.method(
           #scriptPubKey,
           [],
         ),
-        returnValue: _i4.Future<_i3.Script>.value(_FakeScript_10(
+        returnValue: _i4.Future<_i2.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<_i3.Script>.value(_FakeScript_10(
+        returnValueForMissingStub: _i4.Future<_i2.Script>.value(_FakeScript_11(
           this,
           Invocation.method(
             #scriptPubKey,
             [],
           ),
         )),
-      ) as _i4.Future<_i3.Script>);
+      ) as _i4.Future<_i2.Script>);
 }
 
 /// A class which mocks [DerivationPath].
@@ -1172,13 +1245,38 @@ class MockTxBuilderResult extends _i1.Mock implements _i3.TxBuilderResult {
   @override
   _i2.TransactionDetails get txDetails => (super.noSuchMethod(
         Invocation.getter(#txDetails),
-        returnValue: _FakeTransactionDetails_11(
+        returnValue: _FakeTransactionDetails_12(
           this,
           Invocation.getter(#txDetails),
         ),
-        returnValueForMissingStub: _FakeTransactionDetails_11(
+        returnValueForMissingStub: _FakeTransactionDetails_12(
           this,
           Invocation.getter(#txDetails),
         ),
       ) as _i2.TransactionDetails);
+}
+
+/// A class which mocks [TransactionDetails].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransactionDetails extends _i1.Mock
+    implements _i2.TransactionDetails {
+  @override
+  String get txid => (super.noSuchMethod(
+        Invocation.getter(#txid),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  int get received => (super.noSuchMethod(
+        Invocation.getter(#received),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
+  int get sent => (super.noSuchMethod(
+        Invocation.getter(#sent),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
 }

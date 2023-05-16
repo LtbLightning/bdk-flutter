@@ -196,17 +196,17 @@ impl BdkDescriptor {
 }
 #[cfg(test)]
 mod test {
-    use std::sync::Arc;
-    use assert_matches::assert_matches;
-    use bdk::KeychainKind;
-    use bdk::keys::KeyError::InvalidNetwork;
-    use flutter_rust_bridge::RustOpaque;
     use crate::descriptor::BdkDescriptor;
     use crate::key::{DerivationPath, DescriptorSecretKey, Mnemonic};
     use crate::r_api::WalletInstance;
     use crate::wallet::DatabaseConfig;
+    use assert_matches::assert_matches;
     use bdk::bitcoin::Network;
     use bdk::descriptor::DescriptorError::Key;
+    use bdk::keys::KeyError::InvalidNetwork;
+    use bdk::KeychainKind;
+    use flutter_rust_bridge::RustOpaque;
+    use std::sync::Arc;
 
     fn get_descriptor_secret_key() -> DescriptorSecretKey {
         let mnemonic = Mnemonic::from_str("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string()).unwrap();
@@ -223,7 +223,8 @@ mod test {
                 DerivationPath::new("m/44h/1h/0h".to_string()).unwrap(),
             ))
             .unwrap()
-            .as_public().unwrap();
+            .as_public()
+            .unwrap();
         println!("Public 44: {}", handmade_public_44.as_string());
         // Public 44: [d1d04177/44'/1'/0']tpubDCoPjomfTqh1e7o1WgGpQtARWtkueXQAepTeNpWiitS3Sdv8RKJ1yvTrGHcwjDXp2SKyMrTEca4LoN7gEUiGCWboyWe2rz99Kf4jK4m2Zmx/*
         let handmade_public_49 = master
@@ -231,7 +232,8 @@ mod test {
                 DerivationPath::new("m/49h/1h/0h".to_string()).unwrap(),
             ))
             .unwrap()
-            .as_public().unwrap();
+            .as_public()
+            .unwrap();
         println!("Public 49: {}", handmade_public_49.as_string());
         // Public 49: [d1d04177/49'/1'/0']tpubDC65ZRvk1NDddHrVAUAZrUPJ772QXzooNYmPywYF9tMyNLYKf5wpKE7ZJvK9kvfG3FV7rCsHBNXy1LVKW95jrmC7c7z4hq7a27aD2sRrAhR/*
         let handmade_public_84 = master
@@ -239,7 +241,8 @@ mod test {
                 DerivationPath::new("m/84h/1h/0h".to_string()).unwrap(),
             ))
             .unwrap()
-            .as_public().unwrap();
+            .as_public()
+            .unwrap();
         println!("Public 84: {}", handmade_public_84.as_string());
         // Public 84: [d1d04177/84'/1'/0']tpubDDNxbq17egjFk2edjv8oLnzxk52zny9aAYNv9CMqTzA4mQDiQq818sEkNe9Gzmd4QU8558zftqbfoVBDQorG3E4Wq26tB2JeE4KUoahLkx6/*
         let template_private_44 =
@@ -320,9 +323,9 @@ mod test {
             Arc::new(descriptor2),
             None,
             Network::Testnet,
-            DatabaseConfig::Memory
+            DatabaseConfig::Memory,
         );
-        let wallet2 =  WalletInstance::new(
+        let wallet2 = WalletInstance::new(
             Arc::new(descriptor1),
             None,
             Network::Bitcoin,
@@ -330,8 +333,9 @@ mod test {
         );
         // Creating a wallet using a Descriptor with an extended key that doesn't match the network provided in the wallet constructor will throw and InvalidNetwork Error
         assert!(wallet1.is_ok());
-        assert_matches!(wallet2.unwrap_err(), bdk::Error::Descriptor(Key(InvalidNetwork)));
-
+        assert_matches!(
+            wallet2.unwrap_err(),
+            bdk::Error::Descriptor(Key(InvalidNetwork))
+        );
     }
 }
-

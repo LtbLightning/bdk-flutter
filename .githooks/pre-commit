@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+printf "\e[33;1m%s\e[0m\n" 'Running flutter format'
+dart format .
+printf "\e[33;1m%s\e[0m\n" 'Running cargo fmt'
+cd rust || exit
+cargo fmt
+cd ../
+git add .
+printf "\e[33;1m%s\e[0m\n" 'Finished formatting'
+
+printf "\e[33;1m%s\e[0m\n" 'Running flutter analyze'
+flutter analyze
+ if [  $? -ne 0 ] ; then
+  exit 1
+fi
+printf "\e[33;1m%s\e[0m\n" 'Finished running flutter analyze'
+
+printf "\e[33;1m%s\e[0m\n" 'Running flutter test'
+flutter test ./test/bdk_flutter_test.dart
+if  [ $? -ne 0 ] ; then
+   printf "\e[31;1m%s\e[0m\n" 'Mock tests error'
+  exit 1
+fi
+printf "\e[33;1m%s\e[0m\n" 'Finished running flutter test'
+
+printf "\e[33;1m%s\e[0m\n" 'Running flutter publish --dry-run'
+flutter pub publish --dry-run
+if  [ $? -ne 0 ] ; then
+   printf "\e[31;1m%s\e[0m\n" 'publish --dry-run error'
+  exit 1
+fi
+printf "\e[33;1m%s\e[0m\n" 'Finished running flutter publish --dry-run'

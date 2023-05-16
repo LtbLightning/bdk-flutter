@@ -1,4 +1,4 @@
-use crate::psbt::{Transaction};
+use crate::psbt::Transaction;
 use crate::types::Network;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::blockchain::rpc::Auth as BdkAuth;
@@ -70,7 +70,7 @@ impl BlockchainInstance {
         self.blockchain_mutex.lock().expect("blockchain")
     }
 
-    pub(crate) fn broadcast(&self, tx:Transaction) -> Result<String, BdkError> {
+    pub(crate) fn broadcast(&self, tx: Transaction) -> Result<String, BdkError> {
         self.get_blockchain()
             .broadcast(&tx.internal.clone())
             .expect("Broadcast Error");

@@ -15,12 +15,12 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.27.3
+  bdk_flutter: ^0.28.0
 ```
 
 ### Examples
 
-### Create a Wallet & sync the balance of a predefined descriptor
+### Create a Wallet & sync the balance of a descriptor
 
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
@@ -65,46 +65,87 @@ final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descr
 final externalPublicDescriptorStr = await externalDescriptor.asString();
 final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
                                                     network: Network.Testnet);
-
 ```
 
-### Create an `internal` and `extarnal` wallet descriptors from derivation path.
-
-And get internal and external addresses.
+### Get the transaction details
 
 ```dart
 import 'package:bdk_flutter/bdk_flutter.dart';
 
+final bdkWallet = .....
+
 // ....
 
+final txBuilder  = TxBuilder();
+final address = await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+
+final script = await address.scriptPubKey();
+final feeRate = await estimateFeeRate(25);
+
+final txBuilderResult = await txBuilder.feeRate( feeRate.asSatPerVb() )
+                                       .addRecipient( script, 2000 )
+                                       .finish( bdkWallet );
+                           
+final serializedPsbt = await txBuilderResult.psbt.jsonSerialize();
+final jsonObject = json.decode(serializedPsbt);
+final outputs = jsonObject['unsigned_tx']['output'] as List;
+final inputs = jsonObject['inputs'][0]['non_witness_utxo']['output'] as List;
+
+debugPrint("=========Inputs=====");
+    for (var e in inputs) {
+      debugPrint("amount: ${e['value']}");
+      debugPrint("script_pubkey: ${e['script_pubkey']}");
+    }
+    
+debugPrint("=========Outputs=====");
+    for (var e in outputs) {
+      debugPrint("amount: ${e['value']}");
+      debugPrint("script_pubkey: ${e['script_pubkey']}");
+    }
+    
+```
+
+### Create an `internal` and `extarnal` wallet descriptors from derivation path.
+
+```dart
+import 'package:bdk_flutter/bdk_flutter.dart';
+
+
 final mnemonic = await Mnemonic.create(WordCount.Words12);
-final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
-                                                              mnemonic: mnemonic );
+final descriptorSecretKey = await DescriptorSecretKey.create(
+        network: Network.Testnet, mnemonic: mnemonic);
+
 // create external descriptor
 final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
-final descriptorPrivateKey = await descriptorSecretKey.derive(derivationPath);
+final descriptorPrivateKey =
+        await descriptorSecretKey.derive(derivationPath);
 final Descriptor descriptorPrivate = await Descriptor.create(
-descriptor: "pkh(${descriptorPrivateKey.toString()})",
-network: Network.Testnet,
-);
+      descriptor: "pkh(${descriptorPrivateKey.toString()})",
+      network: Network.Testnet,
+    );
 
 // create internal descriptor
-final derivationPathInt = await DerivationPath.create(path: "m/44h/1h/0h/1");
-final descriptorPrivateKeyInt = await descriptorSecretKey.derive(derivationPathInt);
+final derivationPathInt =
+        await DerivationPath.create(path: "m/44h/1h/0h/1");
+final descriptorPrivateKeyInt =
+        await descriptorSecretKey.derive(derivationPathInt);
 final Descriptor descriptorPrivateInt = await Descriptor.create(
-descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
-network: Network.Testnet,
-);
+      descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
+      network: Network.Testnet,
+    );
 
 final bdkWallet = await Wallet.create(
-descriptor: aliceDescriptor!,
-changeDescriptor: aliceDescriptorChange!,
-network: Network.Testnet,
-databaseConfig: const DatabaseConfig.memory(),
-);
+      descriptor: descriptorPrivate,
+      changeDescriptor: descriptorPrivateInt,
+      network: Network.Testnet,
+      databaseConfig: const DatabaseConfig.memory(),
+    );
 
-final address = await bdkWallet.getAddress(addressIndex: const AddressIndex());
-final internalAddress = await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
+final address =
+        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+final internalAddress =
+        await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
+    
 ```
 
 ### API Documentation

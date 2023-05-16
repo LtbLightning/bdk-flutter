@@ -2,111 +2,208 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_blockchain_init(port_: i64, config: *mut wire_BlockchainConfig) {
-    wire_blockchain_init_impl(port_, config)
+pub extern "C" fn wire_create_blockchain__static_method__Api(
+    port_: i64,
+    config: *mut wire_BlockchainConfig,
+) {
+    wire_create_blockchain__static_method__Api_impl(port_, config)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_blockchain_height(port_: i64, blockchain: wire_BlockchainInstance) {
-    wire_get_blockchain_height_impl(port_, blockchain)
+pub extern "C" fn wire_get_height__static_method__Api(
+    port_: i64,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_get_height__static_method__Api_impl(port_, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_blockchain_hash(
+pub extern "C" fn wire_get_blockchain_hash__static_method__Api(
     port_: i64,
     blockchain_height: u32,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_get_blockchain_hash_impl(port_, blockchain_height, blockchain)
+    wire_get_blockchain_hash__static_method__Api_impl(port_, blockchain_height, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_estimate_fee(port_: i64, target: u64, blockchain: wire_BlockchainInstance) {
-    wire_estimate_fee_impl(port_, target, blockchain)
+pub extern "C" fn wire_estimate_fee__static_method__Api(
+    port_: i64,
+    target: u64,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_estimate_fee__static_method__Api_impl(port_, target, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_broadcast(
+pub extern "C" fn wire_broadcast__static_method__Api(
     port_: i64,
     tx: *mut wire_uint_8_list,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_broadcast_impl(port_, tx, blockchain)
+    wire_broadcast__static_method__Api_impl(port_, tx, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_transaction(port_: i64, tx: *mut wire_uint_8_list) {
-    wire_new_transaction_impl(port_, tx)
+pub extern "C" fn wire_create_transaction__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_create_transaction__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_psbt_to_txid(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_psbt_to_txid_impl(port_, psbt_str)
+pub extern "C" fn wire_tx_txid__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_tx_txid__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_extract_tx(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_extract_tx_impl(port_, psbt_str)
+pub extern "C" fn wire_weight__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_weight__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_psbt_fee_rate(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_psbt_fee_rate_impl(port_, psbt_str)
+pub extern "C" fn wire_size__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_size__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_fee_amount(port_: i64, psbt_str: *mut wire_uint_8_list) {
-    wire_get_fee_amount_impl(port_, psbt_str)
+pub extern "C" fn wire_vsize__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_vsize__static_method__Api_impl(port_, tx)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_combine_psbt(
+pub extern "C" fn wire_serialize_tx__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_serialize_tx__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_coin_base__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_is_coin_base__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_explicitly_rbf__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_is_explicitly_rbf__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_is_lock_time_enabled__static_method__Api(
+    port_: i64,
+    tx: *mut wire_uint_8_list,
+) {
+    wire_is_lock_time_enabled__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_version__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_version__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_lock_time__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_lock_time__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_input__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_input__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_output__static_method__Api(port_: i64, tx: *mut wire_uint_8_list) {
+    wire_output__static_method__Api_impl(port_, tx)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_serialize_psbt__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_serialize_psbt__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_psbt_txid__static_method__Api(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_psbt_txid__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_extract_tx__static_method__Api(port_: i64, psbt_str: *mut wire_uint_8_list) {
+    wire_extract_tx__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_psbt_fee_rate__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_psbt_fee_rate__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_psbt_fee_amount__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_psbt_fee_amount__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_combine_psbt__static_method__Api(
     port_: i64,
     psbt_str: *mut wire_uint_8_list,
     other: *mut wire_uint_8_list,
 ) {
-    wire_combine_psbt_impl(port_, psbt_str, other)
+    wire_combine_psbt__static_method__Api_impl(port_, psbt_str, other)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_tx_builder_finish(
+pub extern "C" fn wire_json_serialize__static_method__Api(
+    port_: i64,
+    psbt_str: *mut wire_uint_8_list,
+) {
+    wire_json_serialize__static_method__Api_impl(port_, psbt_str)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_tx_builder_finish__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     recipients: *mut wire_list_script_amount,
     utxos: *mut wire_list_out_point,
     unspendable: *mut wire_list_out_point,
+    change_policy: i32,
     manually_selected_only: bool,
-    only_spend_change: bool,
-    do_not_spend_change: bool,
     fee_rate: *mut f32,
     fee_absolute: *mut u64,
     drain_wallet: bool,
-    drain_to: *mut wire_uint_8_list,
-    enable_rbf: bool,
-    n_sequence: *mut u32,
+    drain_to: *mut wire_Script,
+    rbf: *mut wire_RbfValue,
     data: *mut wire_uint_8_list,
 ) {
-    wire_tx_builder_finish_impl(
+    wire_tx_builder_finish__static_method__Api_impl(
         port_,
         wallet,
         recipients,
         utxos,
         unspendable,
+        change_policy,
         manually_selected_only,
-        only_spend_change,
-        do_not_spend_change,
         fee_rate,
         fee_absolute,
         drain_wallet,
         drain_to,
-        enable_rbf,
-        n_sequence,
+        rbf,
         data,
     )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_bump_fee_tx_builder_finish(
+pub extern "C" fn wire_bump_fee_tx_builder_finish__static_method__Api(
     port_: i64,
     txid: *mut wire_uint_8_list,
     fee_rate: f32,
@@ -115,7 +212,7 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish(
     enable_rbf: bool,
     n_sequence: *mut u32,
 ) {
-    wire_bump_fee_tx_builder_finish_impl(
+    wire_bump_fee_tx_builder_finish__static_method__Api_impl(
         port_,
         txid,
         fee_rate,
@@ -127,181 +224,238 @@ pub extern "C" fn wire_bump_fee_tx_builder_finish(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_descriptor(port_: i64, descriptor: *mut wire_uint_8_list, network: i32) {
-    wire_new_descriptor_impl(port_, descriptor, network)
+pub extern "C" fn wire_create_descriptor__static_method__Api(
+    port_: i64,
+    descriptor: *mut wire_uint_8_list,
+    network: i32,
+) {
+    wire_create_descriptor__static_method__Api_impl(port_, descriptor, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip44_descriptor(
+pub extern "C" fn wire_new_bip44_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip44_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip44_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip44_public(
+pub extern "C" fn wire_new_bip44_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip44_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip44_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip49_descriptor(
+pub extern "C" fn wire_new_bip49_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip49_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip49_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip49_public(
+pub extern "C" fn wire_new_bip49_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip49_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip49_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip84_descriptor(
+pub extern "C" fn wire_new_bip84_descriptor__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     secret_key: *mut wire_uint_8_list,
     network: i32,
 ) {
-    wire_new_bip84_descriptor_impl(port_, key_chain_kind, secret_key, network)
+    wire_new_bip84_descriptor__static_method__Api_impl(port_, key_chain_kind, secret_key, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_new_bip84_public(
+pub extern "C" fn wire_new_bip84_public__static_method__Api(
     port_: i64,
     key_chain_kind: i32,
     public_key: *mut wire_uint_8_list,
     network: i32,
     fingerprint: *mut wire_uint_8_list,
 ) {
-    wire_new_bip84_public_impl(port_, key_chain_kind, public_key, network, fingerprint)
+    wire_new_bip84_public__static_method__Api_impl(
+        port_,
+        key_chain_kind,
+        public_key,
+        network,
+        fingerprint,
+    )
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_string_private(port_: i64, descriptor: wire_BdkDescriptor) {
-    wire_as_string_private_impl(port_, descriptor)
+pub extern "C" fn wire_as_string_private__static_method__Api(
+    port_: i64,
+    descriptor: wire_BdkDescriptor,
+) {
+    wire_as_string_private__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_as_string(port_: i64, descriptor: wire_BdkDescriptor) {
-    wire_as_string_impl(port_, descriptor)
+pub extern "C" fn wire_as_string__static_method__Api(port_: i64, descriptor: wire_BdkDescriptor) {
+    wire_as_string__static_method__Api_impl(port_, descriptor)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_secret(
+pub extern "C" fn wire_create_descriptor_secret__static_method__Api(
     port_: i64,
     network: i32,
     mnemonic: *mut wire_uint_8_list,
     password: *mut wire_uint_8_list,
 ) {
-    wire_create_descriptor_secret_impl(port_, network, mnemonic, password)
+    wire_create_descriptor_secret__static_method__Api_impl(port_, network, mnemonic, password)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_from_string(port_: i64, xprv: *mut wire_uint_8_list) {
-    wire_descriptor_secret_from_string_impl(port_, xprv)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_descriptor_secret_extend(
+pub extern "C" fn wire_descriptor_secret_from_string__static_method__Api(
     port_: i64,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
+) {
+    wire_descriptor_secret_from_string__static_method__Api_impl(port_, secret)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_extend_descriptor_secret__static_method__Api(
+    port_: i64,
+    secret: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_extend_impl(port_, xprv, path)
+    wire_extend_descriptor_secret__static_method__Api_impl(port_, secret, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_derive(
+pub extern "C" fn wire_derive_descriptor_secret__static_method__Api(
     port_: i64,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_derive_impl(port_, xprv, path)
+    wire_derive_descriptor_secret__static_method__Api_impl(port_, secret, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_as_secret_bytes(
+pub extern "C" fn wire_as_secret_bytes__static_method__Api(
     port_: i64,
-    descriptor_secret: *mut wire_uint_8_list,
-    xprv: *mut wire_uint_8_list,
+    secret: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_as_secret_bytes_impl(port_, descriptor_secret, xprv)
+    wire_as_secret_bytes__static_method__Api_impl(port_, secret)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_descriptor_secret_as_public(
+pub extern "C" fn wire_as_public__static_method__Api(port_: i64, secret: *mut wire_uint_8_list) {
+    wire_as_public__static_method__Api_impl(port_, secret)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_derivation_path__static_method__Api(
     port_: i64,
-    descriptor_secret: *mut wire_uint_8_list,
-    xprv: *mut wire_uint_8_list,
+    path: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_secret_as_public_impl(port_, descriptor_secret, xprv)
+    wire_create_derivation_path__static_method__Api_impl(port_, path)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_derivation_path(port_: i64, path: *mut wire_uint_8_list) {
-    wire_create_derivation_path_impl(port_, path)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_descriptor_public_from_string(
+pub extern "C" fn wire_descriptor_public_from_string__static_method__Api(
     port_: i64,
     public_key: *mut wire_uint_8_list,
 ) {
-    wire_descriptor_public_from_string_impl(port_, public_key)
+    wire_descriptor_public_from_string__static_method__Api_impl(port_, public_key)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_create_descriptor_public(
+pub extern "C" fn wire_create_descriptor_public__static_method__Api(
     port_: i64,
     xpub: *mut wire_uint_8_list,
     path: *mut wire_uint_8_list,
     derive: bool,
 ) {
-    wire_create_descriptor_public_impl(port_, xpub, path, derive)
+    wire_create_descriptor_public__static_method__Api_impl(port_, xpub, path, derive)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_init_script(port_: i64, raw_output_script: *mut wire_uint_8_list) {
-    wire_init_script_impl(port_, raw_output_script)
+pub extern "C" fn wire_create_script__static_method__Api(
+    port_: i64,
+    raw_output_script: *mut wire_uint_8_list,
+) {
+    wire_create_script__static_method__Api_impl(port_, raw_output_script)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_init_address(port_: i64, address: *mut wire_uint_8_list) {
-    wire_init_address_impl(port_, address)
+pub extern "C" fn wire_create_address__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_create_address__static_method__Api_impl(port_, address)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_address_to_script_pubkey_hex(port_: i64, address: *mut wire_uint_8_list) {
-    wire_address_to_script_pubkey_hex_impl(port_, address)
+pub extern "C" fn wire_address_from_script__static_method__Api(
+    port_: i64,
+    script: *mut wire_Script,
+    network: i32,
+) {
+    wire_address_from_script__static_method__Api_impl(port_, script, network)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_wallet_init(
+pub extern "C" fn wire_address_to_script_pubkey__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_address_to_script_pubkey__static_method__Api_impl(port_, address)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_payload__static_method__Api(port_: i64, address: *mut wire_uint_8_list) {
+    wire_payload__static_method__Api_impl(port_, address)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_address_network__static_method__Api(
+    port_: i64,
+    address: *mut wire_uint_8_list,
+) {
+    wire_address_network__static_method__Api_impl(port_, address)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_wallet__static_method__Api(
     port_: i64,
     descriptor: wire_BdkDescriptor,
     change_descriptor: *mut wire_BdkDescriptor,
     network: i32,
     database_config: *mut wire_DatabaseConfig,
 ) {
-    wire_wallet_init_impl(
+    wire_create_wallet__static_method__Api_impl(
         port_,
         descriptor,
         change_descriptor,
@@ -311,89 +465,105 @@ pub extern "C" fn wire_wallet_init(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_address(
+pub extern "C" fn wire_get_address__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_address_impl(port_, wallet, address_index)
+    wire_get_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_internal_address(
+pub extern "C" fn wire_get_internal_address__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     address_index: *mut wire_AddressIndex,
 ) {
-    wire_get_internal_address_impl(port_, wallet, address_index)
+    wire_get_internal_address__static_method__Api_impl(port_, wallet, address_index)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_internalized_address(
-    port_: i64,
-    wallet: wire_WalletInstance,
-    address_index: *mut wire_AddressIndex,
-) {
-    wire_get_internalized_address_impl(port_, wallet, address_index)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_sync_wallet(
+pub extern "C" fn wire_sync_wallet__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     blockchain: wire_BlockchainInstance,
 ) {
-    wire_sync_wallet_impl(port_, wallet, blockchain)
+    wire_sync_wallet__static_method__Api_impl(port_, wallet, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_balance(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_balance_impl(port_, wallet)
+pub extern "C" fn wire_sync_wallet_thread__static_method__Api(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    blockchain: wire_BlockchainInstance,
+) {
+    wire_sync_wallet_thread__static_method__Api_impl(port_, wallet, blockchain)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent_outputs(port_: i64, wallet: wire_WalletInstance) {
-    wire_list_unspent_outputs_impl(port_, wallet)
+pub extern "C" fn wire_get_balance__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_get_balance__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_transactions(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_transactions_impl(port_, wallet)
+pub extern "C" fn wire_list_unspent_outputs__static_method__Api(
+    port_: i64,
+    wallet: wire_WalletInstance,
+) {
+    wire_list_unspent_outputs__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_sign(
+pub extern "C" fn wire_get_transactions__static_method__Api(
+    port_: i64,
+    wallet: wire_WalletInstance,
+    include_raw: bool,
+) {
+    wire_get_transactions__static_method__Api_impl(port_, wallet, include_raw)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_sign__static_method__Api(
     port_: i64,
     wallet: wire_WalletInstance,
     psbt_str: *mut wire_uint_8_list,
-    is_multi_sig: bool,
+    sign_options: *mut wire_SignOptions,
 ) {
-    wire_sign_impl(port_, wallet, psbt_str, is_multi_sig)
+    wire_sign__static_method__Api_impl(port_, wallet, psbt_str, sign_options)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_network(port_: i64, wallet: wire_WalletInstance) {
-    wire_get_network_impl(port_, wallet)
+pub extern "C" fn wire_wallet_network__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_wallet_network__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_list_unspent(port_: i64, wallet: wire_WalletInstance) {
-    wire_list_unspent_impl(port_, wallet)
+pub extern "C" fn wire_list_unspent__static_method__Api(port_: i64, wallet: wire_WalletInstance) {
+    wire_list_unspent__static_method__Api_impl(port_, wallet)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_word_count(port_: i64, word_count: i32) {
-    wire_generate_seed_from_word_count_impl(port_, word_count)
+pub extern "C" fn wire_generate_seed_from_word_count__static_method__Api(
+    port_: i64,
+    word_count: i32,
+) {
+    wire_generate_seed_from_word_count__static_method__Api_impl(port_, word_count)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_string(port_: i64, mnemonic: *mut wire_uint_8_list) {
-    wire_generate_seed_from_string_impl(port_, mnemonic)
+pub extern "C" fn wire_generate_seed_from_string__static_method__Api(
+    port_: i64,
+    mnemonic: *mut wire_uint_8_list,
+) {
+    wire_generate_seed_from_string__static_method__Api_impl(port_, mnemonic)
 }
 
 #[no_mangle]
-pub extern "C" fn wire_generate_seed_from_entropy(port_: i64, entropy: *mut wire_uint_8_list) {
-    wire_generate_seed_from_entropy_impl(port_, entropy)
+pub extern "C" fn wire_generate_seed_from_entropy__static_method__Api(
+    port_: i64,
+    entropy: *mut wire_uint_8_list,
+) {
+    wire_generate_seed_from_entropy__static_method__Api_impl(port_, entropy)
 }
 
 // Section: allocate functions
@@ -449,6 +619,11 @@ pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
 }
 
 #[no_mangle]
+pub extern "C" fn new_box_autoadd_rbf_value_0() -> *mut wire_RbfValue {
+    support::new_leak_box_ptr(wire_RbfValue::new_with_null_ptr())
+}
+
+#[no_mangle]
 pub extern "C" fn new_box_autoadd_rpc_config_0() -> *mut wire_RpcConfig {
     support::new_leak_box_ptr(wire_RpcConfig::new_with_null_ptr())
 }
@@ -456,6 +631,16 @@ pub extern "C" fn new_box_autoadd_rpc_config_0() -> *mut wire_RpcConfig {
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_rpc_sync_params_0() -> *mut wire_RpcSyncParams {
     support::new_leak_box_ptr(wire_RpcSyncParams::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_script_0() -> *mut wire_Script {
+    support::new_leak_box_ptr(wire_Script::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_sign_options_0() -> *mut wire_SignOptions {
+    support::new_leak_box_ptr(wire_SignOptions::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -678,6 +863,12 @@ impl Wire2Api<f32> for *mut f32 {
         unsafe { *support::box_from_leak_ptr(self) }
     }
 }
+impl Wire2Api<RbfValue> for *mut wire_RbfValue {
+    fn wire2api(self) -> RbfValue {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<RbfValue>::wire2api(*wrap).into()
+    }
+}
 impl Wire2Api<RpcConfig> for *mut wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -688,6 +879,18 @@ impl Wire2Api<RpcSyncParams> for *mut wire_RpcSyncParams {
     fn wire2api(self) -> RpcSyncParams {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<RpcSyncParams>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<Script> for *mut wire_Script {
+    fn wire2api(self) -> Script {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<Script>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<SignOptions> for *mut wire_SignOptions {
+    fn wire2api(self) -> SignOptions {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<SignOptions>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<SledDbConfiguration> for *mut wire_SledDbConfiguration {
@@ -723,6 +926,7 @@ impl Wire2Api<UserPass> for *mut wire_UserPass {
         Wire2Api::<UserPass>::wire2api(*wrap).into()
     }
 }
+
 impl Wire2Api<DatabaseConfig> for wire_DatabaseConfig {
     fn wire2api(self) -> DatabaseConfig {
         match self.tag {
@@ -796,6 +1000,19 @@ impl Wire2Api<OutPoint> for wire_OutPoint {
         }
     }
 }
+impl Wire2Api<RbfValue> for wire_RbfValue {
+    fn wire2api(self) -> RbfValue {
+        match self.tag {
+            0 => RbfValue::RbfDefault,
+            1 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Value);
+                RbfValue::Value(ans.field0.wire2api())
+            },
+            _ => unreachable!(),
+        }
+    }
+}
 impl Wire2Api<RpcConfig> for wire_RpcConfig {
     fn wire2api(self) -> RpcConfig {
         RpcConfig {
@@ -818,11 +1035,31 @@ impl Wire2Api<RpcSyncParams> for wire_RpcSyncParams {
         }
     }
 }
+impl Wire2Api<Script> for wire_Script {
+    fn wire2api(self) -> Script {
+        Script {
+            internal: self.internal.wire2api(),
+        }
+    }
+}
 impl Wire2Api<ScriptAmount> for wire_ScriptAmount {
     fn wire2api(self) -> ScriptAmount {
         ScriptAmount {
             script: self.script.wire2api(),
             amount: self.amount.wire2api(),
+        }
+    }
+}
+impl Wire2Api<SignOptions> for wire_SignOptions {
+    fn wire2api(self) -> SignOptions {
+        SignOptions {
+            trust_witness_utxo: self.trust_witness_utxo.wire2api(),
+            assume_height: self.assume_height.wire2api(),
+            allow_all_sighashes: self.allow_all_sighashes.wire2api(),
+            remove_partial_sigs: self.remove_partial_sigs.wire2api(),
+            try_finalize: self.try_finalize.wire2api(),
+            sign_with_tap_internal_key: self.sign_with_tap_internal_key.wire2api(),
+            allow_grinding: self.allow_grinding.wire2api(),
         }
     }
 }
@@ -943,9 +1180,27 @@ pub struct wire_RpcSyncParams {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_Script {
+    internal: *mut wire_uint_8_list,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_ScriptAmount {
-    script: *mut wire_uint_8_list,
+    script: wire_Script,
     amount: u64,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_SignOptions {
+    trust_witness_utxo: bool,
+    assume_height: *mut u32,
+    allow_all_sighashes: bool,
+    remove_partial_sigs: bool,
+    try_finalize: bool,
+    sign_with_tap_internal_key: bool,
+    allow_grinding: bool,
 }
 
 #[repr(C)]
@@ -1069,6 +1324,29 @@ pub struct wire_DatabaseConfig_Sqlite {
 #[derive(Clone)]
 pub struct wire_DatabaseConfig_Sled {
     config: *mut wire_SledDbConfiguration,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue {
+    tag: i32,
+    kind: *mut RbfValueKind,
+}
+
+#[repr(C)]
+pub union RbfValueKind {
+    RbfDefault: *mut wire_RbfValue_RbfDefault,
+    Value: *mut wire_RbfValue_Value,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue_RbfDefault {}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_RbfValue_Value {
+    field0: u32,
 }
 
 // Section: impl NewWithNullPtr
@@ -1208,6 +1486,12 @@ impl NewWithNullPtr for wire_ElectrumConfig {
     }
 }
 
+impl Default for wire_ElectrumConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_EsploraConfig {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1220,6 +1504,12 @@ impl NewWithNullPtr for wire_EsploraConfig {
     }
 }
 
+impl Default for wire_EsploraConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_OutPoint {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1227,6 +1517,30 @@ impl NewWithNullPtr for wire_OutPoint {
             vout: Default::default(),
         }
     }
+}
+
+impl Default for wire_OutPoint {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_RbfValue {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_RbfValue_Value() -> *mut RbfValueKind {
+    support::new_leak_box_ptr(RbfValueKind {
+        Value: support::new_leak_box_ptr(wire_RbfValue_Value {
+            field0: Default::default(),
+        }),
+    })
 }
 
 impl NewWithNullPtr for wire_RpcConfig {
@@ -1242,6 +1556,12 @@ impl NewWithNullPtr for wire_RpcConfig {
     }
 }
 
+impl Default for wire_RpcConfig {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_RpcSyncParams {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1253,12 +1573,58 @@ impl NewWithNullPtr for wire_RpcSyncParams {
     }
 }
 
+impl Default for wire_RpcSyncParams {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_Script {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            internal: core::ptr::null_mut(),
+        }
+    }
+}
+
+impl Default for wire_Script {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_ScriptAmount {
     fn new_with_null_ptr() -> Self {
         Self {
-            script: core::ptr::null_mut(),
+            script: Default::default(),
             amount: Default::default(),
         }
+    }
+}
+
+impl Default for wire_ScriptAmount {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+impl NewWithNullPtr for wire_SignOptions {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            trust_witness_utxo: Default::default(),
+            assume_height: core::ptr::null_mut(),
+            allow_all_sighashes: Default::default(),
+            remove_partial_sigs: Default::default(),
+            try_finalize: Default::default(),
+            sign_with_tap_internal_key: Default::default(),
+            allow_grinding: Default::default(),
+        }
+    }
+}
+
+impl Default for wire_SignOptions {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1271,11 +1637,23 @@ impl NewWithNullPtr for wire_SledDbConfiguration {
     }
 }
 
+impl Default for wire_SledDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
 impl NewWithNullPtr for wire_SqliteDbConfiguration {
     fn new_with_null_ptr() -> Self {
         Self {
             path: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_SqliteDbConfiguration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
@@ -1285,6 +1663,12 @@ impl NewWithNullPtr for wire_UserPass {
             username: core::ptr::null_mut(),
             password: core::ptr::null_mut(),
         }
+    }
+}
+
+impl Default for wire_UserPass {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
