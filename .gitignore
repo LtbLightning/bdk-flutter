@@ -30,6 +30,7 @@ migrate_working_dir/
 .packages
 build/
 rust/target/
+rust/Cargo.lock
 rust/output.log
 
 
