@@ -9,6 +9,7 @@ const RUST_INPUT: &str = "src/r_api.rs";
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/src/generated/bindings.dart";
 const C_OUTPUT: &str = "../ios/Classes/bindings.h";
+//const MAC_C_OUTPUT: &str = "../macos/Classes/bindings.h";
 const DECL_OUTPUT: &str = "../lib/src/generated/bridge_definitions.dart";
 fn main() {
     // Tell Cargo that if the input Rust code changes, to rerun this build script.
@@ -20,11 +21,15 @@ fn main() {
         rust_input: vec![RUST_INPUT.to_string()],
         // Path of output generated Dart code
         dart_output: vec![DART_OUTPUT.to_string()],
+
         // for other options use defaults
         wasm: false,
         dart_decl_output: Some(DECL_OUTPUT.into()),
         c_output: Some(vec![C_OUTPUT.to_string()]),
+        // extra_c_output_path:Some(vec![MAC_C_OUTPUT.to_string()]),
+        inline_rust: true,
         dart_format_line_length: 120,
+
         // for other options use defaults
         ..Default::default()
     };

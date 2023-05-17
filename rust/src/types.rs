@@ -3,12 +3,14 @@ use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
 use std::borrow::Borrow;
 
+use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::locktime::Error;
 use bdk::bitcoin::util::address::{Payload as BdkPayload, WitnessVersion as BdkWitnessVersion};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::blockchain::Progress as BdkProgress;
 use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
+use std::borrow::Borrow;
 use std::fmt;
 use std::fmt::Debug;
 use std::str::FromStr;
@@ -27,12 +29,7 @@ impl From<&BdkTxIn> for TxIn {
             previous_output: x.previous_output.into(),
             script_sig: x.clone().script_sig.into(),
             sequence: x.clone().sequence.0,
-            witness: x
-                .witness
-                .to_vec()
-                .iter()
-                .map(|x| String::from_utf8(x.to_vec()).expect("Found invalid UTF-8"))
-                .collect(),
+            witness: x.witness.to_vec().iter().map(|x| x.to_hex()).collect(),
         }
     }
 }

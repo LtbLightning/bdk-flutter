@@ -3,9 +3,7 @@ library bdk_flutter;
 
 export './src/generated/bridge_definitions.dart'
     hide
-        BlockchainInstance,
-        WalletInstance,
-        Rust,
+        RustBdkFfi,
         Script,
         BlockchainConfig_Electrum,
         BlockchainConfig_Rpc,
@@ -16,7 +14,6 @@ export './src/generated/bridge_definitions.dart'
         AddressIndex_Peek,
         AddressIndex_New,
         AddressIndex_LastUnused,
-        BdkDescriptor,
         BdkTxBuilderResult,
         Payload_PubkeyHash,
         Payload_ScriptHash,

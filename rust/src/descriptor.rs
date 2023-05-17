@@ -198,14 +198,11 @@ impl BdkDescriptor {
 mod test {
     use crate::descriptor::BdkDescriptor;
     use crate::key::{DerivationPath, DescriptorSecretKey, Mnemonic};
-    use crate::r_api::WalletInstance;
-    use crate::wallet::DatabaseConfig;
     use assert_matches::assert_matches;
     use bdk::bitcoin::Network;
     use bdk::descriptor::DescriptorError::Key;
     use bdk::keys::KeyError::InvalidNetwork;
     use bdk::KeychainKind;
-    use flutter_rust_bridge::RustOpaque;
     use std::sync::Arc;
 
     fn get_descriptor_secret_key() -> DescriptorSecretKey {
@@ -314,28 +311,5 @@ mod test {
             descriptor2.unwrap_err(),
             bdk::Error::Descriptor(Key(InvalidNetwork))
         )
-    }
-    #[test]
-    fn test_wallet_from_descriptor() {
-        let descriptor1 = RustOpaque::new(BdkDescriptor::new("wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)".to_string(), Network::Testnet).unwrap());
-        let descriptor2 = RustOpaque::new(BdkDescriptor::new("wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)".to_string(),Network::Testnet).unwrap());
-        let wallet1 = WalletInstance::new(
-            Arc::new(descriptor2),
-            None,
-            Network::Testnet,
-            DatabaseConfig::Memory,
-        );
-        let wallet2 = WalletInstance::new(
-            Arc::new(descriptor1),
-            None,
-            Network::Bitcoin,
-            DatabaseConfig::Memory,
-        );
-        // Creating a wallet using a Descriptor with an extended key that doesn't match the network provided in the wallet constructor will throw and InvalidNetwork Error
-        assert!(wallet1.is_ok());
-        assert_matches!(
-            wallet2.unwrap_err(),
-            bdk::Error::Descriptor(Key(InvalidNetwork))
-        );
     }
 }

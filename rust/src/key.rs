@@ -268,14 +268,6 @@ mod test {
         key.derive(path)
     }
 
-    fn extend_dpk(
-        key: &DescriptorPublicKey,
-        path: &str,
-    ) -> Result<Arc<DescriptorPublicKey>, BdkError> {
-        let path = Arc::new(DerivationPath::new(path.to_string()).unwrap());
-        key.extend(path)
-    }
-
     #[test]
     fn test_generate_descriptor_secret_key() {
         let master_dsk = get_descriptor_secret_key().unwrap();

@@ -25,12 +25,36 @@ init:
 ## :
 
 ## all: Compile iOS, Android and bindings targets
-all: init ios android bindings
+all: init ios android macos bindings
 
 ## ios: Compile the iOS universal library
 ios: target/universal/release/libexample.a
 target/universal/release/libexample.a:
 	cargo lipo --release
+	@echo "[Done ✅] $@"
+## macos: Compile the macOS libraries
+
+macos: target/x86_64-apple-darwin/release/libexample.dylib target/aarch64-apple-darwin/release/libexample.dylib  target/universal/release/libexample.dylib
+
+target/x86_64-apple-darwin/release/libexample.dylib: $(SOURCES)
+	@if [ $$(uname) == "Darwin" ] ; then \
+		 cargo build --target=x86_64-apple-darwin --release; \
+		else echo "Skipping macOS compilation on $$(uname)" ; \
+	fi
+	@echo "[Done ✅] $@"
+
+target/aarch64-apple-darwin/release/libexample.dylib: $(SOURCES)
+	@if [ $$(uname) == "Darwin" ] ; then \
+		 cargo build --target=aarch64-apple-darwin --release ; \
+		else echo "Skipping macOS compilation on $$(uname)" ; \
+	fi
+	@echo "[Done ✅] $@"
+
+target/universal/release/libexample.dylib: $(SOURCES)
+	@if [ $$(uname) == "Darwin" ] ; then \
+		lipo -create target/x86_64-apple-darwin/release/librust_bdk_ffi.dylib target/aarch64-apple-darwin/release/librust_bdk_ffi.dylib -o target/universal/release/librust_bdk_ffi.dylib ; \
+		else echo "Skipping macOS compilation on $$(uname)" ; \
+	fi
 	@echo "[Done ✅] $@"
 
 ## android: Compile the android targets (arm64, armv7 and i686)
