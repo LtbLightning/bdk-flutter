@@ -301,14 +301,14 @@ class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
         )),
       ) as _i4.Future<_i3.FeeRate>);
   @override
-  _i4.Future<void> broadcast(_i3.Transaction? tx) => (super.noSuchMethod(
+  _i4.Future<String?> broadcast(_i3.Transaction? tx) => (super.noSuchMethod(
         Invocation.method(
           #broadcast,
           [tx],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<String?>.value(),
+        returnValueForMissingStub: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
 }
 
 /// A class which mocks [DescriptorSecretKey].
