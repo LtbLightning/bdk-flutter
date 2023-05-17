@@ -144,16 +144,24 @@ class _MyAppState extends State<MyApp> {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
     for (var e in confirmed) {
-      final txOut = await e.transaction!.output();
       if (kDebugMode) {
         print(" txid: ${e.txid}");
-        print(" fee: ${e.fee}");
-        print(" received: ${e.received}");
-        print(" send: ${e.sent}");
         print(" confirmationTime: ${e.confirmationTime?.timestamp}");
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
-        print(" output address: ${txOut.last.scriptPubkey.internal}");
-        print("===========================");
+        final txIn = await e.transaction!.input();
+        final txOut = await e.transaction!.output();
+        print("         =============TxIn==============");
+        for (var e in txIn) {
+          print("         previousOutout Txid: ${e.previousOutput.txid}");
+          print("         previousOutout vout: ${e.previousOutput.vout}");
+          print("         witness: ${e.witness}");
+        }
+        print("         =============TxOut==============");
+        for (var e in txOut) {
+          print("         script: ${e.scriptPubkey.internal}");
+          print("         value: ${e.value}");
+        }
+        print("========================================");
       }
     }
   }
