@@ -99,6 +99,12 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
+typedef struct wire_ForeignUtxo {
+  struct wire_OutPoint field0;
+  struct wire_uint_8_list *field1;
+  uintptr_t field2;
+} wire_ForeignUtxo;
+
 typedef struct wire_RbfValue_RbfDefault {
 
 } wire_RbfValue_RbfDefault;
@@ -187,6 +193,22 @@ typedef struct wire_SignOptions {
   bool allow_grinding;
 } wire_SignOptions;
 
+typedef struct wire_TxOut {
+  uint64_t value;
+  struct wire_Script script_pubkey;
+} wire_TxOut;
+
+typedef struct wire_LocalUtxo {
+  struct wire_OutPoint outpoint;
+  struct wire_TxOut txout;
+  bool is_spent;
+  int32_t keychain;
+} wire_LocalUtxo;
+
+typedef struct wire_PsbtSigHashType {
+  uint32_t inner;
+} wire_PsbtSigHashType;
+
 typedef struct DartCObject *WireSyncReturn;
 
 void store_dart_post_cobject(DartPostCObjectFnType ptr);
@@ -262,6 +284,7 @@ void wire_tx_builder_finish__static_method__Api(int64_t port_,
                                                 struct wire_uint_8_list *wallet_id,
                                                 struct wire_list_script_amount *recipients,
                                                 struct wire_list_out_point *utxos,
+                                                struct wire_ForeignUtxo *foreign_utxo,
                                                 struct wire_list_out_point *unspendable,
                                                 int32_t change_policy,
                                                 bool manually_selected_only,
@@ -324,6 +347,10 @@ void wire_as_string_private__static_method__Api(int64_t port_,
 void wire_as_string__static_method__Api(int64_t port_,
                                         struct wire_uint_8_list *descriptor,
                                         int32_t network);
+
+void wire_max_satisfaction_weight__static_method__Api(int64_t port_,
+                                                      struct wire_uint_8_list *descriptor,
+                                                      int32_t network);
 
 void wire_create_descriptor_secret__static_method__Api(int64_t port_,
                                                        int32_t network,
@@ -407,6 +434,16 @@ void wire_wallet_network__static_method__Api(int64_t port_, struct wire_uint_8_l
 
 void wire_list_unspent__static_method__Api(int64_t port_, struct wire_uint_8_list *wallet_id);
 
+void wire_get_psbt_input__static_method__Api(int64_t port_,
+                                             struct wire_uint_8_list *wallet_id,
+                                             struct wire_LocalUtxo *utxo,
+                                             bool only_witness_utxo,
+                                             struct wire_PsbtSigHashType *psbt_sighash_type);
+
+void wire_get_descriptor_for_keychain__static_method__Api(int64_t port_,
+                                                          struct wire_uint_8_list *wallet_id,
+                                                          int32_t keychain);
+
 void wire_generate_seed_from_word_count__static_method__Api(int64_t port_, int32_t word_count);
 
 void wire_generate_seed_from_string__static_method__Api(int64_t port_,
@@ -426,6 +463,12 @@ struct wire_ElectrumConfig *new_box_autoadd_electrum_config_0(void);
 struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 
 float *new_box_autoadd_f32_0(float value);
+
+struct wire_ForeignUtxo *new_box_autoadd_foreign_utxo_0(void);
+
+struct wire_LocalUtxo *new_box_autoadd_local_utxo_0(void);
+
+struct wire_PsbtSigHashType *new_box_autoadd_psbt_sig_hash_type_0(void);
 
 struct wire_RbfValue *new_box_autoadd_rbf_value_0(void);
 
@@ -511,6 +554,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_public__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_as_string_private__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_as_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_max_satisfaction_weight__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_extend_descriptor_secret__static_method__Api);
@@ -536,6 +580,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_sign__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_wallet_network__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_list_unspent__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_psbt_input__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_get_descriptor_for_keychain__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy__static_method__Api);
@@ -545,6 +591,9 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_foreign_utxo_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_local_utxo_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_psbt_sig_hash_type_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rbf_value_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rpc_sync_params_0);

@@ -31,10 +31,13 @@ use crate::types::Balance;
 use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::ChangeSpendPolicy;
+use crate::types::DescNetwork;
+use crate::types::ForeignUtxo;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
 use crate::types::Payload;
+use crate::types::PsbtSigHashType;
 use crate::types::RbfValue;
 use crate::types::Script;
 use crate::types::ScriptAmount;
@@ -455,6 +458,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
     wallet_id: impl Wire2Api<String> + UnwindSafe,
     recipients: impl Wire2Api<Vec<ScriptAmount>> + UnwindSafe,
     utxos: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
+    foreign_utxo: impl Wire2Api<Option<ForeignUtxo>> + UnwindSafe,
     unspendable: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
     change_policy: impl Wire2Api<ChangeSpendPolicy> + UnwindSafe,
     manually_selected_only: impl Wire2Api<bool> + UnwindSafe,
@@ -475,6 +479,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
             let api_wallet_id = wallet_id.wire2api();
             let api_recipients = recipients.wire2api();
             let api_utxos = utxos.wire2api();
+            let api_foreign_utxo = foreign_utxo.wire2api();
             let api_unspendable = unspendable.wire2api();
             let api_change_policy = change_policy.wire2api();
             let api_manually_selected_only = manually_selected_only.wire2api();
@@ -489,6 +494,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
                     api_wallet_id,
                     api_recipients,
                     api_utxos,
+                    api_foreign_utxo,
                     api_unspendable,
                     api_change_policy,
                     api_manually_selected_only,
@@ -742,6 +748,24 @@ fn wire_as_string__static_method__Api_impl(
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
             move |task_callback| Ok(Api::as_string(api_descriptor, api_network))
+        },
+    )
+}
+fn wire_max_satisfaction_weight__static_method__Api_impl(
+    port_: MessagePort,
+    descriptor: impl Wire2Api<String> + UnwindSafe,
+    network: impl Wire2Api<Network> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "max_satisfaction_weight__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_descriptor = descriptor.wire2api();
+            let api_network = network.wire2api();
+            move |task_callback| Ok(Api::max_satisfaction_weight(api_descriptor, api_network))
         },
     )
 }
@@ -1186,6 +1210,53 @@ fn wire_list_unspent__static_method__Api_impl(
         },
     )
 }
+fn wire_get_psbt_input__static_method__Api_impl(
+    port_: MessagePort,
+    wallet_id: impl Wire2Api<String> + UnwindSafe,
+    utxo: impl Wire2Api<LocalUtxo> + UnwindSafe,
+    only_witness_utxo: impl Wire2Api<bool> + UnwindSafe,
+    psbt_sighash_type: impl Wire2Api<Option<PsbtSigHashType>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_psbt_input__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_utxo = utxo.wire2api();
+            let api_only_witness_utxo = only_witness_utxo.wire2api();
+            let api_psbt_sighash_type = psbt_sighash_type.wire2api();
+            move |task_callback| {
+                Ok(Api::get_psbt_input(
+                    api_wallet_id,
+                    api_utxo,
+                    api_only_witness_utxo,
+                    api_psbt_sighash_type,
+                ))
+            }
+        },
+    )
+}
+fn wire_get_descriptor_for_keychain__static_method__Api_impl(
+    port_: MessagePort,
+    wallet_id: impl Wire2Api<String> + UnwindSafe,
+    keychain: impl Wire2Api<KeychainKind> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_descriptor_for_keychain__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_wallet_id = wallet_id.wire2api();
+            let api_keychain = keychain.wire2api();
+            move |task_callback| Api::get_descriptor_for_keychain(api_wallet_id, api_keychain)
+        },
+    )
+}
 fn wire_generate_seed_from_word_count__static_method__Api_impl(
     port_: MessagePort,
     word_count: impl Wire2Api<WordCount> + UnwindSafe,
@@ -1279,6 +1350,7 @@ impl Wire2Api<f32> for f32 {
         self
     }
 }
+
 impl Wire2Api<i32> for i32 {
     fn wire2api(self) -> i32 {
         self
@@ -1322,6 +1394,11 @@ impl Wire2Api<u8> for u8 {
     }
 }
 
+impl Wire2Api<usize> for usize {
+    fn wire2api(self) -> usize {
+        self
+    }
+}
 impl Wire2Api<WordCount> for i32 {
     fn wire2api(self) -> WordCount {
         match self {
@@ -1369,6 +1446,13 @@ impl support::IntoDart for BlockTime {
     }
 }
 impl support::IntoDartExceptPrimitive for BlockTime {}
+
+impl support::IntoDart for DescNetwork {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.0.into_dart(), self.1.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for DescNetwork {}
 
 impl support::IntoDart for KeychainKind {
     fn into_dart(self) -> support::DartAbi {
@@ -1685,6 +1769,7 @@ mod io {
         wallet_id: *mut wire_uint_8_list,
         recipients: *mut wire_list_script_amount,
         utxos: *mut wire_list_out_point,
+        foreign_utxo: *mut wire_ForeignUtxo,
         unspendable: *mut wire_list_out_point,
         change_policy: i32,
         manually_selected_only: bool,
@@ -1700,6 +1785,7 @@ mod io {
             wallet_id,
             recipients,
             utxos,
+            foreign_utxo,
             unspendable,
             change_policy,
             manually_selected_only,
@@ -1854,6 +1940,15 @@ mod io {
         network: i32,
     ) {
         wire_as_string__static_method__Api_impl(port_, descriptor, network)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn wire_max_satisfaction_weight__static_method__Api(
+        port_: i64,
+        descriptor: *mut wire_uint_8_list,
+        network: i32,
+    ) {
+        wire_max_satisfaction_weight__static_method__Api_impl(port_, descriptor, network)
     }
 
     #[no_mangle]
@@ -2076,6 +2171,32 @@ mod io {
     }
 
     #[no_mangle]
+    pub extern "C" fn wire_get_psbt_input__static_method__Api(
+        port_: i64,
+        wallet_id: *mut wire_uint_8_list,
+        utxo: *mut wire_LocalUtxo,
+        only_witness_utxo: bool,
+        psbt_sighash_type: *mut wire_PsbtSigHashType,
+    ) {
+        wire_get_psbt_input__static_method__Api_impl(
+            port_,
+            wallet_id,
+            utxo,
+            only_witness_utxo,
+            psbt_sighash_type,
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn wire_get_descriptor_for_keychain__static_method__Api(
+        port_: i64,
+        wallet_id: *mut wire_uint_8_list,
+        keychain: i32,
+    ) {
+        wire_get_descriptor_for_keychain__static_method__Api_impl(port_, wallet_id, keychain)
+    }
+
+    #[no_mangle]
     pub extern "C" fn wire_generate_seed_from_word_count__static_method__Api(
         port_: i64,
         word_count: i32,
@@ -2129,6 +2250,21 @@ mod io {
     #[no_mangle]
     pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
         support::new_leak_box_ptr(value)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn new_box_autoadd_foreign_utxo_0() -> *mut wire_ForeignUtxo {
+        support::new_leak_box_ptr(wire_ForeignUtxo::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn new_box_autoadd_local_utxo_0() -> *mut wire_LocalUtxo {
+        support::new_leak_box_ptr(wire_LocalUtxo::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn new_box_autoadd_psbt_sig_hash_type_0() -> *mut wire_PsbtSigHashType {
+        support::new_leak_box_ptr(wire_PsbtSigHashType::new_with_null_ptr())
     }
 
     #[no_mangle]
@@ -2311,6 +2447,24 @@ mod io {
             unsafe { *support::box_from_leak_ptr(self) }
         }
     }
+    impl Wire2Api<ForeignUtxo> for *mut wire_ForeignUtxo {
+        fn wire2api(self) -> ForeignUtxo {
+            let wrap = unsafe { support::box_from_leak_ptr(self) };
+            Wire2Api::<ForeignUtxo>::wire2api(*wrap).into()
+        }
+    }
+    impl Wire2Api<LocalUtxo> for *mut wire_LocalUtxo {
+        fn wire2api(self) -> LocalUtxo {
+            let wrap = unsafe { support::box_from_leak_ptr(self) };
+            Wire2Api::<LocalUtxo>::wire2api(*wrap).into()
+        }
+    }
+    impl Wire2Api<PsbtSigHashType> for *mut wire_PsbtSigHashType {
+        fn wire2api(self) -> PsbtSigHashType {
+            let wrap = unsafe { support::box_from_leak_ptr(self) };
+            Wire2Api::<PsbtSigHashType>::wire2api(*wrap).into()
+        }
+    }
     impl Wire2Api<RbfValue> for *mut wire_RbfValue {
         fn wire2api(self) -> RbfValue {
             let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -2421,6 +2575,16 @@ mod io {
         }
     }
 
+    impl Wire2Api<ForeignUtxo> for wire_ForeignUtxo {
+        fn wire2api(self) -> ForeignUtxo {
+            ForeignUtxo(
+                self.field0.wire2api(),
+                self.field1.wire2api(),
+                self.field2.wire2api(),
+            )
+        }
+    }
+
     impl Wire2Api<Vec<OutPoint>> for *mut wire_list_out_point {
         fn wire2api(self) -> Vec<OutPoint> {
             let vec = unsafe {
@@ -2439,12 +2603,29 @@ mod io {
             vec.into_iter().map(Wire2Api::wire2api).collect()
         }
     }
+    impl Wire2Api<LocalUtxo> for wire_LocalUtxo {
+        fn wire2api(self) -> LocalUtxo {
+            LocalUtxo {
+                outpoint: self.outpoint.wire2api(),
+                txout: self.txout.wire2api(),
+                is_spent: self.is_spent.wire2api(),
+                keychain: self.keychain.wire2api(),
+            }
+        }
+    }
 
     impl Wire2Api<OutPoint> for wire_OutPoint {
         fn wire2api(self) -> OutPoint {
             OutPoint {
                 txid: self.txid.wire2api(),
                 vout: self.vout.wire2api(),
+            }
+        }
+    }
+    impl Wire2Api<PsbtSigHashType> for wire_PsbtSigHashType {
+        fn wire2api(self) -> PsbtSigHashType {
+            PsbtSigHashType {
+                inner: self.inner.wire2api(),
             }
         }
     }
@@ -2526,6 +2707,14 @@ mod io {
             }
         }
     }
+    impl Wire2Api<TxOut> for wire_TxOut {
+        fn wire2api(self) -> TxOut {
+            TxOut {
+                value: self.value.wire2api(),
+                script_pubkey: self.script_pubkey.wire2api(),
+            }
+        }
+    }
 
     impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
         fn wire2api(self) -> Vec<u8> {
@@ -2569,6 +2758,14 @@ mod io {
 
     #[repr(C)]
     #[derive(Clone)]
+    pub struct wire_ForeignUtxo {
+        field0: wire_OutPoint,
+        field1: *mut wire_uint_8_list,
+        field2: usize,
+    }
+
+    #[repr(C)]
+    #[derive(Clone)]
     pub struct wire_list_out_point {
         ptr: *mut wire_OutPoint,
         len: i32,
@@ -2583,9 +2780,24 @@ mod io {
 
     #[repr(C)]
     #[derive(Clone)]
+    pub struct wire_LocalUtxo {
+        outpoint: wire_OutPoint,
+        txout: wire_TxOut,
+        is_spent: bool,
+        keychain: i32,
+    }
+
+    #[repr(C)]
+    #[derive(Clone)]
     pub struct wire_OutPoint {
         txid: *mut wire_uint_8_list,
         vout: u32,
+    }
+
+    #[repr(C)]
+    #[derive(Clone)]
+    pub struct wire_PsbtSigHashType {
+        inner: u32,
     }
 
     #[repr(C)]
@@ -2644,6 +2856,13 @@ mod io {
     #[derive(Clone)]
     pub struct wire_SqliteDbConfiguration {
         path: *mut wire_uint_8_list,
+    }
+
+    #[repr(C)]
+    #[derive(Clone)]
+    pub struct wire_TxOut {
+        value: u64,
+        script_pubkey: wire_Script,
     }
 
     #[repr(C)]
@@ -2936,6 +3155,39 @@ mod io {
         }
     }
 
+    impl NewWithNullPtr for wire_ForeignUtxo {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                field0: Default::default(),
+                field1: core::ptr::null_mut(),
+                field2: Default::default(),
+            }
+        }
+    }
+
+    impl Default for wire_ForeignUtxo {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
+    impl NewWithNullPtr for wire_LocalUtxo {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                outpoint: Default::default(),
+                txout: Default::default(),
+                is_spent: Default::default(),
+                keychain: Default::default(),
+            }
+        }
+    }
+
+    impl Default for wire_LocalUtxo {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
     impl NewWithNullPtr for wire_OutPoint {
         fn new_with_null_ptr() -> Self {
             Self {
@@ -2946,6 +3198,20 @@ mod io {
     }
 
     impl Default for wire_OutPoint {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
+    impl NewWithNullPtr for wire_PsbtSigHashType {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                inner: Default::default(),
+            }
+        }
+    }
+
+    impl Default for wire_PsbtSigHashType {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -3084,6 +3350,21 @@ mod io {
     }
 
     impl Default for wire_SqliteDbConfiguration {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
+    impl NewWithNullPtr for wire_TxOut {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                value: Default::default(),
+                script_pubkey: Default::default(),
+            }
+        }
+    }
+
+    impl Default for wire_TxOut {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }

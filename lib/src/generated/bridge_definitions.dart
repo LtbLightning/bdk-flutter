@@ -134,6 +134,7 @@ abstract class RustBdkFfi {
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
+      ForeignUtxo? foreignUtxo,
       required List<OutPoint> unspendable,
       required ChangeSpendPolicy changePolicy,
       required bool manuallySelectedOnly,
@@ -227,6 +228,12 @@ abstract class RustBdkFfi {
       {required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta;
+
+  Future<int> maxSatisfactionWeightStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta
+      get kMaxSatisfactionWeightStaticMethodApiConstMeta;
 
   Future<String> createDescriptorSecretStaticMethodApi(
       {required Network network,
@@ -376,6 +383,22 @@ abstract class RustBdkFfi {
       {required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentStaticMethodApiConstMeta;
+
+  /// get the corresponding PSBT Input for a LocalUtxo
+  Future<String> getPsbtInputStaticMethodApi(
+      {required String walletId,
+      required LocalUtxo utxo,
+      required bool onlyWitnessUtxo,
+      PsbtSigHashType? psbtSighashType,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetPsbtInputStaticMethodApiConstMeta;
+
+  Future<DescNetwork> getDescriptorForKeychainStaticMethodApi(
+      {required String walletId, required KeychainKind keychain, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta
+      get kGetDescriptorForKeychainStaticMethodApiConstMeta;
 
   Future<String> generateSeedFromWordCountStaticMethodApi(
       {required WordCount wordCount, dynamic hint});
@@ -533,6 +556,16 @@ class DatabaseConfig with _$DatabaseConfig {
   }) = DatabaseConfig_Sled;
 }
 
+class DescNetwork {
+  final String field0;
+  final Network field1;
+
+  const DescNetwork({
+    required this.field0,
+    required this.field1,
+  });
+}
+
 /// Configuration for an ElectrumBlockchain
 class ElectrumConfig {
   ///URL of the Electrum server (such as ElectrumX, Esplora, BWT) may start with ssl:// or tcp:// and include a port
@@ -592,6 +625,18 @@ class EsploraConfig {
     this.concurrency,
     required this.stopGap,
     this.timeout,
+  });
+}
+
+class ForeignUtxo {
+  final OutPoint field0;
+  final String field1;
+  final int field2;
+
+  const ForeignUtxo({
+    required this.field0,
+    required this.field1,
+    required this.field2,
   });
 }
 
@@ -672,6 +717,14 @@ class Payload with _$Payload {
     /// The witness program.
     required Uint8List program,
   }) = Payload_WitnessProgram;
+}
+
+class PsbtSigHashType {
+  final int inner;
+
+  const PsbtSigHashType({
+    required this.inner,
+  });
 }
 
 @freezed

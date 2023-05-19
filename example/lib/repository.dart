@@ -10,8 +10,7 @@ class BdkRepository {
     return res;
   }
 
-  Future<Descriptor> createDescriptorSecret(String mnemonicStr) async {
-    final mnemonic = await Mnemonic.fromString(mnemonicStr);
+  Future<Descriptor> createDescriptorSecret(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic,
@@ -52,24 +51,31 @@ class BdkRepository {
     return wallet;
   }
 
-  Future<void> sync(Blockchain blockchain, Wallet bdkWallet) async {
+  Future<void> sync(Blockchain blockchain, Wallet aliceWallet) async {
     try {
-      Isolate.run(() async => {await bdkWallet.sync(blockchain)});
+      Isolate.run(() async => {await aliceWallet.sync(blockchain)});
     } on FormatException catch (e) {
       debugPrint(e.message);
     }
   }
 
-  Future<AddressInfo> getAddress(Wallet bdkWallet) async {
+  Future<AddressInfo> getAddress(Wallet aliceWallet) async {
     final address =
-        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+        await aliceWallet.getAddress(addressIndex: const AddressIndex());
     return address;
   }
 
+  Future<Input> getPsbtInput(
+      Wallet aliceWallet, LocalUtxo utxo, bool onlyWitnessUtxo) async {
+    final input = await aliceWallet.getPsbtInput(
+        utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+    return input;
+  }
+
   Future<List<TransactionDetails>> getUnConfirmedTransactions(
-      Wallet bdkWallet) async {
+      Wallet aliceWallet) async {
     List<TransactionDetails> unConfirmed = [];
-    final res = await bdkWallet.listTransactions(true);
+    final res = await aliceWallet.listTransactions(true);
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
     }
@@ -77,9 +83,9 @@ class BdkRepository {
   }
 
   Future<List<TransactionDetails>> getConfirmedTransactions(
-      Wallet bdkWallet) async {
+      Wallet aliceWallet) async {
     List<TransactionDetails> confirmed = [];
-    final res = await bdkWallet.listTransactions(true);
+    final res = await aliceWallet.listTransactions(true);
 
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
@@ -87,13 +93,13 @@ class BdkRepository {
     return confirmed;
   }
 
-  Future<Balance> getBalance(Wallet bdkWallet) async {
-    final res = await bdkWallet.getBalance();
+  Future<Balance> getBalance(Wallet aliceWallet) async {
+    final res = await aliceWallet.getBalance();
     return res;
   }
 
-  Future<List<LocalUtxo>> listUnspend(Wallet bdkWallet) async {
-    final res = await bdkWallet.listUnspent();
+  Future<List<LocalUtxo>> listUnspend(Wallet aliceWallet) async {
+    final res = await aliceWallet.listUnspent();
     return res;
   }
 
@@ -125,28 +131,31 @@ class BdkRepository {
     }
   }
 
-  sendBitcoin(
-      Blockchain blockchain, Wallet bdkWallet, String addressStr) async {
+  sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
+      String addressStr) async {
     try {
+      final aliceUtxos = await aliceWallet.listUnspent();
+      final aliceWalletInput = await aliceWallet.getPsbtInput(
+          utxo: aliceUtxos.first, onlyWitnessUtxo: true);
+      final aliceWalletDescriptor =
+          await aliceWallet.getDescriptorForKeyChain(KeychainKind.External);
+      final satisfactionWeight =
+          await aliceWalletDescriptor.maxSatisfactionWeight();
       final txBuilder = TxBuilder();
       final address = await Address.create(address: addressStr);
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
           .addRecipient(script, 1500)
+          .addForeignUtxo(
+              aliceWalletInput, aliceUtxos.first.outpoint, satisfactionWeight)
           .feeRate(feeRate.asSatPerVb())
-          .finish(bdkWallet);
+          .finish(bobWallet);
       getInputOutPuts(txBuilderResult, blockchain);
-      final sbt = await bdkWallet.sign(
-          psbt: txBuilderResult.psbt,
-          signOptions: const SignOptions(
-              trustWitnessUtxo: true,
-              allowAllSighashes: true,
-              removePartialSigs: false,
-              tryFinalize: true,
-              signWithTapInternalKey: false,
-              allowGrinding: false));
-      final tx = await sbt.extractTx();
+
+      final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
+      final bobSbt = await bobWallet.sign(psbt: aliceSbt);
+      final tx = await bobSbt.extractTx();
       Isolate.run(() async => {await blockchain.broadcast(tx)});
     } on FormatException catch (e) {
       debugPrint(e.message);

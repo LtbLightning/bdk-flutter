@@ -1,15 +1,18 @@
 use crate::blockchain::Blockchain;
+use crate::descriptor::BdkDescriptor;
 use crate::psbt::PartiallySignedTransaction;
 use crate::types::{
     AddressIndex, AddressInfo, Balance, KeychainKind, OutPoint, Progress, ProgressHolder,
-    TransactionDetails, TxOut,
+    PsbtSigHashType, TransactionDetails, TxOut,
 };
 use bdk::bitcoin::hashes::hex::ToHex;
+use bdk::bitcoin::psbt::{Input, PsbtSighashType};
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::{Error as BdkError, SyncOptions};
+use bdk::descriptor::KeyMap;
+use bdk::{bitcoin, Error as BdkError, SyncOptions};
 use bdk::{SignOptions as BdkSignOptions, Wallet as BdkWallet};
-use flutter_rust_bridge::RustOpaque;
 use lazy_static::lazy_static;
+use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
 use std::hash::Hash;
@@ -42,11 +45,6 @@ where
 #[derive(Debug)]
 pub struct Wallet {
     pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
-}
-impl From<Wallet> for RustOpaque<Wallet> {
-    fn from(wallet: Wallet) -> Self {
-        RustOpaque::new(wallet)
-    }
 }
 impl Wallet {
     pub fn retrieve_wallet(id: String) -> Arc<Wallet> {
@@ -142,6 +140,31 @@ impl Wallet {
             sign_options.map(SignOptions::into).unwrap_or_default(),
         )
     }
+    /// Returns the descriptor used to create addresses for a particular `keychain`.
+    pub fn get_descriptor_for_keychain(
+        &self,
+        keychain: KeychainKind,
+    ) -> Result<BdkDescriptor, BdkError> {
+        let wallet = self.get_wallet();
+        Ok(BdkDescriptor {
+            extended_descriptor: wallet
+                .get_descriptor_for_keychain(keychain.into())
+                .to_owned(),
+            key_map: KeyMap::new(),
+        })
+    }
+    pub fn get_psbt_input(
+        &self,
+        utxo: LocalUtxo,
+        only_witness_utxo: bool,
+        psbt_sighash_type: Option<PsbtSigHashType>,
+    ) -> Result<Input, BdkError> {
+        self.get_wallet().get_psbt_input(
+            utxo.into(),
+            psbt_sighash_type.map(|x| PsbtSighashType::from_u32(x.inner)),
+            only_witness_utxo,
+        )
+    }
 }
 
 /// Options for a software signer
@@ -230,6 +253,19 @@ pub struct LocalUtxo {
     pub keychain: KeychainKind,
 }
 
+impl From<LocalUtxo> for bdk::LocalUtxo {
+    fn from(x: LocalUtxo) -> Self {
+        bdk::LocalUtxo {
+            outpoint: x.outpoint.borrow().into(),
+            txout: bitcoin::blockdata::transaction::TxOut {
+                value: x.txout.value,
+                script_pubkey: x.txout.script_pubkey.into(),
+            },
+            keychain: x.keychain.into(),
+            is_spent: x.is_spent,
+        }
+    }
+}
 impl From<bdk::LocalUtxo> for LocalUtxo {
     fn from(local_utxo: bdk::LocalUtxo) -> Self {
         LocalUtxo {

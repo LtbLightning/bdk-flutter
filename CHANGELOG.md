@@ -1,9 +1,11 @@
+## [0.28.2]
+
 ## [0.28.1]
 ### Fixed
 - Invalid UTF-8 error for txansaction.input().
 
 ## [0.28.0]
-Updates for latest bdk-ffi version 0.28.0 and Flutter dependencies.
+Updated Rust ( Bdk to latest version 0.28.0 ) and Flutter dependencies.
 
 #### APIs added
 - Expose `Address` class's `payload` and `network` functions

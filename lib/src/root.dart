@@ -3,7 +3,6 @@ import 'dart:typed_data' as typed_data;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 
-import 'generated/bridge_definitions.dart' hide Script;
 import 'generated/bridge_definitions.dart' as bridge;
 import 'utils/utils.dart';
 
@@ -28,7 +27,7 @@ class Address {
   /// Creates an instance of [Address] from address given [Script].
   ///
   static Future<Address> fromScript(
-      bridge.Script script, Network network) async {
+      bridge.Script script, bridge.Network network) async {
     try {
       final res = await loaderApi.addressFromScriptStaticMethodApi(
           script: script, network: network);
@@ -40,7 +39,7 @@ class Address {
 
   ///The type of the address.
   ///
-  Future<Payload> payload() async {
+  Future<bridge.Payload> payload() async {
     try {
       final res = await loaderApi.payloadStaticMethodApi(address: _address!);
       return res;
@@ -49,7 +48,7 @@ class Address {
     }
   }
 
-  Future<Network> network() async {
+  Future<bridge.Network> network() async {
     try {
       final res =
           await loaderApi.addressNetworkStaticMethodApi(address: _address!);
@@ -83,7 +82,8 @@ class Blockchain {
   Blockchain._(this._blockchain);
 
   ///  [Blockchain] constructor
-  static Future<Blockchain> create({required BlockchainConfig config}) async {
+  static Future<Blockchain> create(
+      {required bridge.BlockchainConfig config}) async {
     try {
       final res =
           await loaderApi.createBlockchainStaticMethodApi(config: config);
@@ -223,16 +223,26 @@ class DerivationPath {
 ///Script descriptor
 class Descriptor {
   final String _descriptorInstance;
-  final Network _network;
+  final bridge.Network _network;
   Descriptor._(this._descriptorInstance, this._network);
 
   ///  [Descriptor] constructor
   static Future<Descriptor> create(
-      {required String descriptor, required Network network}) async {
+      {required String descriptor, required bridge.Network network}) async {
     try {
       final res = await loaderApi.createDescriptorStaticMethodApi(
           descriptor: descriptor, network: network);
       return Descriptor._(res, network);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  Future<int> maxSatisfactionWeight() async {
+    try {
+      final res = await loaderApi.maxSatisfactionWeightStaticMethodApi(
+          descriptor: _descriptorInstance, network: _network);
+      return res;
     } on FfiException catch (e) {
       throw configException(e.message);
     }
@@ -243,8 +253,8 @@ class Descriptor {
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip44(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
@@ -264,8 +274,8 @@ class Descriptor {
   static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip44PublicStaticMethodApi(
           keyChainKind: keychain,
@@ -283,8 +293,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip49(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
@@ -304,8 +314,8 @@ class Descriptor {
   static Future<Descriptor> newBip49Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip49PublicStaticMethodApi(
           keyChainKind: keychain,
@@ -323,8 +333,8 @@ class Descriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip84(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
@@ -343,9 +353,9 @@ class Descriptor {
   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
   static Future<Descriptor> newBip84Public(
       {required DescriptorPublicKey publicKey,
-      required fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required String fingerPrint,
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
     try {
       final res = await loaderApi.newBip84PublicStaticMethodApi(
           keyChainKind: keychain,
@@ -459,7 +469,7 @@ class DescriptorSecretKey {
 
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> create(
-      {required Network network,
+      {required bridge.Network network,
       required Mnemonic mnemonic,
       String? password}) async {
     try {
@@ -530,6 +540,21 @@ class FeeRate {
   }
 }
 
+/// A key-value map for an input of the corresponding index in the unsigned
+/// transaction.
+class Input {
+  final String _input;
+  Input._(this._input);
+  @override
+  String toString() {
+    return _input.toString();
+  }
+
+  static Input create(String internal) {
+    return Input._(internal);
+  }
+}
+
 /// Mnemonic phrases are a human-readable version of the private keys.
 /// Supported number of words are 12, 18, and 24.
 class Mnemonic {
@@ -539,7 +564,7 @@ class Mnemonic {
   /// Generates [Mnemonic] with given [WordCount]
   ///
   /// [Mnemonic] constructor
-  static Future<Mnemonic> create(WordCount wordCount) async {
+  static Future<Mnemonic> create(bridge.WordCount wordCount) async {
     try {
       final res = await loaderApi.generateSeedFromWordCountStaticMethodApi(
           wordCount: wordCount);
@@ -807,7 +832,7 @@ class Transaction {
     }
   }
 
-  Future<List<TxIn>> input() async {
+  Future<List<bridge.TxIn>> input() async {
     try {
       final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
       return res;
@@ -816,7 +841,7 @@ class Transaction {
     }
   }
 
-  Future<List<TxOut>> output() async {
+  Future<List<bridge.TxOut>> output() async {
     try {
       final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
       return res;
@@ -836,16 +861,18 @@ class Transaction {
 /// A TxBuilder is created by calling TxBuilder or BumpFeeTxBuilder on a wallet.
 /// After assigning it, you set options on it until finally calling finish to consume the builder and generate the transaction.
 class TxBuilder {
-  final List<ScriptAmount> _recipients = [];
-  final List<OutPoint> _utxos = [];
-  final List<OutPoint> _unSpendable = [];
+  final List<bridge.ScriptAmount> _recipients = [];
+  final List<bridge.OutPoint> _utxos = [];
+  final List<bridge.OutPoint> _unSpendable = [];
+  bridge.ForeignUtxo? _foreignUtxo;
   bool _manuallySelectedOnly = false;
   double? _feeRate;
-  ChangeSpendPolicy _changeSpendPolicy = ChangeSpendPolicy.ChangeAllowed;
+  bridge.ChangeSpendPolicy _changeSpendPolicy =
+      bridge.ChangeSpendPolicy.ChangeAllowed;
   int? _feeAbsolute;
   bool _drainWallet = false;
   bridge.Script? _drainTo;
-  RbfValue? _rbfValue;
+  bridge.RbfValue? _rbfValue;
   typed_data.Uint8List _data = typed_data.Uint8List.fromList([]);
 
   ///Add data as an output, using OP_RETURN
@@ -859,7 +886,7 @@ class TxBuilder {
 
   ///Add a recipient to the internal list
   TxBuilder addRecipient(bridge.Script script, int amount) {
-    _recipients.add(ScriptAmount(script: script, amount: amount));
+    _recipients.add(bridge.ScriptAmount(script: script, amount: amount));
     return this;
   }
 
@@ -867,7 +894,7 @@ class TxBuilder {
   ///
   /// It’s important to note that the “must-be-spent” utxos added with TxBuilder().addUtxo have priority over this.
   /// See the docs of the two linked methods for more details.
-  TxBuilder unSpendable(List<OutPoint> outpoints) {
+  TxBuilder unSpendable(List<bridge.OutPoint> outpoints) {
     for (var e in outpoints) {
       _unSpendable.add(e);
     }
@@ -877,7 +904,7 @@ class TxBuilder {
   ///Add a utxo to the internal list of utxos that must be spent
   ///
   /// These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
-  TxBuilder addUtxo(OutPoint outpoint) {
+  TxBuilder addUtxo(bridge.OutPoint outpoint) {
     _utxos.add(outpoint);
     return this;
   }
@@ -887,10 +914,29 @@ class TxBuilder {
   ///If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
   ///
   /// These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
-  TxBuilder addUtxos(List<OutPoint> outpoints) {
+  TxBuilder addUtxos(List<bridge.OutPoint> outpoints) {
     for (var e in outpoints) {
       _utxos.add(e);
     }
+    return this;
+  }
+
+  ///Add a foreign UTXO i.e. a UTXO not owned by this wallet.
+  ///At a minimum to add a foreign UTXO we need:
+  ///
+  /// outpoint: To add it to the raw transaction.
+  /// psbt_input: To know the value.
+  /// satisfaction_weight: To know how much weight/vbytes the input will add to the transaction for fee calculation.
+  /// There are several security concerns about adding foreign UTXOs that application developers should consider. First, how do you know the value of the input is correct? If a non_witness_utxo is provided in the psbt_input then this method implicitly verifies the value by checking it against the transaction. If only a witness_utxo is provided then this method doesn’t verify the value but just takes it as a given – it is up to you to check that whoever sent you the input_psbt was not lying!
+  ///
+  /// Secondly, you must somehow provide satisfaction_weight of the input. Depending on your application it may be important that this be known precisely.If not,
+  /// a malicious counterparty may fool you into putting in a value that is too low, giving the transaction a lower than expected feerate. They could also fool
+  /// you into putting a value that is too high causing you to pay a fee that is too high. The party who is broadcasting the transaction can of course check the
+  /// real input weight matches the expected weight prior to broadcasting.
+  TxBuilder addForeignUtxo(
+      Input psbtInput, bridge.OutPoint outPoint, int satisfactionWeight) {
+    _foreignUtxo = bridge.ForeignUtxo(
+        field0: outPoint, field1: psbtInput._input, field2: satisfactionWeight);
     return this;
   }
 
@@ -898,7 +944,7 @@ class TxBuilder {
   ///
   /// This effectively adds all the change outputs to the “unspendable” list. See TxBuilder().addUtxos
   TxBuilder doNotSpendChange() {
-    _changeSpendPolicy = ChangeSpendPolicy.ChangeForbidden;
+    _changeSpendPolicy = bridge.ChangeSpendPolicy.ChangeForbidden;
     return this;
   }
 
@@ -929,7 +975,7 @@ class TxBuilder {
   ///
   ///If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
   TxBuilder enableRbfWithSequence(int nSequence) {
-    _rbfValue = RbfValue.value(nSequence);
+    _rbfValue = bridge.RbfValue.value(nSequence);
     return this;
   }
 
@@ -937,7 +983,7 @@ class TxBuilder {
   ///
   /// This will use the default nSequence value of 0xFFFFFFFD.
   TxBuilder enableRbf() {
-    _rbfValue = RbfValue.rbfDefault();
+    _rbfValue = bridge.RbfValue.rbfDefault();
     return this;
   }
 
@@ -954,7 +1000,7 @@ class TxBuilder {
   }
 
   ///Replace the recipients already added with a new list
-  TxBuilder setRecipients(List<ScriptAmount> recipients) {
+  TxBuilder setRecipients(List<bridge.ScriptAmount> recipients) {
     for (var e in _recipients) {
       _recipients.add(e);
     }
@@ -973,7 +1019,7 @@ class TxBuilder {
   ///
   /// It’s important to note that the “must-be-spent” utxos added with TxBuilder().addUtxo
   /// have priority over this. See the docs of the two linked methods for more details.
-  TxBuilder addUnSpendable(OutPoint unSpendable) {
+  TxBuilder addUnSpendable(bridge.OutPoint unSpendable) {
     _unSpendable.add(unSpendable);
     return this;
   }
@@ -982,7 +1028,7 @@ class TxBuilder {
   ///
   /// This effectively adds all the non-change outputs to the “unspendable” list.
   TxBuilder onlySpendChange() {
-    _changeSpendPolicy = ChangeSpendPolicy.OnlyChange;
+    _changeSpendPolicy = bridge.ChangeSpendPolicy.OnlyChange;
     return this;
   }
 
@@ -999,6 +1045,7 @@ class TxBuilder {
           walletId: wallet._wallet,
           recipients: _recipients,
           utxos: _utxos,
+          foreignUtxo: _foreignUtxo,
           unspendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           drainWallet: _drainWallet,
@@ -1024,7 +1071,7 @@ class TxBuilderResult {
 
   ///The transaction details.
   ///
-  final TransactionDetails txDetails;
+  final bridge.TransactionDetails txDetails;
 
   TxBuilderResult({required this.psbt, required this.txDetails});
 }
@@ -1047,8 +1094,8 @@ class Wallet {
   static Future<Wallet> create({
     required Descriptor descriptor,
     Descriptor? changeDescriptor,
-    required Network network,
-    required DatabaseConfig databaseConfig,
+    required bridge.Network network,
+    required bridge.DatabaseConfig databaseConfig,
   }) async {
     try {
       final res = await loaderApi.createWalletStaticMethodApi(
@@ -1065,7 +1112,8 @@ class Wallet {
 
   ///Return a derived address using the external descriptor, see [AddressIndex] for available address index selection strategies.
   /// If none of the keys in the descriptor are derivable (i.e. does not end with /*) then the same address will always be returned for any AddressIndex.
-  Future<AddressInfo> getAddress({required AddressIndex addressIndex}) async {
+  Future<bridge.AddressInfo> getAddress(
+      {required bridge.AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
@@ -1082,8 +1130,8 @@ class Wallet {
   /// see [AddressIndex] for available address index selection strategies. If none of the keys
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
-  Future<AddressInfo> getInternalAddress(
-      {required AddressIndex addressIndex}) async {
+  Future<bridge.AddressInfo> getInternalAddress(
+      {required bridge.AddressIndex addressIndex}) async {
     try {
       var res = await loaderApi.getInternalAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
@@ -1096,7 +1144,7 @@ class Wallet {
   ///Return the [Balance], separated into available, trusted-pending, untrusted-pending and immature values.
   ///
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
-  Future<Balance> getBalance() async {
+  Future<bridge.Balance> getBalance() async {
     try {
       var res = await loaderApi.getBalanceStaticMethodApi(walletId: _wallet);
       return res;
@@ -1106,7 +1154,7 @@ class Wallet {
   }
 
   ///Get the Bitcoin network the wallet is using.
-  Future<Network> network() async {
+  Future<bridge.Network> network() async {
     try {
       var res = await loaderApi.walletNetworkStaticMethodApi(walletId: _wallet);
       return res;
@@ -1118,7 +1166,7 @@ class Wallet {
   ///Return the list of unspent outputs of this wallet
   ///
   /// Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
-  Future<List<LocalUtxo>> listUnspent() async {
+  Future<List<bridge.LocalUtxo>> listUnspent() async {
     try {
       var res =
           await loaderApi.listUnspentOutputsStaticMethodApi(walletId: _wallet);
@@ -1140,7 +1188,8 @@ class Wallet {
   }
 
   ///Return an unsorted list of transactions made and received by the wallet
-  Future<List<TransactionDetails>> listTransactions(bool includeRaw) async {
+  Future<List<bridge.TransactionDetails>> listTransactions(
+      bool includeRaw) async {
     try {
       final res = await loaderApi.getTransactionsStaticMethodApi(
           walletId: _wallet, includeRaw: includeRaw);
@@ -1155,7 +1204,7 @@ class Wallet {
   /// Note that it can’t be guaranteed that every signers will follow the options, but the “software signers” (WIF keys and xprv) defined in this library will.
   Future<PartiallySignedTransaction> sign(
       {required PartiallySignedTransaction psbt,
-      SignOptions? signOptions}) async {
+      bridge.SignOptions? signOptions}) async {
     try {
       final sbt = await loaderApi.signStaticMethodApi(
           signOptions: signOptions,
@@ -1169,9 +1218,34 @@ class Wallet {
       throw configException(e.message);
     }
   }
+
+  Future<Input> getPsbtInput({
+    required bridge.LocalUtxo utxo,
+    required bool onlyWitnessUtxo,
+    bridge.PsbtSigHashType? psbtSighashType,
+  }) async {
+    final res = await loaderApi.getPsbtInputStaticMethodApi(
+        walletId: _wallet,
+        utxo: utxo,
+        onlyWitnessUtxo: onlyWitnessUtxo,
+        psbtSighashType: psbtSighashType);
+    return Input._(res);
+  }
+
+  /// Returns the descriptor used to create addresses for a particular `keychain`.
+  Future<Descriptor> getDescriptorForKeyChain(
+      bridge.KeychainKind keychainKind) async {
+    try {
+      final res = await loaderApi.getDescriptorForKeychainStaticMethodApi(
+          walletId: _wallet, keychain: keychainKind);
+      return Descriptor._(res.field0, res.field1);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
 }
 
-extension Tx on TransactionDetails {
+extension Tx on bridge.TransactionDetails {
   Transaction? get transaction =>
       serializedTx == null ? null : Transaction._(serializedTx);
 }

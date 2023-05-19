@@ -4,20 +4,21 @@ use crate::key::{DerivationPath, DescriptorPublicKey, DescriptorSecretKey, Mnemo
 use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
 use crate::types::{
-    Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ChangeSpendPolicy,
-    KeychainKind, Network, OutPoint, Payload, RbfValue, Script, ScriptAmount, TransactionDetails,
-    TxIn, TxOut, WordCount,
+    to_input, Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ChangeSpendPolicy,
+    DescNetwork, ForeignUtxo, KeychainKind, Network, OutPoint, Payload, PsbtSigHashType, RbfValue,
+    Script, ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount,
 };
 pub use crate::wallet::{DatabaseConfig, Wallet};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
 use bdk::Error;
 use lazy_static::lazy_static;
+use std::borrow::Borrow;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, RwLock};
 
-use crate::wallet::SignOptions;
+use crate::wallet::{LocalUtxo, SignOptions};
 
 lazy_static! {
     static ref RUNTIME: RwLock<Option<tokio::runtime::Runtime>> = RwLock::new(None);
@@ -172,6 +173,7 @@ impl Api {
         wallet_id: String,
         recipients: Vec<ScriptAmount>,
         utxos: Vec<OutPoint>,
+        foreign_utxo: Option<ForeignUtxo>,
         unspendable: Vec<OutPoint>,
         change_policy: ChangeSpendPolicy,
         manually_selected_only: bool,
@@ -216,6 +218,12 @@ impl Api {
         }
         if let Some(script_) = drain_to {
             tx_builder.drain_to(script_.into());
+        }
+        if let Some(f_utxo) = foreign_utxo {
+            let input = to_input(f_utxo.1);
+            tx_builder
+                .add_foreign_utxo(f_utxo.0.borrow().into(), input, f_utxo.2)
+                .expect("Error adding foreign_utxo!");
         }
         if let Some(rbf) = &rbf {
             match *rbf {
@@ -398,7 +406,15 @@ impl Api {
             Err(e) => panic!("{:?}", e),
         }
     }
-
+    pub fn max_satisfaction_weight(descriptor: String, network: Network) -> usize {
+        match BdkDescriptor::new(descriptor, network.into()) {
+            Ok(e) => match e.max_satisfaction_weight() {
+                Ok(e) => e,
+                Err(e) => panic!("{:?}", e),
+            },
+            Err(e) => panic!("{:?}", e),
+        }
+    }
     //====================== Descriptor Secret =================
     pub fn create_descriptor_secret(
         network: Network,
@@ -650,7 +666,34 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         }
     }
+    /// get the corresponding PSBT Input for a LocalUtxo
+    pub fn get_psbt_input(
+        wallet_id: String,
+        utxo: LocalUtxo,
+        only_witness_utxo: bool,
+        psbt_sighash_type: Option<PsbtSigHashType>,
+    ) -> String {
+        match Wallet::retrieve_wallet(wallet_id).get_psbt_input(
+            utxo,
+            only_witness_utxo,
+            psbt_sighash_type,
+        ) {
+            Ok(e) => serde_json::to_string(&e).expect("Unable to serialize the Input"),
+            Err(e) => panic!("{:?}", e),
+        }
+    }
 
+    pub fn get_descriptor_for_keychain(
+        wallet_id: String,
+        keychain: KeychainKind,
+    ) -> anyhow::Result<DescNetwork> {
+        let wallet = Wallet::retrieve_wallet(wallet_id);
+        let network: Network = wallet.get_wallet().network().into();
+        match wallet.get_descriptor_for_keychain(keychain.into()) {
+            Ok(e) => Ok(DescNetwork(e.as_string_private(), network)),
+            Err(e) => panic!("{:?}", e),
+        }
+    }
     //================== Mnemonic ==========
     pub fn generate_seed_from_word_count(word_count: WordCount) -> String {
         let mnemonic = Mnemonic::new(word_count.into());

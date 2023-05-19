@@ -507,6 +507,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
+      ForeignUtxo? foreignUtxo,
       required List<OutPoint> unspendable,
       required ChangeSpendPolicy changePolicy,
       required bool manuallySelectedOnly,
@@ -520,25 +521,27 @@ class RustBdkFfiImpl implements RustBdkFfi {
     var arg0 = _platform.api2wire_String(walletId);
     var arg1 = _platform.api2wire_list_script_amount(recipients);
     var arg2 = _platform.api2wire_list_out_point(utxos);
-    var arg3 = _platform.api2wire_list_out_point(unspendable);
-    var arg4 = api2wire_change_spend_policy(changePolicy);
-    var arg5 = manuallySelectedOnly;
-    var arg6 = _platform.api2wire_opt_box_autoadd_f32(feeRate);
-    var arg7 = _platform.api2wire_opt_box_autoadd_u64(feeAbsolute);
-    var arg8 = drainWallet;
-    var arg9 = _platform.api2wire_opt_box_autoadd_script(drainTo);
-    var arg10 = _platform.api2wire_opt_box_autoadd_rbf_value(rbf);
-    var arg11 = _platform.api2wire_uint_8_list(data);
+    var arg3 = _platform.api2wire_opt_box_autoadd_foreign_utxo(foreignUtxo);
+    var arg4 = _platform.api2wire_list_out_point(unspendable);
+    var arg5 = api2wire_change_spend_policy(changePolicy);
+    var arg6 = manuallySelectedOnly;
+    var arg7 = _platform.api2wire_opt_box_autoadd_f32(feeRate);
+    var arg8 = _platform.api2wire_opt_box_autoadd_u64(feeAbsolute);
+    var arg9 = drainWallet;
+    var arg10 = _platform.api2wire_opt_box_autoadd_script(drainTo);
+    var arg11 = _platform.api2wire_opt_box_autoadd_rbf_value(rbf);
+    var arg12 = _platform.api2wire_uint_8_list(data);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_tx_builder_finish__static_method__Api(port_, arg0, arg1, arg2,
-              arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11),
+              arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12),
       parseSuccessData: _wire2api_bdk_tx_builder_result,
       constMeta: kTxBuilderFinishStaticMethodApiConstMeta,
       argValues: [
         walletId,
         recipients,
         utxos,
+        foreignUtxo,
         unspendable,
         changePolicy,
         manuallySelectedOnly,
@@ -560,6 +563,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
           "walletId",
           "recipients",
           "utxos",
+          "foreignUtxo",
           "unspendable",
           "changePolicy",
           "manuallySelectedOnly",
@@ -837,6 +841,27 @@ class RustBdkFfiImpl implements RustBdkFfi {
         debugName: "as_string__static_method__Api",
         argNames: ["descriptor", "network"],
       );
+
+  Future<int> maxSatisfactionWeightStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(descriptor);
+    var arg1 = api2wire_network(network);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_max_satisfaction_weight__static_method__Api(port_, arg0, arg1),
+      parseSuccessData: _wire2api_usize,
+      constMeta: kMaxSatisfactionWeightStaticMethodApiConstMeta,
+      argValues: [descriptor, network],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta
+      get kMaxSatisfactionWeightStaticMethodApiConstMeta =>
+          const FlutterRustBridgeTaskConstMeta(
+            debugName: "max_satisfaction_weight__static_method__Api",
+            argNames: ["descriptor", "network"],
+          );
 
   Future<String> createDescriptorSecretStaticMethodApi(
       {required Network network,
@@ -1365,6 +1390,58 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["walletId"],
       );
 
+  Future<String> getPsbtInputStaticMethodApi(
+      {required String walletId,
+      required LocalUtxo utxo,
+      required bool onlyWitnessUtxo,
+      PsbtSigHashType? psbtSighashType,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_String(walletId);
+    var arg1 = _platform.api2wire_box_autoadd_local_utxo(utxo);
+    var arg2 = onlyWitnessUtxo;
+    var arg3 =
+        _platform.api2wire_opt_box_autoadd_psbt_sig_hash_type(psbtSighashType);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_get_psbt_input__static_method__Api(
+              port_, arg0, arg1, arg2, arg3),
+      parseSuccessData: _wire2api_String,
+      constMeta: kGetPsbtInputStaticMethodApiConstMeta,
+      argValues: [walletId, utxo, onlyWitnessUtxo, psbtSighashType],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetPsbtInputStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_psbt_input__static_method__Api",
+        argNames: ["walletId", "utxo", "onlyWitnessUtxo", "psbtSighashType"],
+      );
+
+  Future<DescNetwork> getDescriptorForKeychainStaticMethodApi(
+      {required String walletId,
+      required KeychainKind keychain,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_String(walletId);
+    var arg1 = api2wire_keychain_kind(keychain);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_get_descriptor_for_keychain__static_method__Api(
+              port_, arg0, arg1),
+      parseSuccessData: _wire2api_desc_network,
+      constMeta: kGetDescriptorForKeychainStaticMethodApiConstMeta,
+      argValues: [walletId, keychain],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta
+      get kGetDescriptorForKeychainStaticMethodApiConstMeta =>
+          const FlutterRustBridgeTaskConstMeta(
+            debugName: "get_descriptor_for_keychain__static_method__Api",
+            argNames: ["walletId", "keychain"],
+          );
+
   Future<String> generateSeedFromWordCountStaticMethodApi(
       {required WordCount wordCount, dynamic hint}) {
     var arg0 = api2wire_word_count(wordCount);
@@ -1496,6 +1573,16 @@ class RustBdkFfiImpl implements RustBdkFfi {
 
   int _wire2api_box_autoadd_u64(dynamic raw) {
     return _wire2api_u64(raw);
+  }
+
+  DescNetwork _wire2api_desc_network(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return DescNetwork(
+      field0: _wire2api_String(arr[0]),
+      field1: _wire2api_network(arr[1]),
+    );
   }
 
   double _wire2api_f32(dynamic raw) {
@@ -1653,6 +1740,10 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return;
   }
 
+  int _wire2api_usize(dynamic raw) {
+    return castInt(raw);
+  }
+
   WitnessVersion _wire2api_witness_version(dynamic raw) {
     return WitnessVersion.values[raw as int];
   }
@@ -1697,6 +1788,11 @@ int api2wire_u32(int raw) {
 
 @protected
 int api2wire_u8(int raw) {
+  return raw;
+}
+
+@protected
+int api2wire_usize(int raw) {
   return raw;
 }
 
@@ -1759,6 +1855,29 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   @protected
   ffi.Pointer<ffi.Float> api2wire_box_autoadd_f32(double raw) {
     return inner.new_box_autoadd_f32_0(api2wire_f32(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_ForeignUtxo> api2wire_box_autoadd_foreign_utxo(
+      ForeignUtxo raw) {
+    final ptr = inner.new_box_autoadd_foreign_utxo_0();
+    _api_fill_to_wire_foreign_utxo(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_LocalUtxo> api2wire_box_autoadd_local_utxo(LocalUtxo raw) {
+    final ptr = inner.new_box_autoadd_local_utxo_0();
+    _api_fill_to_wire_local_utxo(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_PsbtSigHashType> api2wire_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType raw) {
+    final ptr = inner.new_box_autoadd_psbt_sig_hash_type_0();
+    _api_fill_to_wire_psbt_sig_hash_type(raw, ptr.ref);
+    return ptr;
   }
 
   @protected
@@ -1863,6 +1982,20 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   @protected
   ffi.Pointer<ffi.Float> api2wire_opt_box_autoadd_f32(double? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_f32(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_ForeignUtxo> api2wire_opt_box_autoadd_foreign_utxo(
+      ForeignUtxo? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_foreign_utxo(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_PsbtSigHashType> api2wire_opt_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType? raw) {
+    return raw == null
+        ? ffi.nullptr
+        : api2wire_box_autoadd_psbt_sig_hash_type(raw);
   }
 
   @protected
@@ -2001,6 +2134,21 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
     _api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
   }
 
+  void _api_fill_to_wire_box_autoadd_foreign_utxo(
+      ForeignUtxo apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
+    _api_fill_to_wire_foreign_utxo(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_local_utxo(
+      LocalUtxo apiObj, ffi.Pointer<wire_LocalUtxo> wireObj) {
+    _api_fill_to_wire_local_utxo(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType apiObj, ffi.Pointer<wire_PsbtSigHashType> wireObj) {
+    _api_fill_to_wire_psbt_sig_hash_type(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_box_autoadd_rbf_value(
       RbfValue apiObj, ffi.Pointer<wire_RbfValue> wireObj) {
     _api_fill_to_wire_rbf_value(apiObj, wireObj.ref);
@@ -2086,6 +2234,32 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
     wireObj.timeout = api2wire_opt_box_autoadd_u64(apiObj.timeout);
   }
 
+  void _api_fill_to_wire_foreign_utxo(
+      ForeignUtxo apiObj, wire_ForeignUtxo wireObj) {
+    _api_fill_to_wire_out_point(apiObj.field0, wireObj.field0);
+    wireObj.field1 = api2wire_String(apiObj.field1);
+    wireObj.field2 = api2wire_usize(apiObj.field2);
+  }
+
+  void _api_fill_to_wire_local_utxo(LocalUtxo apiObj, wire_LocalUtxo wireObj) {
+    _api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
+    _api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
+    wireObj.is_spent = api2wire_bool(apiObj.isSpent);
+    wireObj.keychain = api2wire_keychain_kind(apiObj.keychain);
+  }
+
+  void _api_fill_to_wire_opt_box_autoadd_foreign_utxo(
+      ForeignUtxo? apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_foreign_utxo(apiObj, wireObj);
+  }
+
+  void _api_fill_to_wire_opt_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType? apiObj, ffi.Pointer<wire_PsbtSigHashType> wireObj) {
+    if (apiObj != null)
+      _api_fill_to_wire_box_autoadd_psbt_sig_hash_type(apiObj, wireObj);
+  }
+
   void _api_fill_to_wire_opt_box_autoadd_rbf_value(
       RbfValue? apiObj, ffi.Pointer<wire_RbfValue> wireObj) {
     if (apiObj != null)
@@ -2118,6 +2292,11 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   void _api_fill_to_wire_out_point(OutPoint apiObj, wire_OutPoint wireObj) {
     wireObj.txid = api2wire_String(apiObj.txid);
     wireObj.vout = api2wire_u32(apiObj.vout);
+  }
+
+  void _api_fill_to_wire_psbt_sig_hash_type(
+      PsbtSigHashType apiObj, wire_PsbtSigHashType wireObj) {
+    wireObj.inner = api2wire_u32(apiObj.inner);
   }
 
   void _api_fill_to_wire_rbf_value(RbfValue apiObj, wire_RbfValue wireObj) {
@@ -2184,6 +2363,11 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   void _api_fill_to_wire_sqlite_db_configuration(
       SqliteDbConfiguration apiObj, wire_SqliteDbConfiguration wireObj) {
     wireObj.path = api2wire_String(apiObj.path);
+  }
+
+  void _api_fill_to_wire_tx_out(TxOut apiObj, wire_TxOut wireObj) {
+    wireObj.value = api2wire_u64(apiObj.value);
+    _api_fill_to_wire_script(apiObj.scriptPubkey, wireObj.script_pubkey);
   }
 
   void _api_fill_to_wire_user_pass(UserPass apiObj, wire_UserPass wireObj) {
@@ -2757,6 +2941,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> wallet_id,
     ffi.Pointer<wire_list_script_amount> recipients,
     ffi.Pointer<wire_list_out_point> utxos,
+    ffi.Pointer<wire_ForeignUtxo> foreign_utxo,
     ffi.Pointer<wire_list_out_point> unspendable,
     int change_policy,
     bool manually_selected_only,
@@ -2772,6 +2957,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
       wallet_id,
       recipients,
       utxos,
+      foreign_utxo,
       unspendable,
       change_policy,
       manually_selected_only,
@@ -2791,6 +2977,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
                   ffi.Pointer<wire_uint_8_list>,
                   ffi.Pointer<wire_list_script_amount>,
                   ffi.Pointer<wire_list_out_point>,
+                  ffi.Pointer<wire_ForeignUtxo>,
                   ffi.Pointer<wire_list_out_point>,
                   ffi.Int32,
                   ffi.Bool,
@@ -2808,6 +2995,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_list_script_amount>,
               ffi.Pointer<wire_list_out_point>,
+              ffi.Pointer<wire_ForeignUtxo>,
               ffi.Pointer<wire_list_out_point>,
               int,
               bool,
@@ -3074,6 +3262,26 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
               ffi.Int32)>>('wire_as_string__static_method__Api');
   late final _wire_as_string__static_method__Api =
       _wire_as_string__static_method__ApiPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+
+  void wire_max_satisfaction_weight__static_method__Api(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> descriptor,
+    int network,
+  ) {
+    return _wire_max_satisfaction_weight__static_method__Api(
+      port_,
+      descriptor,
+      network,
+    );
+  }
+
+  late final _wire_max_satisfaction_weight__static_method__ApiPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_max_satisfaction_weight__static_method__Api');
+  late final _wire_max_satisfaction_weight__static_method__Api =
+      _wire_max_satisfaction_weight__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
 
   void wire_create_descriptor_secret__static_method__Api(
@@ -3593,6 +3801,61 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
       _wire_list_unspent__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_get_psbt_input__static_method__Api(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    ffi.Pointer<wire_LocalUtxo> utxo,
+    bool only_witness_utxo,
+    ffi.Pointer<wire_PsbtSigHashType> psbt_sighash_type,
+  ) {
+    return _wire_get_psbt_input__static_method__Api(
+      port_,
+      wallet_id,
+      utxo,
+      only_witness_utxo,
+      psbt_sighash_type,
+    );
+  }
+
+  late final _wire_get_psbt_input__static_method__ApiPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_LocalUtxo>,
+                  ffi.Bool,
+                  ffi.Pointer<wire_PsbtSigHashType>)>>(
+      'wire_get_psbt_input__static_method__Api');
+  late final _wire_get_psbt_input__static_method__Api =
+      _wire_get_psbt_input__static_method__ApiPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_LocalUtxo>,
+              bool,
+              ffi.Pointer<wire_PsbtSigHashType>)>();
+
+  void wire_get_descriptor_for_keychain__static_method__Api(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> wallet_id,
+    int keychain,
+  ) {
+    return _wire_get_descriptor_for_keychain__static_method__Api(
+      port_,
+      wallet_id,
+      keychain,
+    );
+  }
+
+  late final _wire_get_descriptor_for_keychain__static_method__ApiPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Int32)>>(
+      'wire_get_descriptor_for_keychain__static_method__Api');
+  late final _wire_get_descriptor_for_keychain__static_method__Api =
+      _wire_get_descriptor_for_keychain__static_method__ApiPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+
   void wire_generate_seed_from_word_count__static_method__Api(
     int port_,
     int word_count,
@@ -3714,6 +3977,38 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
           'new_box_autoadd_f32_0');
   late final _new_box_autoadd_f32_0 = _new_box_autoadd_f32_0Ptr
       .asFunction<ffi.Pointer<ffi.Float> Function(double)>();
+
+  ffi.Pointer<wire_ForeignUtxo> new_box_autoadd_foreign_utxo_0() {
+    return _new_box_autoadd_foreign_utxo_0();
+  }
+
+  late final _new_box_autoadd_foreign_utxo_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_ForeignUtxo> Function()>>(
+          'new_box_autoadd_foreign_utxo_0');
+  late final _new_box_autoadd_foreign_utxo_0 =
+      _new_box_autoadd_foreign_utxo_0Ptr
+          .asFunction<ffi.Pointer<wire_ForeignUtxo> Function()>();
+
+  ffi.Pointer<wire_LocalUtxo> new_box_autoadd_local_utxo_0() {
+    return _new_box_autoadd_local_utxo_0();
+  }
+
+  late final _new_box_autoadd_local_utxo_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_LocalUtxo> Function()>>(
+          'new_box_autoadd_local_utxo_0');
+  late final _new_box_autoadd_local_utxo_0 = _new_box_autoadd_local_utxo_0Ptr
+      .asFunction<ffi.Pointer<wire_LocalUtxo> Function()>();
+
+  ffi.Pointer<wire_PsbtSigHashType> new_box_autoadd_psbt_sig_hash_type_0() {
+    return _new_box_autoadd_psbt_sig_hash_type_0();
+  }
+
+  late final _new_box_autoadd_psbt_sig_hash_type_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_PsbtSigHashType> Function()>>(
+          'new_box_autoadd_psbt_sig_hash_type_0');
+  late final _new_box_autoadd_psbt_sig_hash_type_0 =
+      _new_box_autoadd_psbt_sig_hash_type_0Ptr
+          .asFunction<ffi.Pointer<wire_PsbtSigHashType> Function()>();
 
   ffi.Pointer<wire_RbfValue> new_box_autoadd_rbf_value_0() {
     return _new_box_autoadd_rbf_value_0();
@@ -4119,6 +4414,15 @@ class wire_list_out_point extends ffi.Struct {
   external int len;
 }
 
+class wire_ForeignUtxo extends ffi.Struct {
+  external wire_OutPoint field0;
+
+  external ffi.Pointer<wire_uint_8_list> field1;
+
+  @ffi.UintPtr()
+  external int field2;
+}
+
 class wire_RbfValue_RbfDefault extends ffi.Opaque {}
 
 class wire_RbfValue_Value extends ffi.Struct {
@@ -4225,6 +4529,30 @@ class wire_SignOptions extends ffi.Struct {
 
   @ffi.Bool()
   external bool allow_grinding;
+}
+
+class wire_TxOut extends ffi.Struct {
+  @ffi.Uint64()
+  external int value;
+
+  external wire_Script script_pubkey;
+}
+
+class wire_LocalUtxo extends ffi.Struct {
+  external wire_OutPoint outpoint;
+
+  external wire_TxOut txout;
+
+  @ffi.Bool()
+  external bool is_spent;
+
+  @ffi.Int32()
+  external int keychain;
+}
+
+class wire_PsbtSigHashType extends ffi.Struct {
+  @ffi.Uint32()
+  external int inner;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<

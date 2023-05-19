@@ -5,6 +5,7 @@ export './src/generated/bridge_definitions.dart'
     hide
         RustBdkFfi,
         Script,
+        DescNetwork,
         BlockchainConfig_Electrum,
         BlockchainConfig_Rpc,
         BlockchainConfig_Esplora,

@@ -17,7 +17,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
-  late Wallet bdkWallet;
+  late Wallet bobWallet;
+  late Wallet aliceWallet;
   Blockchain? blockchain;
   BdkRepository repository = BdkRepository();
   @override
@@ -37,17 +38,22 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
-    final aliceDescriptor = await createDescriptorSecret();
-    bdkWallet = await repository.restoreWallet(aliceDescriptor);
+    final descriptors = await createDescriptorSecret();
+    bobWallet = await repository.restoreWallet(descriptors[0]);
+    aliceWallet = await repository.restoreWallet(descriptors[1]);
     setState(() {
       displayText = "Wallet restored";
     });
   }
 
-  Future<Descriptor> createDescriptorSecret() async {
-    final aliceDescriptor = await repository.createDescriptorSecret(
+  Future<List<Descriptor>> createDescriptorSecret() async {
+    final mnemonic1 = await Mnemonic.fromString(
+        'thumb member wage display inherit music elevator need side setup tube panther broom giant auction banner split potato');
+    final mnemonic2 = await Mnemonic.fromString(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
-    return aliceDescriptor;
+    final bobDescriptor = await repository.createDescriptorSecret(mnemonic1);
+    final aliceDescriptor = await repository.createDescriptorSecret(mnemonic2);
+    return [bobDescriptor, aliceDescriptor];
   }
 
   initBlockchain(bool isElectrumBlockchain) async {
@@ -58,11 +64,12 @@ class _MyAppState extends State<MyApp> {
     if (blockchain == null) {
       await initBlockchain(false);
     }
-    await repository.sync(blockchain!, bdkWallet);
+    await repository.sync(blockchain!, bobWallet);
+    await repository.sync(blockchain!, aliceWallet);
   }
 
   getNewAddress() async {
-    final res = await repository.getAddress(bdkWallet);
+    final res = await repository.getAddress(aliceWallet);
     debugPrint(res.address);
     setState(() {
       displayText = "Address: ${res.address} \n Index: ${res.index}";
@@ -70,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getUnConfirmedTransactions() async {
-    final unConfirmed = await repository.getUnConfirmedTransactions(bdkWallet);
+    final unConfirmed = await repository.getUnConfirmedTransactions(bobWallet);
     setState(() {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
@@ -88,7 +95,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getConfirmedTransactions() async {
-    final confirmed = await repository.getConfirmedTransactions(bdkWallet);
+    final confirmed = await repository.getConfirmedTransactions(bobWallet);
     setState(() {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
@@ -116,7 +123,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await repository.getBalance(bdkWallet);
+    final res = await repository.getBalance(bobWallet);
+    final alice = await repository.getBalance(aliceWallet);
+    debugPrint(alice.total.toString());
     setState(() {
       balance = res.total;
       displayText =
@@ -125,7 +134,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   listUnspent() async {
-    final res = await repository.listUnspend(bdkWallet);
+    final res = await repository.listUnspend(aliceWallet);
     for (var e in res) {
       setState(() {
         displayText =
@@ -165,8 +174,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   sendBit() async {
-    await repository.sendBitcoin(
-        blockchain!, bdkWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    await repository.sendBitcoin(blockchain!, aliceWallet, bobWallet,
+        "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
   }
 
   @override

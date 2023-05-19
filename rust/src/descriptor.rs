@@ -6,6 +6,7 @@ use bdk::descriptor::{ExtendedDescriptor, IntoWalletDescriptor, KeyMap};
 use bdk::keys::{
     DescriptorPublicKey as BdkDescriptorPublicKey, DescriptorSecretKey as BdkDescriptorSecretKey,
 };
+use bdk::miniscript::Error;
 use bdk::template::{
     Bip44, Bip44Public, Bip49, Bip49Public, Bip84, Bip84Public, DescriptorTemplate,
 };
@@ -192,6 +193,10 @@ impl BdkDescriptor {
 
     pub(crate) fn as_string(&self) -> String {
         self.extended_descriptor.to_string()
+    }
+    pub(crate) fn max_satisfaction_weight(&self) -> Result<usize, Error> {
+        let descriptor = &self.extended_descriptor;
+        descriptor.max_satisfaction_weight()
     }
 }
 #[cfg(test)]
