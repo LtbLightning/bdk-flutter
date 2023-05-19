@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/utils/exceptions/bdk_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -160,7 +162,7 @@ void main() {
         expect(error, isA<BdkException>());
       }
     });
-    test('Should return aTxBuilderException when no recipients are added',
+    test('Should return a TxBuilderException when no recipients are added',
         () async {
       try {
         when(mockTxBuilder.finish(mockWallet))
@@ -187,6 +189,80 @@ void main() {
               "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
           vout: 1));
       expect(res, isNot(mockTxBuilder));
+    });
+    test('Verify addForeignUtxo()', () async {
+      const inputInternal = {
+        "non_witness_utxo": {
+          "version": 1,
+          "lock_time": 2433744,
+          "input": [
+            {
+              "previous_output":
+                  "8eca3ac01866105f79a1a6b87ec968565bb5ccc9cb1c5cf5b13491bafca24f0d:1",
+              "script_sig":
+                  "483045022100f1bb7ab927473c78111b11cb3f134bc6d1782b4d9b9b664924682b83dc67763b02203bcdc8c9291d17098d11af7ed8a9aa54e795423f60c042546da059b9d912f3c001210238149dc7894a6790ba82c2584e09e5ed0e896dea4afb2de089ea02d017ff0682",
+              "sequence": 4294967294,
+              "witness": []
+            }
+          ],
+          "output": [
+            {
+              "value": 3356,
+              "script_pubkey":
+                  "76a91400df17234b8e0f60afe1c8f9ae2e91c23cd07c3088ac"
+            },
+            {
+              "value": 1500,
+              "script_pubkey":
+                  "76a9149f9a7abd600c0caa03983a77c8c3df8e062cb2fa88ac"
+            }
+          ]
+        },
+        "witness_utxo": null,
+        "partial_sigs": {},
+        "sighash_type": null,
+        "redeem_script": null,
+        "witness_script": null,
+        "bip32_derivation": [
+          [
+            "030da577f40a6de2e0a55d3c5c72da44c77e6f820f09e1b7bbcc6a557bf392b5a4",
+            ["d91e6add", "m/44'/1'/0'/0/146"]
+          ]
+        ],
+        "final_script_sig": null,
+        "final_script_witness": null,
+        "ripemd160_preimages": {},
+        "sha256_preimages": {},
+        "hash160_preimages": {},
+        "hash256_preimages": {},
+        "tap_key_sig": null,
+        "tap_script_sigs": [],
+        "tap_scripts": [],
+        "tap_key_origins": [],
+        "tap_internal_key": null,
+        "tap_merkle_root": null,
+        "proprietary": [],
+        "unknown": []
+      };
+      final input = Input.create(json.encode(inputInternal));
+      final outPoint = OutPoint(
+          txid:
+              'b3b72ce9c7aa09b9c868c214e88c002a28aac9a62fd3971eff6de83c418f4db3',
+          vout: 0);
+      when(mockAddress.scriptPubKey())
+          .thenAnswer((_) async => Future.value(mockScript));
+      when(mockTxBuilder.addRecipient(mockScript, any))
+          .thenReturn(mockTxBuilder);
+      when(mockTxBuilder.addForeignUtxo(input, outPoint, 0))
+          .thenReturn(mockTxBuilder);
+      when(mockTxBuilder.finish(mockWallet))
+          .thenAnswer((_) async => Future.value(MockTxBuilderResult()));
+      final script = await mockAddress.scriptPubKey();
+      final txBuilder = mockTxBuilder
+          .addRecipient(script, 1200)
+          .addForeignUtxo(input, outPoint, 0);
+      final res = await txBuilder.finish(mockWallet);
+      expect(res, isA<TxBuilderResult>());
     });
     test('Create a proper psbt transaction ', () async {
       const psbtBase64 = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"

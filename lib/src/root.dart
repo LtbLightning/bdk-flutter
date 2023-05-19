@@ -1224,12 +1224,16 @@ class Wallet {
     required bool onlyWitnessUtxo,
     bridge.PsbtSigHashType? psbtSighashType,
   }) async {
-    final res = await loaderApi.getPsbtInputStaticMethodApi(
-        walletId: _wallet,
-        utxo: utxo,
-        onlyWitnessUtxo: onlyWitnessUtxo,
-        psbtSighashType: psbtSighashType);
-    return Input._(res);
+    try {
+      final res = await loaderApi.getPsbtInputStaticMethodApi(
+          walletId: _wallet,
+          utxo: utxo,
+          onlyWitnessUtxo: onlyWitnessUtxo,
+          psbtSighashType: psbtSighashType);
+      return Input._(res);
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
   }
 
   /// Returns the descriptor used to create addresses for a particular `keychain`.

@@ -1,5 +1,5 @@
 PODS:
-  - bdk_flutter (0.28.0):
+  - bdk_flutter (0.28.2):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
 
@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
 
 SPEC CHECKSUMS:
-  bdk_flutter: 9d693253ab1a636939fd6c7b761882147493c163
+  bdk_flutter: ee0ecf170a80a34db864e5c9a6ed37b9fe14eca9
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
 
 PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
