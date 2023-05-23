@@ -166,9 +166,29 @@ class _FakeScript_13 extends _i1.SmartFake implements _i2.Script {
         );
 }
 
-class _FakeTransactionDetails_14 extends _i1.SmartFake
+class _FakeOutPoint_14 extends _i1.SmartFake implements _i2.OutPoint {
+  _FakeOutPoint_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTxOut_15 extends _i1.SmartFake implements _i2.TxOut {
+  _FakeTxOut_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTransactionDetails_16 extends _i1.SmartFake
     implements _i2.TransactionDetails {
-  _FakeTransactionDetails_14(
+  _FakeTransactionDetails_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -403,6 +423,122 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i3.Descriptor>);
+}
+
+/// A class which mocks [Transaction].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransaction extends _i1.Mock implements _i3.Transaction {
+  @override
+  _i4.Future<List<int>> serialize() => (super.noSuchMethod(
+        Invocation.method(
+          #serialize,
+          [],
+        ),
+        returnValue: _i4.Future<List<int>>.value(<int>[]),
+        returnValueForMissingStub: _i4.Future<List<int>>.value(<int>[]),
+      ) as _i4.Future<List<int>>);
+  @override
+  _i4.Future<String> txid() => (super.noSuchMethod(
+        Invocation.method(
+          #txid,
+          [],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+        returnValueForMissingStub: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
+  @override
+  _i4.Future<int> weight() => (super.noSuchMethod(
+        Invocation.method(
+          #weight,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<int> size() => (super.noSuchMethod(
+        Invocation.method(
+          #size,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<int> vsize() => (super.noSuchMethod(
+        Invocation.method(
+          #vsize,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<bool> isCoinBase() => (super.noSuchMethod(
+        Invocation.method(
+          #isCoinBase,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> isExplicitlyRbf() => (super.noSuchMethod(
+        Invocation.method(
+          #isExplicitlyRbf,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> isLockTimeEnabled() => (super.noSuchMethod(
+        Invocation.method(
+          #isLockTimeEnabled,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Future<int> version() => (super.noSuchMethod(
+        Invocation.method(
+          #version,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<int> lockTime() => (super.noSuchMethod(
+        Invocation.method(
+          #lockTime,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+  @override
+  _i4.Future<List<_i2.TxIn>> input() => (super.noSuchMethod(
+        Invocation.method(
+          #input,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i2.TxIn>>.value(<_i2.TxIn>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i2.TxIn>>.value(<_i2.TxIn>[]),
+      ) as _i4.Future<List<_i2.TxIn>>);
+  @override
+  _i4.Future<List<_i2.TxOut>> output() => (super.noSuchMethod(
+        Invocation.method(
+          #output,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i2.TxOut>>.value(<_i2.TxOut>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i2.TxOut>>.value(<_i2.TxOut>[]),
+      ) as _i4.Future<List<_i2.TxOut>>);
 }
 
 /// A class which mocks [Blockchain].
@@ -1349,6 +1485,48 @@ class MockFeeRate extends _i1.Mock implements _i3.FeeRate {
       ) as double);
 }
 
+/// A class which mocks [LocalUtxo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalUtxo extends _i1.Mock implements _i2.LocalUtxo {
+  @override
+  _i2.OutPoint get outpoint => (super.noSuchMethod(
+        Invocation.getter(#outpoint),
+        returnValue: _FakeOutPoint_14(
+          this,
+          Invocation.getter(#outpoint),
+        ),
+        returnValueForMissingStub: _FakeOutPoint_14(
+          this,
+          Invocation.getter(#outpoint),
+        ),
+      ) as _i2.OutPoint);
+  @override
+  _i2.TxOut get txout => (super.noSuchMethod(
+        Invocation.getter(#txout),
+        returnValue: _FakeTxOut_15(
+          this,
+          Invocation.getter(#txout),
+        ),
+        returnValueForMissingStub: _FakeTxOut_15(
+          this,
+          Invocation.getter(#txout),
+        ),
+      ) as _i2.TxOut);
+  @override
+  bool get isSpent => (super.noSuchMethod(
+        Invocation.getter(#isSpent),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
+  _i2.KeychainKind get keychain => (super.noSuchMethod(
+        Invocation.getter(#keychain),
+        returnValue: _i2.KeychainKind.External,
+        returnValueForMissingStub: _i2.KeychainKind.External,
+      ) as _i2.KeychainKind);
+}
+
 /// A class which mocks [TxBuilderResult].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1368,11 +1546,11 @@ class MockTxBuilderResult extends _i1.Mock implements _i3.TxBuilderResult {
   @override
   _i2.TransactionDetails get txDetails => (super.noSuchMethod(
         Invocation.getter(#txDetails),
-        returnValue: _FakeTransactionDetails_14(
+        returnValue: _FakeTransactionDetails_16(
           this,
           Invocation.getter(#txDetails),
         ),
-        returnValueForMissingStub: _FakeTransactionDetails_14(
+        returnValueForMissingStub: _FakeTransactionDetails_16(
           this,
           Invocation.getter(#txDetails),
         ),

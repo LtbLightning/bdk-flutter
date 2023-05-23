@@ -9,6 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'bdk_flutter_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<Wallet>()])
+@GenerateNiceMocks([MockSpec<Transaction>()])
 @GenerateNiceMocks([MockSpec<Blockchain>()])
 @GenerateNiceMocks([MockSpec<DescriptorSecretKey>()])
 @GenerateNiceMocks([MockSpec<DescriptorPublicKey>()])
@@ -19,19 +20,15 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
 @GenerateNiceMocks([MockSpec<FeeRate>()])
+@GenerateNiceMocks([MockSpec<LocalUtxo>()])
 @GenerateNiceMocks([MockSpec<TxBuilderResult>()])
 @GenerateNiceMocks([MockSpec<TransactionDetails>()])
 void main() {
   final mockWallet = MockWallet();
-  final mockSDescriptorSecret = MockDescriptorSecretKey();
-  final mockSDescriptorPublic = MockDescriptorPublicKey();
   final mockBlockchain = MockBlockchain();
   final mockDerivationPath = MockDerivationPath();
-  final mockTxBuilder = MockTxBuilder();
   final mockAddress = MockAddress();
-  final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
   final mockScript = MockScript();
-
   group('Blockchain', () {
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
@@ -46,7 +43,6 @@ void main() {
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
   });
-
   group('FeeRate', () {
     test('Should return a double when called', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
@@ -61,7 +57,6 @@ void main() {
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
   });
-
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
       final res = await mockWallet.getAddress(addressIndex: AddressIndex());
@@ -98,6 +93,16 @@ void main() {
       final res = await mockWallet.listUnspent();
       expect(res, isA<List<LocalUtxo>>());
     });
+    test('Should return a Input object', () async {
+      final res = await mockWallet.getPsbtInput(
+          utxo: MockLocalUtxo(), onlyWitnessUtxo: true);
+      expect(res, isA<Input>());
+    });
+    test('Should return a Descriptor object', () async {
+      final res =
+          await mockWallet.getDescriptorForKeyChain(KeychainKind.External);
+      expect(res, isA<Descriptor>());
+    });
     test('Should return an empty list of TransactionDetails', () async {
       when(mockWallet.listTransactions(any))
           .thenAnswer((e) async => List.empty());
@@ -115,6 +120,7 @@ void main() {
     });
   });
   group('DescriptorSecret', () {
+    final mockSDescriptorSecret = MockDescriptorSecretKey();
     test('verify derive()', () async {
       final res = await mockSDescriptorSecret.derive(mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
@@ -133,6 +139,7 @@ void main() {
     });
   });
   group('DescriptorPublic', () {
+    final mockSDescriptorPublic = MockDescriptorPublicKey();
     test('verify derive()', () async {
       final res = await mockSDescriptorPublic.derive(mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
@@ -147,6 +154,7 @@ void main() {
     });
   });
   group('Tx Builder', () {
+    final mockTxBuilder = MockTxBuilder();
     test('Should return a TxBuilderException when funds are insufficient',
         () async {
       try {
@@ -290,6 +298,7 @@ void main() {
     });
   });
   group('Bump Fee Tx Builder', () {
+    final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
     test('Should return a TxBuilderException when txid is invalid', () async {
       try {
         when(mockBumpFeeTxBuilder.finish(mockWallet))
@@ -319,6 +328,57 @@ void main() {
     test('verify create', () async {
       final res = mockScript;
       expect(res, isA<MockScript>());
+    });
+  });
+  group('Transaction', () {
+    final mockTx = MockTransaction();
+    test('verify serialize', () async {
+      final res = await mockTx.serialize();
+      expect(res, isA<List<int>>());
+    });
+    test('verify txid', () async {
+      final res = await mockTx.txid();
+      expect(res, isA<String>());
+    });
+    test('verify weight', () async {
+      final res = await mockTx.weight();
+      expect(res, isA<int>());
+    });
+    test('verify size', () async {
+      final res = await mockTx.size();
+      expect(res, isA<int>());
+    });
+    test('verify vsize', () async {
+      final res = await mockTx.vsize();
+      expect(res, isA<int>());
+    });
+    test('verify isCoinbase', () async {
+      final res = await mockTx.isCoinBase();
+      expect(res, isA<bool>());
+    });
+    test('verify isExplicitlyRbf', () async {
+      final res = await mockTx.isExplicitlyRbf();
+      expect(res, isA<bool>());
+    });
+    test('verify isLockTimeEnabled', () async {
+      final res = await mockTx.isLockTimeEnabled();
+      expect(res, isA<bool>());
+    });
+    test('verify version', () async {
+      final res = await mockTx.version();
+      expect(res, isA<int>());
+    });
+    test('verify lockTime', () async {
+      final res = await mockTx.lockTime();
+      expect(res, isA<int>());
+    });
+    test('verify input', () async {
+      final res = await mockTx.input();
+      expect(res, isA<List<TxIn>>());
+    });
+    test('verify output', () async {
+      final res = await mockTx.output();
+      expect(res, isA<List<TxOut>>());
     });
   });
 }

@@ -2,8 +2,6 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint bdk_flutter.podspec` to validate before publishing.
 #
-#
-
 Pod::Spec.new do |s|
   s.name             = 'bdk_flutter'
   s.version          = '0.28.2'
