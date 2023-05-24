@@ -34,27 +34,10 @@ target/universal/release/libexample.a:
 	@echo "[Done ✅] $@"
 ## macos: Compile the macOS libraries
 
-macos: target/x86_64-apple-darwin/release/libexample.dylib target/aarch64-apple-darwin/release/libexample.dylib  target/universal/release/libexample.dylib
+macos: target/x86_64-apple-darwin_aarch64-apple-darwin/release/libexample
 
-target/x86_64-apple-darwin/release/libexample.dylib: $(SOURCES)
-	@if [ $$(uname) == "Darwin" ] ; then \
-		 cargo build --target=x86_64-apple-darwin --release; \
-		else echo "Skipping macOS compilation on $$(uname)" ; \
-	fi
-	@echo "[Done ✅] $@"
-
-target/aarch64-apple-darwin/release/libexample.dylib: $(SOURCES)
-	@if [ $$(uname) == "Darwin" ] ; then \
-		 cargo build --target=aarch64-apple-darwin --release ; \
-		else echo "Skipping macOS compilation on $$(uname)" ; \
-	fi
-	@echo "[Done ✅] $@"
-
-target/universal/release/libexample.dylib: $(SOURCES)
-	@if [ $$(uname) == "Darwin" ] ; then \
-		lipo -create target/x86_64-apple-darwin/release/librust_bdk_ffi.dylib target/aarch64-apple-darwin/release/librust_bdk_ffi.dylib -o target/universal/release/librust_bdk_ffi.dylib ; \
-		else echo "Skipping macOS compilation on $$(uname)" ; \
-	fi
+target/x86_64-apple-darwin_aarch64-apple-darwin/release/libexample: $(SOURCES)
+		sh build_macOs.sh
 	@echo "[Done ✅] $@"
 
 ## android: Compile the android targets (arm64, armv7 and i686)
