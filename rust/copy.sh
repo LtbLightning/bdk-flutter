@@ -14,5 +14,5 @@
        cp target/i686-linux-android/release/librust_bdk_ffi.so  ../android/src/main/jniLibs/x86
 
        cp target/universal/release/librust_bdk_ffi.a  ../ios/
-       cp target/universal/release/librust_bdk_ffi.dylib  ../macos/
+       cp target/universal/release/macos/librust_bdk_ffi.a  ../macos/
 
