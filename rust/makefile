@@ -25,19 +25,12 @@ init:
 ## :
 
 ## all: Compile iOS, Android and bindings targets
-all: init ios android macos bindings
+all: init ios android bindings
 
 ## ios: Compile the iOS universal library
 ios: target/universal/release/libexample.a
 target/universal/release/libexample.a:
 	cargo lipo --release
-	@echo "[Done ✅] $@"
-## macos: Compile the macOS libraries
-
-macos: target/x86_64-apple-darwin_aarch64-apple-darwin/release/libexample
-
-target/x86_64-apple-darwin_aarch64-apple-darwin/release/libexample: $(SOURCES)
-		sh build_macOs.sh
 	@echo "[Done ✅] $@"
 
 ## android: Compile the android targets (arm64, armv7 and i686)

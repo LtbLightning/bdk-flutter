@@ -1,5 +1,4 @@
 ## [0.28.2]
-Updated the plugin with `MacOs` support.
 
 #### APIs added
 - Expose `Wallet` class's `getDescriptorForKeyChain` and `getPsbtInput` functions.

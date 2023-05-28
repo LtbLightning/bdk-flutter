@@ -4,14 +4,16 @@ import 'dart:io';
 import '../generated/bindings.dart';
 
 DynamicLibrary _open() {
-  if (Platform.isMacOS) {
-    return DynamicLibrary.executable();
-  } else if (Platform.isAndroid) {
-    return DynamicLibrary.open("librust_bdk_ffi.so");
-  } else if (Platform.isWindows) {
-    return DynamicLibrary.open("librust_bdk_ffi.dll");
+  if (Platform.environment.containsKey('FLUTTER_TEST')) {
+    return DynamicLibrary.open('test/librust_bdk_ffi_macos.dylib');
   } else {
-    return DynamicLibrary.process();
+    if (Platform.isIOS) {
+      return DynamicLibrary.process();
+    } else if (Platform.isAndroid) {
+      return DynamicLibrary.open("librust_bdk_ffi.so");
+    } else {
+      return DynamicLibrary.executable();
+    }
   }
 }
 
