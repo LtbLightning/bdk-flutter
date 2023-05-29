@@ -15,7 +15,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.28.2
+  bdk_flutter: ^0.28.1
 ```
 
 ### Examples
@@ -153,9 +153,7 @@ final internalAddress =
 The latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
 
 ### Example Projects
-
-- **\*BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/nuCode-Tech/bdk-flutter-demo-app)
-  is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
+**BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-app) is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
 
 ### How to build
 
@@ -165,10 +163,9 @@ _Note that Flutter version `3.0` or later is required to build the plugin._
    The easiest way to get Cargo is to install the current stable release of Rust by using [rustup](https://doc.rust-lang.org/cargo/getting-started/installation.html). Installing Rust using rustup will also install cargo.
 
 2. Clone this repository
-
-   ```shell
-   git clone https://github.com/nuCode-Tech/bdk-flutter
-   ```
+    ```shell
+    git clone https://github.com/LtbLightning/bdk-flutter.git
+    ```
 
 3. Activate dart `ffigen`
 
