@@ -10,6 +10,5 @@
        cp target/aarch64-linux-android/release/librust_bdk_ffi.so  ../android/src/main/jniLibs/arm64-v8a
        cp target/armv7-linux-androideabi/release/librust_bdk_ffi.so  ../android/src/main/jniLibs/armeabi-v7a
        cp target/i686-linux-android/release/librust_bdk_ffi.so  ../android/src/main/jniLibs/x86
-
        cp target/universal/release/librust_bdk_ffi.a  ../ios/
 

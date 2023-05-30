@@ -1,7 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:bdk_flutter_example/repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,11 +17,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
-  late Wallet bdkWallet;
-  Descriptor? aliceDescriptor;
-  late Descriptor aliceChangeDescriptor;
+  late Wallet bobWallet;
+  late Wallet aliceWallet;
   Blockchain? blockchain;
-
+  BdkRepository repository = BdkRepository();
   @override
   void initState() {
     restoreWallet();
@@ -31,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateMnemonicKeys() async {
-    final res = await Mnemonic.create(WordCount.Words12);
+    final res = await repository.createMnemonic();
     setState(() {
       displayText = res.toString();
     });
@@ -41,83 +38,46 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
-    await createDescriptorSecret();
-    bdkWallet = await Wallet.create(
-        descriptor: aliceDescriptor!,
-        network: Network.Testnet,
-        databaseConfig: const DatabaseConfig.memory());
-    final address =
-        await bdkWallet.getAddress(addressIndex: const AddressIndex());
-
+    final descriptors = await createDescriptorSecret();
+    bobWallet = await repository.restoreWallet(descriptors[0]);
+    aliceWallet = await repository.restoreWallet(descriptors[1]);
     setState(() {
-      displayText = "Wallet restored with address: ${address.address} ";
+      displayText = "Wallet restored";
     });
   }
 
-  createDescriptorSecret() async {
-    final mnemonic = await Mnemonic.fromString(
+  Future<List<Descriptor>> createDescriptorSecret() async {
+    final mnemonic1 = await Mnemonic.fromString(
+        'thumb member wage display inherit music elevator need side setup tube panther broom giant auction banner split potato');
+    final mnemonic2 = await Mnemonic.fromString(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
-    final descriptorSecretKey = await DescriptorSecretKey.create(
-      network: Network.Testnet,
-      mnemonic: mnemonic,
-    );
-    final descriptor = await Descriptor.newBip44(
-        secretKey: descriptorSecretKey,
-        network: Network.Testnet,
-        keychain: KeychainKind.External);
-
-    setState(() {
-      aliceDescriptor = descriptor;
-    });
+    final bobDescriptor = await repository.createDescriptorSecret(mnemonic1);
+    final aliceDescriptor = await repository.createDescriptorSecret(mnemonic2);
+    return [bobDescriptor, aliceDescriptor];
   }
 
   initBlockchain(bool isElectrumBlockchain) async {
-    if (blockchain == null) {
-      if (!isElectrumBlockchain) {
-        blockchain = await Blockchain.create(
-            config: const BlockchainConfig.esplora(
-                config: EsploraConfig(
-                    baseUrl: 'https://blockstream.info/testnet/api',
-                    stopGap: 10)));
-      } else {
-        blockchain = await Blockchain.create(
-            config: const BlockchainConfig.electrum(
-                config: ElectrumConfig(
-                    stopGap: 10,
-                    timeout: 5,
-                    retry: 5,
-                    url: "ssl://electrum.blockstream.info:60002",
-                    validateDomain: true)));
-      }
-    }
+    blockchain = await repository.initializeBlockchain(isElectrumBlockchain);
   }
 
   sync() async {
     if (blockchain == null) {
-      await initBlockchain(true);
+      await initBlockchain(false);
     }
-    bdkWallet.sync(blockchain!);
-    setState(() {
-      displayText = "Syncing completed";
-    });
+    await repository.sync(blockchain!, bobWallet);
+    await repository.sync(blockchain!, aliceWallet);
   }
 
   getNewAddress() async {
-    final res = await bdkWallet.getAddress(addressIndex: const AddressIndex());
-    if (kDebugMode) {
-      print(res.address);
-    }
+    final res = await repository.getAddress(aliceWallet);
+    debugPrint(res.address);
     setState(() {
       displayText = "Address: ${res.address} \n Index: ${res.index}";
     });
   }
 
   getUnConfirmedTransactions() async {
-    List<TransactionDetails> unConfirmed = [];
-    final res = await bdkWallet.listTransactions(true);
-    for (var e in res) {
-      if (e.confirmationTime == null) unConfirmed.add(e);
-    }
+    final unConfirmed = await repository.getUnConfirmedTransactions(bobWallet);
     setState(() {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
@@ -135,11 +95,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getConfirmedTransactions() async {
-    List<TransactionDetails> confirmed = [];
-    final res = await bdkWallet.listTransactions(true);
-    for (var e in res) {
-      if (e.confirmationTime != null) confirmed.add(e);
-    }
+    final confirmed = await repository.getConfirmedTransactions(bobWallet);
     setState(() {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
@@ -167,7 +123,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await bdkWallet.getBalance();
+    final res = await repository.getBalance(bobWallet);
+    final alice = await repository.getBalance(aliceWallet);
+    debugPrint(alice.total.toString());
     setState(() {
       balance = res.total;
       displayText =
@@ -176,12 +134,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   listUnspent() async {
-    final res = await bdkWallet.listUnspent();
-    setState(() {
-      displayText =
-          " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
-    });
+    final res = await repository.listUnspend(aliceWallet);
     for (var e in res) {
+      setState(() {
+        displayText =
+            " OutPoint: { txid:${res.first.outpoint.txid}, vout: ${res.first.outpoint.vout} }";
+      });
       if (kDebugMode) {
         print("isSpent: ${e.isSpent}");
         print(
@@ -215,69 +173,9 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Future<FeeRate> estimateFeeRate(int blocks) async {
-    final feeRate = await blockchain!.estimateFee(blocks);
-    setState(() {
-      displayText = "feeRate: ${feeRate.asSatPerVb()}";
-    });
-    return feeRate;
-  }
-
-  getInputOutPuts(TxBuilderResult txBuilderResult) async {
-    final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
-    final jsonObj = json.decode(serializedPsbtTx);
-    final outputs = jsonObj["unsigned_tx"]["output"] as List;
-    final inputs = jsonObj["inputs"][0]["non_witness_utxo"]["output"] as List;
-    debugPrint("=========Inputs=====");
-    for (var e in inputs) {
-      debugPrint("amount: ${e["value"]}");
-      debugPrint("script_pubkey: ${e["script_pubkey"]}");
-    }
-    debugPrint("=========Outputs=====");
-    for (var e in outputs) {
-      debugPrint("amount: ${e["value"]}");
-      debugPrint("script_pubkey: ${e["script_pubkey"]}");
-    }
-  }
-
-  getTransactionDetails(TxBuilderResult txBuilderResult) async {
-    final serializedPsbtTx = await txBuilderResult.psbt.jsonSerialize();
-    final txid = await txBuilderResult.psbt.txId();
-    JsonEncoder encoder = const JsonEncoder.withIndent('  ');
-    if (kDebugMode) {
-      print("received: ${txBuilderResult.txDetails.received}");
-      print("send: ${txBuilderResult.txDetails.sent}");
-      print("confirmation time: ${txBuilderResult.txDetails.confirmationTime}");
-      print("fee: ${txBuilderResult.txDetails.fee}");
-      print("===================");
-      print("txid: $txid");
-      log("serializedPsbtTx: ${encoder.convert(json.decode(serializedPsbtTx))}");
-    }
-  }
-
   sendBit() async {
-    final txBuilder = TxBuilder();
-    final address =
-        await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
-    final script = await address.scriptPubKey();
-    final feeRate = await estimateFeeRate(25);
-    final txBuilderResult = await txBuilder
-        .addRecipient(script, 1500)
-        .feeRate(feeRate.asSatPerVb())
-        .finish(bdkWallet);
-    getInputOutPuts(txBuilderResult);
-    final sbt = await bdkWallet.sign(
-        psbt: txBuilderResult.psbt,
-        signOptions: const SignOptions(
-            trustWitnessUtxo: true,
-            allowAllSighashes: true,
-            removePartialSigs: false,
-            tryFinalize: true,
-            signWithTapInternalKey: false,
-            allowGrinding: false));
-    final tx = await sbt.extractTx();
-    await blockchain!.broadcast(tx);
-    sync();
+    await repository.sendBitcoin(blockchain!, aliceWallet, bobWallet,
+        "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
   }
 
   @override
@@ -285,52 +183,47 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, kToolbarHeight * 2),
-          child: Container(
-            padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
-            color: Colors.blue,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Bdk Wallet',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16,
-                      height: 2.5,
-                      color: Colors.white)),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Response: ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700)),
-                  Expanded(
-                    child: SelectableText(
-                      displayText,
-                      maxLines: 3,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
-          ),
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: false,
+          title: const Text('Bdk Wallet',
+              style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  color: Colors.white)), // Set this heigh
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 50),
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+                color: Colors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Response: ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700)),
+                    Expanded(
+                      child: SelectableText(
+                        displayText,
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -361,7 +254,9 @@ class _MyAppState extends State<MyApp> {
                         fontWeight: FontWeight.w800),
                   )),
               TextButton(
-                  onPressed: () => sync(),
+                  onPressed: () async {
+                    await sync();
+                  },
                   child: const Text(
                     'Press to  sync',
                     style: TextStyle(
