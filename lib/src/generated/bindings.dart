@@ -2344,6 +2344,7 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
 
   void _api_fill_to_wire_sign_options(
       SignOptions apiObj, wire_SignOptions wireObj) {
+    wireObj.is_multi_sig = api2wire_bool(apiObj.isMultiSig);
     wireObj.trust_witness_utxo = api2wire_bool(apiObj.trustWitnessUtxo);
     wireObj.assume_height = api2wire_opt_box_autoadd_u32(apiObj.assumeHeight);
     wireObj.allow_all_sighashes = api2wire_bool(apiObj.allowAllSighashes);
@@ -4510,6 +4511,9 @@ class wire_AddressIndex extends ffi.Struct {
 }
 
 class wire_SignOptions extends ffi.Struct {
+  @ffi.Bool()
+  external bool is_multi_sig;
+
   @ffi.Bool()
   external bool trust_witness_utxo;
 

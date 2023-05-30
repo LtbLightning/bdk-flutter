@@ -172,6 +172,8 @@ impl Wallet {
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 #[derive(Debug, Clone, Default)]
 pub struct SignOptions {
+    /// Whether the provided transaction is a multi-sig transaction
+    pub is_multi_sig: bool,
     /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
     /// provided
     ///

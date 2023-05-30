@@ -813,6 +813,9 @@ class ScriptAmount {
 ///
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 class SignOptions {
+  /// Whether the provided transaction is a multi-sig transaction
+  final bool isMultiSig;
+
   /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
   /// provided
   ///
@@ -863,6 +866,7 @@ class SignOptions {
   final bool allowGrinding;
 
   const SignOptions({
+    required this.isMultiSig,
     required this.trustWitnessUtxo,
     this.assumeHeight,
     required this.allowAllSighashes,

@@ -10,12 +10,36 @@ class BdkRepository {
     return res;
   }
 
-  Future<Descriptor> createDescriptorSecret(Mnemonic mnemonic) async {
+  Future<List<Descriptor>> init2Of3Descriptors(List<Mnemonic> mnemonics) async {
+    final List<DescriptorInfo> descriptorInfos = [];
+    for (var e in mnemonics) {
+      final secret = await DescriptorSecretKey.create(
+          network: Network.Testnet, mnemonic: e);
+      final public = await secret.asPublic();
+      descriptorInfos.add(DescriptorInfo(secret, public));
+    }
+    final alice =
+        "wsh(sortedmulti(2,${descriptorInfos[0].xprv},${descriptorInfos[1].xpub},${descriptorInfos[2].xpub}))";
+    final bob =
+        "wsh(sortedmulti(2,${descriptorInfos[1].xprv},${descriptorInfos[2].xpub},${descriptorInfos[0].xpub}))";
+    final dave =
+        "wsh(sortedmulti(2,${descriptorInfos[2].xprv},${descriptorInfos[0].xpub},${descriptorInfos[1].xpub}))";
+    final List<Descriptor> descriptors = [];
+    final parsedDes = [alice, bob, dave];
+    for (var e in parsedDes) {
+      final res =
+          await Descriptor.create(descriptor: e, network: Network.Testnet);
+      descriptors.add(res);
+    }
+    return descriptors;
+  }
+
+  Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.Testnet,
       mnemonic: mnemonic,
     );
-    final descriptor = await Descriptor.newBip44(
+    final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
         network: Network.Testnet,
         keychain: KeychainKind.External);
@@ -134,26 +158,26 @@ class BdkRepository {
   sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
       String addressStr) async {
     try {
-      final aliceUtxos = await aliceWallet.listUnspent();
-      final aliceWalletInput = await aliceWallet.getPsbtInput(
-          utxo: aliceUtxos.first, onlyWitnessUtxo: true);
-      final aliceWalletDescriptor =
-          await aliceWallet.getDescriptorForKeyChain(KeychainKind.External);
-      final satisfactionWeight =
-          await aliceWalletDescriptor.maxSatisfactionWeight();
       final txBuilder = TxBuilder();
       final address = await Address.create(address: addressStr);
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
           .addRecipient(script, 1500)
-          .addForeignUtxo(
-              aliceWalletInput, aliceUtxos.first.outpoint, satisfactionWeight)
           .feeRate(feeRate.asSatPerVb())
-          .finish(bobWallet);
+          .finish(aliceWallet);
       getInputOutPuts(txBuilderResult, blockchain);
 
-      final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
+      final aliceSbt = await aliceWallet.sign(
+          psbt: txBuilderResult.psbt,
+          signOptions: const SignOptions(
+              isMultiSig: true,
+              trustWitnessUtxo: false,
+              allowAllSighashes: false,
+              removePartialSigs: true,
+              tryFinalize: true,
+              signWithTapInternalKey: true,
+              allowGrinding: true));
       final bobSbt = await bobWallet.sign(psbt: aliceSbt);
       final tx = await bobSbt.extractTx();
       Isolate.run(() async => {await blockchain.broadcast(tx)});
@@ -161,4 +185,10 @@ class BdkRepository {
       debugPrint(e.message);
     }
   }
+}
+
+class DescriptorInfo {
+  final DescriptorSecretKey xprv;
+  final DescriptorPublicKey xpub;
+  DescriptorInfo(this.xprv, this.xpub);
 }

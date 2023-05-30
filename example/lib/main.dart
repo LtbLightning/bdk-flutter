@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   int balance = 0;
   late Wallet bobWallet;
   late Wallet aliceWallet;
+  late Wallet daveWallet;
   Blockchain? blockchain;
   BdkRepository repository = BdkRepository();
   @override
@@ -41,19 +42,22 @@ class _MyAppState extends State<MyApp> {
     final descriptors = await createDescriptorSecret();
     bobWallet = await repository.restoreWallet(descriptors[0]);
     aliceWallet = await repository.restoreWallet(descriptors[1]);
+    daveWallet = await repository.restoreWallet(descriptors[2]);
     setState(() {
-      displayText = "Wallet restored";
+      displayText = "Wallets restored";
     });
   }
 
   Future<List<Descriptor>> createDescriptorSecret() async {
-    final mnemonic1 = await Mnemonic.fromString(
+    final alice = await Mnemonic.fromString(
         'thumb member wage display inherit music elevator need side setup tube panther broom giant auction banner split potato');
-    final mnemonic2 = await Mnemonic.fromString(
+    final bob = await Mnemonic.fromString(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
-    final bobDescriptor = await repository.createDescriptorSecret(mnemonic1);
-    final aliceDescriptor = await repository.createDescriptorSecret(mnemonic2);
-    return [bobDescriptor, aliceDescriptor];
+    final dave = await Mnemonic.fromString(
+        'lawsuit upper gospel minimum cinnamon common boss wage benefit betray ribbon hour');
+    final descriptors =
+        await repository.init2Of3Descriptors([alice, bob, dave]);
+    return descriptors;
   }
 
   initBlockchain(bool isElectrumBlockchain) async {
@@ -66,6 +70,7 @@ class _MyAppState extends State<MyApp> {
     }
     await repository.sync(blockchain!, bobWallet);
     await repository.sync(blockchain!, aliceWallet);
+    await repository.sync(blockchain!, daveWallet);
   }
 
   getNewAddress() async {
@@ -123,13 +128,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await repository.getBalance(bobWallet);
+    final bob = await repository.getBalance(bobWallet);
     final alice = await repository.getBalance(aliceWallet);
-    debugPrint(alice.total.toString());
+    final dave = await repository.getBalance(daveWallet);
+    debugPrint(bob.total.toString());
+    debugPrint(dave.total.toString());
     setState(() {
-      balance = res.total;
+      balance = alice.total;
       displayText =
-          "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
+          "Total Balance: ${alice.total} \n Immature Balance: ${alice.immature}";
     });
   }
 
