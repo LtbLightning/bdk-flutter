@@ -1,53 +1,77 @@
-use crate::blockchain::BlockchainInstance;
+use crate::blockchain::Blockchain;
 use crate::descriptor::BdkDescriptor;
 use crate::psbt::PartiallySignedTransaction;
-use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
-use bdk::{Error as BdkError, SyncOptions};
-use bdk::{SignOptions as BdkSignOptions, Wallet as BdkWallet};
-use flutter_rust_bridge::RustOpaque;
-use std::ops::Deref;
-use std::sync::{Arc, Mutex, MutexGuard};
-
 use crate::types::{
     AddressIndex, AddressInfo, Balance, KeychainKind, OutPoint, Progress, ProgressHolder,
-    TransactionDetails, TxOut,
+    PsbtSigHashType, TransactionDetails, TxOut,
 };
+use bdk::bitcoin::hashes::hex::ToHex;
+use bdk::bitcoin::psbt::{Input, PsbtSighashType};
+use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
+use bdk::descriptor::KeyMap;
+use bdk::{bitcoin, Error as BdkError, SyncOptions};
+use bdk::{SignOptions as BdkSignOptions, Wallet as BdkWallet};
+use lazy_static::lazy_static;
+use std::borrow::Borrow;
+use std::collections::hash_map::DefaultHasher;
+use std::collections::HashMap;
+use std::hash::Hash;
+use std::hash::Hasher;
+use std::ops::Deref;
+use std::sync::RwLock;
+use std::sync::{Arc, Mutex, MutexGuard};
+lazy_static! {
+    static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
+}
 
+fn persist_wallet(id: String, wallet: Wallet) {
+    let mut wallet_lock = WALLET.write().unwrap();
+    wallet_lock.insert(id, Arc::new(wallet));
+    return;
+}
+pub fn default_hasher<T>(obj: T) -> u64
+where
+    T: Hash,
+{
+    let mut hasher = DefaultHasher::new();
+    obj.hash(&mut hasher);
+    hasher.finish()
+}
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
 ///     1. Output descriptors from which it can derive addresses.
 ///     2. A Database where it tracks transactions and utxos related to the descriptors.
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 #[derive(Debug)]
-pub struct WalletInstance {
+pub struct Wallet {
     pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
-impl From<WalletInstance> for RustOpaque<WalletInstance> {
-    fn from(wallet: WalletInstance) -> Self {
-        RustOpaque::new(wallet)
+impl Wallet {
+    pub fn retrieve_wallet(id: String) -> Arc<Wallet> {
+        let wallet_lock = WALLET.read().unwrap();
+        wallet_lock.get(id.as_str()).unwrap().clone()
     }
-}
-impl WalletInstance {
+
     pub fn new(
-        descriptor: Arc<RustOpaque<BdkDescriptor>>,
-        change_descriptor: Option<Arc<RustOpaque<BdkDescriptor>>>,
+        descriptor: String,
+        change_descriptor: Option<String>,
         network: bdk::bitcoin::Network,
         database_config: DatabaseConfig,
-    ) -> Result<Self, BdkError> {
+    ) -> Result<String, BdkError> {
         let database = AnyDatabase::from_config(&database_config.into()).unwrap();
-        let descriptor: String = descriptor.as_string_private();
-        let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
-
         let wallet_mutex = Mutex::new(
             BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
         );
-        Ok(WalletInstance { wallet_mutex })
+        let wallet = Wallet { wallet_mutex };
+
+        let id = default_hasher(&descriptor).to_hex();
+        persist_wallet(id.clone(), wallet);
+        Ok(id)
     }
-    pub fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }
-
-    pub fn sync(&self, blockchain: &BlockchainInstance, progress: Option<Box<dyn Progress>>) {
+    pub fn sync(&self, blockchain: &Blockchain, progress: Option<Box<dyn Progress>>) {
         let bdk_sync_option: SyncOptions = if let Some(p) = progress {
             SyncOptions {
                 progress: Some(Box::new(ProgressHolder { progress: p })
@@ -114,6 +138,31 @@ impl WalletInstance {
         self.get_wallet().sign(
             &mut psbt,
             sign_options.map(SignOptions::into).unwrap_or_default(),
+        )
+    }
+    /// Returns the descriptor used to create addresses for a particular `keychain`.
+    pub fn get_descriptor_for_keychain(
+        &self,
+        keychain: KeychainKind,
+    ) -> Result<BdkDescriptor, BdkError> {
+        let wallet = self.get_wallet();
+        Ok(BdkDescriptor {
+            extended_descriptor: wallet
+                .get_descriptor_for_keychain(keychain.into())
+                .to_owned(),
+            key_map: KeyMap::new(),
+        })
+    }
+    pub fn get_psbt_input(
+        &self,
+        utxo: LocalUtxo,
+        only_witness_utxo: bool,
+        psbt_sighash_type: Option<PsbtSigHashType>,
+    ) -> Result<Input, BdkError> {
+        self.get_wallet().get_psbt_input(
+            utxo.into(),
+            psbt_sighash_type.map(|x| PsbtSighashType::from_u32(x.inner)),
+            only_witness_utxo,
         )
     }
 }
@@ -204,6 +253,19 @@ pub struct LocalUtxo {
     pub keychain: KeychainKind,
 }
 
+impl From<LocalUtxo> for bdk::LocalUtxo {
+    fn from(x: LocalUtxo) -> Self {
+        bdk::LocalUtxo {
+            outpoint: x.outpoint.borrow().into(),
+            txout: bitcoin::blockdata::transaction::TxOut {
+                value: x.txout.value,
+                script_pubkey: x.txout.script_pubkey.into(),
+            },
+            keychain: x.keychain.into(),
+            is_spent: x.is_spent,
+        }
+    }
+}
 impl From<bdk::LocalUtxo> for LocalUtxo {
     fn from(local_utxo: bdk::LocalUtxo) -> Self {
         LocalUtxo {
@@ -270,32 +332,27 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
 mod test {
 
     use crate::descriptor::BdkDescriptor;
-    use crate::wallet::{AddressIndex, DatabaseConfig, WalletInstance};
+    use crate::wallet::{AddressIndex, DatabaseConfig, Wallet};
     use bdk::bitcoin::Network;
-    use flutter_rust_bridge::RustOpaque;
-    use std::sync::Arc;
 
     #[test]
     fn test_peek_reset_address() {
         let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
-        let descriptor =
-            RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
-        let change_descriptor = RustOpaque::new(
-            BdkDescriptor::new(
-                test_wpkh.to_string().replace("/0/*", "/1/*"),
-                Network::Regtest,
-            )
-            .unwrap(),
-        );
+        let descriptor = BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap();
+        let change_descriptor = BdkDescriptor::new(
+            test_wpkh.to_string().replace("/0/*", "/1/*"),
+            Network::Regtest,
+        )
+        .unwrap();
 
-        let wallet = WalletInstance::new(
-            Arc::new(descriptor),
-            Some(Arc::new(change_descriptor)),
+        let wallet_id = Wallet::new(
+            descriptor.as_string_private(),
+            Some(change_descriptor.as_string_private()),
             Network::Regtest,
             DatabaseConfig::Memory,
         )
         .unwrap();
-
+        let wallet = Wallet::retrieve_wallet(wallet_id);
         assert_eq!(
             wallet
                 .get_address(AddressIndex::Peek { index: 2 })
@@ -357,23 +414,21 @@ mod test {
     #[test]
     fn test_get_address() {
         let test_wpkh = "wpkh(tprv8hwWMmPE4BVNxGdVt3HhEERZhondQvodUY7Ajyseyhudr4WabJqWKWLr4Wi2r26CDaNCQhhxEftEaNzz7dPGhWuKFU4VULesmhEfZYyBXdE/0/*)";
-        let descriptor =
-            RustOpaque::new(BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap());
-        let change_descriptor = RustOpaque::new(
-            BdkDescriptor::new(
-                test_wpkh.to_string().replace("/0/*", "/1/*"),
-                Network::Regtest,
-            )
-            .unwrap(),
-        );
+        let descriptor = BdkDescriptor::new(test_wpkh.to_string(), Network::Regtest).unwrap();
+        let change_descriptor = BdkDescriptor::new(
+            test_wpkh.to_string().replace("/0/*", "/1/*"),
+            Network::Regtest,
+        )
+        .unwrap();
 
-        let wallet = WalletInstance::new(
-            Arc::new(descriptor),
-            Some(Arc::new(change_descriptor)),
+        let wallet_id = Wallet::new(
+            descriptor.as_string_private(),
+            Some(change_descriptor.as_string_private()),
             Network::Regtest,
             DatabaseConfig::Memory,
         )
         .unwrap();
+        let wallet = Wallet::retrieve_wallet(wallet_id);
 
         assert_eq!(
             wallet.get_address(AddressIndex::New).unwrap().address,

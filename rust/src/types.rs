@@ -1,15 +1,15 @@
 use crate::psbt::Transaction;
 use bdk::bitcoin::blockdata::transaction::TxIn as BdkTxIn;
 use bdk::bitcoin::blockdata::transaction::TxOut as BdkTxOut;
-use std::borrow::Borrow;
-
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::locktime::Error;
+use bdk::bitcoin::psbt::Input;
 use bdk::bitcoin::util::address::{Payload as BdkPayload, WitnessVersion as BdkWitnessVersion};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Txid};
 use bdk::blockchain::Progress as BdkProgress;
 use bdk::{Balance as BdkBalance, Error as BdkError};
 use serde::{Deserialize, Serialize};
+use std::borrow::Borrow;
 use std::fmt;
 use std::fmt::Debug;
 use std::str::FromStr;
@@ -21,7 +21,7 @@ pub struct TxIn {
     pub sequence: u32,
     pub witness: Vec<String>,
 }
-
+pub struct DescNetwork(pub String, pub Network);
 impl From<&BdkTxIn> for TxIn {
     fn from(x: &BdkTxIn) -> Self {
         TxIn {
@@ -48,7 +48,16 @@ impl From<&BdkTxOut> for TxOut {
         }
     }
 }
+pub struct PsbtSigHashType {
+    pub inner: u32,
+}
 
+pub struct ForeignUtxo(pub OutPoint, pub String, pub usize);
+
+pub fn to_input(input: String) -> Input {
+    let input: Input = serde_json::from_str(&input).expect("Invalid Psbt Input");
+    input
+}
 /// A reference to a transaction output.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct OutPoint {

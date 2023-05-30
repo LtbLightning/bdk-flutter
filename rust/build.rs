@@ -12,7 +12,7 @@ const C_OUTPUT: &str = "../ios/Classes/bindings.h";
 const DECL_OUTPUT: &str = "../lib/src/generated/bridge_definitions.dart";
 fn main() {
     // Tell Cargo that if the input Rust code changes, to rerun this build script.
-    println!("cargo:rerun-if-changed={}", RUST_INPUT);
+    println!("cargo:rerun-if-changed={}", RUST_INPUT.to_string());
     env::set_var("RUST_BACKTRACE", "full");
     // Options for frb_codegen
     let raw_opts = RawOpts {
@@ -20,11 +20,14 @@ fn main() {
         rust_input: vec![RUST_INPUT.to_string()],
         // Path of output generated Dart code
         dart_output: vec![DART_OUTPUT.to_string()],
+
         // for other options use defaults
         wasm: false,
         dart_decl_output: Some(DECL_OUTPUT.into()),
         c_output: Some(vec![C_OUTPUT.to_string()]),
+        inline_rust: true,
         dart_format_line_length: 120,
+
         // for other options use defaults
         ..Default::default()
     };

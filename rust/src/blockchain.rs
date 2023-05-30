@@ -3,20 +3,31 @@ use crate::types::Network;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 use bdk::blockchain::rpc::Auth as BdkAuth;
 use bdk::blockchain::rpc::RpcConfig as BdkRpcConfig;
+use bdk::blockchain::Blockchain as BdkBlockchain;
 use bdk::blockchain::{
-    AnyBlockchain, AnyBlockchainConfig, Blockchain, ConfigurableBlockchain,
-    ElectrumBlockchainConfig, GetBlockHash, GetHeight,
+    AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
+    GetBlockHash, GetHeight,
 };
 use bdk::{Error as BdkError, FeeRate};
+use lazy_static::lazy_static;
+use std::collections::HashMap;
 use std::path::PathBuf;
+use std::sync::RwLock;
 use std::sync::{Arc, Mutex, MutexGuard};
-
-pub struct BlockchainInstance {
+lazy_static! {
+    static ref BLOCKCHAIN: RwLock<HashMap<String, Arc<Blockchain>>> = RwLock::new(HashMap::new());
+}
+fn persist_blockchain(id: String, blockchain: Blockchain) {
+    let mut blockchain_lock = BLOCKCHAIN.write().unwrap();
+    blockchain_lock.insert(id, Arc::new(blockchain));
+    return;
+}
+pub struct Blockchain {
     pub blockchain_mutex: Mutex<AnyBlockchain>,
 }
 
-impl BlockchainInstance {
-    pub fn new(blockchain_config: BlockchainConfig) -> Result<Self, BdkError> {
+impl Blockchain {
+    pub fn new(blockchain_config: BlockchainConfig) -> Result<String, BdkError> {
         let any_blockchain_config = match blockchain_config {
             BlockchainConfig::Electrum { config } => {
                 AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
@@ -61,11 +72,19 @@ impl BlockchainInstance {
             }
         };
         let blockchain = AnyBlockchain::from_config(&any_blockchain_config)?;
-        Ok(Self {
-            blockchain_mutex: Mutex::new(blockchain),
-        })
+        let id = rand::random::<char>().to_string();
+        persist_blockchain(
+            id.clone(),
+            Blockchain {
+                blockchain_mutex: Mutex::new(blockchain),
+            },
+        );
+        Ok(id)
     }
-
+    pub fn retrieve_blockchain(id: String) -> Arc<Blockchain> {
+        let blockchain_lock = BLOCKCHAIN.read().unwrap();
+        blockchain_lock.get(id.as_str()).unwrap().clone()
+    }
     pub fn get_blockchain(&self) -> MutexGuard<AnyBlockchain> {
         self.blockchain_mutex.lock().expect("blockchain")
     }
