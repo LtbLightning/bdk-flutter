@@ -4,34 +4,10 @@ import 'dart:isolate';
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/cupertino.dart';
 
-class BdkRepository {
+class BdkLibrary {
   Future<Mnemonic> createMnemonic() async {
     final res = await Mnemonic.create(WordCount.Words12);
     return res;
-  }
-
-  Future<List<Descriptor>> init2Of3Descriptors(List<Mnemonic> mnemonics) async {
-    final List<DescriptorInfo> descriptorInfos = [];
-    for (var e in mnemonics) {
-      final secret = await DescriptorSecretKey.create(
-          network: Network.Testnet, mnemonic: e);
-      final public = await secret.asPublic();
-      descriptorInfos.add(DescriptorInfo(secret, public));
-    }
-    final alice =
-        "wsh(sortedmulti(2,${descriptorInfos[0].xprv},${descriptorInfos[1].xpub},${descriptorInfos[2].xpub}))";
-    final bob =
-        "wsh(sortedmulti(2,${descriptorInfos[1].xprv},${descriptorInfos[2].xpub},${descriptorInfos[0].xpub}))";
-    final dave =
-        "wsh(sortedmulti(2,${descriptorInfos[2].xprv},${descriptorInfos[0].xpub},${descriptorInfos[1].xpub}))";
-    final List<Descriptor> descriptors = [];
-    final parsedDes = [alice, bob, dave];
-    for (var e in parsedDes) {
-      final res =
-          await Descriptor.create(descriptor: e, network: Network.Testnet);
-      descriptors.add(res);
-    }
-    return descriptors;
   }
 
   Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
@@ -155,40 +131,24 @@ class BdkRepository {
     }
   }
 
-  sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
-      String addressStr) async {
+  sendBitcoin(
+      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.create(address: addressStr);
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
-          .addRecipient(script, 1500)
+          .addRecipient(script, 800)
           .feeRate(feeRate.asSatPerVb())
           .finish(aliceWallet);
       getInputOutPuts(txBuilderResult, blockchain);
 
-      final aliceSbt = await aliceWallet.sign(
-          psbt: txBuilderResult.psbt,
-          signOptions: const SignOptions(
-              isMultiSig: true,
-              trustWitnessUtxo: false,
-              allowAllSighashes: false,
-              removePartialSigs: true,
-              tryFinalize: true,
-              signWithTapInternalKey: true,
-              allowGrinding: true));
-      final bobSbt = await bobWallet.sign(psbt: aliceSbt);
-      final tx = await bobSbt.extractTx();
+      final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
+      final tx = await aliceSbt.extractTx();
       Isolate.run(() async => {await blockchain.broadcast(tx)});
     } on FormatException catch (e) {
       debugPrint(e.message);
     }
   }
-}
-
-class DescriptorInfo {
-  final DescriptorSecretKey xprv;
-  final DescriptorPublicKey xpub;
-  DescriptorInfo(this.xprv, this.xpub);
 }

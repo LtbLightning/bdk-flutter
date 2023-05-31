@@ -321,7 +321,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
   @override
   _i4.Future<_i3.PartiallySignedTransaction> sign({
     required _i3.PartiallySignedTransaction? psbt,
-    bool? isMultiSig,
     _i2.SignOptions? signOptions,
   }) =>
       (super.noSuchMethod(
@@ -330,7 +329,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           [],
           {
             #psbt: psbt,
-            #isMultiSig: isMultiSig,
             #signOptions: signOptions,
           },
         ),
@@ -342,7 +340,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             [],
             {
               #psbt: psbt,
-              #isMultiSig: isMultiSig,
               #signOptions: signOptions,
             },
           ),
@@ -356,7 +353,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             [],
             {
               #psbt: psbt,
-              #isMultiSig: isMultiSig,
               #signOptions: signOptions,
             },
           ),
