@@ -1,4 +1,7 @@
+import 'dart:isolate';
+
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class MultiSigWallet {
   Future<List<Descriptor>> init2Of3Descriptors(List<Mnemonic> mnemonics) async {
@@ -51,6 +54,37 @@ class MultiSigWallet {
         network: Network.Testnet,
         databaseConfig: const DatabaseConfig.memory());
     return [alice, bob, dave];
+  }
+
+  sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
+      String addressStr) async {
+    try {
+      final txBuilder = TxBuilder();
+      final address = await Address.create(address: addressStr);
+      final script = await address.scriptPubKey();
+      final feeRate = await blockchain.estimateFee(25);
+      final txBuilderResult = await txBuilder
+          .addRecipient(script, 1000)
+          .feeRate(feeRate.asSatPerVb())
+          .finish(aliceWallet);
+      final aliceSbt = await aliceWallet.sign(
+          psbt: txBuilderResult.psbt,
+          signOptions: const SignOptions(
+              isMultiSig: true,
+              trustWitnessUtxo: false,
+              allowAllSighashes: true,
+              removePartialSigs: true,
+              tryFinalize: true,
+              signWithTapInternalKey: true,
+              allowGrinding: true));
+      final bobSbt = await bobWallet.sign(psbt: aliceSbt);
+      final tx = await bobSbt.extractTx();
+      Isolate.run(() async => {await blockchain.broadcast(tx)});
+    } on FormatException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
+      }
+    }
   }
 }
 
