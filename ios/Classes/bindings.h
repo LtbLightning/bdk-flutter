@@ -184,6 +184,7 @@ typedef struct wire_AddressIndex {
 } wire_AddressIndex;
 
 typedef struct wire_SignOptions {
+  bool is_multi_sig;
   bool trust_witness_utxo;
   uint32_t *assume_height;
   bool allow_all_sighashes;

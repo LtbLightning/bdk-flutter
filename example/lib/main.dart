@@ -1,7 +1,8 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:bdk_flutter_example/repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'bdk_library.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,10 +18,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
-  late Wallet bobWallet;
   late Wallet aliceWallet;
   Blockchain? blockchain;
-  BdkRepository repository = BdkRepository();
+  BdkLibrary lib = BdkLibrary();
   @override
   void initState() {
     restoreWallet();
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   generateMnemonicKeys() async {
-    final res = await repository.createMnemonic();
+    final res = await lib.createMnemonic();
     setState(() {
       displayText = res.toString();
     });
@@ -38,38 +38,28 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
-    final descriptors = await createDescriptorSecret();
-    bobWallet = await repository.restoreWallet(descriptors[0]);
-    aliceWallet = await repository.restoreWallet(descriptors[1]);
+    final mnemonic = await Mnemonic.fromString(
+        'puppy interest whip tonight dad never sudden response push zone pig patch');
+    final descriptors = await lib.createDescriptor(mnemonic);
+    aliceWallet = await lib.restoreWallet(descriptors);
     setState(() {
-      displayText = "Wallet restored";
+      displayText = "Wallets restored";
     });
   }
 
-  Future<List<Descriptor>> createDescriptorSecret() async {
-    final mnemonic1 = await Mnemonic.fromString(
-        'thumb member wage display inherit music elevator need side setup tube panther broom giant auction banner split potato');
-    final mnemonic2 = await Mnemonic.fromString(
-        'puppy interest whip tonight dad never sudden response push zone pig patch');
-    final bobDescriptor = await repository.createDescriptorSecret(mnemonic1);
-    final aliceDescriptor = await repository.createDescriptorSecret(mnemonic2);
-    return [bobDescriptor, aliceDescriptor];
-  }
-
   initBlockchain(bool isElectrumBlockchain) async {
-    blockchain = await repository.initializeBlockchain(isElectrumBlockchain);
+    blockchain = await lib.initializeBlockchain(isElectrumBlockchain);
   }
 
   sync() async {
     if (blockchain == null) {
       await initBlockchain(false);
     }
-    await repository.sync(blockchain!, bobWallet);
-    await repository.sync(blockchain!, aliceWallet);
+    await lib.sync(blockchain!, aliceWallet);
   }
 
   getNewAddress() async {
-    final res = await repository.getAddress(aliceWallet);
+    final res = await lib.getAddress(aliceWallet);
     debugPrint(res.address);
     setState(() {
       displayText = "Address: ${res.address} \n Index: ${res.index}";
@@ -77,7 +67,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getUnConfirmedTransactions() async {
-    final unConfirmed = await repository.getUnConfirmedTransactions(bobWallet);
+    final unConfirmed = await lib.getUnConfirmedTransactions(aliceWallet);
     setState(() {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
@@ -95,7 +85,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getConfirmedTransactions() async {
-    final confirmed = await repository.getConfirmedTransactions(bobWallet);
+    final confirmed = await lib.getConfirmedTransactions(aliceWallet);
     setState(() {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
@@ -123,18 +113,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBalance() async {
-    final res = await repository.getBalance(bobWallet);
-    final alice = await repository.getBalance(aliceWallet);
-    debugPrint(alice.total.toString());
+    final alice = await lib.getBalance(aliceWallet);
     setState(() {
-      balance = res.total;
+      balance = alice.total;
       displayText =
-          "Total Balance: ${res.total} \n Immature Balance: ${res.immature}";
+          "Total Balance: ${alice.total} \n Immature Balance: ${alice.immature}";
     });
   }
 
   listUnspent() async {
-    final res = await repository.listUnspend(aliceWallet);
+    final res = await lib.listUnspend(aliceWallet);
     for (var e in res) {
       setState(() {
         displayText =
@@ -174,8 +162,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   sendBit() async {
-    await repository.sendBitcoin(blockchain!, aliceWallet, bobWallet,
-        "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    await lib.sendBitcoin(
+        blockchain!, aliceWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
   }
 
   @override

@@ -647,11 +647,21 @@ impl Api {
             Err(e) => panic!("{:?}", e),
         };
         match Wallet::retrieve_wallet(wallet_id)
-            .sign(&psbt, sign_options)
+            .sign(&psbt, sign_options.clone())
             .unwrap()
         {
             true => Some(psbt.serialize()),
-            false => None,
+            false => {
+                if let Some(sign_option) = sign_options {
+                    if sign_option.is_multi_sig {
+                        Some(psbt.serialize())
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                }
+            }
         }
     }
     pub fn wallet_network(wallet_id: String) -> Network {

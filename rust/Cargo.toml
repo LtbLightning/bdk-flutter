@@ -1,6 +1,6 @@
 [package]
 name = "rust_bdk_ffi"
-version = "0.28.2"
+version = "0.28.3"
 edition = "2021"
 
 [lib]

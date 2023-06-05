@@ -2682,6 +2682,7 @@ mod io {
     impl Wire2Api<SignOptions> for wire_SignOptions {
         fn wire2api(self) -> SignOptions {
             SignOptions {
+                is_multi_sig: self.is_multi_sig.wire2api(),
                 trust_witness_utxo: self.trust_witness_utxo.wire2api(),
                 assume_height: self.assume_height.wire2api(),
                 allow_all_sighashes: self.allow_all_sighashes.wire2api(),
@@ -2836,6 +2837,7 @@ mod io {
     #[repr(C)]
     #[derive(Clone)]
     pub struct wire_SignOptions {
+        is_multi_sig: bool,
         trust_witness_utxo: bool,
         assume_height: *mut u32,
         allow_all_sighashes: bool,
@@ -3309,6 +3311,7 @@ mod io {
     impl NewWithNullPtr for wire_SignOptions {
         fn new_with_null_ptr() -> Self {
             Self {
+                is_multi_sig: Default::default(),
                 trust_witness_utxo: Default::default(),
                 assume_height: core::ptr::null_mut(),
                 allow_all_sighashes: Default::default(),
