@@ -1,16 +1,16 @@
 name: bdk_flutter
 description: A Flutter library for the Bitcoin Development Kit(bdk) (https://bitcoindevkit.org/)
-version: 0.28.3
+version: 0.29.0
 homepage: https://github.com/LtbLightning/bdk-flutter
 
 environment:
-  sdk: ">=2.18.2 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=2.5.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_rust_bridge: ">1.75.1 <= 1.75.3"
+  flutter_rust_bridge: ">1.77.1 <= 1.78.0"
   ffi: ^2.0.1
   freezed_annotation: ^2.2.0
   freezed: ^2.3.3
