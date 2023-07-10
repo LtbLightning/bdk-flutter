@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   String displayText = "";
   int balance = 0;
   late Wallet aliceWallet;
+  late Wallet bobWallet;
   Blockchain? blockchain;
   BdkLibrary lib = BdkLibrary();
   @override
@@ -38,10 +39,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   restoreWallet() async {
-    final mnemonic = await Mnemonic.fromString(
+    final aliceMnemonic = await Mnemonic.fromString(
+        'certain sense kiss guide crumble hint transfer crime much stereo warm coral');
+    final bobMnemonic = await Mnemonic.fromString(
         'puppy interest whip tonight dad never sudden response push zone pig patch');
-    final descriptors = await lib.createDescriptor(mnemonic);
-    aliceWallet = await lib.restoreWallet(descriptors);
+
+    final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
+    final bobDescriptor = await lib.createDescriptor(bobMnemonic);
+    aliceWallet = await lib.restoreWallet(aliceDescriptor);
+    bobWallet = await lib.restoreWallet(bobDescriptor);
     setState(() {
       displayText = "Wallets restored";
     });
@@ -56,6 +62,7 @@ class _MyAppState extends State<MyApp> {
       await initBlockchain(false);
     }
     await lib.sync(blockchain!, aliceWallet);
+    await lib.sync(blockchain!, bobWallet);
   }
 
   getNewAddress() async {
@@ -162,8 +169,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   sendBit() async {
-    await lib.sendBitcoin(
-        blockchain!, aliceWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    await lib.sendBitcoin(blockchain!, aliceWallet, bobWallet,
+        "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
   }
 
   @override

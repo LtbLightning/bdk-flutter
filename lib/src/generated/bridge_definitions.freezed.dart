@@ -70,14 +70,12 @@ mixin _$AddressIndex {
 
 /// @nodoc
 abstract class $AddressIndexCopyWith<$Res> {
-  factory $AddressIndexCopyWith(
-          AddressIndex value, $Res Function(AddressIndex) then) =
+  factory $AddressIndexCopyWith(AddressIndex value, $Res Function(AddressIndex) then) =
       _$AddressIndexCopyWithImpl<$Res, AddressIndex>;
 }
 
 /// @nodoc
-class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
-    implements $AddressIndexCopyWith<$Res> {
+class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex> implements $AddressIndexCopyWith<$Res> {
   _$AddressIndexCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -88,17 +86,14 @@ class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
 
 /// @nodoc
 abstract class _$$AddressIndex_NewCopyWith<$Res> {
-  factory _$$AddressIndex_NewCopyWith(
-          _$AddressIndex_New value, $Res Function(_$AddressIndex_New) then) =
+  factory _$$AddressIndex_NewCopyWith(_$AddressIndex_New value, $Res Function(_$AddressIndex_New) then) =
       __$$AddressIndex_NewCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddressIndex_NewCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_New>
+class __$$AddressIndex_NewCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_New>
     implements _$$AddressIndex_NewCopyWith<$Res> {
-  __$$AddressIndex_NewCopyWithImpl(
-      _$AddressIndex_New _value, $Res Function(_$AddressIndex_New) _then)
+  __$$AddressIndex_NewCopyWithImpl(_$AddressIndex_New _value, $Res Function(_$AddressIndex_New) _then)
       : super(_value, _then);
 }
 
@@ -114,8 +109,7 @@ class _$AddressIndex_New implements AddressIndex_New {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AddressIndex_New);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$AddressIndex_New);
   }
 
   @override
@@ -202,17 +196,16 @@ abstract class AddressIndex_New implements AddressIndex {
 
 /// @nodoc
 abstract class _$$AddressIndex_LastUnusedCopyWith<$Res> {
-  factory _$$AddressIndex_LastUnusedCopyWith(_$AddressIndex_LastUnused value,
-          $Res Function(_$AddressIndex_LastUnused) then) =
+  factory _$$AddressIndex_LastUnusedCopyWith(
+          _$AddressIndex_LastUnused value, $Res Function(_$AddressIndex_LastUnused) then) =
       __$$AddressIndex_LastUnusedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddressIndex_LastUnusedCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnused>
+class __$$AddressIndex_LastUnusedCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnused>
     implements _$$AddressIndex_LastUnusedCopyWith<$Res> {
-  __$$AddressIndex_LastUnusedCopyWithImpl(_$AddressIndex_LastUnused _value,
-      $Res Function(_$AddressIndex_LastUnused) _then)
+  __$$AddressIndex_LastUnusedCopyWithImpl(
+      _$AddressIndex_LastUnused _value, $Res Function(_$AddressIndex_LastUnused) _then)
       : super(_value, _then);
 }
 
@@ -228,9 +221,7 @@ class _$AddressIndex_LastUnused implements AddressIndex_LastUnused {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_LastUnused);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$AddressIndex_LastUnused);
   }
 
   @override
@@ -317,19 +308,16 @@ abstract class AddressIndex_LastUnused implements AddressIndex {
 
 /// @nodoc
 abstract class _$$AddressIndex_PeekCopyWith<$Res> {
-  factory _$$AddressIndex_PeekCopyWith(
-          _$AddressIndex_Peek value, $Res Function(_$AddressIndex_Peek) then) =
+  factory _$$AddressIndex_PeekCopyWith(_$AddressIndex_Peek value, $Res Function(_$AddressIndex_Peek) then) =
       __$$AddressIndex_PeekCopyWithImpl<$Res>;
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$AddressIndex_PeekCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Peek>
+class __$$AddressIndex_PeekCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Peek>
     implements _$$AddressIndex_PeekCopyWith<$Res> {
-  __$$AddressIndex_PeekCopyWithImpl(
-      _$AddressIndex_Peek _value, $Res Function(_$AddressIndex_Peek) _then)
+  __$$AddressIndex_PeekCopyWithImpl(_$AddressIndex_Peek _value, $Res Function(_$AddressIndex_Peek) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -452,30 +440,25 @@ class _$AddressIndex_Peek implements AddressIndex_Peek {
 }
 
 abstract class AddressIndex_Peek implements AddressIndex {
-  const factory AddressIndex_Peek({required final int index}) =
-      _$AddressIndex_Peek;
+  const factory AddressIndex_Peek({required final int index}) = _$AddressIndex_Peek;
 
   int get index;
   @JsonKey(ignore: true)
-  _$$AddressIndex_PeekCopyWith<_$AddressIndex_Peek> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AddressIndex_PeekCopyWith<_$AddressIndex_Peek> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$AddressIndex_ResetCopyWith<$Res> {
-  factory _$$AddressIndex_ResetCopyWith(_$AddressIndex_Reset value,
-          $Res Function(_$AddressIndex_Reset) then) =
+  factory _$$AddressIndex_ResetCopyWith(_$AddressIndex_Reset value, $Res Function(_$AddressIndex_Reset) then) =
       __$$AddressIndex_ResetCopyWithImpl<$Res>;
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$AddressIndex_ResetCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Reset>
+class __$$AddressIndex_ResetCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Reset>
     implements _$$AddressIndex_ResetCopyWith<$Res> {
-  __$$AddressIndex_ResetCopyWithImpl(
-      _$AddressIndex_Reset _value, $Res Function(_$AddressIndex_Reset) _then)
+  __$$AddressIndex_ResetCopyWithImpl(_$AddressIndex_Reset _value, $Res Function(_$AddressIndex_Reset) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -520,8 +503,7 @@ class _$AddressIndex_Reset implements AddressIndex_Reset {
   @override
   @pragma('vm:prefer-inline')
   _$$AddressIndex_ResetCopyWith<_$AddressIndex_Reset> get copyWith =>
-      __$$AddressIndex_ResetCopyWithImpl<_$AddressIndex_Reset>(
-          this, _$identity);
+      __$$AddressIndex_ResetCopyWithImpl<_$AddressIndex_Reset>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -599,13 +581,11 @@ class _$AddressIndex_Reset implements AddressIndex_Reset {
 }
 
 abstract class AddressIndex_Reset implements AddressIndex {
-  const factory AddressIndex_Reset({required final int index}) =
-      _$AddressIndex_Reset;
+  const factory AddressIndex_Reset({required final int index}) = _$AddressIndex_Reset;
 
   int get index;
   @JsonKey(ignore: true)
-  _$$AddressIndex_ResetCopyWith<_$AddressIndex_Reset> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AddressIndex_ResetCopyWith<_$AddressIndex_Reset> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -659,14 +639,12 @@ mixin _$BlockchainConfig {
 
 /// @nodoc
 abstract class $BlockchainConfigCopyWith<$Res> {
-  factory $BlockchainConfigCopyWith(
-          BlockchainConfig value, $Res Function(BlockchainConfig) then) =
+  factory $BlockchainConfigCopyWith(BlockchainConfig value, $Res Function(BlockchainConfig) then) =
       _$BlockchainConfigCopyWithImpl<$Res, BlockchainConfig>;
 }
 
 /// @nodoc
-class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
-    implements $BlockchainConfigCopyWith<$Res> {
+class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig> implements $BlockchainConfigCopyWith<$Res> {
   _$BlockchainConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -678,8 +656,7 @@ class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
 /// @nodoc
 abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
   factory _$$BlockchainConfig_ElectrumCopyWith(
-          _$BlockchainConfig_Electrum value,
-          $Res Function(_$BlockchainConfig_Electrum) then) =
+          _$BlockchainConfig_Electrum value, $Res Function(_$BlockchainConfig_Electrum) then) =
       __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>;
   @useResult
   $Res call({ElectrumConfig config});
@@ -689,8 +666,8 @@ abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
 class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
     extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Electrum>
     implements _$$BlockchainConfig_ElectrumCopyWith<$Res> {
-  __$$BlockchainConfig_ElectrumCopyWithImpl(_$BlockchainConfig_Electrum _value,
-      $Res Function(_$BlockchainConfig_Electrum) _then)
+  __$$BlockchainConfig_ElectrumCopyWithImpl(
+      _$BlockchainConfig_Electrum _value, $Res Function(_$BlockchainConfig_Electrum) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -734,9 +711,8 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
-      get copyWith => __$$BlockchainConfig_ElectrumCopyWithImpl<
-          _$BlockchainConfig_Electrum>(this, _$identity);
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith =>
+      __$$BlockchainConfig_ElectrumCopyWithImpl<_$BlockchainConfig_Electrum>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -808,20 +784,18 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
 }
 
 abstract class BlockchainConfig_Electrum implements BlockchainConfig {
-  const factory BlockchainConfig_Electrum(
-      {required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
+  const factory BlockchainConfig_Electrum({required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
 
   @override
   ElectrumConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  factory _$$BlockchainConfig_EsploraCopyWith(_$BlockchainConfig_Esplora value,
-          $Res Function(_$BlockchainConfig_Esplora) then) =
+  factory _$$BlockchainConfig_EsploraCopyWith(
+          _$BlockchainConfig_Esplora value, $Res Function(_$BlockchainConfig_Esplora) then) =
       __$$BlockchainConfig_EsploraCopyWithImpl<$Res>;
   @useResult
   $Res call({EsploraConfig config});
@@ -831,8 +805,8 @@ abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
 class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
     extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Esplora>
     implements _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  __$$BlockchainConfig_EsploraCopyWithImpl(_$BlockchainConfig_Esplora _value,
-      $Res Function(_$BlockchainConfig_Esplora) _then)
+  __$$BlockchainConfig_EsploraCopyWithImpl(
+      _$BlockchainConfig_Esplora _value, $Res Function(_$BlockchainConfig_Esplora) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -876,10 +850,8 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
-      get copyWith =>
-          __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(
-              this, _$identity);
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith =>
+      __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -951,31 +923,26 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
 }
 
 abstract class BlockchainConfig_Esplora implements BlockchainConfig {
-  const factory BlockchainConfig_Esplora(
-      {required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
+  const factory BlockchainConfig_Esplora({required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
 
   @override
   EsploraConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$BlockchainConfig_RpcCopyWith<$Res> {
-  factory _$$BlockchainConfig_RpcCopyWith(_$BlockchainConfig_Rpc value,
-          $Res Function(_$BlockchainConfig_Rpc) then) =
+  factory _$$BlockchainConfig_RpcCopyWith(_$BlockchainConfig_Rpc value, $Res Function(_$BlockchainConfig_Rpc) then) =
       __$$BlockchainConfig_RpcCopyWithImpl<$Res>;
   @useResult
   $Res call({RpcConfig config});
 }
 
 /// @nodoc
-class __$$BlockchainConfig_RpcCopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Rpc>
+class __$$BlockchainConfig_RpcCopyWithImpl<$Res> extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Rpc>
     implements _$$BlockchainConfig_RpcCopyWith<$Res> {
-  __$$BlockchainConfig_RpcCopyWithImpl(_$BlockchainConfig_Rpc _value,
-      $Res Function(_$BlockchainConfig_Rpc) _then)
+  __$$BlockchainConfig_RpcCopyWithImpl(_$BlockchainConfig_Rpc _value, $Res Function(_$BlockchainConfig_Rpc) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1020,8 +987,7 @@ class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
   @override
   @pragma('vm:prefer-inline')
   _$$BlockchainConfig_RpcCopyWith<_$BlockchainConfig_Rpc> get copyWith =>
-      __$$BlockchainConfig_RpcCopyWithImpl<_$BlockchainConfig_Rpc>(
-          this, _$identity);
+      __$$BlockchainConfig_RpcCopyWithImpl<_$BlockchainConfig_Rpc>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1093,14 +1059,12 @@ class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
 }
 
 abstract class BlockchainConfig_Rpc implements BlockchainConfig {
-  const factory BlockchainConfig_Rpc({required final RpcConfig config}) =
-      _$BlockchainConfig_Rpc;
+  const factory BlockchainConfig_Rpc({required final RpcConfig config}) = _$BlockchainConfig_Rpc;
 
   @override
   RpcConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_RpcCopyWith<_$BlockchainConfig_Rpc> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BlockchainConfig_RpcCopyWith<_$BlockchainConfig_Rpc> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1153,14 +1117,12 @@ mixin _$DatabaseConfig {
 
 /// @nodoc
 abstract class $DatabaseConfigCopyWith<$Res> {
-  factory $DatabaseConfigCopyWith(
-          DatabaseConfig value, $Res Function(DatabaseConfig) then) =
+  factory $DatabaseConfigCopyWith(DatabaseConfig value, $Res Function(DatabaseConfig) then) =
       _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
 }
 
 /// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
-    implements $DatabaseConfigCopyWith<$Res> {
+class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig> implements $DatabaseConfigCopyWith<$Res> {
   _$DatabaseConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1171,17 +1133,14 @@ class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
 
 /// @nodoc
 abstract class _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value,
-          $Res Function(_$DatabaseConfig_Memory) then) =
+  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value, $Res Function(_$DatabaseConfig_Memory) then) =
       __$$DatabaseConfig_MemoryCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DatabaseConfig_MemoryCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
+class __$$DatabaseConfig_MemoryCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
     implements _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value,
-      $Res Function(_$DatabaseConfig_Memory) _then)
+  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value, $Res Function(_$DatabaseConfig_Memory) _then)
       : super(_value, _then);
 }
 
@@ -1197,8 +1156,7 @@ class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
   }
 
   @override
@@ -1279,19 +1237,16 @@ abstract class DatabaseConfig_Memory implements DatabaseConfig {
 
 /// @nodoc
 abstract class _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value,
-          $Res Function(_$DatabaseConfig_Sqlite) then) =
+  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value, $Res Function(_$DatabaseConfig_Sqlite) then) =
       __$$DatabaseConfig_SqliteCopyWithImpl<$Res>;
   @useResult
   $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SqliteCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
+class __$$DatabaseConfig_SqliteCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
     implements _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value,
-      $Res Function(_$DatabaseConfig_Sqlite) _then)
+  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value, $Res Function(_$DatabaseConfig_Sqlite) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1336,8 +1291,7 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
   @override
   @pragma('vm:prefer-inline')
   _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
-      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(
-          this, _$identity);
+      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1409,30 +1363,25 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
 }
 
 abstract class DatabaseConfig_Sqlite implements DatabaseConfig {
-  const factory DatabaseConfig_Sqlite(
-      {required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
+  const factory DatabaseConfig_Sqlite({required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
 
   SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$DatabaseConfig_SledCopyWith<$Res> {
-  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value,
-          $Res Function(_$DatabaseConfig_Sled) then) =
+  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value, $Res Function(_$DatabaseConfig_Sled) then) =
       __$$DatabaseConfig_SledCopyWithImpl<$Res>;
   @useResult
   $Res call({SledDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SledCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
+class __$$DatabaseConfig_SledCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
     implements _$$DatabaseConfig_SledCopyWith<$Res> {
-  __$$DatabaseConfig_SledCopyWithImpl(
-      _$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
+  __$$DatabaseConfig_SledCopyWithImpl(_$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1477,8 +1426,7 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
   @override
   @pragma('vm:prefer-inline')
   _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
-      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(
-          this, _$identity);
+      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1550,13 +1498,11 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
 }
 
 abstract class DatabaseConfig_Sled implements DatabaseConfig {
-  const factory DatabaseConfig_Sled(
-      {required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
+  const factory DatabaseConfig_Sled({required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
 
   SledDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1565,16 +1511,14 @@ mixin _$Payload {
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1611,13 +1555,11 @@ mixin _$Payload {
 
 /// @nodoc
 abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
-      _$PayloadCopyWithImpl<$Res, Payload>;
+  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) = _$PayloadCopyWithImpl<$Res, Payload>;
 }
 
 /// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
-    implements $PayloadCopyWith<$Res> {
+class _$PayloadCopyWithImpl<$Res, $Val extends Payload> implements $PayloadCopyWith<$Res> {
   _$PayloadCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1628,19 +1570,16 @@ class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
 
 /// @nodoc
 abstract class _$$Payload_PubkeyHashCopyWith<$Res> {
-  factory _$$Payload_PubkeyHashCopyWith(_$Payload_PubkeyHash value,
-          $Res Function(_$Payload_PubkeyHash) then) =
+  factory _$$Payload_PubkeyHashCopyWith(_$Payload_PubkeyHash value, $Res Function(_$Payload_PubkeyHash) then) =
       __$$Payload_PubkeyHashCopyWithImpl<$Res>;
   @useResult
   $Res call({Uint8List pubkeyHash});
 }
 
 /// @nodoc
-class __$$Payload_PubkeyHashCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHash>
+class __$$Payload_PubkeyHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHash>
     implements _$$Payload_PubkeyHashCopyWith<$Res> {
-  __$$Payload_PubkeyHashCopyWithImpl(
-      _$Payload_PubkeyHash _value, $Res Function(_$Payload_PubkeyHash) _then)
+  __$$Payload_PubkeyHashCopyWithImpl(_$Payload_PubkeyHash _value, $Res Function(_$Payload_PubkeyHash) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1675,28 +1614,24 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Payload_PubkeyHash &&
-            const DeepCollectionEquality()
-                .equals(other.pubkeyHash, pubkeyHash));
+            const DeepCollectionEquality().equals(other.pubkeyHash, pubkeyHash));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(pubkeyHash));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(pubkeyHash));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$Payload_PubkeyHashCopyWith<_$Payload_PubkeyHash> get copyWith =>
-      __$$Payload_PubkeyHashCopyWithImpl<_$Payload_PubkeyHash>(
-          this, _$identity);
+      __$$Payload_PubkeyHashCopyWithImpl<_$Payload_PubkeyHash>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
   }) {
     return pubkeyHash(this.pubkeyHash);
   }
@@ -1706,8 +1641,7 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
   }) {
     return pubkeyHash?.call(this.pubkeyHash);
   }
@@ -1762,30 +1696,25 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
 }
 
 abstract class Payload_PubkeyHash implements Payload {
-  const factory Payload_PubkeyHash({required final Uint8List pubkeyHash}) =
-      _$Payload_PubkeyHash;
+  const factory Payload_PubkeyHash({required final Uint8List pubkeyHash}) = _$Payload_PubkeyHash;
 
   Uint8List get pubkeyHash;
   @JsonKey(ignore: true)
-  _$$Payload_PubkeyHashCopyWith<_$Payload_PubkeyHash> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Payload_PubkeyHashCopyWith<_$Payload_PubkeyHash> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$Payload_ScriptHashCopyWith<$Res> {
-  factory _$$Payload_ScriptHashCopyWith(_$Payload_ScriptHash value,
-          $Res Function(_$Payload_ScriptHash) then) =
+  factory _$$Payload_ScriptHashCopyWith(_$Payload_ScriptHash value, $Res Function(_$Payload_ScriptHash) then) =
       __$$Payload_ScriptHashCopyWithImpl<$Res>;
   @useResult
   $Res call({Uint8List scriptHash});
 }
 
 /// @nodoc
-class __$$Payload_ScriptHashCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHash>
+class __$$Payload_ScriptHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHash>
     implements _$$Payload_ScriptHashCopyWith<$Res> {
-  __$$Payload_ScriptHashCopyWithImpl(
-      _$Payload_ScriptHash _value, $Res Function(_$Payload_ScriptHash) _then)
+  __$$Payload_ScriptHashCopyWithImpl(_$Payload_ScriptHash _value, $Res Function(_$Payload_ScriptHash) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1820,28 +1749,24 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Payload_ScriptHash &&
-            const DeepCollectionEquality()
-                .equals(other.scriptHash, scriptHash));
+            const DeepCollectionEquality().equals(other.scriptHash, scriptHash));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(scriptHash));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(scriptHash));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$Payload_ScriptHashCopyWith<_$Payload_ScriptHash> get copyWith =>
-      __$$Payload_ScriptHashCopyWithImpl<_$Payload_ScriptHash>(
-          this, _$identity);
+      __$$Payload_ScriptHashCopyWithImpl<_$Payload_ScriptHash>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
   }) {
     return scriptHash(this.scriptHash);
   }
@@ -1851,8 +1776,7 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
   }) {
     return scriptHash?.call(this.scriptHash);
   }
@@ -1907,30 +1831,26 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
 }
 
 abstract class Payload_ScriptHash implements Payload {
-  const factory Payload_ScriptHash({required final Uint8List scriptHash}) =
-      _$Payload_ScriptHash;
+  const factory Payload_ScriptHash({required final Uint8List scriptHash}) = _$Payload_ScriptHash;
 
   Uint8List get scriptHash;
   @JsonKey(ignore: true)
-  _$$Payload_ScriptHashCopyWith<_$Payload_ScriptHash> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Payload_ScriptHashCopyWith<_$Payload_ScriptHash> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$Payload_WitnessProgramCopyWith<$Res> {
-  factory _$$Payload_WitnessProgramCopyWith(_$Payload_WitnessProgram value,
-          $Res Function(_$Payload_WitnessProgram) then) =
+  factory _$$Payload_WitnessProgramCopyWith(
+          _$Payload_WitnessProgram value, $Res Function(_$Payload_WitnessProgram) then) =
       __$$Payload_WitnessProgramCopyWithImpl<$Res>;
   @useResult
   $Res call({WitnessVersion version, Uint8List program});
 }
 
 /// @nodoc
-class __$$Payload_WitnessProgramCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgram>
+class __$$Payload_WitnessProgramCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgram>
     implements _$$Payload_WitnessProgramCopyWith<$Res> {
-  __$$Payload_WitnessProgramCopyWithImpl(_$Payload_WitnessProgram _value,
-      $Res Function(_$Payload_WitnessProgram) _then)
+  __$$Payload_WitnessProgramCopyWithImpl(_$Payload_WitnessProgram _value, $Res Function(_$Payload_WitnessProgram) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1955,8 +1875,7 @@ class __$$Payload_WitnessProgramCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Payload_WitnessProgram implements Payload_WitnessProgram {
-  const _$Payload_WitnessProgram(
-      {required this.version, required this.program});
+  const _$Payload_WitnessProgram({required this.version, required this.program});
 
   /// The witness program version.
   @override
@@ -1981,23 +1900,20 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, version, const DeepCollectionEquality().hash(program));
+  int get hashCode => Object.hash(runtimeType, version, const DeepCollectionEquality().hash(program));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$Payload_WitnessProgramCopyWith<_$Payload_WitnessProgram> get copyWith =>
-      __$$Payload_WitnessProgramCopyWithImpl<_$Payload_WitnessProgram>(
-          this, _$identity);
+      __$$Payload_WitnessProgramCopyWithImpl<_$Payload_WitnessProgram>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
   }) {
     return witnessProgram(version, program);
   }
@@ -2007,8 +1923,7 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
   }) {
     return witnessProgram?.call(version, program);
   }
@@ -2063,9 +1978,8 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
 }
 
 abstract class Payload_WitnessProgram implements Payload {
-  const factory Payload_WitnessProgram(
-      {required final WitnessVersion version,
-      required final Uint8List program}) = _$Payload_WitnessProgram;
+  const factory Payload_WitnessProgram({required final WitnessVersion version, required final Uint8List program}) =
+      _$Payload_WitnessProgram;
 
   /// The witness program version.
   WitnessVersion get version;
@@ -2073,8 +1987,7 @@ abstract class Payload_WitnessProgram implements Payload {
   /// The witness program.
   Uint8List get program;
   @JsonKey(ignore: true)
-  _$$Payload_WitnessProgramCopyWith<_$Payload_WitnessProgram> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Payload_WitnessProgramCopyWith<_$Payload_WitnessProgram> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2121,13 +2034,11 @@ mixin _$RbfValue {
 
 /// @nodoc
 abstract class $RbfValueCopyWith<$Res> {
-  factory $RbfValueCopyWith(RbfValue value, $Res Function(RbfValue) then) =
-      _$RbfValueCopyWithImpl<$Res, RbfValue>;
+  factory $RbfValueCopyWith(RbfValue value, $Res Function(RbfValue) then) = _$RbfValueCopyWithImpl<$Res, RbfValue>;
 }
 
 /// @nodoc
-class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue>
-    implements $RbfValueCopyWith<$Res> {
+class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue> implements $RbfValueCopyWith<$Res> {
   _$RbfValueCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -2138,17 +2049,14 @@ class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue>
 
 /// @nodoc
 abstract class _$$RbfValue_RbfDefaultCopyWith<$Res> {
-  factory _$$RbfValue_RbfDefaultCopyWith(_$RbfValue_RbfDefault value,
-          $Res Function(_$RbfValue_RbfDefault) then) =
+  factory _$$RbfValue_RbfDefaultCopyWith(_$RbfValue_RbfDefault value, $Res Function(_$RbfValue_RbfDefault) then) =
       __$$RbfValue_RbfDefaultCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RbfValue_RbfDefaultCopyWithImpl<$Res>
-    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_RbfDefault>
+class __$$RbfValue_RbfDefaultCopyWithImpl<$Res> extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_RbfDefault>
     implements _$$RbfValue_RbfDefaultCopyWith<$Res> {
-  __$$RbfValue_RbfDefaultCopyWithImpl(
-      _$RbfValue_RbfDefault _value, $Res Function(_$RbfValue_RbfDefault) _then)
+  __$$RbfValue_RbfDefaultCopyWithImpl(_$RbfValue_RbfDefault _value, $Res Function(_$RbfValue_RbfDefault) _then)
       : super(_value, _then);
 }
 
@@ -2164,8 +2072,7 @@ class _$RbfValue_RbfDefault implements RbfValue_RbfDefault {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RbfValue_RbfDefault);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RbfValue_RbfDefault);
   }
 
   @override
@@ -2240,20 +2147,16 @@ abstract class RbfValue_RbfDefault implements RbfValue {
 
 /// @nodoc
 abstract class _$$RbfValue_ValueCopyWith<$Res> {
-  factory _$$RbfValue_ValueCopyWith(
-          _$RbfValue_Value value, $Res Function(_$RbfValue_Value) then) =
+  factory _$$RbfValue_ValueCopyWith(_$RbfValue_Value value, $Res Function(_$RbfValue_Value) then) =
       __$$RbfValue_ValueCopyWithImpl<$Res>;
   @useResult
   $Res call({int field0});
 }
 
 /// @nodoc
-class __$$RbfValue_ValueCopyWithImpl<$Res>
-    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_Value>
+class __$$RbfValue_ValueCopyWithImpl<$Res> extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_Value>
     implements _$$RbfValue_ValueCopyWith<$Res> {
-  __$$RbfValue_ValueCopyWithImpl(
-      _$RbfValue_Value _value, $Res Function(_$RbfValue_Value) _then)
-      : super(_value, _then);
+  __$$RbfValue_ValueCopyWithImpl(_$RbfValue_Value _value, $Res Function(_$RbfValue_Value) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -2367,6 +2270,5 @@ abstract class RbfValue_Value implements RbfValue {
 
   int get field0;
   @JsonKey(ignore: true)
-  _$$RbfValue_ValueCopyWith<_$RbfValue_Value> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$RbfValue_ValueCopyWith<_$RbfValue_Value> get copyWith => throw _privateConstructorUsedError;
 }

@@ -12,35 +12,28 @@ import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'bridge_definitions.freezed.dart';
 
 abstract class RustBdkFfi {
-  Future<String> createBlockchainStaticMethodApi(
-      {required BlockchainConfig config, dynamic hint});
+  Future<String> createBlockchainStaticMethodApi({required BlockchainConfig config, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateBlockchainStaticMethodApiConstMeta;
 
-  Future<int> getHeightStaticMethodApi(
-      {required String blockchainId, dynamic hint});
+  Future<int> getHeightStaticMethodApi({required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetHeightStaticMethodApiConstMeta;
 
   Future<String> getBlockchainHashStaticMethodApi(
-      {required int blockchainHeight,
-      required String blockchainId,
-      dynamic hint});
+      {required int blockchainHeight, required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBlockchainHashStaticMethodApiConstMeta;
 
-  Future<double> estimateFeeStaticMethodApi(
-      {required int target, required String blockchainId, dynamic hint});
+  Future<double> estimateFeeStaticMethodApi({required int target, required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEstimateFeeStaticMethodApiConstMeta;
 
-  Future<String> broadcastStaticMethodApi(
-      {required String tx, required String blockchainId, dynamic hint});
+  Future<String> broadcastStaticMethodApi({required String tx, required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kBroadcastStaticMethodApiConstMeta;
 
-  Future<String> createTransactionStaticMethodApi(
-      {required Uint8List tx, dynamic hint});
+  Future<String> createTransactionStaticMethodApi({required Uint8List tx, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateTransactionStaticMethodApiConstMeta;
 
@@ -60,8 +53,7 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kVsizeStaticMethodApiConstMeta;
 
-  Future<Uint8List> serializeTxStaticMethodApi(
-      {required String tx, dynamic hint});
+  Future<Uint8List> serializeTxStaticMethodApi({required String tx, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSerializeTxStaticMethodApiConstMeta;
 
@@ -69,13 +61,11 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kIsCoinBaseStaticMethodApiConstMeta;
 
-  Future<bool> isExplicitlyRbfStaticMethodApi(
-      {required String tx, dynamic hint});
+  Future<bool> isExplicitlyRbfStaticMethodApi({required String tx, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kIsExplicitlyRbfStaticMethodApiConstMeta;
 
-  Future<bool> isLockTimeEnabledStaticMethodApi(
-      {required String tx, dynamic hint});
+  Future<bool> isLockTimeEnabledStaticMethodApi({required String tx, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kIsLockTimeEnabledStaticMethodApiConstMeta;
 
@@ -95,38 +85,31 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kOutputStaticMethodApiConstMeta;
 
-  Future<String> serializePsbtStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<String> serializePsbtStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSerializePsbtStaticMethodApiConstMeta;
 
-  Future<String> psbtTxidStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<String> psbtTxidStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kPsbtTxidStaticMethodApiConstMeta;
 
-  Future<String> extractTxStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<String> extractTxStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kExtractTxStaticMethodApiConstMeta;
 
-  Future<double?> psbtFeeRateStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<double?> psbtFeeRateStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kPsbtFeeRateStaticMethodApiConstMeta;
 
-  Future<int?> psbtFeeAmountStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<int?> psbtFeeAmountStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kPsbtFeeAmountStaticMethodApiConstMeta;
 
-  Future<String> combinePsbtStaticMethodApi(
-      {required String psbtStr, required String other, dynamic hint});
+  Future<String> combinePsbtStaticMethodApi({required String psbtStr, required String other, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCombinePsbtStaticMethodApiConstMeta;
 
-  Future<String> jsonSerializeStaticMethodApi(
-      {required String psbtStr, dynamic hint});
+  Future<String> jsonSerializeStaticMethodApi({required String psbtStr, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kJsonSerializeStaticMethodApiConstMeta;
 
@@ -157,22 +140,16 @@ abstract class RustBdkFfi {
       int? nSequence,
       dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kBumpFeeTxBuilderFinishStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kBumpFeeTxBuilderFinishStaticMethodApiConstMeta;
 
-  Future<String> createDescriptorStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint});
+  Future<String> createDescriptorStaticMethodApi({required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateDescriptorStaticMethodApiConstMeta;
 
   Future<String> newBip44DescriptorStaticMethodApi(
-      {required KeychainKind keyChainKind,
-      required String secretKey,
-      required Network network,
-      dynamic hint});
+      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kNewBip44DescriptorStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kNewBip44DescriptorStaticMethodApiConstMeta;
 
   Future<String> newBip44PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
@@ -184,13 +161,9 @@ abstract class RustBdkFfi {
   FlutterRustBridgeTaskConstMeta get kNewBip44PublicStaticMethodApiConstMeta;
 
   Future<String> newBip49DescriptorStaticMethodApi(
-      {required KeychainKind keyChainKind,
-      required String secretKey,
-      required Network network,
-      dynamic hint});
+      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kNewBip49DescriptorStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kNewBip49DescriptorStaticMethodApiConstMeta;
 
   Future<String> newBip49PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
@@ -202,13 +175,9 @@ abstract class RustBdkFfi {
   FlutterRustBridgeTaskConstMeta get kNewBip49PublicStaticMethodApiConstMeta;
 
   Future<String> newBip84DescriptorStaticMethodApi(
-      {required KeychainKind keyChainKind,
-      required String secretKey,
-      required Network network,
-      dynamic hint});
+      {required KeychainKind keyChainKind, required String secretKey, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kNewBip84DescriptorStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kNewBip84DescriptorStaticMethodApiConstMeta;
 
   Future<String> newBip84PublicStaticMethodApi(
       {required KeychainKind keyChainKind,
@@ -219,105 +188,78 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kNewBip84PublicStaticMethodApiConstMeta;
 
-  Future<String> asStringPrivateStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint});
+  Future<String> asStringPrivateStaticMethodApi({required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringPrivateStaticMethodApiConstMeta;
 
-  Future<String> asStringStaticMethodApi(
-      {required String descriptor, required Network network, dynamic hint});
+  Future<String> asStringStaticMethodApi({required String descriptor, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta;
 
   Future<int> maxSatisfactionWeightStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kMaxSatisfactionWeightStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kMaxSatisfactionWeightStaticMethodApiConstMeta;
 
   Future<String> createDescriptorSecretStaticMethodApi(
-      {required Network network,
-      required String mnemonic,
-      String? password,
-      dynamic hint});
+      {required Network network, required String mnemonic, String? password, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kCreateDescriptorSecretStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorSecretStaticMethodApiConstMeta;
 
-  Future<String> descriptorSecretFromStringStaticMethodApi(
-      {required String secret, dynamic hint});
+  Future<String> descriptorSecretFromStringStaticMethodApi({required String secret, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kDescriptorSecretFromStringStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretFromStringStaticMethodApiConstMeta;
 
-  Future<String> extendDescriptorSecretStaticMethodApi(
-      {required String secret, required String path, dynamic hint});
+  Future<String> extendDescriptorSecretStaticMethodApi({required String secret, required String path, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kExtendDescriptorSecretStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kExtendDescriptorSecretStaticMethodApiConstMeta;
 
-  Future<String> deriveDescriptorSecretStaticMethodApi(
-      {required String secret, required String path, dynamic hint});
+  Future<String> deriveDescriptorSecretStaticMethodApi({required String secret, required String path, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kDeriveDescriptorSecretStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDeriveDescriptorSecretStaticMethodApiConstMeta;
 
-  Future<Uint8List> asSecretBytesStaticMethodApi(
-      {required String secret, dynamic hint});
+  Future<Uint8List> asSecretBytesStaticMethodApi({required String secret, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsSecretBytesStaticMethodApiConstMeta;
 
-  Future<String> asPublicStaticMethodApi(
-      {required String secret, dynamic hint});
+  Future<String> asPublicStaticMethodApi({required String secret, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAsPublicStaticMethodApiConstMeta;
 
-  Future<String> createDerivationPathStaticMethodApi(
-      {required String path, dynamic hint});
+  Future<String> createDerivationPathStaticMethodApi({required String path, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kCreateDerivationPathStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kCreateDerivationPathStaticMethodApiConstMeta;
 
-  Future<String> descriptorPublicFromStringStaticMethodApi(
-      {required String publicKey, dynamic hint});
+  Future<String> descriptorPublicFromStringStaticMethodApi({required String publicKey, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kDescriptorPublicFromStringStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorPublicFromStringStaticMethodApiConstMeta;
 
   Future<String> createDescriptorPublicStaticMethodApi(
       {String? xpub, required String path, required bool derive, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kCreateDescriptorPublicStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kCreateDescriptorPublicStaticMethodApiConstMeta;
 
-  Future<Script> createScriptStaticMethodApi(
-      {required Uint8List rawOutputScript, dynamic hint});
+  Future<Script> createScriptStaticMethodApi({required Uint8List rawOutputScript, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateScriptStaticMethodApiConstMeta;
 
-  Future<String> createAddressStaticMethodApi(
-      {required String address, dynamic hint});
+  Future<String> createAddressStaticMethodApi({required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kCreateAddressStaticMethodApiConstMeta;
 
-  Future<String> addressFromScriptStaticMethodApi(
-      {required Script script, required Network network, dynamic hint});
+  Future<String> addressFromScriptStaticMethodApi({required Script script, required Network network, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressFromScriptStaticMethodApiConstMeta;
 
-  Future<Script> addressToScriptPubkeyStaticMethodApi(
-      {required String address, dynamic hint});
+  Future<Script> addressToScriptPubkeyStaticMethodApi({required String address, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kAddressToScriptPubkeyStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kAddressToScriptPubkeyStaticMethodApiConstMeta;
 
-  Future<Payload> payloadStaticMethodApi(
-      {required String address, dynamic hint});
+  Future<Payload> payloadStaticMethodApi({required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kPayloadStaticMethodApiConstMeta;
 
-  Future<Network> addressNetworkStaticMethodApi(
-      {required String address, dynamic hint});
+  Future<Network> addressNetworkStaticMethodApi({required String address, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddressNetworkStaticMethodApiConstMeta;
 
@@ -331,35 +273,26 @@ abstract class RustBdkFfi {
   FlutterRustBridgeTaskConstMeta get kCreateWalletStaticMethodApiConstMeta;
 
   Future<AddressInfo> getAddressStaticMethodApi(
-      {required String walletId,
-      required AddressIndex addressIndex,
-      dynamic hint});
+      {required String walletId, required AddressIndex addressIndex, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetAddressStaticMethodApiConstMeta;
 
   Future<AddressInfo> getInternalAddressStaticMethodApi(
-      {required String walletId,
-      required AddressIndex addressIndex,
-      dynamic hint});
+      {required String walletId, required AddressIndex addressIndex, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kGetInternalAddressStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetInternalAddressStaticMethodApiConstMeta;
 
-  Future<void> syncWalletStaticMethodApi(
-      {required String walletId, required String blockchainId, dynamic hint});
+  Future<void> syncWalletStaticMethodApi({required String walletId, required String blockchainId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSyncWalletStaticMethodApiConstMeta;
 
-  Future<Balance> getBalanceStaticMethodApi(
-      {required String walletId, dynamic hint});
+  Future<Balance> getBalanceStaticMethodApi({required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetBalanceStaticMethodApiConstMeta;
 
-  Future<List<LocalUtxo>> listUnspentOutputsStaticMethodApi(
-      {required String walletId, dynamic hint});
+  Future<List<LocalUtxo>> listUnspentOutputsStaticMethodApi({required String walletId, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kListUnspentOutputsStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kListUnspentOutputsStaticMethodApiConstMeta;
 
   Future<List<TransactionDetails>> getTransactionsStaticMethodApi(
       {required String walletId, required bool includeRaw, dynamic hint});
@@ -367,20 +300,15 @@ abstract class RustBdkFfi {
   FlutterRustBridgeTaskConstMeta get kGetTransactionsStaticMethodApiConstMeta;
 
   Future<String?> signStaticMethodApi(
-      {required String walletId,
-      required String psbtStr,
-      SignOptions? signOptions,
-      dynamic hint});
+      {required String walletId, required String psbtStr, SignOptions? signOptions, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSignStaticMethodApiConstMeta;
 
-  Future<Network> walletNetworkStaticMethodApi(
-      {required String walletId, dynamic hint});
+  Future<Network> walletNetworkStaticMethodApi({required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kWalletNetworkStaticMethodApiConstMeta;
 
-  Future<List<LocalUtxo>> listUnspentStaticMethodApi(
-      {required String walletId, dynamic hint});
+  Future<List<LocalUtxo>> listUnspentStaticMethodApi({required String walletId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListUnspentStaticMethodApiConstMeta;
 
@@ -397,26 +325,19 @@ abstract class RustBdkFfi {
   Future<DescNetwork> getDescriptorForKeychainStaticMethodApi(
       {required String walletId, required KeychainKind keychain, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kGetDescriptorForKeychainStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainStaticMethodApiConstMeta;
 
-  Future<String> generateSeedFromWordCountStaticMethodApi(
-      {required WordCount wordCount, dynamic hint});
+  Future<String> generateSeedFromWordCountStaticMethodApi({required WordCount wordCount, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kGenerateSeedFromWordCountStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromWordCountStaticMethodApiConstMeta;
 
-  Future<String> generateSeedFromStringStaticMethodApi(
-      {required String mnemonic, dynamic hint});
+  Future<String> generateSeedFromStringStaticMethodApi({required String mnemonic, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kGenerateSeedFromStringStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromStringStaticMethodApiConstMeta;
 
-  Future<String> generateSeedFromEntropyStaticMethodApi(
-      {required Uint8List entropy, dynamic hint});
+  Future<String> generateSeedFromEntropyStaticMethodApi({required Uint8List entropy, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta
-      get kGenerateSeedFromEntropyStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGenerateSeedFromEntropyStaticMethodApiConstMeta;
 }
 
 @freezed
