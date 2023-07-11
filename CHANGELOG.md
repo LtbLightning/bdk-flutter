@@ -1,9 +1,11 @@
+## [0.29.0]
+
 ## [0.28.3]
 ### Fixed
 - Multisig issue resolved by adding isMultiSig to signOptions.
 
-## [0.28.2]
 
+## [0.28.2]
 #### APIs added
 - Expose `Wallet` class's `getDescriptorForKeyChain` and `getPsbtInput` functions.
 - Expose `TxBuilder` class's `addForeignUtxo` function.
