@@ -1153,6 +1153,17 @@ class Wallet {
     }
   }
 
+  /// Return whether or not a script is part of this wallet (either internal or external).
+  Future<bool> isMine(bridge.Script script) async {
+    try {
+      var res = await loaderApi.isMineStaticMethodApi(
+          script: script, walletId: _wallet);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
   ///Get the Bitcoin network the wallet is using.
   Future<bridge.Network> network() async {
     try {

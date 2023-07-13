@@ -277,6 +277,15 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         )),
       ) as _i4.Future<_i2.Balance>);
   @override
+  _i4.Future<bool> isMine(_i2.Script? script) => (super.noSuchMethod(
+        Invocation.method(
+          #isMine,
+          [script],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
   _i4.Future<_i2.Network> network() => (super.noSuchMethod(
         Invocation.method(
           #network,

@@ -601,6 +601,12 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         }
     }
+    pub fn is_mine( script: Script,  wallet_id: String,) -> anyhow::Result<bool> {
+        match Wallet::retrieve_wallet(wallet_id).is_mine(script.into()){
+            Ok(e) => Ok(e),
+            Err(e) => anyhow::bail!("{:?}", e),
+        }
+    }
     pub fn get_internal_address(
         wallet_id: String,
         address_index: AddressIndex,

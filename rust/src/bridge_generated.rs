@@ -1072,6 +1072,24 @@ fn wire_get_address__static_method__Api_impl(
         },
     )
 }
+fn wire_is_mine__static_method__Api_impl(
+    port_: MessagePort,
+    script: impl Wire2Api<Script> + UnwindSafe,
+    wallet_id: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "is_mine__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_script = script.wire2api();
+            let api_wallet_id = wallet_id.wire2api();
+            move |task_callback| Api::is_mine(api_script, api_wallet_id)
+        },
+    )
+}
 fn wire_get_internal_address__static_method__Api_impl(
     port_: MessagePort,
     wallet_id: impl Wire2Api<String> + UnwindSafe,
@@ -2099,6 +2117,15 @@ mod io {
         address_index: *mut wire_AddressIndex,
     ) {
         wire_get_address__static_method__Api_impl(port_, wallet_id, address_index)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn wire_is_mine__static_method__Api(
+        port_: i64,
+        script: *mut wire_Script,
+        wallet_id: *mut wire_uint_8_list,
+    ) {
+        wire_is_mine__static_method__Api_impl(port_, script, wallet_id)
     }
 
     #[no_mangle]

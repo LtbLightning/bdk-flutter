@@ -409,6 +409,10 @@ void wire_get_address__static_method__Api(int64_t port_,
                                           struct wire_uint_8_list *wallet_id,
                                           struct wire_AddressIndex *address_index);
 
+void wire_is_mine__static_method__Api(int64_t port_,
+                                      struct wire_Script *script,
+                                      struct wire_uint_8_list *wallet_id);
+
 void wire_get_internal_address__static_method__Api(int64_t port_,
                                                    struct wire_uint_8_list *wallet_id,
                                                    struct wire_AddressIndex *address_index);
@@ -573,6 +577,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_address_network__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_wallet__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_address__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_is_mine__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_internal_address__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_balance__static_method__Api);
