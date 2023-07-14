@@ -1,9 +1,13 @@
 ## [0.29.0]
+Support Dart 3.
+Updated Rust and Flutter dependencies.
+#### APIs added
+- Add `isMine` method to `Wallet`.
+- Expose script.toBytes() method.
 
 ## [0.28.3]
 ### Fixed
 - Multisig issue resolved by adding isMultiSig to signOptions.
-
 
 ## [0.28.2]
 #### APIs added
