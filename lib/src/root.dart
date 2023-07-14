@@ -721,6 +721,10 @@ class Script extends bridge.Script {
       throw configException(e.message);
     }
   }
+
+  typed_data.Uint8List toBytes() {
+    return internal;
+  }
 }
 
 ///A bitcoin transaction.
