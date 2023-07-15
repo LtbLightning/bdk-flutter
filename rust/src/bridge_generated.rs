@@ -32,7 +32,6 @@ use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::ChangeSpendPolicy;
 use crate::types::DescNetwork;
-use crate::types::ForeignUtxo;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
@@ -458,7 +457,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
     wallet_id: impl Wire2Api<String> + UnwindSafe,
     recipients: impl Wire2Api<Vec<ScriptAmount>> + UnwindSafe,
     utxos: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
-    foreign_utxo: impl Wire2Api<Option<ForeignUtxo>> + UnwindSafe,
+    foreign_utxo: impl Wire2Api<Option<(OutPoint, String, usize)>> + UnwindSafe,
     unspendable: impl Wire2Api<Vec<OutPoint>> + UnwindSafe,
     change_policy: impl Wire2Api<ChangeSpendPolicy> + UnwindSafe,
     manually_selected_only: impl Wire2Api<bool> + UnwindSafe,
@@ -1368,7 +1367,6 @@ impl Wire2Api<f32> for f32 {
         self
     }
 }
-
 impl Wire2Api<i32> for i32 {
     fn wire2api(self) -> i32 {
         self
@@ -1787,7 +1785,7 @@ mod io {
         wallet_id: *mut wire_uint_8_list,
         recipients: *mut wire_list_script_amount,
         utxos: *mut wire_list_out_point,
-        foreign_utxo: *mut wire_ForeignUtxo,
+        foreign_utxo: *mut wire___record__out_point_String_usize,
         unspendable: *mut wire_list_out_point,
         change_policy: i32,
         manually_selected_only: bool,
@@ -2250,6 +2248,12 @@ mod io {
     // Section: allocate functions
 
     #[no_mangle]
+    pub extern "C" fn new_box_autoadd___record__out_point_String_usize_0(
+    ) -> *mut wire___record__out_point_String_usize {
+        support::new_leak_box_ptr(wire___record__out_point_String_usize::new_with_null_ptr())
+    }
+
+    #[no_mangle]
     pub extern "C" fn new_box_autoadd_address_index_0() -> *mut wire_AddressIndex {
         support::new_leak_box_ptr(wire_AddressIndex::new_with_null_ptr())
     }
@@ -2277,11 +2281,6 @@ mod io {
     #[no_mangle]
     pub extern "C" fn new_box_autoadd_f32_0(value: f32) -> *mut f32 {
         support::new_leak_box_ptr(value)
-    }
-
-    #[no_mangle]
-    pub extern "C" fn new_box_autoadd_foreign_utxo_0() -> *mut wire_ForeignUtxo {
-        support::new_leak_box_ptr(wire_ForeignUtxo::new_with_null_ptr())
     }
 
     #[no_mangle]
@@ -2387,6 +2386,15 @@ mod io {
             String::from_utf8_lossy(&vec).into_owned()
         }
     }
+    impl Wire2Api<(OutPoint, String, usize)> for wire___record__out_point_String_usize {
+        fn wire2api(self) -> (OutPoint, String, usize) {
+            (
+                self.field0.wire2api(),
+                self.field1.wire2api(),
+                self.field2.wire2api(),
+            )
+        }
+    }
     impl Wire2Api<AddressIndex> for wire_AddressIndex {
         fn wire2api(self) -> AddressIndex {
             match self.tag {
@@ -2439,6 +2447,12 @@ mod io {
         }
     }
 
+    impl Wire2Api<(OutPoint, String, usize)> for *mut wire___record__out_point_String_usize {
+        fn wire2api(self) -> (OutPoint, String, usize) {
+            let wrap = unsafe { support::box_from_leak_ptr(self) };
+            Wire2Api::<(OutPoint, String, usize)>::wire2api(*wrap).into()
+        }
+    }
     impl Wire2Api<AddressIndex> for *mut wire_AddressIndex {
         fn wire2api(self) -> AddressIndex {
             let wrap = unsafe { support::box_from_leak_ptr(self) };
@@ -2472,12 +2486,6 @@ mod io {
     impl Wire2Api<f32> for *mut f32 {
         fn wire2api(self) -> f32 {
             unsafe { *support::box_from_leak_ptr(self) }
-        }
-    }
-    impl Wire2Api<ForeignUtxo> for *mut wire_ForeignUtxo {
-        fn wire2api(self) -> ForeignUtxo {
-            let wrap = unsafe { support::box_from_leak_ptr(self) };
-            Wire2Api::<ForeignUtxo>::wire2api(*wrap).into()
         }
     }
     impl Wire2Api<LocalUtxo> for *mut wire_LocalUtxo {
@@ -2599,16 +2607,6 @@ mod io {
                 stop_gap: self.stop_gap.wire2api(),
                 timeout: self.timeout.wire2api(),
             }
-        }
-    }
-
-    impl Wire2Api<ForeignUtxo> for wire_ForeignUtxo {
-        fn wire2api(self) -> ForeignUtxo {
-            ForeignUtxo(
-                self.field0.wire2api(),
-                self.field1.wire2api(),
-                self.field2.wire2api(),
-            )
         }
     }
 
@@ -2765,6 +2763,14 @@ mod io {
 
     #[repr(C)]
     #[derive(Clone)]
+    pub struct wire___record__out_point_String_usize {
+        field0: wire_OutPoint,
+        field1: *mut wire_uint_8_list,
+        field2: usize,
+    }
+
+    #[repr(C)]
+    #[derive(Clone)]
     pub struct wire_ElectrumConfig {
         url: *mut wire_uint_8_list,
         socks5: *mut wire_uint_8_list,
@@ -2782,14 +2788,6 @@ mod io {
         concurrency: *mut u8,
         stop_gap: u64,
         timeout: *mut u64,
-    }
-
-    #[repr(C)]
-    #[derive(Clone)]
-    pub struct wire_ForeignUtxo {
-        field0: wire_OutPoint,
-        field1: *mut wire_uint_8_list,
-        field2: usize,
     }
 
     #[repr(C)]
@@ -3039,6 +3037,22 @@ mod io {
         }
     }
 
+    impl NewWithNullPtr for wire___record__out_point_String_usize {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                field0: Default::default(),
+                field1: core::ptr::null_mut(),
+                field2: Default::default(),
+            }
+        }
+    }
+
+    impl Default for wire___record__out_point_String_usize {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
     impl Default for wire_AddressIndex {
         fn default() -> Self {
             Self::new_with_null_ptr()
@@ -3179,22 +3193,6 @@ mod io {
     }
 
     impl Default for wire_EsploraConfig {
-        fn default() -> Self {
-            Self::new_with_null_ptr()
-        }
-    }
-
-    impl NewWithNullPtr for wire_ForeignUtxo {
-        fn new_with_null_ptr() -> Self {
-            Self {
-                field0: Default::default(),
-                field1: core::ptr::null_mut(),
-                field2: Default::default(),
-            }
-        }
-    }
-
-    impl Default for wire_ForeignUtxo {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }

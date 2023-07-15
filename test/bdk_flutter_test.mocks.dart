@@ -1413,6 +1413,15 @@ class MockScript extends _i1.Mock implements _i3.Script {
         returnValue: _i5.Uint8List(0),
         returnValueForMissingStub: _i5.Uint8List(0),
       ) as _i5.Uint8List);
+  @override
+  _i5.Uint8List toBytes() => (super.noSuchMethod(
+        Invocation.method(
+          #toBytes,
+          [],
+        ),
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
 }
 
 /// A class which mocks [Address].

@@ -507,7 +507,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
-      ForeignUtxo? foreignUtxo,
+      (OutPoint, String, int)? foreignUtxo,
       required List<OutPoint> unspendable,
       required ChangeSpendPolicy changePolicy,
       required bool manuallySelectedOnly,
@@ -521,7 +521,8 @@ class RustBdkFfiImpl implements RustBdkFfi {
     var arg0 = _platform.api2wire_String(walletId);
     var arg1 = _platform.api2wire_list_script_amount(recipients);
     var arg2 = _platform.api2wire_list_out_point(utxos);
-    var arg3 = _platform.api2wire_opt_box_autoadd_foreign_utxo(foreignUtxo);
+    var arg3 = _platform
+        .api2wire_opt_box_autoadd___record__out_point_String_usize(foreignUtxo);
     var arg4 = _platform.api2wire_list_out_point(unspendable);
     var arg5 = api2wire_change_spend_policy(changePolicy);
     var arg6 = manuallySelectedOnly;
@@ -1833,6 +1834,15 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   }
 
   @protected
+  ffi.Pointer<wire___record__out_point_String_usize>
+      api2wire_box_autoadd___record__out_point_String_usize(
+          (OutPoint, String, int) raw) {
+    final ptr = inner.new_box_autoadd___record__out_point_String_usize_0();
+    _api_fill_to_wire___record__out_point_String_usize(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_AddressIndex> api2wire_box_autoadd_address_index(
       AddressIndex raw) {
     final ptr = inner.new_box_autoadd_address_index_0();
@@ -1875,14 +1885,6 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   @protected
   ffi.Pointer<ffi.Float> api2wire_box_autoadd_f32(double raw) {
     return inner.new_box_autoadd_f32_0(api2wire_f32(raw));
-  }
-
-  @protected
-  ffi.Pointer<wire_ForeignUtxo> api2wire_box_autoadd_foreign_utxo(
-      ForeignUtxo raw) {
-    final ptr = inner.new_box_autoadd_foreign_utxo_0();
-    _api_fill_to_wire_foreign_utxo(raw, ptr.ref);
-    return ptr;
   }
 
   @protected
@@ -2000,14 +2002,17 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   }
 
   @protected
-  ffi.Pointer<ffi.Float> api2wire_opt_box_autoadd_f32(double? raw) {
-    return raw == null ? ffi.nullptr : api2wire_box_autoadd_f32(raw);
+  ffi.Pointer<wire___record__out_point_String_usize>
+      api2wire_opt_box_autoadd___record__out_point_String_usize(
+          (OutPoint, String, int)? raw) {
+    return raw == null
+        ? ffi.nullptr
+        : api2wire_box_autoadd___record__out_point_String_usize(raw);
   }
 
   @protected
-  ffi.Pointer<wire_ForeignUtxo> api2wire_opt_box_autoadd_foreign_utxo(
-      ForeignUtxo? raw) {
-    return raw == null ? ffi.nullptr : api2wire_box_autoadd_foreign_utxo(raw);
+  ffi.Pointer<ffi.Float> api2wire_opt_box_autoadd_f32(double? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_f32(raw);
   }
 
   @protected
@@ -2078,6 +2083,14 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
 
 // Section: api_fill_to_wire
 
+  void _api_fill_to_wire___record__out_point_String_usize(
+      (OutPoint, String, int) apiObj,
+      wire___record__out_point_String_usize wireObj) {
+    _api_fill_to_wire_out_point(apiObj.$1, wireObj.field0);
+    wireObj.field1 = api2wire_String(apiObj.$2);
+    wireObj.field2 = api2wire_usize(apiObj.$3);
+  }
+
   void _api_fill_to_wire_address_index(
       AddressIndex apiObj, wire_AddressIndex wireObj) {
     if (apiObj is AddressIndex_New) {
@@ -2129,6 +2142,12 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
     }
   }
 
+  void _api_fill_to_wire_box_autoadd___record__out_point_String_usize(
+      (OutPoint, String, int) apiObj,
+      ffi.Pointer<wire___record__out_point_String_usize> wireObj) {
+    _api_fill_to_wire___record__out_point_String_usize(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_box_autoadd_address_index(
       AddressIndex apiObj, ffi.Pointer<wire_AddressIndex> wireObj) {
     _api_fill_to_wire_address_index(apiObj, wireObj.ref);
@@ -2152,11 +2171,6 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
   void _api_fill_to_wire_box_autoadd_esplora_config(
       EsploraConfig apiObj, ffi.Pointer<wire_EsploraConfig> wireObj) {
     _api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
-  }
-
-  void _api_fill_to_wire_box_autoadd_foreign_utxo(
-      ForeignUtxo apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
-    _api_fill_to_wire_foreign_utxo(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_box_autoadd_local_utxo(
@@ -2254,13 +2268,6 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
     wireObj.timeout = api2wire_opt_box_autoadd_u64(apiObj.timeout);
   }
 
-  void _api_fill_to_wire_foreign_utxo(
-      ForeignUtxo apiObj, wire_ForeignUtxo wireObj) {
-    _api_fill_to_wire_out_point(apiObj.field0, wireObj.field0);
-    wireObj.field1 = api2wire_String(apiObj.field1);
-    wireObj.field2 = api2wire_usize(apiObj.field2);
-  }
-
   void _api_fill_to_wire_local_utxo(LocalUtxo apiObj, wire_LocalUtxo wireObj) {
     _api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
     _api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
@@ -2268,10 +2275,12 @@ class RustBdkFfiPlatform extends FlutterRustBridgeBase<RustBdkFfiWire> {
     wireObj.keychain = api2wire_keychain_kind(apiObj.keychain);
   }
 
-  void _api_fill_to_wire_opt_box_autoadd_foreign_utxo(
-      ForeignUtxo? apiObj, ffi.Pointer<wire_ForeignUtxo> wireObj) {
+  void _api_fill_to_wire_opt_box_autoadd___record__out_point_String_usize(
+      (OutPoint, String, int)? apiObj,
+      ffi.Pointer<wire___record__out_point_String_usize> wireObj) {
     if (apiObj != null)
-      _api_fill_to_wire_box_autoadd_foreign_utxo(apiObj, wireObj);
+      _api_fill_to_wire_box_autoadd___record__out_point_String_usize(
+          apiObj, wireObj);
   }
 
   void _api_fill_to_wire_opt_box_autoadd_psbt_sig_hash_type(
@@ -2962,7 +2971,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> wallet_id,
     ffi.Pointer<wire_list_script_amount> recipients,
     ffi.Pointer<wire_list_out_point> utxos,
-    ffi.Pointer<wire_ForeignUtxo> foreign_utxo,
+    ffi.Pointer<wire___record__out_point_String_usize> foreign_utxo,
     ffi.Pointer<wire_list_out_point> unspendable,
     int change_policy,
     bool manually_selected_only,
@@ -2998,7 +3007,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
                   ffi.Pointer<wire_uint_8_list>,
                   ffi.Pointer<wire_list_script_amount>,
                   ffi.Pointer<wire_list_out_point>,
-                  ffi.Pointer<wire_ForeignUtxo>,
+                  ffi.Pointer<wire___record__out_point_String_usize>,
                   ffi.Pointer<wire_list_out_point>,
                   ffi.Int32,
                   ffi.Bool,
@@ -3016,7 +3025,7 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_list_script_amount>,
               ffi.Pointer<wire_list_out_point>,
-              ffi.Pointer<wire_ForeignUtxo>,
+              ffi.Pointer<wire___record__out_point_String_usize>,
               ffi.Pointer<wire_list_out_point>,
               int,
               bool,
@@ -3952,6 +3961,19 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
       _wire_generate_seed_from_entropy__static_method__ApiPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
+  ffi.Pointer<wire___record__out_point_String_usize>
+      new_box_autoadd___record__out_point_String_usize_0() {
+    return _new_box_autoadd___record__out_point_String_usize_0();
+  }
+
+  late final _new_box_autoadd___record__out_point_String_usize_0Ptr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire___record__out_point_String_usize> Function()>>(
+      'new_box_autoadd___record__out_point_String_usize_0');
+  late final _new_box_autoadd___record__out_point_String_usize_0 =
+      _new_box_autoadd___record__out_point_String_usize_0Ptr.asFunction<
+          ffi.Pointer<wire___record__out_point_String_usize> Function()>();
+
   ffi.Pointer<wire_AddressIndex> new_box_autoadd_address_index_0() {
     return _new_box_autoadd_address_index_0();
   }
@@ -4020,17 +4042,6 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
           'new_box_autoadd_f32_0');
   late final _new_box_autoadd_f32_0 = _new_box_autoadd_f32_0Ptr
       .asFunction<ffi.Pointer<ffi.Float> Function(double)>();
-
-  ffi.Pointer<wire_ForeignUtxo> new_box_autoadd_foreign_utxo_0() {
-    return _new_box_autoadd_foreign_utxo_0();
-  }
-
-  late final _new_box_autoadd_foreign_utxo_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_ForeignUtxo> Function()>>(
-          'new_box_autoadd_foreign_utxo_0');
-  late final _new_box_autoadd_foreign_utxo_0 =
-      _new_box_autoadd_foreign_utxo_0Ptr
-          .asFunction<ffi.Pointer<wire_ForeignUtxo> Function()>();
 
   ffi.Pointer<wire_LocalUtxo> new_box_autoadd_local_utxo_0() {
     return _new_box_autoadd_local_utxo_0();
@@ -4457,7 +4468,7 @@ final class wire_list_out_point extends ffi.Struct {
   external int len;
 }
 
-final class wire_ForeignUtxo extends ffi.Struct {
+final class wire___record__out_point_String_usize extends ffi.Struct {
   external wire_OutPoint field0;
 
   external ffi.Pointer<wire_uint_8_list> field1;

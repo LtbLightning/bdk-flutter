@@ -868,7 +868,7 @@ class TxBuilder {
   final List<bridge.ScriptAmount> _recipients = [];
   final List<bridge.OutPoint> _utxos = [];
   final List<bridge.OutPoint> _unSpendable = [];
-  bridge.ForeignUtxo? _foreignUtxo;
+  (bridge.OutPoint, String, int)? _foreignUtxo;
   bool _manuallySelectedOnly = false;
   double? _feeRate;
   bridge.ChangeSpendPolicy _changeSpendPolicy =
@@ -939,8 +939,7 @@ class TxBuilder {
   /// real input weight matches the expected weight prior to broadcasting.
   TxBuilder addForeignUtxo(
       Input psbtInput, bridge.OutPoint outPoint, int satisfactionWeight) {
-    _foreignUtxo = bridge.ForeignUtxo(
-        field0: outPoint, field1: psbtInput._input, field2: satisfactionWeight);
+    _foreignUtxo = (outPoint, psbtInput._input, satisfactionWeight);
     return this;
   }
 

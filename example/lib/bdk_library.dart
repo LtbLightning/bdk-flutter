@@ -131,35 +131,21 @@ class BdkLibrary {
     }
   }
 
-  sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
-      String addressStr) async {
+  sendBitcoin(
+      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
-      final aliceUtxos = await aliceWallet.listUnspent();
-      final aliceWalletInput1 = await aliceWallet.getPsbtInput(
-          utxo: aliceUtxos.first, onlyWitnessUtxo: false);
-      final aliceWalletInput2 = await aliceWallet.getPsbtInput(
-          utxo: aliceUtxos.last, onlyWitnessUtxo: false);
-      final aliceWalletDescriptor =
-          await aliceWallet.getDescriptorForKeyChain(KeychainKind.External);
-      final satisfactionWeight =
-          await aliceWalletDescriptor.maxSatisfactionWeight();
       final txBuilder = TxBuilder();
       final address = await Address.create(address: addressStr);
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
           .addRecipient(script, 750)
-          .addForeignUtxo(
-              aliceWalletInput1, aliceUtxos.first.outpoint, satisfactionWeight)
-          .addForeignUtxo(
-              aliceWalletInput2, aliceUtxos.last.outpoint, satisfactionWeight)
           .feeRate(feeRate.asSatPerVb())
-          .finish(bobWallet);
+          .finish(aliceWallet);
       getInputOutPuts(txBuilderResult, blockchain);
 
       final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
-      final bobSbt = await bobWallet.sign(psbt: aliceSbt);
-      final tx = await bobSbt.extractTx();
+      final tx = await aliceSbt.extractTx();
       Isolate.run(() async => {await blockchain.broadcast(tx)});
     } on FormatException catch (e) {
       debugPrint(e.message);

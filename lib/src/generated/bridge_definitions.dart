@@ -134,7 +134,7 @@ abstract class RustBdkFfi {
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
-      ForeignUtxo? foreignUtxo,
+      (OutPoint, String, int)? foreignUtxo,
       required List<OutPoint> unspendable,
       required ChangeSpendPolicy changePolicy,
       required bool manuallySelectedOnly,
@@ -630,18 +630,6 @@ class EsploraConfig {
     this.concurrency,
     required this.stopGap,
     this.timeout,
-  });
-}
-
-class ForeignUtxo {
-  final OutPoint field0;
-  final String field1;
-  final int field2;
-
-  const ForeignUtxo({
-    required this.field0,
-    required this.field1,
-    required this.field2,
   });
 }
 

@@ -5,7 +5,7 @@ use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
 use crate::types::{
     to_input, Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ChangeSpendPolicy,
-    DescNetwork, ForeignUtxo, KeychainKind, Network, OutPoint, Payload, PsbtSigHashType, RbfValue,
+    DescNetwork,  KeychainKind, Network, OutPoint, Payload, PsbtSigHashType, RbfValue,
     Script, ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount,
 };
 pub use crate::wallet::{DatabaseConfig, Wallet};
@@ -173,7 +173,7 @@ impl Api {
         wallet_id: String,
         recipients: Vec<ScriptAmount>,
         utxos: Vec<OutPoint>,
-        foreign_utxo: Option<ForeignUtxo>,
+        foreign_utxo: Option<(OutPoint, String, usize)>,
         unspendable: Vec<OutPoint>,
         change_policy: ChangeSpendPolicy,
         manually_selected_only: bool,
