@@ -99,11 +99,11 @@ typedef struct wire_list_out_point {
   int32_t len;
 } wire_list_out_point;
 
-typedef struct wire_ForeignUtxo {
+typedef struct wire___record__out_point_String_usize {
   struct wire_OutPoint field0;
   struct wire_uint_8_list *field1;
   uintptr_t field2;
-} wire_ForeignUtxo;
+} wire___record__out_point_String_usize;
 
 typedef struct wire_RbfValue_RbfDefault {
 
@@ -285,7 +285,7 @@ void wire_tx_builder_finish__static_method__Api(int64_t port_,
                                                 struct wire_uint_8_list *wallet_id,
                                                 struct wire_list_script_amount *recipients,
                                                 struct wire_list_out_point *utxos,
-                                                struct wire_ForeignUtxo *foreign_utxo,
+                                                struct wire___record__out_point_String_usize *foreign_utxo,
                                                 struct wire_list_out_point *unspendable,
                                                 int32_t change_policy,
                                                 bool manually_selected_only,
@@ -409,6 +409,10 @@ void wire_get_address__static_method__Api(int64_t port_,
                                           struct wire_uint_8_list *wallet_id,
                                           struct wire_AddressIndex *address_index);
 
+void wire_is_mine__static_method__Api(int64_t port_,
+                                      struct wire_Script *script,
+                                      struct wire_uint_8_list *wallet_id);
+
 void wire_get_internal_address__static_method__Api(int64_t port_,
                                                    struct wire_uint_8_list *wallet_id,
                                                    struct wire_AddressIndex *address_index);
@@ -453,6 +457,8 @@ void wire_generate_seed_from_string__static_method__Api(int64_t port_,
 void wire_generate_seed_from_entropy__static_method__Api(int64_t port_,
                                                          struct wire_uint_8_list *entropy);
 
+struct wire___record__out_point_String_usize *new_box_autoadd___record__out_point_String_usize_0(void);
+
 struct wire_AddressIndex *new_box_autoadd_address_index_0(void);
 
 struct wire_BlockchainConfig *new_box_autoadd_blockchain_config_0(void);
@@ -464,8 +470,6 @@ struct wire_ElectrumConfig *new_box_autoadd_electrum_config_0(void);
 struct wire_EsploraConfig *new_box_autoadd_esplora_config_0(void);
 
 float *new_box_autoadd_f32_0(float value);
-
-struct wire_ForeignUtxo *new_box_autoadd_foreign_utxo_0(void);
 
 struct wire_LocalUtxo *new_box_autoadd_local_utxo_0(void);
 
@@ -573,6 +577,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_address_network__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_wallet__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_address__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_is_mine__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_internal_address__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_sync_wallet__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_get_balance__static_method__Api);
@@ -586,13 +591,13 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_word_count__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_generate_seed_from_entropy__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd___record__out_point_String_usize_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_address_index_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_blockchain_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_database_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_electrum_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_esplora_config_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_f32_0);
-    dummy_var ^= ((int64_t) (void*) new_box_autoadd_foreign_utxo_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_local_utxo_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_psbt_sig_hash_type_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_rbf_value_0);

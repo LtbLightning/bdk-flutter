@@ -20,6 +20,7 @@ use std::hash::Hasher;
 use std::ops::Deref;
 use std::sync::RwLock;
 use std::sync::{Arc, Mutex, MutexGuard};
+use bdk::bitcoin::Script;
 lazy_static! {
     static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
 }
@@ -90,7 +91,9 @@ impl Wallet {
     pub fn get_balance(&self) -> Result<Balance, BdkError> {
         self.get_wallet().get_balance().map(|b| b.into())
     }
-
+    pub(crate) fn is_mine(&self, script: Script) -> Result<bool, BdkError> {
+        self.get_wallet().is_mine(&script)
+    }
     // Return a derived address using the internal (change) descriptor.
     ///
     /// If the wallet doesn't have an internal descriptor it will use the external descriptor.

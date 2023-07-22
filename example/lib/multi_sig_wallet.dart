@@ -32,7 +32,7 @@ class MultiSigWallet {
     final alice = await Mnemonic.fromString(
         'thumb member wage display inherit music elevator need side setup tube panther broom giant auction banner split potato');
     final bob = await Mnemonic.fromString(
-        'puppy interest whip tonight dad never sudden response push zone pig patch');
+        'tired shine hat tired hover timber reward bridge verb aerobic safe economy');
     final dave = await Mnemonic.fromString(
         'lawsuit upper gospel minimum cinnamon common boss wage benefit betray ribbon hour');
     final descriptors = await init2Of3Descriptors([alice, bob, dave]);

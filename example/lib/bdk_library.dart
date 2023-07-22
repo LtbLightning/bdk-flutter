@@ -139,7 +139,7 @@ class BdkLibrary {
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
-          .addRecipient(script, 800)
+          .addRecipient(script, 750)
           .feeRate(feeRate.asSatPerVb())
           .finish(aliceWallet);
       getInputOutPuts(txBuilderResult, blockchain);

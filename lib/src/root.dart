@@ -721,6 +721,10 @@ class Script extends bridge.Script {
       throw configException(e.message);
     }
   }
+
+  typed_data.Uint8List toBytes() {
+    return internal;
+  }
 }
 
 ///A bitcoin transaction.
@@ -864,7 +868,7 @@ class TxBuilder {
   final List<bridge.ScriptAmount> _recipients = [];
   final List<bridge.OutPoint> _utxos = [];
   final List<bridge.OutPoint> _unSpendable = [];
-  bridge.ForeignUtxo? _foreignUtxo;
+  (bridge.OutPoint, String, int)? _foreignUtxo;
   bool _manuallySelectedOnly = false;
   double? _feeRate;
   bridge.ChangeSpendPolicy _changeSpendPolicy =
@@ -935,8 +939,7 @@ class TxBuilder {
   /// real input weight matches the expected weight prior to broadcasting.
   TxBuilder addForeignUtxo(
       Input psbtInput, bridge.OutPoint outPoint, int satisfactionWeight) {
-    _foreignUtxo = bridge.ForeignUtxo(
-        field0: outPoint, field1: psbtInput._input, field2: satisfactionWeight);
+    _foreignUtxo = (outPoint, psbtInput._input, satisfactionWeight);
     return this;
   }
 
@@ -1147,6 +1150,17 @@ class Wallet {
   Future<bridge.Balance> getBalance() async {
     try {
       var res = await loaderApi.getBalanceStaticMethodApi(walletId: _wallet);
+      return res;
+    } on FfiException catch (e) {
+      throw configException(e.message);
+    }
+  }
+
+  /// Return whether or not a script is part of this wallet (either internal or external).
+  Future<bool> isMine(bridge.Script script) async {
+    try {
+      var res = await loaderApi.isMineStaticMethodApi(
+          script: script, walletId: _wallet);
       return res;
     } on FfiException catch (e) {
       throw configException(e.message);

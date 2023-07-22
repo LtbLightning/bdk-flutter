@@ -277,6 +277,15 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         )),
       ) as _i4.Future<_i2.Balance>);
   @override
+  _i4.Future<bool> isMine(_i2.Script? script) => (super.noSuchMethod(
+        Invocation.method(
+          #isMine,
+          [script],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
   _i4.Future<_i2.Network> network() => (super.noSuchMethod(
         Invocation.method(
           #network,
@@ -1401,6 +1410,15 @@ class MockScript extends _i1.Mock implements _i3.Script {
   @override
   _i5.Uint8List get internal => (super.noSuchMethod(
         Invocation.getter(#internal),
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
+  @override
+  _i5.Uint8List toBytes() => (super.noSuchMethod(
+        Invocation.method(
+          #toBytes,
+          [],
+        ),
         returnValue: _i5.Uint8List(0),
         returnValueForMissingStub: _i5.Uint8List(0),
       ) as _i5.Uint8List);
