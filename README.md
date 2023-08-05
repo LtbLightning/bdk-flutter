@@ -1,5 +1,29 @@
 ### Bdk Flutter
 
+<p>
+  <a href="https://github.com/LtbLightning/bdk-flutter/blob/HEAD/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="BDK is released under the MIT license." />
+  </a>
+  <a href="https://pub.dev/documentation/bdk_flutter/latest/">
+    <img src="https://img.shields.io/badge/docs-red.svg" alt="Docs" />
+  </a>
+  <a href="https://pub.dev/packages/bdk_flutter">
+    <img src="https://img.shields.io/pub/v/bdk_flutter?color=blueviolet" alt="Current pub package version." />
+  </a>
+    <a href="https://github.com/LtbLightning/bdk-flutter/issues">
+    <img src="https://img.shields.io/github/issues/LtbLightning/bdk-flutter.svg" alt="Issues" />
+  </a>
+  <a href="https://github.com/LtbLightning/bdk-flutter/stargazers">
+    <img src="https://img.shields.io/github/stars/LtbLightning/bdk-flutter.svg" alt="Stars" />
+  </a>
+  <a href="https://github.com/LtbLightning/bdk-flutter/forks">
+    <img src="https://img.shields.io/github/forks/LtbLightning/bdk-flutter.svg?color=brightgreen" alt="Forks" />
+  </a>
+  <a href="https://github.com/LtbLightning/bdk-flutter-quickstart">
+    <img src="https://img.shields.io/badge/Demo App-orange" alt="Demo App" />
+  </a>
+</p>
+
 A Flutter library for the [Bitcoin Development Kit](https://bitcoindevkit.org/).
 The bdk library aims to be the core building block for Bitcoin Applications of any kind.
 
