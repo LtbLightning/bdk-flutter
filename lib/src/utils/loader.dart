@@ -8,6 +8,8 @@ DynamicLibrary _open() {
     return DynamicLibrary.process();
   } else if (Platform.isAndroid) {
     return DynamicLibrary.open("librust_bdk_ffi.so");
+  } else if (Platform.isMacOS) {
+    return DynamicLibrary.open('librust_bdk_ffi.dylib');
   } else {
     return DynamicLibrary.executable();
   }
