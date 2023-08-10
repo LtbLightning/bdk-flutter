@@ -17,6 +17,7 @@ dependencies:
   mockito: ^5.4.0
   meta: ^1.8.0
   uuid: ^3.0.7
+  plugin_platform_interface: ^2.1.5
 
 dev_dependencies:
   flutter_test:
