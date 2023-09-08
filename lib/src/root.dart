@@ -20,7 +20,7 @@ class Address {
           await loaderApi.createAddressStaticMethodApi(address: address);
       return Address._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -33,7 +33,7 @@ class Address {
           script: script, network: network);
       return Address._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -44,7 +44,7 @@ class Address {
       final res = await loaderApi.payloadStaticMethodApi(address: _address!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -54,7 +54,7 @@ class Address {
           await loaderApi.addressNetworkStaticMethodApi(address: _address!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -65,7 +65,7 @@ class Address {
           address: _address.toString());
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -89,7 +89,7 @@ class Blockchain {
           await loaderApi.createBlockchainStaticMethodApi(config: config);
       return Blockchain._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -100,7 +100,7 @@ class Blockchain {
           blockchainHeight: height, blockchainId: _blockchain);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -111,7 +111,7 @@ class Blockchain {
           await loaderApi.getHeightStaticMethodApi(blockchainId: _blockchain);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -122,7 +122,7 @@ class Blockchain {
           blockchainId: _blockchain, target: target);
       return FeeRate._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -135,7 +135,7 @@ class Blockchain {
         print(txid);
       }
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }
@@ -193,7 +193,7 @@ class BumpFeeTxBuilder {
           psbt: PartiallySignedTransaction(psbtBase64: res.field0),
           txDetails: res.field1);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }
@@ -210,7 +210,7 @@ class DerivationPath {
           await loaderApi.createDerivationPathStaticMethodApi(path: path);
       return DerivationPath._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -234,7 +234,7 @@ class Descriptor {
           descriptor: descriptor, network: network);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -244,7 +244,7 @@ class Descriptor {
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -262,7 +262,7 @@ class Descriptor {
           keyChainKind: keychain);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -284,7 +284,7 @@ class Descriptor {
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -302,7 +302,7 @@ class Descriptor {
           keyChainKind: keychain);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -324,7 +324,7 @@ class Descriptor {
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -342,7 +342,7 @@ class Descriptor {
           keyChainKind: keychain);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -364,7 +364,7 @@ class Descriptor {
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -375,7 +375,7 @@ class Descriptor {
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -386,7 +386,7 @@ class Descriptor {
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }
@@ -411,7 +411,7 @@ class DescriptorPublicKey {
           derive: true);
       return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -424,7 +424,7 @@ class DescriptorPublicKey {
           derive: false);
       return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -435,7 +435,7 @@ class DescriptorPublicKey {
           publicKey: publicKey);
       return DescriptorPublicKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -458,7 +458,7 @@ class DescriptorSecretKey {
           await loaderApi.asPublicStaticMethodApi(secret: _descriptorSecretKey);
       return DescriptorPublicKey._(xpub);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -477,7 +477,7 @@ class DescriptorSecretKey {
           network: network, mnemonic: mnemonic.asString(), password: password);
       return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -488,7 +488,7 @@ class DescriptorSecretKey {
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -499,7 +499,7 @@ class DescriptorSecretKey {
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -510,7 +510,7 @@ class DescriptorSecretKey {
           secret: secretKey);
       return DescriptorSecretKey._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -521,7 +521,7 @@ class DescriptorSecretKey {
           secret: _descriptorSecretKey);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -570,7 +570,7 @@ class Mnemonic {
           wordCount: wordCount);
       return Mnemonic._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -589,7 +589,7 @@ class Mnemonic {
           entropy: entropy);
       return Mnemonic._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -602,7 +602,7 @@ class Mnemonic {
           mnemonic: mnemonic);
       return Mnemonic._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -628,7 +628,7 @@ class PartiallySignedTransaction {
           psbtStr: psbtBase64, other: other.psbtBase64);
       return PartiallySignedTransaction(psbtBase64: res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -638,7 +638,7 @@ class PartiallySignedTransaction {
       final res = await loaderApi.extractTxStaticMethodApi(psbtStr: psbtBase64);
       return Transaction._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -649,7 +649,7 @@ class PartiallySignedTransaction {
           await loaderApi.psbtFeeAmountStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -661,7 +661,7 @@ class PartiallySignedTransaction {
       if (res == null) return null;
       return FeeRate._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -672,7 +672,7 @@ class PartiallySignedTransaction {
           await loaderApi.serializePsbtStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -682,7 +682,7 @@ class PartiallySignedTransaction {
           await loaderApi.jsonSerializeStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -697,7 +697,7 @@ class PartiallySignedTransaction {
       final res = await loaderApi.psbtTxidStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }
@@ -718,7 +718,7 @@ class Script extends bridge.Script {
           rawOutputScript: rawOutputScript);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -741,7 +741,7 @@ class Transaction {
       final res = await loaderApi.createTransactionStaticMethodApi(tx: tx);
       return Transaction._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -751,7 +751,7 @@ class Transaction {
       final res = await loaderApi.serializeTxStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -760,7 +760,7 @@ class Transaction {
       final res = await loaderApi.txTxidStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -769,7 +769,7 @@ class Transaction {
       final res = await loaderApi.weightStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -778,7 +778,7 @@ class Transaction {
       final res = await loaderApi.sizeStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -787,7 +787,7 @@ class Transaction {
       final res = await loaderApi.vsizeStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -796,7 +796,7 @@ class Transaction {
       final res = await loaderApi.isCoinBaseStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -805,7 +805,7 @@ class Transaction {
       final res = await loaderApi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -814,7 +814,7 @@ class Transaction {
       final res = await loaderApi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -823,7 +823,7 @@ class Transaction {
       final res = await loaderApi.versionStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -832,7 +832,7 @@ class Transaction {
       final res = await loaderApi.lockTimeStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -841,7 +841,7 @@ class Transaction {
       final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -850,7 +850,7 @@ class Transaction {
       final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -882,7 +882,7 @@ class TxBuilder {
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
     if (data.isEmpty) {
-      throw const BdkException.unExpected("List must not be empty");
+      throw InvalidByteException(message: "List must not be empty");
     }
     _data = typed_data.Uint8List.fromList(data);
     return this;
@@ -1041,7 +1041,7 @@ class TxBuilder {
 
   Future<TxBuilderResult> finish(Wallet wallet) async {
     if (_recipients.isEmpty && _drainTo == null) {
-      throw const BdkException.unExpected("No Recipients Added");
+      throw NoRecipientsException();
     }
     try {
       final res = await loaderApi.txBuilderFinishStaticMethodApi(
@@ -1063,7 +1063,7 @@ class TxBuilder {
           psbt: PartiallySignedTransaction(psbtBase64: res.field0),
           txDetails: res.field1);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }
@@ -1109,7 +1109,7 @@ class Wallet {
       );
       return Wallet._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1122,7 +1122,7 @@ class Wallet {
           walletId: _wallet, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1140,7 +1140,7 @@ class Wallet {
           walletId: _wallet, addressIndex: addressIndex);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1152,7 +1152,7 @@ class Wallet {
       var res = await loaderApi.getBalanceStaticMethodApi(walletId: _wallet);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1163,7 +1163,7 @@ class Wallet {
           script: script, walletId: _wallet);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1173,7 +1173,7 @@ class Wallet {
       var res = await loaderApi.walletNetworkStaticMethodApi(walletId: _wallet);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1186,7 +1186,7 @@ class Wallet {
           await loaderApi.listUnspentOutputsStaticMethodApi(walletId: _wallet);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1197,7 +1197,7 @@ class Wallet {
           walletId: _wallet, blockchainId: blockchain._blockchain);
       debugPrint('sync complete');
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1209,7 +1209,7 @@ class Wallet {
           walletId: _wallet, includeRaw: includeRaw);
       return res;
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1225,11 +1225,11 @@ class Wallet {
           psbtStr: psbt.psbtBase64,
           walletId: _wallet);
       if (sbt == null) {
-        throw const BdkException.unExpected("Unable to sign transaction");
+        throw SignerException(message: "Unable to sign transaction");
       }
       return PartiallySignedTransaction(psbtBase64: sbt);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1246,7 +1246,7 @@ class Wallet {
           psbtSighashType: psbtSighashType);
       return Input._(res);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 
@@ -1258,7 +1258,7 @@ class Wallet {
           walletId: _wallet, keychain: keychainKind);
       return Descriptor._(res.field0, res.field1);
     } on FfiException catch (e) {
-      throw configException(e.message);
+      throw handleException(e.message);
     }
   }
 }

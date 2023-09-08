@@ -24,3 +24,4 @@ export './src/generated/bridge_definitions.dart'
         RbfValue_Value,
         DatabaseConfig_Sled;
 export './src/root.dart';
+export 'src/utils/exceptions.dart';
