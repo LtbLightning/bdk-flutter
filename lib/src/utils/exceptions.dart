@@ -10,177 +10,229 @@ abstract class BdkFfiException implements Exception {
           : 'Unexpected Error';
 }
 
+/// Exception thrown when trying to add an invalid byte value, or empty list to txBuilder.addData
 class InvalidByteException extends BdkFfiException {
+  /// Constructs the [InvalidByteException]
   InvalidByteException({super.message, super.type});
 }
 
+/// Exception thrown when output created is under the dust limit, 546 sats
 class OutputBelowDustLimitException extends BdkFfiException {
+  /// Constructs the [OutputBelowDustLimitException]
   OutputBelowDustLimitException({super.message, super.type});
 }
 
+/// Exception thrown when a there is an error in Partially signed bitcoin transaction
 class PsbtException extends BdkFfiException {
+  /// Constructs the [PsbtException]
   PsbtException({super.message, super.type});
 }
 
 class GenericException extends BdkFfiException {
+  /// Constructs the [GenericException]
   GenericException({super.message, super.type});
 }
 
 class Bip32Exception extends BdkFfiException {
+  /// Constructs the [Bip32Exception]
   Bip32Exception({super.message, super.type});
 }
 
+/// Exception thrown when a tx is build without recipients
 class NoRecipientsException extends BdkFfiException {
+  /// Constructs the [NoRecipientsException]
   NoRecipientsException({super.message, super.type});
 }
 
+/// Exception thrown when trying to convert Bare and Public key script to address
 class ScriptDoesntHaveAddressFormException extends BdkFfiException {
+  /// Constructs the [ScriptDoesntHaveAddressFormException]
   ScriptDoesntHaveAddressFormException({super.message, super.type});
 }
 
+/// Exception thrown when manuallySelectedOnly() is called but no utxos has been passed
 class NoUtxosSelectedException extends BdkFfiException {
+  /// Constructs the [NoUtxosSelectedException]
   NoUtxosSelectedException({super.message, super.type});
 }
 
+/// Branch and bound coin selection possible attempts with sufficiently big UTXO set could grow exponentially,
+/// thus a limit is set, and when hit, this exception is thrown
 class BnBTotalTriesExceededException extends BdkFfiException {
+  /// Constructs the [BnBTotalTriesExceededException]
   BnBTotalTriesExceededException({super.message, super.type});
 }
 
+///Branch and bound coin selection tries to avoid needing a change by finding the right inputs for the desired outputs plus fee,
+/// if there is not such combination this exception is thrown
 class BnBNoExactMatchException extends BdkFfiException {
+  /// Constructs the [BnBNoExactMatchException]
   BnBNoExactMatchException({super.message, super.type});
 }
 
-///Trying to replace a tx that has a sequence >= 0xFFFFFFFE
+///Exception thrown when trying to replace a tx that has a sequence >= 0xFFFFFFFE
 class IrreplaceableTransactionException extends BdkFfiException {
+  /// Constructs the [IrreplaceableTransactionException]
   IrreplaceableTransactionException({super.message, super.type});
 }
 
-///Error while working with keys
+///Exception thrown when the keys are invalid
 class KeyException extends BdkFfiException {
+  /// Constructs the [KeyException]
   KeyException({super.message, super.type});
 }
 
-///Spending policy is not compatible with this KeychainKind
+///Exception thrown when spending policy is not compatible with this KeychainKind
 class SpendingPolicyRequiredException extends BdkFfiException {
+  /// Constructs the [SpendingPolicyRequiredException]
   SpendingPolicyRequiredException({super.message, super.type});
 }
 
+///Transaction verification Exception
 class VerificationException extends BdkFfiException {
+  /// Constructs the [VerificationException]
   VerificationException({super.message, super.type});
 }
 
-///Progress value must be between 0.0 (included) and 100.0 (included)
+///Exception thrown when progress value is not between 0.0 (included) and 100.0 (included)
 class InvalidProgressValueException extends BdkFfiException {
+  /// Constructs the [InvalidProgressValueException]
   InvalidProgressValueException({super.message, super.type});
 }
 
 ///Progress update error (maybe the channel has been closed)
 class ProgressUpdateException extends BdkFfiException {
+  /// Constructs the [ProgressUpdateException]
   ProgressUpdateException({super.message, super.type});
 }
 
-///Requested outpoint doesn’t exist in the tx (vout greater than available outputs)
+///Exception thrown when the requested outpoint doesn’t exist in the tx (vout greater than available outputs)
 class InvalidOutpointException extends BdkFfiException {
+  /// Constructs the [InvalidOutpointException]
   InvalidOutpointException({super.message, super.type});
 }
 
 class EncodeException extends BdkFfiException {
+  /// Constructs the [EncodeException]
   EncodeException({super.message, super.type});
 }
 
 class MiniscriptPsbtException extends BdkFfiException {
+  /// Constructs the [MiniscriptPsbtException]
   MiniscriptPsbtException({super.message, super.type});
 }
 
 class SignerException extends BdkFfiException {
+  /// Constructs the [SignerException]
   SignerException({super.message, super.type});
 }
 
-//Error while extracting and manipulating policies
+//Exception thrown when there is an error while extracting and manipulating policies
 class InvalidPolicyPathException extends BdkFfiException {
+  /// Constructs the [InvalidPolicyPathException]
   InvalidPolicyPathException({super.message, super.type});
 }
 
 class MissingKeyOriginException extends BdkFfiException {
+  /// Constructs the [MissingKeyOriginException]
   MissingKeyOriginException({super.message, super.type});
 }
 
+///Exception thrown when trying to spend an UTXO that is not in the internal database
 class UnknownUtxoException extends BdkFfiException {
+  /// Constructs the [UnknownUtxoException]
   UnknownUtxoException({super.message, super.type});
 }
 
-///Happens when trying to bump a transaction that is already confirmed
+///Exception thrown when trying to bump a transaction that is already confirmed
 class TransactionNotFoundException extends BdkFfiException {
+  /// Constructs the [TransactionNotFoundException]
   TransactionNotFoundException({super.message, super.type});
 }
 
-///Node doesn’t have data to estimate a fee rate
+///Exception thrown when node doesn’t have data to estimate a fee rate
 class FeeRateUnavailableException extends BdkFfiException {
+  /// Constructs the [FeeRateUnavailableException]
   FeeRateUnavailableException({super.message, super.type});
 }
 
-///Descriptor checksum mismatch
+///Exception thrown when the descriptor checksum mismatch
 class ChecksumMismatchException extends BdkFfiException {
+  /// Constructs the [ChecksumMismatchException]
   ChecksumMismatchException({super.message, super.type});
 }
 
-///sync attempt failed due to missing scripts in cache which are needed to satisfy stopGap.
+///Exception thrown when sync attempt failed due to missing scripts in cache which are needed to satisfy stopGap.
 class MissingCachedScriptsException extends BdkFfiException {
+  /// Constructs the [MissingCachedScriptsException]
   MissingCachedScriptsException({super.message, super.type});
 }
 
-///Wallet’s UTXO set is not enough to cover recipient’s requested plus fee
+///Exception thrown when wallet’s UTXO set is not enough to cover recipient’s requested plus fee
 class InsufficientFundsException extends BdkFfiException {
+  /// Constructs the [InsufficientFundsException]
   InsufficientFundsException({super.message, super.type});
 }
 
-///When bumping a tx the fee rate requested is lower than required
+///Exception thrown when bumping a tx, the fee rate requested is lower than required
 class FeeRateTooLowException extends BdkFfiException {
+  /// Constructs the [FeeRateTooLowException]
   FeeRateTooLowException({super.message, super.type});
 }
 
-///When bumping a tx the absolute fee requested is lower than replaced tx absolute fee
+///Exception thrown when bumping a tx, the absolute fee requested is lower than replaced tx absolute fee
 class FeeTooLowException extends BdkFfiException {
+  /// Constructs the [FeeTooLowException]
   FeeTooLowException({super.message, super.type});
 }
 
 ///Sled database error
 class SledException extends BdkFfiException {
+  /// Constructs the [SledException]
   SledException({super.message, super.type});
 }
 
-///Error related to the parsing and usage of descriptors
+///Exception thrown when there is an error in parsing and usage of descriptors
 class DescriptorException extends BdkFfiException {
+  /// Constructs the [DescriptorException]
   DescriptorException({super.message, super.type});
 }
 
-///Miniscript error
+///Miniscript exception
 class MiniscriptException extends BdkFfiException {
+  /// Constructs the [MiniscriptException]
   MiniscriptException({super.message, super.type});
 }
 
-///Esplora Client error
+///Esplora Client exception
 class EsploraException extends BdkFfiException {
+  /// Constructs the [EsploraException]
   EsploraException({super.message, super.type});
 }
 
 class Secp256k1Exception extends BdkFfiException {
+  /// Constructs the [ Secp256k1Exception]
   Secp256k1Exception({super.message, super.type});
 }
 
+///Exception thrown when trying to bump a transaction that is already confirmed
 class TransactionConfirmedException extends BdkFfiException {
+  /// Constructs the [TransactionConfirmedException]
   TransactionConfirmedException({super.message, super.type});
 }
 
 class ElectrumException extends BdkFfiException {
+  /// Constructs the [ElectrumException]
   ElectrumException({super.message, super.type});
 }
 
 class RpcException extends BdkFfiException {
+  /// Constructs the [RpcException]
   RpcException({super.message, super.type});
 }
 
 class RusqliteException extends BdkFfiException {
+  /// Constructs the [RusqliteException]
   RusqliteException({super.message, super.type});
 }
 
