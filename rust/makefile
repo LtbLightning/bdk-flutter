@@ -33,6 +33,12 @@ target/universal/release/libexample.a:
 	cargo lipo --release
 	@echo "[Done ✅] $@"
 
+## macos: Compile the macOS library
+macos: target/aarch64-apple-darwin/release/libexample.dylib
+target/aarch64-apple-darwin/release/libexample.dylib:
+	cargo lipo --release --targets aarch64-apple-darwin
+	@echo "[Done ✅] $@"
+
 ## android: Compile the android targets (arm64, armv7 and i686)
 android: target/aarch64-linux-android/release/libexample.so target/armv7-linux-androideabi/release/libexample.so target/i686-linux-android/release/libexample.so
 target/aarch64-linux-android/release/libexample.so: $(SOURCES)
