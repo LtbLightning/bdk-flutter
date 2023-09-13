@@ -1,3 +1,6 @@
+## [0.29.1]
+Strongly typed exceptions
+
 ## [0.29.0]
 Support Dart 3.
 Updated Rust and Flutter dependencies.
