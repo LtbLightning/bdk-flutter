@@ -5,8 +5,8 @@ use crate::psbt::PartiallySignedTransaction;
 pub use crate::psbt::Transaction;
 use crate::types::{
     to_input, Address, AddressIndex, AddressInfo, Balance, BdkTxBuilderResult, ChangeSpendPolicy,
-    DescNetwork,  KeychainKind, Network, OutPoint, Payload, PsbtSigHashType, RbfValue,
-    Script, ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount,
+    DescNetwork, KeychainKind, Network, OutPoint, Payload, PsbtSigHashType, RbfValue, Script,
+    ScriptAmount, TransactionDetails, TxIn, TxOut, WordCount,
 };
 pub use crate::wallet::{DatabaseConfig, Wallet};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
@@ -601,8 +601,8 @@ impl Api {
             Err(e) => anyhow::bail!("{:?}", e),
         }
     }
-    pub fn is_mine( script: Script,  wallet_id: String,) -> anyhow::Result<bool> {
-        match Wallet::retrieve_wallet(wallet_id).is_mine(script.into()){
+    pub fn is_mine(script: Script, wallet_id: String) -> anyhow::Result<bool> {
+        match Wallet::retrieve_wallet(wallet_id).is_mine(script.into()) {
             Ok(e) => Ok(e),
             Err(e) => anyhow::bail!("{:?}", e),
         }

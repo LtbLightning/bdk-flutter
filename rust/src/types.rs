@@ -52,7 +52,6 @@ pub struct PsbtSigHashType {
     pub inner: u32,
 }
 
-
 pub fn to_input(input: String) -> Input {
     let input: Input = serde_json::from_str(&input).expect("Invalid Psbt Input");
     input

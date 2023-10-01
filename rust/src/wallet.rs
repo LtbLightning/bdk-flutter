@@ -7,6 +7,7 @@ use crate::types::{
 };
 use bdk::bitcoin::hashes::hex::ToHex;
 use bdk::bitcoin::psbt::{Input, PsbtSighashType};
+use bdk::bitcoin::Script;
 use bdk::database::{AnyDatabase, AnyDatabaseConfig, ConfigurableDatabase};
 use bdk::descriptor::KeyMap;
 use bdk::{bitcoin, Error as BdkError, SyncOptions};
@@ -20,7 +21,6 @@ use std::hash::Hasher;
 use std::ops::Deref;
 use std::sync::RwLock;
 use std::sync::{Arc, Mutex, MutexGuard};
-use bdk::bitcoin::Script;
 lazy_static! {
     static ref WALLET: RwLock<HashMap<String, Arc<Wallet>>> = RwLock::new(HashMap::new());
 }
