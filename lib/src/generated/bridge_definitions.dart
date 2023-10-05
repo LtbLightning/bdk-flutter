@@ -113,7 +113,7 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kJsonSerializeStaticMethodApiConstMeta;
 
-  Future<BdkTxBuilderResult> txBuilderFinishStaticMethodApi(
+  Future<(String, TransactionDetails)> txBuilderFinishStaticMethodApi(
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
@@ -131,7 +131,7 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kTxBuilderFinishStaticMethodApiConstMeta;
 
-  Future<BdkTxBuilderResult> bumpFeeTxBuilderFinishStaticMethodApi(
+  Future<(String, TransactionDetails)> bumpFeeTxBuilderFinishStaticMethodApi(
       {required String txid,
       required double feeRate,
       String? allowShrinking,
@@ -188,13 +188,15 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kNewBip84PublicStaticMethodApiConstMeta;
 
-  Future<String> asStringPrivateStaticMethodApi({required String descriptor, required Network network, dynamic hint});
+  Future<String> descriptorAsStringPrivateStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kAsStringPrivateStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorAsStringPrivateStaticMethodApiConstMeta;
 
-  Future<String> asStringStaticMethodApi({required String descriptor, required Network network, dynamic hint});
+  Future<String> descriptorAsStringStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorAsStringStaticMethodApiConstMeta;
 
   Future<int> maxSatisfactionWeightStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint});
@@ -218,13 +220,13 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kDeriveDescriptorSecretStaticMethodApiConstMeta;
 
-  Future<Uint8List> asSecretBytesStaticMethodApi({required String secret, dynamic hint});
+  Future<Uint8List> descriptorSecretAsSecretBytesStaticMethodApi({required String secret, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kAsSecretBytesStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesStaticMethodApiConstMeta;
 
-  Future<String> asPublicStaticMethodApi({required String secret, dynamic hint});
+  Future<String> descriptorSecretAsPublicStaticMethodApi({required String secret, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kAsPublicStaticMethodApiConstMeta;
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicStaticMethodApiConstMeta;
 
   Future<String> createDerivationPathStaticMethodApi({required String path, dynamic hint});
 
@@ -326,7 +328,7 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kGetPsbtInputStaticMethodApiConstMeta;
 
-  Future<DescNetwork> getDescriptorForKeychainStaticMethodApi(
+  Future<(String, Network)> getDescriptorForKeychainStaticMethodApi(
       {required String walletId, required KeychainKind keychain, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetDescriptorForKeychainStaticMethodApiConstMeta;
@@ -416,18 +418,6 @@ class Balance {
   });
 }
 
-/// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
-/// transaction details.
-class BdkTxBuilderResult {
-  final String field0;
-  final TransactionDetails field1;
-
-  const BdkTxBuilderResult({
-    required this.field0,
-    required this.field1,
-  });
-}
-
 ///Block height and timestamp of a block
 class BlockTime {
   ///Confirmation block height
@@ -481,16 +471,6 @@ class DatabaseConfig with _$DatabaseConfig {
   }) = DatabaseConfig_Sled;
 }
 
-class DescNetwork {
-  final String field0;
-  final Network field1;
-
-  const DescNetwork({
-    required this.field0,
-    required this.field1,
-  });
-}
-
 /// Configuration for an ElectrumBlockchain
 class ElectrumConfig {
   ///URL of the Electrum server (such as ElectrumX, Esplora, BWT) may start with ssl:// or tcp:// and include a port
@@ -520,6 +500,199 @@ class ElectrumConfig {
     required this.stopGap,
     required this.validateDomain,
   });
+}
+
+@freezed
+class Error with _$Error implements FrbException {
+  /// Wrong number of bytes found when trying to convert to u32
+  const factory Error.invalidU32Bytes(
+    Uint8List field0,
+  ) = Error_InvalidU32Bytes;
+
+  /// Generic error
+  const factory Error.generic(
+    String field0,
+  ) = Error_Generic;
+
+  /// This error is thrown when trying to convert Bare and Public key script to address
+  const factory Error.scriptDoesntHaveAddressForm() = Error_ScriptDoesntHaveAddressForm;
+
+  /// Cannot build a tx without recipients
+  const factory Error.noRecipients() = Error_NoRecipients;
+
+  /// `manually_selected_only` option is selected but no utxo has been passed
+  const factory Error.noUtxosSelected() = Error_NoUtxosSelected;
+
+  /// Output created is under the dust limit, 546 satoshis
+  const factory Error.outputBelowDustLimit(
+    int field0,
+  ) = Error_OutputBelowDustLimit;
+
+  /// Wallet's UTXO set is not enough to cover recipient's requested plus fee
+  const factory Error.insufficientFunds({
+    /// Sats needed for some transaction
+    required int needed,
+
+    /// Sats available for spending
+    required int available,
+  }) = Error_InsufficientFunds;
+
+  /// Branch and bound coin selection possible attempts with sufficiently big UTXO set could grow
+  /// exponentially, thus a limit is set, and when hit, this error is thrown
+  const factory Error.bnBTotalTriesExceeded() = Error_BnBTotalTriesExceeded;
+
+  /// Branch and bound coin selection tries to avoid needing a change by finding the right inputs for
+  /// the desired outputs plus fee, if there is not such combination this error is thrown
+  const factory Error.bnBNoExactMatch() = Error_BnBNoExactMatch;
+
+  /// Happens when trying to spend an UTXO that is not in the internal database
+  const factory Error.unknownUtxo() = Error_UnknownUtxo;
+
+  /// Thrown when a tx is not found in the internal database
+  const factory Error.transactionNotFound() = Error_TransactionNotFound;
+
+  /// Happens when trying to bump a transaction that is already confirmed
+  const factory Error.transactionConfirmed() = Error_TransactionConfirmed;
+
+  /// Trying to replace a tx that has a sequence >= `0xFFFFFFFE`
+  const factory Error.irreplaceableTransaction() = Error_IrreplaceableTransaction;
+
+  /// When bumping a tx the fee rate requested is lower than required
+  const factory Error.feeRateTooLow({
+    /// Required fee rate (satoshi/vbyte)
+    required double required,
+  }) = Error_FeeRateTooLow;
+
+  /// When bumping a tx the absolute fee requested is lower than replaced tx absolute fee
+  const factory Error.feeTooLow({
+    /// Required fee absolute value (satoshi)
+    required int required,
+  }) = Error_FeeTooLow;
+
+  /// Node doesn't have data to estimate a fee rate
+  const factory Error.feeRateUnavailable() = Error_FeeRateUnavailable;
+  const factory Error.missingKeyOrigin(
+    String field0,
+  ) = Error_MissingKeyOrigin;
+
+  /// Error while working with keys
+  const factory Error.key(
+    String field0,
+  ) = Error_Key;
+
+  /// Descriptor checksum mismatch
+  const factory Error.checksumMismatch() = Error_ChecksumMismatch;
+
+  /// Spending policy is not compatible with this [`KeychainKind`]
+  const factory Error.spendingPolicyRequired(
+    KeychainKind field0,
+  ) = Error_SpendingPolicyRequired;
+
+  /// Error while extracting and manipulating policies
+  const factory Error.invalidPolicyPathError(
+    String field0,
+  ) = Error_InvalidPolicyPathError;
+
+  /// Signing error
+  const factory Error.signer(
+    String field0,
+  ) = Error_Signer;
+
+  /// Invalid network
+  const factory Error.invalidNetwork({
+    /// requested network, for example what is given as bdk-cli option
+    required Network requested,
+
+    /// found network, for example the network of the bitcoin node
+    required Network found,
+  }) = Error_InvalidNetwork;
+
+  /// Requested outpoint doesn't exist in the tx (vout greater than available outputs)
+  const factory Error.invalidOutpoint(
+    OutPoint field0,
+  ) = Error_InvalidOutpoint;
+
+  /// Error related to the parsing and usage of descriptors
+  const factory Error.descriptor(
+    String field0,
+  ) = Error_Descriptor;
+
+  /// Encoding error
+  const factory Error.encode(
+    String field0,
+  ) = Error_Encode;
+
+  /// Miniscript error
+  const factory Error.miniscript(
+    String field0,
+  ) = Error_Miniscript;
+
+  /// Miniscript PSBT error
+  const factory Error.miniscriptPsbt(
+    String field0,
+  ) = Error_MiniscriptPsbt;
+
+  /// BIP32 error
+  const factory Error.bip32(
+    String field0,
+  ) = Error_Bip32;
+
+  /// A secp256k1 error
+  const factory Error.secp256K1(
+    String field0,
+  ) = Error_Secp256k1;
+
+  /// Error serializing or deserializing JSON data
+  const factory Error.json(
+    String field0,
+  ) = Error_Json;
+
+  /// Hex decoding error
+  const factory Error.hex(
+    String field0,
+  ) = Error_Hex;
+
+  /// Partially signed bitcoin transaction error
+  const factory Error.psbt(
+    String field0,
+  ) = Error_Psbt;
+
+  /// Partially signed bitcoin transaction parse error
+  const factory Error.psbtParse(
+    String field0,
+  ) = Error_PsbtParse;
+
+  ///  sync attempt failed due to missing scripts in cache which
+  /// are needed to satisfy `stop_gap`.
+  const factory Error.missingCachedScripts(
+    int field0,
+    int field1,
+  ) = Error_MissingCachedScripts;
+
+  /// Electrum client error
+  const factory Error.electrum(
+    String field0,
+  ) = Error_Electrum;
+
+  /// Esplora client error
+  const factory Error.esplora(
+    String field0,
+  ) = Error_Esplora;
+
+  /// Sled database error
+  const factory Error.sled(
+    String field0,
+  ) = Error_Sled;
+
+  /// Rpc client error
+  const factory Error.rpc(
+    String field0,
+  ) = Error_Rpc;
+
+  /// Rusqlite client error
+  const factory Error.rusqlite(
+    String field0,
+  ) = Error_Rusqlite;
 }
 
 ///Configuration for an EsploraBlockchain

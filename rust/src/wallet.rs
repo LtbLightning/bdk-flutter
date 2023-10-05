@@ -56,19 +56,21 @@ impl Wallet {
     pub fn new(
         descriptor: String,
         change_descriptor: Option<String>,
-        network: bdk::bitcoin::Network,
+        network: bitcoin::Network,
         database_config: DatabaseConfig,
     ) -> Result<String, BdkError> {
         let database = AnyDatabase::from_config(&database_config.into()).unwrap();
-        let wallet_mutex = Mutex::new(
-            BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap(),
-        );
+        let bdk_wallet =
+            BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap();
+        let wallet_mutex = Mutex::new(bdk_wallet);
+
         let wallet = Wallet { wallet_mutex };
 
         let id = default_hasher(&descriptor).to_hex();
         persist_wallet(id.clone(), wallet);
         Ok(id)
     }
+
     pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
         self.wallet_mutex.lock().expect("wallet")
     }

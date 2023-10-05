@@ -29,7 +29,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_blockchain__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateBlockchainStaticMethodApiConstMeta,
       argValues: [config],
       hint: hint,
@@ -46,7 +46,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_height__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_u32,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetHeightStaticMethodApiConstMeta,
       argValues: [blockchainId],
       hint: hint,
@@ -65,7 +65,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_blockchain_hash__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetBlockchainHashStaticMethodApiConstMeta,
       argValues: [blockchainHeight, blockchainId],
       hint: hint,
@@ -83,7 +83,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_estimate_fee__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_f32,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kEstimateFeeStaticMethodApiConstMeta,
       argValues: [target, blockchainId],
       hint: hint,
@@ -101,7 +101,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_broadcast__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kBroadcastStaticMethodApiConstMeta,
       argValues: [tx, blockchainId],
       hint: hint,
@@ -118,7 +118,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_transaction__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateTransactionStaticMethodApiConstMeta,
       argValues: [tx],
       hint: hint,
@@ -135,7 +135,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_tx_txid__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kTxTxidStaticMethodApiConstMeta,
       argValues: [tx],
       hint: hint,
@@ -339,7 +339,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_serialize_psbt__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kSerializePsbtStaticMethodApiConstMeta,
       argValues: [psbtStr],
       hint: hint,
@@ -356,7 +356,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_psbt_txid__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kPsbtTxidStaticMethodApiConstMeta,
       argValues: [psbtStr],
       hint: hint,
@@ -373,7 +373,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_extract_tx__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kExtractTxStaticMethodApiConstMeta,
       argValues: [psbtStr],
       hint: hint,
@@ -425,7 +425,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_combine_psbt__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCombinePsbtStaticMethodApiConstMeta,
       argValues: [psbtStr, other],
       hint: hint,
@@ -442,7 +442,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_json_serialize__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kJsonSerializeStaticMethodApiConstMeta,
       argValues: [psbtStr],
       hint: hint,
@@ -454,7 +454,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["psbtStr"],
       );
 
-  Future<BdkTxBuilderResult> txBuilderFinishStaticMethodApi(
+  Future<(String, TransactionDetails)> txBuilderFinishStaticMethodApi(
       {required String walletId,
       required List<ScriptAmount> recipients,
       required List<OutPoint> utxos,
@@ -485,8 +485,8 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_tx_builder_finish__static_method__Api(
           port_, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12),
-      parseSuccessData: _wire2api_bdk_tx_builder_result,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseSuccessData: _wire2api___record__String_transaction_details,
+      parseErrorData: _wire2api_error,
       constMeta: kTxBuilderFinishStaticMethodApiConstMeta,
       argValues: [
         walletId,
@@ -526,7 +526,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
         ],
       );
 
-  Future<BdkTxBuilderResult> bumpFeeTxBuilderFinishStaticMethodApi(
+  Future<(String, TransactionDetails)> bumpFeeTxBuilderFinishStaticMethodApi(
       {required String txid,
       required double feeRate,
       String? allowShrinking,
@@ -543,8 +543,8 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_bump_fee_tx_builder_finish__static_method__Api(port_, arg0, arg1, arg2, arg3, arg4, arg5),
-      parseSuccessData: _wire2api_bdk_tx_builder_result,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseSuccessData: _wire2api___record__String_transaction_details,
+      parseErrorData: _wire2api_error,
       constMeta: kBumpFeeTxBuilderFinishStaticMethodApiConstMeta,
       argValues: [txid, feeRate, allowShrinking, walletId, enableRbf, nSequence],
       hint: hint,
@@ -563,7 +563,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_descriptor__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateDescriptorStaticMethodApiConstMeta,
       argValues: [descriptor, network],
       hint: hint,
@@ -583,7 +583,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip44_descriptor__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip44DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -609,7 +609,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip44_public__static_method__Api(port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip44PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -629,7 +629,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip49_descriptor__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip49DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -655,7 +655,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip49_public__static_method__Api(port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip49PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -675,7 +675,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip84_descriptor__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip84DescriptorStaticMethodApiConstMeta,
       argValues: [keyChainKind, secretKey, network],
       hint: hint,
@@ -701,7 +701,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_new_bip84_public__static_method__Api(port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kNewBip84PublicStaticMethodApiConstMeta,
       argValues: [keyChainKind, publicKey, network, fingerprint],
       hint: hint,
@@ -713,39 +713,43 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["keyChainKind", "publicKey", "network", "fingerprint"],
       );
 
-  Future<String> asStringPrivateStaticMethodApi({required String descriptor, required Network network, dynamic hint}) {
+  Future<String> descriptorAsStringPrivateStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint}) {
     var arg0 = _platform.api2wire_String(descriptor);
     var arg1 = api2wire_network(network);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_as_string_private__static_method__Api(port_, arg0, arg1),
+      callFfi: (port_) => _platform.inner.wire_descriptor_as_string_private__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: null,
-      constMeta: kAsStringPrivateStaticMethodApiConstMeta,
+      parseErrorData: _wire2api_error,
+      constMeta: kDescriptorAsStringPrivateStaticMethodApiConstMeta,
       argValues: [descriptor, network],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kAsStringPrivateStaticMethodApiConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "as_string_private__static_method__Api",
+  FlutterRustBridgeTaskConstMeta get kDescriptorAsStringPrivateStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_as_string_private__static_method__Api",
         argNames: ["descriptor", "network"],
       );
 
-  Future<String> asStringStaticMethodApi({required String descriptor, required Network network, dynamic hint}) {
+  Future<String> descriptorAsStringStaticMethodApi(
+      {required String descriptor, required Network network, dynamic hint}) {
     var arg0 = _platform.api2wire_String(descriptor);
     var arg1 = api2wire_network(network);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_as_string__static_method__Api(port_, arg0, arg1),
+      callFfi: (port_) => _platform.inner.wire_descriptor_as_string__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: null,
-      constMeta: kAsStringStaticMethodApiConstMeta,
+      parseErrorData: _wire2api_error,
+      constMeta: kDescriptorAsStringStaticMethodApiConstMeta,
       argValues: [descriptor, network],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kAsStringStaticMethodApiConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "as_string__static_method__Api",
+  FlutterRustBridgeTaskConstMeta get kDescriptorAsStringStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_as_string__static_method__Api",
         argNames: ["descriptor", "network"],
       );
 
@@ -756,7 +760,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_max_satisfaction_weight__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_usize,
-      parseErrorData: null,
+      parseErrorData: _wire2api_error,
       constMeta: kMaxSatisfactionWeightStaticMethodApiConstMeta,
       argValues: [descriptor, network],
       hint: hint,
@@ -777,7 +781,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_descriptor_secret__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateDescriptorSecretStaticMethodApiConstMeta,
       argValues: [network, mnemonic, password],
       hint: hint,
@@ -846,37 +850,39 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["secret", "path"],
       );
 
-  Future<Uint8List> asSecretBytesStaticMethodApi({required String secret, dynamic hint}) {
+  Future<Uint8List> descriptorSecretAsSecretBytesStaticMethodApi({required String secret, dynamic hint}) {
     var arg0 = _platform.api2wire_String(secret);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_as_secret_bytes__static_method__Api(port_, arg0),
+      callFfi: (port_) => _platform.inner.wire_descriptor_secret_as_secret_bytes__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_uint_8_list,
-      parseErrorData: _wire2api_FrbAnyhowException,
-      constMeta: kAsSecretBytesStaticMethodApiConstMeta,
+      parseErrorData: _wire2api_error,
+      constMeta: kDescriptorSecretAsSecretBytesStaticMethodApiConstMeta,
       argValues: [secret],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kAsSecretBytesStaticMethodApiConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "as_secret_bytes__static_method__Api",
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsSecretBytesStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_as_secret_bytes__static_method__Api",
         argNames: ["secret"],
       );
 
-  Future<String> asPublicStaticMethodApi({required String secret, dynamic hint}) {
+  Future<String> descriptorSecretAsPublicStaticMethodApi({required String secret, dynamic hint}) {
     var arg0 = _platform.api2wire_String(secret);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_as_public__static_method__Api(port_, arg0),
+      callFfi: (port_) => _platform.inner.wire_descriptor_secret_as_public__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
-      constMeta: kAsPublicStaticMethodApiConstMeta,
+      parseErrorData: _wire2api_error,
+      constMeta: kDescriptorSecretAsPublicStaticMethodApiConstMeta,
       argValues: [secret],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kAsPublicStaticMethodApiConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "as_public__static_method__Api",
+  FlutterRustBridgeTaskConstMeta get kDescriptorSecretAsPublicStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "descriptor_secret_as_public__static_method__Api",
         argNames: ["secret"],
       );
 
@@ -885,7 +891,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_derivation_path__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateDerivationPathStaticMethodApiConstMeta,
       argValues: [path],
       hint: hint,
@@ -903,7 +909,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_descriptor_public_from_string__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kDescriptorPublicFromStringStaticMethodApiConstMeta,
       argValues: [publicKey],
       hint: hint,
@@ -924,7 +930,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_descriptor_public__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateDescriptorPublicStaticMethodApiConstMeta,
       argValues: [xpub, path, derive],
       hint: hint,
@@ -942,7 +948,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_script__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_script,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateScriptStaticMethodApiConstMeta,
       argValues: [rawOutputScript],
       hint: hint,
@@ -959,7 +965,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_address__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateAddressStaticMethodApiConstMeta,
       argValues: [address],
       hint: hint,
@@ -977,7 +983,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_address_from_script__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kAddressFromScriptStaticMethodApiConstMeta,
       argValues: [script, network],
       hint: hint,
@@ -994,7 +1000,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_address_to_script_pubkey__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_script,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kAddressToScriptPubkeyStaticMethodApiConstMeta,
       argValues: [address],
       hint: hint,
@@ -1012,7 +1018,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_payload__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_payload,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kPayloadStaticMethodApiConstMeta,
       argValues: [address],
       hint: hint,
@@ -1029,7 +1035,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_address_network__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_network,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kAddressNetworkStaticMethodApiConstMeta,
       argValues: [address],
       hint: hint,
@@ -1054,7 +1060,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_create_wallet__static_method__Api(port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kCreateWalletStaticMethodApiConstMeta,
       argValues: [descriptor, changeDescriptor, network, databaseConfig],
       hint: hint,
@@ -1073,7 +1079,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_address__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_address_info,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetAddressStaticMethodApiConstMeta,
       argValues: [walletId, addressIndex],
       hint: hint,
@@ -1091,7 +1097,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_is_mine__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_bool,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kIsMineStaticMethodApiConstMeta,
       argValues: [script, walletId],
       hint: hint,
@@ -1110,7 +1116,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_internal_address__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_address_info,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetInternalAddressStaticMethodApiConstMeta,
       argValues: [walletId, addressIndex],
       hint: hint,
@@ -1146,7 +1152,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_balance__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_balance,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetBalanceStaticMethodApiConstMeta,
       argValues: [walletId],
       hint: hint,
@@ -1163,7 +1169,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_list_unspent_outputs__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_list_local_utxo,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kListUnspentOutputsStaticMethodApiConstMeta,
       argValues: [walletId],
       hint: hint,
@@ -1183,7 +1189,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_transactions__static_method__Api(port_, arg0, arg1),
       parseSuccessData: _wire2api_list_transaction_details,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGetTransactionsStaticMethodApiConstMeta,
       argValues: [walletId, includeRaw],
       hint: hint,
@@ -1203,7 +1209,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_sign__static_method__Api(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_opt_String,
-      parseErrorData: null,
+      parseErrorData: _wire2api_error,
       constMeta: kSignStaticMethodApiConstMeta,
       argValues: [walletId, psbtStr, signOptions],
       hint: hint,
@@ -1237,7 +1243,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_list_unspent__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_list_local_utxo,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kListUnspentStaticMethodApiConstMeta,
       argValues: [walletId],
       hint: hint,
@@ -1262,7 +1268,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_psbt_input__static_method__Api(port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_String,
-      parseErrorData: null,
+      parseErrorData: _wire2api_error,
       constMeta: kGetPsbtInputStaticMethodApiConstMeta,
       argValues: [walletId, utxo, onlyWitnessUtxo, psbtSighashType],
       hint: hint,
@@ -1274,14 +1280,14 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["walletId", "utxo", "onlyWitnessUtxo", "psbtSighashType"],
       );
 
-  Future<DescNetwork> getDescriptorForKeychainStaticMethodApi(
+  Future<(String, Network)> getDescriptorForKeychainStaticMethodApi(
       {required String walletId, required KeychainKind keychain, dynamic hint}) {
     var arg0 = _platform.api2wire_String(walletId);
     var arg1 = api2wire_keychain_kind(keychain);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_descriptor_for_keychain__static_method__Api(port_, arg0, arg1),
-      parseSuccessData: _wire2api_desc_network,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseSuccessData: _wire2api___record__String_network,
+      parseErrorData: _wire2api_error,
       constMeta: kGetDescriptorForKeychainStaticMethodApiConstMeta,
       argValues: [walletId, keychain],
       hint: hint,
@@ -1317,7 +1323,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_generate_seed_from_string__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGenerateSeedFromStringStaticMethodApiConstMeta,
       argValues: [mnemonic],
       hint: hint,
@@ -1335,7 +1341,7 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_generate_seed_from_entropy__static_method__Api(port_, arg0),
       parseSuccessData: _wire2api_String,
-      parseErrorData: _wire2api_FrbAnyhowException,
+      parseErrorData: _wire2api_error,
       constMeta: kGenerateSeedFromEntropyStaticMethodApiConstMeta,
       argValues: [entropy],
       hint: hint,
@@ -1365,6 +1371,28 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return (raw as List<dynamic>).cast<String>();
   }
 
+  (String, Network) _wire2api___record__String_network(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      _wire2api_String(arr[0]),
+      _wire2api_network(arr[1]),
+    );
+  }
+
+  (String, TransactionDetails) _wire2api___record__String_transaction_details(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      _wire2api_String(arr[0]),
+      _wire2api_transaction_details(arr[1]),
+    );
+  }
+
   AddressInfo _wire2api_address_info(dynamic raw) {
     final arr = raw as List<dynamic>;
     if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
@@ -1384,15 +1412,6 @@ class RustBdkFfiImpl implements RustBdkFfi {
       confirmed: _wire2api_u64(arr[3]),
       spendable: _wire2api_u64(arr[4]),
       total: _wire2api_u64(arr[5]),
-    );
-  }
-
-  BdkTxBuilderResult _wire2api_bdk_tx_builder_result(dynamic raw) {
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return BdkTxBuilderResult(
-      field0: _wire2api_String(arr[0]),
-      field1: _wire2api_transaction_details(arr[1]),
     );
   }
 
@@ -1417,17 +1436,160 @@ class RustBdkFfiImpl implements RustBdkFfi {
     return raw as double;
   }
 
+  OutPoint _wire2api_box_autoadd_out_point(dynamic raw) {
+    return _wire2api_out_point(raw);
+  }
+
   int _wire2api_box_autoadd_u64(dynamic raw) {
     return _wire2api_u64(raw);
   }
 
-  DescNetwork _wire2api_desc_network(dynamic raw) {
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return DescNetwork(
-      field0: _wire2api_String(arr[0]),
-      field1: _wire2api_network(arr[1]),
-    );
+  Error _wire2api_error(dynamic raw) {
+    switch (raw[0]) {
+      case 0:
+        return Error_InvalidU32Bytes(
+          _wire2api_uint_8_list(raw[1]),
+        );
+      case 1:
+        return Error_Generic(
+          _wire2api_String(raw[1]),
+        );
+      case 2:
+        return Error_ScriptDoesntHaveAddressForm();
+      case 3:
+        return Error_NoRecipients();
+      case 4:
+        return Error_NoUtxosSelected();
+      case 5:
+        return Error_OutputBelowDustLimit(
+          _wire2api_usize(raw[1]),
+        );
+      case 6:
+        return Error_InsufficientFunds(
+          needed: _wire2api_u64(raw[1]),
+          available: _wire2api_u64(raw[2]),
+        );
+      case 7:
+        return Error_BnBTotalTriesExceeded();
+      case 8:
+        return Error_BnBNoExactMatch();
+      case 9:
+        return Error_UnknownUtxo();
+      case 10:
+        return Error_TransactionNotFound();
+      case 11:
+        return Error_TransactionConfirmed();
+      case 12:
+        return Error_IrreplaceableTransaction();
+      case 13:
+        return Error_FeeRateTooLow(
+          required: _wire2api_f32(raw[1]),
+        );
+      case 14:
+        return Error_FeeTooLow(
+          required: _wire2api_u64(raw[1]),
+        );
+      case 15:
+        return Error_FeeRateUnavailable();
+      case 16:
+        return Error_MissingKeyOrigin(
+          _wire2api_String(raw[1]),
+        );
+      case 17:
+        return Error_Key(
+          _wire2api_String(raw[1]),
+        );
+      case 18:
+        return Error_ChecksumMismatch();
+      case 19:
+        return Error_SpendingPolicyRequired(
+          _wire2api_keychain_kind(raw[1]),
+        );
+      case 20:
+        return Error_InvalidPolicyPathError(
+          _wire2api_String(raw[1]),
+        );
+      case 21:
+        return Error_Signer(
+          _wire2api_String(raw[1]),
+        );
+      case 22:
+        return Error_InvalidNetwork(
+          requested: _wire2api_network(raw[1]),
+          found: _wire2api_network(raw[2]),
+        );
+      case 23:
+        return Error_InvalidOutpoint(
+          _wire2api_box_autoadd_out_point(raw[1]),
+        );
+      case 24:
+        return Error_Descriptor(
+          _wire2api_String(raw[1]),
+        );
+      case 25:
+        return Error_Encode(
+          _wire2api_String(raw[1]),
+        );
+      case 26:
+        return Error_Miniscript(
+          _wire2api_String(raw[1]),
+        );
+      case 27:
+        return Error_MiniscriptPsbt(
+          _wire2api_String(raw[1]),
+        );
+      case 28:
+        return Error_Bip32(
+          _wire2api_String(raw[1]),
+        );
+      case 29:
+        return Error_Secp256k1(
+          _wire2api_String(raw[1]),
+        );
+      case 30:
+        return Error_Json(
+          _wire2api_String(raw[1]),
+        );
+      case 31:
+        return Error_Hex(
+          _wire2api_String(raw[1]),
+        );
+      case 32:
+        return Error_Psbt(
+          _wire2api_String(raw[1]),
+        );
+      case 33:
+        return Error_PsbtParse(
+          _wire2api_String(raw[1]),
+        );
+      case 34:
+        return Error_MissingCachedScripts(
+          _wire2api_usize(raw[1]),
+          _wire2api_usize(raw[2]),
+        );
+      case 35:
+        return Error_Electrum(
+          _wire2api_String(raw[1]),
+        );
+      case 36:
+        return Error_Esplora(
+          _wire2api_String(raw[1]),
+        );
+      case 37:
+        return Error_Sled(
+          _wire2api_String(raw[1]),
+        );
+      case 38:
+        return Error_Rpc(
+          _wire2api_String(raw[1]),
+        );
+      case 39:
+        return Error_Rusqlite(
+          _wire2api_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
   }
 
   double _wire2api_f32(dynamic raw) {
@@ -2898,41 +3060,42 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
   late final _wire_new_bip84_public__static_method__Api = _wire_new_bip84_public__static_method__ApiPtr
       .asFunction<void Function(int, int, ffi.Pointer<wire_uint_8_list>, int, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_as_string_private__static_method__Api(
+  void wire_descriptor_as_string_private__static_method__Api(
     int port_,
     ffi.Pointer<wire_uint_8_list> descriptor,
     int network,
   ) {
-    return _wire_as_string_private__static_method__Api(
+    return _wire_descriptor_as_string_private__static_method__Api(
       port_,
       descriptor,
       network,
     );
   }
 
-  late final _wire_as_string_private__static_method__ApiPtr =
+  late final _wire_descriptor_as_string_private__static_method__ApiPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Int32)>>(
-          'wire_as_string_private__static_method__Api');
-  late final _wire_as_string_private__static_method__Api = _wire_as_string_private__static_method__ApiPtr
+          'wire_descriptor_as_string_private__static_method__Api');
+  late final _wire_descriptor_as_string_private__static_method__Api =
+      _wire_descriptor_as_string_private__static_method__ApiPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
+
+  void wire_descriptor_as_string__static_method__Api(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> descriptor,
+    int network,
+  ) {
+    return _wire_descriptor_as_string__static_method__Api(
+      port_,
+      descriptor,
+      network,
+    );
+  }
+
+  late final _wire_descriptor_as_string__static_method__ApiPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Int32)>>(
+          'wire_descriptor_as_string__static_method__Api');
+  late final _wire_descriptor_as_string__static_method__Api = _wire_descriptor_as_string__static_method__ApiPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
-
-  void wire_as_string__static_method__Api(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> descriptor,
-    int network,
-  ) {
-    return _wire_as_string__static_method__Api(
-      port_,
-      descriptor,
-      network,
-    );
-  }
-
-  late final _wire_as_string__static_method__ApiPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Int32)>>(
-          'wire_as_string__static_method__Api');
-  late final _wire_as_string__static_method__Api =
-      _wire_as_string__static_method__ApiPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, int)>();
 
   void wire_max_satisfaction_weight__static_method__Api(
     int port_,
@@ -3028,37 +3191,39 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
   late final _wire_derive_descriptor_secret__static_method__Api = _wire_derive_descriptor_secret__static_method__ApiPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_as_secret_bytes__static_method__Api(
+  void wire_descriptor_secret_as_secret_bytes__static_method__Api(
     int port_,
     ffi.Pointer<wire_uint_8_list> secret,
   ) {
-    return _wire_as_secret_bytes__static_method__Api(
+    return _wire_descriptor_secret_as_secret_bytes__static_method__Api(
       port_,
       secret,
     );
   }
 
-  late final _wire_as_secret_bytes__static_method__ApiPtr =
+  late final _wire_descriptor_secret_as_secret_bytes__static_method__ApiPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-          'wire_as_secret_bytes__static_method__Api');
-  late final _wire_as_secret_bytes__static_method__Api =
-      _wire_as_secret_bytes__static_method__ApiPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          'wire_descriptor_secret_as_secret_bytes__static_method__Api');
+  late final _wire_descriptor_secret_as_secret_bytes__static_method__Api =
+      _wire_descriptor_secret_as_secret_bytes__static_method__ApiPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_as_public__static_method__Api(
+  void wire_descriptor_secret_as_public__static_method__Api(
     int port_,
     ffi.Pointer<wire_uint_8_list> secret,
   ) {
-    return _wire_as_public__static_method__Api(
+    return _wire_descriptor_secret_as_public__static_method__Api(
       port_,
       secret,
     );
   }
 
-  late final _wire_as_public__static_method__ApiPtr =
+  late final _wire_descriptor_secret_as_public__static_method__ApiPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-          'wire_as_public__static_method__Api');
-  late final _wire_as_public__static_method__Api =
-      _wire_as_public__static_method__ApiPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+          'wire_descriptor_secret_as_public__static_method__Api');
+  late final _wire_descriptor_secret_as_public__static_method__Api =
+      _wire_descriptor_secret_as_public__static_method__ApiPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_create_derivation_path__static_method__Api(
     int port_,

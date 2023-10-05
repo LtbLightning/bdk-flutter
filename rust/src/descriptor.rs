@@ -14,7 +14,6 @@ use bdk::Error as BdkError;
 use bdk::KeychainKind;
 use std::ops::Deref;
 use std::str::FromStr;
-use std::sync::Arc;
 
 #[derive(Debug)]
 pub struct BdkDescriptor {
@@ -33,7 +32,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip44(
-        secret_key: Arc<DescriptorSecretKey>,
+        secret_key: DescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
@@ -56,7 +55,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip44_public(
-        public_key: Arc<DescriptorPublicKey>,
+        public_key: DescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -84,7 +83,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip49(
-        secret_key: Arc<DescriptorSecretKey>,
+        secret_key: DescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
@@ -107,7 +106,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip49_public(
-        public_key: Arc<DescriptorPublicKey>,
+        public_key: DescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -135,7 +134,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip84(
-        secret_key: Arc<DescriptorSecretKey>,
+        secret_key: DescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
@@ -158,7 +157,7 @@ impl BdkDescriptor {
     }
 
     pub(crate) fn new_bip84_public(
-        public_key: Arc<DescriptorPublicKey>,
+        public_key: DescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -217,7 +216,7 @@ mod test {
 
     #[test]
     fn test_descriptor_templates() {
-        let master: Arc<DescriptorSecretKey> = Arc::new(get_descriptor_secret_key());
+        let master: DescriptorSecretKey = get_descriptor_secret_key();
         println!("Master: {:?}", master.as_string());
         // tprv8ZgxMBicQKsPdWuqM1t1CDRvQtQuBPyfL6GbhQwtxDKgUAVPbxmj71pRA8raTqLrec5LyTs5TqCxdABcZr77bt2KyWA5bizJHnC4g4ysm4h
         let handmade_public_44 = master

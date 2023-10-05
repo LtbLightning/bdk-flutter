@@ -1,5 +1,5 @@
-use bdk::miniscript::descriptor::DescriptorKeyParseError;
 use crate::types::{Network, OutPoint};
+use bdk::miniscript::descriptor::DescriptorKeyParseError;
 
 /// Errors that can be thrown by the [`Wallet`](crate::wallet::Wallet)
 #[derive(Debug)]
@@ -94,7 +94,7 @@ pub enum Error {
 
     ///  sync attempt failed due to missing scripts in cache which
     /// are needed to satisfy `stop_gap`.
-    MissingCachedScripts(usize,usize),
+    MissingCachedScripts(usize, usize),
     /// Electrum client error
     Electrum(String),
     /// Esplora client error
@@ -117,15 +117,19 @@ impl From<bdk::Error> for Error {
             bdk::Error::NoRecipients => Error::NoRecipients,
             bdk::Error::NoUtxosSelected => Error::NoUtxosSelected,
             bdk::Error::OutputBelowDustLimit(e) => Error::OutputBelowDustLimit(e),
-            bdk::Error::InsufficientFunds { needed, available } => Error::InsufficientFunds { needed, available },
+            bdk::Error::InsufficientFunds { needed, available } => {
+                Error::InsufficientFunds { needed, available }
+            }
             bdk::Error::BnBTotalTriesExceeded => Error::BnBTotalTriesExceeded,
             bdk::Error::BnBNoExactMatch => Error::BnBNoExactMatch,
             bdk::Error::UnknownUtxo => Error::UnknownUtxo,
             bdk::Error::TransactionNotFound => Error::TransactionNotFound,
             bdk::Error::TransactionConfirmed => Error::TransactionConfirmed,
             bdk::Error::IrreplaceableTransaction => Error::IrreplaceableTransaction,
-            bdk::Error::FeeRateTooLow { required } => Error::FeeRateTooLow {required: required.as_sat_per_vb()},
-            bdk::Error::FeeTooLow { required } => Error::FeeTooLow {required},
+            bdk::Error::FeeRateTooLow { required } => Error::FeeRateTooLow {
+                required: required.as_sat_per_vb(),
+            },
+            bdk::Error::FeeTooLow { required } => Error::FeeTooLow { required },
             bdk::Error::FeeRateUnavailable => Error::FeeRateUnavailable,
             bdk::Error::MissingKeyOrigin(e) => Error::MissingKeyOrigin(e),
             bdk::Error::Key(e) => Error::Key(e.to_string()),
@@ -134,46 +138,50 @@ impl From<bdk::Error> for Error {
             bdk::Error::InvalidPolicyPathError(e) => Error::InvalidPolicyPathError(e.to_string()),
             bdk::Error::Signer(e) => Error::Signer(e.to_string()),
             bdk::Error::InvalidNetwork { requested, found } => Error::InvalidNetwork {
-                requested: requested.into(), found: found.into() },
+                requested: requested.into(),
+                found: found.into(),
+            },
             bdk::Error::InvalidOutpoint(e) => Error::InvalidOutpoint(e.into()),
             bdk::Error::Descriptor(e) => Error::Descriptor(e.to_string()),
             bdk::Error::Encode(e) => Error::Encode(e.to_string()),
             bdk::Error::Miniscript(e) => Error::Miniscript(e.to_string()),
             bdk::Error::MiniscriptPsbt(e) => Error::MiniscriptPsbt(e.to_string()),
             bdk::Error::Bip32(e) => Error::Bip32(e.to_string()),
-            bdk::Error::Secp256k1(e) => Error::Secp256k1(e.to_string()) ,
-            bdk::Error::Json(e) => Error::Json(e.to_string()) ,
-            bdk::Error::Hex(e) => Error::Hex(e.to_string()) ,
-            bdk::Error::Psbt(e) => Error::Psbt(e.to_string()) ,
-            bdk::Error::PsbtParse(e) => Error::PsbtParse(e.to_string()) ,
-            bdk::Error::MissingCachedScripts(e) => Error::MissingCachedScripts(e.missing_count,e.last_count) ,
+            bdk::Error::Secp256k1(e) => Error::Secp256k1(e.to_string()),
+            bdk::Error::Json(e) => Error::Json(e.to_string()),
+            bdk::Error::Hex(e) => Error::Hex(e.to_string()),
+            bdk::Error::Psbt(e) => Error::Psbt(e.to_string()),
+            bdk::Error::PsbtParse(e) => Error::PsbtParse(e.to_string()),
+            bdk::Error::MissingCachedScripts(e) => {
+                Error::MissingCachedScripts(e.missing_count, e.last_count)
+            }
             bdk::Error::Electrum(e) => Error::Electrum(e.to_string()),
-            bdk::Error::Esplora(e) => Error::Esplora(e.to_string()) ,
-            bdk::Error::Sled(e) => Error::Sled(e.to_string()) ,
-            bdk::Error::Rpc(e) =>Error::Rpc(e.to_string()) ,
-            bdk::Error::Rusqlite(e) => Error::Rusqlite(e.to_string()) ,
-            _ => Error:: Generic("".to_string()),
+            bdk::Error::Esplora(e) => Error::Esplora(e.to_string()),
+            bdk::Error::Sled(e) => Error::Sled(e.to_string()),
+            bdk::Error::Rpc(e) => Error::Rpc(e.to_string()),
+            bdk::Error::Rusqlite(e) => Error::Rusqlite(e.to_string()),
+            _ => Error::Generic("".to_string()),
         }
     }
 }
-impl From<bdk::miniscript::Error> for Error{
+impl From<bdk::miniscript::Error> for Error {
     fn from(value: bdk::miniscript::Error) -> Self {
         Error::Miniscript(value.to_string())
     }
 }
-impl From<DescriptorKeyParseError> for Error{
+impl From<DescriptorKeyParseError> for Error {
     fn from(value: DescriptorKeyParseError) -> Self {
         Error::Descriptor(value.to_string())
     }
 }
 
-impl  From<bdk::bitcoin::locktime::Error> for Error {
+impl From<bdk::bitcoin::locktime::Error> for Error {
     fn from(value: bdk::bitcoin::locktime::Error) -> Self {
         Error::Miniscript(value.to_string())
     }
 }
 
-impl  From<serde_json::Error> for Error {
+impl From<serde_json::Error> for Error {
     fn from(value: serde_json::Error) -> Self {
         Error::Json(value.to_string())
     }

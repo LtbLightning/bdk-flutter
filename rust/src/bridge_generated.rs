@@ -26,13 +26,12 @@ use crate::blockchain::EsploraConfig;
 use crate::blockchain::RpcConfig;
 use crate::blockchain::RpcSyncParams;
 use crate::blockchain::UserPass;
+use crate::error::Error;
 use crate::types::AddressIndex;
 use crate::types::AddressInfo;
 use crate::types::Balance;
-use crate::types::BdkTxBuilderResult;
 use crate::types::BlockTime;
 use crate::types::ChangeSpendPolicy;
-use crate::types::DescNetwork;
 use crate::types::KeychainKind;
 use crate::types::Network;
 use crate::types::OutPoint;
@@ -469,7 +468,7 @@ fn wire_tx_builder_finish__static_method__Api_impl(
     rbf: impl Wire2Api<Option<RbfValue>> + UnwindSafe,
     data: impl Wire2Api<Vec<u8>> + UnwindSafe,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, BdkTxBuilderResult, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, (String, TransactionDetails), _>(
         WrapInfo {
             debug_name: "tx_builder_finish__static_method__Api",
             port: Some(port_),
@@ -518,7 +517,7 @@ fn wire_bump_fee_tx_builder_finish__static_method__Api_impl(
     enable_rbf: impl Wire2Api<bool> + UnwindSafe,
     n_sequence: impl Wire2Api<Option<u32>> + UnwindSafe,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, BdkTxBuilderResult, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, (String, TransactionDetails), _>(
         WrapInfo {
             debug_name: "bump_fee_tx_builder_finish__static_method__Api",
             port: Some(port_),
@@ -715,41 +714,39 @@ fn wire_new_bip84_public__static_method__Api_impl(
         },
     )
 }
-fn wire_as_string_private__static_method__Api_impl(
+fn wire_descriptor_as_string_private__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String, _>(
         WrapInfo {
-            debug_name: "as_string_private__static_method__Api",
+            debug_name: "descriptor_as_string_private__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| {
-                Result::<_, ()>::Ok(Api::as_string_private(api_descriptor, api_network))
-            }
+            move |task_callback| Api::descriptor_as_string_private(api_descriptor, api_network)
         },
     )
 }
-fn wire_as_string__static_method__Api_impl(
+fn wire_descriptor_as_string__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<String> + UnwindSafe,
     network: impl Wire2Api<Network> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String, _>(
         WrapInfo {
-            debug_name: "as_string__static_method__Api",
+            debug_name: "descriptor_as_string__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| Result::<_, ()>::Ok(Api::as_string(api_descriptor, api_network))
+            move |task_callback| Api::descriptor_as_string(api_descriptor, api_network)
         },
     )
 }
@@ -767,9 +764,7 @@ fn wire_max_satisfaction_weight__static_method__Api_impl(
         move || {
             let api_descriptor = descriptor.wire2api();
             let api_network = network.wire2api();
-            move |task_callback| {
-                Result::<_, ()>::Ok(Api::max_satisfaction_weight(api_descriptor, api_network))
-            }
+            move |task_callback| Api::max_satisfaction_weight(api_descriptor, api_network)
         },
     )
 }
@@ -851,35 +846,35 @@ fn wire_derive_descriptor_secret__static_method__Api_impl(
         },
     )
 }
-fn wire_as_secret_bytes__static_method__Api_impl(
+fn wire_descriptor_secret_as_secret_bytes__static_method__Api_impl(
     port_: MessagePort,
     secret: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, Vec<u8>, _>(
         WrapInfo {
-            debug_name: "as_secret_bytes__static_method__Api",
+            debug_name: "descriptor_secret_as_secret_bytes__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_secret = secret.wire2api();
-            move |task_callback| Api::as_secret_bytes(api_secret)
+            move |task_callback| Api::descriptor_secret_as_secret_bytes(api_secret)
         },
     )
 }
-fn wire_as_public__static_method__Api_impl(
+fn wire_descriptor_secret_as_public__static_method__Api_impl(
     port_: MessagePort,
     secret: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String, _>(
         WrapInfo {
-            debug_name: "as_public__static_method__Api",
+            debug_name: "descriptor_secret_as_public__static_method__Api",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_secret = secret.wire2api();
-            move |task_callback| Api::as_public(api_secret)
+            move |task_callback| Api::descriptor_secret_as_public(api_secret)
         },
     )
 }
@@ -1202,9 +1197,7 @@ fn wire_sign__static_method__Api_impl(
             let api_wallet_id = wallet_id.wire2api();
             let api_psbt_str = psbt_str.wire2api();
             let api_sign_options = sign_options.wire2api();
-            move |task_callback| {
-                Result::<_, ()>::Ok(Api::sign(api_wallet_id, api_psbt_str, api_sign_options))
-            }
+            move |task_callback| Api::sign(api_wallet_id, api_psbt_str, api_sign_options)
         },
     )
 }
@@ -1259,12 +1252,12 @@ fn wire_get_psbt_input__static_method__Api_impl(
             let api_only_witness_utxo = only_witness_utxo.wire2api();
             let api_psbt_sighash_type = psbt_sighash_type.wire2api();
             move |task_callback| {
-                Result::<_, ()>::Ok(Api::get_psbt_input(
+                Api::get_psbt_input(
                     api_wallet_id,
                     api_utxo,
                     api_only_witness_utxo,
                     api_psbt_sighash_type,
-                ))
+                )
             }
         },
     )
@@ -1274,7 +1267,7 @@ fn wire_get_descriptor_for_keychain__static_method__Api_impl(
     wallet_id: impl Wire2Api<String> + UnwindSafe,
     keychain: impl Wire2Api<KeychainKind> + UnwindSafe,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, DescNetwork, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, (String, Network), _>(
         WrapInfo {
             debug_name: "get_descriptor_for_keychain__static_method__Api",
             port: Some(port_),
@@ -1478,22 +1471,6 @@ impl rust2dart::IntoIntoDart<Balance> for Balance {
     }
 }
 
-impl support::IntoDart for BdkTxBuilderResult {
-    fn into_dart(self) -> support::DartAbi {
-        vec![
-            self.0.into_into_dart().into_dart(),
-            self.1.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for BdkTxBuilderResult {}
-impl rust2dart::IntoIntoDart<BdkTxBuilderResult> for BdkTxBuilderResult {
-    fn into_into_dart(self) -> Self {
-        self
-    }
-}
-
 impl support::IntoDart for BlockTime {
     fn into_dart(self) -> support::DartAbi {
         vec![
@@ -1510,17 +1487,85 @@ impl rust2dart::IntoIntoDart<BlockTime> for BlockTime {
     }
 }
 
-impl support::IntoDart for DescNetwork {
+impl support::IntoDart for Error {
     fn into_dart(self) -> support::DartAbi {
-        vec![
-            self.0.into_into_dart().into_dart(),
-            self.1.into_into_dart().into_dart(),
-        ]
+        match self {
+            Self::InvalidU32Bytes(field0) => {
+                vec![0.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::Generic(field0) => vec![1.into_dart(), field0.into_into_dart().into_dart()],
+            Self::ScriptDoesntHaveAddressForm => vec![2.into_dart()],
+            Self::NoRecipients => vec![3.into_dart()],
+            Self::NoUtxosSelected => vec![4.into_dart()],
+            Self::OutputBelowDustLimit(field0) => {
+                vec![5.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::InsufficientFunds { needed, available } => vec![
+                6.into_dart(),
+                needed.into_into_dart().into_dart(),
+                available.into_into_dart().into_dart(),
+            ],
+            Self::BnBTotalTriesExceeded => vec![7.into_dart()],
+            Self::BnBNoExactMatch => vec![8.into_dart()],
+            Self::UnknownUtxo => vec![9.into_dart()],
+            Self::TransactionNotFound => vec![10.into_dart()],
+            Self::TransactionConfirmed => vec![11.into_dart()],
+            Self::IrreplaceableTransaction => vec![12.into_dart()],
+            Self::FeeRateTooLow { required } => {
+                vec![13.into_dart(), required.into_into_dart().into_dart()]
+            }
+            Self::FeeTooLow { required } => {
+                vec![14.into_dart(), required.into_into_dart().into_dart()]
+            }
+            Self::FeeRateUnavailable => vec![15.into_dart()],
+            Self::MissingKeyOrigin(field0) => {
+                vec![16.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::Key(field0) => vec![17.into_dart(), field0.into_into_dart().into_dart()],
+            Self::ChecksumMismatch => vec![18.into_dart()],
+            Self::SpendingPolicyRequired(field0) => {
+                vec![19.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::InvalidPolicyPathError(field0) => {
+                vec![20.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::Signer(field0) => vec![21.into_dart(), field0.into_into_dart().into_dart()],
+            Self::InvalidNetwork { requested, found } => vec![
+                22.into_dart(),
+                requested.into_into_dart().into_dart(),
+                found.into_into_dart().into_dart(),
+            ],
+            Self::InvalidOutpoint(field0) => {
+                vec![23.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::Descriptor(field0) => vec![24.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Encode(field0) => vec![25.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Miniscript(field0) => vec![26.into_dart(), field0.into_into_dart().into_dart()],
+            Self::MiniscriptPsbt(field0) => {
+                vec![27.into_dart(), field0.into_into_dart().into_dart()]
+            }
+            Self::Bip32(field0) => vec![28.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Secp256k1(field0) => vec![29.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Json(field0) => vec![30.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Hex(field0) => vec![31.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Psbt(field0) => vec![32.into_dart(), field0.into_into_dart().into_dart()],
+            Self::PsbtParse(field0) => vec![33.into_dart(), field0.into_into_dart().into_dart()],
+            Self::MissingCachedScripts(field0, field1) => vec![
+                34.into_dart(),
+                field0.into_into_dart().into_dart(),
+                field1.into_into_dart().into_dart(),
+            ],
+            Self::Electrum(field0) => vec![35.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Esplora(field0) => vec![36.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Sled(field0) => vec![37.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Rpc(field0) => vec![38.into_dart(), field0.into_into_dart().into_dart()],
+            Self::Rusqlite(field0) => vec![39.into_dart(), field0.into_into_dart().into_dart()],
+        }
         .into_dart()
     }
 }
-impl support::IntoDartExceptPrimitive for DescNetwork {}
-impl rust2dart::IntoIntoDart<DescNetwork> for DescNetwork {
+impl support::IntoDartExceptPrimitive for Error {}
+impl rust2dart::IntoIntoDart<Error> for Error {
     fn into_into_dart(self) -> Self {
         self
     }
@@ -2063,21 +2108,21 @@ mod io {
     }
 
     #[no_mangle]
-    pub extern "C" fn wire_as_string_private__static_method__Api(
+    pub extern "C" fn wire_descriptor_as_string_private__static_method__Api(
         port_: i64,
         descriptor: *mut wire_uint_8_list,
         network: i32,
     ) {
-        wire_as_string_private__static_method__Api_impl(port_, descriptor, network)
+        wire_descriptor_as_string_private__static_method__Api_impl(port_, descriptor, network)
     }
 
     #[no_mangle]
-    pub extern "C" fn wire_as_string__static_method__Api(
+    pub extern "C" fn wire_descriptor_as_string__static_method__Api(
         port_: i64,
         descriptor: *mut wire_uint_8_list,
         network: i32,
     ) {
-        wire_as_string__static_method__Api_impl(port_, descriptor, network)
+        wire_descriptor_as_string__static_method__Api_impl(port_, descriptor, network)
     }
 
     #[no_mangle]
@@ -2126,19 +2171,19 @@ mod io {
     }
 
     #[no_mangle]
-    pub extern "C" fn wire_as_secret_bytes__static_method__Api(
+    pub extern "C" fn wire_descriptor_secret_as_secret_bytes__static_method__Api(
         port_: i64,
         secret: *mut wire_uint_8_list,
     ) {
-        wire_as_secret_bytes__static_method__Api_impl(port_, secret)
+        wire_descriptor_secret_as_secret_bytes__static_method__Api_impl(port_, secret)
     }
 
     #[no_mangle]
-    pub extern "C" fn wire_as_public__static_method__Api(
+    pub extern "C" fn wire_descriptor_secret_as_public__static_method__Api(
         port_: i64,
         secret: *mut wire_uint_8_list,
     ) {
-        wire_as_public__static_method__Api_impl(port_, secret)
+        wire_descriptor_secret_as_public__static_method__Api_impl(port_, secret)
     }
 
     #[no_mangle]

@@ -130,7 +130,7 @@ impl DescriptorSecretKey {
             }
         }
     }
-    pub fn as_public(&self) -> Result<Arc<DescriptorPublicKey>, BdkError> {
+    pub fn as_public(&self) -> Result<DescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = self
             .descriptor_secret_key_mutex
@@ -138,9 +138,9 @@ impl DescriptorSecretKey {
             .unwrap()
             .to_public(&secp)
             .unwrap();
-        Ok(Arc::new(DescriptorPublicKey {
+        Ok(DescriptorPublicKey {
             descriptor_public_key_mutex: Mutex::new(descriptor_public_key),
-        }))
+        })
     }
     /// Get the private key as bytes.
     pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
@@ -157,27 +157,28 @@ impl DescriptorSecretKey {
         Ok(secret_bytes)
     }
 
-    pub fn from_string(key_str: String) -> Result<Arc<Self>, BdkError> {
+    pub fn from_string(key_str: String) -> Result<Self, BdkError> {
         let key = BdkDescriptorSecretKey::from_str(&*key_str).unwrap();
-        Ok(Arc::new(Self {
+        Ok(Self {
             descriptor_secret_key_mutex: Mutex::new(key),
-        }))
+        })
     }
     pub fn as_string(&self) -> String {
         self.descriptor_secret_key_mutex.lock().unwrap().to_string()
     }
 }
 
+#[derive(Debug)]
 pub struct DescriptorPublicKey {
     pub descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
 }
 
 impl DescriptorPublicKey {
-    pub fn from_string(key: String) -> Result<Arc<Self>, BdkError> {
+    pub fn from_string(key: String) -> Result<Self, BdkError> {
         let key = BdkDescriptorPublicKey::from_str(&*key).unwrap();
-        Ok(Arc::new(Self {
+        Ok(Self {
             descriptor_public_key_mutex: Mutex::new(key),
-        }))
+        })
     }
     pub fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
