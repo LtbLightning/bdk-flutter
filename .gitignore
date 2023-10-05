@@ -34,3 +34,5 @@ rust/Cargo.lock
 rust/output.log
 
 
+example/macos/Flutter/ephemeral/flutter_export_environment.sh
+example/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
