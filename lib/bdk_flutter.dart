@@ -5,7 +5,6 @@ export './src/generated/bridge_definitions.dart'
     hide
         RustBdkFfi,
         Script,
-        DescNetwork,
         BlockchainConfig_Electrum,
         BlockchainConfig_Rpc,
         BlockchainConfig_Esplora,
@@ -15,7 +14,6 @@ export './src/generated/bridge_definitions.dart'
         AddressIndex_Peek,
         AddressIndex_New,
         AddressIndex_LastUnused,
-        BdkTxBuilderResult,
         Payload_PubkeyHash,
         Payload_ScriptHash,
         Payload_WitnessProgram,
