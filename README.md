@@ -39,7 +39,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.29.0
+  bdk_flutter: ^0.29.1
 ```
 
 ### Examples
@@ -109,7 +109,7 @@ final feeRate = await estimateFeeRate(25);
 final txBuilderResult = await txBuilder.feeRate( feeRate.asSatPerVb() )
                                        .addRecipient( script, 2000 )
                                        .finish( bdkWallet );
-                           
+
 final serializedPsbt = await txBuilderResult.psbt.jsonSerialize();
 final jsonObject = json.decode(serializedPsbt);
 final outputs = jsonObject['unsigned_tx']['output'] as List;
@@ -120,13 +120,13 @@ debugPrint("=========Inputs=====");
       debugPrint("amount: ${e['value']}");
       debugPrint("script_pubkey: ${e['script_pubkey']}");
     }
-    
+
 debugPrint("=========Outputs=====");
     for (var e in outputs) {
       debugPrint("amount: ${e['value']}");
       debugPrint("script_pubkey: ${e['script_pubkey']}");
     }
-    
+
 ```
 
 ### Create an `internal` and `extarnal` wallet descriptors from derivation path.
@@ -169,7 +169,7 @@ final address =
         await bdkWallet.getAddress(addressIndex: const AddressIndex());
 final internalAddress =
         await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
-    
+
 ```
 
 ### API Documentation
@@ -219,10 +219,10 @@ _Note that Flutter version `3.0` or later is required to build the plugin._
 
 Please use the [Dart documentation generator](https://pub.dev/packages/dartdoc) to generate the API documentation.
 
-
 ### References:
+
 - Setting up a local Esplora instance for testing:
-https://bitcoin.stackexchange.com/questions/116937/how-do-i-setup-an-esplora-instance-for-local-testing/116938#116938
+  https://bitcoin.stackexchange.com/questions/116937/how-do-i-setup-an-esplora-instance-for-local-testing/116938#116938
 
 _Note: Caution this is Beta at this stage
 Please consider reviewing, experimenting, and contributing ⚡️_

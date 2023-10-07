@@ -1,5 +1,12 @@
+## [0.29.1]
+
+Updated Rust and Flutter dependencies.
+
+Exposed strongly-typed exceptions.
+
 ## [0.29.0]
 Support Dart 3.
+
 Updated Rust and Flutter dependencies.
 #### APIs added
 - Add `isMine` method to `Wallet`.
