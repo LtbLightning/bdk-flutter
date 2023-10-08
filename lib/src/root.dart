@@ -12,7 +12,7 @@ class Address {
 
   /// Creates an instance of [Address] from address given.
   ///
-  /// Throws a [BdkException] if the address is not valid
+  /// Throws a [GenericException] if the address is not valid
   static Future<Address> create({required String address}) async {
     try {
       final res =
