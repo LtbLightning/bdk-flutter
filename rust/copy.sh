@@ -2,7 +2,7 @@
         fi
         if [ -e "../ios/librust_bdk_ffi.a" ]; then rm ../ios/librust_bdk_ffi.a
         fi
-        if [ -e "../macos/librust_bdk_ffi.dylib" ]; then rm ../dylib/librust_bdk_ffi.dylib
+        if [ -e "../macos/librust_bdk_ffi.dylib" ]; then rm ../macos/librust_bdk_ffi.dylib
         fi
 
        mkdir -p ../android/src/main/jniLibs/arm64-v8a
