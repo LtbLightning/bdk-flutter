@@ -1,3 +1,8 @@
+## [0.29.2]
+Support macOs and unit testing.
+
+Updated flutter dependencies.
+
 ## [0.29.1]
 
 Updated Rust and Flutter dependencies.

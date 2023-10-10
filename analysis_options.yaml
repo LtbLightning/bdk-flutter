@@ -18,3 +18,4 @@ analyzer:
     - lib/src/generated/bindings.dart
     - lib/src/generated/bridge_definitions.dart
     - lib/src/generated/bridge_definitions.freezed.dart
+    - README.md
