@@ -136,6 +136,7 @@ class BdkLibrary {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.create(address: addressStr);
+
       final script = await address.scriptPubKey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final txBuilderResult = await txBuilder
@@ -143,12 +144,11 @@ class BdkLibrary {
           .feeRate(feeRate.asSatPerVb())
           .finish(aliceWallet);
       getInputOutPuts(txBuilderResult, blockchain);
-
       final aliceSbt = await aliceWallet.sign(psbt: txBuilderResult.psbt);
       final tx = await aliceSbt.extractTx();
       Isolate.run(() async => {await blockchain.broadcast(tx)});
-    } on FormatException catch (e) {
-      debugPrint(e.message);
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }

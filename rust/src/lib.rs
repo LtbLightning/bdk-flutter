@@ -3,6 +3,7 @@ extern crate core;
 mod blockchain;
 mod bridge_generated;
 mod descriptor;
+mod error;
 mod key;
 mod psbt;
 mod r_api;

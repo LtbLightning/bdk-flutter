@@ -341,13 +341,13 @@ void wire_new_bip84_public__static_method__Api(int64_t port_,
                                                int32_t network,
                                                struct wire_uint_8_list *fingerprint);
 
-void wire_as_string_private__static_method__Api(int64_t port_,
-                                                struct wire_uint_8_list *descriptor,
-                                                int32_t network);
+void wire_descriptor_as_string_private__static_method__Api(int64_t port_,
+                                                           struct wire_uint_8_list *descriptor,
+                                                           int32_t network);
 
-void wire_as_string__static_method__Api(int64_t port_,
-                                        struct wire_uint_8_list *descriptor,
-                                        int32_t network);
+void wire_descriptor_as_string__static_method__Api(int64_t port_,
+                                                   struct wire_uint_8_list *descriptor,
+                                                   int32_t network);
 
 void wire_max_satisfaction_weight__static_method__Api(int64_t port_,
                                                       struct wire_uint_8_list *descriptor,
@@ -369,9 +369,11 @@ void wire_derive_descriptor_secret__static_method__Api(int64_t port_,
                                                        struct wire_uint_8_list *secret,
                                                        struct wire_uint_8_list *path);
 
-void wire_as_secret_bytes__static_method__Api(int64_t port_, struct wire_uint_8_list *secret);
+void wire_descriptor_secret_as_secret_bytes__static_method__Api(int64_t port_,
+                                                                struct wire_uint_8_list *secret);
 
-void wire_as_public__static_method__Api(int64_t port_, struct wire_uint_8_list *secret);
+void wire_descriptor_secret_as_public__static_method__Api(int64_t port_,
+                                                          struct wire_uint_8_list *secret);
 
 void wire_create_derivation_path__static_method__Api(int64_t port_, struct wire_uint_8_list *path);
 
@@ -557,15 +559,15 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_bip49_public__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_descriptor__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_public__static_method__Api);
-    dummy_var ^= ((int64_t) (void*) wire_as_string_private__static_method__Api);
-    dummy_var ^= ((int64_t) (void*) wire_as_string__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_as_string_private__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_as_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_max_satisfaction_weight__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_secret__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_from_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_extend_descriptor_secret__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_derive_descriptor_secret__static_method__Api);
-    dummy_var ^= ((int64_t) (void*) wire_as_secret_bytes__static_method__Api);
-    dummy_var ^= ((int64_t) (void*) wire_as_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_secret_bytes__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_descriptor_secret_as_public__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_derivation_path__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_public_from_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_create_descriptor_public__static_method__Api);

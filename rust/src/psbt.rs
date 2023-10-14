@@ -140,11 +140,11 @@ impl Transaction {
     }
 
     pub fn version(&self) -> i32 {
-        self.internal.version
+        self.internal.version.clone()
     }
 
     pub fn lock_time(&self) -> u32 {
-        self.internal.lock_time.0
+        self.internal.lock_time.0.clone()
     }
     pub fn input(&self) -> Vec<TxIn> {
         self.internal.input.iter().map(|x| x.into()).collect()

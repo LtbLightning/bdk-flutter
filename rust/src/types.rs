@@ -21,7 +21,7 @@ pub struct TxIn {
     pub sequence: u32,
     pub witness: Vec<String>,
 }
-pub struct DescNetwork(pub String, pub Network);
+
 impl From<&BdkTxIn> for TxIn {
     fn from(x: &BdkTxIn) -> Self {
         TxIn {
@@ -51,7 +51,6 @@ impl From<&BdkTxOut> for TxOut {
 pub struct PsbtSigHashType {
     pub inner: u32,
 }
-
 
 pub fn to_input(input: String) -> Input {
     let input: Input = serde_json::from_str(&input).expect("Invalid Psbt Input");
@@ -237,10 +236,7 @@ pub enum RbfValue {
     Value(u32),
 }
 
-/// The result after calling the TxBuilder finish() function. Contains unsigned PSBT and
-/// transaction details.
-pub struct BdkTxBuilderResult(pub String, pub TransactionDetails);
-
+#[derive(Debug, Clone)]
 ///Types of keychains
 pub enum KeychainKind {
     External,
@@ -264,7 +260,7 @@ impl From<KeychainKind> for bdk::KeychainKind {
     }
 }
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 ///The cryptocurrency to act on
 pub enum Network {
     ///Bitcoin’s testnet
@@ -354,8 +350,8 @@ impl Address {
         self.address.network.into()
     }
 
-    pub fn script_pubkey(&self) -> bdk::bitcoin::Script {
-        self.address.script_pubkey()
+    pub fn script_pubkey(&self) -> Script {
+        self.address.script_pubkey().into()
     }
 }
 /// A Bitcoin script.

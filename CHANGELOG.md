@@ -1,8 +1,17 @@
+## [0.29.2]
+Support macOs and unit testing.
+
+Updated flutter dependencies.
+
 ## [0.29.1]
-Strongly typed exceptions
+
+Updated Rust and Flutter dependencies.
+
+Exposed strongly-typed exceptions.
 
 ## [0.29.0]
 Support Dart 3.
+
 Updated Rust and Flutter dependencies.
 #### APIs added
 - Add `isMine` method to `Wallet`.

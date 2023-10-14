@@ -1,7 +1,6 @@
 import 'dart:typed_data' as typed_data;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 
 import 'generated/bridge_definitions.dart' as bridge;
 import 'utils/utils.dart';
@@ -13,14 +12,14 @@ class Address {
 
   /// Creates an instance of [Address] from address given.
   ///
-  /// Throws a [BdkException] if the address is not valid
+  /// Throws a [GenericException] if the address is not valid
   static Future<Address> create({required String address}) async {
     try {
       final res =
           await loaderApi.createAddressStaticMethodApi(address: address);
       return Address._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -32,8 +31,8 @@ class Address {
       final res = await loaderApi.addressFromScriptStaticMethodApi(
           script: script, network: network);
       return Address._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -43,8 +42,8 @@ class Address {
     try {
       final res = await loaderApi.payloadStaticMethodApi(address: _address!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -53,8 +52,8 @@ class Address {
       final res =
           await loaderApi.addressNetworkStaticMethodApi(address: _address!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -64,8 +63,8 @@ class Address {
       final res = await loaderApi.addressToScriptPubkeyStaticMethodApi(
           address: _address.toString());
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error {
+      rethrow;
     }
   }
 
@@ -88,8 +87,8 @@ class Blockchain {
       final res =
           await loaderApi.createBlockchainStaticMethodApi(config: config);
       return Blockchain._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -99,8 +98,8 @@ class Blockchain {
       var res = await loaderApi.getBlockchainHashStaticMethodApi(
           blockchainHeight: height, blockchainId: _blockchain);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -110,8 +109,8 @@ class Blockchain {
       var res =
           await loaderApi.getHeightStaticMethodApi(blockchainId: _blockchain);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -121,8 +120,8 @@ class Blockchain {
       var res = await loaderApi.estimateFeeStaticMethodApi(
           blockchainId: _blockchain, target: target);
       return FeeRate._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -134,8 +133,8 @@ class Blockchain {
       if (kDebugMode) {
         print(txid);
       }
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
@@ -190,10 +189,10 @@ class BumpFeeTxBuilder {
           nSequence: _nSequence,
           allowShrinking: _allowShrinking);
       return TxBuilderResult(
-          psbt: PartiallySignedTransaction(psbtBase64: res.field0),
-          txDetails: res.field1);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+          psbt: PartiallySignedTransaction(psbtBase64: res.$1),
+          txDetails: res.$2);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
@@ -209,8 +208,8 @@ class DerivationPath {
       final res =
           await loaderApi.createDerivationPathStaticMethodApi(path: path);
       return DerivationPath._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -233,8 +232,8 @@ class Descriptor {
       final res = await loaderApi.createDescriptorStaticMethodApi(
           descriptor: descriptor, network: network);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -243,8 +242,8 @@ class Descriptor {
       final res = await loaderApi.maxSatisfactionWeightStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -261,8 +260,8 @@ class Descriptor {
           network: network,
           keyChainKind: keychain);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -283,8 +282,8 @@ class Descriptor {
           network: network,
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -301,8 +300,8 @@ class Descriptor {
           network: network,
           keyChainKind: keychain);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -323,8 +322,8 @@ class Descriptor {
           network: network,
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -341,8 +340,8 @@ class Descriptor {
           network: network,
           keyChainKind: keychain);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -363,30 +362,30 @@ class Descriptor {
           network: network,
           fingerprint: fingerPrint);
       return Descriptor._(res, network);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
   ///Return the private version of the output descriptor if available, otherwise return the public version.
   Future<String> asStringPrivate() async {
     try {
-      final res = await loaderApi.asStringPrivateStaticMethodApi(
+      final res = await loaderApi.descriptorAsStringPrivateStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
   ///Return the public version of the output descriptor.
   Future<String> asString() async {
     try {
-      final res = await loaderApi.asStringStaticMethodApi(
+      final res = await loaderApi.descriptorAsStringStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
@@ -410,8 +409,8 @@ class DescriptorPublicKey {
           path: derivationPath._path.toString(),
           derive: true);
       return DescriptorPublicKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -423,8 +422,8 @@ class DescriptorPublicKey {
           path: derivationPath._path.toString(),
           derive: false);
       return DescriptorPublicKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -434,8 +433,8 @@ class DescriptorPublicKey {
       final res = await loaderApi.descriptorPublicFromStringStaticMethodApi(
           publicKey: publicKey);
       return DescriptorPublicKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -454,11 +453,11 @@ class DescriptorSecretKey {
   /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
-      final xpub =
-          await loaderApi.asPublicStaticMethodApi(secret: _descriptorSecretKey);
+      final xpub = await loaderApi.descriptorSecretAsPublicStaticMethodApi(
+          secret: _descriptorSecretKey);
       return DescriptorPublicKey._(xpub);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -476,8 +475,8 @@ class DescriptorSecretKey {
       final res = await loaderApi.createDescriptorSecretStaticMethodApi(
           network: network, mnemonic: mnemonic.asString(), password: password);
       return DescriptorSecretKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -487,8 +486,8 @@ class DescriptorSecretKey {
       final res = await loaderApi.deriveDescriptorSecretStaticMethodApi(
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -498,8 +497,8 @@ class DescriptorSecretKey {
       final res = await loaderApi.extendDescriptorSecretStaticMethodApi(
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -509,19 +508,19 @@ class DescriptorSecretKey {
       final res = await loaderApi.descriptorSecretFromStringStaticMethodApi(
           secret: secretKey);
       return DescriptorSecretKey._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
   /// Get the private key as bytes.
   Future<List<int>> secretBytes() async {
     try {
-      final res = await loaderApi.asSecretBytesStaticMethodApi(
+      final res = await loaderApi.descriptorSecretAsSecretBytesStaticMethodApi(
           secret: _descriptorSecretKey);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -569,8 +568,8 @@ class Mnemonic {
       final res = await loaderApi.generateSeedFromWordCountStaticMethodApi(
           wordCount: wordCount);
       return Mnemonic._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -588,8 +587,8 @@ class Mnemonic {
       final res = await loaderApi.generateSeedFromEntropyStaticMethodApi(
           entropy: entropy);
       return Mnemonic._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -601,8 +600,8 @@ class Mnemonic {
       final res = await loaderApi.generateSeedFromStringStaticMethodApi(
           mnemonic: mnemonic);
       return Mnemonic._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -627,8 +626,8 @@ class PartiallySignedTransaction {
       final res = await loaderApi.combinePsbtStaticMethodApi(
           psbtStr: psbtBase64, other: other.psbtBase64);
       return PartiallySignedTransaction(psbtBase64: res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -637,8 +636,8 @@ class PartiallySignedTransaction {
     try {
       final res = await loaderApi.extractTxStaticMethodApi(psbtStr: psbtBase64);
       return Transaction._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -648,8 +647,8 @@ class PartiallySignedTransaction {
       final res =
           await loaderApi.psbtFeeAmountStaticMethodApi(psbtStr: psbtBase64);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -660,8 +659,8 @@ class PartiallySignedTransaction {
           await loaderApi.psbtFeeRateStaticMethodApi(psbtStr: psbtBase64);
       if (res == null) return null;
       return FeeRate._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -671,8 +670,8 @@ class PartiallySignedTransaction {
       final res =
           await loaderApi.serializePsbtStaticMethodApi(psbtStr: psbtBase64);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -681,8 +680,8 @@ class PartiallySignedTransaction {
       final res =
           await loaderApi.jsonSerializeStaticMethodApi(psbtStr: psbtBase64);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -696,8 +695,8 @@ class PartiallySignedTransaction {
     try {
       final res = await loaderApi.psbtTxidStaticMethodApi(psbtStr: psbtBase64);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
@@ -717,8 +716,8 @@ class Script extends bridge.Script {
       final res = await loaderApi.createScriptStaticMethodApi(
           rawOutputScript: rawOutputScript);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -740,8 +739,8 @@ class Transaction {
       final tx = Uint8List.fromList(transactionBytes);
       final res = await loaderApi.createTransactionStaticMethodApi(tx: tx);
       return Transaction._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -750,8 +749,8 @@ class Transaction {
     try {
       final res = await loaderApi.serializeTxStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -759,8 +758,8 @@ class Transaction {
     try {
       final res = await loaderApi.txTxidStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -768,8 +767,8 @@ class Transaction {
     try {
       final res = await loaderApi.weightStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -777,8 +776,8 @@ class Transaction {
     try {
       final res = await loaderApi.sizeStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -786,8 +785,8 @@ class Transaction {
     try {
       final res = await loaderApi.vsizeStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -795,8 +794,8 @@ class Transaction {
     try {
       final res = await loaderApi.isCoinBaseStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -804,8 +803,8 @@ class Transaction {
     try {
       final res = await loaderApi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -813,8 +812,8 @@ class Transaction {
     try {
       final res = await loaderApi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -822,8 +821,8 @@ class Transaction {
     try {
       final res = await loaderApi.versionStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -831,8 +830,8 @@ class Transaction {
     try {
       final res = await loaderApi.lockTimeStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -840,8 +839,8 @@ class Transaction {
     try {
       final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -849,8 +848,8 @@ class Transaction {
     try {
       final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1060,10 +1059,10 @@ class TxBuilder {
           changePolicy: _changeSpendPolicy);
 
       return TxBuilderResult(
-          psbt: PartiallySignedTransaction(psbtBase64: res.field0),
-          txDetails: res.field1);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+          psbt: PartiallySignedTransaction(psbtBase64: res.$1),
+          txDetails: res.$2);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
@@ -1108,8 +1107,8 @@ class Wallet {
         databaseConfig: databaseConfig,
       );
       return Wallet._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1121,8 +1120,8 @@ class Wallet {
       var res = await loaderApi.getAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1139,8 +1138,8 @@ class Wallet {
       var res = await loaderApi.getInternalAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1151,8 +1150,8 @@ class Wallet {
     try {
       var res = await loaderApi.getBalanceStaticMethodApi(walletId: _wallet);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1162,8 +1161,8 @@ class Wallet {
       var res = await loaderApi.isMineStaticMethodApi(
           script: script, walletId: _wallet);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1172,8 +1171,8 @@ class Wallet {
     try {
       var res = await loaderApi.walletNetworkStaticMethodApi(walletId: _wallet);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1185,8 +1184,8 @@ class Wallet {
       var res =
           await loaderApi.listUnspentOutputsStaticMethodApi(walletId: _wallet);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1196,8 +1195,8 @@ class Wallet {
       await loaderApi.syncWalletStaticMethodApi(
           walletId: _wallet, blockchainId: blockchain._blockchain);
       debugPrint('sync complete');
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1208,8 +1207,8 @@ class Wallet {
       final res = await loaderApi.getTransactionsStaticMethodApi(
           walletId: _wallet, includeRaw: includeRaw);
       return res;
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1228,8 +1227,8 @@ class Wallet {
         throw SignerException(message: "Unable to sign transaction");
       }
       return PartiallySignedTransaction(psbtBase64: sbt);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1245,8 +1244,8 @@ class Wallet {
           onlyWitnessUtxo: onlyWitnessUtxo,
           psbtSighashType: psbtSighashType);
       return Input._(res);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 
@@ -1256,9 +1255,9 @@ class Wallet {
     try {
       final res = await loaderApi.getDescriptorForKeychainStaticMethodApi(
           walletId: _wallet, keychain: keychainKind);
-      return Descriptor._(res.field0, res.field1);
-    } on FfiException catch (e) {
-      throw handleException(e.message);
+      return Descriptor._(res.$1, res.$2);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
     }
   }
 }
