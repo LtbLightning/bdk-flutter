@@ -1,10 +1,10 @@
 import Cocoa
 import FlutterMacOS
 
-public class SwiftBdkFlutterPlugin: NSObject, FlutterPlugin {
+public class BdkFlutterPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "bdk_flutter", binaryMessenger: registrar.messenger)
-    let instance = FlutterBdkPlugin()
+    let instance = BdkFlutterPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

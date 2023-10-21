@@ -33,3 +33,5 @@ flutter:
         pluginClass: BdkFlutterPlugin
       ios:
         pluginClass: BdkFlutterPlugin
+      macos:
+        pluginClass: BdkFlutterPlugin
