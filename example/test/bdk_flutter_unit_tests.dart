@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  await setTestEnv();
   const derivationPath = "m/44'/1'/0'";
   const script = [
     118,
@@ -33,6 +34,7 @@ Future<void> main() async {
     136,
     172
   ];
+
   final address =
       await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
   final blockchain = await Blockchain.create(
