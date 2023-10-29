@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'generated/bridge_definitions.dart' as bridge;
 import 'utils/utils.dart';
 
-Future<void> setTestEnv() async {
+Future<void> setCurrentDirectory() async {
   try {
-    await setDirEnv(dir: Directory.current.path);
+    await AppConfig.setBuildDirectory("${Directory.current.path}/build");
   } catch (e) {
     print(e.toString());
   }

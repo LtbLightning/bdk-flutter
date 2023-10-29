@@ -1,0 +1,6 @@
+{
+  "remote_url": "https://github.com/LtbLightning/bdk-flutter/releases/download/v1.0/bdk_bin_0.29.3.zip",
+  "test_bin_dir": "bdk_bin_0.29.3",
+  "unit_test_dir": "unit_test_assets",
+  "macos_test_bin_dir": "macos/librust_bdk_ffi.dylib"
+}

@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  await setTestEnv();
+  WidgetsFlutterBinding.ensureInitialized();
+  await setCurrentDirectory();
   const derivationPath = "m/44'/1'/0'";
   const script = [
     118,

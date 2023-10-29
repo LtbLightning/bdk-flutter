@@ -1,8 +1,9 @@
+import 'dart:convert' as convert;
 import 'dart:ffi';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:flutter/services.dart' show Uint8List, rootBundle;
 import 'package:http/http.dart' as http;
 
 import '../generated/bindings.dart';
@@ -10,9 +11,10 @@ import '../generated/bindings.dart';
 DynamicLibrary _open() {
   if (Platform.environment['FLUTTER_TEST'] == 'true') {
     try {
-      DynamicLibrary.open(_getTestPlatformFileName(Directory.current));
+      DynamicLibrary.open(getTestBinaryUrl(Directory.current));
     } catch (e) {
-      throw Exception("Unable to open the dylib! Try calling setTestEnv().");
+      throw Exception(
+          "Unable to open the dylib! Try calling setCurrentDirectory()");
     }
   }
   if (Platform.isIOS || Platform.isMacOS) {
@@ -24,46 +26,56 @@ DynamicLibrary _open() {
   }
 }
 
-final bdkFfi = RustBdkFfiImpl(_open());
-
-Future<void> setDirEnv({required String dir}) async {
-  final buildDir = '$dir/build';
-  if (!(await Directory('$buildDir/$_ktestBdkBinDir').exists())) {
-    final response = await http.get(Uri.parse(
-        'https://github.com/LtbLightning/bdk-flutter/releases/bin/bdk_bin_0.29.3.zip'));
-    if (response.statusCode == 200) {
-      final bytes = response.bodyBytes;
-      final archive = ZipDecoder().decodeBytes(Uint8List.fromList(bytes));
-      for (final file in archive) {
-        final filename = '$buildDir/unit_test_assets/${file.name}';
-        if (file.isFile) {
-          final fileContent = await File(filename).create(recursive: true);
-          await fileContent.writeAsBytes(file.content);
-        } else {
-          await Directory(filename).create(recursive: true);
-        }
-      }
-    } else {
-      print('Status code: ${response.statusCode}');
-    }
-  }
-}
-
-String _getTestPlatformFileName(Directory dir) {
-  final build_dir = "${dir.path}/build";
-  final path = '$build_dir/$_ktestBdkBinDir';
+String getTestBinaryUrl(Directory dir) {
+  final assetsDir =
+      '${dir.path}/build/${AppConfig.unitTestDir}/${AppConfig.testBinDir}';
   if (Platform.isMacOS) {
-    return "$path/$_kMacOSTestDylib";
-  } else if (Platform.isWindows) {
-    return "$path/$_kWindowsTestLib";
-  } else if (Platform.isLinux) {
-    return "$path/$_kLinuxTestLib";
+    return "$assetsDir/${AppConfig.macosTestBinUrl}";
   } else {
     throw Exception("not support platform:${Platform.operatingSystem}");
   }
 }
 
-const String _ktestBdkBinDir = 'unit_test_assets/bdk_bin_0.29.3';
-const String _kMacOSTestDylib = 'macos/librust_bdk_ffi.dylib';
-const String _kWindowsTestLib = 'windows/librust_bdk_ffi.dll';
-const String _kLinuxTestLib = 'linux/librust_bdk_ffi.so';
+final bdkFfi = RustBdkFfiImpl(_open());
+
+class AppConfig {
+  static Map<String, dynamic>? _config;
+  static Future<void> _loadJsonAsset() async {
+    final String jsonString =
+        await rootBundle.loadString("packages/bdk_flutter/assets/config.json");
+    _config = convert.jsonDecode(jsonString);
+  }
+
+  static Future<void> setBuildDirectory(String dir) async {
+    await _loadJsonAsset();
+    final assetsDir = '$dir/$unitTestDir';
+
+    if (!(await Directory('$assetsDir/$testBinDir').exists())) {
+      try {
+        final response = await http.get(Uri.parse(remoteUrl));
+        if (response.statusCode == 200) {
+          final bytes = response.bodyBytes;
+          final archive = ZipDecoder().decodeBytes(Uint8List.fromList(bytes));
+          for (final file in archive) {
+            final filename = '$assetsDir/${file.name}';
+            if (file.isFile) {
+              final fileContent = await File(filename).create(recursive: true);
+              await fileContent.writeAsBytes(file.content);
+            } else {
+              await Directory(filename).create(recursive: true);
+            }
+          }
+        } else {
+          print('Download failed: status code ${response.statusCode}!');
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+  }
+
+  static String get remoteUrl => _config!['remote_url'];
+  static String get testBinDir => _config!['test_bin_dir'];
+  static String get unitTestDir => _config!['unit_test_dir'];
+  static String get macosTestBinUrl => _config!['macos_test_bin_dir'];
+}
