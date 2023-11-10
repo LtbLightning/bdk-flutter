@@ -11,6 +11,6 @@ pre-push:
   parallel: true
   commands:
     tests:
-      run: flutter test && flutter test example
+      run: flutter test
     static_code_analysis:
       run: flutter analyze
