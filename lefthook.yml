@@ -5,7 +5,7 @@ pre-commit:
       run: dart fix lib --apply && git add .
     format_code:
       glob: '*.dart'
-      run: dart format . && git add .
+      run: flutter format {staged_files} && git add .
 
 pre-push:
   parallel: true
