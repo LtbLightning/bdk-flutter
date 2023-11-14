@@ -22,15 +22,15 @@ DynamicLibrary _open() {
   } else if (Platform.isAndroid) {
     return DynamicLibrary.open("librust_bdk_ffi.so");
   } else {
-    return DynamicLibrary.executable();
+    throw Exception("not support platform:${Platform.operatingSystem}");
   }
 }
 
 String getTestBinaryUrl(Directory dir) {
   final assetsDir =
-      '${dir.path}/build/${AppConfig.unitTestDir}/${AppConfig.testBinDir}';
+      '${dir.path}/build/unit_test_assets/${AppConfig.testBinDir}';
   if (Platform.isMacOS) {
-    return "$assetsDir/${AppConfig.macosTestBinUrl}";
+    return "$assetsDir/macos/librust_bdk_ffi.dylib";
   } else {
     throw Exception("not support platform:${Platform.operatingSystem}");
   }
@@ -48,7 +48,7 @@ class AppConfig {
 
   static Future<void> setBuildDirectory(String dir) async {
     await _loadJsonAsset();
-    final assetsDir = '$dir/$unitTestDir';
+    final assetsDir = '$dir/unit_test_assets';
 
     if (!(await Directory('$assetsDir/$testBinDir').exists())) {
       try {
@@ -76,6 +76,4 @@ class AppConfig {
 
   static String get remoteUrl => _config!['remote_url'];
   static String get testBinDir => _config!['test_bin_dir'];
-  static String get unitTestDir => _config!['unit_test_dir'];
-  static String get macosTestBinUrl => _config!['macos_test_bin_dir'];
 }
