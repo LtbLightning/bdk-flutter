@@ -15,9 +15,6 @@ help: makefile
 
 ## init: Install missing dependencies.
 init:
-	rustup target add aarch64-apple-ios x86_64-apple-ios
-	rustup target add aarch64-apple-darwin x86_64-apple-darwin
-	#rustup target add armv7-apple-ios armv7s-apple-ios i386-apple-ios ## deprecated
 	rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 	cargo install flutter_rust_bridge_codegen
 	cargo install cargo-ndk
@@ -25,19 +22,7 @@ init:
 ## :
 
 ## all: Compile iOS, Android and bindings targets
-all: init macos ios android bindings
-
-## ios: Compile the iOS universal library
-ios: target/universal/release/libexample.a
-target/universal/release/libexample.a:
-	cargo lipo --release
-	@echo "[Done ✅] $@"
-
-## macos: Compile the macOS library
-macos: target/aarch64-apple-darwin/release/libexample.dylib
-target/aarch64-apple-darwin/release/libexample.dylib:
-	cargo lipo --release --targets aarch64-apple-darwin
-	@echo "[Done ✅] $@"
+all: init android xcframework bindings
 
 ## android: Compile the android targets (arm64, armv7 and i686)
 android: target/aarch64-linux-android/release/libexample.so target/armv7-linux-androideabi/release/libexample.so target/i686-linux-android/release/libexample.so
@@ -54,9 +39,15 @@ target/x86_64-linux-android/release/libexample.so: $(SOURCES)
 		 cargo ndk -t x86_64 build --release
 	@echo "[Done ✅] $@"
 
+
+xcframework: darwin/xcframework
+darwin/xcframework: $(SOURCES)
+	  @echo "[Creating rust_bdk_ffi.xcframework ...] $@"
+	  sh darwin.sh
+	  @echo "[Done ✅]"
+
 bindings: copy/bindings
 copy/bindings: $(SOURCES)
-#	cbindgen $^ -c cbindgen.toml | grep -v \#include | uniq > $@
 	 @echo "[COPYING BINARIES TO FLUTTER PACKAGE ...] $@"
 	sh copy.sh
 	@echo "[Done ✅]"

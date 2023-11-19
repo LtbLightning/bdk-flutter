@@ -70,12 +70,14 @@ mixin _$AddressIndex {
 
 /// @nodoc
 abstract class $AddressIndexCopyWith<$Res> {
-  factory $AddressIndexCopyWith(AddressIndex value, $Res Function(AddressIndex) then) =
+  factory $AddressIndexCopyWith(
+          AddressIndex value, $Res Function(AddressIndex) then) =
       _$AddressIndexCopyWithImpl<$Res, AddressIndex>;
 }
 
 /// @nodoc
-class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex> implements $AddressIndexCopyWith<$Res> {
+class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
+    implements $AddressIndexCopyWith<$Res> {
   _$AddressIndexCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -85,22 +87,25 @@ class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex> implements $Ad
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_NewCopyWith<$Res> {
-  factory _$$AddressIndex_NewCopyWith(_$AddressIndex_New value, $Res Function(_$AddressIndex_New) then) =
-      __$$AddressIndex_NewCopyWithImpl<$Res>;
+abstract class _$$AddressIndex_NewImplCopyWith<$Res> {
+  factory _$$AddressIndex_NewImplCopyWith(_$AddressIndex_NewImpl value,
+          $Res Function(_$AddressIndex_NewImpl) then) =
+      __$$AddressIndex_NewImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddressIndex_NewCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_New>
-    implements _$$AddressIndex_NewCopyWith<$Res> {
-  __$$AddressIndex_NewCopyWithImpl(_$AddressIndex_New _value, $Res Function(_$AddressIndex_New) _then)
+class __$$AddressIndex_NewImplCopyWithImpl<$Res>
+    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_NewImpl>
+    implements _$$AddressIndex_NewImplCopyWith<$Res> {
+  __$$AddressIndex_NewImplCopyWithImpl(_$AddressIndex_NewImpl _value,
+      $Res Function(_$AddressIndex_NewImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AddressIndex_New implements AddressIndex_New {
-  const _$AddressIndex_New();
+class _$AddressIndex_NewImpl implements AddressIndex_New {
+  const _$AddressIndex_NewImpl();
 
   @override
   String toString() {
@@ -109,7 +114,8 @@ class _$AddressIndex_New implements AddressIndex_New {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$AddressIndex_New);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AddressIndex_NewImpl);
   }
 
   @override
@@ -191,28 +197,31 @@ class _$AddressIndex_New implements AddressIndex_New {
 }
 
 abstract class AddressIndex_New implements AddressIndex {
-  const factory AddressIndex_New() = _$AddressIndex_New;
+  const factory AddressIndex_New() = _$AddressIndex_NewImpl;
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_LastUnusedCopyWith<$Res> {
-  factory _$$AddressIndex_LastUnusedCopyWith(
-          _$AddressIndex_LastUnused value, $Res Function(_$AddressIndex_LastUnused) then) =
-      __$$AddressIndex_LastUnusedCopyWithImpl<$Res>;
+abstract class _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
+  factory _$$AddressIndex_LastUnusedImplCopyWith(
+          _$AddressIndex_LastUnusedImpl value,
+          $Res Function(_$AddressIndex_LastUnusedImpl) then) =
+      __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddressIndex_LastUnusedCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnused>
-    implements _$$AddressIndex_LastUnusedCopyWith<$Res> {
-  __$$AddressIndex_LastUnusedCopyWithImpl(
-      _$AddressIndex_LastUnused _value, $Res Function(_$AddressIndex_LastUnused) _then)
+class __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>
+    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnusedImpl>
+    implements _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
+  __$$AddressIndex_LastUnusedImplCopyWithImpl(
+      _$AddressIndex_LastUnusedImpl _value,
+      $Res Function(_$AddressIndex_LastUnusedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AddressIndex_LastUnused implements AddressIndex_LastUnused {
-  const _$AddressIndex_LastUnused();
+class _$AddressIndex_LastUnusedImpl implements AddressIndex_LastUnused {
+  const _$AddressIndex_LastUnusedImpl();
 
   @override
   String toString() {
@@ -221,7 +230,9 @@ class _$AddressIndex_LastUnused implements AddressIndex_LastUnused {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$AddressIndex_LastUnused);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddressIndex_LastUnusedImpl);
   }
 
   @override
@@ -303,21 +314,24 @@ class _$AddressIndex_LastUnused implements AddressIndex_LastUnused {
 }
 
 abstract class AddressIndex_LastUnused implements AddressIndex {
-  const factory AddressIndex_LastUnused() = _$AddressIndex_LastUnused;
+  const factory AddressIndex_LastUnused() = _$AddressIndex_LastUnusedImpl;
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_PeekCopyWith<$Res> {
-  factory _$$AddressIndex_PeekCopyWith(_$AddressIndex_Peek value, $Res Function(_$AddressIndex_Peek) then) =
-      __$$AddressIndex_PeekCopyWithImpl<$Res>;
+abstract class _$$AddressIndex_PeekImplCopyWith<$Res> {
+  factory _$$AddressIndex_PeekImplCopyWith(_$AddressIndex_PeekImpl value,
+          $Res Function(_$AddressIndex_PeekImpl) then) =
+      __$$AddressIndex_PeekImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$AddressIndex_PeekCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Peek>
-    implements _$$AddressIndex_PeekCopyWith<$Res> {
-  __$$AddressIndex_PeekCopyWithImpl(_$AddressIndex_Peek _value, $Res Function(_$AddressIndex_Peek) _then)
+class __$$AddressIndex_PeekImplCopyWithImpl<$Res>
+    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_PeekImpl>
+    implements _$$AddressIndex_PeekImplCopyWith<$Res> {
+  __$$AddressIndex_PeekImplCopyWithImpl(_$AddressIndex_PeekImpl _value,
+      $Res Function(_$AddressIndex_PeekImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -325,7 +339,7 @@ class __$$AddressIndex_PeekCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl
   $Res call({
     Object? index = null,
   }) {
-    return _then(_$AddressIndex_Peek(
+    return _then(_$AddressIndex_PeekImpl(
       index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -336,8 +350,8 @@ class __$$AddressIndex_PeekCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl
 
 /// @nodoc
 
-class _$AddressIndex_Peek implements AddressIndex_Peek {
-  const _$AddressIndex_Peek({required this.index});
+class _$AddressIndex_PeekImpl implements AddressIndex_Peek {
+  const _$AddressIndex_PeekImpl({required this.index});
 
   @override
   final int index;
@@ -351,7 +365,7 @@ class _$AddressIndex_Peek implements AddressIndex_Peek {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_Peek &&
+            other is _$AddressIndex_PeekImpl &&
             (identical(other.index, index) || other.index == index));
   }
 
@@ -361,8 +375,9 @@ class _$AddressIndex_Peek implements AddressIndex_Peek {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddressIndex_PeekCopyWith<_$AddressIndex_Peek> get copyWith =>
-      __$$AddressIndex_PeekCopyWithImpl<_$AddressIndex_Peek>(this, _$identity);
+  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
+      __$$AddressIndex_PeekImplCopyWithImpl<_$AddressIndex_PeekImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -440,25 +455,30 @@ class _$AddressIndex_Peek implements AddressIndex_Peek {
 }
 
 abstract class AddressIndex_Peek implements AddressIndex {
-  const factory AddressIndex_Peek({required final int index}) = _$AddressIndex_Peek;
+  const factory AddressIndex_Peek({required final int index}) =
+      _$AddressIndex_PeekImpl;
 
   int get index;
   @JsonKey(ignore: true)
-  _$$AddressIndex_PeekCopyWith<_$AddressIndex_Peek> get copyWith => throw _privateConstructorUsedError;
+  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_ResetCopyWith<$Res> {
-  factory _$$AddressIndex_ResetCopyWith(_$AddressIndex_Reset value, $Res Function(_$AddressIndex_Reset) then) =
-      __$$AddressIndex_ResetCopyWithImpl<$Res>;
+abstract class _$$AddressIndex_ResetImplCopyWith<$Res> {
+  factory _$$AddressIndex_ResetImplCopyWith(_$AddressIndex_ResetImpl value,
+          $Res Function(_$AddressIndex_ResetImpl) then) =
+      __$$AddressIndex_ResetImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$AddressIndex_ResetCopyWithImpl<$Res> extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_Reset>
-    implements _$$AddressIndex_ResetCopyWith<$Res> {
-  __$$AddressIndex_ResetCopyWithImpl(_$AddressIndex_Reset _value, $Res Function(_$AddressIndex_Reset) _then)
+class __$$AddressIndex_ResetImplCopyWithImpl<$Res>
+    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_ResetImpl>
+    implements _$$AddressIndex_ResetImplCopyWith<$Res> {
+  __$$AddressIndex_ResetImplCopyWithImpl(_$AddressIndex_ResetImpl _value,
+      $Res Function(_$AddressIndex_ResetImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -466,7 +486,7 @@ class __$$AddressIndex_ResetCopyWithImpl<$Res> extends _$AddressIndexCopyWithImp
   $Res call({
     Object? index = null,
   }) {
-    return _then(_$AddressIndex_Reset(
+    return _then(_$AddressIndex_ResetImpl(
       index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -477,8 +497,8 @@ class __$$AddressIndex_ResetCopyWithImpl<$Res> extends _$AddressIndexCopyWithImp
 
 /// @nodoc
 
-class _$AddressIndex_Reset implements AddressIndex_Reset {
-  const _$AddressIndex_Reset({required this.index});
+class _$AddressIndex_ResetImpl implements AddressIndex_Reset {
+  const _$AddressIndex_ResetImpl({required this.index});
 
   @override
   final int index;
@@ -492,7 +512,7 @@ class _$AddressIndex_Reset implements AddressIndex_Reset {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_Reset &&
+            other is _$AddressIndex_ResetImpl &&
             (identical(other.index, index) || other.index == index));
   }
 
@@ -502,8 +522,9 @@ class _$AddressIndex_Reset implements AddressIndex_Reset {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddressIndex_ResetCopyWith<_$AddressIndex_Reset> get copyWith =>
-      __$$AddressIndex_ResetCopyWithImpl<_$AddressIndex_Reset>(this, _$identity);
+  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
+      __$$AddressIndex_ResetImplCopyWithImpl<_$AddressIndex_ResetImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -581,11 +602,13 @@ class _$AddressIndex_Reset implements AddressIndex_Reset {
 }
 
 abstract class AddressIndex_Reset implements AddressIndex {
-  const factory AddressIndex_Reset({required final int index}) = _$AddressIndex_Reset;
+  const factory AddressIndex_Reset({required final int index}) =
+      _$AddressIndex_ResetImpl;
 
   int get index;
   @JsonKey(ignore: true)
-  _$$AddressIndex_ResetCopyWith<_$AddressIndex_Reset> get copyWith => throw _privateConstructorUsedError;
+  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -639,12 +662,14 @@ mixin _$BlockchainConfig {
 
 /// @nodoc
 abstract class $BlockchainConfigCopyWith<$Res> {
-  factory $BlockchainConfigCopyWith(BlockchainConfig value, $Res Function(BlockchainConfig) then) =
+  factory $BlockchainConfigCopyWith(
+          BlockchainConfig value, $Res Function(BlockchainConfig) then) =
       _$BlockchainConfigCopyWithImpl<$Res, BlockchainConfig>;
 }
 
 /// @nodoc
-class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig> implements $BlockchainConfigCopyWith<$Res> {
+class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig>
+    implements $BlockchainConfigCopyWith<$Res> {
   _$BlockchainConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -654,20 +679,23 @@ class _$BlockchainConfigCopyWithImpl<$Res, $Val extends BlockchainConfig> implem
 }
 
 /// @nodoc
-abstract class _$$BlockchainConfig_ElectrumCopyWith<$Res> {
-  factory _$$BlockchainConfig_ElectrumCopyWith(
-          _$BlockchainConfig_Electrum value, $Res Function(_$BlockchainConfig_Electrum) then) =
-      __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>;
+abstract class _$$BlockchainConfig_ElectrumImplCopyWith<$Res> {
+  factory _$$BlockchainConfig_ElectrumImplCopyWith(
+          _$BlockchainConfig_ElectrumImpl value,
+          $Res Function(_$BlockchainConfig_ElectrumImpl) then) =
+      __$$BlockchainConfig_ElectrumImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ElectrumConfig config});
 }
 
 /// @nodoc
-class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Electrum>
-    implements _$$BlockchainConfig_ElectrumCopyWith<$Res> {
-  __$$BlockchainConfig_ElectrumCopyWithImpl(
-      _$BlockchainConfig_Electrum _value, $Res Function(_$BlockchainConfig_Electrum) _then)
+class __$$BlockchainConfig_ElectrumImplCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res,
+        _$BlockchainConfig_ElectrumImpl>
+    implements _$$BlockchainConfig_ElectrumImplCopyWith<$Res> {
+  __$$BlockchainConfig_ElectrumImplCopyWithImpl(
+      _$BlockchainConfig_ElectrumImpl _value,
+      $Res Function(_$BlockchainConfig_ElectrumImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -675,7 +703,7 @@ class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$BlockchainConfig_Electrum(
+    return _then(_$BlockchainConfig_ElectrumImpl(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -686,8 +714,8 @@ class __$$BlockchainConfig_ElectrumCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
-  const _$BlockchainConfig_Electrum({required this.config});
+class _$BlockchainConfig_ElectrumImpl implements BlockchainConfig_Electrum {
+  const _$BlockchainConfig_ElectrumImpl({required this.config});
 
   @override
   final ElectrumConfig config;
@@ -701,7 +729,7 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BlockchainConfig_Electrum &&
+            other is _$BlockchainConfig_ElectrumImpl &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -711,8 +739,9 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith =>
-      __$$BlockchainConfig_ElectrumCopyWithImpl<_$BlockchainConfig_Electrum>(this, _$identity);
+  _$$BlockchainConfig_ElectrumImplCopyWith<_$BlockchainConfig_ElectrumImpl>
+      get copyWith => __$$BlockchainConfig_ElectrumImplCopyWithImpl<
+          _$BlockchainConfig_ElectrumImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -784,29 +813,33 @@ class _$BlockchainConfig_Electrum implements BlockchainConfig_Electrum {
 }
 
 abstract class BlockchainConfig_Electrum implements BlockchainConfig {
-  const factory BlockchainConfig_Electrum({required final ElectrumConfig config}) = _$BlockchainConfig_Electrum;
+  const factory BlockchainConfig_Electrum(
+      {required final ElectrumConfig config}) = _$BlockchainConfig_ElectrumImpl;
 
   @override
   ElectrumConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_ElectrumCopyWith<_$BlockchainConfig_Electrum> get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_ElectrumImplCopyWith<_$BlockchainConfig_ElectrumImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  factory _$$BlockchainConfig_EsploraCopyWith(
-          _$BlockchainConfig_Esplora value, $Res Function(_$BlockchainConfig_Esplora) then) =
-      __$$BlockchainConfig_EsploraCopyWithImpl<$Res>;
+abstract class _$$BlockchainConfig_EsploraImplCopyWith<$Res> {
+  factory _$$BlockchainConfig_EsploraImplCopyWith(
+          _$BlockchainConfig_EsploraImpl value,
+          $Res Function(_$BlockchainConfig_EsploraImpl) then) =
+      __$$BlockchainConfig_EsploraImplCopyWithImpl<$Res>;
   @useResult
   $Res call({EsploraConfig config});
 }
 
 /// @nodoc
-class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
-    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Esplora>
-    implements _$$BlockchainConfig_EsploraCopyWith<$Res> {
-  __$$BlockchainConfig_EsploraCopyWithImpl(
-      _$BlockchainConfig_Esplora _value, $Res Function(_$BlockchainConfig_Esplora) _then)
+class __$$BlockchainConfig_EsploraImplCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_EsploraImpl>
+    implements _$$BlockchainConfig_EsploraImplCopyWith<$Res> {
+  __$$BlockchainConfig_EsploraImplCopyWithImpl(
+      _$BlockchainConfig_EsploraImpl _value,
+      $Res Function(_$BlockchainConfig_EsploraImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -814,7 +847,7 @@ class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$BlockchainConfig_Esplora(
+    return _then(_$BlockchainConfig_EsploraImpl(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -825,8 +858,8 @@ class __$$BlockchainConfig_EsploraCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
-  const _$BlockchainConfig_Esplora({required this.config});
+class _$BlockchainConfig_EsploraImpl implements BlockchainConfig_Esplora {
+  const _$BlockchainConfig_EsploraImpl({required this.config});
 
   @override
   final EsploraConfig config;
@@ -840,7 +873,7 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BlockchainConfig_Esplora &&
+            other is _$BlockchainConfig_EsploraImpl &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -850,8 +883,9 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith =>
-      __$$BlockchainConfig_EsploraCopyWithImpl<_$BlockchainConfig_Esplora>(this, _$identity);
+  _$$BlockchainConfig_EsploraImplCopyWith<_$BlockchainConfig_EsploraImpl>
+      get copyWith => __$$BlockchainConfig_EsploraImplCopyWithImpl<
+          _$BlockchainConfig_EsploraImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -923,26 +957,31 @@ class _$BlockchainConfig_Esplora implements BlockchainConfig_Esplora {
 }
 
 abstract class BlockchainConfig_Esplora implements BlockchainConfig {
-  const factory BlockchainConfig_Esplora({required final EsploraConfig config}) = _$BlockchainConfig_Esplora;
+  const factory BlockchainConfig_Esplora(
+      {required final EsploraConfig config}) = _$BlockchainConfig_EsploraImpl;
 
   @override
   EsploraConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_EsploraCopyWith<_$BlockchainConfig_Esplora> get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_EsploraImplCopyWith<_$BlockchainConfig_EsploraImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$BlockchainConfig_RpcCopyWith<$Res> {
-  factory _$$BlockchainConfig_RpcCopyWith(_$BlockchainConfig_Rpc value, $Res Function(_$BlockchainConfig_Rpc) then) =
-      __$$BlockchainConfig_RpcCopyWithImpl<$Res>;
+abstract class _$$BlockchainConfig_RpcImplCopyWith<$Res> {
+  factory _$$BlockchainConfig_RpcImplCopyWith(_$BlockchainConfig_RpcImpl value,
+          $Res Function(_$BlockchainConfig_RpcImpl) then) =
+      __$$BlockchainConfig_RpcImplCopyWithImpl<$Res>;
   @useResult
   $Res call({RpcConfig config});
 }
 
 /// @nodoc
-class __$$BlockchainConfig_RpcCopyWithImpl<$Res> extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_Rpc>
-    implements _$$BlockchainConfig_RpcCopyWith<$Res> {
-  __$$BlockchainConfig_RpcCopyWithImpl(_$BlockchainConfig_Rpc _value, $Res Function(_$BlockchainConfig_Rpc) _then)
+class __$$BlockchainConfig_RpcImplCopyWithImpl<$Res>
+    extends _$BlockchainConfigCopyWithImpl<$Res, _$BlockchainConfig_RpcImpl>
+    implements _$$BlockchainConfig_RpcImplCopyWith<$Res> {
+  __$$BlockchainConfig_RpcImplCopyWithImpl(_$BlockchainConfig_RpcImpl _value,
+      $Res Function(_$BlockchainConfig_RpcImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -950,7 +989,7 @@ class __$$BlockchainConfig_RpcCopyWithImpl<$Res> extends _$BlockchainConfigCopyW
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$BlockchainConfig_Rpc(
+    return _then(_$BlockchainConfig_RpcImpl(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -961,8 +1000,8 @@ class __$$BlockchainConfig_RpcCopyWithImpl<$Res> extends _$BlockchainConfigCopyW
 
 /// @nodoc
 
-class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
-  const _$BlockchainConfig_Rpc({required this.config});
+class _$BlockchainConfig_RpcImpl implements BlockchainConfig_Rpc {
+  const _$BlockchainConfig_RpcImpl({required this.config});
 
   @override
   final RpcConfig config;
@@ -976,7 +1015,7 @@ class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BlockchainConfig_Rpc &&
+            other is _$BlockchainConfig_RpcImpl &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -986,8 +1025,10 @@ class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BlockchainConfig_RpcCopyWith<_$BlockchainConfig_Rpc> get copyWith =>
-      __$$BlockchainConfig_RpcCopyWithImpl<_$BlockchainConfig_Rpc>(this, _$identity);
+  _$$BlockchainConfig_RpcImplCopyWith<_$BlockchainConfig_RpcImpl>
+      get copyWith =>
+          __$$BlockchainConfig_RpcImplCopyWithImpl<_$BlockchainConfig_RpcImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1059,12 +1100,14 @@ class _$BlockchainConfig_Rpc implements BlockchainConfig_Rpc {
 }
 
 abstract class BlockchainConfig_Rpc implements BlockchainConfig {
-  const factory BlockchainConfig_Rpc({required final RpcConfig config}) = _$BlockchainConfig_Rpc;
+  const factory BlockchainConfig_Rpc({required final RpcConfig config}) =
+      _$BlockchainConfig_RpcImpl;
 
   @override
   RpcConfig get config;
   @JsonKey(ignore: true)
-  _$$BlockchainConfig_RpcCopyWith<_$BlockchainConfig_Rpc> get copyWith => throw _privateConstructorUsedError;
+  _$$BlockchainConfig_RpcImplCopyWith<_$BlockchainConfig_RpcImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1117,12 +1160,14 @@ mixin _$DatabaseConfig {
 
 /// @nodoc
 abstract class $DatabaseConfigCopyWith<$Res> {
-  factory $DatabaseConfigCopyWith(DatabaseConfig value, $Res Function(DatabaseConfig) then) =
+  factory $DatabaseConfigCopyWith(
+          DatabaseConfig value, $Res Function(DatabaseConfig) then) =
       _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
 }
 
 /// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig> implements $DatabaseConfigCopyWith<$Res> {
+class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
+    implements $DatabaseConfigCopyWith<$Res> {
   _$DatabaseConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1132,22 +1177,26 @@ class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig> implements
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  factory _$$DatabaseConfig_MemoryCopyWith(_$DatabaseConfig_Memory value, $Res Function(_$DatabaseConfig_Memory) then) =
-      __$$DatabaseConfig_MemoryCopyWithImpl<$Res>;
+abstract class _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
+  factory _$$DatabaseConfig_MemoryImplCopyWith(
+          _$DatabaseConfig_MemoryImpl value,
+          $Res Function(_$DatabaseConfig_MemoryImpl) then) =
+      __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DatabaseConfig_MemoryCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Memory>
-    implements _$$DatabaseConfig_MemoryCopyWith<$Res> {
-  __$$DatabaseConfig_MemoryCopyWithImpl(_$DatabaseConfig_Memory _value, $Res Function(_$DatabaseConfig_Memory) _then)
+class __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_MemoryImpl>
+    implements _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
+  __$$DatabaseConfig_MemoryImplCopyWithImpl(_$DatabaseConfig_MemoryImpl _value,
+      $Res Function(_$DatabaseConfig_MemoryImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
-  const _$DatabaseConfig_Memory();
+class _$DatabaseConfig_MemoryImpl implements DatabaseConfig_Memory {
+  const _$DatabaseConfig_MemoryImpl();
 
   @override
   String toString() {
@@ -1156,7 +1205,9 @@ class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DatabaseConfig_Memory);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DatabaseConfig_MemoryImpl);
   }
 
   @override
@@ -1232,21 +1283,25 @@ class _$DatabaseConfig_Memory implements DatabaseConfig_Memory {
 }
 
 abstract class DatabaseConfig_Memory implements DatabaseConfig {
-  const factory DatabaseConfig_Memory() = _$DatabaseConfig_Memory;
+  const factory DatabaseConfig_Memory() = _$DatabaseConfig_MemoryImpl;
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  factory _$$DatabaseConfig_SqliteCopyWith(_$DatabaseConfig_Sqlite value, $Res Function(_$DatabaseConfig_Sqlite) then) =
-      __$$DatabaseConfig_SqliteCopyWithImpl<$Res>;
+abstract class _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
+  factory _$$DatabaseConfig_SqliteImplCopyWith(
+          _$DatabaseConfig_SqliteImpl value,
+          $Res Function(_$DatabaseConfig_SqliteImpl) then) =
+      __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>;
   @useResult
   $Res call({SqliteDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SqliteCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sqlite>
-    implements _$$DatabaseConfig_SqliteCopyWith<$Res> {
-  __$$DatabaseConfig_SqliteCopyWithImpl(_$DatabaseConfig_Sqlite _value, $Res Function(_$DatabaseConfig_Sqlite) _then)
+class __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SqliteImpl>
+    implements _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
+  __$$DatabaseConfig_SqliteImplCopyWithImpl(_$DatabaseConfig_SqliteImpl _value,
+      $Res Function(_$DatabaseConfig_SqliteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1254,7 +1309,7 @@ class __$$DatabaseConfig_SqliteCopyWithImpl<$Res> extends _$DatabaseConfigCopyWi
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$DatabaseConfig_Sqlite(
+    return _then(_$DatabaseConfig_SqliteImpl(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -1265,8 +1320,8 @@ class __$$DatabaseConfig_SqliteCopyWithImpl<$Res> extends _$DatabaseConfigCopyWi
 
 /// @nodoc
 
-class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
-  const _$DatabaseConfig_Sqlite({required this.config});
+class _$DatabaseConfig_SqliteImpl implements DatabaseConfig_Sqlite {
+  const _$DatabaseConfig_SqliteImpl({required this.config});
 
   @override
   final SqliteDbConfiguration config;
@@ -1280,7 +1335,7 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_Sqlite &&
+            other is _$DatabaseConfig_SqliteImpl &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -1290,8 +1345,9 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith =>
-      __$$DatabaseConfig_SqliteCopyWithImpl<_$DatabaseConfig_Sqlite>(this, _$identity);
+  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
+      get copyWith => __$$DatabaseConfig_SqliteImplCopyWithImpl<
+          _$DatabaseConfig_SqliteImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1363,25 +1419,31 @@ class _$DatabaseConfig_Sqlite implements DatabaseConfig_Sqlite {
 }
 
 abstract class DatabaseConfig_Sqlite implements DatabaseConfig {
-  const factory DatabaseConfig_Sqlite({required final SqliteDbConfiguration config}) = _$DatabaseConfig_Sqlite;
+  const factory DatabaseConfig_Sqlite(
+          {required final SqliteDbConfiguration config}) =
+      _$DatabaseConfig_SqliteImpl;
 
   SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SqliteCopyWith<_$DatabaseConfig_Sqlite> get copyWith => throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_SledCopyWith<$Res> {
-  factory _$$DatabaseConfig_SledCopyWith(_$DatabaseConfig_Sled value, $Res Function(_$DatabaseConfig_Sled) then) =
-      __$$DatabaseConfig_SledCopyWithImpl<$Res>;
+abstract class _$$DatabaseConfig_SledImplCopyWith<$Res> {
+  factory _$$DatabaseConfig_SledImplCopyWith(_$DatabaseConfig_SledImpl value,
+          $Res Function(_$DatabaseConfig_SledImpl) then) =
+      __$$DatabaseConfig_SledImplCopyWithImpl<$Res>;
   @useResult
   $Res call({SledDbConfiguration config});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SledCopyWithImpl<$Res> extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_Sled>
-    implements _$$DatabaseConfig_SledCopyWith<$Res> {
-  __$$DatabaseConfig_SledCopyWithImpl(_$DatabaseConfig_Sled _value, $Res Function(_$DatabaseConfig_Sled) _then)
+class __$$DatabaseConfig_SledImplCopyWithImpl<$Res>
+    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SledImpl>
+    implements _$$DatabaseConfig_SledImplCopyWith<$Res> {
+  __$$DatabaseConfig_SledImplCopyWithImpl(_$DatabaseConfig_SledImpl _value,
+      $Res Function(_$DatabaseConfig_SledImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1389,7 +1451,7 @@ class __$$DatabaseConfig_SledCopyWithImpl<$Res> extends _$DatabaseConfigCopyWith
   $Res call({
     Object? config = null,
   }) {
-    return _then(_$DatabaseConfig_Sled(
+    return _then(_$DatabaseConfig_SledImpl(
       config: null == config
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
@@ -1400,8 +1462,8 @@ class __$$DatabaseConfig_SledCopyWithImpl<$Res> extends _$DatabaseConfigCopyWith
 
 /// @nodoc
 
-class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
-  const _$DatabaseConfig_Sled({required this.config});
+class _$DatabaseConfig_SledImpl implements DatabaseConfig_Sled {
+  const _$DatabaseConfig_SledImpl({required this.config});
 
   @override
   final SledDbConfiguration config;
@@ -1415,7 +1477,7 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_Sled &&
+            other is _$DatabaseConfig_SledImpl &&
             (identical(other.config, config) || other.config == config));
   }
 
@@ -1425,8 +1487,9 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith =>
-      __$$DatabaseConfig_SledCopyWithImpl<_$DatabaseConfig_Sled>(this, _$identity);
+  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
+      __$$DatabaseConfig_SledImplCopyWithImpl<_$DatabaseConfig_SledImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1498,11 +1561,13 @@ class _$DatabaseConfig_Sled implements DatabaseConfig_Sled {
 }
 
 abstract class DatabaseConfig_Sled implements DatabaseConfig {
-  const factory DatabaseConfig_Sled({required final SledDbConfiguration config}) = _$DatabaseConfig_Sled;
+  const factory DatabaseConfig_Sled(
+      {required final SledDbConfiguration config}) = _$DatabaseConfig_SledImpl;
 
   SledDbConfiguration get config;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SledCopyWith<_$DatabaseConfig_Sled> get copyWith => throw _privateConstructorUsedError;
+  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1644,25 +1709,34 @@ mixin _$Error {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -1676,7 +1750,8 @@ mixin _$Error {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -1688,7 +1763,8 @@ mixin _$Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -1698,15 +1774,18 @@ mixin _$Error {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -1732,7 +1811,8 @@ mixin _$Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -1742,15 +1822,18 @@ mixin _$Error {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -1777,11 +1860,13 @@ mixin _$Error {
 
 /// @nodoc
 abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) = _$ErrorCopyWithImpl<$Res, Error>;
+  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
+      _$ErrorCopyWithImpl<$Res, Error>;
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res, $Val extends Error> implements $ErrorCopyWith<$Res> {
+class _$ErrorCopyWithImpl<$Res, $Val extends Error>
+    implements $ErrorCopyWith<$Res> {
   _$ErrorCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1791,17 +1876,21 @@ class _$ErrorCopyWithImpl<$Res, $Val extends Error> implements $ErrorCopyWith<$R
 }
 
 /// @nodoc
-abstract class _$$Error_InvalidU32BytesCopyWith<$Res> {
-  factory _$$Error_InvalidU32BytesCopyWith(_$Error_InvalidU32Bytes value, $Res Function(_$Error_InvalidU32Bytes) then) =
-      __$$Error_InvalidU32BytesCopyWithImpl<$Res>;
+abstract class _$$Error_InvalidU32BytesImplCopyWith<$Res> {
+  factory _$$Error_InvalidU32BytesImplCopyWith(
+          _$Error_InvalidU32BytesImpl value,
+          $Res Function(_$Error_InvalidU32BytesImpl) then) =
+      __$$Error_InvalidU32BytesImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Uint8List field0});
 }
 
 /// @nodoc
-class __$$Error_InvalidU32BytesCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidU32Bytes>
-    implements _$$Error_InvalidU32BytesCopyWith<$Res> {
-  __$$Error_InvalidU32BytesCopyWithImpl(_$Error_InvalidU32Bytes _value, $Res Function(_$Error_InvalidU32Bytes) _then)
+class __$$Error_InvalidU32BytesImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidU32BytesImpl>
+    implements _$$Error_InvalidU32BytesImplCopyWith<$Res> {
+  __$$Error_InvalidU32BytesImplCopyWithImpl(_$Error_InvalidU32BytesImpl _value,
+      $Res Function(_$Error_InvalidU32BytesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1809,7 +1898,7 @@ class __$$Error_InvalidU32BytesCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$R
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_InvalidU32Bytes(
+    return _then(_$Error_InvalidU32BytesImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -1820,8 +1909,8 @@ class __$$Error_InvalidU32BytesCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$R
 
 /// @nodoc
 
-class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
-  const _$Error_InvalidU32Bytes(this.field0);
+class _$Error_InvalidU32BytesImpl implements Error_InvalidU32Bytes {
+  const _$Error_InvalidU32BytesImpl(this.field0);
 
   @override
   final Uint8List field0;
@@ -1835,18 +1924,20 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_InvalidU32Bytes &&
+            other is _$Error_InvalidU32BytesImpl &&
             const DeepCollectionEquality().equals(other.field0, field0));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(field0));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(field0));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_InvalidU32BytesCopyWith<_$Error_InvalidU32Bytes> get copyWith =>
-      __$$Error_InvalidU32BytesCopyWithImpl<_$Error_InvalidU32Bytes>(this, _$identity);
+  _$$Error_InvalidU32BytesImplCopyWith<_$Error_InvalidU32BytesImpl>
+      get copyWith => __$$Error_InvalidU32BytesImplCopyWithImpl<
+          _$Error_InvalidU32BytesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1998,25 +2089,34 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -2030,7 +2130,8 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -2045,7 +2146,8 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2055,15 +2157,18 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2092,7 +2197,8 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2102,15 +2208,18 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2140,32 +2249,38 @@ class _$Error_InvalidU32Bytes implements Error_InvalidU32Bytes {
 }
 
 abstract class Error_InvalidU32Bytes implements Error {
-  const factory Error_InvalidU32Bytes(final Uint8List field0) = _$Error_InvalidU32Bytes;
+  const factory Error_InvalidU32Bytes(final Uint8List field0) =
+      _$Error_InvalidU32BytesImpl;
 
   Uint8List get field0;
   @JsonKey(ignore: true)
-  _$$Error_InvalidU32BytesCopyWith<_$Error_InvalidU32Bytes> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_InvalidU32BytesImplCopyWith<_$Error_InvalidU32BytesImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_GenericCopyWith<$Res> {
-  factory _$$Error_GenericCopyWith(_$Error_Generic value, $Res Function(_$Error_Generic) then) =
-      __$$Error_GenericCopyWithImpl<$Res>;
+abstract class _$$Error_GenericImplCopyWith<$Res> {
+  factory _$$Error_GenericImplCopyWith(
+          _$Error_GenericImpl value, $Res Function(_$Error_GenericImpl) then) =
+      __$$Error_GenericImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_GenericCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Generic>
-    implements _$$Error_GenericCopyWith<$Res> {
-  __$$Error_GenericCopyWithImpl(_$Error_Generic _value, $Res Function(_$Error_Generic) _then) : super(_value, _then);
+class __$$Error_GenericImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_GenericImpl>
+    implements _$$Error_GenericImplCopyWith<$Res> {
+  __$$Error_GenericImplCopyWithImpl(
+      _$Error_GenericImpl _value, $Res Function(_$Error_GenericImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Generic(
+    return _then(_$Error_GenericImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -2176,8 +2291,8 @@ class __$$Error_GenericCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Er
 
 /// @nodoc
 
-class _$Error_Generic implements Error_Generic {
-  const _$Error_Generic(this.field0);
+class _$Error_GenericImpl implements Error_Generic {
+  const _$Error_GenericImpl(this.field0);
 
   @override
   final String field0;
@@ -2191,7 +2306,7 @@ class _$Error_Generic implements Error_Generic {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Generic &&
+            other is _$Error_GenericImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -2201,8 +2316,8 @@ class _$Error_Generic implements Error_Generic {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_GenericCopyWith<_$Error_Generic> get copyWith =>
-      __$$Error_GenericCopyWithImpl<_$Error_Generic>(this, _$identity);
+  _$$Error_GenericImplCopyWith<_$Error_GenericImpl> get copyWith =>
+      __$$Error_GenericImplCopyWithImpl<_$Error_GenericImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2354,25 +2469,34 @@ class _$Error_Generic implements Error_Generic {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -2386,7 +2510,8 @@ class _$Error_Generic implements Error_Generic {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -2401,7 +2526,8 @@ class _$Error_Generic implements Error_Generic {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2411,15 +2537,18 @@ class _$Error_Generic implements Error_Generic {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2448,7 +2577,8 @@ class _$Error_Generic implements Error_Generic {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2458,15 +2588,18 @@ class _$Error_Generic implements Error_Generic {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2496,33 +2629,37 @@ class _$Error_Generic implements Error_Generic {
 }
 
 abstract class Error_Generic implements Error {
-  const factory Error_Generic(final String field0) = _$Error_Generic;
+  const factory Error_Generic(final String field0) = _$Error_GenericImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_GenericCopyWith<_$Error_Generic> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_GenericImplCopyWith<_$Error_GenericImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_ScriptDoesntHaveAddressFormCopyWith<$Res> {
-  factory _$$Error_ScriptDoesntHaveAddressFormCopyWith(
-          _$Error_ScriptDoesntHaveAddressForm value, $Res Function(_$Error_ScriptDoesntHaveAddressForm) then) =
-      __$$Error_ScriptDoesntHaveAddressFormCopyWithImpl<$Res>;
+abstract class _$$Error_ScriptDoesntHaveAddressFormImplCopyWith<$Res> {
+  factory _$$Error_ScriptDoesntHaveAddressFormImplCopyWith(
+          _$Error_ScriptDoesntHaveAddressFormImpl value,
+          $Res Function(_$Error_ScriptDoesntHaveAddressFormImpl) then) =
+      __$$Error_ScriptDoesntHaveAddressFormImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_ScriptDoesntHaveAddressFormCopyWithImpl<$Res>
-    extends _$ErrorCopyWithImpl<$Res, _$Error_ScriptDoesntHaveAddressForm>
-    implements _$$Error_ScriptDoesntHaveAddressFormCopyWith<$Res> {
-  __$$Error_ScriptDoesntHaveAddressFormCopyWithImpl(
-      _$Error_ScriptDoesntHaveAddressForm _value, $Res Function(_$Error_ScriptDoesntHaveAddressForm) _then)
+class __$$Error_ScriptDoesntHaveAddressFormImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_ScriptDoesntHaveAddressFormImpl>
+    implements _$$Error_ScriptDoesntHaveAddressFormImplCopyWith<$Res> {
+  __$$Error_ScriptDoesntHaveAddressFormImplCopyWithImpl(
+      _$Error_ScriptDoesntHaveAddressFormImpl _value,
+      $Res Function(_$Error_ScriptDoesntHaveAddressFormImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddressForm {
-  const _$Error_ScriptDoesntHaveAddressForm();
+class _$Error_ScriptDoesntHaveAddressFormImpl
+    implements Error_ScriptDoesntHaveAddressForm {
+  const _$Error_ScriptDoesntHaveAddressFormImpl();
 
   @override
   String toString() {
@@ -2531,7 +2668,9 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_ScriptDoesntHaveAddressForm);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_ScriptDoesntHaveAddressFormImpl);
   }
 
   @override
@@ -2687,25 +2826,34 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -2719,7 +2867,8 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -2734,7 +2883,8 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2744,15 +2894,18 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2781,7 +2934,8 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -2791,15 +2945,18 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -2829,26 +2986,30 @@ class _$Error_ScriptDoesntHaveAddressForm implements Error_ScriptDoesntHaveAddre
 }
 
 abstract class Error_ScriptDoesntHaveAddressForm implements Error {
-  const factory Error_ScriptDoesntHaveAddressForm() = _$Error_ScriptDoesntHaveAddressForm;
+  const factory Error_ScriptDoesntHaveAddressForm() =
+      _$Error_ScriptDoesntHaveAddressFormImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_NoRecipientsCopyWith<$Res> {
-  factory _$$Error_NoRecipientsCopyWith(_$Error_NoRecipients value, $Res Function(_$Error_NoRecipients) then) =
-      __$$Error_NoRecipientsCopyWithImpl<$Res>;
+abstract class _$$Error_NoRecipientsImplCopyWith<$Res> {
+  factory _$$Error_NoRecipientsImplCopyWith(_$Error_NoRecipientsImpl value,
+          $Res Function(_$Error_NoRecipientsImpl) then) =
+      __$$Error_NoRecipientsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_NoRecipientsCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_NoRecipients>
-    implements _$$Error_NoRecipientsCopyWith<$Res> {
-  __$$Error_NoRecipientsCopyWithImpl(_$Error_NoRecipients _value, $Res Function(_$Error_NoRecipients) _then)
+class __$$Error_NoRecipientsImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_NoRecipientsImpl>
+    implements _$$Error_NoRecipientsImplCopyWith<$Res> {
+  __$$Error_NoRecipientsImplCopyWithImpl(_$Error_NoRecipientsImpl _value,
+      $Res Function(_$Error_NoRecipientsImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_NoRecipients implements Error_NoRecipients {
-  const _$Error_NoRecipients();
+class _$Error_NoRecipientsImpl implements Error_NoRecipients {
+  const _$Error_NoRecipientsImpl();
 
   @override
   String toString() {
@@ -2857,7 +3018,8 @@ class _$Error_NoRecipients implements Error_NoRecipients {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_NoRecipients);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$Error_NoRecipientsImpl);
   }
 
   @override
@@ -3013,25 +3175,34 @@ class _$Error_NoRecipients implements Error_NoRecipients {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -3045,7 +3216,8 @@ class _$Error_NoRecipients implements Error_NoRecipients {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -3060,7 +3232,8 @@ class _$Error_NoRecipients implements Error_NoRecipients {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3070,15 +3243,18 @@ class _$Error_NoRecipients implements Error_NoRecipients {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3107,7 +3283,8 @@ class _$Error_NoRecipients implements Error_NoRecipients {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3117,15 +3294,18 @@ class _$Error_NoRecipients implements Error_NoRecipients {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3155,26 +3335,30 @@ class _$Error_NoRecipients implements Error_NoRecipients {
 }
 
 abstract class Error_NoRecipients implements Error {
-  const factory Error_NoRecipients() = _$Error_NoRecipients;
+  const factory Error_NoRecipients() = _$Error_NoRecipientsImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_NoUtxosSelectedCopyWith<$Res> {
-  factory _$$Error_NoUtxosSelectedCopyWith(_$Error_NoUtxosSelected value, $Res Function(_$Error_NoUtxosSelected) then) =
-      __$$Error_NoUtxosSelectedCopyWithImpl<$Res>;
+abstract class _$$Error_NoUtxosSelectedImplCopyWith<$Res> {
+  factory _$$Error_NoUtxosSelectedImplCopyWith(
+          _$Error_NoUtxosSelectedImpl value,
+          $Res Function(_$Error_NoUtxosSelectedImpl) then) =
+      __$$Error_NoUtxosSelectedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_NoUtxosSelectedCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_NoUtxosSelected>
-    implements _$$Error_NoUtxosSelectedCopyWith<$Res> {
-  __$$Error_NoUtxosSelectedCopyWithImpl(_$Error_NoUtxosSelected _value, $Res Function(_$Error_NoUtxosSelected) _then)
+class __$$Error_NoUtxosSelectedImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_NoUtxosSelectedImpl>
+    implements _$$Error_NoUtxosSelectedImplCopyWith<$Res> {
+  __$$Error_NoUtxosSelectedImplCopyWithImpl(_$Error_NoUtxosSelectedImpl _value,
+      $Res Function(_$Error_NoUtxosSelectedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
-  const _$Error_NoUtxosSelected();
+class _$Error_NoUtxosSelectedImpl implements Error_NoUtxosSelected {
+  const _$Error_NoUtxosSelectedImpl();
 
   @override
   String toString() {
@@ -3183,7 +3367,9 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_NoUtxosSelected);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_NoUtxosSelectedImpl);
   }
 
   @override
@@ -3339,25 +3525,34 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -3371,7 +3566,8 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -3386,7 +3582,8 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3396,15 +3593,18 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3433,7 +3633,8 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3443,15 +3644,18 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3481,23 +3685,26 @@ class _$Error_NoUtxosSelected implements Error_NoUtxosSelected {
 }
 
 abstract class Error_NoUtxosSelected implements Error {
-  const factory Error_NoUtxosSelected() = _$Error_NoUtxosSelected;
+  const factory Error_NoUtxosSelected() = _$Error_NoUtxosSelectedImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_OutputBelowDustLimitCopyWith<$Res> {
-  factory _$$Error_OutputBelowDustLimitCopyWith(
-          _$Error_OutputBelowDustLimit value, $Res Function(_$Error_OutputBelowDustLimit) then) =
-      __$$Error_OutputBelowDustLimitCopyWithImpl<$Res>;
+abstract class _$$Error_OutputBelowDustLimitImplCopyWith<$Res> {
+  factory _$$Error_OutputBelowDustLimitImplCopyWith(
+          _$Error_OutputBelowDustLimitImpl value,
+          $Res Function(_$Error_OutputBelowDustLimitImpl) then) =
+      __$$Error_OutputBelowDustLimitImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int field0});
 }
 
 /// @nodoc
-class __$$Error_OutputBelowDustLimitCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_OutputBelowDustLimit>
-    implements _$$Error_OutputBelowDustLimitCopyWith<$Res> {
-  __$$Error_OutputBelowDustLimitCopyWithImpl(
-      _$Error_OutputBelowDustLimit _value, $Res Function(_$Error_OutputBelowDustLimit) _then)
+class __$$Error_OutputBelowDustLimitImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_OutputBelowDustLimitImpl>
+    implements _$$Error_OutputBelowDustLimitImplCopyWith<$Res> {
+  __$$Error_OutputBelowDustLimitImplCopyWithImpl(
+      _$Error_OutputBelowDustLimitImpl _value,
+      $Res Function(_$Error_OutputBelowDustLimitImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3505,7 +3712,7 @@ class __$$Error_OutputBelowDustLimitCopyWithImpl<$Res> extends _$ErrorCopyWithIm
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_OutputBelowDustLimit(
+    return _then(_$Error_OutputBelowDustLimitImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -3516,8 +3723,8 @@ class __$$Error_OutputBelowDustLimitCopyWithImpl<$Res> extends _$ErrorCopyWithIm
 
 /// @nodoc
 
-class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
-  const _$Error_OutputBelowDustLimit(this.field0);
+class _$Error_OutputBelowDustLimitImpl implements Error_OutputBelowDustLimit {
+  const _$Error_OutputBelowDustLimitImpl(this.field0);
 
   @override
   final int field0;
@@ -3531,7 +3738,7 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_OutputBelowDustLimit &&
+            other is _$Error_OutputBelowDustLimitImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -3541,8 +3748,9 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_OutputBelowDustLimitCopyWith<_$Error_OutputBelowDustLimit> get copyWith =>
-      __$$Error_OutputBelowDustLimitCopyWithImpl<_$Error_OutputBelowDustLimit>(this, _$identity);
+  _$$Error_OutputBelowDustLimitImplCopyWith<_$Error_OutputBelowDustLimitImpl>
+      get copyWith => __$$Error_OutputBelowDustLimitImplCopyWithImpl<
+          _$Error_OutputBelowDustLimitImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3694,25 +3902,34 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -3726,7 +3943,8 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -3741,7 +3959,8 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3751,15 +3970,18 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3788,7 +4010,8 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -3798,15 +4021,18 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -3836,28 +4062,32 @@ class _$Error_OutputBelowDustLimit implements Error_OutputBelowDustLimit {
 }
 
 abstract class Error_OutputBelowDustLimit implements Error {
-  const factory Error_OutputBelowDustLimit(final int field0) = _$Error_OutputBelowDustLimit;
+  const factory Error_OutputBelowDustLimit(final int field0) =
+      _$Error_OutputBelowDustLimitImpl;
 
   int get field0;
   @JsonKey(ignore: true)
-  _$$Error_OutputBelowDustLimitCopyWith<_$Error_OutputBelowDustLimit> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Error_OutputBelowDustLimitImplCopyWith<_$Error_OutputBelowDustLimitImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_InsufficientFundsCopyWith<$Res> {
-  factory _$$Error_InsufficientFundsCopyWith(
-          _$Error_InsufficientFunds value, $Res Function(_$Error_InsufficientFunds) then) =
-      __$$Error_InsufficientFundsCopyWithImpl<$Res>;
+abstract class _$$Error_InsufficientFundsImplCopyWith<$Res> {
+  factory _$$Error_InsufficientFundsImplCopyWith(
+          _$Error_InsufficientFundsImpl value,
+          $Res Function(_$Error_InsufficientFundsImpl) then) =
+      __$$Error_InsufficientFundsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int needed, int available});
 }
 
 /// @nodoc
-class __$$Error_InsufficientFundsCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_InsufficientFunds>
-    implements _$$Error_InsufficientFundsCopyWith<$Res> {
-  __$$Error_InsufficientFundsCopyWithImpl(
-      _$Error_InsufficientFunds _value, $Res Function(_$Error_InsufficientFunds) _then)
+class __$$Error_InsufficientFundsImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_InsufficientFundsImpl>
+    implements _$$Error_InsufficientFundsImplCopyWith<$Res> {
+  __$$Error_InsufficientFundsImplCopyWithImpl(
+      _$Error_InsufficientFundsImpl _value,
+      $Res Function(_$Error_InsufficientFundsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3866,7 +4096,7 @@ class __$$Error_InsufficientFundsCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<
     Object? needed = null,
     Object? available = null,
   }) {
-    return _then(_$Error_InsufficientFunds(
+    return _then(_$Error_InsufficientFundsImpl(
       needed: null == needed
           ? _value.needed
           : needed // ignore: cast_nullable_to_non_nullable
@@ -3881,8 +4111,9 @@ class __$$Error_InsufficientFundsCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<
 
 /// @nodoc
 
-class _$Error_InsufficientFunds implements Error_InsufficientFunds {
-  const _$Error_InsufficientFunds({required this.needed, required this.available});
+class _$Error_InsufficientFundsImpl implements Error_InsufficientFunds {
+  const _$Error_InsufficientFundsImpl(
+      {required this.needed, required this.available});
 
   /// Sats needed for some transaction
   @override
@@ -3901,9 +4132,10 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_InsufficientFunds &&
+            other is _$Error_InsufficientFundsImpl &&
             (identical(other.needed, needed) || other.needed == needed) &&
-            (identical(other.available, available) || other.available == available));
+            (identical(other.available, available) ||
+                other.available == available));
   }
 
   @override
@@ -3912,8 +4144,9 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_InsufficientFundsCopyWith<_$Error_InsufficientFunds> get copyWith =>
-      __$$Error_InsufficientFundsCopyWithImpl<_$Error_InsufficientFunds>(this, _$identity);
+  _$$Error_InsufficientFundsImplCopyWith<_$Error_InsufficientFundsImpl>
+      get copyWith => __$$Error_InsufficientFundsImplCopyWithImpl<
+          _$Error_InsufficientFundsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4065,25 +4298,34 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -4097,7 +4339,8 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -4112,7 +4355,8 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4122,15 +4366,18 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4159,7 +4406,8 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4169,15 +4417,18 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4207,8 +4458,9 @@ class _$Error_InsufficientFunds implements Error_InsufficientFunds {
 }
 
 abstract class Error_InsufficientFunds implements Error {
-  const factory Error_InsufficientFunds({required final int needed, required final int available}) =
-      _$Error_InsufficientFunds;
+  const factory Error_InsufficientFunds(
+      {required final int needed,
+      required final int available}) = _$Error_InsufficientFundsImpl;
 
   /// Sats needed for some transaction
   int get needed;
@@ -4216,28 +4468,32 @@ abstract class Error_InsufficientFunds implements Error {
   /// Sats available for spending
   int get available;
   @JsonKey(ignore: true)
-  _$$Error_InsufficientFundsCopyWith<_$Error_InsufficientFunds> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_InsufficientFundsImplCopyWith<_$Error_InsufficientFundsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_BnBTotalTriesExceededCopyWith<$Res> {
-  factory _$$Error_BnBTotalTriesExceededCopyWith(
-          _$Error_BnBTotalTriesExceeded value, $Res Function(_$Error_BnBTotalTriesExceeded) then) =
-      __$$Error_BnBTotalTriesExceededCopyWithImpl<$Res>;
+abstract class _$$Error_BnBTotalTriesExceededImplCopyWith<$Res> {
+  factory _$$Error_BnBTotalTriesExceededImplCopyWith(
+          _$Error_BnBTotalTriesExceededImpl value,
+          $Res Function(_$Error_BnBTotalTriesExceededImpl) then) =
+      __$$Error_BnBTotalTriesExceededImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_BnBTotalTriesExceededCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_BnBTotalTriesExceeded>
-    implements _$$Error_BnBTotalTriesExceededCopyWith<$Res> {
-  __$$Error_BnBTotalTriesExceededCopyWithImpl(
-      _$Error_BnBTotalTriesExceeded _value, $Res Function(_$Error_BnBTotalTriesExceeded) _then)
+class __$$Error_BnBTotalTriesExceededImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_BnBTotalTriesExceededImpl>
+    implements _$$Error_BnBTotalTriesExceededImplCopyWith<$Res> {
+  __$$Error_BnBTotalTriesExceededImplCopyWithImpl(
+      _$Error_BnBTotalTriesExceededImpl _value,
+      $Res Function(_$Error_BnBTotalTriesExceededImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
-  const _$Error_BnBTotalTriesExceeded();
+class _$Error_BnBTotalTriesExceededImpl implements Error_BnBTotalTriesExceeded {
+  const _$Error_BnBTotalTriesExceededImpl();
 
   @override
   String toString() {
@@ -4246,7 +4502,9 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_BnBTotalTriesExceeded);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_BnBTotalTriesExceededImpl);
   }
 
   @override
@@ -4402,25 +4660,34 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -4434,7 +4701,8 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -4449,7 +4717,8 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4459,15 +4728,18 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4496,7 +4768,8 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4506,15 +4779,18 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4544,26 +4820,31 @@ class _$Error_BnBTotalTriesExceeded implements Error_BnBTotalTriesExceeded {
 }
 
 abstract class Error_BnBTotalTriesExceeded implements Error {
-  const factory Error_BnBTotalTriesExceeded() = _$Error_BnBTotalTriesExceeded;
+  const factory Error_BnBTotalTriesExceeded() =
+      _$Error_BnBTotalTriesExceededImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_BnBNoExactMatchCopyWith<$Res> {
-  factory _$$Error_BnBNoExactMatchCopyWith(_$Error_BnBNoExactMatch value, $Res Function(_$Error_BnBNoExactMatch) then) =
-      __$$Error_BnBNoExactMatchCopyWithImpl<$Res>;
+abstract class _$$Error_BnBNoExactMatchImplCopyWith<$Res> {
+  factory _$$Error_BnBNoExactMatchImplCopyWith(
+          _$Error_BnBNoExactMatchImpl value,
+          $Res Function(_$Error_BnBNoExactMatchImpl) then) =
+      __$$Error_BnBNoExactMatchImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_BnBNoExactMatchCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_BnBNoExactMatch>
-    implements _$$Error_BnBNoExactMatchCopyWith<$Res> {
-  __$$Error_BnBNoExactMatchCopyWithImpl(_$Error_BnBNoExactMatch _value, $Res Function(_$Error_BnBNoExactMatch) _then)
+class __$$Error_BnBNoExactMatchImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_BnBNoExactMatchImpl>
+    implements _$$Error_BnBNoExactMatchImplCopyWith<$Res> {
+  __$$Error_BnBNoExactMatchImplCopyWithImpl(_$Error_BnBNoExactMatchImpl _value,
+      $Res Function(_$Error_BnBNoExactMatchImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
-  const _$Error_BnBNoExactMatch();
+class _$Error_BnBNoExactMatchImpl implements Error_BnBNoExactMatch {
+  const _$Error_BnBNoExactMatchImpl();
 
   @override
   String toString() {
@@ -4572,7 +4853,9 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_BnBNoExactMatch);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_BnBNoExactMatchImpl);
   }
 
   @override
@@ -4728,25 +5011,34 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -4760,7 +5052,8 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -4775,7 +5068,8 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4785,15 +5079,18 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4822,7 +5119,8 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -4832,15 +5130,18 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -4870,26 +5171,29 @@ class _$Error_BnBNoExactMatch implements Error_BnBNoExactMatch {
 }
 
 abstract class Error_BnBNoExactMatch implements Error {
-  const factory Error_BnBNoExactMatch() = _$Error_BnBNoExactMatch;
+  const factory Error_BnBNoExactMatch() = _$Error_BnBNoExactMatchImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_UnknownUtxoCopyWith<$Res> {
-  factory _$$Error_UnknownUtxoCopyWith(_$Error_UnknownUtxo value, $Res Function(_$Error_UnknownUtxo) then) =
-      __$$Error_UnknownUtxoCopyWithImpl<$Res>;
+abstract class _$$Error_UnknownUtxoImplCopyWith<$Res> {
+  factory _$$Error_UnknownUtxoImplCopyWith(_$Error_UnknownUtxoImpl value,
+          $Res Function(_$Error_UnknownUtxoImpl) then) =
+      __$$Error_UnknownUtxoImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_UnknownUtxoCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_UnknownUtxo>
-    implements _$$Error_UnknownUtxoCopyWith<$Res> {
-  __$$Error_UnknownUtxoCopyWithImpl(_$Error_UnknownUtxo _value, $Res Function(_$Error_UnknownUtxo) _then)
+class __$$Error_UnknownUtxoImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_UnknownUtxoImpl>
+    implements _$$Error_UnknownUtxoImplCopyWith<$Res> {
+  __$$Error_UnknownUtxoImplCopyWithImpl(_$Error_UnknownUtxoImpl _value,
+      $Res Function(_$Error_UnknownUtxoImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_UnknownUtxo implements Error_UnknownUtxo {
-  const _$Error_UnknownUtxo();
+class _$Error_UnknownUtxoImpl implements Error_UnknownUtxo {
+  const _$Error_UnknownUtxoImpl();
 
   @override
   String toString() {
@@ -4898,7 +5202,8 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_UnknownUtxo);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$Error_UnknownUtxoImpl);
   }
 
   @override
@@ -5054,25 +5359,34 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -5086,7 +5400,8 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -5101,7 +5416,8 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5111,15 +5427,18 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5148,7 +5467,8 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5158,15 +5478,18 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5196,28 +5519,31 @@ class _$Error_UnknownUtxo implements Error_UnknownUtxo {
 }
 
 abstract class Error_UnknownUtxo implements Error {
-  const factory Error_UnknownUtxo() = _$Error_UnknownUtxo;
+  const factory Error_UnknownUtxo() = _$Error_UnknownUtxoImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_TransactionNotFoundCopyWith<$Res> {
-  factory _$$Error_TransactionNotFoundCopyWith(
-          _$Error_TransactionNotFound value, $Res Function(_$Error_TransactionNotFound) then) =
-      __$$Error_TransactionNotFoundCopyWithImpl<$Res>;
+abstract class _$$Error_TransactionNotFoundImplCopyWith<$Res> {
+  factory _$$Error_TransactionNotFoundImplCopyWith(
+          _$Error_TransactionNotFoundImpl value,
+          $Res Function(_$Error_TransactionNotFoundImpl) then) =
+      __$$Error_TransactionNotFoundImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_TransactionNotFoundCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_TransactionNotFound>
-    implements _$$Error_TransactionNotFoundCopyWith<$Res> {
-  __$$Error_TransactionNotFoundCopyWithImpl(
-      _$Error_TransactionNotFound _value, $Res Function(_$Error_TransactionNotFound) _then)
+class __$$Error_TransactionNotFoundImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_TransactionNotFoundImpl>
+    implements _$$Error_TransactionNotFoundImplCopyWith<$Res> {
+  __$$Error_TransactionNotFoundImplCopyWithImpl(
+      _$Error_TransactionNotFoundImpl _value,
+      $Res Function(_$Error_TransactionNotFoundImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_TransactionNotFound implements Error_TransactionNotFound {
-  const _$Error_TransactionNotFound();
+class _$Error_TransactionNotFoundImpl implements Error_TransactionNotFound {
+  const _$Error_TransactionNotFoundImpl();
 
   @override
   String toString() {
@@ -5226,7 +5552,9 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_TransactionNotFound);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_TransactionNotFoundImpl);
   }
 
   @override
@@ -5382,25 +5710,34 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -5414,7 +5751,8 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -5429,7 +5767,8 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5439,15 +5778,18 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5476,7 +5818,8 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5486,15 +5829,18 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5524,28 +5870,31 @@ class _$Error_TransactionNotFound implements Error_TransactionNotFound {
 }
 
 abstract class Error_TransactionNotFound implements Error {
-  const factory Error_TransactionNotFound() = _$Error_TransactionNotFound;
+  const factory Error_TransactionNotFound() = _$Error_TransactionNotFoundImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_TransactionConfirmedCopyWith<$Res> {
-  factory _$$Error_TransactionConfirmedCopyWith(
-          _$Error_TransactionConfirmed value, $Res Function(_$Error_TransactionConfirmed) then) =
-      __$$Error_TransactionConfirmedCopyWithImpl<$Res>;
+abstract class _$$Error_TransactionConfirmedImplCopyWith<$Res> {
+  factory _$$Error_TransactionConfirmedImplCopyWith(
+          _$Error_TransactionConfirmedImpl value,
+          $Res Function(_$Error_TransactionConfirmedImpl) then) =
+      __$$Error_TransactionConfirmedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_TransactionConfirmedCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_TransactionConfirmed>
-    implements _$$Error_TransactionConfirmedCopyWith<$Res> {
-  __$$Error_TransactionConfirmedCopyWithImpl(
-      _$Error_TransactionConfirmed _value, $Res Function(_$Error_TransactionConfirmed) _then)
+class __$$Error_TransactionConfirmedImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_TransactionConfirmedImpl>
+    implements _$$Error_TransactionConfirmedImplCopyWith<$Res> {
+  __$$Error_TransactionConfirmedImplCopyWithImpl(
+      _$Error_TransactionConfirmedImpl _value,
+      $Res Function(_$Error_TransactionConfirmedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
-  const _$Error_TransactionConfirmed();
+class _$Error_TransactionConfirmedImpl implements Error_TransactionConfirmed {
+  const _$Error_TransactionConfirmedImpl();
 
   @override
   String toString() {
@@ -5554,7 +5903,9 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_TransactionConfirmed);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_TransactionConfirmedImpl);
   }
 
   @override
@@ -5710,25 +6061,34 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -5742,7 +6102,8 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -5757,7 +6118,8 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5767,15 +6129,18 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5804,7 +6169,8 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -5814,15 +6180,18 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -5852,29 +6221,32 @@ class _$Error_TransactionConfirmed implements Error_TransactionConfirmed {
 }
 
 abstract class Error_TransactionConfirmed implements Error {
-  const factory Error_TransactionConfirmed() = _$Error_TransactionConfirmed;
+  const factory Error_TransactionConfirmed() = _$Error_TransactionConfirmedImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_IrreplaceableTransactionCopyWith<$Res> {
-  factory _$$Error_IrreplaceableTransactionCopyWith(
-          _$Error_IrreplaceableTransaction value, $Res Function(_$Error_IrreplaceableTransaction) then) =
-      __$$Error_IrreplaceableTransactionCopyWithImpl<$Res>;
+abstract class _$$Error_IrreplaceableTransactionImplCopyWith<$Res> {
+  factory _$$Error_IrreplaceableTransactionImplCopyWith(
+          _$Error_IrreplaceableTransactionImpl value,
+          $Res Function(_$Error_IrreplaceableTransactionImpl) then) =
+      __$$Error_IrreplaceableTransactionImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_IrreplaceableTransactionCopyWithImpl<$Res>
-    extends _$ErrorCopyWithImpl<$Res, _$Error_IrreplaceableTransaction>
-    implements _$$Error_IrreplaceableTransactionCopyWith<$Res> {
-  __$$Error_IrreplaceableTransactionCopyWithImpl(
-      _$Error_IrreplaceableTransaction _value, $Res Function(_$Error_IrreplaceableTransaction) _then)
+class __$$Error_IrreplaceableTransactionImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_IrreplaceableTransactionImpl>
+    implements _$$Error_IrreplaceableTransactionImplCopyWith<$Res> {
+  __$$Error_IrreplaceableTransactionImplCopyWithImpl(
+      _$Error_IrreplaceableTransactionImpl _value,
+      $Res Function(_$Error_IrreplaceableTransactionImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction {
-  const _$Error_IrreplaceableTransaction();
+class _$Error_IrreplaceableTransactionImpl
+    implements Error_IrreplaceableTransaction {
+  const _$Error_IrreplaceableTransactionImpl();
 
   @override
   String toString() {
@@ -5883,7 +6255,9 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_IrreplaceableTransaction);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_IrreplaceableTransactionImpl);
   }
 
   @override
@@ -6039,25 +6413,34 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -6071,7 +6454,8 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -6086,7 +6470,8 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6096,15 +6481,18 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6133,7 +6521,8 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6143,15 +6532,18 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6181,21 +6573,25 @@ class _$Error_IrreplaceableTransaction implements Error_IrreplaceableTransaction
 }
 
 abstract class Error_IrreplaceableTransaction implements Error {
-  const factory Error_IrreplaceableTransaction() = _$Error_IrreplaceableTransaction;
+  const factory Error_IrreplaceableTransaction() =
+      _$Error_IrreplaceableTransactionImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_FeeRateTooLowCopyWith<$Res> {
-  factory _$$Error_FeeRateTooLowCopyWith(_$Error_FeeRateTooLow value, $Res Function(_$Error_FeeRateTooLow) then) =
-      __$$Error_FeeRateTooLowCopyWithImpl<$Res>;
+abstract class _$$Error_FeeRateTooLowImplCopyWith<$Res> {
+  factory _$$Error_FeeRateTooLowImplCopyWith(_$Error_FeeRateTooLowImpl value,
+          $Res Function(_$Error_FeeRateTooLowImpl) then) =
+      __$$Error_FeeRateTooLowImplCopyWithImpl<$Res>;
   @useResult
   $Res call({double required});
 }
 
 /// @nodoc
-class __$$Error_FeeRateTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_FeeRateTooLow>
-    implements _$$Error_FeeRateTooLowCopyWith<$Res> {
-  __$$Error_FeeRateTooLowCopyWithImpl(_$Error_FeeRateTooLow _value, $Res Function(_$Error_FeeRateTooLow) _then)
+class __$$Error_FeeRateTooLowImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_FeeRateTooLowImpl>
+    implements _$$Error_FeeRateTooLowImplCopyWith<$Res> {
+  __$$Error_FeeRateTooLowImplCopyWithImpl(_$Error_FeeRateTooLowImpl _value,
+      $Res Function(_$Error_FeeRateTooLowImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6203,7 +6599,7 @@ class __$$Error_FeeRateTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res
   $Res call({
     Object? required = null,
   }) {
-    return _then(_$Error_FeeRateTooLow(
+    return _then(_$Error_FeeRateTooLowImpl(
       required: null == required
           ? _value.required
           : required // ignore: cast_nullable_to_non_nullable
@@ -6214,8 +6610,8 @@ class __$$Error_FeeRateTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res
 
 /// @nodoc
 
-class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
-  const _$Error_FeeRateTooLow({required this.required});
+class _$Error_FeeRateTooLowImpl implements Error_FeeRateTooLow {
+  const _$Error_FeeRateTooLowImpl({required this.required});
 
   /// Required fee rate (satoshi/vbyte)
   @override
@@ -6230,8 +6626,9 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_FeeRateTooLow &&
-            (identical(other.required, required) || other.required == required));
+            other is _$Error_FeeRateTooLowImpl &&
+            (identical(other.required, required) ||
+                other.required == required));
   }
 
   @override
@@ -6240,8 +6637,9 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_FeeRateTooLowCopyWith<_$Error_FeeRateTooLow> get copyWith =>
-      __$$Error_FeeRateTooLowCopyWithImpl<_$Error_FeeRateTooLow>(this, _$identity);
+  _$$Error_FeeRateTooLowImplCopyWith<_$Error_FeeRateTooLowImpl> get copyWith =>
+      __$$Error_FeeRateTooLowImplCopyWithImpl<_$Error_FeeRateTooLowImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6393,25 +6791,34 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -6425,7 +6832,8 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -6440,7 +6848,8 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6450,15 +6859,18 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6487,7 +6899,8 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6497,15 +6910,18 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6535,26 +6951,31 @@ class _$Error_FeeRateTooLow implements Error_FeeRateTooLow {
 }
 
 abstract class Error_FeeRateTooLow implements Error {
-  const factory Error_FeeRateTooLow({required final double required}) = _$Error_FeeRateTooLow;
+  const factory Error_FeeRateTooLow({required final double required}) =
+      _$Error_FeeRateTooLowImpl;
 
   /// Required fee rate (satoshi/vbyte)
   double get required;
   @JsonKey(ignore: true)
-  _$$Error_FeeRateTooLowCopyWith<_$Error_FeeRateTooLow> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_FeeRateTooLowImplCopyWith<_$Error_FeeRateTooLowImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_FeeTooLowCopyWith<$Res> {
-  factory _$$Error_FeeTooLowCopyWith(_$Error_FeeTooLow value, $Res Function(_$Error_FeeTooLow) then) =
-      __$$Error_FeeTooLowCopyWithImpl<$Res>;
+abstract class _$$Error_FeeTooLowImplCopyWith<$Res> {
+  factory _$$Error_FeeTooLowImplCopyWith(_$Error_FeeTooLowImpl value,
+          $Res Function(_$Error_FeeTooLowImpl) then) =
+      __$$Error_FeeTooLowImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int required});
 }
 
 /// @nodoc
-class __$$Error_FeeTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_FeeTooLow>
-    implements _$$Error_FeeTooLowCopyWith<$Res> {
-  __$$Error_FeeTooLowCopyWithImpl(_$Error_FeeTooLow _value, $Res Function(_$Error_FeeTooLow) _then)
+class __$$Error_FeeTooLowImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_FeeTooLowImpl>
+    implements _$$Error_FeeTooLowImplCopyWith<$Res> {
+  __$$Error_FeeTooLowImplCopyWithImpl(
+      _$Error_FeeTooLowImpl _value, $Res Function(_$Error_FeeTooLowImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6562,7 +6983,7 @@ class __$$Error_FeeTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
   $Res call({
     Object? required = null,
   }) {
-    return _then(_$Error_FeeTooLow(
+    return _then(_$Error_FeeTooLowImpl(
       required: null == required
           ? _value.required
           : required // ignore: cast_nullable_to_non_nullable
@@ -6573,8 +6994,8 @@ class __$$Error_FeeTooLowCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
 
 /// @nodoc
 
-class _$Error_FeeTooLow implements Error_FeeTooLow {
-  const _$Error_FeeTooLow({required this.required});
+class _$Error_FeeTooLowImpl implements Error_FeeTooLow {
+  const _$Error_FeeTooLowImpl({required this.required});
 
   /// Required fee absolute value (satoshi)
   @override
@@ -6589,8 +7010,9 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_FeeTooLow &&
-            (identical(other.required, required) || other.required == required));
+            other is _$Error_FeeTooLowImpl &&
+            (identical(other.required, required) ||
+                other.required == required));
   }
 
   @override
@@ -6599,8 +7021,9 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_FeeTooLowCopyWith<_$Error_FeeTooLow> get copyWith =>
-      __$$Error_FeeTooLowCopyWithImpl<_$Error_FeeTooLow>(this, _$identity);
+  _$$Error_FeeTooLowImplCopyWith<_$Error_FeeTooLowImpl> get copyWith =>
+      __$$Error_FeeTooLowImplCopyWithImpl<_$Error_FeeTooLowImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6752,25 +7175,34 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -6784,7 +7216,8 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -6799,7 +7232,8 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6809,15 +7243,18 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6846,7 +7283,8 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -6856,15 +7294,18 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -6894,33 +7335,38 @@ class _$Error_FeeTooLow implements Error_FeeTooLow {
 }
 
 abstract class Error_FeeTooLow implements Error {
-  const factory Error_FeeTooLow({required final int required}) = _$Error_FeeTooLow;
+  const factory Error_FeeTooLow({required final int required}) =
+      _$Error_FeeTooLowImpl;
 
   /// Required fee absolute value (satoshi)
   int get required;
   @JsonKey(ignore: true)
-  _$$Error_FeeTooLowCopyWith<_$Error_FeeTooLow> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_FeeTooLowImplCopyWith<_$Error_FeeTooLowImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_FeeRateUnavailableCopyWith<$Res> {
-  factory _$$Error_FeeRateUnavailableCopyWith(
-          _$Error_FeeRateUnavailable value, $Res Function(_$Error_FeeRateUnavailable) then) =
-      __$$Error_FeeRateUnavailableCopyWithImpl<$Res>;
+abstract class _$$Error_FeeRateUnavailableImplCopyWith<$Res> {
+  factory _$$Error_FeeRateUnavailableImplCopyWith(
+          _$Error_FeeRateUnavailableImpl value,
+          $Res Function(_$Error_FeeRateUnavailableImpl) then) =
+      __$$Error_FeeRateUnavailableImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_FeeRateUnavailableCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_FeeRateUnavailable>
-    implements _$$Error_FeeRateUnavailableCopyWith<$Res> {
-  __$$Error_FeeRateUnavailableCopyWithImpl(
-      _$Error_FeeRateUnavailable _value, $Res Function(_$Error_FeeRateUnavailable) _then)
+class __$$Error_FeeRateUnavailableImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_FeeRateUnavailableImpl>
+    implements _$$Error_FeeRateUnavailableImplCopyWith<$Res> {
+  __$$Error_FeeRateUnavailableImplCopyWithImpl(
+      _$Error_FeeRateUnavailableImpl _value,
+      $Res Function(_$Error_FeeRateUnavailableImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
-  const _$Error_FeeRateUnavailable();
+class _$Error_FeeRateUnavailableImpl implements Error_FeeRateUnavailable {
+  const _$Error_FeeRateUnavailableImpl();
 
   @override
   String toString() {
@@ -6929,7 +7375,9 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_FeeRateUnavailable);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_FeeRateUnavailableImpl);
   }
 
   @override
@@ -7085,25 +7533,34 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -7117,7 +7574,8 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -7132,7 +7590,8 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7142,15 +7601,18 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7179,7 +7641,8 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7189,15 +7652,18 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7227,22 +7693,26 @@ class _$Error_FeeRateUnavailable implements Error_FeeRateUnavailable {
 }
 
 abstract class Error_FeeRateUnavailable implements Error {
-  const factory Error_FeeRateUnavailable() = _$Error_FeeRateUnavailable;
+  const factory Error_FeeRateUnavailable() = _$Error_FeeRateUnavailableImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_MissingKeyOriginCopyWith<$Res> {
-  factory _$$Error_MissingKeyOriginCopyWith(
-          _$Error_MissingKeyOrigin value, $Res Function(_$Error_MissingKeyOrigin) then) =
-      __$$Error_MissingKeyOriginCopyWithImpl<$Res>;
+abstract class _$$Error_MissingKeyOriginImplCopyWith<$Res> {
+  factory _$$Error_MissingKeyOriginImplCopyWith(
+          _$Error_MissingKeyOriginImpl value,
+          $Res Function(_$Error_MissingKeyOriginImpl) then) =
+      __$$Error_MissingKeyOriginImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_MissingKeyOriginCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_MissingKeyOrigin>
-    implements _$$Error_MissingKeyOriginCopyWith<$Res> {
-  __$$Error_MissingKeyOriginCopyWithImpl(_$Error_MissingKeyOrigin _value, $Res Function(_$Error_MissingKeyOrigin) _then)
+class __$$Error_MissingKeyOriginImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_MissingKeyOriginImpl>
+    implements _$$Error_MissingKeyOriginImplCopyWith<$Res> {
+  __$$Error_MissingKeyOriginImplCopyWithImpl(
+      _$Error_MissingKeyOriginImpl _value,
+      $Res Function(_$Error_MissingKeyOriginImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7250,7 +7720,7 @@ class __$$Error_MissingKeyOriginCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_MissingKeyOrigin(
+    return _then(_$Error_MissingKeyOriginImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -7261,8 +7731,8 @@ class __$$Error_MissingKeyOriginCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$
 
 /// @nodoc
 
-class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
-  const _$Error_MissingKeyOrigin(this.field0);
+class _$Error_MissingKeyOriginImpl implements Error_MissingKeyOrigin {
+  const _$Error_MissingKeyOriginImpl(this.field0);
 
   @override
   final String field0;
@@ -7276,7 +7746,7 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_MissingKeyOrigin &&
+            other is _$Error_MissingKeyOriginImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -7286,8 +7756,9 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_MissingKeyOriginCopyWith<_$Error_MissingKeyOrigin> get copyWith =>
-      __$$Error_MissingKeyOriginCopyWithImpl<_$Error_MissingKeyOrigin>(this, _$identity);
+  _$$Error_MissingKeyOriginImplCopyWith<_$Error_MissingKeyOriginImpl>
+      get copyWith => __$$Error_MissingKeyOriginImplCopyWithImpl<
+          _$Error_MissingKeyOriginImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7439,25 +7910,34 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -7471,7 +7951,8 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -7486,7 +7967,8 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7496,15 +7978,18 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7533,7 +8018,8 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7543,15 +8029,18 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7581,31 +8070,38 @@ class _$Error_MissingKeyOrigin implements Error_MissingKeyOrigin {
 }
 
 abstract class Error_MissingKeyOrigin implements Error {
-  const factory Error_MissingKeyOrigin(final String field0) = _$Error_MissingKeyOrigin;
+  const factory Error_MissingKeyOrigin(final String field0) =
+      _$Error_MissingKeyOriginImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_MissingKeyOriginCopyWith<_$Error_MissingKeyOrigin> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_MissingKeyOriginImplCopyWith<_$Error_MissingKeyOriginImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_KeyCopyWith<$Res> {
-  factory _$$Error_KeyCopyWith(_$Error_Key value, $Res Function(_$Error_Key) then) = __$$Error_KeyCopyWithImpl<$Res>;
+abstract class _$$Error_KeyImplCopyWith<$Res> {
+  factory _$$Error_KeyImplCopyWith(
+          _$Error_KeyImpl value, $Res Function(_$Error_KeyImpl) then) =
+      __$$Error_KeyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_KeyCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Key>
-    implements _$$Error_KeyCopyWith<$Res> {
-  __$$Error_KeyCopyWithImpl(_$Error_Key _value, $Res Function(_$Error_Key) _then) : super(_value, _then);
+class __$$Error_KeyImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_KeyImpl>
+    implements _$$Error_KeyImplCopyWith<$Res> {
+  __$$Error_KeyImplCopyWithImpl(
+      _$Error_KeyImpl _value, $Res Function(_$Error_KeyImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Key(
+    return _then(_$Error_KeyImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -7616,8 +8112,8 @@ class __$$Error_KeyCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_
 
 /// @nodoc
 
-class _$Error_Key implements Error_Key {
-  const _$Error_Key(this.field0);
+class _$Error_KeyImpl implements Error_Key {
+  const _$Error_KeyImpl(this.field0);
 
   @override
   final String field0;
@@ -7631,7 +8127,7 @@ class _$Error_Key implements Error_Key {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Key &&
+            other is _$Error_KeyImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -7641,7 +8137,8 @@ class _$Error_Key implements Error_Key {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_KeyCopyWith<_$Error_Key> get copyWith => __$$Error_KeyCopyWithImpl<_$Error_Key>(this, _$identity);
+  _$$Error_KeyImplCopyWith<_$Error_KeyImpl> get copyWith =>
+      __$$Error_KeyImplCopyWithImpl<_$Error_KeyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7793,25 +8290,34 @@ class _$Error_Key implements Error_Key {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -7825,7 +8331,8 @@ class _$Error_Key implements Error_Key {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -7840,7 +8347,8 @@ class _$Error_Key implements Error_Key {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7850,15 +8358,18 @@ class _$Error_Key implements Error_Key {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7887,7 +8398,8 @@ class _$Error_Key implements Error_Key {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -7897,15 +8409,18 @@ class _$Error_Key implements Error_Key {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -7935,31 +8450,36 @@ class _$Error_Key implements Error_Key {
 }
 
 abstract class Error_Key implements Error {
-  const factory Error_Key(final String field0) = _$Error_Key;
+  const factory Error_Key(final String field0) = _$Error_KeyImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_KeyCopyWith<_$Error_Key> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_KeyImplCopyWith<_$Error_KeyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_ChecksumMismatchCopyWith<$Res> {
-  factory _$$Error_ChecksumMismatchCopyWith(
-          _$Error_ChecksumMismatch value, $Res Function(_$Error_ChecksumMismatch) then) =
-      __$$Error_ChecksumMismatchCopyWithImpl<$Res>;
+abstract class _$$Error_ChecksumMismatchImplCopyWith<$Res> {
+  factory _$$Error_ChecksumMismatchImplCopyWith(
+          _$Error_ChecksumMismatchImpl value,
+          $Res Function(_$Error_ChecksumMismatchImpl) then) =
+      __$$Error_ChecksumMismatchImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$Error_ChecksumMismatchCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_ChecksumMismatch>
-    implements _$$Error_ChecksumMismatchCopyWith<$Res> {
-  __$$Error_ChecksumMismatchCopyWithImpl(_$Error_ChecksumMismatch _value, $Res Function(_$Error_ChecksumMismatch) _then)
+class __$$Error_ChecksumMismatchImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_ChecksumMismatchImpl>
+    implements _$$Error_ChecksumMismatchImplCopyWith<$Res> {
+  __$$Error_ChecksumMismatchImplCopyWithImpl(
+      _$Error_ChecksumMismatchImpl _value,
+      $Res Function(_$Error_ChecksumMismatchImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
-  const _$Error_ChecksumMismatch();
+class _$Error_ChecksumMismatchImpl implements Error_ChecksumMismatch {
+  const _$Error_ChecksumMismatchImpl();
 
   @override
   String toString() {
@@ -7968,7 +8488,9 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$Error_ChecksumMismatch);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Error_ChecksumMismatchImpl);
   }
 
   @override
@@ -8124,25 +8646,34 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -8156,7 +8687,8 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -8171,7 +8703,8 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8181,15 +8714,18 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8218,7 +8754,8 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8228,15 +8765,18 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8266,24 +8806,26 @@ class _$Error_ChecksumMismatch implements Error_ChecksumMismatch {
 }
 
 abstract class Error_ChecksumMismatch implements Error {
-  const factory Error_ChecksumMismatch() = _$Error_ChecksumMismatch;
+  const factory Error_ChecksumMismatch() = _$Error_ChecksumMismatchImpl;
 }
 
 /// @nodoc
-abstract class _$$Error_SpendingPolicyRequiredCopyWith<$Res> {
-  factory _$$Error_SpendingPolicyRequiredCopyWith(
-          _$Error_SpendingPolicyRequired value, $Res Function(_$Error_SpendingPolicyRequired) then) =
-      __$$Error_SpendingPolicyRequiredCopyWithImpl<$Res>;
+abstract class _$$Error_SpendingPolicyRequiredImplCopyWith<$Res> {
+  factory _$$Error_SpendingPolicyRequiredImplCopyWith(
+          _$Error_SpendingPolicyRequiredImpl value,
+          $Res Function(_$Error_SpendingPolicyRequiredImpl) then) =
+      __$$Error_SpendingPolicyRequiredImplCopyWithImpl<$Res>;
   @useResult
   $Res call({KeychainKind field0});
 }
 
 /// @nodoc
-class __$$Error_SpendingPolicyRequiredCopyWithImpl<$Res>
-    extends _$ErrorCopyWithImpl<$Res, _$Error_SpendingPolicyRequired>
-    implements _$$Error_SpendingPolicyRequiredCopyWith<$Res> {
-  __$$Error_SpendingPolicyRequiredCopyWithImpl(
-      _$Error_SpendingPolicyRequired _value, $Res Function(_$Error_SpendingPolicyRequired) _then)
+class __$$Error_SpendingPolicyRequiredImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_SpendingPolicyRequiredImpl>
+    implements _$$Error_SpendingPolicyRequiredImplCopyWith<$Res> {
+  __$$Error_SpendingPolicyRequiredImplCopyWithImpl(
+      _$Error_SpendingPolicyRequiredImpl _value,
+      $Res Function(_$Error_SpendingPolicyRequiredImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8291,7 +8833,7 @@ class __$$Error_SpendingPolicyRequiredCopyWithImpl<$Res>
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_SpendingPolicyRequired(
+    return _then(_$Error_SpendingPolicyRequiredImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -8302,8 +8844,9 @@ class __$$Error_SpendingPolicyRequiredCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
-  const _$Error_SpendingPolicyRequired(this.field0);
+class _$Error_SpendingPolicyRequiredImpl
+    implements Error_SpendingPolicyRequired {
+  const _$Error_SpendingPolicyRequiredImpl(this.field0);
 
   @override
   final KeychainKind field0;
@@ -8317,7 +8860,7 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_SpendingPolicyRequired &&
+            other is _$Error_SpendingPolicyRequiredImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -8327,8 +8870,10 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_SpendingPolicyRequiredCopyWith<_$Error_SpendingPolicyRequired> get copyWith =>
-      __$$Error_SpendingPolicyRequiredCopyWithImpl<_$Error_SpendingPolicyRequired>(this, _$identity);
+  _$$Error_SpendingPolicyRequiredImplCopyWith<
+          _$Error_SpendingPolicyRequiredImpl>
+      get copyWith => __$$Error_SpendingPolicyRequiredImplCopyWithImpl<
+          _$Error_SpendingPolicyRequiredImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8480,25 +9025,34 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -8512,7 +9066,8 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -8527,7 +9082,8 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8537,15 +9093,18 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8574,7 +9133,8 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8584,15 +9144,18 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8622,29 +9185,33 @@ class _$Error_SpendingPolicyRequired implements Error_SpendingPolicyRequired {
 }
 
 abstract class Error_SpendingPolicyRequired implements Error {
-  const factory Error_SpendingPolicyRequired(final KeychainKind field0) = _$Error_SpendingPolicyRequired;
+  const factory Error_SpendingPolicyRequired(final KeychainKind field0) =
+      _$Error_SpendingPolicyRequiredImpl;
 
   KeychainKind get field0;
   @JsonKey(ignore: true)
-  _$$Error_SpendingPolicyRequiredCopyWith<_$Error_SpendingPolicyRequired> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Error_SpendingPolicyRequiredImplCopyWith<
+          _$Error_SpendingPolicyRequiredImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_InvalidPolicyPathErrorCopyWith<$Res> {
-  factory _$$Error_InvalidPolicyPathErrorCopyWith(
-          _$Error_InvalidPolicyPathError value, $Res Function(_$Error_InvalidPolicyPathError) then) =
-      __$$Error_InvalidPolicyPathErrorCopyWithImpl<$Res>;
+abstract class _$$Error_InvalidPolicyPathErrorImplCopyWith<$Res> {
+  factory _$$Error_InvalidPolicyPathErrorImplCopyWith(
+          _$Error_InvalidPolicyPathErrorImpl value,
+          $Res Function(_$Error_InvalidPolicyPathErrorImpl) then) =
+      __$$Error_InvalidPolicyPathErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_InvalidPolicyPathErrorCopyWithImpl<$Res>
-    extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidPolicyPathError>
-    implements _$$Error_InvalidPolicyPathErrorCopyWith<$Res> {
-  __$$Error_InvalidPolicyPathErrorCopyWithImpl(
-      _$Error_InvalidPolicyPathError _value, $Res Function(_$Error_InvalidPolicyPathError) _then)
+class __$$Error_InvalidPolicyPathErrorImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidPolicyPathErrorImpl>
+    implements _$$Error_InvalidPolicyPathErrorImplCopyWith<$Res> {
+  __$$Error_InvalidPolicyPathErrorImplCopyWithImpl(
+      _$Error_InvalidPolicyPathErrorImpl _value,
+      $Res Function(_$Error_InvalidPolicyPathErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8652,7 +9219,7 @@ class __$$Error_InvalidPolicyPathErrorCopyWithImpl<$Res>
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_InvalidPolicyPathError(
+    return _then(_$Error_InvalidPolicyPathErrorImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -8663,8 +9230,9 @@ class __$$Error_InvalidPolicyPathErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
-  const _$Error_InvalidPolicyPathError(this.field0);
+class _$Error_InvalidPolicyPathErrorImpl
+    implements Error_InvalidPolicyPathError {
+  const _$Error_InvalidPolicyPathErrorImpl(this.field0);
 
   @override
   final String field0;
@@ -8678,7 +9246,7 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_InvalidPolicyPathError &&
+            other is _$Error_InvalidPolicyPathErrorImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -8688,8 +9256,10 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_InvalidPolicyPathErrorCopyWith<_$Error_InvalidPolicyPathError> get copyWith =>
-      __$$Error_InvalidPolicyPathErrorCopyWithImpl<_$Error_InvalidPolicyPathError>(this, _$identity);
+  _$$Error_InvalidPolicyPathErrorImplCopyWith<
+          _$Error_InvalidPolicyPathErrorImpl>
+      get copyWith => __$$Error_InvalidPolicyPathErrorImplCopyWithImpl<
+          _$Error_InvalidPolicyPathErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8841,25 +9411,34 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -8873,7 +9452,8 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -8888,7 +9468,8 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8898,15 +9479,18 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8935,7 +9519,8 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -8945,15 +9530,18 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -8983,33 +9571,39 @@ class _$Error_InvalidPolicyPathError implements Error_InvalidPolicyPathError {
 }
 
 abstract class Error_InvalidPolicyPathError implements Error {
-  const factory Error_InvalidPolicyPathError(final String field0) = _$Error_InvalidPolicyPathError;
+  const factory Error_InvalidPolicyPathError(final String field0) =
+      _$Error_InvalidPolicyPathErrorImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_InvalidPolicyPathErrorCopyWith<_$Error_InvalidPolicyPathError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Error_InvalidPolicyPathErrorImplCopyWith<
+          _$Error_InvalidPolicyPathErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_SignerCopyWith<$Res> {
-  factory _$$Error_SignerCopyWith(_$Error_Signer value, $Res Function(_$Error_Signer) then) =
-      __$$Error_SignerCopyWithImpl<$Res>;
+abstract class _$$Error_SignerImplCopyWith<$Res> {
+  factory _$$Error_SignerImplCopyWith(
+          _$Error_SignerImpl value, $Res Function(_$Error_SignerImpl) then) =
+      __$$Error_SignerImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_SignerCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Signer>
-    implements _$$Error_SignerCopyWith<$Res> {
-  __$$Error_SignerCopyWithImpl(_$Error_Signer _value, $Res Function(_$Error_Signer) _then) : super(_value, _then);
+class __$$Error_SignerImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_SignerImpl>
+    implements _$$Error_SignerImplCopyWith<$Res> {
+  __$$Error_SignerImplCopyWithImpl(
+      _$Error_SignerImpl _value, $Res Function(_$Error_SignerImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Signer(
+    return _then(_$Error_SignerImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -9020,8 +9614,8 @@ class __$$Error_SignerCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Err
 
 /// @nodoc
 
-class _$Error_Signer implements Error_Signer {
-  const _$Error_Signer(this.field0);
+class _$Error_SignerImpl implements Error_Signer {
+  const _$Error_SignerImpl(this.field0);
 
   @override
   final String field0;
@@ -9035,7 +9629,7 @@ class _$Error_Signer implements Error_Signer {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Signer &&
+            other is _$Error_SignerImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -9045,8 +9639,8 @@ class _$Error_Signer implements Error_Signer {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_SignerCopyWith<_$Error_Signer> get copyWith =>
-      __$$Error_SignerCopyWithImpl<_$Error_Signer>(this, _$identity);
+  _$$Error_SignerImplCopyWith<_$Error_SignerImpl> get copyWith =>
+      __$$Error_SignerImplCopyWithImpl<_$Error_SignerImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9198,25 +9792,34 @@ class _$Error_Signer implements Error_Signer {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -9230,7 +9833,8 @@ class _$Error_Signer implements Error_Signer {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -9245,7 +9849,8 @@ class _$Error_Signer implements Error_Signer {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -9255,15 +9860,18 @@ class _$Error_Signer implements Error_Signer {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -9292,7 +9900,8 @@ class _$Error_Signer implements Error_Signer {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -9302,15 +9911,18 @@ class _$Error_Signer implements Error_Signer {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -9340,25 +9952,29 @@ class _$Error_Signer implements Error_Signer {
 }
 
 abstract class Error_Signer implements Error {
-  const factory Error_Signer(final String field0) = _$Error_Signer;
+  const factory Error_Signer(final String field0) = _$Error_SignerImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_SignerCopyWith<_$Error_Signer> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_SignerImplCopyWith<_$Error_SignerImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_InvalidNetworkCopyWith<$Res> {
-  factory _$$Error_InvalidNetworkCopyWith(_$Error_InvalidNetwork value, $Res Function(_$Error_InvalidNetwork) then) =
-      __$$Error_InvalidNetworkCopyWithImpl<$Res>;
+abstract class _$$Error_InvalidNetworkImplCopyWith<$Res> {
+  factory _$$Error_InvalidNetworkImplCopyWith(_$Error_InvalidNetworkImpl value,
+          $Res Function(_$Error_InvalidNetworkImpl) then) =
+      __$$Error_InvalidNetworkImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Network requested, Network found});
 }
 
 /// @nodoc
-class __$$Error_InvalidNetworkCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidNetwork>
-    implements _$$Error_InvalidNetworkCopyWith<$Res> {
-  __$$Error_InvalidNetworkCopyWithImpl(_$Error_InvalidNetwork _value, $Res Function(_$Error_InvalidNetwork) _then)
+class __$$Error_InvalidNetworkImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidNetworkImpl>
+    implements _$$Error_InvalidNetworkImplCopyWith<$Res> {
+  __$$Error_InvalidNetworkImplCopyWithImpl(_$Error_InvalidNetworkImpl _value,
+      $Res Function(_$Error_InvalidNetworkImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9367,7 +9983,7 @@ class __$$Error_InvalidNetworkCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Re
     Object? requested = null,
     Object? found = null,
   }) {
-    return _then(_$Error_InvalidNetwork(
+    return _then(_$Error_InvalidNetworkImpl(
       requested: null == requested
           ? _value.requested
           : requested // ignore: cast_nullable_to_non_nullable
@@ -9382,8 +9998,9 @@ class __$$Error_InvalidNetworkCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Re
 
 /// @nodoc
 
-class _$Error_InvalidNetwork implements Error_InvalidNetwork {
-  const _$Error_InvalidNetwork({required this.requested, required this.found});
+class _$Error_InvalidNetworkImpl implements Error_InvalidNetwork {
+  const _$Error_InvalidNetworkImpl(
+      {required this.requested, required this.found});
 
   /// requested network, for example what is given as bdk-cli option
   @override
@@ -9402,8 +10019,9 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_InvalidNetwork &&
-            (identical(other.requested, requested) || other.requested == requested) &&
+            other is _$Error_InvalidNetworkImpl &&
+            (identical(other.requested, requested) ||
+                other.requested == requested) &&
             (identical(other.found, found) || other.found == found));
   }
 
@@ -9413,8 +10031,10 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_InvalidNetworkCopyWith<_$Error_InvalidNetwork> get copyWith =>
-      __$$Error_InvalidNetworkCopyWithImpl<_$Error_InvalidNetwork>(this, _$identity);
+  _$$Error_InvalidNetworkImplCopyWith<_$Error_InvalidNetworkImpl>
+      get copyWith =>
+          __$$Error_InvalidNetworkImplCopyWithImpl<_$Error_InvalidNetworkImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9566,25 +10186,34 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -9598,7 +10227,8 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -9613,7 +10243,8 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -9623,15 +10254,18 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -9660,7 +10294,8 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -9670,15 +10305,18 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -9708,8 +10346,9 @@ class _$Error_InvalidNetwork implements Error_InvalidNetwork {
 }
 
 abstract class Error_InvalidNetwork implements Error {
-  const factory Error_InvalidNetwork({required final Network requested, required final Network found}) =
-      _$Error_InvalidNetwork;
+  const factory Error_InvalidNetwork(
+      {required final Network requested,
+      required final Network found}) = _$Error_InvalidNetworkImpl;
 
   /// requested network, for example what is given as bdk-cli option
   Network get requested;
@@ -9717,21 +10356,26 @@ abstract class Error_InvalidNetwork implements Error {
   /// found network, for example the network of the bitcoin node
   Network get found;
   @JsonKey(ignore: true)
-  _$$Error_InvalidNetworkCopyWith<_$Error_InvalidNetwork> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_InvalidNetworkImplCopyWith<_$Error_InvalidNetworkImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_InvalidOutpointCopyWith<$Res> {
-  factory _$$Error_InvalidOutpointCopyWith(_$Error_InvalidOutpoint value, $Res Function(_$Error_InvalidOutpoint) then) =
-      __$$Error_InvalidOutpointCopyWithImpl<$Res>;
+abstract class _$$Error_InvalidOutpointImplCopyWith<$Res> {
+  factory _$$Error_InvalidOutpointImplCopyWith(
+          _$Error_InvalidOutpointImpl value,
+          $Res Function(_$Error_InvalidOutpointImpl) then) =
+      __$$Error_InvalidOutpointImplCopyWithImpl<$Res>;
   @useResult
   $Res call({OutPoint field0});
 }
 
 /// @nodoc
-class __$$Error_InvalidOutpointCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidOutpoint>
-    implements _$$Error_InvalidOutpointCopyWith<$Res> {
-  __$$Error_InvalidOutpointCopyWithImpl(_$Error_InvalidOutpoint _value, $Res Function(_$Error_InvalidOutpoint) _then)
+class __$$Error_InvalidOutpointImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_InvalidOutpointImpl>
+    implements _$$Error_InvalidOutpointImplCopyWith<$Res> {
+  __$$Error_InvalidOutpointImplCopyWithImpl(_$Error_InvalidOutpointImpl _value,
+      $Res Function(_$Error_InvalidOutpointImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9739,7 +10383,7 @@ class __$$Error_InvalidOutpointCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$R
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_InvalidOutpoint(
+    return _then(_$Error_InvalidOutpointImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -9750,8 +10394,8 @@ class __$$Error_InvalidOutpointCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$R
 
 /// @nodoc
 
-class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
-  const _$Error_InvalidOutpoint(this.field0);
+class _$Error_InvalidOutpointImpl implements Error_InvalidOutpoint {
+  const _$Error_InvalidOutpointImpl(this.field0);
 
   @override
   final OutPoint field0;
@@ -9765,7 +10409,7 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_InvalidOutpoint &&
+            other is _$Error_InvalidOutpointImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -9775,8 +10419,9 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_InvalidOutpointCopyWith<_$Error_InvalidOutpoint> get copyWith =>
-      __$$Error_InvalidOutpointCopyWithImpl<_$Error_InvalidOutpoint>(this, _$identity);
+  _$$Error_InvalidOutpointImplCopyWith<_$Error_InvalidOutpointImpl>
+      get copyWith => __$$Error_InvalidOutpointImplCopyWithImpl<
+          _$Error_InvalidOutpointImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9928,25 +10573,34 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -9960,7 +10614,8 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -9975,7 +10630,8 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -9985,15 +10641,18 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10022,7 +10681,8 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -10032,15 +10692,18 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10070,25 +10733,30 @@ class _$Error_InvalidOutpoint implements Error_InvalidOutpoint {
 }
 
 abstract class Error_InvalidOutpoint implements Error {
-  const factory Error_InvalidOutpoint(final OutPoint field0) = _$Error_InvalidOutpoint;
+  const factory Error_InvalidOutpoint(final OutPoint field0) =
+      _$Error_InvalidOutpointImpl;
 
   OutPoint get field0;
   @JsonKey(ignore: true)
-  _$$Error_InvalidOutpointCopyWith<_$Error_InvalidOutpoint> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_InvalidOutpointImplCopyWith<_$Error_InvalidOutpointImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_DescriptorCopyWith<$Res> {
-  factory _$$Error_DescriptorCopyWith(_$Error_Descriptor value, $Res Function(_$Error_Descriptor) then) =
-      __$$Error_DescriptorCopyWithImpl<$Res>;
+abstract class _$$Error_DescriptorImplCopyWith<$Res> {
+  factory _$$Error_DescriptorImplCopyWith(_$Error_DescriptorImpl value,
+          $Res Function(_$Error_DescriptorImpl) then) =
+      __$$Error_DescriptorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_DescriptorCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Descriptor>
-    implements _$$Error_DescriptorCopyWith<$Res> {
-  __$$Error_DescriptorCopyWithImpl(_$Error_Descriptor _value, $Res Function(_$Error_Descriptor) _then)
+class __$$Error_DescriptorImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_DescriptorImpl>
+    implements _$$Error_DescriptorImplCopyWith<$Res> {
+  __$$Error_DescriptorImplCopyWithImpl(_$Error_DescriptorImpl _value,
+      $Res Function(_$Error_DescriptorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10096,7 +10764,7 @@ class __$$Error_DescriptorCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Descriptor(
+    return _then(_$Error_DescriptorImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -10107,8 +10775,8 @@ class __$$Error_DescriptorCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _
 
 /// @nodoc
 
-class _$Error_Descriptor implements Error_Descriptor {
-  const _$Error_Descriptor(this.field0);
+class _$Error_DescriptorImpl implements Error_Descriptor {
+  const _$Error_DescriptorImpl(this.field0);
 
   @override
   final String field0;
@@ -10122,7 +10790,7 @@ class _$Error_Descriptor implements Error_Descriptor {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Descriptor &&
+            other is _$Error_DescriptorImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -10132,8 +10800,9 @@ class _$Error_Descriptor implements Error_Descriptor {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_DescriptorCopyWith<_$Error_Descriptor> get copyWith =>
-      __$$Error_DescriptorCopyWithImpl<_$Error_Descriptor>(this, _$identity);
+  _$$Error_DescriptorImplCopyWith<_$Error_DescriptorImpl> get copyWith =>
+      __$$Error_DescriptorImplCopyWithImpl<_$Error_DescriptorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10285,25 +10954,34 @@ class _$Error_Descriptor implements Error_Descriptor {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -10317,7 +10995,8 @@ class _$Error_Descriptor implements Error_Descriptor {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -10332,7 +11011,8 @@ class _$Error_Descriptor implements Error_Descriptor {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -10342,15 +11022,18 @@ class _$Error_Descriptor implements Error_Descriptor {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10379,7 +11062,8 @@ class _$Error_Descriptor implements Error_Descriptor {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -10389,15 +11073,18 @@ class _$Error_Descriptor implements Error_Descriptor {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10427,32 +11114,37 @@ class _$Error_Descriptor implements Error_Descriptor {
 }
 
 abstract class Error_Descriptor implements Error {
-  const factory Error_Descriptor(final String field0) = _$Error_Descriptor;
+  const factory Error_Descriptor(final String field0) = _$Error_DescriptorImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_DescriptorCopyWith<_$Error_Descriptor> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_DescriptorImplCopyWith<_$Error_DescriptorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_EncodeCopyWith<$Res> {
-  factory _$$Error_EncodeCopyWith(_$Error_Encode value, $Res Function(_$Error_Encode) then) =
-      __$$Error_EncodeCopyWithImpl<$Res>;
+abstract class _$$Error_EncodeImplCopyWith<$Res> {
+  factory _$$Error_EncodeImplCopyWith(
+          _$Error_EncodeImpl value, $Res Function(_$Error_EncodeImpl) then) =
+      __$$Error_EncodeImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_EncodeCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Encode>
-    implements _$$Error_EncodeCopyWith<$Res> {
-  __$$Error_EncodeCopyWithImpl(_$Error_Encode _value, $Res Function(_$Error_Encode) _then) : super(_value, _then);
+class __$$Error_EncodeImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_EncodeImpl>
+    implements _$$Error_EncodeImplCopyWith<$Res> {
+  __$$Error_EncodeImplCopyWithImpl(
+      _$Error_EncodeImpl _value, $Res Function(_$Error_EncodeImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Encode(
+    return _then(_$Error_EncodeImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -10463,8 +11155,8 @@ class __$$Error_EncodeCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Err
 
 /// @nodoc
 
-class _$Error_Encode implements Error_Encode {
-  const _$Error_Encode(this.field0);
+class _$Error_EncodeImpl implements Error_Encode {
+  const _$Error_EncodeImpl(this.field0);
 
   @override
   final String field0;
@@ -10478,7 +11170,7 @@ class _$Error_Encode implements Error_Encode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Encode &&
+            other is _$Error_EncodeImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -10488,8 +11180,8 @@ class _$Error_Encode implements Error_Encode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_EncodeCopyWith<_$Error_Encode> get copyWith =>
-      __$$Error_EncodeCopyWithImpl<_$Error_Encode>(this, _$identity);
+  _$$Error_EncodeImplCopyWith<_$Error_EncodeImpl> get copyWith =>
+      __$$Error_EncodeImplCopyWithImpl<_$Error_EncodeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10641,25 +11333,34 @@ class _$Error_Encode implements Error_Encode {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -10673,7 +11374,8 @@ class _$Error_Encode implements Error_Encode {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -10688,7 +11390,8 @@ class _$Error_Encode implements Error_Encode {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -10698,15 +11401,18 @@ class _$Error_Encode implements Error_Encode {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10735,7 +11441,8 @@ class _$Error_Encode implements Error_Encode {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -10745,15 +11452,18 @@ class _$Error_Encode implements Error_Encode {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -10783,25 +11493,29 @@ class _$Error_Encode implements Error_Encode {
 }
 
 abstract class Error_Encode implements Error {
-  const factory Error_Encode(final String field0) = _$Error_Encode;
+  const factory Error_Encode(final String field0) = _$Error_EncodeImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_EncodeCopyWith<_$Error_Encode> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_EncodeImplCopyWith<_$Error_EncodeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_MiniscriptCopyWith<$Res> {
-  factory _$$Error_MiniscriptCopyWith(_$Error_Miniscript value, $Res Function(_$Error_Miniscript) then) =
-      __$$Error_MiniscriptCopyWithImpl<$Res>;
+abstract class _$$Error_MiniscriptImplCopyWith<$Res> {
+  factory _$$Error_MiniscriptImplCopyWith(_$Error_MiniscriptImpl value,
+          $Res Function(_$Error_MiniscriptImpl) then) =
+      __$$Error_MiniscriptImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_MiniscriptCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Miniscript>
-    implements _$$Error_MiniscriptCopyWith<$Res> {
-  __$$Error_MiniscriptCopyWithImpl(_$Error_Miniscript _value, $Res Function(_$Error_Miniscript) _then)
+class __$$Error_MiniscriptImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_MiniscriptImpl>
+    implements _$$Error_MiniscriptImplCopyWith<$Res> {
+  __$$Error_MiniscriptImplCopyWithImpl(_$Error_MiniscriptImpl _value,
+      $Res Function(_$Error_MiniscriptImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10809,7 +11523,7 @@ class __$$Error_MiniscriptCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Miniscript(
+    return _then(_$Error_MiniscriptImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -10820,8 +11534,8 @@ class __$$Error_MiniscriptCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _
 
 /// @nodoc
 
-class _$Error_Miniscript implements Error_Miniscript {
-  const _$Error_Miniscript(this.field0);
+class _$Error_MiniscriptImpl implements Error_Miniscript {
+  const _$Error_MiniscriptImpl(this.field0);
 
   @override
   final String field0;
@@ -10835,7 +11549,7 @@ class _$Error_Miniscript implements Error_Miniscript {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Miniscript &&
+            other is _$Error_MiniscriptImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -10845,8 +11559,9 @@ class _$Error_Miniscript implements Error_Miniscript {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_MiniscriptCopyWith<_$Error_Miniscript> get copyWith =>
-      __$$Error_MiniscriptCopyWithImpl<_$Error_Miniscript>(this, _$identity);
+  _$$Error_MiniscriptImplCopyWith<_$Error_MiniscriptImpl> get copyWith =>
+      __$$Error_MiniscriptImplCopyWithImpl<_$Error_MiniscriptImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10998,25 +11713,34 @@ class _$Error_Miniscript implements Error_Miniscript {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -11030,7 +11754,8 @@ class _$Error_Miniscript implements Error_Miniscript {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -11045,7 +11770,8 @@ class _$Error_Miniscript implements Error_Miniscript {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11055,15 +11781,18 @@ class _$Error_Miniscript implements Error_Miniscript {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11092,7 +11821,8 @@ class _$Error_Miniscript implements Error_Miniscript {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11102,15 +11832,18 @@ class _$Error_Miniscript implements Error_Miniscript {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11140,25 +11873,29 @@ class _$Error_Miniscript implements Error_Miniscript {
 }
 
 abstract class Error_Miniscript implements Error {
-  const factory Error_Miniscript(final String field0) = _$Error_Miniscript;
+  const factory Error_Miniscript(final String field0) = _$Error_MiniscriptImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_MiniscriptCopyWith<_$Error_Miniscript> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_MiniscriptImplCopyWith<_$Error_MiniscriptImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_MiniscriptPsbtCopyWith<$Res> {
-  factory _$$Error_MiniscriptPsbtCopyWith(_$Error_MiniscriptPsbt value, $Res Function(_$Error_MiniscriptPsbt) then) =
-      __$$Error_MiniscriptPsbtCopyWithImpl<$Res>;
+abstract class _$$Error_MiniscriptPsbtImplCopyWith<$Res> {
+  factory _$$Error_MiniscriptPsbtImplCopyWith(_$Error_MiniscriptPsbtImpl value,
+          $Res Function(_$Error_MiniscriptPsbtImpl) then) =
+      __$$Error_MiniscriptPsbtImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_MiniscriptPsbtCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_MiniscriptPsbt>
-    implements _$$Error_MiniscriptPsbtCopyWith<$Res> {
-  __$$Error_MiniscriptPsbtCopyWithImpl(_$Error_MiniscriptPsbt _value, $Res Function(_$Error_MiniscriptPsbt) _then)
+class __$$Error_MiniscriptPsbtImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_MiniscriptPsbtImpl>
+    implements _$$Error_MiniscriptPsbtImplCopyWith<$Res> {
+  __$$Error_MiniscriptPsbtImplCopyWithImpl(_$Error_MiniscriptPsbtImpl _value,
+      $Res Function(_$Error_MiniscriptPsbtImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11166,7 +11903,7 @@ class __$$Error_MiniscriptPsbtCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Re
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_MiniscriptPsbt(
+    return _then(_$Error_MiniscriptPsbtImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -11177,8 +11914,8 @@ class __$$Error_MiniscriptPsbtCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Re
 
 /// @nodoc
 
-class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
-  const _$Error_MiniscriptPsbt(this.field0);
+class _$Error_MiniscriptPsbtImpl implements Error_MiniscriptPsbt {
+  const _$Error_MiniscriptPsbtImpl(this.field0);
 
   @override
   final String field0;
@@ -11192,7 +11929,7 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_MiniscriptPsbt &&
+            other is _$Error_MiniscriptPsbtImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -11202,8 +11939,10 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_MiniscriptPsbtCopyWith<_$Error_MiniscriptPsbt> get copyWith =>
-      __$$Error_MiniscriptPsbtCopyWithImpl<_$Error_MiniscriptPsbt>(this, _$identity);
+  _$$Error_MiniscriptPsbtImplCopyWith<_$Error_MiniscriptPsbtImpl>
+      get copyWith =>
+          __$$Error_MiniscriptPsbtImplCopyWithImpl<_$Error_MiniscriptPsbtImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11355,25 +12094,34 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -11387,7 +12135,8 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -11402,7 +12151,8 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11412,15 +12162,18 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11449,7 +12202,8 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11459,15 +12213,18 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11497,32 +12254,38 @@ class _$Error_MiniscriptPsbt implements Error_MiniscriptPsbt {
 }
 
 abstract class Error_MiniscriptPsbt implements Error {
-  const factory Error_MiniscriptPsbt(final String field0) = _$Error_MiniscriptPsbt;
+  const factory Error_MiniscriptPsbt(final String field0) =
+      _$Error_MiniscriptPsbtImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_MiniscriptPsbtCopyWith<_$Error_MiniscriptPsbt> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_MiniscriptPsbtImplCopyWith<_$Error_MiniscriptPsbtImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_Bip32CopyWith<$Res> {
-  factory _$$Error_Bip32CopyWith(_$Error_Bip32 value, $Res Function(_$Error_Bip32) then) =
-      __$$Error_Bip32CopyWithImpl<$Res>;
+abstract class _$$Error_Bip32ImplCopyWith<$Res> {
+  factory _$$Error_Bip32ImplCopyWith(
+          _$Error_Bip32Impl value, $Res Function(_$Error_Bip32Impl) then) =
+      __$$Error_Bip32ImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_Bip32CopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Bip32>
-    implements _$$Error_Bip32CopyWith<$Res> {
-  __$$Error_Bip32CopyWithImpl(_$Error_Bip32 _value, $Res Function(_$Error_Bip32) _then) : super(_value, _then);
+class __$$Error_Bip32ImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_Bip32Impl>
+    implements _$$Error_Bip32ImplCopyWith<$Res> {
+  __$$Error_Bip32ImplCopyWithImpl(
+      _$Error_Bip32Impl _value, $Res Function(_$Error_Bip32Impl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Bip32(
+    return _then(_$Error_Bip32Impl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -11533,8 +12296,8 @@ class __$$Error_Bip32CopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Erro
 
 /// @nodoc
 
-class _$Error_Bip32 implements Error_Bip32 {
-  const _$Error_Bip32(this.field0);
+class _$Error_Bip32Impl implements Error_Bip32 {
+  const _$Error_Bip32Impl(this.field0);
 
   @override
   final String field0;
@@ -11548,7 +12311,7 @@ class _$Error_Bip32 implements Error_Bip32 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Bip32 &&
+            other is _$Error_Bip32Impl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -11558,7 +12321,8 @@ class _$Error_Bip32 implements Error_Bip32 {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_Bip32CopyWith<_$Error_Bip32> get copyWith => __$$Error_Bip32CopyWithImpl<_$Error_Bip32>(this, _$identity);
+  _$$Error_Bip32ImplCopyWith<_$Error_Bip32Impl> get copyWith =>
+      __$$Error_Bip32ImplCopyWithImpl<_$Error_Bip32Impl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11710,25 +12474,34 @@ class _$Error_Bip32 implements Error_Bip32 {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -11742,7 +12515,8 @@ class _$Error_Bip32 implements Error_Bip32 {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -11757,7 +12531,8 @@ class _$Error_Bip32 implements Error_Bip32 {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11767,15 +12542,18 @@ class _$Error_Bip32 implements Error_Bip32 {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11804,7 +12582,8 @@ class _$Error_Bip32 implements Error_Bip32 {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -11814,15 +12593,18 @@ class _$Error_Bip32 implements Error_Bip32 {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -11852,25 +12634,29 @@ class _$Error_Bip32 implements Error_Bip32 {
 }
 
 abstract class Error_Bip32 implements Error {
-  const factory Error_Bip32(final String field0) = _$Error_Bip32;
+  const factory Error_Bip32(final String field0) = _$Error_Bip32Impl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_Bip32CopyWith<_$Error_Bip32> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_Bip32ImplCopyWith<_$Error_Bip32Impl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_Secp256k1CopyWith<$Res> {
-  factory _$$Error_Secp256k1CopyWith(_$Error_Secp256k1 value, $Res Function(_$Error_Secp256k1) then) =
-      __$$Error_Secp256k1CopyWithImpl<$Res>;
+abstract class _$$Error_Secp256k1ImplCopyWith<$Res> {
+  factory _$$Error_Secp256k1ImplCopyWith(_$Error_Secp256k1Impl value,
+          $Res Function(_$Error_Secp256k1Impl) then) =
+      __$$Error_Secp256k1ImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_Secp256k1CopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Secp256k1>
-    implements _$$Error_Secp256k1CopyWith<$Res> {
-  __$$Error_Secp256k1CopyWithImpl(_$Error_Secp256k1 _value, $Res Function(_$Error_Secp256k1) _then)
+class __$$Error_Secp256k1ImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_Secp256k1Impl>
+    implements _$$Error_Secp256k1ImplCopyWith<$Res> {
+  __$$Error_Secp256k1ImplCopyWithImpl(
+      _$Error_Secp256k1Impl _value, $Res Function(_$Error_Secp256k1Impl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11878,7 +12664,7 @@ class __$$Error_Secp256k1CopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Secp256k1(
+    return _then(_$Error_Secp256k1Impl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -11889,8 +12675,8 @@ class __$$Error_Secp256k1CopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
 
 /// @nodoc
 
-class _$Error_Secp256k1 implements Error_Secp256k1 {
-  const _$Error_Secp256k1(this.field0);
+class _$Error_Secp256k1Impl implements Error_Secp256k1 {
+  const _$Error_Secp256k1Impl(this.field0);
 
   @override
   final String field0;
@@ -11904,7 +12690,7 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Secp256k1 &&
+            other is _$Error_Secp256k1Impl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -11914,8 +12700,9 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_Secp256k1CopyWith<_$Error_Secp256k1> get copyWith =>
-      __$$Error_Secp256k1CopyWithImpl<_$Error_Secp256k1>(this, _$identity);
+  _$$Error_Secp256k1ImplCopyWith<_$Error_Secp256k1Impl> get copyWith =>
+      __$$Error_Secp256k1ImplCopyWithImpl<_$Error_Secp256k1Impl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -12067,25 +12854,34 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -12099,7 +12895,8 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -12114,7 +12911,8 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12124,15 +12922,18 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12161,7 +12962,8 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12171,15 +12973,18 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12209,32 +13014,37 @@ class _$Error_Secp256k1 implements Error_Secp256k1 {
 }
 
 abstract class Error_Secp256k1 implements Error {
-  const factory Error_Secp256k1(final String field0) = _$Error_Secp256k1;
+  const factory Error_Secp256k1(final String field0) = _$Error_Secp256k1Impl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_Secp256k1CopyWith<_$Error_Secp256k1> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_Secp256k1ImplCopyWith<_$Error_Secp256k1Impl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_JsonCopyWith<$Res> {
-  factory _$$Error_JsonCopyWith(_$Error_Json value, $Res Function(_$Error_Json) then) =
-      __$$Error_JsonCopyWithImpl<$Res>;
+abstract class _$$Error_JsonImplCopyWith<$Res> {
+  factory _$$Error_JsonImplCopyWith(
+          _$Error_JsonImpl value, $Res Function(_$Error_JsonImpl) then) =
+      __$$Error_JsonImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_JsonCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Json>
-    implements _$$Error_JsonCopyWith<$Res> {
-  __$$Error_JsonCopyWithImpl(_$Error_Json _value, $Res Function(_$Error_Json) _then) : super(_value, _then);
+class __$$Error_JsonImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_JsonImpl>
+    implements _$$Error_JsonImplCopyWith<$Res> {
+  __$$Error_JsonImplCopyWithImpl(
+      _$Error_JsonImpl _value, $Res Function(_$Error_JsonImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Json(
+    return _then(_$Error_JsonImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -12245,8 +13055,8 @@ class __$$Error_JsonCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error
 
 /// @nodoc
 
-class _$Error_Json implements Error_Json {
-  const _$Error_Json(this.field0);
+class _$Error_JsonImpl implements Error_Json {
+  const _$Error_JsonImpl(this.field0);
 
   @override
   final String field0;
@@ -12260,7 +13070,7 @@ class _$Error_Json implements Error_Json {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Json &&
+            other is _$Error_JsonImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -12270,7 +13080,8 @@ class _$Error_Json implements Error_Json {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_JsonCopyWith<_$Error_Json> get copyWith => __$$Error_JsonCopyWithImpl<_$Error_Json>(this, _$identity);
+  _$$Error_JsonImplCopyWith<_$Error_JsonImpl> get copyWith =>
+      __$$Error_JsonImplCopyWithImpl<_$Error_JsonImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -12422,25 +13233,34 @@ class _$Error_Json implements Error_Json {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -12454,7 +13274,8 @@ class _$Error_Json implements Error_Json {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -12469,7 +13290,8 @@ class _$Error_Json implements Error_Json {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12479,15 +13301,18 @@ class _$Error_Json implements Error_Json {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12516,7 +13341,8 @@ class _$Error_Json implements Error_Json {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12526,15 +13352,18 @@ class _$Error_Json implements Error_Json {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12564,31 +13393,37 @@ class _$Error_Json implements Error_Json {
 }
 
 abstract class Error_Json implements Error {
-  const factory Error_Json(final String field0) = _$Error_Json;
+  const factory Error_Json(final String field0) = _$Error_JsonImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_JsonCopyWith<_$Error_Json> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_JsonImplCopyWith<_$Error_JsonImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_HexCopyWith<$Res> {
-  factory _$$Error_HexCopyWith(_$Error_Hex value, $Res Function(_$Error_Hex) then) = __$$Error_HexCopyWithImpl<$Res>;
+abstract class _$$Error_HexImplCopyWith<$Res> {
+  factory _$$Error_HexImplCopyWith(
+          _$Error_HexImpl value, $Res Function(_$Error_HexImpl) then) =
+      __$$Error_HexImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_HexCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Hex>
-    implements _$$Error_HexCopyWith<$Res> {
-  __$$Error_HexCopyWithImpl(_$Error_Hex _value, $Res Function(_$Error_Hex) _then) : super(_value, _then);
+class __$$Error_HexImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_HexImpl>
+    implements _$$Error_HexImplCopyWith<$Res> {
+  __$$Error_HexImplCopyWithImpl(
+      _$Error_HexImpl _value, $Res Function(_$Error_HexImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Hex(
+    return _then(_$Error_HexImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -12599,8 +13434,8 @@ class __$$Error_HexCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_
 
 /// @nodoc
 
-class _$Error_Hex implements Error_Hex {
-  const _$Error_Hex(this.field0);
+class _$Error_HexImpl implements Error_Hex {
+  const _$Error_HexImpl(this.field0);
 
   @override
   final String field0;
@@ -12614,7 +13449,7 @@ class _$Error_Hex implements Error_Hex {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Hex &&
+            other is _$Error_HexImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -12624,7 +13459,8 @@ class _$Error_Hex implements Error_Hex {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_HexCopyWith<_$Error_Hex> get copyWith => __$$Error_HexCopyWithImpl<_$Error_Hex>(this, _$identity);
+  _$$Error_HexImplCopyWith<_$Error_HexImpl> get copyWith =>
+      __$$Error_HexImplCopyWithImpl<_$Error_HexImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -12776,25 +13612,34 @@ class _$Error_Hex implements Error_Hex {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -12808,7 +13653,8 @@ class _$Error_Hex implements Error_Hex {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -12823,7 +13669,8 @@ class _$Error_Hex implements Error_Hex {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12833,15 +13680,18 @@ class _$Error_Hex implements Error_Hex {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12870,7 +13720,8 @@ class _$Error_Hex implements Error_Hex {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -12880,15 +13731,18 @@ class _$Error_Hex implements Error_Hex {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -12918,32 +13772,37 @@ class _$Error_Hex implements Error_Hex {
 }
 
 abstract class Error_Hex implements Error {
-  const factory Error_Hex(final String field0) = _$Error_Hex;
+  const factory Error_Hex(final String field0) = _$Error_HexImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_HexCopyWith<_$Error_Hex> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_HexImplCopyWith<_$Error_HexImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_PsbtCopyWith<$Res> {
-  factory _$$Error_PsbtCopyWith(_$Error_Psbt value, $Res Function(_$Error_Psbt) then) =
-      __$$Error_PsbtCopyWithImpl<$Res>;
+abstract class _$$Error_PsbtImplCopyWith<$Res> {
+  factory _$$Error_PsbtImplCopyWith(
+          _$Error_PsbtImpl value, $Res Function(_$Error_PsbtImpl) then) =
+      __$$Error_PsbtImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_PsbtCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Psbt>
-    implements _$$Error_PsbtCopyWith<$Res> {
-  __$$Error_PsbtCopyWithImpl(_$Error_Psbt _value, $Res Function(_$Error_Psbt) _then) : super(_value, _then);
+class __$$Error_PsbtImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_PsbtImpl>
+    implements _$$Error_PsbtImplCopyWith<$Res> {
+  __$$Error_PsbtImplCopyWithImpl(
+      _$Error_PsbtImpl _value, $Res Function(_$Error_PsbtImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Psbt(
+    return _then(_$Error_PsbtImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -12954,8 +13813,8 @@ class __$$Error_PsbtCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error
 
 /// @nodoc
 
-class _$Error_Psbt implements Error_Psbt {
-  const _$Error_Psbt(this.field0);
+class _$Error_PsbtImpl implements Error_Psbt {
+  const _$Error_PsbtImpl(this.field0);
 
   @override
   final String field0;
@@ -12969,7 +13828,7 @@ class _$Error_Psbt implements Error_Psbt {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Psbt &&
+            other is _$Error_PsbtImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -12979,7 +13838,8 @@ class _$Error_Psbt implements Error_Psbt {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_PsbtCopyWith<_$Error_Psbt> get copyWith => __$$Error_PsbtCopyWithImpl<_$Error_Psbt>(this, _$identity);
+  _$$Error_PsbtImplCopyWith<_$Error_PsbtImpl> get copyWith =>
+      __$$Error_PsbtImplCopyWithImpl<_$Error_PsbtImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -13131,25 +13991,34 @@ class _$Error_Psbt implements Error_Psbt {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -13163,7 +14032,8 @@ class _$Error_Psbt implements Error_Psbt {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -13178,7 +14048,8 @@ class _$Error_Psbt implements Error_Psbt {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13188,15 +14059,18 @@ class _$Error_Psbt implements Error_Psbt {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13225,7 +14099,8 @@ class _$Error_Psbt implements Error_Psbt {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13235,15 +14110,18 @@ class _$Error_Psbt implements Error_Psbt {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13273,25 +14151,29 @@ class _$Error_Psbt implements Error_Psbt {
 }
 
 abstract class Error_Psbt implements Error {
-  const factory Error_Psbt(final String field0) = _$Error_Psbt;
+  const factory Error_Psbt(final String field0) = _$Error_PsbtImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_PsbtCopyWith<_$Error_Psbt> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_PsbtImplCopyWith<_$Error_PsbtImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_PsbtParseCopyWith<$Res> {
-  factory _$$Error_PsbtParseCopyWith(_$Error_PsbtParse value, $Res Function(_$Error_PsbtParse) then) =
-      __$$Error_PsbtParseCopyWithImpl<$Res>;
+abstract class _$$Error_PsbtParseImplCopyWith<$Res> {
+  factory _$$Error_PsbtParseImplCopyWith(_$Error_PsbtParseImpl value,
+          $Res Function(_$Error_PsbtParseImpl) then) =
+      __$$Error_PsbtParseImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_PsbtParseCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_PsbtParse>
-    implements _$$Error_PsbtParseCopyWith<$Res> {
-  __$$Error_PsbtParseCopyWithImpl(_$Error_PsbtParse _value, $Res Function(_$Error_PsbtParse) _then)
+class __$$Error_PsbtParseImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_PsbtParseImpl>
+    implements _$$Error_PsbtParseImplCopyWith<$Res> {
+  __$$Error_PsbtParseImplCopyWithImpl(
+      _$Error_PsbtParseImpl _value, $Res Function(_$Error_PsbtParseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -13299,7 +14181,7 @@ class __$$Error_PsbtParseCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_PsbtParse(
+    return _then(_$Error_PsbtParseImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -13310,8 +14192,8 @@ class __$$Error_PsbtParseCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$
 
 /// @nodoc
 
-class _$Error_PsbtParse implements Error_PsbtParse {
-  const _$Error_PsbtParse(this.field0);
+class _$Error_PsbtParseImpl implements Error_PsbtParse {
+  const _$Error_PsbtParseImpl(this.field0);
 
   @override
   final String field0;
@@ -13325,7 +14207,7 @@ class _$Error_PsbtParse implements Error_PsbtParse {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_PsbtParse &&
+            other is _$Error_PsbtParseImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -13335,8 +14217,9 @@ class _$Error_PsbtParse implements Error_PsbtParse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_PsbtParseCopyWith<_$Error_PsbtParse> get copyWith =>
-      __$$Error_PsbtParseCopyWithImpl<_$Error_PsbtParse>(this, _$identity);
+  _$$Error_PsbtParseImplCopyWith<_$Error_PsbtParseImpl> get copyWith =>
+      __$$Error_PsbtParseImplCopyWithImpl<_$Error_PsbtParseImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -13488,25 +14371,34 @@ class _$Error_PsbtParse implements Error_PsbtParse {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -13520,7 +14412,8 @@ class _$Error_PsbtParse implements Error_PsbtParse {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -13535,7 +14428,8 @@ class _$Error_PsbtParse implements Error_PsbtParse {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13545,15 +14439,18 @@ class _$Error_PsbtParse implements Error_PsbtParse {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13582,7 +14479,8 @@ class _$Error_PsbtParse implements Error_PsbtParse {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13592,15 +14490,18 @@ class _$Error_PsbtParse implements Error_PsbtParse {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13630,27 +14531,31 @@ class _$Error_PsbtParse implements Error_PsbtParse {
 }
 
 abstract class Error_PsbtParse implements Error {
-  const factory Error_PsbtParse(final String field0) = _$Error_PsbtParse;
+  const factory Error_PsbtParse(final String field0) = _$Error_PsbtParseImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_PsbtParseCopyWith<_$Error_PsbtParse> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_PsbtParseImplCopyWith<_$Error_PsbtParseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_MissingCachedScriptsCopyWith<$Res> {
-  factory _$$Error_MissingCachedScriptsCopyWith(
-          _$Error_MissingCachedScripts value, $Res Function(_$Error_MissingCachedScripts) then) =
-      __$$Error_MissingCachedScriptsCopyWithImpl<$Res>;
+abstract class _$$Error_MissingCachedScriptsImplCopyWith<$Res> {
+  factory _$$Error_MissingCachedScriptsImplCopyWith(
+          _$Error_MissingCachedScriptsImpl value,
+          $Res Function(_$Error_MissingCachedScriptsImpl) then) =
+      __$$Error_MissingCachedScriptsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int field0, int field1});
 }
 
 /// @nodoc
-class __$$Error_MissingCachedScriptsCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_MissingCachedScripts>
-    implements _$$Error_MissingCachedScriptsCopyWith<$Res> {
-  __$$Error_MissingCachedScriptsCopyWithImpl(
-      _$Error_MissingCachedScripts _value, $Res Function(_$Error_MissingCachedScripts) _then)
+class __$$Error_MissingCachedScriptsImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_MissingCachedScriptsImpl>
+    implements _$$Error_MissingCachedScriptsImplCopyWith<$Res> {
+  __$$Error_MissingCachedScriptsImplCopyWithImpl(
+      _$Error_MissingCachedScriptsImpl _value,
+      $Res Function(_$Error_MissingCachedScriptsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -13659,7 +14564,7 @@ class __$$Error_MissingCachedScriptsCopyWithImpl<$Res> extends _$ErrorCopyWithIm
     Object? field0 = null,
     Object? field1 = null,
   }) {
-    return _then(_$Error_MissingCachedScripts(
+    return _then(_$Error_MissingCachedScriptsImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -13674,8 +14579,8 @@ class __$$Error_MissingCachedScriptsCopyWithImpl<$Res> extends _$ErrorCopyWithIm
 
 /// @nodoc
 
-class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
-  const _$Error_MissingCachedScripts(this.field0, this.field1);
+class _$Error_MissingCachedScriptsImpl implements Error_MissingCachedScripts {
+  const _$Error_MissingCachedScriptsImpl(this.field0, this.field1);
 
   @override
   final int field0;
@@ -13691,7 +14596,7 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_MissingCachedScripts &&
+            other is _$Error_MissingCachedScriptsImpl &&
             (identical(other.field0, field0) || other.field0 == field0) &&
             (identical(other.field1, field1) || other.field1 == field1));
   }
@@ -13702,8 +14607,9 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_MissingCachedScriptsCopyWith<_$Error_MissingCachedScripts> get copyWith =>
-      __$$Error_MissingCachedScriptsCopyWithImpl<_$Error_MissingCachedScripts>(this, _$identity);
+  _$$Error_MissingCachedScriptsImplCopyWith<_$Error_MissingCachedScriptsImpl>
+      get copyWith => __$$Error_MissingCachedScriptsImplCopyWithImpl<
+          _$Error_MissingCachedScriptsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -13855,25 +14761,34 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -13887,7 +14802,8 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -13902,7 +14818,8 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13912,15 +14829,18 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13949,7 +14869,8 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -13959,15 +14880,18 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -13997,34 +14921,39 @@ class _$Error_MissingCachedScripts implements Error_MissingCachedScripts {
 }
 
 abstract class Error_MissingCachedScripts implements Error {
-  const factory Error_MissingCachedScripts(final int field0, final int field1) = _$Error_MissingCachedScripts;
+  const factory Error_MissingCachedScripts(final int field0, final int field1) =
+      _$Error_MissingCachedScriptsImpl;
 
   int get field0;
   int get field1;
   @JsonKey(ignore: true)
-  _$$Error_MissingCachedScriptsCopyWith<_$Error_MissingCachedScripts> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Error_MissingCachedScriptsImplCopyWith<_$Error_MissingCachedScriptsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_ElectrumCopyWith<$Res> {
-  factory _$$Error_ElectrumCopyWith(_$Error_Electrum value, $Res Function(_$Error_Electrum) then) =
-      __$$Error_ElectrumCopyWithImpl<$Res>;
+abstract class _$$Error_ElectrumImplCopyWith<$Res> {
+  factory _$$Error_ElectrumImplCopyWith(_$Error_ElectrumImpl value,
+          $Res Function(_$Error_ElectrumImpl) then) =
+      __$$Error_ElectrumImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_ElectrumCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Electrum>
-    implements _$$Error_ElectrumCopyWith<$Res> {
-  __$$Error_ElectrumCopyWithImpl(_$Error_Electrum _value, $Res Function(_$Error_Electrum) _then) : super(_value, _then);
+class __$$Error_ElectrumImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_ElectrumImpl>
+    implements _$$Error_ElectrumImplCopyWith<$Res> {
+  __$$Error_ElectrumImplCopyWithImpl(
+      _$Error_ElectrumImpl _value, $Res Function(_$Error_ElectrumImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Electrum(
+    return _then(_$Error_ElectrumImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -14035,8 +14964,8 @@ class __$$Error_ElectrumCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$E
 
 /// @nodoc
 
-class _$Error_Electrum implements Error_Electrum {
-  const _$Error_Electrum(this.field0);
+class _$Error_ElectrumImpl implements Error_Electrum {
+  const _$Error_ElectrumImpl(this.field0);
 
   @override
   final String field0;
@@ -14050,7 +14979,7 @@ class _$Error_Electrum implements Error_Electrum {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Electrum &&
+            other is _$Error_ElectrumImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -14060,8 +14989,9 @@ class _$Error_Electrum implements Error_Electrum {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_ElectrumCopyWith<_$Error_Electrum> get copyWith =>
-      __$$Error_ElectrumCopyWithImpl<_$Error_Electrum>(this, _$identity);
+  _$$Error_ElectrumImplCopyWith<_$Error_ElectrumImpl> get copyWith =>
+      __$$Error_ElectrumImplCopyWithImpl<_$Error_ElectrumImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -14213,25 +15143,34 @@ class _$Error_Electrum implements Error_Electrum {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -14245,7 +15184,8 @@ class _$Error_Electrum implements Error_Electrum {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -14260,7 +15200,8 @@ class _$Error_Electrum implements Error_Electrum {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -14270,15 +15211,18 @@ class _$Error_Electrum implements Error_Electrum {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -14307,7 +15251,8 @@ class _$Error_Electrum implements Error_Electrum {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -14317,15 +15262,18 @@ class _$Error_Electrum implements Error_Electrum {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -14355,32 +15303,37 @@ class _$Error_Electrum implements Error_Electrum {
 }
 
 abstract class Error_Electrum implements Error {
-  const factory Error_Electrum(final String field0) = _$Error_Electrum;
+  const factory Error_Electrum(final String field0) = _$Error_ElectrumImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_ElectrumCopyWith<_$Error_Electrum> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_ElectrumImplCopyWith<_$Error_ElectrumImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_EsploraCopyWith<$Res> {
-  factory _$$Error_EsploraCopyWith(_$Error_Esplora value, $Res Function(_$Error_Esplora) then) =
-      __$$Error_EsploraCopyWithImpl<$Res>;
+abstract class _$$Error_EsploraImplCopyWith<$Res> {
+  factory _$$Error_EsploraImplCopyWith(
+          _$Error_EsploraImpl value, $Res Function(_$Error_EsploraImpl) then) =
+      __$$Error_EsploraImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_EsploraCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Esplora>
-    implements _$$Error_EsploraCopyWith<$Res> {
-  __$$Error_EsploraCopyWithImpl(_$Error_Esplora _value, $Res Function(_$Error_Esplora) _then) : super(_value, _then);
+class __$$Error_EsploraImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_EsploraImpl>
+    implements _$$Error_EsploraImplCopyWith<$Res> {
+  __$$Error_EsploraImplCopyWithImpl(
+      _$Error_EsploraImpl _value, $Res Function(_$Error_EsploraImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Esplora(
+    return _then(_$Error_EsploraImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -14391,8 +15344,8 @@ class __$$Error_EsploraCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Er
 
 /// @nodoc
 
-class _$Error_Esplora implements Error_Esplora {
-  const _$Error_Esplora(this.field0);
+class _$Error_EsploraImpl implements Error_Esplora {
+  const _$Error_EsploraImpl(this.field0);
 
   @override
   final String field0;
@@ -14406,7 +15359,7 @@ class _$Error_Esplora implements Error_Esplora {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Esplora &&
+            other is _$Error_EsploraImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -14416,8 +15369,8 @@ class _$Error_Esplora implements Error_Esplora {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_EsploraCopyWith<_$Error_Esplora> get copyWith =>
-      __$$Error_EsploraCopyWithImpl<_$Error_Esplora>(this, _$identity);
+  _$$Error_EsploraImplCopyWith<_$Error_EsploraImpl> get copyWith =>
+      __$$Error_EsploraImplCopyWithImpl<_$Error_EsploraImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -14569,25 +15522,34 @@ class _$Error_Esplora implements Error_Esplora {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -14601,7 +15563,8 @@ class _$Error_Esplora implements Error_Esplora {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -14616,7 +15579,8 @@ class _$Error_Esplora implements Error_Esplora {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -14626,15 +15590,18 @@ class _$Error_Esplora implements Error_Esplora {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -14663,7 +15630,8 @@ class _$Error_Esplora implements Error_Esplora {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -14673,15 +15641,18 @@ class _$Error_Esplora implements Error_Esplora {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -14711,32 +15682,37 @@ class _$Error_Esplora implements Error_Esplora {
 }
 
 abstract class Error_Esplora implements Error {
-  const factory Error_Esplora(final String field0) = _$Error_Esplora;
+  const factory Error_Esplora(final String field0) = _$Error_EsploraImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_EsploraCopyWith<_$Error_Esplora> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_EsploraImplCopyWith<_$Error_EsploraImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_SledCopyWith<$Res> {
-  factory _$$Error_SledCopyWith(_$Error_Sled value, $Res Function(_$Error_Sled) then) =
-      __$$Error_SledCopyWithImpl<$Res>;
+abstract class _$$Error_SledImplCopyWith<$Res> {
+  factory _$$Error_SledImplCopyWith(
+          _$Error_SledImpl value, $Res Function(_$Error_SledImpl) then) =
+      __$$Error_SledImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_SledCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Sled>
-    implements _$$Error_SledCopyWith<$Res> {
-  __$$Error_SledCopyWithImpl(_$Error_Sled _value, $Res Function(_$Error_Sled) _then) : super(_value, _then);
+class __$$Error_SledImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_SledImpl>
+    implements _$$Error_SledImplCopyWith<$Res> {
+  __$$Error_SledImplCopyWithImpl(
+      _$Error_SledImpl _value, $Res Function(_$Error_SledImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Sled(
+    return _then(_$Error_SledImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -14747,8 +15723,8 @@ class __$$Error_SledCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error
 
 /// @nodoc
 
-class _$Error_Sled implements Error_Sled {
-  const _$Error_Sled(this.field0);
+class _$Error_SledImpl implements Error_Sled {
+  const _$Error_SledImpl(this.field0);
 
   @override
   final String field0;
@@ -14762,7 +15738,7 @@ class _$Error_Sled implements Error_Sled {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Sled &&
+            other is _$Error_SledImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -14772,7 +15748,8 @@ class _$Error_Sled implements Error_Sled {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_SledCopyWith<_$Error_Sled> get copyWith => __$$Error_SledCopyWithImpl<_$Error_Sled>(this, _$identity);
+  _$$Error_SledImplCopyWith<_$Error_SledImpl> get copyWith =>
+      __$$Error_SledImplCopyWithImpl<_$Error_SledImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -14924,25 +15901,34 @@ class _$Error_Sled implements Error_Sled {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -14956,7 +15942,8 @@ class _$Error_Sled implements Error_Sled {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -14971,7 +15958,8 @@ class _$Error_Sled implements Error_Sled {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -14981,15 +15969,18 @@ class _$Error_Sled implements Error_Sled {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15018,7 +16009,8 @@ class _$Error_Sled implements Error_Sled {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -15028,15 +16020,18 @@ class _$Error_Sled implements Error_Sled {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15066,31 +16061,37 @@ class _$Error_Sled implements Error_Sled {
 }
 
 abstract class Error_Sled implements Error {
-  const factory Error_Sled(final String field0) = _$Error_Sled;
+  const factory Error_Sled(final String field0) = _$Error_SledImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_SledCopyWith<_$Error_Sled> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_SledImplCopyWith<_$Error_SledImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_RpcCopyWith<$Res> {
-  factory _$$Error_RpcCopyWith(_$Error_Rpc value, $Res Function(_$Error_Rpc) then) = __$$Error_RpcCopyWithImpl<$Res>;
+abstract class _$$Error_RpcImplCopyWith<$Res> {
+  factory _$$Error_RpcImplCopyWith(
+          _$Error_RpcImpl value, $Res Function(_$Error_RpcImpl) then) =
+      __$$Error_RpcImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_RpcCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Rpc>
-    implements _$$Error_RpcCopyWith<$Res> {
-  __$$Error_RpcCopyWithImpl(_$Error_Rpc _value, $Res Function(_$Error_Rpc) _then) : super(_value, _then);
+class __$$Error_RpcImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_RpcImpl>
+    implements _$$Error_RpcImplCopyWith<$Res> {
+  __$$Error_RpcImplCopyWithImpl(
+      _$Error_RpcImpl _value, $Res Function(_$Error_RpcImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Rpc(
+    return _then(_$Error_RpcImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -15101,8 +16102,8 @@ class __$$Error_RpcCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_
 
 /// @nodoc
 
-class _$Error_Rpc implements Error_Rpc {
-  const _$Error_Rpc(this.field0);
+class _$Error_RpcImpl implements Error_Rpc {
+  const _$Error_RpcImpl(this.field0);
 
   @override
   final String field0;
@@ -15116,7 +16117,7 @@ class _$Error_Rpc implements Error_Rpc {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Rpc &&
+            other is _$Error_RpcImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -15126,7 +16127,8 @@ class _$Error_Rpc implements Error_Rpc {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_RpcCopyWith<_$Error_Rpc> get copyWith => __$$Error_RpcCopyWithImpl<_$Error_Rpc>(this, _$identity);
+  _$$Error_RpcImplCopyWith<_$Error_RpcImpl> get copyWith =>
+      __$$Error_RpcImplCopyWithImpl<_$Error_RpcImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -15278,25 +16280,34 @@ class _$Error_Rpc implements Error_Rpc {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -15310,7 +16321,8 @@ class _$Error_Rpc implements Error_Rpc {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -15325,7 +16337,8 @@ class _$Error_Rpc implements Error_Rpc {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -15335,15 +16348,18 @@ class _$Error_Rpc implements Error_Rpc {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15372,7 +16388,8 @@ class _$Error_Rpc implements Error_Rpc {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -15382,15 +16399,18 @@ class _$Error_Rpc implements Error_Rpc {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15420,32 +16440,37 @@ class _$Error_Rpc implements Error_Rpc {
 }
 
 abstract class Error_Rpc implements Error {
-  const factory Error_Rpc(final String field0) = _$Error_Rpc;
+  const factory Error_Rpc(final String field0) = _$Error_RpcImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_RpcCopyWith<_$Error_Rpc> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_RpcImplCopyWith<_$Error_RpcImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Error_RusqliteCopyWith<$Res> {
-  factory _$$Error_RusqliteCopyWith(_$Error_Rusqlite value, $Res Function(_$Error_Rusqlite) then) =
-      __$$Error_RusqliteCopyWithImpl<$Res>;
+abstract class _$$Error_RusqliteImplCopyWith<$Res> {
+  factory _$$Error_RusqliteImplCopyWith(_$Error_RusqliteImpl value,
+          $Res Function(_$Error_RusqliteImpl) then) =
+      __$$Error_RusqliteImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$Error_RusqliteCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$Error_Rusqlite>
-    implements _$$Error_RusqliteCopyWith<$Res> {
-  __$$Error_RusqliteCopyWithImpl(_$Error_Rusqlite _value, $Res Function(_$Error_Rusqlite) _then) : super(_value, _then);
+class __$$Error_RusqliteImplCopyWithImpl<$Res>
+    extends _$ErrorCopyWithImpl<$Res, _$Error_RusqliteImpl>
+    implements _$$Error_RusqliteImplCopyWith<$Res> {
+  __$$Error_RusqliteImplCopyWithImpl(
+      _$Error_RusqliteImpl _value, $Res Function(_$Error_RusqliteImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$Error_Rusqlite(
+    return _then(_$Error_RusqliteImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -15456,8 +16481,8 @@ class __$$Error_RusqliteCopyWithImpl<$Res> extends _$ErrorCopyWithImpl<$Res, _$E
 
 /// @nodoc
 
-class _$Error_Rusqlite implements Error_Rusqlite {
-  const _$Error_Rusqlite(this.field0);
+class _$Error_RusqliteImpl implements Error_Rusqlite {
+  const _$Error_RusqliteImpl(this.field0);
 
   @override
   final String field0;
@@ -15471,7 +16496,7 @@ class _$Error_Rusqlite implements Error_Rusqlite {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error_Rusqlite &&
+            other is _$Error_RusqliteImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -15481,8 +16506,9 @@ class _$Error_Rusqlite implements Error_Rusqlite {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Error_RusqliteCopyWith<_$Error_Rusqlite> get copyWith =>
-      __$$Error_RusqliteCopyWithImpl<_$Error_Rusqlite>(this, _$identity);
+  _$$Error_RusqliteImplCopyWith<_$Error_RusqliteImpl> get copyWith =>
+      __$$Error_RusqliteImplCopyWithImpl<_$Error_RusqliteImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -15634,25 +16660,34 @@ class _$Error_Rusqlite implements Error_Rusqlite {
   TResult map<TResult extends Object?>({
     required TResult Function(Error_InvalidU32Bytes value) invalidU32Bytes,
     required TResult Function(Error_Generic value) generic,
-    required TResult Function(Error_ScriptDoesntHaveAddressForm value) scriptDoesntHaveAddressForm,
+    required TResult Function(Error_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
     required TResult Function(Error_NoRecipients value) noRecipients,
     required TResult Function(Error_NoUtxosSelected value) noUtxosSelected,
-    required TResult Function(Error_OutputBelowDustLimit value) outputBelowDustLimit,
+    required TResult Function(Error_OutputBelowDustLimit value)
+        outputBelowDustLimit,
     required TResult Function(Error_InsufficientFunds value) insufficientFunds,
-    required TResult Function(Error_BnBTotalTriesExceeded value) bnBTotalTriesExceeded,
+    required TResult Function(Error_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
     required TResult Function(Error_BnBNoExactMatch value) bnBNoExactMatch,
     required TResult Function(Error_UnknownUtxo value) unknownUtxo,
-    required TResult Function(Error_TransactionNotFound value) transactionNotFound,
-    required TResult Function(Error_TransactionConfirmed value) transactionConfirmed,
-    required TResult Function(Error_IrreplaceableTransaction value) irreplaceableTransaction,
+    required TResult Function(Error_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(Error_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(Error_IrreplaceableTransaction value)
+        irreplaceableTransaction,
     required TResult Function(Error_FeeRateTooLow value) feeRateTooLow,
     required TResult Function(Error_FeeTooLow value) feeTooLow,
-    required TResult Function(Error_FeeRateUnavailable value) feeRateUnavailable,
+    required TResult Function(Error_FeeRateUnavailable value)
+        feeRateUnavailable,
     required TResult Function(Error_MissingKeyOrigin value) missingKeyOrigin,
     required TResult Function(Error_Key value) key,
     required TResult Function(Error_ChecksumMismatch value) checksumMismatch,
-    required TResult Function(Error_SpendingPolicyRequired value) spendingPolicyRequired,
-    required TResult Function(Error_InvalidPolicyPathError value) invalidPolicyPathError,
+    required TResult Function(Error_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(Error_InvalidPolicyPathError value)
+        invalidPolicyPathError,
     required TResult Function(Error_Signer value) signer,
     required TResult Function(Error_InvalidNetwork value) invalidNetwork,
     required TResult Function(Error_InvalidOutpoint value) invalidOutpoint,
@@ -15666,7 +16701,8 @@ class _$Error_Rusqlite implements Error_Rusqlite {
     required TResult Function(Error_Hex value) hex,
     required TResult Function(Error_Psbt value) psbt,
     required TResult Function(Error_PsbtParse value) psbtParse,
-    required TResult Function(Error_MissingCachedScripts value) missingCachedScripts,
+    required TResult Function(Error_MissingCachedScripts value)
+        missingCachedScripts,
     required TResult Function(Error_Electrum value) electrum,
     required TResult Function(Error_Esplora value) esplora,
     required TResult Function(Error_Sled value) sled,
@@ -15681,7 +16717,8 @@ class _$Error_Rusqlite implements Error_Rusqlite {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult? Function(Error_Generic value)? generic,
-    TResult? Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult? Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult? Function(Error_NoRecipients value)? noRecipients,
     TResult? Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult? Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -15691,15 +16728,18 @@ class _$Error_Rusqlite implements Error_Rusqlite {
     TResult? Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult? Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult? Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult? Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult? Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult? Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult? Function(Error_FeeTooLow value)? feeTooLow,
     TResult? Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult? Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult? Function(Error_Key value)? key,
     TResult? Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult? Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult? Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult? Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult? Function(Error_Signer value)? signer,
     TResult? Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult? Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15728,7 +16768,8 @@ class _$Error_Rusqlite implements Error_Rusqlite {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error_InvalidU32Bytes value)? invalidU32Bytes,
     TResult Function(Error_Generic value)? generic,
-    TResult Function(Error_ScriptDoesntHaveAddressForm value)? scriptDoesntHaveAddressForm,
+    TResult Function(Error_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
     TResult Function(Error_NoRecipients value)? noRecipients,
     TResult Function(Error_NoUtxosSelected value)? noUtxosSelected,
     TResult Function(Error_OutputBelowDustLimit value)? outputBelowDustLimit,
@@ -15738,15 +16779,18 @@ class _$Error_Rusqlite implements Error_Rusqlite {
     TResult Function(Error_UnknownUtxo value)? unknownUtxo,
     TResult Function(Error_TransactionNotFound value)? transactionNotFound,
     TResult Function(Error_TransactionConfirmed value)? transactionConfirmed,
-    TResult Function(Error_IrreplaceableTransaction value)? irreplaceableTransaction,
+    TResult Function(Error_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
     TResult Function(Error_FeeRateTooLow value)? feeRateTooLow,
     TResult Function(Error_FeeTooLow value)? feeTooLow,
     TResult Function(Error_FeeRateUnavailable value)? feeRateUnavailable,
     TResult Function(Error_MissingKeyOrigin value)? missingKeyOrigin,
     TResult Function(Error_Key value)? key,
     TResult Function(Error_ChecksumMismatch value)? checksumMismatch,
-    TResult Function(Error_SpendingPolicyRequired value)? spendingPolicyRequired,
-    TResult Function(Error_InvalidPolicyPathError value)? invalidPolicyPathError,
+    TResult Function(Error_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(Error_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
     TResult Function(Error_Signer value)? signer,
     TResult Function(Error_InvalidNetwork value)? invalidNetwork,
     TResult Function(Error_InvalidOutpoint value)? invalidOutpoint,
@@ -15776,11 +16820,12 @@ class _$Error_Rusqlite implements Error_Rusqlite {
 }
 
 abstract class Error_Rusqlite implements Error {
-  const factory Error_Rusqlite(final String field0) = _$Error_Rusqlite;
+  const factory Error_Rusqlite(final String field0) = _$Error_RusqliteImpl;
 
   String get field0;
   @JsonKey(ignore: true)
-  _$$Error_RusqliteCopyWith<_$Error_Rusqlite> get copyWith => throw _privateConstructorUsedError;
+  _$$Error_RusqliteImplCopyWith<_$Error_RusqliteImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -15789,14 +16834,16 @@ mixin _$Payload {
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program)
+        witnessProgram,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)?
+        witnessProgram,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -15833,11 +16880,13 @@ mixin _$Payload {
 
 /// @nodoc
 abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) = _$PayloadCopyWithImpl<$Res, Payload>;
+  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
+      _$PayloadCopyWithImpl<$Res, Payload>;
 }
 
 /// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload> implements $PayloadCopyWith<$Res> {
+class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
+    implements $PayloadCopyWith<$Res> {
   _$PayloadCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -15847,17 +16896,20 @@ class _$PayloadCopyWithImpl<$Res, $Val extends Payload> implements $PayloadCopyW
 }
 
 /// @nodoc
-abstract class _$$Payload_PubkeyHashCopyWith<$Res> {
-  factory _$$Payload_PubkeyHashCopyWith(_$Payload_PubkeyHash value, $Res Function(_$Payload_PubkeyHash) then) =
-      __$$Payload_PubkeyHashCopyWithImpl<$Res>;
+abstract class _$$Payload_PubkeyHashImplCopyWith<$Res> {
+  factory _$$Payload_PubkeyHashImplCopyWith(_$Payload_PubkeyHashImpl value,
+          $Res Function(_$Payload_PubkeyHashImpl) then) =
+      __$$Payload_PubkeyHashImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Uint8List pubkeyHash});
 }
 
 /// @nodoc
-class __$$Payload_PubkeyHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHash>
-    implements _$$Payload_PubkeyHashCopyWith<$Res> {
-  __$$Payload_PubkeyHashCopyWithImpl(_$Payload_PubkeyHash _value, $Res Function(_$Payload_PubkeyHash) _then)
+class __$$Payload_PubkeyHashImplCopyWithImpl<$Res>
+    extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHashImpl>
+    implements _$$Payload_PubkeyHashImplCopyWith<$Res> {
+  __$$Payload_PubkeyHashImplCopyWithImpl(_$Payload_PubkeyHashImpl _value,
+      $Res Function(_$Payload_PubkeyHashImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -15865,7 +16917,7 @@ class __$$Payload_PubkeyHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Re
   $Res call({
     Object? pubkeyHash = null,
   }) {
-    return _then(_$Payload_PubkeyHash(
+    return _then(_$Payload_PubkeyHashImpl(
       pubkeyHash: null == pubkeyHash
           ? _value.pubkeyHash
           : pubkeyHash // ignore: cast_nullable_to_non_nullable
@@ -15876,8 +16928,8 @@ class __$$Payload_PubkeyHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Re
 
 /// @nodoc
 
-class _$Payload_PubkeyHash implements Payload_PubkeyHash {
-  const _$Payload_PubkeyHash({required this.pubkeyHash});
+class _$Payload_PubkeyHashImpl implements Payload_PubkeyHash {
+  const _$Payload_PubkeyHashImpl({required this.pubkeyHash});
 
   @override
   final Uint8List pubkeyHash;
@@ -15891,25 +16943,29 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Payload_PubkeyHash &&
-            const DeepCollectionEquality().equals(other.pubkeyHash, pubkeyHash));
+            other is _$Payload_PubkeyHashImpl &&
+            const DeepCollectionEquality()
+                .equals(other.pubkeyHash, pubkeyHash));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(pubkeyHash));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(pubkeyHash));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Payload_PubkeyHashCopyWith<_$Payload_PubkeyHash> get copyWith =>
-      __$$Payload_PubkeyHashCopyWithImpl<_$Payload_PubkeyHash>(this, _$identity);
+  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
+      __$$Payload_PubkeyHashImplCopyWithImpl<_$Payload_PubkeyHashImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program)
+        witnessProgram,
   }) {
     return pubkeyHash(this.pubkeyHash);
   }
@@ -15919,7 +16975,8 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)?
+        witnessProgram,
   }) {
     return pubkeyHash?.call(this.pubkeyHash);
   }
@@ -15974,25 +17031,30 @@ class _$Payload_PubkeyHash implements Payload_PubkeyHash {
 }
 
 abstract class Payload_PubkeyHash implements Payload {
-  const factory Payload_PubkeyHash({required final Uint8List pubkeyHash}) = _$Payload_PubkeyHash;
+  const factory Payload_PubkeyHash({required final Uint8List pubkeyHash}) =
+      _$Payload_PubkeyHashImpl;
 
   Uint8List get pubkeyHash;
   @JsonKey(ignore: true)
-  _$$Payload_PubkeyHashCopyWith<_$Payload_PubkeyHash> get copyWith => throw _privateConstructorUsedError;
+  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Payload_ScriptHashCopyWith<$Res> {
-  factory _$$Payload_ScriptHashCopyWith(_$Payload_ScriptHash value, $Res Function(_$Payload_ScriptHash) then) =
-      __$$Payload_ScriptHashCopyWithImpl<$Res>;
+abstract class _$$Payload_ScriptHashImplCopyWith<$Res> {
+  factory _$$Payload_ScriptHashImplCopyWith(_$Payload_ScriptHashImpl value,
+          $Res Function(_$Payload_ScriptHashImpl) then) =
+      __$$Payload_ScriptHashImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Uint8List scriptHash});
 }
 
 /// @nodoc
-class __$$Payload_ScriptHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHash>
-    implements _$$Payload_ScriptHashCopyWith<$Res> {
-  __$$Payload_ScriptHashCopyWithImpl(_$Payload_ScriptHash _value, $Res Function(_$Payload_ScriptHash) _then)
+class __$$Payload_ScriptHashImplCopyWithImpl<$Res>
+    extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHashImpl>
+    implements _$$Payload_ScriptHashImplCopyWith<$Res> {
+  __$$Payload_ScriptHashImplCopyWithImpl(_$Payload_ScriptHashImpl _value,
+      $Res Function(_$Payload_ScriptHashImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -16000,7 +17062,7 @@ class __$$Payload_ScriptHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Re
   $Res call({
     Object? scriptHash = null,
   }) {
-    return _then(_$Payload_ScriptHash(
+    return _then(_$Payload_ScriptHashImpl(
       scriptHash: null == scriptHash
           ? _value.scriptHash
           : scriptHash // ignore: cast_nullable_to_non_nullable
@@ -16011,8 +17073,8 @@ class __$$Payload_ScriptHashCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Re
 
 /// @nodoc
 
-class _$Payload_ScriptHash implements Payload_ScriptHash {
-  const _$Payload_ScriptHash({required this.scriptHash});
+class _$Payload_ScriptHashImpl implements Payload_ScriptHash {
+  const _$Payload_ScriptHashImpl({required this.scriptHash});
 
   @override
   final Uint8List scriptHash;
@@ -16026,25 +17088,29 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Payload_ScriptHash &&
-            const DeepCollectionEquality().equals(other.scriptHash, scriptHash));
+            other is _$Payload_ScriptHashImpl &&
+            const DeepCollectionEquality()
+                .equals(other.scriptHash, scriptHash));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(scriptHash));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(scriptHash));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Payload_ScriptHashCopyWith<_$Payload_ScriptHash> get copyWith =>
-      __$$Payload_ScriptHashCopyWithImpl<_$Payload_ScriptHash>(this, _$identity);
+  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
+      __$$Payload_ScriptHashImplCopyWithImpl<_$Payload_ScriptHashImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program)
+        witnessProgram,
   }) {
     return scriptHash(this.scriptHash);
   }
@@ -16054,7 +17120,8 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)?
+        witnessProgram,
   }) {
     return scriptHash?.call(this.scriptHash);
   }
@@ -16109,26 +17176,32 @@ class _$Payload_ScriptHash implements Payload_ScriptHash {
 }
 
 abstract class Payload_ScriptHash implements Payload {
-  const factory Payload_ScriptHash({required final Uint8List scriptHash}) = _$Payload_ScriptHash;
+  const factory Payload_ScriptHash({required final Uint8List scriptHash}) =
+      _$Payload_ScriptHashImpl;
 
   Uint8List get scriptHash;
   @JsonKey(ignore: true)
-  _$$Payload_ScriptHashCopyWith<_$Payload_ScriptHash> get copyWith => throw _privateConstructorUsedError;
+  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$Payload_WitnessProgramCopyWith<$Res> {
-  factory _$$Payload_WitnessProgramCopyWith(
-          _$Payload_WitnessProgram value, $Res Function(_$Payload_WitnessProgram) then) =
-      __$$Payload_WitnessProgramCopyWithImpl<$Res>;
+abstract class _$$Payload_WitnessProgramImplCopyWith<$Res> {
+  factory _$$Payload_WitnessProgramImplCopyWith(
+          _$Payload_WitnessProgramImpl value,
+          $Res Function(_$Payload_WitnessProgramImpl) then) =
+      __$$Payload_WitnessProgramImplCopyWithImpl<$Res>;
   @useResult
   $Res call({WitnessVersion version, Uint8List program});
 }
 
 /// @nodoc
-class __$$Payload_WitnessProgramCopyWithImpl<$Res> extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgram>
-    implements _$$Payload_WitnessProgramCopyWith<$Res> {
-  __$$Payload_WitnessProgramCopyWithImpl(_$Payload_WitnessProgram _value, $Res Function(_$Payload_WitnessProgram) _then)
+class __$$Payload_WitnessProgramImplCopyWithImpl<$Res>
+    extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgramImpl>
+    implements _$$Payload_WitnessProgramImplCopyWith<$Res> {
+  __$$Payload_WitnessProgramImplCopyWithImpl(
+      _$Payload_WitnessProgramImpl _value,
+      $Res Function(_$Payload_WitnessProgramImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -16137,7 +17210,7 @@ class __$$Payload_WitnessProgramCopyWithImpl<$Res> extends _$PayloadCopyWithImpl
     Object? version = null,
     Object? program = null,
   }) {
-    return _then(_$Payload_WitnessProgram(
+    return _then(_$Payload_WitnessProgramImpl(
       version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
@@ -16152,8 +17225,9 @@ class __$$Payload_WitnessProgramCopyWithImpl<$Res> extends _$PayloadCopyWithImpl
 
 /// @nodoc
 
-class _$Payload_WitnessProgram implements Payload_WitnessProgram {
-  const _$Payload_WitnessProgram({required this.version, required this.program});
+class _$Payload_WitnessProgramImpl implements Payload_WitnessProgram {
+  const _$Payload_WitnessProgramImpl(
+      {required this.version, required this.program});
 
   /// The witness program version.
   @override
@@ -16172,26 +17246,29 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Payload_WitnessProgram &&
+            other is _$Payload_WitnessProgramImpl &&
             (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality().equals(other.program, program));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version, const DeepCollectionEquality().hash(program));
+  int get hashCode => Object.hash(
+      runtimeType, version, const DeepCollectionEquality().hash(program));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Payload_WitnessProgramCopyWith<_$Payload_WitnessProgram> get copyWith =>
-      __$$Payload_WitnessProgramCopyWithImpl<_$Payload_WitnessProgram>(this, _$identity);
+  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
+      get copyWith => __$$Payload_WitnessProgramImplCopyWithImpl<
+          _$Payload_WitnessProgramImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Uint8List pubkeyHash) pubkeyHash,
     required TResult Function(Uint8List scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program) witnessProgram,
+    required TResult Function(WitnessVersion version, Uint8List program)
+        witnessProgram,
   }) {
     return witnessProgram(version, program);
   }
@@ -16201,7 +17278,8 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Uint8List pubkeyHash)? pubkeyHash,
     TResult? Function(Uint8List scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)? witnessProgram,
+    TResult? Function(WitnessVersion version, Uint8List program)?
+        witnessProgram,
   }) {
     return witnessProgram?.call(version, program);
   }
@@ -16256,8 +17334,9 @@ class _$Payload_WitnessProgram implements Payload_WitnessProgram {
 }
 
 abstract class Payload_WitnessProgram implements Payload {
-  const factory Payload_WitnessProgram({required final WitnessVersion version, required final Uint8List program}) =
-      _$Payload_WitnessProgram;
+  const factory Payload_WitnessProgram(
+      {required final WitnessVersion version,
+      required final Uint8List program}) = _$Payload_WitnessProgramImpl;
 
   /// The witness program version.
   WitnessVersion get version;
@@ -16265,7 +17344,8 @@ abstract class Payload_WitnessProgram implements Payload {
   /// The witness program.
   Uint8List get program;
   @JsonKey(ignore: true)
-  _$$Payload_WitnessProgramCopyWith<_$Payload_WitnessProgram> get copyWith => throw _privateConstructorUsedError;
+  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -16312,11 +17392,13 @@ mixin _$RbfValue {
 
 /// @nodoc
 abstract class $RbfValueCopyWith<$Res> {
-  factory $RbfValueCopyWith(RbfValue value, $Res Function(RbfValue) then) = _$RbfValueCopyWithImpl<$Res, RbfValue>;
+  factory $RbfValueCopyWith(RbfValue value, $Res Function(RbfValue) then) =
+      _$RbfValueCopyWithImpl<$Res, RbfValue>;
 }
 
 /// @nodoc
-class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue> implements $RbfValueCopyWith<$Res> {
+class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue>
+    implements $RbfValueCopyWith<$Res> {
   _$RbfValueCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -16326,22 +17408,25 @@ class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue> implements $RbfValueCo
 }
 
 /// @nodoc
-abstract class _$$RbfValue_RbfDefaultCopyWith<$Res> {
-  factory _$$RbfValue_RbfDefaultCopyWith(_$RbfValue_RbfDefault value, $Res Function(_$RbfValue_RbfDefault) then) =
-      __$$RbfValue_RbfDefaultCopyWithImpl<$Res>;
+abstract class _$$RbfValue_RbfDefaultImplCopyWith<$Res> {
+  factory _$$RbfValue_RbfDefaultImplCopyWith(_$RbfValue_RbfDefaultImpl value,
+          $Res Function(_$RbfValue_RbfDefaultImpl) then) =
+      __$$RbfValue_RbfDefaultImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RbfValue_RbfDefaultCopyWithImpl<$Res> extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_RbfDefault>
-    implements _$$RbfValue_RbfDefaultCopyWith<$Res> {
-  __$$RbfValue_RbfDefaultCopyWithImpl(_$RbfValue_RbfDefault _value, $Res Function(_$RbfValue_RbfDefault) _then)
+class __$$RbfValue_RbfDefaultImplCopyWithImpl<$Res>
+    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_RbfDefaultImpl>
+    implements _$$RbfValue_RbfDefaultImplCopyWith<$Res> {
+  __$$RbfValue_RbfDefaultImplCopyWithImpl(_$RbfValue_RbfDefaultImpl _value,
+      $Res Function(_$RbfValue_RbfDefaultImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RbfValue_RbfDefault implements RbfValue_RbfDefault {
-  const _$RbfValue_RbfDefault();
+class _$RbfValue_RbfDefaultImpl implements RbfValue_RbfDefault {
+  const _$RbfValue_RbfDefaultImpl();
 
   @override
   String toString() {
@@ -16350,7 +17435,9 @@ class _$RbfValue_RbfDefault implements RbfValue_RbfDefault {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$RbfValue_RbfDefault);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RbfValue_RbfDefaultImpl);
   }
 
   @override
@@ -16420,28 +17507,32 @@ class _$RbfValue_RbfDefault implements RbfValue_RbfDefault {
 }
 
 abstract class RbfValue_RbfDefault implements RbfValue {
-  const factory RbfValue_RbfDefault() = _$RbfValue_RbfDefault;
+  const factory RbfValue_RbfDefault() = _$RbfValue_RbfDefaultImpl;
 }
 
 /// @nodoc
-abstract class _$$RbfValue_ValueCopyWith<$Res> {
-  factory _$$RbfValue_ValueCopyWith(_$RbfValue_Value value, $Res Function(_$RbfValue_Value) then) =
-      __$$RbfValue_ValueCopyWithImpl<$Res>;
+abstract class _$$RbfValue_ValueImplCopyWith<$Res> {
+  factory _$$RbfValue_ValueImplCopyWith(_$RbfValue_ValueImpl value,
+          $Res Function(_$RbfValue_ValueImpl) then) =
+      __$$RbfValue_ValueImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int field0});
 }
 
 /// @nodoc
-class __$$RbfValue_ValueCopyWithImpl<$Res> extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_Value>
-    implements _$$RbfValue_ValueCopyWith<$Res> {
-  __$$RbfValue_ValueCopyWithImpl(_$RbfValue_Value _value, $Res Function(_$RbfValue_Value) _then) : super(_value, _then);
+class __$$RbfValue_ValueImplCopyWithImpl<$Res>
+    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_ValueImpl>
+    implements _$$RbfValue_ValueImplCopyWith<$Res> {
+  __$$RbfValue_ValueImplCopyWithImpl(
+      _$RbfValue_ValueImpl _value, $Res Function(_$RbfValue_ValueImpl) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? field0 = null,
   }) {
-    return _then(_$RbfValue_Value(
+    return _then(_$RbfValue_ValueImpl(
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
@@ -16452,8 +17543,8 @@ class __$$RbfValue_ValueCopyWithImpl<$Res> extends _$RbfValueCopyWithImpl<$Res, 
 
 /// @nodoc
 
-class _$RbfValue_Value implements RbfValue_Value {
-  const _$RbfValue_Value(this.field0);
+class _$RbfValue_ValueImpl implements RbfValue_Value {
+  const _$RbfValue_ValueImpl(this.field0);
 
   @override
   final int field0;
@@ -16467,7 +17558,7 @@ class _$RbfValue_Value implements RbfValue_Value {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RbfValue_Value &&
+            other is _$RbfValue_ValueImpl &&
             (identical(other.field0, field0) || other.field0 == field0));
   }
 
@@ -16477,8 +17568,9 @@ class _$RbfValue_Value implements RbfValue_Value {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RbfValue_ValueCopyWith<_$RbfValue_Value> get copyWith =>
-      __$$RbfValue_ValueCopyWithImpl<_$RbfValue_Value>(this, _$identity);
+  _$$RbfValue_ValueImplCopyWith<_$RbfValue_ValueImpl> get copyWith =>
+      __$$RbfValue_ValueImplCopyWithImpl<_$RbfValue_ValueImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -16544,9 +17636,10 @@ class _$RbfValue_Value implements RbfValue_Value {
 }
 
 abstract class RbfValue_Value implements RbfValue {
-  const factory RbfValue_Value(final int field0) = _$RbfValue_Value;
+  const factory RbfValue_Value(final int field0) = _$RbfValue_ValueImpl;
 
   int get field0;
   @JsonKey(ignore: true)
-  _$$RbfValue_ValueCopyWith<_$RbfValue_Value> get copyWith => throw _privateConstructorUsedError;
+  _$$RbfValue_ValueImplCopyWith<_$RbfValue_ValueImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

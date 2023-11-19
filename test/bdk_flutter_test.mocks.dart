@@ -228,6 +228,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i2.AddressInfo>);
+
   @override
   _i4.Future<_i2.AddressInfo> getInternalAddress(
           {required _i2.AddressIndex? addressIndex}) =>
@@ -255,6 +256,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i2.AddressInfo>);
+
   @override
   _i4.Future<_i2.Balance> getBalance() => (super.noSuchMethod(
         Invocation.method(
@@ -276,6 +278,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i2.Balance>);
+
   @override
   _i4.Future<bool> isMine(_i2.Script? script) => (super.noSuchMethod(
         Invocation.method(
@@ -285,6 +288,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
   @override
   _i4.Future<_i2.Network> network() => (super.noSuchMethod(
         Invocation.method(
@@ -295,6 +299,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValueForMissingStub:
             _i4.Future<_i2.Network>.value(_i2.Network.Testnet),
       ) as _i4.Future<_i2.Network>);
+
   @override
   _i4.Future<List<_i2.LocalUtxo>> listUnspent() => (super.noSuchMethod(
         Invocation.method(
@@ -305,6 +310,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValueForMissingStub:
             _i4.Future<List<_i2.LocalUtxo>>.value(<_i2.LocalUtxo>[]),
       ) as _i4.Future<List<_i2.LocalUtxo>>);
+
   @override
   _i4.Future<dynamic> sync(_i3.Blockchain? blockchain) => (super.noSuchMethod(
         Invocation.method(
@@ -314,6 +320,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValue: _i4.Future<dynamic>.value(),
         returnValueForMissingStub: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
+
   @override
   _i4.Future<List<_i2.TransactionDetails>> listTransactions(bool? includeRaw) =>
       (super.noSuchMethod(
@@ -327,6 +334,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             _i4.Future<List<_i2.TransactionDetails>>.value(
                 <_i2.TransactionDetails>[]),
       ) as _i4.Future<List<_i2.TransactionDetails>>);
+
   @override
   _i4.Future<_i3.PartiallySignedTransaction> sign({
     required _i3.PartiallySignedTransaction? psbt,
@@ -367,6 +375,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i3.PartiallySignedTransaction>);
+
   @override
   _i4.Future<_i3.Input> getPsbtInput({
     required _i2.LocalUtxo? utxo,
@@ -408,6 +417,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
           ),
         )),
       ) as _i4.Future<_i3.Input>);
+
   @override
   _i4.Future<_i3.Descriptor> getDescriptorForKeyChain(
           _i2.KeychainKind? keychainKind) =>
@@ -447,6 +457,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<List<int>>.value(<int>[]),
         returnValueForMissingStub: _i4.Future<List<int>>.value(<int>[]),
       ) as _i4.Future<List<int>>);
+
   @override
   _i4.Future<String> txid() => (super.noSuchMethod(
         Invocation.method(
@@ -456,6 +467,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+
   @override
   _i4.Future<int> weight() => (super.noSuchMethod(
         Invocation.method(
@@ -465,6 +477,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<int> size() => (super.noSuchMethod(
         Invocation.method(
@@ -474,6 +487,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<int> vsize() => (super.noSuchMethod(
         Invocation.method(
@@ -483,6 +497,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<bool> isCoinBase() => (super.noSuchMethod(
         Invocation.method(
@@ -492,6 +507,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
   @override
   _i4.Future<bool> isExplicitlyRbf() => (super.noSuchMethod(
         Invocation.method(
@@ -501,6 +517,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
   @override
   _i4.Future<bool> isLockTimeEnabled() => (super.noSuchMethod(
         Invocation.method(
@@ -510,6 +527,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
   @override
   _i4.Future<int> version() => (super.noSuchMethod(
         Invocation.method(
@@ -519,6 +537,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<int> lockTime() => (super.noSuchMethod(
         Invocation.method(
@@ -528,6 +547,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<List<_i2.TxIn>> input() => (super.noSuchMethod(
         Invocation.method(
@@ -538,6 +558,7 @@ class MockTransaction extends _i1.Mock implements _i3.Transaction {
         returnValueForMissingStub:
             _i4.Future<List<_i2.TxIn>>.value(<_i2.TxIn>[]),
       ) as _i4.Future<List<_i2.TxIn>>);
+
   @override
   _i4.Future<List<_i2.TxOut>> output() => (super.noSuchMethod(
         Invocation.method(
@@ -563,6 +584,7 @@ class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+
   @override
   _i4.Future<int> getHeight() => (super.noSuchMethod(
         Invocation.method(
@@ -572,6 +594,7 @@ class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
         returnValue: _i4.Future<int>.value(0),
         returnValueForMissingStub: _i4.Future<int>.value(0),
       ) as _i4.Future<int>);
+
   @override
   _i4.Future<_i3.FeeRate> estimateFee(int? target) => (super.noSuchMethod(
         Invocation.method(
@@ -593,6 +616,7 @@ class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
           ),
         )),
       ) as _i4.Future<_i3.FeeRate>);
+
   @override
   _i4.Future<void> broadcast(_i3.Transaction? tx) => (super.noSuchMethod(
         Invocation.method(
@@ -632,6 +656,7 @@ class MockDescriptorSecretKey extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.DescriptorPublicKey>);
+
   @override
   String asString() => (super.noSuchMethod(
         Invocation.method(
@@ -641,6 +666,7 @@ class MockDescriptorSecretKey extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+
   @override
   _i4.Future<_i3.DescriptorSecretKey> derive(
           _i3.DerivationPath? derivationPath) =>
@@ -666,6 +692,7 @@ class MockDescriptorSecretKey extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.DescriptorSecretKey>);
+
   @override
   _i4.Future<_i3.DescriptorSecretKey> extend(
           _i3.DerivationPath? derivationPath) =>
@@ -691,6 +718,7 @@ class MockDescriptorSecretKey extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.DescriptorSecretKey>);
+
   @override
   _i4.Future<List<int>> secretBytes() => (super.noSuchMethod(
         Invocation.method(
@@ -716,6 +744,7 @@ class MockDescriptorPublicKey extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+
   @override
   _i4.Future<_i3.DescriptorPublicKey> derive(
           _i3.DerivationPath? derivationPath) =>
@@ -741,6 +770,7 @@ class MockDescriptorPublicKey extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.DescriptorPublicKey>);
+
   @override
   _i4.Future<_i3.DescriptorPublicKey> extend(
           _i3.DerivationPath? derivationPath) =>
@@ -779,6 +809,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+
   @override
   _i4.Future<_i3.PartiallySignedTransaction> combine(
           _i3.PartiallySignedTransaction? other) =>
@@ -805,6 +836,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.PartiallySignedTransaction>);
+
   @override
   _i4.Future<_i3.Transaction> extractTx() => (super.noSuchMethod(
         Invocation.method(
@@ -827,6 +859,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i3.Transaction>);
+
   @override
   _i4.Future<int?> feeAmount() => (super.noSuchMethod(
         Invocation.method(
@@ -836,6 +869,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: _i4.Future<int?>.value(),
         returnValueForMissingStub: _i4.Future<int?>.value(),
       ) as _i4.Future<int?>);
+
   @override
   _i4.Future<_i3.FeeRate?> feeRate() => (super.noSuchMethod(
         Invocation.method(
@@ -845,6 +879,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: _i4.Future<_i3.FeeRate?>.value(),
         returnValueForMissingStub: _i4.Future<_i3.FeeRate?>.value(),
       ) as _i4.Future<_i3.FeeRate?>);
+
   @override
   _i4.Future<String> serialize() => (super.noSuchMethod(
         Invocation.method(
@@ -854,6 +889,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+
   @override
   _i4.Future<String> jsonSerialize() => (super.noSuchMethod(
         Invocation.method(
@@ -863,6 +899,7 @@ class MockPartiallySignedTransaction extends _i1.Mock
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+
   @override
   _i4.Future<String> txId() => (super.noSuchMethod(
         Invocation.method(
@@ -902,6 +939,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder addRecipient(
     _i2.Script? script,
@@ -936,6 +974,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder unSpendable(List<_i2.OutPoint>? outpoints) =>
       (super.noSuchMethod(
@@ -958,6 +997,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder addUtxo(_i2.OutPoint? outpoint) => (super.noSuchMethod(
         Invocation.method(
@@ -979,6 +1019,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder addUtxos(List<_i2.OutPoint>? outpoints) => (super.noSuchMethod(
         Invocation.method(
@@ -1000,6 +1041,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder addForeignUtxo(
     _i3.Input? psbtInput,
@@ -1038,6 +1080,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder doNotSpendChange() => (super.noSuchMethod(
         Invocation.method(
@@ -1059,6 +1102,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder drainWallet() => (super.noSuchMethod(
         Invocation.method(
@@ -1080,6 +1124,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder drainTo(_i2.Script? script) => (super.noSuchMethod(
         Invocation.method(
@@ -1101,6 +1146,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder enableRbfWithSequence(int? nSequence) => (super.noSuchMethod(
         Invocation.method(
@@ -1122,6 +1168,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
@@ -1143,6 +1190,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder feeAbsolute(int? feeAmount) => (super.noSuchMethod(
         Invocation.method(
@@ -1164,6 +1212,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder feeRate(double? satPerVbyte) => (super.noSuchMethod(
         Invocation.method(
@@ -1185,6 +1234,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder setRecipients(List<_i2.ScriptAmount>? recipients) =>
       (super.noSuchMethod(
@@ -1207,6 +1257,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder manuallySelectedOnly() => (super.noSuchMethod(
         Invocation.method(
@@ -1228,6 +1279,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder addUnSpendable(_i2.OutPoint? unSpendable) =>
       (super.noSuchMethod(
@@ -1250,6 +1302,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i3.TxBuilder onlySpendChange() => (super.noSuchMethod(
         Invocation.method(
@@ -1271,6 +1324,7 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           ),
         ),
       ) as _i3.TxBuilder);
+
   @override
   _i4.Future<_i3.TxBuilderResult> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
@@ -1307,12 +1361,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+
   @override
   double get feeRate => (super.noSuchMethod(
         Invocation.getter(#feeRate),
         returnValue: 0.0,
         returnValueForMissingStub: 0.0,
       ) as double);
+
   @override
   _i3.BumpFeeTxBuilder allowShrinking(String? address) => (super.noSuchMethod(
         Invocation.method(
@@ -1334,6 +1390,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           ),
         ),
       ) as _i3.BumpFeeTxBuilder);
+
   @override
   _i3.BumpFeeTxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
@@ -1355,6 +1412,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           ),
         ),
       ) as _i3.BumpFeeTxBuilder);
+
   @override
   _i3.BumpFeeTxBuilder enableRbfWithSequence(int? nSequence) =>
       (super.noSuchMethod(
@@ -1377,6 +1435,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
           ),
         ),
       ) as _i3.BumpFeeTxBuilder);
+
   @override
   _i4.Future<_i3.TxBuilderResult> finish(_i3.Wallet? wallet) =>
       (super.noSuchMethod(
@@ -1413,6 +1472,7 @@ class MockScript extends _i1.Mock implements _i3.Script {
         returnValue: _i5.Uint8List(0),
         returnValueForMissingStub: _i5.Uint8List(0),
       ) as _i5.Uint8List);
+
   @override
   _i5.Uint8List toBytes() => (super.noSuchMethod(
         Invocation.method(
@@ -1450,6 +1510,7 @@ class MockAddress extends _i1.Mock implements _i3.Address {
           ),
         )),
       ) as _i4.Future<_i2.Payload>);
+
   @override
   _i4.Future<_i2.Network> network() => (super.noSuchMethod(
         Invocation.method(
@@ -1460,6 +1521,7 @@ class MockAddress extends _i1.Mock implements _i3.Address {
         returnValueForMissingStub:
             _i4.Future<_i2.Network>.value(_i2.Network.Testnet),
       ) as _i4.Future<_i2.Network>);
+
   @override
   _i4.Future<_i2.Script> scriptPubKey() => (super.noSuchMethod(
         Invocation.method(
@@ -1519,6 +1581,7 @@ class MockLocalUtxo extends _i1.Mock implements _i2.LocalUtxo {
           Invocation.getter(#outpoint),
         ),
       ) as _i2.OutPoint);
+
   @override
   _i2.TxOut get txout => (super.noSuchMethod(
         Invocation.getter(#txout),
@@ -1531,12 +1594,14 @@ class MockLocalUtxo extends _i1.Mock implements _i2.LocalUtxo {
           Invocation.getter(#txout),
         ),
       ) as _i2.TxOut);
+
   @override
   bool get isSpent => (super.noSuchMethod(
         Invocation.getter(#isSpent),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+
   @override
   _i2.KeychainKind get keychain => (super.noSuchMethod(
         Invocation.getter(#keychain),
@@ -1561,6 +1626,7 @@ class MockTxBuilderResult extends _i1.Mock implements _i3.TxBuilderResult {
           Invocation.getter(#psbt),
         ),
       ) as _i3.PartiallySignedTransaction);
+
   @override
   _i2.TransactionDetails get txDetails => (super.noSuchMethod(
         Invocation.getter(#txDetails),
@@ -1586,12 +1652,14 @@ class MockTransactionDetails extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+
   @override
   int get received => (super.noSuchMethod(
         Invocation.getter(#received),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+
   @override
   int get sent => (super.noSuchMethod(
         Invocation.getter(#sent),

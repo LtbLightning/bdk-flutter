@@ -1,9 +1,18 @@
+import 'dart:io';
 import 'dart:typed_data' as typed_data;
 
 import 'package:flutter/foundation.dart';
 
 import 'generated/bridge_definitions.dart' as bridge;
 import 'utils/utils.dart';
+
+Future<void> setCurrentDirectory() async {
+  try {
+    await AppConfig.setBuildDirectory("${Directory.current.path}/build");
+  } catch (e) {
+    print(e.toString());
+  }
+}
 
 ///A Bitcoin address.
 class Address {
@@ -15,8 +24,7 @@ class Address {
   /// Throws a [GenericException] if the address is not valid
   static Future<Address> create({required String address}) async {
     try {
-      final res =
-          await loaderApi.createAddressStaticMethodApi(address: address);
+      final res = await bdkFfi.createAddressStaticMethodApi(address: address);
       return Address._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -28,7 +36,7 @@ class Address {
   static Future<Address> fromScript(
       bridge.Script script, bridge.Network network) async {
     try {
-      final res = await loaderApi.addressFromScriptStaticMethodApi(
+      final res = await bdkFfi.addressFromScriptStaticMethodApi(
           script: script, network: network);
       return Address._(res);
     } on bridge.Error catch (e) {
@@ -40,7 +48,7 @@ class Address {
   ///
   Future<bridge.Payload> payload() async {
     try {
-      final res = await loaderApi.payloadStaticMethodApi(address: _address!);
+      final res = await bdkFfi.payloadStaticMethodApi(address: _address!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -50,7 +58,7 @@ class Address {
   Future<bridge.Network> network() async {
     try {
       final res =
-          await loaderApi.addressNetworkStaticMethodApi(address: _address!);
+          await bdkFfi.addressNetworkStaticMethodApi(address: _address!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -60,7 +68,7 @@ class Address {
   /// Returns the script pub key of the [Address] object
   Future<bridge.Script> scriptPubKey() async {
     try {
-      final res = await loaderApi.addressToScriptPubkeyStaticMethodApi(
+      final res = await bdkFfi.addressToScriptPubkeyStaticMethodApi(
           address: _address.toString());
       return res;
     } on bridge.Error {
@@ -84,8 +92,7 @@ class Blockchain {
   static Future<Blockchain> create(
       {required bridge.BlockchainConfig config}) async {
     try {
-      final res =
-          await loaderApi.createBlockchainStaticMethodApi(config: config);
+      final res = await bdkFfi.createBlockchainStaticMethodApi(config: config);
       return Blockchain._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -95,7 +102,7 @@ class Blockchain {
   /// The function for getting block hash by block height
   Future<String> getBlockHash(int height) async {
     try {
-      var res = await loaderApi.getBlockchainHashStaticMethodApi(
+      var res = await bdkFfi.getBlockchainHashStaticMethodApi(
           blockchainHeight: height, blockchainId: _blockchain);
       return res;
     } on bridge.Error catch (e) {
@@ -107,7 +114,7 @@ class Blockchain {
   Future<int> getHeight() async {
     try {
       var res =
-          await loaderApi.getHeightStaticMethodApi(blockchainId: _blockchain);
+          await bdkFfi.getHeightStaticMethodApi(blockchainId: _blockchain);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -117,7 +124,7 @@ class Blockchain {
   /// Estimate the fee rate required to confirm a transaction in a given target of blocks
   Future<FeeRate> estimateFee(int target) async {
     try {
-      var res = await loaderApi.estimateFeeStaticMethodApi(
+      var res = await bdkFfi.estimateFeeStaticMethodApi(
           blockchainId: _blockchain, target: target);
       return FeeRate._(res);
     } on bridge.Error catch (e) {
@@ -128,7 +135,7 @@ class Blockchain {
   /// The function for broadcasting a transaction
   Future<void> broadcast(Transaction tx) async {
     try {
-      final txid = await loaderApi.broadcastStaticMethodApi(
+      final txid = await bdkFfi.broadcastStaticMethodApi(
           blockchainId: _blockchain, tx: tx._tx!);
       if (kDebugMode) {
         print(txid);
@@ -181,7 +188,7 @@ class BumpFeeTxBuilder {
   /// Finish building the transaction. Returns the  [TxBuilderResult].
   Future<TxBuilderResult> finish(Wallet wallet) async {
     try {
-      final res = await loaderApi.bumpFeeTxBuilderFinishStaticMethodApi(
+      final res = await bdkFfi.bumpFeeTxBuilderFinishStaticMethodApi(
           txid: txid.toString(),
           enableRbf: _enableRbf,
           feeRate: feeRate,
@@ -205,8 +212,7 @@ class DerivationPath {
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
-      final res =
-          await loaderApi.createDerivationPathStaticMethodApi(path: path);
+      final res = await bdkFfi.createDerivationPathStaticMethodApi(path: path);
       return DerivationPath._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -229,7 +235,7 @@ class Descriptor {
   static Future<Descriptor> create(
       {required String descriptor, required bridge.Network network}) async {
     try {
-      final res = await loaderApi.createDescriptorStaticMethodApi(
+      final res = await bdkFfi.createDescriptorStaticMethodApi(
           descriptor: descriptor, network: network);
       return Descriptor._(res, network);
     } on bridge.Error catch (e) {
@@ -239,7 +245,7 @@ class Descriptor {
 
   Future<int> maxSatisfactionWeight() async {
     try {
-      final res = await loaderApi.maxSatisfactionWeightStaticMethodApi(
+      final res = await bdkFfi.maxSatisfactionWeightStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on bridge.Error catch (e) {
@@ -255,7 +261,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip44DescriptorStaticMethodApi(
+      final res = await bdkFfi.newBip44DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
@@ -276,7 +282,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip44PublicStaticMethodApi(
+      final res = await bdkFfi.newBip44PublicStaticMethodApi(
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
@@ -295,7 +301,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip49DescriptorStaticMethodApi(
+      final res = await bdkFfi.newBip49DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
@@ -316,7 +322,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip49PublicStaticMethodApi(
+      final res = await bdkFfi.newBip49PublicStaticMethodApi(
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
@@ -335,7 +341,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip84DescriptorStaticMethodApi(
+      final res = await bdkFfi.newBip84DescriptorStaticMethodApi(
           secretKey: secretKey.asString(),
           network: network,
           keyChainKind: keychain);
@@ -356,7 +362,7 @@ class Descriptor {
       required bridge.Network network,
       required bridge.KeychainKind keychain}) async {
     try {
-      final res = await loaderApi.newBip84PublicStaticMethodApi(
+      final res = await bdkFfi.newBip84PublicStaticMethodApi(
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
@@ -370,7 +376,7 @@ class Descriptor {
   ///Return the private version of the output descriptor if available, otherwise return the public version.
   Future<String> asStringPrivate() async {
     try {
-      final res = await loaderApi.descriptorAsStringPrivateStaticMethodApi(
+      final res = await bdkFfi.descriptorAsStringPrivateStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on bridge.Error catch (e) {
@@ -381,7 +387,7 @@ class Descriptor {
   ///Return the public version of the output descriptor.
   Future<String> asString() async {
     try {
-      final res = await loaderApi.descriptorAsStringStaticMethodApi(
+      final res = await bdkFfi.descriptorAsStringStaticMethodApi(
           descriptor: _descriptorInstance, network: _network);
       return res;
     } on bridge.Error catch (e) {
@@ -404,7 +410,7 @@ class DescriptorPublicKey {
   ///Derive a public descriptor at a given path.
   Future<DescriptorPublicKey> derive(DerivationPath derivationPath) async {
     try {
-      final res = await loaderApi.createDescriptorPublicStaticMethodApi(
+      final res = await bdkFfi.createDescriptorPublicStaticMethodApi(
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: true);
@@ -417,7 +423,7 @@ class DescriptorPublicKey {
   ///Extend the public descriptor with a custom path.
   Future<DescriptorPublicKey> extend(DerivationPath derivationPath) async {
     try {
-      final res = await loaderApi.createDescriptorPublicStaticMethodApi(
+      final res = await bdkFfi.createDescriptorPublicStaticMethodApi(
           xpub: _descriptorPublicKey,
           path: derivationPath._path.toString(),
           derive: false);
@@ -430,7 +436,7 @@ class DescriptorPublicKey {
   /// [DescriptorPublicKey] constructor
   static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
-      final res = await loaderApi.descriptorPublicFromStringStaticMethodApi(
+      final res = await bdkFfi.descriptorPublicFromStringStaticMethodApi(
           publicKey: publicKey);
       return DescriptorPublicKey._(res);
     } on bridge.Error catch (e) {
@@ -453,7 +459,7 @@ class DescriptorSecretKey {
   /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
-      final xpub = await loaderApi.descriptorSecretAsPublicStaticMethodApi(
+      final xpub = await bdkFfi.descriptorSecretAsPublicStaticMethodApi(
           secret: _descriptorSecretKey);
       return DescriptorPublicKey._(xpub);
     } on bridge.Error catch (e) {
@@ -472,7 +478,7 @@ class DescriptorSecretKey {
       required Mnemonic mnemonic,
       String? password}) async {
     try {
-      final res = await loaderApi.createDescriptorSecretStaticMethodApi(
+      final res = await bdkFfi.createDescriptorSecretStaticMethodApi(
           network: network, mnemonic: mnemonic.asString(), password: password);
       return DescriptorSecretKey._(res);
     } on bridge.Error catch (e) {
@@ -483,7 +489,7 @@ class DescriptorSecretKey {
   /// Derived the `XPrv` using the derivation path
   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
     try {
-      final res = await loaderApi.deriveDescriptorSecretStaticMethodApi(
+      final res = await bdkFfi.deriveDescriptorSecretStaticMethodApi(
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
     } on bridge.Error catch (e) {
@@ -494,7 +500,7 @@ class DescriptorSecretKey {
   /// Extends the “XPrv” using the derivation path
   Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
     try {
-      final res = await loaderApi.extendDescriptorSecretStaticMethodApi(
+      final res = await bdkFfi.extendDescriptorSecretStaticMethodApi(
           secret: _descriptorSecretKey, path: derivationPath._path.toString());
       return DescriptorSecretKey._(res);
     } on bridge.Error catch (e) {
@@ -505,7 +511,7 @@ class DescriptorSecretKey {
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> fromString(String secretKey) async {
     try {
-      final res = await loaderApi.descriptorSecretFromStringStaticMethodApi(
+      final res = await bdkFfi.descriptorSecretFromStringStaticMethodApi(
           secret: secretKey);
       return DescriptorSecretKey._(res);
     } on bridge.Error catch (e) {
@@ -516,7 +522,7 @@ class DescriptorSecretKey {
   /// Get the private key as bytes.
   Future<List<int>> secretBytes() async {
     try {
-      final res = await loaderApi.descriptorSecretAsSecretBytesStaticMethodApi(
+      final res = await bdkFfi.descriptorSecretAsSecretBytesStaticMethodApi(
           secret: _descriptorSecretKey);
       return res;
     } on bridge.Error catch (e) {
@@ -565,7 +571,7 @@ class Mnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> create(bridge.WordCount wordCount) async {
     try {
-      final res = await loaderApi.generateSeedFromWordCountStaticMethodApi(
+      final res = await bdkFfi.generateSeedFromWordCountStaticMethodApi(
           wordCount: wordCount);
       return Mnemonic._(res);
     } on bridge.Error catch (e) {
@@ -584,8 +590,8 @@ class Mnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
     try {
-      final res = await loaderApi.generateSeedFromEntropyStaticMethodApi(
-          entropy: entropy);
+      final res =
+          await bdkFfi.generateSeedFromEntropyStaticMethodApi(entropy: entropy);
       return Mnemonic._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -597,7 +603,7 @@ class Mnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
-      final res = await loaderApi.generateSeedFromStringStaticMethodApi(
+      final res = await bdkFfi.generateSeedFromStringStaticMethodApi(
           mnemonic: mnemonic);
       return Mnemonic._(res);
     } on bridge.Error catch (e) {
@@ -623,7 +629,7 @@ class PartiallySignedTransaction {
   Future<PartiallySignedTransaction> combine(
       PartiallySignedTransaction other) async {
     try {
-      final res = await loaderApi.combinePsbtStaticMethodApi(
+      final res = await bdkFfi.combinePsbtStaticMethodApi(
           psbtStr: psbtBase64, other: other.psbtBase64);
       return PartiallySignedTransaction(psbtBase64: res);
     } on bridge.Error catch (e) {
@@ -634,7 +640,7 @@ class PartiallySignedTransaction {
   /// Return the transaction as bytes.
   Future<Transaction> extractTx() async {
     try {
-      final res = await loaderApi.extractTxStaticMethodApi(psbtStr: psbtBase64);
+      final res = await bdkFfi.extractTxStaticMethodApi(psbtStr: psbtBase64);
       return Transaction._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -645,7 +651,7 @@ class PartiallySignedTransaction {
   Future<int?> feeAmount() async {
     try {
       final res =
-          await loaderApi.psbtFeeAmountStaticMethodApi(psbtStr: psbtBase64);
+          await bdkFfi.psbtFeeAmountStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -655,8 +661,7 @@ class PartiallySignedTransaction {
   /// Return Fee Rate
   Future<FeeRate?> feeRate() async {
     try {
-      final res =
-          await loaderApi.psbtFeeRateStaticMethodApi(psbtStr: psbtBase64);
+      final res = await bdkFfi.psbtFeeRateStaticMethodApi(psbtStr: psbtBase64);
       if (res == null) return null;
       return FeeRate._(res);
     } on bridge.Error catch (e) {
@@ -668,7 +673,7 @@ class PartiallySignedTransaction {
   Future<String> serialize() async {
     try {
       final res =
-          await loaderApi.serializePsbtStaticMethodApi(psbtStr: psbtBase64);
+          await bdkFfi.serializePsbtStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -678,7 +683,7 @@ class PartiallySignedTransaction {
   Future<String> jsonSerialize() async {
     try {
       final res =
-          await loaderApi.jsonSerializeStaticMethodApi(psbtStr: psbtBase64);
+          await bdkFfi.jsonSerializeStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -693,7 +698,7 @@ class PartiallySignedTransaction {
   /// Returns the [PartiallySignedTransaction] transaction id
   Future<String> txId() async {
     try {
-      final res = await loaderApi.psbtTxidStaticMethodApi(psbtStr: psbtBase64);
+      final res = await bdkFfi.psbtTxidStaticMethodApi(psbtStr: psbtBase64);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -713,7 +718,7 @@ class Script extends bridge.Script {
   static Future<bridge.Script> create(
       typed_data.Uint8List rawOutputScript) async {
     try {
-      final res = await loaderApi.createScriptStaticMethodApi(
+      final res = await bdkFfi.createScriptStaticMethodApi(
           rawOutputScript: rawOutputScript);
       return res;
     } on bridge.Error catch (e) {
@@ -737,7 +742,7 @@ class Transaction {
   }) async {
     try {
       final tx = Uint8List.fromList(transactionBytes);
-      final res = await loaderApi.createTransactionStaticMethodApi(tx: tx);
+      final res = await bdkFfi.createTransactionStaticMethodApi(tx: tx);
       return Transaction._(res);
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -747,7 +752,7 @@ class Transaction {
   ///Return the transaction bytes, bitcoin consensus encoded.
   Future<List<int>> serialize() async {
     try {
-      final res = await loaderApi.serializeTxStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.serializeTxStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -756,7 +761,7 @@ class Transaction {
 
   Future<String> txid() async {
     try {
-      final res = await loaderApi.txTxidStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.txTxidStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -765,7 +770,7 @@ class Transaction {
 
   Future<int> weight() async {
     try {
-      final res = await loaderApi.weightStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.weightStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -774,7 +779,7 @@ class Transaction {
 
   Future<int> size() async {
     try {
-      final res = await loaderApi.sizeStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.sizeStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -783,7 +788,7 @@ class Transaction {
 
   Future<int> vsize() async {
     try {
-      final res = await loaderApi.vsizeStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.vsizeStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -792,7 +797,7 @@ class Transaction {
 
   Future<bool> isCoinBase() async {
     try {
-      final res = await loaderApi.isCoinBaseStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.isCoinBaseStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -801,7 +806,7 @@ class Transaction {
 
   Future<bool> isExplicitlyRbf() async {
     try {
-      final res = await loaderApi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.isExplicitlyRbfStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -810,7 +815,7 @@ class Transaction {
 
   Future<bool> isLockTimeEnabled() async {
     try {
-      final res = await loaderApi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.isLockTimeEnabledStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -819,7 +824,7 @@ class Transaction {
 
   Future<int> version() async {
     try {
-      final res = await loaderApi.versionStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.versionStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -828,7 +833,7 @@ class Transaction {
 
   Future<int> lockTime() async {
     try {
-      final res = await loaderApi.lockTimeStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.lockTimeStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -837,7 +842,7 @@ class Transaction {
 
   Future<List<bridge.TxIn>> input() async {
     try {
-      final res = await loaderApi.inputStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.inputStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -846,7 +851,7 @@ class Transaction {
 
   Future<List<bridge.TxOut>> output() async {
     try {
-      final res = await loaderApi.outputStaticMethodApi(tx: _tx!);
+      final res = await bdkFfi.outputStaticMethodApi(tx: _tx!);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -1043,7 +1048,7 @@ class TxBuilder {
       throw NoRecipientsException();
     }
     try {
-      final res = await loaderApi.txBuilderFinishStaticMethodApi(
+      final res = await bdkFfi.txBuilderFinishStaticMethodApi(
           walletId: wallet._wallet,
           recipients: _recipients,
           utxos: _utxos,
@@ -1100,7 +1105,7 @@ class Wallet {
     required bridge.DatabaseConfig databaseConfig,
   }) async {
     try {
-      final res = await loaderApi.createWalletStaticMethodApi(
+      final res = await bdkFfi.createWalletStaticMethodApi(
         descriptor: descriptor._descriptorInstance,
         changeDescriptor: changeDescriptor?._descriptorInstance,
         network: network,
@@ -1117,7 +1122,7 @@ class Wallet {
   Future<bridge.AddressInfo> getAddress(
       {required bridge.AddressIndex addressIndex}) async {
     try {
-      var res = await loaderApi.getAddressStaticMethodApi(
+      var res = await bdkFfi.getAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
       return res;
     } on bridge.Error catch (e) {
@@ -1135,7 +1140,7 @@ class Wallet {
   Future<bridge.AddressInfo> getInternalAddress(
       {required bridge.AddressIndex addressIndex}) async {
     try {
-      var res = await loaderApi.getInternalAddressStaticMethodApi(
+      var res = await bdkFfi.getInternalAddressStaticMethodApi(
           walletId: _wallet, addressIndex: addressIndex);
       return res;
     } on bridge.Error catch (e) {
@@ -1148,7 +1153,7 @@ class Wallet {
   ///Note that this method only operates on the internal database, which first needs to be Wallet().sync manually.
   Future<bridge.Balance> getBalance() async {
     try {
-      var res = await loaderApi.getBalanceStaticMethodApi(walletId: _wallet);
+      var res = await bdkFfi.getBalanceStaticMethodApi(walletId: _wallet);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -1158,8 +1163,8 @@ class Wallet {
   /// Return whether or not a script is part of this wallet (either internal or external).
   Future<bool> isMine(bridge.Script script) async {
     try {
-      var res = await loaderApi.isMineStaticMethodApi(
-          script: script, walletId: _wallet);
+      var res =
+          await bdkFfi.isMineStaticMethodApi(script: script, walletId: _wallet);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -1169,7 +1174,7 @@ class Wallet {
   ///Get the Bitcoin network the wallet is using.
   Future<bridge.Network> network() async {
     try {
-      var res = await loaderApi.walletNetworkStaticMethodApi(walletId: _wallet);
+      var res = await bdkFfi.walletNetworkStaticMethodApi(walletId: _wallet);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -1182,7 +1187,7 @@ class Wallet {
   Future<List<bridge.LocalUtxo>> listUnspent() async {
     try {
       var res =
-          await loaderApi.listUnspentOutputsStaticMethodApi(walletId: _wallet);
+          await bdkFfi.listUnspentOutputsStaticMethodApi(walletId: _wallet);
       return res;
     } on bridge.Error catch (e) {
       throw handleBdkException(e);
@@ -1192,7 +1197,7 @@ class Wallet {
   ///Sync the internal database with the [Blockchain]
   Future sync(Blockchain blockchain) async {
     try {
-      await loaderApi.syncWalletStaticMethodApi(
+      await bdkFfi.syncWalletStaticMethodApi(
           walletId: _wallet, blockchainId: blockchain._blockchain);
       debugPrint('sync complete');
     } on bridge.Error catch (e) {
@@ -1204,7 +1209,7 @@ class Wallet {
   Future<List<bridge.TransactionDetails>> listTransactions(
       bool includeRaw) async {
     try {
-      final res = await loaderApi.getTransactionsStaticMethodApi(
+      final res = await bdkFfi.getTransactionsStaticMethodApi(
           walletId: _wallet, includeRaw: includeRaw);
       return res;
     } on bridge.Error catch (e) {
@@ -1219,7 +1224,7 @@ class Wallet {
       {required PartiallySignedTransaction psbt,
       bridge.SignOptions? signOptions}) async {
     try {
-      final sbt = await loaderApi.signStaticMethodApi(
+      final sbt = await bdkFfi.signStaticMethodApi(
           signOptions: signOptions,
           psbtStr: psbt.psbtBase64,
           walletId: _wallet);
@@ -1238,7 +1243,7 @@ class Wallet {
     bridge.PsbtSigHashType? psbtSighashType,
   }) async {
     try {
-      final res = await loaderApi.getPsbtInputStaticMethodApi(
+      final res = await bdkFfi.getPsbtInputStaticMethodApi(
           walletId: _wallet,
           utxo: utxo,
           onlyWitnessUtxo: onlyWitnessUtxo,
@@ -1253,7 +1258,7 @@ class Wallet {
   Future<Descriptor> getDescriptorForKeyChain(
       bridge.KeychainKind keychainKind) async {
     try {
-      final res = await loaderApi.getDescriptorForKeychainStaticMethodApi(
+      final res = await bdkFfi.getDescriptorForKeychainStaticMethodApi(
           walletId: _wallet, keychain: keychainKind);
       return Descriptor._(res.$1, res.$2);
     } on bridge.Error catch (e) {

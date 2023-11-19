@@ -1,3 +1,6 @@
+## [0.29.3]
+macOs support bug resolved
+
 ## [0.29.2]
 Support macOs and unit testing.
 
