@@ -4370,9 +4370,9 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_box_autoadd_sqlite_db_configuration_0Ptr = _lookup<
-          ffi
-          .NativeFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>>(
-      'new_box_autoadd_sqlite_db_configuration_0');
+      ffi.NativeFunction<
+          ffi.Pointer<wire_SqliteDbConfiguration>
+              Function()>>('new_box_autoadd_sqlite_db_configuration_0');
   late final _new_box_autoadd_sqlite_db_configuration_0 =
       _new_box_autoadd_sqlite_db_configuration_0Ptr
           .asFunction<ffi.Pointer<wire_SqliteDbConfiguration> Function()>();
@@ -4468,9 +4468,9 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_uint_8_list_0Ptr = _lookup<
-          ffi
-          .NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>(
-      'new_uint_8_list_0');
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
