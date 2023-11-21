@@ -29,6 +29,9 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+bdk_flutter_*/
+frameworks/
+android/src/main/jniLibs/
 rust/target/
 rust/Cargo.lock
 rust/output.log
