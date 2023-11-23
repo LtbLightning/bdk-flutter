@@ -1,11 +1,24 @@
 cmake_minimum_required(VERSION 3.18.1)
 project(bdk_flutter)
 get_filename_component(CMAKE_PARENT_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
-set(LIB_VERSION "0.29.3")
-set(LIB_NAME "bdk_flutter_${LIB_VERSION}")
-set(URL "https://github.com/LtbLightning/test-pub/releases/download/${LIB_VERSION}/${LIB_NAME}.zip")
-set(OUTPUT_PATH "${CMAKE_PARENT_DIR}/${LIB_NAME}.zip")
+set(TEXT_FILE_PATH "${CMAKE_PARENT_DIR}/assets/TAG.txt")
+file(STRINGS ${TEXT_FILE_PATH} lines)
+foreach(line IN LISTS lines)
+    string(REGEX MATCH "TAG_VERSION=(.*)" _ ${line})
+    if(CMAKE_MATCH_1)
+        set(TAG_VERSION ${CMAKE_MATCH_1})
+    endif()
 
+    string(REGEX MATCH "REPOSITORY_URL=(.*)" _ ${line})
+    if(CMAKE_MATCH_1)
+        set(REPOSITORY_URL ${CMAKE_MATCH_1})
+    endif()
+endforeach()
+
+
+set(LIB_NAME "bdk.${TAG_VERSION}")
+set(URL "${REPOSITORY_URL}${TAG_VERSION}/${LIB_NAME}.zip")
+set(OUTPUT_PATH "${CMAKE_PARENT_DIR}/${LIB_NAME}.zip")
 if(NOT EXISTS "${CMAKE_PARENT_DIR}/${LIB_NAME}")
         file(DOWNLOAD ${URL} ${OUTPUT_PATH}
                 STATUS DOWNLOAD_STATUS
