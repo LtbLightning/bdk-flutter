@@ -1,4 +1,3 @@
-import 'dart:convert' as convert;
 import 'dart:ffi';
 import 'dart:io';
 
@@ -27,8 +26,7 @@ DynamicLibrary _open() {
 }
 
 String getTestBinaryUrl(Directory dir) {
-  final assetsDir =
-      '${dir.path}/build/unit_test_assets/${AppConfig.testBinDir}';
+  final assetsDir = '${dir.path}/build/unit_test_assets/${AppConfig.libName}';
   if (Platform.isMacOS) {
     return "$assetsDir/macos/librust_bdk_ffi.dylib";
   } else {
@@ -41,16 +39,26 @@ final bdkFfi = RustBdkFfiImpl(_open());
 class AppConfig {
   static Map<String, dynamic>? _config;
   static Future<void> _loadJsonAsset() async {
-    final String jsonString =
-        await rootBundle.loadString("packages/bdk_flutter/assets/config.json");
-    _config = convert.jsonDecode(jsonString);
+    final String content =
+        await rootBundle.loadString("packages/bdk_flutter/assets/TAG.txt");
+    Map<String, dynamic> configMap = {};
+    List<String> lines = content.split('\n');
+
+    for (String line in lines) {
+      List<String> keyVal = line.split('=');
+      if (keyVal.length == 2) {
+        String key = keyVal[0].trim();
+        dynamic value = keyVal[1].trim();
+        configMap[key] = value;
+      }
+    }
+    _config = configMap;
   }
 
   static Future<void> setBuildDirectory(String dir) async {
     await _loadJsonAsset();
     final assetsDir = '$dir/unit_test_assets';
-
-    if (!(await Directory('$assetsDir/$testBinDir').exists())) {
+    if (!(await Directory('$assetsDir/$libName').exists())) {
       try {
         final response = await http.get(Uri.parse(remoteUrl));
         if (response.statusCode == 200) {
@@ -74,6 +82,7 @@ class AppConfig {
     }
   }
 
-  static String get remoteUrl => _config!['remote_url'];
-  static String get testBinDir => _config!['test_bin_dir'];
+  static String get libName => "unittest.bdk.${_config!['TAG_VERSION']}";
+  static String get remoteUrl =>
+      "${_config!['REPOSITORY_URL']}${_config!['TAG_VERSION']}/$libName.zip";
 }
