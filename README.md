@@ -191,7 +191,7 @@ _Note that Flutter version `3.0` or later is required to build the plugin._
 2. Clone this repository
 
    ```shell
-   git clone https://github.com/LtbLightning/bdk-flutter.git
+   git clone https://github.com/LtbLightning/bdk-flutter
    ```
 
 3. Activate dart `ffigen`

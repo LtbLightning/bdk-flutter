@@ -8,7 +8,8 @@ use lib_flutter_rust_bridge_codegen::{
 const RUST_INPUT: &str = "src/r_api.rs";
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/src/generated/bindings.dart";
-const DARWIN_OUTPUT: &str = "../darwin/Classes/bindings.h";
+const IOS_OUTPUT: &str = "../ios/Classes/bindings.h";
+const MACOS_OUTPUT: &str = "../macos/Classes/";
 const DECL_OUTPUT: &str = "../lib/src/generated/bridge_definitions.dart";
 
 fn main() {
@@ -25,8 +26,8 @@ fn main() {
         // for other options use defaults
         wasm: false,
         dart_decl_output: Some(DECL_OUTPUT.into()),
-
-        c_output: Some(vec![DARWIN_OUTPUT.to_string()]),
+        c_output: Some(vec![IOS_OUTPUT.to_string()]),
+        extra_c_output_path: Some(vec![MACOS_OUTPUT.to_string()]),
         inline_rust: true,
         dart_format_line_length: 120,
 
