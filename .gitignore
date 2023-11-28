@@ -30,7 +30,7 @@ migrate_working_dir/
 .packages
 build/
 bdk.*/
-frameworks/
+*.xcframework
 android/src/main/jniLibs/
 rust/target/
 rust/Cargo.lock

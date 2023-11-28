@@ -16,7 +16,7 @@ tag_version = "#{config['TAG_VERSION']}"
 framework = 'rust_bdk_ffi.xcframework'
 lib_name = "bdk.#{tag_version}"
 url = "#{config['REPOSITORY_URL']}#{tag_version}/#{lib_name}.zip"
-frameworks_dir = "frameworks/#{tag_version}"
+frameworks_dir = "ios"
 
 `
 cd ../
@@ -27,9 +27,8 @@ if [ ! -d #{lib_name} ]; then
     rm #{lib_name}.zip
 fi
 
-if [ ! -d #{frameworks_dir} ]; then
-        mkdir -p #{frameworks_dir}
-        mv #{lib_name}/#{framework} #{frameworks_dir}
+if [ ! -d #{frameworks_dir}/#{framework} ]; then
+        cp -R #{lib_name}/#{framework} #{frameworks_dir}
 fi
 `
 
