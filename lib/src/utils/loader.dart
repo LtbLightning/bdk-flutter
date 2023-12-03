@@ -39,8 +39,8 @@ final bdkFfi = RustBdkFfiImpl(_open());
 class AppConfig {
   static Map<String, dynamic>? _config;
   static Future<void> _loadJsonAsset() async {
-    final String content =
-        await rootBundle.loadString("packages/bdk_flutter/assets/TAG.txt");
+    final String content = await rootBundle
+        .loadString("packages/bdk_flutter/assets/release.config.txt");
     Map<String, dynamic> configMap = {};
     List<String> lines = content.split('\n');
 

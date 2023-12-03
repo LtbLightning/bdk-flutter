@@ -9,7 +9,7 @@ read_key_value_pairs = lambda do |file_path|
 end
 podspec_dir = File.dirname(__FILE__)
 assets_dir = File.join(podspec_dir, '..', 'assets')
-config_file_path = File.join(assets_dir, 'TAG.txt')
+config_file_path = File.join(assets_dir, 'release.config.txt')
 config = read_key_value_pairs.call(config_file_path)
 
 tag_version = "#{config['TAG_VERSION']}"

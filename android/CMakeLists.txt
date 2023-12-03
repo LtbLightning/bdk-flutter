@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18.1)
 project(bdk_flutter)
 get_filename_component(CMAKE_PARENT_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
-set(TEXT_FILE_PATH "${CMAKE_PARENT_DIR}/assets/TAG.txt")
+set(TEXT_FILE_PATH "${CMAKE_PARENT_DIR}/assets/release.config.txt")
 file(STRINGS ${TEXT_FILE_PATH} lines)
 foreach(line IN LISTS lines)
     string(REGEX MATCH "TAG_VERSION=(.*)" _ ${line})
