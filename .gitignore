@@ -29,8 +29,8 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
-bdk_flutter_*/
-frameworks/
+bdk.*/
+*.xcframework
 android/src/main/jniLibs/
 rust/target/
 rust/Cargo.lock

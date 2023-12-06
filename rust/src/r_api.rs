@@ -12,17 +12,13 @@ use crate::types::{
 pub use crate::wallet::{DatabaseConfig, Wallet};
 use bdk::bitcoin::{Address as BdkAddress, OutPoint as BdkOutPoint, Sequence, Txid};
 use bdk::keys::DescriptorSecretKey as BdkDescriptorSecretKey;
-use lazy_static::lazy_static;
 use std::borrow::Borrow;
 use std::ops::Deref;
 use std::str::FromStr;
-use std::sync::{Arc, Mutex, RwLock};
+use std::sync::{Arc, Mutex};
 
 use crate::wallet::{LocalUtxo, SignOptions};
 
-lazy_static! {
-    static ref RUNTIME: RwLock<Option<tokio::runtime::Runtime>> = RwLock::new(None);
-}
 pub struct Api {}
 impl Api {
     //========Blockchain==========
