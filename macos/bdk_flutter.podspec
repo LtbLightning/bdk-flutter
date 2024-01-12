@@ -1,23 +1,3 @@
-release_tag = '0.29.3'
-framework = 'rust_bdk_ffi.xcframework'
-binary = "bdk_flutter_#{release_tag}"
-url = "https://github.com/LtbLightning/bdk-flutter/releases/download/#{release_tag}/#{binary}.zip"
-frameworks_dir = "frameworks/#{release_tag}"
-
-`
-cd ../
-if [ ! -d #{binary} ]; then
-    curl -L #{url} -o #{binary}.zip
-    unzip #{binary}.zip
-    rm -rf __MACOSX
-    rm #{binary}.zip
-fi
-
-if [ ! -d #{frameworks_dir} ]; then
-        mkdir -p #{frameworks_dir}
-        mv #{binary}/#{framework} #{frameworks_dir}
-fi
-`
 
 read_key_value_pairs = lambda do |file_path|
   pairs = {}
@@ -55,7 +35,7 @@ fi
 
 Pod::Spec.new do |s|
 s.name             = 'bdk_flutter'
-s.version          = '0.29.3'
+s.version          = "#{config['TAG_VERSION']}"
 s.summary          = 'A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)'
 s.description      = <<-DESC
         A new Flutter project.

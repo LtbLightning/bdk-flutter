@@ -74,7 +74,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(" fee: ${e.fee}");
         print(" received: ${e.received}");
         print(" send: ${e.sent}");
-        print(" output address: ${txOut.last.scriptPubkey.internal}");
+        print(" output address: ${txOut.last.scriptPubkey.inner}");
         print("===========================");
       }
     }
@@ -100,7 +100,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         }
         print("         =============TxOut==============");
         for (var e in txOut) {
-          print("         script: ${e.scriptPubkey.internal}");
+          print("         script: ${e.scriptPubkey.inner}");
           print("         value: ${e.value}");
         }
         print("========================================");
@@ -129,7 +129,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print(
-            "txout: { address:${e.txout.scriptPubkey.internal.toString()}, value: ${e.txout.value} }");
+            "txout: { address:${e.txout.scriptPubkey.inner.toString()}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -168,6 +168,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue,
           elevation: 0,
           centerTitle: false,
           title: const Text('Bdk Wallet',

@@ -8,7 +8,7 @@ import 'utils/utils.dart';
 
 Future<void> setCurrentDirectory() async {
   try {
-    await AppConfig.setBuildDirectory("${Directory.current.path}/build");
+    await Dylib.downloadUnitTestDylib(Directory.current.path);
   } catch (e) {
     print(e.toString());
   }
@@ -84,7 +84,6 @@ class Address {
 
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
 class Blockchain {
-  // final BlockchainInstance? _blockchain;
   final String _blockchain;
   Blockchain._(this._blockchain);
 
@@ -363,6 +362,46 @@ class Descriptor {
       required bridge.KeychainKind keychain}) async {
     try {
       final res = await bdkFfi.newBip84PublicStaticMethodApi(
+          keyChainKind: keychain,
+          publicKey: publicKey.asString(),
+          network: network,
+          fingerprint: fingerPrint);
+      return Descriptor._(res, network);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
+    }
+  }
+
+  ///BIP86 template. Expands to tr(key/86'/{0,1}'/0'/{0,1}/*)
+  ///
+  /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
+  static Future<Descriptor> newBip86(
+      {required DescriptorSecretKey secretKey,
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
+    try {
+      final res = await bdkFfi.newBip86DescriptorStaticMethodApi(
+          secretKey: secretKey.asString(),
+          network: network,
+          keyChainKind: keychain);
+      return Descriptor._(res, network);
+    } on bridge.Error catch (e) {
+      throw handleBdkException(e);
+    }
+  }
+
+  ///BIP86 public template. Expands to tr(key/{0,1}/*)
+  ///
+  /// This assumes that the key used has already been derived with m/86'/0'/0' for Mainnet or m/86'/1'/0' for Testnet.
+  ///
+  /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
+  static Future<Descriptor> newBip86Public(
+      {required DescriptorPublicKey publicKey,
+      required String fingerPrint,
+      required bridge.Network network,
+      required bridge.KeychainKind keychain}) async {
+    try {
+      final res = await bdkFfi.newBip86PublicStaticMethodApi(
           keyChainKind: keychain,
           publicKey: publicKey.asString(),
           network: network,
@@ -712,7 +751,7 @@ class PartiallySignedTransaction {
 ///
 /// See [Bitcoin Wiki: Script](https://en.bitcoin.it/wiki/Script) for more information.
 class Script extends bridge.Script {
-  Script._({required super.internal});
+  Script._({required super.inner});
 
   /// [Script] constructor
   static Future<bridge.Script> create(
@@ -727,7 +766,7 @@ class Script extends bridge.Script {
   }
 
   typed_data.Uint8List toBytes() {
-    return internal;
+    return inner;
   }
 }
 

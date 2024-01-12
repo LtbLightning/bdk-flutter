@@ -13,23 +13,23 @@ use std::str::FromStr;
 use std::sync::{Arc, Mutex};
 
 pub struct DerivationPath {
-    pub derivation_path_mutex: Mutex<BdkDerivationPath>,
+    pub inner_mutex: Mutex<BdkDerivationPath>,
 }
 
 impl DerivationPath {
     pub fn new(path: String) -> Result<Self, BdkError> {
         BdkDerivationPath::from_str(&path)
             .map(|x| DerivationPath {
-                derivation_path_mutex: Mutex::new(x),
+                inner_mutex: Mutex::new(x),
             })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
     pub fn as_string(&self) -> String {
-        self.derivation_path_mutex.lock().unwrap().to_string()
+        self.inner_mutex.lock().unwrap().to_string()
     }
 }
 pub struct Mnemonic {
-    pub internal: BdkMnemonic,
+    pub inner: BdkMnemonic,
 }
 
 impl Mnemonic {
@@ -38,31 +38,31 @@ impl Mnemonic {
         let generated_key: GeneratedKey<_, BareCtx> =
             BdkMnemonic::generate((word_count, Language::English)).unwrap();
         let mnemonic = BdkMnemonic::parse_in(Language::English, generated_key.to_string()).unwrap();
-        Mnemonic { internal: mnemonic }
+        Mnemonic { inner: mnemonic }
     }
     /// Parse a Mnemonic with given string
-    pub fn from_str(mnemonic: String) -> Result<Self, BdkError> {
+    pub fn from_string(mnemonic: String) -> Result<Self, BdkError> {
         BdkMnemonic::from_str(&mnemonic)
-            .map(|m| Mnemonic { internal: m })
+            .map(|m| Mnemonic { inner: m })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
     /// Create a new Mnemonic in the specified language from the given entropy.
     /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
     pub fn from_entropy(entropy: Vec<u8>) -> Result<Self, BdkError> {
         BdkMnemonic::from_entropy(entropy.as_slice())
-            .map(|m| Mnemonic { internal: m })
+            .map(|m| Mnemonic { inner: m })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 
     /// Returns Mnemonic as string
     pub fn as_string(&self) -> String {
-        self.internal.to_string()
+        self.inner.to_string()
     }
 }
 
 #[derive(Debug)]
 pub(crate) struct DescriptorSecretKey {
-    pub(crate) descriptor_secret_key_mutex: Mutex<BdkDescriptorSecretKey>,
+    pub(crate) inner: BdkDescriptorSecretKey,
 }
 impl DescriptorSecretKey {
     pub fn new(
@@ -70,7 +70,7 @@ impl DescriptorSecretKey {
         mnemonic: Mnemonic,
         password: Option<String>,
     ) -> Result<Self, BdkError> {
-        let mnemonic = mnemonic.internal.clone();
+        let mnemonic = mnemonic.inner.clone();
         let xkey: ExtendedKey = (mnemonic, password).into_extended_key().unwrap();
         let descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
             origin: None,
@@ -79,15 +79,15 @@ impl DescriptorSecretKey {
             wildcard: bdk::descriptor::Wildcard::Unhardened,
         });
         Ok(Self {
-            descriptor_secret_key_mutex: Mutex::new(descriptor_secret_key),
+            inner: descriptor_secret_key,
         })
     }
 
     pub fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-        match descriptor_secret_key.deref() {
+        let descriptor_secret_key = &self.inner;
+        let path = path.inner_mutex.lock().unwrap().deref().clone();
+        match descriptor_secret_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derived_xprv = descriptor_x_key.xkey.derive_priv(&secp, &path)?;
                 let key_source = match descriptor_x_key.origin.clone() {
@@ -101,7 +101,7 @@ impl DescriptorSecretKey {
                     wildcard: descriptor_x_key.wildcard,
                 });
                 Ok(Arc::new(Self {
-                    descriptor_secret_key_mutex: Mutex::new(derived_descriptor_secret_key),
+                    inner: derived_descriptor_secret_key,
                 }))
             }
             BdkDescriptorSecretKey::Single(_) => {
@@ -110,9 +110,9 @@ impl DescriptorSecretKey {
         }
     }
     pub fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
-        let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-        match descriptor_secret_key.deref() {
+        let descriptor_secret_key = &self.inner;
+        let path = path.inner_mutex.lock().unwrap().deref().clone();
+        match descriptor_secret_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let extended_path = descriptor_x_key.derivation_path.extend(path);
                 let extended_descriptor_secret_key = BdkDescriptorSecretKey::XPrv(DescriptorXKey {
@@ -122,7 +122,7 @@ impl DescriptorSecretKey {
                     wildcard: descriptor_x_key.wildcard,
                 });
                 Ok(Arc::new(Self {
-                    descriptor_secret_key_mutex: Mutex::new(extended_descriptor_secret_key),
+                    inner: extended_descriptor_secret_key,
                 }))
             }
             BdkDescriptorSecretKey::Single(_) => {
@@ -132,20 +132,15 @@ impl DescriptorSecretKey {
     }
     pub fn as_public(&self) -> Result<DescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = self
-            .descriptor_secret_key_mutex
-            .lock()
-            .unwrap()
-            .to_public(&secp)
-            .unwrap();
+        let descriptor_public_key = self.inner.to_public(&secp).unwrap();
         Ok(DescriptorPublicKey {
-            descriptor_public_key_mutex: Mutex::new(descriptor_public_key),
+            inner: descriptor_public_key,
         })
     }
     /// Get the private key as bytes.
     pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
-        let descriptor_secret_key = self.descriptor_secret_key_mutex.lock().unwrap();
-        let secret_bytes: Vec<u8> = match descriptor_secret_key.deref() {
+        let descriptor_secret_key = &self.inner;
+        let secret_bytes: Vec<u8> = match descriptor_secret_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 descriptor_x_key.xkey.private_key.secret_bytes().to_vec()
             }
@@ -159,33 +154,29 @@ impl DescriptorSecretKey {
 
     pub fn from_string(key_str: String) -> Result<Self, BdkError> {
         let key = BdkDescriptorSecretKey::from_str(&*key_str).unwrap();
-        Ok(Self {
-            descriptor_secret_key_mutex: Mutex::new(key),
-        })
+        Ok(Self { inner: key })
     }
     pub fn as_string(&self) -> String {
-        self.descriptor_secret_key_mutex.lock().unwrap().to_string()
+        self.inner.to_string()
     }
 }
 
 #[derive(Debug)]
 pub struct DescriptorPublicKey {
-    pub descriptor_public_key_mutex: Mutex<BdkDescriptorPublicKey>,
+    pub inner: BdkDescriptorPublicKey,
 }
 
 impl DescriptorPublicKey {
     pub fn from_string(key: String) -> Result<Self, BdkError> {
         let key = BdkDescriptorPublicKey::from_str(&*key).unwrap();
-        Ok(Self {
-            descriptor_public_key_mutex: Mutex::new(key),
-        })
+        Ok(Self { inner: key })
     }
     pub fn derive(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
+        let descriptor_public_key = &self.inner;
+        let path = path.inner_mutex.lock().unwrap().deref().clone();
 
-        match descriptor_public_key.deref() {
+        match descriptor_public_key {
             BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derived_xpub = descriptor_x_key.xkey.derive_pub(&secp, &path)?;
                 let key_source = match descriptor_x_key.origin.clone() {
@@ -199,7 +190,7 @@ impl DescriptorPublicKey {
                     wildcard: descriptor_x_key.wildcard,
                 });
                 Ok(Arc::new(Self {
-                    descriptor_public_key_mutex: Mutex::new(derived_descriptor_public_key),
+                    inner: derived_descriptor_public_key,
                 }))
             }
             BdkDescriptorPublicKey::Single(_) => {
@@ -208,9 +199,9 @@ impl DescriptorPublicKey {
         }
     }
     pub fn extend(&self, path: Arc<DerivationPath>) -> Result<Arc<Self>, BdkError> {
-        let descriptor_public_key = self.descriptor_public_key_mutex.lock().unwrap();
-        let path = path.derivation_path_mutex.lock().unwrap().deref().clone();
-        match descriptor_public_key.deref() {
+        let descriptor_public_key = &self.inner;
+        let path = path.inner_mutex.lock().unwrap().deref().clone();
+        match descriptor_public_key {
             BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
                 let extended_path = descriptor_x_key.derivation_path.extend(path);
                 let extended_descriptor_public_key = BdkDescriptorPublicKey::XPub(DescriptorXKey {
@@ -220,7 +211,7 @@ impl DescriptorPublicKey {
                     wildcard: descriptor_x_key.wildcard,
                 });
                 Ok(Arc::new(Self {
-                    descriptor_public_key_mutex: Mutex::new(extended_descriptor_public_key),
+                    inner: extended_descriptor_public_key,
                 }))
             }
             BdkDescriptorPublicKey::Single(_) => {
@@ -229,7 +220,7 @@ impl DescriptorPublicKey {
         }
     }
     pub fn as_string(&self) -> String {
-        self.descriptor_public_key_mutex.lock().unwrap().to_string()
+        self.inner.to_string()
     }
 }
 #[cfg(test)]
@@ -241,7 +232,7 @@ mod test {
     use std::sync::Arc;
 
     fn get_descriptor_secret_key() -> Result<DescriptorSecretKey, BdkError> {
-        let mnemonic = Mnemonic::from_str("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string()).unwrap();
+        let mnemonic = Mnemonic::from_string("chaos fabric time speed sponsor all flat solution wisdom trophy crack object robot pave observe combine where aware bench orient secret primary cable detect".to_string()).unwrap();
         DescriptorSecretKey::new(Network::Testnet, mnemonic, None)
     }
 

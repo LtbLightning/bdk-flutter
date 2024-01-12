@@ -89,11 +89,11 @@ Future<void> main() async {
     });
     test('verify scriptPubKey ()', () async {
       final res = await address.scriptPubKey();
-      expect(res.internal, script);
+      expect(res.inner, script);
     });
     test('verify scriptPubKey type()', () async {
       final res = await address.scriptPubKey();
-      expect(res.internal, isA<Uint8List>());
+      expect(res.inner, isA<Uint8List>());
     });
     test('verify network()', () async {
       final res = await address.network();

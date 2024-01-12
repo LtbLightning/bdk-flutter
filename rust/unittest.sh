@@ -1,5 +1,5 @@
 # Setup
-BUILD_DIR=unittest.bdk.0.29.3
+BUILD_DIR=unittest.bdk.0.30.0
 LIBNAME=librust_bdk_ffi.dylib
 MAC_LIPO=macos/$LIBNAME
 
