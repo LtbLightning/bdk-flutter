@@ -33,7 +33,6 @@ bdk.*/
 *.xcframework
 android/src/main/jniLibs/
 rust/target/
-rust/Cargo.lock
 rust/output.log
 
 
