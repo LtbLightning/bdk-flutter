@@ -1,3 +1,5 @@
+## [0.30.0]
+
 ## [0.29.3]
 macOs support bug resolved
 
