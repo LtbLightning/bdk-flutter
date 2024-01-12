@@ -35,7 +35,7 @@ fi
 
 Pod::Spec.new do |s|
 s.name             = 'bdk_flutter'
-s.version          = '0.29.3'
+s.version          = "#{config['TAG_VERSION']}"
 s.summary          = 'A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)'
 s.description      = <<-DESC
         A new Flutter project.

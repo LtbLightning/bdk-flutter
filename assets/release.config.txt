@@ -1,2 +1,2 @@
-TAG_VERSION=0.29.3
+TAG_VERSION=0.30.0
 REPOSITORY_URL=https://github.com/LtbLightning/bdk-flutter/releases/download/
