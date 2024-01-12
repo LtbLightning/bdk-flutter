@@ -1,4 +1,9 @@
 ## [0.30.0]
+This release has a new API and a few internal optimizations and refactorings.
+
+#### APIs added
+- Add BIP-86 descriptor template
+
 
 ## [0.29.3]
 macOs support bug resolved
