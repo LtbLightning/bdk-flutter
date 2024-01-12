@@ -8,7 +8,7 @@ import 'utils/utils.dart';
 
 Future<void> setCurrentDirectory() async {
   try {
-    await AppConfig.setBuildDirectory("${Directory.current.path}/build");
+    await Dylib.downloadUnitTestDylib(Directory.current.path);
   } catch (e) {
     print(e.toString());
   }
