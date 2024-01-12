@@ -168,6 +168,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue,
           elevation: 0,
           centerTitle: false,
           title: const Text('Bdk Wallet',
