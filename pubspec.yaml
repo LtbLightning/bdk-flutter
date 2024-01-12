@@ -4,8 +4,8 @@ version: 0.30.0
 homepage: https://github.com/LtbLightning/bdk-flutter
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=2.5.0"
+  sdk: ">=3.1.5 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -16,7 +16,7 @@ dependencies:
   freezed: ^2.3.5
   freezed_annotation: ^2.2.0
   mockito: ^5.4.0
-  meta: ^1.8.0
+  meta: ^1.10.0
   uuid: ^4.2.1
   http: ^1.1.0
   archive: ^3.4.6
@@ -24,7 +24,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  ffigen: ^9.0.0
+  ffigen: ^10.0.0
   build_runner: ^2.4.4
   lints: ^3.0.0
 
