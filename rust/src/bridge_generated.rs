@@ -714,6 +714,57 @@ fn wire_new_bip84_public__static_method__Api_impl(
         },
     )
 }
+fn wire_new_bip86_descriptor__static_method__Api_impl(
+    port_: MessagePort,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
+    secret_key: impl Wire2Api<String> + UnwindSafe,
+    network: impl Wire2Api<Network> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String, _>(
+        WrapInfo {
+            debug_name: "new_bip86_descriptor__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_key_chain_kind = key_chain_kind.wire2api();
+            let api_secret_key = secret_key.wire2api();
+            let api_network = network.wire2api();
+            move |task_callback| {
+                Api::new_bip86_descriptor(api_key_chain_kind, api_secret_key, api_network)
+            }
+        },
+    )
+}
+fn wire_new_bip86_public__static_method__Api_impl(
+    port_: MessagePort,
+    key_chain_kind: impl Wire2Api<KeychainKind> + UnwindSafe,
+    public_key: impl Wire2Api<String> + UnwindSafe,
+    network: impl Wire2Api<Network> + UnwindSafe,
+    fingerprint: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String, _>(
+        WrapInfo {
+            debug_name: "new_bip86_public__static_method__Api",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_key_chain_kind = key_chain_kind.wire2api();
+            let api_public_key = public_key.wire2api();
+            let api_network = network.wire2api();
+            let api_fingerprint = fingerprint.wire2api();
+            move |task_callback| {
+                Api::new_bip86_public(
+                    api_key_chain_kind,
+                    api_public_key,
+                    api_network,
+                    api_fingerprint,
+                )
+            }
+        },
+    )
+}
 fn wire_descriptor_as_string_private__static_method__Api_impl(
     port_: MessagePort,
     descriptor: impl Wire2Api<String> + UnwindSafe,
@@ -2099,6 +2150,38 @@ mod io {
         fingerprint: *mut wire_uint_8_list,
     ) {
         wire_new_bip84_public__static_method__Api_impl(
+            port_,
+            key_chain_kind,
+            public_key,
+            network,
+            fingerprint,
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn wire_new_bip86_descriptor__static_method__Api(
+        port_: i64,
+        key_chain_kind: i32,
+        secret_key: *mut wire_uint_8_list,
+        network: i32,
+    ) {
+        wire_new_bip86_descriptor__static_method__Api_impl(
+            port_,
+            key_chain_kind,
+            secret_key,
+            network,
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn wire_new_bip86_public__static_method__Api(
+        port_: i64,
+        key_chain_kind: i32,
+        public_key: *mut wire_uint_8_list,
+        network: i32,
+        fingerprint: *mut wire_uint_8_list,
+    ) {
+        wire_new_bip86_public__static_method__Api_impl(
             port_,
             key_chain_kind,
             public_key,

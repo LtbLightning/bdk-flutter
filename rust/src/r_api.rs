@@ -370,6 +370,32 @@ impl Api {
         );
         Ok(descriptor.as_string())
     }
+    pub fn new_bip86_descriptor(
+        key_chain_kind: KeychainKind,
+        secret_key: String,
+        network: Network,
+    ) -> anyhow::Result<String, Error> {
+        let key = DescriptorSecretKey::from_string(secret_key)?;
+        let descriptor = BdkDescriptor::new_bip86(key, key_chain_kind.into(), network.into());
+        Ok(descriptor.as_string_private())
+    }
+
+    pub fn new_bip86_public(
+        key_chain_kind: KeychainKind,
+        public_key: String,
+        network: Network,
+        fingerprint: String,
+    ) -> anyhow::Result<String, Error> {
+        let key: DescriptorPublicKey = DescriptorPublicKey::from_string(public_key)?;
+        let descriptor = BdkDescriptor::new_bip86_public(
+            key,
+            fingerprint,
+            key_chain_kind.into(),
+            network.into(),
+        );
+        Ok(descriptor.as_string())
+    }
+
     pub fn descriptor_as_string_private(
         descriptor: String,
         network: Network,

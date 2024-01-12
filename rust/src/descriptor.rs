@@ -7,9 +7,7 @@ use bdk::keys::{
     DescriptorPublicKey as BdkDescriptorPublicKey, DescriptorSecretKey as BdkDescriptorSecretKey,
 };
 use bdk::miniscript::Error;
-use bdk::template::{
-    Bip44, Bip44Public, Bip49, Bip49Public, Bip84, Bip84Public, DescriptorTemplate,
-};
+use bdk::template::{Bip44, Bip44Public, Bip49, Bip49Public, Bip84, Bip84Public, Bip86, Bip86Public, DescriptorTemplate};
 use bdk::Error as BdkError;
 use bdk::KeychainKind;
 use std::str::FromStr;
@@ -182,7 +180,56 @@ impl BdkDescriptor {
             }
         }
     }
+    pub(crate) fn new_bip86(
+        secret_key: DescriptorSecretKey,
+        keychain_kind: KeychainKind,
+        network: Network,
+    ) -> Self {
+        let derivable_key = &secret_key.inner;
 
+        match derivable_key {
+            BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip86(derivable_key, keychain_kind).build(network).unwrap();
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorSecretKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
+
+    pub(crate) fn new_bip86_public(
+        public_key: DescriptorPublicKey,
+        fingerprint: String,
+        keychain_kind: KeychainKind,
+        network: Network,
+    ) -> Self {
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let derivable_key = &public_key.inner;
+
+        match derivable_key {
+            BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
+                let derivable_key = descriptor_x_key.xkey;
+                let (extended_descriptor, key_map, _) =
+                    Bip86Public(derivable_key, fingerprint, keychain_kind)
+                        .build(network)
+                        .unwrap();
+
+                Self {
+                    extended_descriptor,
+                    key_map,
+                }
+            }
+            BdkDescriptorPublicKey::Single(_) => {
+                unreachable!()
+            }
+        }
+    }
     pub(crate) fn as_string_private(&self) -> String {
         let descriptor = &self.extended_descriptor;
         let key_map = &self.key_map;

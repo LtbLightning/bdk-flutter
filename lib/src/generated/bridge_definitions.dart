@@ -219,6 +219,24 @@ abstract class RustBdkFfi {
 
   FlutterRustBridgeTaskConstMeta get kNewBip84PublicStaticMethodApiConstMeta;
 
+  Future<String> newBip86DescriptorStaticMethodApi(
+      {required KeychainKind keyChainKind,
+      required String secretKey,
+      required Network network,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta
+      get kNewBip86DescriptorStaticMethodApiConstMeta;
+
+  Future<String> newBip86PublicStaticMethodApi(
+      {required KeychainKind keyChainKind,
+      required String publicKey,
+      required Network network,
+      required String fingerprint,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNewBip86PublicStaticMethodApiConstMeta;
+
   Future<String> descriptorAsStringPrivateStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint});
 

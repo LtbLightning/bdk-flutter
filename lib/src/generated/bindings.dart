@@ -837,6 +837,61 @@ class RustBdkFfiImpl implements RustBdkFfi {
         argNames: ["keyChainKind", "publicKey", "network", "fingerprint"],
       );
 
+  Future<String> newBip86DescriptorStaticMethodApi(
+      {required KeychainKind keyChainKind,
+      required String secretKey,
+      required Network network,
+      dynamic hint}) {
+    var arg0 = api2wire_keychain_kind(keyChainKind);
+    var arg1 = _platform.api2wire_String(secretKey);
+    var arg2 = api2wire_network(network);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_new_bip86_descriptor__static_method__Api(
+              port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_String,
+      parseErrorData: _wire2api_error,
+      constMeta: kNewBip86DescriptorStaticMethodApiConstMeta,
+      argValues: [keyChainKind, secretKey, network],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta
+      get kNewBip86DescriptorStaticMethodApiConstMeta =>
+          const FlutterRustBridgeTaskConstMeta(
+            debugName: "new_bip86_descriptor__static_method__Api",
+            argNames: ["keyChainKind", "secretKey", "network"],
+          );
+
+  Future<String> newBip86PublicStaticMethodApi(
+      {required KeychainKind keyChainKind,
+      required String publicKey,
+      required Network network,
+      required String fingerprint,
+      dynamic hint}) {
+    var arg0 = api2wire_keychain_kind(keyChainKind);
+    var arg1 = _platform.api2wire_String(publicKey);
+    var arg2 = api2wire_network(network);
+    var arg3 = _platform.api2wire_String(fingerprint);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_new_bip86_public__static_method__Api(
+              port_, arg0, arg1, arg2, arg3),
+      parseSuccessData: _wire2api_String,
+      parseErrorData: _wire2api_error,
+      constMeta: kNewBip86PublicStaticMethodApiConstMeta,
+      argValues: [keyChainKind, publicKey, network, fingerprint],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNewBip86PublicStaticMethodApiConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "new_bip86_public__static_method__Api",
+        argNames: ["keyChainKind", "publicKey", "network", "fingerprint"],
+      );
+
   Future<String> descriptorAsStringPrivateStaticMethodApi(
       {required String descriptor, required Network network, dynamic hint}) {
     var arg0 = _platform.api2wire_String(descriptor);
@@ -3441,6 +3496,58 @@ class RustBdkFfiWire implements FlutterRustBridgeWireBase {
       'wire_new_bip84_public__static_method__Api');
   late final _wire_new_bip84_public__static_method__Api =
       _wire_new_bip84_public__static_method__ApiPtr.asFunction<
+          void Function(int, int, ffi.Pointer<wire_uint_8_list>, int,
+              ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_new_bip86_descriptor__static_method__Api(
+    int port_,
+    int key_chain_kind,
+    ffi.Pointer<wire_uint_8_list> secret_key,
+    int network,
+  ) {
+    return _wire_new_bip86_descriptor__static_method__Api(
+      port_,
+      key_chain_kind,
+      secret_key,
+      network,
+    );
+  }
+
+  late final _wire_new_bip86_descriptor__static_method__ApiPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Int32, ffi.Pointer<wire_uint_8_list>,
+              ffi.Int32)>>('wire_new_bip86_descriptor__static_method__Api');
+  late final _wire_new_bip86_descriptor__static_method__Api =
+      _wire_new_bip86_descriptor__static_method__ApiPtr.asFunction<
+          void Function(int, int, ffi.Pointer<wire_uint_8_list>, int)>();
+
+  void wire_new_bip86_public__static_method__Api(
+    int port_,
+    int key_chain_kind,
+    ffi.Pointer<wire_uint_8_list> public_key,
+    int network,
+    ffi.Pointer<wire_uint_8_list> fingerprint,
+  ) {
+    return _wire_new_bip86_public__static_method__Api(
+      port_,
+      key_chain_kind,
+      public_key,
+      network,
+      fingerprint,
+    );
+  }
+
+  late final _wire_new_bip86_public__static_method__ApiPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Int32,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Int32,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_new_bip86_public__static_method__Api');
+  late final _wire_new_bip86_public__static_method__Api =
+      _wire_new_bip86_public__static_method__ApiPtr.asFunction<
           void Function(int, int, ffi.Pointer<wire_uint_8_list>, int,
               ffi.Pointer<wire_uint_8_list>)>();
 
