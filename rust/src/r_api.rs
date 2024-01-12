@@ -238,7 +238,7 @@ impl Api {
         return match tx_builder.finish() {
             Ok(e) => Ok((
                 PartiallySignedTransaction {
-                    internal: Mutex::new(e.0),
+                    inner: Mutex::new(e.0),
                 }
                 .serialize(),
                 TransactionDetails::from(&e.1),
@@ -278,7 +278,7 @@ impl Api {
         return match tx_builder.finish() {
             Ok(e) => Ok((
                 PartiallySignedTransaction {
-                    internal: Mutex::new(e.0),
+                    inner: Mutex::new(e.0),
                 }
                 .serialize(),
                 TransactionDetails::from(&e.1),
@@ -479,11 +479,11 @@ impl Api {
 
     //================Address============
     pub fn create_address(address: String) -> anyhow::Result<String, Error> {
-        Ok(Address::new(address)?.address.to_string())
+        Ok(Address::new(address)?.inner.to_string())
     }
     pub fn address_from_script(script: Script, network: Network) -> anyhow::Result<String, Error> {
         Ok(Address::from_script(script, network.into())?
-            .address
+            .inner
             .to_string())
     }
     pub fn address_to_script_pubkey(address: String) -> anyhow::Result<Script, Error> {

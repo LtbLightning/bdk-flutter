@@ -23,7 +23,7 @@ fn persist_blockchain(id: String, blockchain: Blockchain) {
     return;
 }
 pub struct Blockchain {
-    pub blockchain_mutex: Mutex<AnyBlockchain>,
+    pub inner_mutex: Mutex<AnyBlockchain>,
 }
 
 impl Blockchain {
@@ -76,7 +76,7 @@ impl Blockchain {
         persist_blockchain(
             id.clone(),
             Blockchain {
-                blockchain_mutex: Mutex::new(blockchain),
+                inner_mutex: Mutex::new(blockchain),
             },
         );
         Ok(id)
@@ -86,14 +86,14 @@ impl Blockchain {
         blockchain_lock.get(id.as_str()).unwrap().clone()
     }
     pub fn get_blockchain(&self) -> MutexGuard<AnyBlockchain> {
-        self.blockchain_mutex.lock().expect("blockchain")
+        self.inner_mutex.lock().expect("blockchain")
     }
 
     pub(crate) fn broadcast(&self, tx: Transaction) -> Result<String, BdkError> {
         self.get_blockchain()
-            .broadcast(&tx.internal.clone())
+            .broadcast(&tx.inner.clone())
             .expect("Broadcast Error");
-        return Ok(tx.internal.txid().to_string());
+        return Ok(tx.inner.txid().to_string());
     }
 
     pub fn get_height(&self) -> Result<u32, BdkError> {

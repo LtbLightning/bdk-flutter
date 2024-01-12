@@ -45,7 +45,7 @@ where
 ///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 #[derive(Debug)]
 pub struct Wallet {
-    pub wallet_mutex: Mutex<BdkWallet<AnyDatabase>>,
+    pub inner_mutex: Mutex<BdkWallet<AnyDatabase>>,
 }
 impl Wallet {
     pub fn retrieve_wallet(id: String) -> Arc<Wallet> {
@@ -64,7 +64,7 @@ impl Wallet {
             BdkWallet::new(&descriptor, change_descriptor.as_ref(), network, database).unwrap();
         let wallet_mutex = Mutex::new(bdk_wallet);
 
-        let wallet = Wallet { wallet_mutex };
+        let wallet = Wallet { inner_mutex: wallet_mutex };
 
         let id = default_hasher(&descriptor).to_hex();
         persist_wallet(id.clone(), wallet);
@@ -72,12 +72,12 @@ impl Wallet {
     }
 
     pub(crate) fn get_wallet(&self) -> MutexGuard<BdkWallet<AnyDatabase>> {
-        self.wallet_mutex.lock().expect("wallet")
+        self.inner_mutex.lock().expect("wallet")
     }
     pub fn sync(&self, blockchain: &Blockchain, progress: Option<Box<dyn Progress>>) {
         let bdk_sync_option: SyncOptions = if let Some(p) = progress {
             SyncOptions {
-                progress: Some(Box::new(ProgressHolder { progress: p })
+                progress: Some(Box::new(ProgressHolder { inner: p })
                     as Box<(dyn bdk::blockchain::Progress + 'static)>),
             }
         } else {
@@ -139,7 +139,7 @@ impl Wallet {
         psbt: &PartiallySignedTransaction,
         sign_options: Option<SignOptions>,
     ) -> Result<bool, BdkError> {
-        let mut psbt = psbt.internal.lock().unwrap();
+        let mut psbt = psbt.inner.lock().unwrap();
         self.get_wallet().sign(
             &mut psbt,
             sign_options.map(SignOptions::into).unwrap_or_default(),

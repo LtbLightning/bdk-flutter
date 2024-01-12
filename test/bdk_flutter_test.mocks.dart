@@ -1467,8 +1467,8 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
 /// See the documentation for Mockito's code generation for more information.
 class MockScript extends _i1.Mock implements _i3.Script {
   @override
-  _i5.Uint8List get internal => (super.noSuchMethod(
-        Invocation.getter(#internal),
+  _i5.Uint8List get inner => (super.noSuchMethod(
+        Invocation.getter(#inner),
         returnValue: _i5.Uint8List(0),
         returnValueForMissingStub: _i5.Uint8List(0),
       ) as _i5.Uint8List);

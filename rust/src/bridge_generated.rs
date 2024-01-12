@@ -1666,7 +1666,7 @@ impl rust2dart::IntoIntoDart<Payload> for Payload {
 
 impl support::IntoDart for Script {
     fn into_dart(self) -> support::DartAbi {
-        vec![self.internal.into_into_dart().into_dart()].into_dart()
+        vec![self.inner.into_into_dart().into_dart()].into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for Script {}
@@ -2859,7 +2859,7 @@ mod io {
     impl Wire2Api<Script> for wire_Script {
         fn wire2api(self) -> Script {
             Script {
-                internal: self.internal.wire2api(),
+                inner: self.inner.wire2api(),
             }
         }
     }
@@ -3016,7 +3016,7 @@ mod io {
     #[repr(C)]
     #[derive(Clone)]
     pub struct wire_Script {
-        internal: *mut wire_uint_8_list,
+        inner: *mut wire_uint_8_list,
     }
 
     #[repr(C)]
@@ -3474,7 +3474,7 @@ mod io {
     impl NewWithNullPtr for wire_Script {
         fn new_with_null_ptr() -> Self {
             Self {
-                internal: core::ptr::null_mut(),
+                inner: core::ptr::null_mut(),
             }
         }
     }

@@ -76,7 +76,7 @@ typedef struct wire_BlockchainConfig {
 } wire_BlockchainConfig;
 
 typedef struct wire_Script {
-  struct wire_uint_8_list *internal;
+  struct wire_uint_8_list *inner;
 } wire_Script;
 
 typedef struct wire_ScriptAmount {
