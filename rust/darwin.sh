@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup
-BUILD_DIR=bdk.0.29.3
+BUILD_DIR=bdk.0.30.0
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
 
