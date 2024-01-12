@@ -396,7 +396,7 @@ impl Api {
         mnemonic: String,
         password: Option<String>,
     ) -> anyhow::Result<String, Error> {
-        let mnemonic = Mnemonic::from_str(mnemonic)?;
+        let mnemonic = Mnemonic::from_string(mnemonic)?;
         Ok(DescriptorSecretKey::new(network.into(), mnemonic, password)?.as_string())
     }
     pub fn descriptor_secret_from_string(secret: String) -> anyhow::Result<String> {
@@ -412,16 +412,12 @@ impl Api {
     }
     pub fn descriptor_secret_as_secret_bytes(secret: String) -> anyhow::Result<Vec<u8>, Error> {
         let secret = BdkDescriptorSecretKey::from_str(secret.as_str())?;
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
         Ok(descriptor_secret.secret_bytes()?)
     }
     pub fn descriptor_secret_as_public(secret: String) -> anyhow::Result<String, Error> {
         let secret = BdkDescriptorSecretKey::from_str(secret.as_str())?;
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
         Ok(descriptor_secret.as_public()?.as_string())
     }
     fn descriptor_secret_config(
@@ -433,9 +429,7 @@ impl Api {
             Ok(e) => e,
             Err(e) => panic!("{:?}", e),
         };
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
 
         if path.is_none() {
             return Arc::new(descriptor_secret);
@@ -611,7 +605,7 @@ impl Api {
         mnemonic.as_string()
     }
     pub fn generate_seed_from_string(mnemonic: String) -> anyhow::Result<String, Error> {
-        Ok(Mnemonic::from_str(mnemonic)?.as_string())
+        Ok(Mnemonic::from_string(mnemonic)?.as_string())
     }
     pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> anyhow::Result<String, Error> {
         Ok(Mnemonic::from_entropy(entropy)?.as_string())

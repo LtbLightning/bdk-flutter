@@ -12,7 +12,6 @@ use bdk::template::{
 };
 use bdk::Error as BdkError;
 use bdk::KeychainKind;
-use std::ops::Deref;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -36,9 +35,9 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
-        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+        let derivable_key = &secret_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
@@ -61,9 +60,9 @@ impl BdkDescriptor {
         network: Network,
     ) -> Self {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
-        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+        let derivable_key = &public_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
@@ -87,9 +86,9 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
-        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+        let derivable_key = &secret_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
@@ -112,9 +111,9 @@ impl BdkDescriptor {
         network: Network,
     ) -> Self {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
-        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+        let derivable_key = &public_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
@@ -138,9 +137,9 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Self {
-        let derivable_key = secret_key.descriptor_secret_key_mutex.lock().unwrap();
+        let derivable_key = &secret_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
@@ -163,9 +162,9 @@ impl BdkDescriptor {
         network: Network,
     ) -> Self {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
-        let derivable_key = public_key.descriptor_public_key_mutex.lock().unwrap();
+        let derivable_key = &public_key.inner;
 
-        match derivable_key.deref() {
+        match derivable_key {
             BdkDescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
