@@ -187,7 +187,7 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
             serialized_tx: x
                 .clone()
                 .transaction
-                .map(|x| Transaction { internal: x }.into()),
+                .map(|x| Transaction { inner: x }.into()),
             fee: x.clone().fee,
             txid: x.clone().txid.to_string(),
             received: x.clone().received,
@@ -317,22 +317,22 @@ impl From<WordCount> for bdk::keys::bip39::WordCount {
     }
 }
 pub struct Address {
-    pub address: BdkAddress,
+    pub inner: BdkAddress,
 }
 impl Address {
     pub fn new(address: String) -> Result<Self, BdkError> {
         BdkAddress::from_str(address.as_str())
-            .map(|a| Address { address: a })
+            .map(|a| Address { inner: a })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
 
     pub fn from_script(script: Script, network: Network) -> Result<Self, BdkError> {
         BdkAddress::from_script(&script.into(), network.into())
-            .map(|a| Address { address: a })
+            .map(|a| Address { inner: a })
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
     pub fn payload(&self) -> Payload {
-        match &self.address.payload.clone() {
+        match &self.inner.payload.clone() {
             BdkPayload::PubkeyHash(pubkey_hash) => Payload::PubkeyHash {
                 pubkey_hash: pubkey_hash.to_vec(),
             },
@@ -347,36 +347,36 @@ impl Address {
     }
 
     pub fn network(&self) -> Network {
-        self.address.network.into()
+        self.inner.network.into()
     }
 
     pub fn script_pubkey(&self) -> Script {
-        self.address.script_pubkey().into()
+        self.inner.script_pubkey().into()
     }
 }
 /// A Bitcoin script.
 #[derive(Clone, Default, Debug)]
 pub struct Script {
-    pub internal: Vec<u8>,
+    pub inner: Vec<u8>,
 }
 impl Script {
     pub fn new(raw_output_script: Vec<u8>) -> Result<Script, Error> {
         let script = bdk::bitcoin::Script::from(raw_output_script);
         Ok(Script {
-            internal: script.into_bytes(),
+            inner: script.into_bytes(),
         })
     }
 }
 
 impl From<Script> for bdk::bitcoin::Script {
     fn from(value: Script) -> Self {
-        bdk::bitcoin::Script::from(value.internal)
+        bdk::bitcoin::Script::from(value.inner)
     }
 }
 impl From<bdk::bitcoin::Script> for Script {
     fn from(value: bdk::bitcoin::Script) -> Self {
         Script {
-            internal: value.into_bytes(),
+            inner: value.into_bytes(),
         }
     }
 }
@@ -465,12 +465,12 @@ pub trait Progress: Send + Sync + 'static {
 }
 
 pub struct ProgressHolder {
-    pub progress: Box<dyn Progress>,
+    pub inner: Box<dyn Progress>,
 }
 
 impl BdkProgress for ProgressHolder {
     fn update(&self, progress: f32, message: Option<String>) -> Result<(), BdkError> {
-        self.progress.update(progress, message);
+        self.inner.update(progress, message);
         Ok(())
     }
 }

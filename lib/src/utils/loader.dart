@@ -7,37 +7,11 @@ import 'package:http/http.dart' as http;
 
 import '../generated/bindings.dart';
 
-DynamicLibrary _open() {
-  if (Platform.environment['FLUTTER_TEST'] == 'true') {
-    try {
-      DynamicLibrary.open(getTestBinaryUrl(Directory.current));
-    } catch (e) {
-      throw Exception(
-          "Unable to open the dylib! Try calling setCurrentDirectory()");
-    }
-  }
-  if (Platform.isIOS || Platform.isMacOS) {
-    return DynamicLibrary.executable();
-  } else if (Platform.isAndroid) {
-    return DynamicLibrary.open("librust_bdk_ffi.so");
-  } else {
-    throw Exception("not support platform:${Platform.operatingSystem}");
-  }
-}
-
-String getTestBinaryUrl(Directory dir) {
-  final assetsDir = '${dir.path}/build/unit_test_assets/${AppConfig.libName}';
-  if (Platform.isMacOS) {
-    return "$assetsDir/macos/librust_bdk_ffi.dylib";
-  } else {
-    throw Exception("not support platform:${Platform.operatingSystem}");
-  }
-}
-
-final bdkFfi = RustBdkFfiImpl(_open());
-
-class AppConfig {
+class Dylib {
   static Map<String, dynamic>? _config;
+  static String get libName => "unittest.bdk.${_config!['TAG_VERSION']}";
+  static String get remoteUrl =>
+      "${_config!['REPOSITORY_URL']}${_config!['TAG_VERSION']}/$libName.zip";
   static Future<void> _loadJsonAsset() async {
     final String content = await rootBundle
         .loadString("packages/bdk_flutter/assets/release.config.txt");
@@ -55,9 +29,9 @@ class AppConfig {
     _config = configMap;
   }
 
-  static Future<void> setBuildDirectory(String dir) async {
+  static Future<void> downloadUnitTestDylib(String currentDirectory) async {
     await _loadJsonAsset();
-    final assetsDir = '$dir/unit_test_assets';
+    final assetsDir = '$currentDirectory/build/unit_test_assets';
     if (!(await Directory('$assetsDir/$libName').exists())) {
       try {
         final response = await http.get(Uri.parse(remoteUrl));
@@ -82,7 +56,32 @@ class AppConfig {
     }
   }
 
-  static String get libName => "unittest.bdk.${_config!['TAG_VERSION']}";
-  static String get remoteUrl =>
-      "${_config!['REPOSITORY_URL']}${_config!['TAG_VERSION']}/$libName.zip";
+  static String _getUniTestDylibDir(Directory currentDirectory) {
+    final assetsDir = '${currentDirectory.path}/build/unit_test_assets';
+
+    if (Platform.isMacOS) {
+      return "$assetsDir/$libName/macos/librust_bdk_ffi.dylib";
+    } else {
+      throw Exception("not support platform:${Platform.operatingSystem}");
+    }
+  }
+
+  static DynamicLibrary getDylib() {
+    if (Platform.environment['FLUTTER_TEST'] == 'true') {
+      try {
+        DynamicLibrary.open(_getUniTestDylibDir(Directory.current));
+      } catch (e) {
+        throw Exception("Unable to open the unit test dylib!");
+      }
+    }
+    if (Platform.isIOS || Platform.isMacOS) {
+      return DynamicLibrary.executable();
+    } else if (Platform.isAndroid) {
+      return DynamicLibrary.open("librust_bdk_ffi.so");
+    } else {
+      throw Exception("not support platform:${Platform.operatingSystem}");
+    }
+  }
 }
+
+final bdkFfi = RustBdkFfiImpl(Dylib.getDylib());

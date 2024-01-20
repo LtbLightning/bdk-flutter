@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := help
 PROJECTNAME=$(shell basename "$(PWD)")
-SOURCES=$(sort $(wildcard ./src/*.rs ./src/**/*.rs))
 # ##############################################################################
 # # GENERAL
 # ##############################################################################
@@ -21,39 +20,38 @@ init:
 ## :
 
 ## all: Compile iOS, Android and bindings targets
-all: init android xcframework unittest copy
+all: init build-jnilib build-xcframework build-unittest copy-build compress-build
 
 
-unittest: unittest/bindings
-unittest/bindings: $(SOURCES)
-	  @echo "[Creating unittest ...] $@"
-	  sh unittest.sh
-	  @echo "[Done ✅]"
-
-
-android: android/jniLibs
-android/jniLibs: $(SOURCES)
+build-jnilib:
 	  @echo "[Creating android jniLibs ...] $@"
 	  sh android.sh
 	  @echo "[Done ✅]"
 
-xcframework: darwin/xcframework
-darwin/xcframework: $(SOURCES)
+build-xcframework:
 	  @echo "[Creating rust_bdk_ffi.xcframework ...] $@"
 	  sh darwin.sh
 	  @echo "[Done ✅]"
 
-compress: compress/bindings
-compress/bindings: $(SOURCES)
-	 @echo "[COMPRESSING BINARIES TO FLUTTER PACKAGE ...] $@"
+build-unittest:
+	  @echo "[Creating unittest ...] $@"
+	  sh unittest.sh
+	  @echo "[Done ✅]"
+
+compress-build:
+	@echo "[COMPRESSING BINARIES TO FLUTTER PACKAGE ...] $@"
 	sh compress.sh
 	@echo "[Done ✅]"
 
-copy: copy/bindings
-copy/bindings: $(SOURCES)
+copy-build:
 	@echo "[COPYING BINARIES TO FLUTTER PACKAGE ...] $@"
 	sh copy.sh
 	@echo "[Done ✅]"
+
+
+
+
+
 
 
 

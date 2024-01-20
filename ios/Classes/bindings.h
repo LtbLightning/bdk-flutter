@@ -76,7 +76,7 @@ typedef struct wire_BlockchainConfig {
 } wire_BlockchainConfig;
 
 typedef struct wire_Script {
-  struct wire_uint_8_list *internal;
+  struct wire_uint_8_list *inner;
 } wire_Script;
 
 typedef struct wire_ScriptAmount {
@@ -341,6 +341,17 @@ void wire_new_bip84_public__static_method__Api(int64_t port_,
                                                int32_t network,
                                                struct wire_uint_8_list *fingerprint);
 
+void wire_new_bip86_descriptor__static_method__Api(int64_t port_,
+                                                   int32_t key_chain_kind,
+                                                   struct wire_uint_8_list *secret_key,
+                                                   int32_t network);
+
+void wire_new_bip86_public__static_method__Api(int64_t port_,
+                                               int32_t key_chain_kind,
+                                               struct wire_uint_8_list *public_key,
+                                               int32_t network,
+                                               struct wire_uint_8_list *fingerprint);
+
 void wire_descriptor_as_string_private__static_method__Api(int64_t port_,
                                                            struct wire_uint_8_list *descriptor,
                                                            int32_t network);
@@ -559,6 +570,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_bip49_public__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_descriptor__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_new_bip84_public__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip86_descriptor__static_method__Api);
+    dummy_var ^= ((int64_t) (void*) wire_new_bip86_public__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_as_string_private__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_descriptor_as_string__static_method__Api);
     dummy_var ^= ((int64_t) (void*) wire_max_satisfaction_weight__static_method__Api);

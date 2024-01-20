@@ -7,6 +7,6 @@ mod error;
 mod key;
 mod psbt;
 
+mod r_api;
 mod types;
 mod wallet;
-mod r_api;

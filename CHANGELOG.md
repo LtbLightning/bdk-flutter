@@ -1,5 +1,10 @@
-## [0.29.3]
+## [0.30.0]
+Updated Rust and Flutter dependencies.
 macOs support bug resolved
+
+#### APIs added
+- Add BIP-86 descriptor template
+
 
 ## [0.29.2]
 Support macOs and unit testing.
@@ -7,7 +12,6 @@ Support macOs and unit testing.
 Updated flutter dependencies.
 
 ## [0.29.1]
-
 Updated Rust and Flutter dependencies.
 
 Exposed strongly-typed exceptions.

@@ -238,7 +238,7 @@ impl Api {
         return match tx_builder.finish() {
             Ok(e) => Ok((
                 PartiallySignedTransaction {
-                    internal: Mutex::new(e.0),
+                    inner: Mutex::new(e.0),
                 }
                 .serialize(),
                 TransactionDetails::from(&e.1),
@@ -278,7 +278,7 @@ impl Api {
         return match tx_builder.finish() {
             Ok(e) => Ok((
                 PartiallySignedTransaction {
-                    internal: Mutex::new(e.0),
+                    inner: Mutex::new(e.0),
                 }
                 .serialize(),
                 TransactionDetails::from(&e.1),
@@ -370,6 +370,32 @@ impl Api {
         );
         Ok(descriptor.as_string())
     }
+    pub fn new_bip86_descriptor(
+        key_chain_kind: KeychainKind,
+        secret_key: String,
+        network: Network,
+    ) -> anyhow::Result<String, Error> {
+        let key = DescriptorSecretKey::from_string(secret_key)?;
+        let descriptor = BdkDescriptor::new_bip86(key, key_chain_kind.into(), network.into());
+        Ok(descriptor.as_string_private())
+    }
+
+    pub fn new_bip86_public(
+        key_chain_kind: KeychainKind,
+        public_key: String,
+        network: Network,
+        fingerprint: String,
+    ) -> anyhow::Result<String, Error> {
+        let key: DescriptorPublicKey = DescriptorPublicKey::from_string(public_key)?;
+        let descriptor = BdkDescriptor::new_bip86_public(
+            key,
+            fingerprint,
+            key_chain_kind.into(),
+            network.into(),
+        );
+        Ok(descriptor.as_string())
+    }
+
     pub fn descriptor_as_string_private(
         descriptor: String,
         network: Network,
@@ -396,7 +422,7 @@ impl Api {
         mnemonic: String,
         password: Option<String>,
     ) -> anyhow::Result<String, Error> {
-        let mnemonic = Mnemonic::from_str(mnemonic)?;
+        let mnemonic = Mnemonic::from_string(mnemonic)?;
         Ok(DescriptorSecretKey::new(network.into(), mnemonic, password)?.as_string())
     }
     pub fn descriptor_secret_from_string(secret: String) -> anyhow::Result<String> {
@@ -412,16 +438,12 @@ impl Api {
     }
     pub fn descriptor_secret_as_secret_bytes(secret: String) -> anyhow::Result<Vec<u8>, Error> {
         let secret = BdkDescriptorSecretKey::from_str(secret.as_str())?;
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
         Ok(descriptor_secret.secret_bytes()?)
     }
     pub fn descriptor_secret_as_public(secret: String) -> anyhow::Result<String, Error> {
         let secret = BdkDescriptorSecretKey::from_str(secret.as_str())?;
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
         Ok(descriptor_secret.as_public()?.as_string())
     }
     fn descriptor_secret_config(
@@ -433,9 +455,7 @@ impl Api {
             Ok(e) => e,
             Err(e) => panic!("{:?}", e),
         };
-        let descriptor_secret = DescriptorSecretKey {
-            descriptor_secret_key_mutex: Mutex::new(secret),
-        };
+        let descriptor_secret = DescriptorSecretKey { inner: secret };
 
         if path.is_none() {
             return Arc::new(descriptor_secret);
@@ -485,11 +505,11 @@ impl Api {
 
     //================Address============
     pub fn create_address(address: String) -> anyhow::Result<String, Error> {
-        Ok(Address::new(address)?.address.to_string())
+        Ok(Address::new(address)?.inner.to_string())
     }
     pub fn address_from_script(script: Script, network: Network) -> anyhow::Result<String, Error> {
         Ok(Address::from_script(script, network.into())?
-            .address
+            .inner
             .to_string())
     }
     pub fn address_to_script_pubkey(address: String) -> anyhow::Result<Script, Error> {
@@ -611,7 +631,7 @@ impl Api {
         mnemonic.as_string()
     }
     pub fn generate_seed_from_string(mnemonic: String) -> anyhow::Result<String, Error> {
-        Ok(Mnemonic::from_str(mnemonic)?.as_string())
+        Ok(Mnemonic::from_string(mnemonic)?.as_string())
     }
     pub fn generate_seed_from_entropy(entropy: Vec<u8>) -> anyhow::Result<String, Error> {
         Ok(Mnemonic::from_entropy(entropy)?.as_string())
