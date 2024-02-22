@@ -176,9 +176,9 @@ final internalAddress =
 
 The latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
 
-### Example Projects
+### Example Projects 
 
-- **\*BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-demo-app)
+- **\*BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-quickstart)
   is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
 
 ### How to build
