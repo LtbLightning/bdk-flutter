@@ -1,0 +1,7 @@
+cargo:
+  release:
+    toolchain: nightly
+    extra_flags:
+      - -Z
+      - build-std=panic_abort,std
+
