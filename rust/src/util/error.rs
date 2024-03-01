@@ -1,17 +1,229 @@
-use crate::api::types::{Network, Variant};
+use crate::api::types::{KeychainKind, Network, OutPoint, Variant};
+use bdk::descriptor::error::Error as BdkDescriptorError;
 
 pub enum BdkError {
-    HexError(BitcoinHexError),
-    ConsensusError(BitcoinConsensusError),
-    AddressError(BitcoinAddressError),
+    /// Hex decoding error
+    Hex(HexError),
+    /// Encoding error
+    Consensus(ConsensusError),
+    /// Address error.
+    Address(AddressError),
+    /// Error related to the parsing and usage of descriptors
+    Descriptor(DescriptorError),
+    /// Wrong number of bytes found when trying to convert to u32
+    InvalidU32Bytes(Vec<u8>),
+    /// Generic error
+    Generic(String),
+    /// This error is thrown when trying to convert Bare and Public key script to address
+    ScriptDoesntHaveAddressForm,
+    /// Cannot build a tx without recipients
+    NoRecipients,
+    /// `manually_selected_only` option is selected but no utxo has been passed
+    NoUtxosSelected,
+    /// Output created is under the dust limit, 546 satoshis
+    OutputBelowDustLimit(usize),
+    /// Wallet's UTXO set is not enough to cover recipient's requested plus fee
+    InsufficientFunds {
+        /// Sats needed for some transaction
+        needed: u64,
+        /// Sats available for spending
+        available: u64,
+    },
+    /// Branch and bound coin selection possible attempts with sufficiently big UTXO set could grow
+    /// exponentially, thus a limit is set, and when hit, this error is thrown
+    BnBTotalTriesExceeded,
+    /// Branch and bound coin selection tries to avoid needing a change by finding the right inputs for
+    /// the desired outputs plus fee, if there is not such combination this error is thrown
+    BnBNoExactMatch,
+    /// Happens when trying to spend an UTXO that is not in the internal database
+    UnknownUtxo,
+    /// Thrown when a tx is not found in the internal database
+    TransactionNotFound,
+    /// Happens when trying to bump a transaction that is already confirmed
+    TransactionConfirmed,
+    /// Trying to replace a tx that has a sequence >= `0xFFFFFFFE`
+    IrreplaceableTransaction,
+    /// When bumping a tx the fee rate requested is lower than required
+    FeeRateTooLow {
+        /// Required fee rate (satoshi/vbyte)
+        needed: f32,
+    },
+    /// When bumping a tx the absolute fee requested is lower than replaced tx absolute fee
+    FeeTooLow {
+        /// Required fee absolute value (satoshi)
+        needed: u64,
+    },
+    /// Node doesn't have data to estimate a fee rate
+    FeeRateUnavailable,
+    MissingKeyOrigin(String),
+    /// Error while working with keys
+    Key(String),
+    /// Descriptor checksum mismatch
+    ChecksumMismatch,
+    /// Spending policy is not compatible with this [`KeychainKind`]
+    SpendingPolicyRequired(KeychainKind),
+    /// Error while extracting and manipulating policies
+    InvalidPolicyPathError(String),
+    /// Signing error
+    Signer(String),
+    /// Invalid network
+    InvalidNetwork {
+        /// requested network, for example what is given as bdk-cli option
+        requested: Network,
+        /// found network, for example the network of the bitcoin node
+        found: Network,
+    },
+    /// Requested outpoint doesn't exist in the tx (vout greater than available outputs)
+    InvalidOutpoint(OutPoint),
+    /// Encoding error
+    Encode(String),
+    /// Miniscript error
+    Miniscript(String),
+    /// Miniscript PSBT error
+    MiniscriptPsbt(String),
+    /// BIP32 error
+    Bip32(String),
+    /// BIP39 error
+    Bip39(String),
+    /// A secp256k1 error
+    Secp256k1(String),
+    /// Error serializing or deserializing JSON data
+    Json(String),
+    /// Partially signed bitcoin transaction error
+    Psbt(String),
+    /// Partially signed bitcoin transaction parse error
+    PsbtParse(String),
+    ///  sync attempt failed due to missing scripts in cache which
+    /// are needed to satisfy `stop_gap`.
+    MissingCachedScripts(usize, usize),
+    /// Electrum client error
+    Electrum(String),
+    /// Esplora client error
+    Esplora(String),
+    /// Sled database error
+    Sled(String),
+    /// Rpc client error
+    Rpc(String),
+    /// Rusqlite client error
+    Rusqlite(String),
 }
 
-pub enum BitcoinHexError {
+impl From<bdk::Error> for BdkError {
+    fn from(value: bdk::Error) -> Self {
+        match value {
+            bdk::Error::InvalidU32Bytes(e) => BdkError::InvalidU32Bytes(e),
+            bdk::Error::Generic(e) => BdkError::Generic(e),
+            bdk::Error::ScriptDoesntHaveAddressForm => BdkError::ScriptDoesntHaveAddressForm,
+            bdk::Error::NoRecipients => BdkError::NoRecipients,
+            bdk::Error::NoUtxosSelected => BdkError::NoUtxosSelected,
+            bdk::Error::OutputBelowDustLimit(e) => BdkError::OutputBelowDustLimit(e),
+            bdk::Error::InsufficientFunds { needed, available } => {
+                BdkError::InsufficientFunds { needed, available }
+            }
+            bdk::Error::BnBTotalTriesExceeded => BdkError::BnBTotalTriesExceeded,
+            bdk::Error::BnBNoExactMatch => BdkError::BnBNoExactMatch,
+            bdk::Error::UnknownUtxo => BdkError::UnknownUtxo,
+            bdk::Error::TransactionNotFound => BdkError::TransactionNotFound,
+            bdk::Error::TransactionConfirmed => BdkError::TransactionConfirmed,
+            bdk::Error::IrreplaceableTransaction => BdkError::IrreplaceableTransaction,
+            bdk::Error::FeeRateTooLow { required } => BdkError::FeeRateTooLow {
+                needed: required.as_sat_per_vb(),
+            },
+            bdk::Error::FeeTooLow { required } => BdkError::FeeTooLow { needed: required },
+            bdk::Error::FeeRateUnavailable => BdkError::FeeRateUnavailable,
+            bdk::Error::MissingKeyOrigin(e) => BdkError::MissingKeyOrigin(e),
+            bdk::Error::Key(e) => BdkError::Key(e.to_string()),
+            bdk::Error::ChecksumMismatch => BdkError::ChecksumMismatch,
+            bdk::Error::SpendingPolicyRequired(e) => BdkError::SpendingPolicyRequired(e.into()),
+            bdk::Error::InvalidPolicyPathError(e) => {
+                BdkError::InvalidPolicyPathError(e.to_string())
+            }
+            bdk::Error::Signer(e) => BdkError::Signer(e.to_string()),
+            bdk::Error::InvalidNetwork { requested, found } => BdkError::InvalidNetwork {
+                requested: requested.into(),
+                found: found.into(),
+            },
+            bdk::Error::InvalidOutpoint(e) => BdkError::InvalidOutpoint(e.into()),
+            bdk::Error::Descriptor(e) => BdkError::Descriptor(e.into()),
+            bdk::Error::Encode(e) => BdkError::Encode(e.to_string()),
+            bdk::Error::Miniscript(e) => BdkError::Miniscript(e.to_string()),
+            bdk::Error::MiniscriptPsbt(e) => BdkError::MiniscriptPsbt(e.to_string()),
+            bdk::Error::Bip32(e) => BdkError::Bip32(e.to_string()),
+            bdk::Error::Secp256k1(e) => BdkError::Secp256k1(e.to_string()),
+            bdk::Error::Json(e) => BdkError::Json(e.to_string()),
+            bdk::Error::Hex(e) => BdkError::Hex(e.into()),
+            bdk::Error::Psbt(e) => BdkError::Psbt(e.to_string()),
+            bdk::Error::PsbtParse(e) => BdkError::PsbtParse(e.to_string()),
+            bdk::Error::MissingCachedScripts(e) => {
+                BdkError::MissingCachedScripts(e.missing_count, e.last_count)
+            }
+            bdk::Error::Electrum(e) => BdkError::Electrum(e.to_string()),
+            bdk::Error::Esplora(e) => BdkError::Esplora(e.to_string()),
+            bdk::Error::Sled(e) => BdkError::Sled(e.to_string()),
+            bdk::Error::Rpc(e) => BdkError::Rpc(e.to_string()),
+            bdk::Error::Rusqlite(e) => BdkError::Rusqlite(e.to_string()),
+            _ => BdkError::Generic("".to_string()),
+        }
+    }
+}
+pub enum DescriptorError {
+    InvalidHdKeyPath,
+    InvalidDescriptorChecksum,
+    HardenedDerivationXpub,
+    MultiPath,
+    Key(String),
+    Policy(String),
+    InvalidDescriptorCharacter(u8),
+    Bip32(String),
+    Base58(String),
+    Pk(String),
+    Miniscript(String),
+    Hex(String),
+}
+impl From<BdkDescriptorError> for BdkError {
+    fn from(value: BdkDescriptorError) -> Self {
+        BdkError::Descriptor(value.into())
+    }
+}
+impl From<BdkDescriptorError> for DescriptorError {
+    fn from(value: BdkDescriptorError) -> Self {
+        match value {
+            BdkDescriptorError::InvalidHdKeyPath => DescriptorError::InvalidHdKeyPath,
+            BdkDescriptorError::InvalidDescriptorChecksum => {
+                DescriptorError::InvalidDescriptorChecksum
+            }
+            BdkDescriptorError::HardenedDerivationXpub => DescriptorError::HardenedDerivationXpub,
+            BdkDescriptorError::MultiPath => DescriptorError::MultiPath,
+            BdkDescriptorError::Key(e) => DescriptorError::Key(e.to_string()),
+            BdkDescriptorError::Policy(e) => DescriptorError::Policy(e.to_string()),
+            BdkDescriptorError::InvalidDescriptorCharacter(e) => {
+                DescriptorError::InvalidDescriptorCharacter(e)
+            }
+            BdkDescriptorError::Bip32(e) => DescriptorError::Bip32(e.to_string()),
+            BdkDescriptorError::Base58(e) => DescriptorError::Base58(e.to_string()),
+            BdkDescriptorError::Pk(e) => DescriptorError::Pk(e.to_string()),
+            BdkDescriptorError::Miniscript(e) => DescriptorError::Miniscript(e.to_string()),
+            BdkDescriptorError::Hex(e) => DescriptorError::Hex(e.to_string()),
+        }
+    }
+}
+pub enum HexError {
     InvalidChar(u8),
     OddLengthString(usize),
     InvalidLength(usize, usize),
 }
-pub enum BitcoinConsensusError {
+
+impl From<bdk::bitcoin::hashes::hex::Error> for HexError {
+    fn from(value: bdk::bitcoin::hashes::hex::Error) -> Self {
+        match value {
+            bdk::bitcoin::hashes::hex::Error::InvalidChar(e) => HexError::InvalidChar(e),
+            bdk::bitcoin::hashes::hex::Error::OddLengthString(e) => HexError::OddLengthString(e),
+            bdk::bitcoin::hashes::hex::Error::InvalidLength(e, f) => HexError::InvalidLength(e, f),
+        }
+    }
+}
+
+pub enum ConsensusError {
     Io(String),
     OversizedVectorAllocation { requested: usize, max: usize },
     InvalidChecksum { expected: [u8; 4], actual: [u8; 4] },
@@ -21,36 +233,34 @@ pub enum BitcoinConsensusError {
 }
 impl From<bdk::bitcoin::consensus::encode::Error> for BdkError {
     fn from(value: bdk::bitcoin::consensus::encode::Error) -> Self {
-        BdkError::ConsensusError(value.into())
+        BdkError::Consensus(value.into())
     }
 }
-impl From<bdk::bitcoin::consensus::encode::Error> for BitcoinConsensusError {
+impl From<bdk::bitcoin::consensus::encode::Error> for ConsensusError {
     fn from(value: bdk::bitcoin::consensus::encode::Error) -> Self {
         match value {
-            bdk::bitcoin::consensus::encode::Error::Io(e) => {
-                BitcoinConsensusError::Io(e.to_string())
-            }
+            bdk::bitcoin::consensus::encode::Error::Io(e) => ConsensusError::Io(e.to_string()),
             bdk::bitcoin::consensus::encode::Error::OversizedVectorAllocation {
                 requested,
                 max,
-            } => BitcoinConsensusError::OversizedVectorAllocation { requested, max },
+            } => ConsensusError::OversizedVectorAllocation { requested, max },
             bdk::bitcoin::consensus::encode::Error::InvalidChecksum { expected, actual } => {
-                BitcoinConsensusError::InvalidChecksum { expected, actual }
+                ConsensusError::InvalidChecksum { expected, actual }
             }
             bdk::bitcoin::consensus::encode::Error::NonMinimalVarInt => {
-                BitcoinConsensusError::NonMinimalVarInt
+                ConsensusError::NonMinimalVarInt
             }
             bdk::bitcoin::consensus::encode::Error::ParseFailed(e) => {
-                BitcoinConsensusError::ParseFailed(e.to_string())
+                ConsensusError::ParseFailed(e.to_string())
             }
             bdk::bitcoin::consensus::encode::Error::UnsupportedSegwitFlag(e) => {
-                BitcoinConsensusError::UnsupportedSegwitFlag(e)
+                ConsensusError::UnsupportedSegwitFlag(e)
             }
             _ => unreachable!(),
         }
     }
 }
-pub enum BitcoinAddressError {
+pub enum AddressError {
     Base58(String),
     Bech32(String),
     EmptyBech32Payload,
@@ -75,61 +285,59 @@ pub enum BitcoinAddressError {
 }
 impl From<bdk::bitcoin::address::Error> for BdkError {
     fn from(value: bdk::bitcoin::address::Error) -> Self {
-        BdkError::AddressError(value.into())
+        BdkError::Address(value.into())
     }
 }
 
-impl From<bdk::bitcoin::address::Error> for BitcoinAddressError {
+impl From<bdk::bitcoin::address::Error> for AddressError {
     fn from(value: bdk::bitcoin::address::Error) -> Self {
         match value {
-            bdk::bitcoin::address::Error::Base58(e) => BitcoinAddressError::Base58(e.to_string()),
-            bdk::bitcoin::address::Error::Bech32(e) => BitcoinAddressError::Bech32(e.to_string()),
-            bdk::bitcoin::address::Error::EmptyBech32Payload => {
-                BitcoinAddressError::EmptyBech32Payload
-            }
+            bdk::bitcoin::address::Error::Base58(e) => AddressError::Base58(e.to_string()),
+            bdk::bitcoin::address::Error::Bech32(e) => AddressError::Bech32(e.to_string()),
+            bdk::bitcoin::address::Error::EmptyBech32Payload => AddressError::EmptyBech32Payload,
             bdk::bitcoin::address::Error::InvalidBech32Variant { expected, found } => {
-                BitcoinAddressError::InvalidBech32Variant {
+                AddressError::InvalidBech32Variant {
                     expected: expected.into(),
                     found: found.into(),
                 }
             }
             bdk::bitcoin::address::Error::InvalidWitnessVersion(e) => {
-                BitcoinAddressError::InvalidWitnessVersion(e)
+                AddressError::InvalidWitnessVersion(e)
             }
             bdk::bitcoin::address::Error::UnparsableWitnessVersion(e) => {
-                BitcoinAddressError::UnparsableWitnessVersion(e.to_string())
+                AddressError::UnparsableWitnessVersion(e.to_string())
             }
             bdk::bitcoin::address::Error::MalformedWitnessVersion => {
-                BitcoinAddressError::MalformedWitnessVersion
+                AddressError::MalformedWitnessVersion
             }
             bdk::bitcoin::address::Error::InvalidWitnessProgramLength(e) => {
-                BitcoinAddressError::InvalidWitnessProgramLength(e)
+                AddressError::InvalidWitnessProgramLength(e)
             }
             bdk::bitcoin::address::Error::InvalidSegwitV0ProgramLength(e) => {
-                BitcoinAddressError::InvalidSegwitV0ProgramLength(e)
+                AddressError::InvalidSegwitV0ProgramLength(e)
             }
-            bdk::bitcoin::address::Error::UncompressedPubkey => {
-                BitcoinAddressError::UncompressedPubkey
-            }
-            bdk::bitcoin::address::Error::ExcessiveScriptSize => {
-                BitcoinAddressError::ExcessiveScriptSize
-            }
-            bdk::bitcoin::address::Error::UnrecognizedScript => {
-                BitcoinAddressError::UnrecognizedScript
-            }
+            bdk::bitcoin::address::Error::UncompressedPubkey => AddressError::UncompressedPubkey,
+            bdk::bitcoin::address::Error::ExcessiveScriptSize => AddressError::ExcessiveScriptSize,
+            bdk::bitcoin::address::Error::UnrecognizedScript => AddressError::UnrecognizedScript,
             bdk::bitcoin::address::Error::UnknownAddressType(e) => {
-                BitcoinAddressError::UnknownAddressType(e)
+                AddressError::UnknownAddressType(e)
             }
             bdk::bitcoin::address::Error::NetworkValidation {
                 required,
                 found,
                 address,
-            } => BitcoinAddressError::NetworkValidation {
+            } => AddressError::NetworkValidation {
                 network_required: required.into(),
                 network_found: found.into(),
                 address: address.assume_checked().to_string(),
             },
             _ => unreachable!(),
         }
+    }
+}
+
+impl From<bdk::miniscript::Error> for BdkError {
+    fn from(value: bdk::miniscript::Error) -> Self {
+        BdkError::Miniscript(value.to_string())
     }
 }
