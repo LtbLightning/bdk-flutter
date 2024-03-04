@@ -3,7 +3,10 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/descriptor.dart';
+import 'api/key.dart';
 import 'api/types.dart';
+import 'api/wallet.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.io.dart' if (dart.library.html) 'frb_generated.web.dart';
@@ -63,6 +66,129 @@ class BdkCore extends BaseEntrypoint<BdkCoreApi, BdkCoreApiImpl, BdkCoreWire> {
 }
 
 abstract class BdkCoreApi extends BaseApi {
+  Future<String> descriptorBaseAsString(
+      {required DescriptorBase that, dynamic hint});
+
+  Future<String> descriptorBaseAsStringPrivate(
+      {required DescriptorBase that, dynamic hint});
+
+  Future<int> descriptorBaseMaxSatisfactionWeight(
+      {required DescriptorBase that, dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNew(
+      {required String descriptor, required Network network, dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip44(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip44Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip49(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip49Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip84(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip84Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip86(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DescriptorBase> descriptorBaseNewBip86Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint});
+
+  Future<DerivationPathBase> derivationPathBaseFromString(
+      {required String path, dynamic hint});
+
+  Future<String> descriptorPublicKeyBaseAsString(
+      {required DescriptorPublicKeyBase that, dynamic hint});
+
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseDerive(
+      {required DescriptorPublicKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint});
+
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseExtend(
+      {required DescriptorPublicKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint});
+
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseFromString(
+      {required String publicKey, dynamic hint});
+
+  Future<DescriptorPublicKeyBase> descriptorSecretKeyBaseAsPublic(
+      {required DescriptorSecretKeyBase that, dynamic hint});
+
+  Future<String> descriptorSecretKeyBaseAsString(
+      {required DescriptorSecretKeyBase that, dynamic hint});
+
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseCreate(
+      {required Network network,
+      required MnemonicBase mnemonic,
+      String? password,
+      dynamic hint});
+
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseDerive(
+      {required DescriptorSecretKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint});
+
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseExtend(
+      {required DescriptorSecretKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint});
+
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseFromString(
+      {required String keyStr, dynamic hint});
+
+  Future<Uint8List> descriptorSecretKeyBaseSecretBytes(
+      {required DescriptorSecretKeyBase that, dynamic hint});
+
+  Future<String> mnemonicBaseAsString(
+      {required MnemonicBase that, dynamic hint});
+
+  Future<MnemonicBase> mnemonicBaseFromEntropy(
+      {required List<int> entropy, dynamic hint});
+
+  Future<MnemonicBase> mnemonicBaseFromString(
+      {required String mnemonic, dynamic hint});
+
+  Future<MnemonicBase> mnemonicBaseNew(
+      {required WordCount wordCount, dynamic hint});
+
   Future<String> addressBaseAsString({required AddressBase that, dynamic hint});
 
   Future<AddressBase> addressBaseFromScript(
@@ -129,6 +255,67 @@ abstract class BdkCoreApi extends BaseApi {
   Future<int> transactionBaseWeight(
       {required TransactionBase that, dynamic hint});
 
+  Future<WalletBase> walletBaseNew(
+      {required DescriptorBase descriptor,
+      DescriptorBase? changeDescriptor,
+      required Network network,
+      required DatabaseConfig databaseConfig,
+      dynamic hint});
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcBitcoinBip32DerivationPath;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcBitcoinBip32DerivationPath;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ArcBitcoinBip32DerivationPathPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysDescriptorPublicKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorPublicKey;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorPublicKeyPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysDescriptorSecretKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorSecretKey;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorSecretKeyPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysBip39Mnemonic;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysBip39Mnemonic;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ArcKeysBip39MnemonicPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ExtendedDescriptor;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ExtendedDescriptor;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ExtendedDescriptorPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_MutexBdkWalletAnyDatabase;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabase;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr;
+
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_BdkBitcoinAddress;
 
@@ -137,6 +324,14 @@ abstract class BdkCoreApi extends BaseApi {
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_BdkBitcoinAddressPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_KeysKeyMap;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_KeysKeyMap;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_KeysKeyMapPtr;
 }
 
 class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
@@ -146,6 +341,767 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
+
+  @override
+  Future<String> descriptorBaseAsString(
+      {required DescriptorBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
+        return wire.wire_DescriptorBase_as_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kDescriptorBaseAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseAsStringConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> descriptorBaseAsStringPrivate(
+      {required DescriptorBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
+        return wire.wire_DescriptorBase_as_string_private(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kDescriptorBaseAsStringPrivateConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseAsStringPrivateConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_as_string_private",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<int> descriptorBaseMaxSatisfactionWeight(
+      {required DescriptorBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
+        return wire.wire_DescriptorBase_max_satisfaction_weight(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_usize,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseMaxSatisfactionWeightConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseMaxSatisfactionWeightConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_max_satisfaction_weight",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNew(
+      {required String descriptor, required Network network, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_String(descriptor);
+        var arg1 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new(port_, arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewConstMeta,
+      argValues: [descriptor, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_new",
+        argNames: ["descriptor", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip44(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
+        var arg1 = cst_encode_keychain_kind(keychainKind);
+        var arg2 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip44(port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip44ConstMeta,
+      argValues: [secretKey, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip44ConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip44",
+        argNames: ["secretKey", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip44Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
+        var arg1 = cst_encode_String(fingerprint);
+        var arg2 = cst_encode_keychain_kind(keychainKind);
+        var arg3 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip44_public(
+            port_, arg0, arg1, arg2, arg3);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip44PublicConstMeta,
+      argValues: [publicKey, fingerprint, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip44PublicConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip44_public",
+        argNames: ["publicKey", "fingerprint", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip49(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
+        var arg1 = cst_encode_keychain_kind(keychainKind);
+        var arg2 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip49(port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip49ConstMeta,
+      argValues: [secretKey, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip49ConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip49",
+        argNames: ["secretKey", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip49Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
+        var arg1 = cst_encode_String(fingerprint);
+        var arg2 = cst_encode_keychain_kind(keychainKind);
+        var arg3 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip49_public(
+            port_, arg0, arg1, arg2, arg3);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip49PublicConstMeta,
+      argValues: [publicKey, fingerprint, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip49PublicConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip49_public",
+        argNames: ["publicKey", "fingerprint", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip84(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
+        var arg1 = cst_encode_keychain_kind(keychainKind);
+        var arg2 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip84(port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip84ConstMeta,
+      argValues: [secretKey, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip84ConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip84",
+        argNames: ["secretKey", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip84Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
+        var arg1 = cst_encode_String(fingerprint);
+        var arg2 = cst_encode_keychain_kind(keychainKind);
+        var arg3 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip84_public(
+            port_, arg0, arg1, arg2, arg3);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip84PublicConstMeta,
+      argValues: [publicKey, fingerprint, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip84PublicConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip84_public",
+        argNames: ["publicKey", "fingerprint", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip86(
+      {required DescriptorSecretKeyBase secretKey,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
+        var arg1 = cst_encode_keychain_kind(keychainKind);
+        var arg2 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip86(port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip86ConstMeta,
+      argValues: [secretKey, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip86ConstMeta => const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip86",
+        argNames: ["secretKey", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DescriptorBase> descriptorBaseNewBip86Public(
+      {required DescriptorPublicKeyBase publicKey,
+      required String fingerprint,
+      required KeychainKind keychainKind,
+      required Network network,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
+        var arg1 = cst_encode_String(fingerprint);
+        var arg2 = cst_encode_keychain_kind(keychainKind);
+        var arg3 = cst_encode_network(network);
+        return wire.wire_DescriptorBase_new_bip86_public(
+            port_, arg0, arg1, arg2, arg3);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorBaseNewBip86PublicConstMeta,
+      argValues: [publicKey, fingerprint, keychainKind, network],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorBaseNewBip86PublicConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorBase_new_bip86_public",
+        argNames: ["publicKey", "fingerprint", "keychainKind", "network"],
+      );
+
+  @override
+  Future<DerivationPathBase> derivationPathBaseFromString(
+      {required String path, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_String(path);
+        return wire.wire_DerivationPathBase_from_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_derivation_path_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDerivationPathBaseFromStringConstMeta,
+      argValues: [path],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDerivationPathBaseFromStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "DerivationPathBase_from_string",
+        argNames: ["path"],
+      );
+
+  @override
+  Future<String> descriptorPublicKeyBaseAsString(
+      {required DescriptorPublicKeyBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
+        return wire.wire_DescriptorPublicKeyBase_as_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kDescriptorPublicKeyBaseAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorPublicKeyBaseAsStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorPublicKeyBase_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseDerive(
+      {required DescriptorPublicKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
+        return wire.wire_DescriptorPublicKeyBase_derive(port_, arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorPublicKeyBaseDeriveConstMeta,
+      argValues: [that, path],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorPublicKeyBaseDeriveConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorPublicKeyBase_derive",
+        argNames: ["that", "path"],
+      );
+
+  @override
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseExtend(
+      {required DescriptorPublicKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
+        return wire.wire_DescriptorPublicKeyBase_extend(port_, arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorPublicKeyBaseExtendConstMeta,
+      argValues: [that, path],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorPublicKeyBaseExtendConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorPublicKeyBase_extend",
+        argNames: ["that", "path"],
+      );
+
+  @override
+  Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseFromString(
+      {required String publicKey, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_String(publicKey);
+        return wire.wire_DescriptorPublicKeyBase_from_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorPublicKeyBaseFromStringConstMeta,
+      argValues: [publicKey],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorPublicKeyBaseFromStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorPublicKeyBase_from_string",
+        argNames: ["publicKey"],
+      );
+
+  @override
+  Future<DescriptorPublicKeyBase> descriptorSecretKeyBaseAsPublic(
+      {required DescriptorSecretKeyBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        return wire.wire_DescriptorSecretKeyBase_as_public(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseAsPublicConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseAsPublicConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_as_public",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> descriptorSecretKeyBaseAsString(
+      {required DescriptorSecretKeyBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        return wire.wire_DescriptorSecretKeyBase_as_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kDescriptorSecretKeyBaseAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseAsStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseCreate(
+      {required Network network,
+      required MnemonicBase mnemonic,
+      String? password,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_network(network);
+        var arg1 = cst_encode_box_autoadd_mnemonic_base(mnemonic);
+        var arg2 = cst_encode_opt_String(password);
+        return wire.wire_DescriptorSecretKeyBase_create(
+            port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseCreateConstMeta,
+      argValues: [network, mnemonic, password],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseCreateConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_create",
+        argNames: ["network", "mnemonic", "password"],
+      );
+
+  @override
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseDerive(
+      {required DescriptorSecretKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
+        return wire.wire_DescriptorSecretKeyBase_derive(port_, arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseDeriveConstMeta,
+      argValues: [that, path],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseDeriveConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_derive",
+        argNames: ["that", "path"],
+      );
+
+  @override
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseExtend(
+      {required DescriptorSecretKeyBase that,
+      required DerivationPathBase path,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
+        return wire.wire_DescriptorSecretKeyBase_extend(port_, arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseExtendConstMeta,
+      argValues: [that, path],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseExtendConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_extend",
+        argNames: ["that", "path"],
+      );
+
+  @override
+  Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseFromString(
+      {required String keyStr, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_String(keyStr);
+        return wire.wire_DescriptorSecretKeyBase_from_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseFromStringConstMeta,
+      argValues: [keyStr],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseFromStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_from_string",
+        argNames: ["keyStr"],
+      );
+
+  @override
+  Future<Uint8List> descriptorSecretKeyBaseSecretBytes(
+      {required DescriptorSecretKeyBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        return wire.wire_DescriptorSecretKeyBase_secret_bytes(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_list_prim_u_8_strict,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kDescriptorSecretKeyBaseSecretBytesConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kDescriptorSecretKeyBaseSecretBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "DescriptorSecretKeyBase_secret_bytes",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> mnemonicBaseAsString(
+      {required MnemonicBase that, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_mnemonic_base(that);
+        return wire.wire_MnemonicBase_as_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kMnemonicBaseAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kMnemonicBaseAsStringConstMeta => const TaskConstMeta(
+        debugName: "MnemonicBase_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<MnemonicBase> mnemonicBaseFromEntropy(
+      {required List<int> entropy, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_list_prim_u_8_loose(entropy);
+        return wire.wire_MnemonicBase_from_entropy(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_mnemonic_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kMnemonicBaseFromEntropyConstMeta,
+      argValues: [entropy],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kMnemonicBaseFromEntropyConstMeta => const TaskConstMeta(
+        debugName: "MnemonicBase_from_entropy",
+        argNames: ["entropy"],
+      );
+
+  @override
+  Future<MnemonicBase> mnemonicBaseFromString(
+      {required String mnemonic, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_String(mnemonic);
+        return wire.wire_MnemonicBase_from_string(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_mnemonic_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kMnemonicBaseFromStringConstMeta,
+      argValues: [mnemonic],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kMnemonicBaseFromStringConstMeta => const TaskConstMeta(
+        debugName: "MnemonicBase_from_string",
+        argNames: ["mnemonic"],
+      );
+
+  @override
+  Future<MnemonicBase> mnemonicBaseNew(
+      {required WordCount wordCount, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_word_count(wordCount);
+        return wire.wire_MnemonicBase_new(port_, arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_mnemonic_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kMnemonicBaseNewConstMeta,
+      argValues: [wordCount],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kMnemonicBaseNewConstMeta => const TaskConstMeta(
+        debugName: "MnemonicBase_new",
+        argNames: ["wordCount"],
+      );
 
   @override
   Future<String> addressBaseAsString(
@@ -726,6 +1682,90 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         argNames: ["that"],
       );
 
+  @override
+  Future<WalletBase> walletBaseNew(
+      {required DescriptorBase descriptor,
+      DescriptorBase? changeDescriptor,
+      required Network network,
+      required DatabaseConfig databaseConfig,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_descriptor_base(descriptor);
+        var arg1 = cst_encode_opt_box_autoadd_descriptor_base(changeDescriptor);
+        var arg2 = cst_encode_network(network);
+        var arg3 = cst_encode_box_autoadd_database_config(databaseConfig);
+        return wire.wire_WalletBase_new(port_, arg0, arg1, arg2, arg3);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_wallet_base,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kWalletBaseNewConstMeta,
+      argValues: [descriptor, changeDescriptor, network, databaseConfig],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kWalletBaseNewConstMeta => const TaskConstMeta(
+        debugName: "WalletBase_new",
+        argNames: [
+          "descriptor",
+          "changeDescriptor",
+          "network",
+          "databaseConfig"
+        ],
+      );
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcBitcoinBip32DerivationPath => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcBitcoinBip32DerivationPath => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysDescriptorPublicKey => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorPublicKey => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysDescriptorSecretKey => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysDescriptorSecretKey => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ArcKeysBip39Mnemonic => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ArcKeysBip39Mnemonic => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ExtendedDescriptor => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ExtendedDescriptor => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_MutexBdkWalletAnyDatabase => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabase => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase;
+
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_BdkBitcoinAddress => wire
           .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress;
@@ -733,6 +1773,62 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   RustArcDecrementStrongCountFnType
       get rust_arc_decrement_strong_count_BdkBitcoinAddress => wire
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_KeysKeyMap => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_KeysKeyMap => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap;
+
+  @protected
+  ArcBitcoinBip32DerivationPath
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcBitcoinBip32DerivationPath.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysDescriptorPublicKey
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysDescriptorPublicKey.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysDescriptorSecretKey
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysDescriptorSecretKey.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysBip39Mnemonic
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysBip39Mnemonic.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ExtendedDescriptor
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ExtendedDescriptor.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MutexBdkWalletAnyDatabase
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MutexBdkWalletAnyDatabase.dcoDecode(raw as List<dynamic>);
+  }
 
   @protected
   BdkBitcoinAddress
@@ -743,11 +1839,75 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  KeysKeyMap
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return KeysKeyMap.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcBitcoinBip32DerivationPath
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcBitcoinBip32DerivationPath.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysDescriptorPublicKey
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysDescriptorPublicKey.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysDescriptorSecretKey
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysDescriptorSecretKey.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ArcKeysBip39Mnemonic
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ArcKeysBip39Mnemonic.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ExtendedDescriptor
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ExtendedDescriptor.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MutexBdkWalletAnyDatabase
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MutexBdkWalletAnyDatabase.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   BdkBitcoinAddress
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return BdkBitcoinAddress.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  KeysKeyMap
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return KeysKeyMap.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -770,75 +1930,54 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BdkError dco_decode_bdk_error(dynamic raw) {
+  AddressError dco_decode_address_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
       case 0:
-        return BdkError_HexError(
-          dco_decode_box_autoadd_bitcoin_hex_error(raw[1]),
-        );
-      case 1:
-        return BdkError_ConsensusError(
-          dco_decode_box_autoadd_bitcoin_consensus_error(raw[1]),
-        );
-      case 2:
-        return BdkError_AddressError(
-          dco_decode_box_autoadd_bitcoin_address_error(raw[1]),
-        );
-      default:
-        throw Exception("unreachable");
-    }
-  }
-
-  @protected
-  BitcoinAddressError dco_decode_bitcoin_address_error(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    switch (raw[0]) {
-      case 0:
-        return BitcoinAddressError_Base58(
+        return AddressError_Base58(
           dco_decode_String(raw[1]),
         );
       case 1:
-        return BitcoinAddressError_Bech32(
+        return AddressError_Bech32(
           dco_decode_String(raw[1]),
         );
       case 2:
-        return BitcoinAddressError_EmptyBech32Payload();
+        return AddressError_EmptyBech32Payload();
       case 3:
-        return BitcoinAddressError_InvalidBech32Variant(
+        return AddressError_InvalidBech32Variant(
           expected: dco_decode_variant(raw[1]),
           found: dco_decode_variant(raw[2]),
         );
       case 4:
-        return BitcoinAddressError_InvalidWitnessVersion(
+        return AddressError_InvalidWitnessVersion(
           dco_decode_u_8(raw[1]),
         );
       case 5:
-        return BitcoinAddressError_UnparsableWitnessVersion(
+        return AddressError_UnparsableWitnessVersion(
           dco_decode_String(raw[1]),
         );
       case 6:
-        return BitcoinAddressError_MalformedWitnessVersion();
+        return AddressError_MalformedWitnessVersion();
       case 7:
-        return BitcoinAddressError_InvalidWitnessProgramLength(
+        return AddressError_InvalidWitnessProgramLength(
           dco_decode_usize(raw[1]),
         );
       case 8:
-        return BitcoinAddressError_InvalidSegwitV0ProgramLength(
+        return AddressError_InvalidSegwitV0ProgramLength(
           dco_decode_usize(raw[1]),
         );
       case 9:
-        return BitcoinAddressError_UncompressedPubkey();
+        return AddressError_UncompressedPubkey();
       case 10:
-        return BitcoinAddressError_ExcessiveScriptSize();
+        return AddressError_ExcessiveScriptSize();
       case 11:
-        return BitcoinAddressError_UnrecognizedScript();
+        return AddressError_UnrecognizedScript();
       case 12:
-        return BitcoinAddressError_UnknownAddressType(
+        return AddressError_UnknownAddressType(
           dco_decode_String(raw[1]),
         );
       case 13:
-        return BitcoinAddressError_NetworkValidation(
+        return AddressError_NetworkValidation(
           networkRequired: dco_decode_network(raw[1]),
           networkFound: dco_decode_network(raw[2]),
           address: dco_decode_String(raw[3]),
@@ -849,54 +1988,161 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BitcoinConsensusError dco_decode_bitcoin_consensus_error(dynamic raw) {
+  BdkError dco_decode_bdk_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
       case 0:
-        return BitcoinConsensusError_Io(
-          dco_decode_String(raw[1]),
+        return BdkError_Hex(
+          dco_decode_box_autoadd_hex_error(raw[1]),
         );
       case 1:
-        return BitcoinConsensusError_OversizedVectorAllocation(
-          requested: dco_decode_usize(raw[1]),
-          max: dco_decode_usize(raw[2]),
+        return BdkError_Consensus(
+          dco_decode_box_autoadd_consensus_error(raw[1]),
         );
       case 2:
-        return BitcoinConsensusError_InvalidChecksum(
-          expected: dco_decode_u_8_array_4(raw[1]),
-          actual: dco_decode_u_8_array_4(raw[2]),
+        return BdkError_Address(
+          dco_decode_box_autoadd_address_error(raw[1]),
         );
       case 3:
-        return BitcoinConsensusError_NonMinimalVarInt();
+        return BdkError_Descriptor(
+          dco_decode_box_autoadd_descriptor_error(raw[1]),
+        );
       case 4:
-        return BitcoinConsensusError_ParseFailed(
-          dco_decode_String(raw[1]),
+        return BdkError_InvalidU32Bytes(
+          dco_decode_list_prim_u_8_strict(raw[1]),
         );
       case 5:
-        return BitcoinConsensusError_UnsupportedSegwitFlag(
-          dco_decode_u_8(raw[1]),
+        return BdkError_Generic(
+          dco_decode_String(raw[1]),
         );
-      default:
-        throw Exception("unreachable");
-    }
-  }
-
-  @protected
-  BitcoinHexError dco_decode_bitcoin_hex_error(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    switch (raw[0]) {
-      case 0:
-        return BitcoinHexError_InvalidChar(
-          dco_decode_u_8(raw[1]),
-        );
-      case 1:
-        return BitcoinHexError_OddLengthString(
+      case 6:
+        return BdkError_ScriptDoesntHaveAddressForm();
+      case 7:
+        return BdkError_NoRecipients();
+      case 8:
+        return BdkError_NoUtxosSelected();
+      case 9:
+        return BdkError_OutputBelowDustLimit(
           dco_decode_usize(raw[1]),
         );
-      case 2:
-        return BitcoinHexError_InvalidLength(
+      case 10:
+        return BdkError_InsufficientFunds(
+          needed: dco_decode_u_64(raw[1]),
+          available: dco_decode_u_64(raw[2]),
+        );
+      case 11:
+        return BdkError_BnBTotalTriesExceeded();
+      case 12:
+        return BdkError_BnBNoExactMatch();
+      case 13:
+        return BdkError_UnknownUtxo();
+      case 14:
+        return BdkError_TransactionNotFound();
+      case 15:
+        return BdkError_TransactionConfirmed();
+      case 16:
+        return BdkError_IrreplaceableTransaction();
+      case 17:
+        return BdkError_FeeRateTooLow(
+          needed: dco_decode_f_32(raw[1]),
+        );
+      case 18:
+        return BdkError_FeeTooLow(
+          needed: dco_decode_u_64(raw[1]),
+        );
+      case 19:
+        return BdkError_FeeRateUnavailable();
+      case 20:
+        return BdkError_MissingKeyOrigin(
+          dco_decode_String(raw[1]),
+        );
+      case 21:
+        return BdkError_Key(
+          dco_decode_String(raw[1]),
+        );
+      case 22:
+        return BdkError_ChecksumMismatch();
+      case 23:
+        return BdkError_SpendingPolicyRequired(
+          dco_decode_keychain_kind(raw[1]),
+        );
+      case 24:
+        return BdkError_InvalidPolicyPathError(
+          dco_decode_String(raw[1]),
+        );
+      case 25:
+        return BdkError_Signer(
+          dco_decode_String(raw[1]),
+        );
+      case 26:
+        return BdkError_InvalidNetwork(
+          requested: dco_decode_network(raw[1]),
+          found: dco_decode_network(raw[2]),
+        );
+      case 27:
+        return BdkError_InvalidOutpoint(
+          dco_decode_box_autoadd_out_point(raw[1]),
+        );
+      case 28:
+        return BdkError_Encode(
+          dco_decode_String(raw[1]),
+        );
+      case 29:
+        return BdkError_Miniscript(
+          dco_decode_String(raw[1]),
+        );
+      case 30:
+        return BdkError_MiniscriptPsbt(
+          dco_decode_String(raw[1]),
+        );
+      case 31:
+        return BdkError_Bip32(
+          dco_decode_String(raw[1]),
+        );
+      case 32:
+        return BdkError_Bip39(
+          dco_decode_String(raw[1]),
+        );
+      case 33:
+        return BdkError_Secp256k1(
+          dco_decode_String(raw[1]),
+        );
+      case 34:
+        return BdkError_Json(
+          dco_decode_String(raw[1]),
+        );
+      case 35:
+        return BdkError_Psbt(
+          dco_decode_String(raw[1]),
+        );
+      case 36:
+        return BdkError_PsbtParse(
+          dco_decode_String(raw[1]),
+        );
+      case 37:
+        return BdkError_MissingCachedScripts(
           dco_decode_usize(raw[1]),
           dco_decode_usize(raw[2]),
+        );
+      case 38:
+        return BdkError_Electrum(
+          dco_decode_String(raw[1]),
+        );
+      case 39:
+        return BdkError_Esplora(
+          dco_decode_String(raw[1]),
+        );
+      case 40:
+        return BdkError_Sled(
+          dco_decode_String(raw[1]),
+        );
+      case 41:
+        return BdkError_Rpc(
+          dco_decode_String(raw[1]),
+        );
+      case 42:
+        return BdkError_Rusqlite(
+          dco_decode_String(raw[1]),
         );
       default:
         throw Exception("unreachable");
@@ -916,23 +2162,71 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BitcoinAddressError dco_decode_box_autoadd_bitcoin_address_error(
-      dynamic raw) {
+  AddressError dco_decode_box_autoadd_address_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_bitcoin_address_error(raw);
+    return dco_decode_address_error(raw);
   }
 
   @protected
-  BitcoinConsensusError dco_decode_box_autoadd_bitcoin_consensus_error(
-      dynamic raw) {
+  ConsensusError dco_decode_box_autoadd_consensus_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_bitcoin_consensus_error(raw);
+    return dco_decode_consensus_error(raw);
   }
 
   @protected
-  BitcoinHexError dco_decode_box_autoadd_bitcoin_hex_error(dynamic raw) {
+  DatabaseConfig dco_decode_box_autoadd_database_config(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_bitcoin_hex_error(raw);
+    return dco_decode_database_config(raw);
+  }
+
+  @protected
+  DerivationPathBase dco_decode_box_autoadd_derivation_path_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_derivation_path_base(raw);
+  }
+
+  @protected
+  DescriptorBase dco_decode_box_autoadd_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_base(raw);
+  }
+
+  @protected
+  DescriptorError dco_decode_box_autoadd_descriptor_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_error(raw);
+  }
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_box_autoadd_descriptor_public_key_base(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_public_key_base(raw);
+  }
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_box_autoadd_descriptor_secret_key_base(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_secret_key_base(raw);
+  }
+
+  @protected
+  HexError dco_decode_box_autoadd_hex_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_hex_error(raw);
+  }
+
+  @protected
+  MnemonicBase dco_decode_box_autoadd_mnemonic_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_mnemonic_base(raw);
+  }
+
+  @protected
+  OutPoint dco_decode_box_autoadd_out_point(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_out_point(raw);
   }
 
   @protected
@@ -942,15 +2236,219 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  SledDbConfiguration dco_decode_box_autoadd_sled_db_configuration(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sled_db_configuration(raw);
+  }
+
+  @protected
+  SqliteDbConfiguration dco_decode_box_autoadd_sqlite_db_configuration(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sqlite_db_configuration(raw);
+  }
+
+  @protected
   TransactionBase dco_decode_box_autoadd_transaction_base(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_transaction_base(raw);
   }
 
   @protected
+  ConsensusError dco_decode_consensus_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return ConsensusError_Io(
+          dco_decode_String(raw[1]),
+        );
+      case 1:
+        return ConsensusError_OversizedVectorAllocation(
+          requested: dco_decode_usize(raw[1]),
+          max: dco_decode_usize(raw[2]),
+        );
+      case 2:
+        return ConsensusError_InvalidChecksum(
+          expected: dco_decode_u_8_array_4(raw[1]),
+          actual: dco_decode_u_8_array_4(raw[2]),
+        );
+      case 3:
+        return ConsensusError_NonMinimalVarInt();
+      case 4:
+        return ConsensusError_ParseFailed(
+          dco_decode_String(raw[1]),
+        );
+      case 5:
+        return ConsensusError_UnsupportedSegwitFlag(
+          dco_decode_u_8(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  DatabaseConfig dco_decode_database_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return DatabaseConfig_Memory();
+      case 1:
+        return DatabaseConfig_Sqlite(
+          config: dco_decode_box_autoadd_sqlite_db_configuration(raw[1]),
+        );
+      case 2:
+        return DatabaseConfig_Sled(
+          config: dco_decode_box_autoadd_sled_db_configuration(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  DerivationPathBase dco_decode_derivation_path_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DerivationPathBase(
+      ptr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+              arr[0]),
+    );
+  }
+
+  @protected
+  DescriptorBase dco_decode_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return DescriptorBase(
+      extendedDescriptor:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+              arr[0]),
+      keyMap:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+              arr[1]),
+    );
+  }
+
+  @protected
+  DescriptorError dco_decode_descriptor_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return DescriptorError_InvalidHdKeyPath();
+      case 1:
+        return DescriptorError_InvalidDescriptorChecksum();
+      case 2:
+        return DescriptorError_HardenedDerivationXpub();
+      case 3:
+        return DescriptorError_MultiPath();
+      case 4:
+        return DescriptorError_Key(
+          dco_decode_String(raw[1]),
+        );
+      case 5:
+        return DescriptorError_Policy(
+          dco_decode_String(raw[1]),
+        );
+      case 6:
+        return DescriptorError_InvalidDescriptorCharacter(
+          dco_decode_u_8(raw[1]),
+        );
+      case 7:
+        return DescriptorError_Bip32(
+          dco_decode_String(raw[1]),
+        );
+      case 8:
+        return DescriptorError_Base58(
+          dco_decode_String(raw[1]),
+        );
+      case 9:
+        return DescriptorError_Pk(
+          dco_decode_String(raw[1]),
+        );
+      case 10:
+        return DescriptorError_Miniscript(
+          dco_decode_String(raw[1]),
+        );
+      case 11:
+        return DescriptorError_Hex(
+          dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_descriptor_public_key_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DescriptorPublicKeyBase(
+      ptr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+              arr[0]),
+    );
+  }
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_descriptor_secret_key_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DescriptorSecretKeyBase(
+      ptr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+              arr[0]),
+    );
+  }
+
+  @protected
+  double dco_decode_f_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
+  HexError dco_decode_hex_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return HexError_InvalidChar(
+          dco_decode_u_8(raw[1]),
+        );
+      case 1:
+        return HexError_OddLengthString(
+          dco_decode_usize(raw[1]),
+        );
+      case 2:
+        return HexError_InvalidLength(
+          dco_decode_usize(raw[1]),
+          dco_decode_usize(raw[2]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
   int dco_decode_i_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  KeychainKind dco_decode_keychain_kind(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return KeychainKind.values[raw as int];
   }
 
   @protected
@@ -984,9 +2482,34 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  MnemonicBase dco_decode_mnemonic_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return MnemonicBase(
+      ptr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+              arr[0]),
+    );
+  }
+
+  @protected
   Network dco_decode_network(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Network.values[raw as int];
+  }
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  DescriptorBase? dco_decode_opt_box_autoadd_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_descriptor_base(raw);
   }
 
   @protected
@@ -1031,6 +2554,29 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return ScriptBufBase(
       bytes: dco_decode_list_prim_u_8_strict(arr[0]),
+    );
+  }
+
+  @protected
+  SledDbConfiguration dco_decode_sled_db_configuration(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SledDbConfiguration(
+      path: dco_decode_String(arr[0]),
+      treeName: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
+  SqliteDbConfiguration dco_decode_sqlite_db_configuration(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return SqliteDbConfiguration(
+      path: dco_decode_String(arr[0]),
     );
   }
 
@@ -1114,9 +2660,82 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  WalletBase dco_decode_wallet_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return WalletBase(
+      ptr:
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+              arr[0]),
+    );
+  }
+
+  @protected
   WitnessVersion dco_decode_witness_version(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return WitnessVersion.values[raw as int];
+  }
+
+  @protected
+  WordCount dco_decode_word_count(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return WordCount.values[raw as int];
+  }
+
+  @protected
+  ArcBitcoinBip32DerivationPath
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcBitcoinBip32DerivationPath.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysDescriptorPublicKey
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysDescriptorPublicKey.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysDescriptorSecretKey
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysDescriptorSecretKey.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysBip39Mnemonic
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysBip39Mnemonic.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ExtendedDescriptor
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ExtendedDescriptor.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  MutexBdkWalletAnyDatabase
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MutexBdkWalletAnyDatabase.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -1129,11 +2748,83 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  KeysKeyMap
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return KeysKeyMap.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcBitcoinBip32DerivationPath
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcBitcoinBip32DerivationPath.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysDescriptorPublicKey
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysDescriptorPublicKey.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysDescriptorSecretKey
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysDescriptorSecretKey.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ArcKeysBip39Mnemonic
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ArcKeysBip39Mnemonic.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ExtendedDescriptor
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ExtendedDescriptor.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  MutexBdkWalletAnyDatabase
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MutexBdkWalletAnyDatabase.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   BdkBitcoinAddress
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return BdkBitcoinAddress.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  KeysKeyMap
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return KeysKeyMap.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -1154,75 +2845,52 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BdkError sse_decode_bdk_error(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var tag_ = sse_decode_i_32(deserializer);
-    switch (tag_) {
-      case 0:
-        var var_field0 = sse_decode_box_autoadd_bitcoin_hex_error(deserializer);
-        return BdkError_HexError(var_field0);
-      case 1:
-        var var_field0 =
-            sse_decode_box_autoadd_bitcoin_consensus_error(deserializer);
-        return BdkError_ConsensusError(var_field0);
-      case 2:
-        var var_field0 =
-            sse_decode_box_autoadd_bitcoin_address_error(deserializer);
-        return BdkError_AddressError(var_field0);
-      default:
-        throw UnimplementedError('');
-    }
-  }
-
-  @protected
-  BitcoinAddressError sse_decode_bitcoin_address_error(
-      SseDeserializer deserializer) {
+  AddressError sse_decode_address_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var tag_ = sse_decode_i_32(deserializer);
     switch (tag_) {
       case 0:
         var var_field0 = sse_decode_String(deserializer);
-        return BitcoinAddressError_Base58(var_field0);
+        return AddressError_Base58(var_field0);
       case 1:
         var var_field0 = sse_decode_String(deserializer);
-        return BitcoinAddressError_Bech32(var_field0);
+        return AddressError_Bech32(var_field0);
       case 2:
-        return BitcoinAddressError_EmptyBech32Payload();
+        return AddressError_EmptyBech32Payload();
       case 3:
         var var_expected = sse_decode_variant(deserializer);
         var var_found = sse_decode_variant(deserializer);
-        return BitcoinAddressError_InvalidBech32Variant(
+        return AddressError_InvalidBech32Variant(
             expected: var_expected, found: var_found);
       case 4:
         var var_field0 = sse_decode_u_8(deserializer);
-        return BitcoinAddressError_InvalidWitnessVersion(var_field0);
+        return AddressError_InvalidWitnessVersion(var_field0);
       case 5:
         var var_field0 = sse_decode_String(deserializer);
-        return BitcoinAddressError_UnparsableWitnessVersion(var_field0);
+        return AddressError_UnparsableWitnessVersion(var_field0);
       case 6:
-        return BitcoinAddressError_MalformedWitnessVersion();
+        return AddressError_MalformedWitnessVersion();
       case 7:
         var var_field0 = sse_decode_usize(deserializer);
-        return BitcoinAddressError_InvalidWitnessProgramLength(var_field0);
+        return AddressError_InvalidWitnessProgramLength(var_field0);
       case 8:
         var var_field0 = sse_decode_usize(deserializer);
-        return BitcoinAddressError_InvalidSegwitV0ProgramLength(var_field0);
+        return AddressError_InvalidSegwitV0ProgramLength(var_field0);
       case 9:
-        return BitcoinAddressError_UncompressedPubkey();
+        return AddressError_UncompressedPubkey();
       case 10:
-        return BitcoinAddressError_ExcessiveScriptSize();
+        return AddressError_ExcessiveScriptSize();
       case 11:
-        return BitcoinAddressError_UnrecognizedScript();
+        return AddressError_UnrecognizedScript();
       case 12:
         var var_field0 = sse_decode_String(deserializer);
-        return BitcoinAddressError_UnknownAddressType(var_field0);
+        return AddressError_UnknownAddressType(var_field0);
       case 13:
         var var_networkRequired = sse_decode_network(deserializer);
         var var_networkFound = sse_decode_network(deserializer);
         var var_address = sse_decode_String(deserializer);
-        return BitcoinAddressError_NetworkValidation(
+        return AddressError_NetworkValidation(
             networkRequired: var_networkRequired,
             networkFound: var_networkFound,
             address: var_address);
@@ -1232,54 +2900,134 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BitcoinConsensusError sse_decode_bitcoin_consensus_error(
-      SseDeserializer deserializer) {
+  BdkError sse_decode_bdk_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var tag_ = sse_decode_i_32(deserializer);
     switch (tag_) {
       case 0:
-        var var_field0 = sse_decode_String(deserializer);
-        return BitcoinConsensusError_Io(var_field0);
+        var var_field0 = sse_decode_box_autoadd_hex_error(deserializer);
+        return BdkError_Hex(var_field0);
       case 1:
-        var var_requested = sse_decode_usize(deserializer);
-        var var_max = sse_decode_usize(deserializer);
-        return BitcoinConsensusError_OversizedVectorAllocation(
-            requested: var_requested, max: var_max);
+        var var_field0 = sse_decode_box_autoadd_consensus_error(deserializer);
+        return BdkError_Consensus(var_field0);
       case 2:
-        var var_expected = sse_decode_u_8_array_4(deserializer);
-        var var_actual = sse_decode_u_8_array_4(deserializer);
-        return BitcoinConsensusError_InvalidChecksum(
-            expected: var_expected, actual: var_actual);
+        var var_field0 = sse_decode_box_autoadd_address_error(deserializer);
+        return BdkError_Address(var_field0);
       case 3:
-        return BitcoinConsensusError_NonMinimalVarInt();
+        var var_field0 = sse_decode_box_autoadd_descriptor_error(deserializer);
+        return BdkError_Descriptor(var_field0);
       case 4:
-        var var_field0 = sse_decode_String(deserializer);
-        return BitcoinConsensusError_ParseFailed(var_field0);
+        var var_field0 = sse_decode_list_prim_u_8_strict(deserializer);
+        return BdkError_InvalidU32Bytes(var_field0);
       case 5:
-        var var_field0 = sse_decode_u_8(deserializer);
-        return BitcoinConsensusError_UnsupportedSegwitFlag(var_field0);
-      default:
-        throw UnimplementedError('');
-    }
-  }
-
-  @protected
-  BitcoinHexError sse_decode_bitcoin_hex_error(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var tag_ = sse_decode_i_32(deserializer);
-    switch (tag_) {
-      case 0:
-        var var_field0 = sse_decode_u_8(deserializer);
-        return BitcoinHexError_InvalidChar(var_field0);
-      case 1:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Generic(var_field0);
+      case 6:
+        return BdkError_ScriptDoesntHaveAddressForm();
+      case 7:
+        return BdkError_NoRecipients();
+      case 8:
+        return BdkError_NoUtxosSelected();
+      case 9:
         var var_field0 = sse_decode_usize(deserializer);
-        return BitcoinHexError_OddLengthString(var_field0);
-      case 2:
+        return BdkError_OutputBelowDustLimit(var_field0);
+      case 10:
+        var var_needed = sse_decode_u_64(deserializer);
+        var var_available = sse_decode_u_64(deserializer);
+        return BdkError_InsufficientFunds(
+            needed: var_needed, available: var_available);
+      case 11:
+        return BdkError_BnBTotalTriesExceeded();
+      case 12:
+        return BdkError_BnBNoExactMatch();
+      case 13:
+        return BdkError_UnknownUtxo();
+      case 14:
+        return BdkError_TransactionNotFound();
+      case 15:
+        return BdkError_TransactionConfirmed();
+      case 16:
+        return BdkError_IrreplaceableTransaction();
+      case 17:
+        var var_needed = sse_decode_f_32(deserializer);
+        return BdkError_FeeRateTooLow(needed: var_needed);
+      case 18:
+        var var_needed = sse_decode_u_64(deserializer);
+        return BdkError_FeeTooLow(needed: var_needed);
+      case 19:
+        return BdkError_FeeRateUnavailable();
+      case 20:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_MissingKeyOrigin(var_field0);
+      case 21:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Key(var_field0);
+      case 22:
+        return BdkError_ChecksumMismatch();
+      case 23:
+        var var_field0 = sse_decode_keychain_kind(deserializer);
+        return BdkError_SpendingPolicyRequired(var_field0);
+      case 24:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_InvalidPolicyPathError(var_field0);
+      case 25:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Signer(var_field0);
+      case 26:
+        var var_requested = sse_decode_network(deserializer);
+        var var_found = sse_decode_network(deserializer);
+        return BdkError_InvalidNetwork(
+            requested: var_requested, found: var_found);
+      case 27:
+        var var_field0 = sse_decode_box_autoadd_out_point(deserializer);
+        return BdkError_InvalidOutpoint(var_field0);
+      case 28:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Encode(var_field0);
+      case 29:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Miniscript(var_field0);
+      case 30:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_MiniscriptPsbt(var_field0);
+      case 31:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Bip32(var_field0);
+      case 32:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Bip39(var_field0);
+      case 33:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Secp256k1(var_field0);
+      case 34:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Json(var_field0);
+      case 35:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Psbt(var_field0);
+      case 36:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_PsbtParse(var_field0);
+      case 37:
         var var_field0 = sse_decode_usize(deserializer);
         var var_field1 = sse_decode_usize(deserializer);
-        return BitcoinHexError_InvalidLength(var_field0, var_field1);
+        return BdkError_MissingCachedScripts(var_field0, var_field1);
+      case 38:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Electrum(var_field0);
+      case 39:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Esplora(var_field0);
+      case 40:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Sled(var_field0);
+      case 41:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Rpc(var_field0);
+      case 42:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Rusqlite(var_field0);
       default:
         throw UnimplementedError('');
     }
@@ -1299,24 +3047,78 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  BitcoinAddressError sse_decode_box_autoadd_bitcoin_address_error(
+  AddressError sse_decode_box_autoadd_address_error(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_bitcoin_address_error(deserializer));
+    return (sse_decode_address_error(deserializer));
   }
 
   @protected
-  BitcoinConsensusError sse_decode_box_autoadd_bitcoin_consensus_error(
+  ConsensusError sse_decode_box_autoadd_consensus_error(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_bitcoin_consensus_error(deserializer));
+    return (sse_decode_consensus_error(deserializer));
   }
 
   @protected
-  BitcoinHexError sse_decode_box_autoadd_bitcoin_hex_error(
+  DatabaseConfig sse_decode_box_autoadd_database_config(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_bitcoin_hex_error(deserializer));
+    return (sse_decode_database_config(deserializer));
+  }
+
+  @protected
+  DerivationPathBase sse_decode_box_autoadd_derivation_path_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_derivation_path_base(deserializer));
+  }
+
+  @protected
+  DescriptorBase sse_decode_box_autoadd_descriptor_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_base(deserializer));
+  }
+
+  @protected
+  DescriptorError sse_decode_box_autoadd_descriptor_error(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_error(deserializer));
+  }
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_box_autoadd_descriptor_public_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_public_key_base(deserializer));
+  }
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_box_autoadd_descriptor_secret_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_secret_key_base(deserializer));
+  }
+
+  @protected
+  HexError sse_decode_box_autoadd_hex_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_hex_error(deserializer));
+  }
+
+  @protected
+  MnemonicBase sse_decode_box_autoadd_mnemonic_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_mnemonic_base(deserializer));
+  }
+
+  @protected
+  OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_out_point(deserializer));
   }
 
   @protected
@@ -1327,6 +3129,20 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  SledDbConfiguration sse_decode_box_autoadd_sled_db_configuration(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sled_db_configuration(deserializer));
+  }
+
+  @protected
+  SqliteDbConfiguration sse_decode_box_autoadd_sqlite_db_configuration(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sqlite_db_configuration(deserializer));
+  }
+
+  @protected
   TransactionBase sse_decode_box_autoadd_transaction_base(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -1334,9 +3150,182 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  ConsensusError sse_decode_consensus_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_field0 = sse_decode_String(deserializer);
+        return ConsensusError_Io(var_field0);
+      case 1:
+        var var_requested = sse_decode_usize(deserializer);
+        var var_max = sse_decode_usize(deserializer);
+        return ConsensusError_OversizedVectorAllocation(
+            requested: var_requested, max: var_max);
+      case 2:
+        var var_expected = sse_decode_u_8_array_4(deserializer);
+        var var_actual = sse_decode_u_8_array_4(deserializer);
+        return ConsensusError_InvalidChecksum(
+            expected: var_expected, actual: var_actual);
+      case 3:
+        return ConsensusError_NonMinimalVarInt();
+      case 4:
+        var var_field0 = sse_decode_String(deserializer);
+        return ConsensusError_ParseFailed(var_field0);
+      case 5:
+        var var_field0 = sse_decode_u_8(deserializer);
+        return ConsensusError_UnsupportedSegwitFlag(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  DatabaseConfig sse_decode_database_config(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return DatabaseConfig_Memory();
+      case 1:
+        var var_config =
+            sse_decode_box_autoadd_sqlite_db_configuration(deserializer);
+        return DatabaseConfig_Sqlite(config: var_config);
+      case 2:
+        var var_config =
+            sse_decode_box_autoadd_sled_db_configuration(deserializer);
+        return DatabaseConfig_Sled(config: var_config);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  DerivationPathBase sse_decode_derivation_path_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+            deserializer);
+    return DerivationPathBase(ptr: var_ptr);
+  }
+
+  @protected
+  DescriptorBase sse_decode_descriptor_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_extendedDescriptor =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+            deserializer);
+    var var_keyMap =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+            deserializer);
+    return DescriptorBase(
+        extendedDescriptor: var_extendedDescriptor, keyMap: var_keyMap);
+  }
+
+  @protected
+  DescriptorError sse_decode_descriptor_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return DescriptorError_InvalidHdKeyPath();
+      case 1:
+        return DescriptorError_InvalidDescriptorChecksum();
+      case 2:
+        return DescriptorError_HardenedDerivationXpub();
+      case 3:
+        return DescriptorError_MultiPath();
+      case 4:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Key(var_field0);
+      case 5:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Policy(var_field0);
+      case 6:
+        var var_field0 = sse_decode_u_8(deserializer);
+        return DescriptorError_InvalidDescriptorCharacter(var_field0);
+      case 7:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Bip32(var_field0);
+      case 8:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Base58(var_field0);
+      case 9:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Pk(var_field0);
+      case 10:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Miniscript(var_field0);
+      case 11:
+        var var_field0 = sse_decode_String(deserializer);
+        return DescriptorError_Hex(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_descriptor_public_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+            deserializer);
+    return DescriptorPublicKeyBase(ptr: var_ptr);
+  }
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_descriptor_secret_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+            deserializer);
+    return DescriptorSecretKeyBase(ptr: var_ptr);
+  }
+
+  @protected
+  double sse_decode_f_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat32();
+  }
+
+  @protected
+  HexError sse_decode_hex_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_field0 = sse_decode_u_8(deserializer);
+        return HexError_InvalidChar(var_field0);
+      case 1:
+        var var_field0 = sse_decode_usize(deserializer);
+        return HexError_OddLengthString(var_field0);
+      case 2:
+        var var_field0 = sse_decode_usize(deserializer);
+        var var_field1 = sse_decode_usize(deserializer);
+        return HexError_InvalidLength(var_field0, var_field1);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  KeychainKind sse_decode_keychain_kind(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return KeychainKind.values[inner];
   }
 
   @protected
@@ -1391,10 +3380,42 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  MnemonicBase sse_decode_mnemonic_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+            deserializer);
+    return MnemonicBase(ptr: var_ptr);
+  }
+
+  @protected
   Network sse_decode_network(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return Network.values[inner];
+  }
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  DescriptorBase? sse_decode_opt_box_autoadd_descriptor_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_descriptor_base(deserializer));
+    } else {
+      return null;
+    }
   }
 
   @protected
@@ -1432,6 +3453,23 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_bytes = sse_decode_list_prim_u_8_strict(deserializer);
     return ScriptBufBase(bytes: var_bytes);
+  }
+
+  @protected
+  SledDbConfiguration sse_decode_sled_db_configuration(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_path = sse_decode_String(deserializer);
+    var var_treeName = sse_decode_String(deserializer);
+    return SledDbConfiguration(path: var_path, treeName: var_treeName);
+  }
+
+  @protected
+  SqliteDbConfiguration sse_decode_sqlite_db_configuration(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_path = sse_decode_String(deserializer);
+    return SqliteDbConfiguration(path: var_path);
   }
 
   @protected
@@ -1507,10 +3545,74 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  WalletBase sse_decode_wallet_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+            deserializer);
+    return WalletBase(ptr: var_ptr);
+  }
+
+  @protected
   WitnessVersion sse_decode_witness_version(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return WitnessVersion.values[inner];
+  }
+
+  @protected
+  WordCount sse_decode_word_count(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return WordCount.values[inner];
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+      ArcBitcoinBip32DerivationPath raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+      ArcKeysDescriptorPublicKey raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+      ArcKeysDescriptorSecretKey raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+      ArcKeysBip39Mnemonic raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+      ExtendedDescriptor raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
   }
 
   @protected
@@ -1522,8 +3624,72 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+      KeysKeyMap raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode(move: true);
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+      ArcBitcoinBip32DerivationPath raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+      ArcKeysDescriptorPublicKey raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+      ArcKeysDescriptorSecretKey raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+      ArcKeysBip39Mnemonic raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+      ExtendedDescriptor raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
   int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
       BdkBitcoinAddress raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+      KeysKeyMap raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
@@ -1536,9 +3702,21 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  double cst_encode_f_32(double raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
   int cst_encode_i_32(int raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw;
+  }
+
+  @protected
+  int cst_encode_keychain_kind(KeychainKind raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
   }
 
   @protected
@@ -1584,6 +3762,60 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  int cst_encode_word_count(WordCount raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          ArcBitcoinBip32DerivationPath self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          ArcKeysDescriptorPublicKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          ArcKeysDescriptorSecretKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          ArcKeysBip39Mnemonic self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          ExtendedDescriptor self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          MutexBdkWalletAnyDatabase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
   void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer) {
@@ -1593,8 +3825,72 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          KeysKeyMap self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: true), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+          ArcBitcoinBip32DerivationPath self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+          ArcKeysDescriptorPublicKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+          ArcKeysDescriptorSecretKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+          ArcKeysBip39Mnemonic self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+          ExtendedDescriptor self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+          MutexBdkWalletAnyDatabase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+          KeysKeyMap self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
@@ -1613,69 +3909,48 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void sse_encode_bdk_error(BdkError self, SseSerializer serializer) {
+  void sse_encode_address_error(AddressError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     switch (self) {
-      case BdkError_HexError(field0: final field0):
-        sse_encode_i_32(0, serializer);
-        sse_encode_box_autoadd_bitcoin_hex_error(field0, serializer);
-      case BdkError_ConsensusError(field0: final field0):
-        sse_encode_i_32(1, serializer);
-        sse_encode_box_autoadd_bitcoin_consensus_error(field0, serializer);
-      case BdkError_AddressError(field0: final field0):
-        sse_encode_i_32(2, serializer);
-        sse_encode_box_autoadd_bitcoin_address_error(field0, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_bitcoin_address_error(
-      BitcoinAddressError self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    switch (self) {
-      case BitcoinAddressError_Base58(field0: final field0):
+      case AddressError_Base58(field0: final field0):
         sse_encode_i_32(0, serializer);
         sse_encode_String(field0, serializer);
-      case BitcoinAddressError_Bech32(field0: final field0):
+      case AddressError_Bech32(field0: final field0):
         sse_encode_i_32(1, serializer);
         sse_encode_String(field0, serializer);
-      case BitcoinAddressError_EmptyBech32Payload():
+      case AddressError_EmptyBech32Payload():
         sse_encode_i_32(2, serializer);
-      case BitcoinAddressError_InvalidBech32Variant(
+      case AddressError_InvalidBech32Variant(
           expected: final expected,
           found: final found
         ):
         sse_encode_i_32(3, serializer);
         sse_encode_variant(expected, serializer);
         sse_encode_variant(found, serializer);
-      case BitcoinAddressError_InvalidWitnessVersion(field0: final field0):
+      case AddressError_InvalidWitnessVersion(field0: final field0):
         sse_encode_i_32(4, serializer);
         sse_encode_u_8(field0, serializer);
-      case BitcoinAddressError_UnparsableWitnessVersion(field0: final field0):
+      case AddressError_UnparsableWitnessVersion(field0: final field0):
         sse_encode_i_32(5, serializer);
         sse_encode_String(field0, serializer);
-      case BitcoinAddressError_MalformedWitnessVersion():
+      case AddressError_MalformedWitnessVersion():
         sse_encode_i_32(6, serializer);
-      case BitcoinAddressError_InvalidWitnessProgramLength(
-          field0: final field0
-        ):
+      case AddressError_InvalidWitnessProgramLength(field0: final field0):
         sse_encode_i_32(7, serializer);
         sse_encode_usize(field0, serializer);
-      case BitcoinAddressError_InvalidSegwitV0ProgramLength(
-          field0: final field0
-        ):
+      case AddressError_InvalidSegwitV0ProgramLength(field0: final field0):
         sse_encode_i_32(8, serializer);
         sse_encode_usize(field0, serializer);
-      case BitcoinAddressError_UncompressedPubkey():
+      case AddressError_UncompressedPubkey():
         sse_encode_i_32(9, serializer);
-      case BitcoinAddressError_ExcessiveScriptSize():
+      case AddressError_ExcessiveScriptSize():
         sse_encode_i_32(10, serializer);
-      case BitcoinAddressError_UnrecognizedScript():
+      case AddressError_UnrecognizedScript():
         sse_encode_i_32(11, serializer);
-      case BitcoinAddressError_UnknownAddressType(field0: final field0):
+      case AddressError_UnknownAddressType(field0: final field0):
         sse_encode_i_32(12, serializer);
         sse_encode_String(field0, serializer);
-      case BitcoinAddressError_NetworkValidation(
+      case AddressError_NetworkValidation(
           networkRequired: final networkRequired,
           networkFound: final networkFound,
           address: final address
@@ -1688,56 +3963,139 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void sse_encode_bitcoin_consensus_error(
-      BitcoinConsensusError self, SseSerializer serializer) {
+  void sse_encode_bdk_error(BdkError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     switch (self) {
-      case BitcoinConsensusError_Io(field0: final field0):
+      case BdkError_Hex(field0: final field0):
         sse_encode_i_32(0, serializer);
-        sse_encode_String(field0, serializer);
-      case BitcoinConsensusError_OversizedVectorAllocation(
-          requested: final requested,
-          max: final max
-        ):
+        sse_encode_box_autoadd_hex_error(field0, serializer);
+      case BdkError_Consensus(field0: final field0):
         sse_encode_i_32(1, serializer);
-        sse_encode_usize(requested, serializer);
-        sse_encode_usize(max, serializer);
-      case BitcoinConsensusError_InvalidChecksum(
-          expected: final expected,
-          actual: final actual
-        ):
+        sse_encode_box_autoadd_consensus_error(field0, serializer);
+      case BdkError_Address(field0: final field0):
         sse_encode_i_32(2, serializer);
-        sse_encode_u_8_array_4(expected, serializer);
-        sse_encode_u_8_array_4(actual, serializer);
-      case BitcoinConsensusError_NonMinimalVarInt():
+        sse_encode_box_autoadd_address_error(field0, serializer);
+      case BdkError_Descriptor(field0: final field0):
         sse_encode_i_32(3, serializer);
-      case BitcoinConsensusError_ParseFailed(field0: final field0):
+        sse_encode_box_autoadd_descriptor_error(field0, serializer);
+      case BdkError_InvalidU32Bytes(field0: final field0):
         sse_encode_i_32(4, serializer);
-        sse_encode_String(field0, serializer);
-      case BitcoinConsensusError_UnsupportedSegwitFlag(field0: final field0):
+        sse_encode_list_prim_u_8_strict(field0, serializer);
+      case BdkError_Generic(field0: final field0):
         sse_encode_i_32(5, serializer);
-        sse_encode_u_8(field0, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_bitcoin_hex_error(
-      BitcoinHexError self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    switch (self) {
-      case BitcoinHexError_InvalidChar(field0: final field0):
-        sse_encode_i_32(0, serializer);
-        sse_encode_u_8(field0, serializer);
-      case BitcoinHexError_OddLengthString(field0: final field0):
-        sse_encode_i_32(1, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_ScriptDoesntHaveAddressForm():
+        sse_encode_i_32(6, serializer);
+      case BdkError_NoRecipients():
+        sse_encode_i_32(7, serializer);
+      case BdkError_NoUtxosSelected():
+        sse_encode_i_32(8, serializer);
+      case BdkError_OutputBelowDustLimit(field0: final field0):
+        sse_encode_i_32(9, serializer);
         sse_encode_usize(field0, serializer);
-      case BitcoinHexError_InvalidLength(
+      case BdkError_InsufficientFunds(
+          needed: final needed,
+          available: final available
+        ):
+        sse_encode_i_32(10, serializer);
+        sse_encode_u_64(needed, serializer);
+        sse_encode_u_64(available, serializer);
+      case BdkError_BnBTotalTriesExceeded():
+        sse_encode_i_32(11, serializer);
+      case BdkError_BnBNoExactMatch():
+        sse_encode_i_32(12, serializer);
+      case BdkError_UnknownUtxo():
+        sse_encode_i_32(13, serializer);
+      case BdkError_TransactionNotFound():
+        sse_encode_i_32(14, serializer);
+      case BdkError_TransactionConfirmed():
+        sse_encode_i_32(15, serializer);
+      case BdkError_IrreplaceableTransaction():
+        sse_encode_i_32(16, serializer);
+      case BdkError_FeeRateTooLow(needed: final needed):
+        sse_encode_i_32(17, serializer);
+        sse_encode_f_32(needed, serializer);
+      case BdkError_FeeTooLow(needed: final needed):
+        sse_encode_i_32(18, serializer);
+        sse_encode_u_64(needed, serializer);
+      case BdkError_FeeRateUnavailable():
+        sse_encode_i_32(19, serializer);
+      case BdkError_MissingKeyOrigin(field0: final field0):
+        sse_encode_i_32(20, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Key(field0: final field0):
+        sse_encode_i_32(21, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_ChecksumMismatch():
+        sse_encode_i_32(22, serializer);
+      case BdkError_SpendingPolicyRequired(field0: final field0):
+        sse_encode_i_32(23, serializer);
+        sse_encode_keychain_kind(field0, serializer);
+      case BdkError_InvalidPolicyPathError(field0: final field0):
+        sse_encode_i_32(24, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Signer(field0: final field0):
+        sse_encode_i_32(25, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_InvalidNetwork(
+          requested: final requested,
+          found: final found
+        ):
+        sse_encode_i_32(26, serializer);
+        sse_encode_network(requested, serializer);
+        sse_encode_network(found, serializer);
+      case BdkError_InvalidOutpoint(field0: final field0):
+        sse_encode_i_32(27, serializer);
+        sse_encode_box_autoadd_out_point(field0, serializer);
+      case BdkError_Encode(field0: final field0):
+        sse_encode_i_32(28, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Miniscript(field0: final field0):
+        sse_encode_i_32(29, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_MiniscriptPsbt(field0: final field0):
+        sse_encode_i_32(30, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Bip32(field0: final field0):
+        sse_encode_i_32(31, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Bip39(field0: final field0):
+        sse_encode_i_32(32, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Secp256k1(field0: final field0):
+        sse_encode_i_32(33, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Json(field0: final field0):
+        sse_encode_i_32(34, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Psbt(field0: final field0):
+        sse_encode_i_32(35, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_PsbtParse(field0: final field0):
+        sse_encode_i_32(36, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_MissingCachedScripts(
           field0: final field0,
           field1: final field1
         ):
-        sse_encode_i_32(2, serializer);
+        sse_encode_i_32(37, serializer);
         sse_encode_usize(field0, serializer);
         sse_encode_usize(field1, serializer);
+      case BdkError_Electrum(field0: final field0):
+        sse_encode_i_32(38, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Esplora(field0: final field0):
+        sse_encode_i_32(39, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Sled(field0: final field0):
+        sse_encode_i_32(40, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Rpc(field0: final field0):
+        sse_encode_i_32(41, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Rusqlite(field0: final field0):
+        sse_encode_i_32(42, serializer);
+        sse_encode_String(field0, serializer);
     }
   }
 
@@ -1755,24 +4113,80 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_bitcoin_address_error(
-      BitcoinAddressError self, SseSerializer serializer) {
+  void sse_encode_box_autoadd_address_error(
+      AddressError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_bitcoin_address_error(self, serializer);
+    sse_encode_address_error(self, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_bitcoin_consensus_error(
-      BitcoinConsensusError self, SseSerializer serializer) {
+  void sse_encode_box_autoadd_consensus_error(
+      ConsensusError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_bitcoin_consensus_error(self, serializer);
+    sse_encode_consensus_error(self, serializer);
   }
 
   @protected
-  void sse_encode_box_autoadd_bitcoin_hex_error(
-      BitcoinHexError self, SseSerializer serializer) {
+  void sse_encode_box_autoadd_database_config(
+      DatabaseConfig self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_bitcoin_hex_error(self, serializer);
+    sse_encode_database_config(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_derivation_path_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_base(
+      DescriptorBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_error(
+      DescriptorError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_error(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_public_key_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_secret_key_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_hex_error(
+      HexError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_hex_error(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_mnemonic_base(
+      MnemonicBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mnemonic_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_out_point(
+      OutPoint self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_out_point(self, serializer);
   }
 
   @protected
@@ -1783,6 +4197,20 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_sled_db_configuration(
+      SledDbConfiguration self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sled_db_configuration(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_sqlite_db_configuration(
+      SqliteDbConfiguration self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sqlite_db_configuration(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_transaction_base(
       TransactionBase self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -1790,9 +4218,161 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_consensus_error(
+      ConsensusError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case ConsensusError_Io(field0: final field0):
+        sse_encode_i_32(0, serializer);
+        sse_encode_String(field0, serializer);
+      case ConsensusError_OversizedVectorAllocation(
+          requested: final requested,
+          max: final max
+        ):
+        sse_encode_i_32(1, serializer);
+        sse_encode_usize(requested, serializer);
+        sse_encode_usize(max, serializer);
+      case ConsensusError_InvalidChecksum(
+          expected: final expected,
+          actual: final actual
+        ):
+        sse_encode_i_32(2, serializer);
+        sse_encode_u_8_array_4(expected, serializer);
+        sse_encode_u_8_array_4(actual, serializer);
+      case ConsensusError_NonMinimalVarInt():
+        sse_encode_i_32(3, serializer);
+      case ConsensusError_ParseFailed(field0: final field0):
+        sse_encode_i_32(4, serializer);
+        sse_encode_String(field0, serializer);
+      case ConsensusError_UnsupportedSegwitFlag(field0: final field0):
+        sse_encode_i_32(5, serializer);
+        sse_encode_u_8(field0, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_database_config(
+      DatabaseConfig self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case DatabaseConfig_Memory():
+        sse_encode_i_32(0, serializer);
+      case DatabaseConfig_Sqlite(config: final config):
+        sse_encode_i_32(1, serializer);
+        sse_encode_box_autoadd_sqlite_db_configuration(config, serializer);
+      case DatabaseConfig_Sled(config: final config):
+        sse_encode_i_32(2, serializer);
+        sse_encode_box_autoadd_sled_db_configuration(config, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+        self.ptr, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor_base(
+      DescriptorBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+        self.extendedDescriptor, serializer);
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+        self.keyMap, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor_error(
+      DescriptorError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case DescriptorError_InvalidHdKeyPath():
+        sse_encode_i_32(0, serializer);
+      case DescriptorError_InvalidDescriptorChecksum():
+        sse_encode_i_32(1, serializer);
+      case DescriptorError_HardenedDerivationXpub():
+        sse_encode_i_32(2, serializer);
+      case DescriptorError_MultiPath():
+        sse_encode_i_32(3, serializer);
+      case DescriptorError_Key(field0: final field0):
+        sse_encode_i_32(4, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_Policy(field0: final field0):
+        sse_encode_i_32(5, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_InvalidDescriptorCharacter(field0: final field0):
+        sse_encode_i_32(6, serializer);
+        sse_encode_u_8(field0, serializer);
+      case DescriptorError_Bip32(field0: final field0):
+        sse_encode_i_32(7, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_Base58(field0: final field0):
+        sse_encode_i_32(8, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_Pk(field0: final field0):
+        sse_encode_i_32(9, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_Miniscript(field0: final field0):
+        sse_encode_i_32(10, serializer);
+        sse_encode_String(field0, serializer);
+      case DescriptorError_Hex(field0: final field0):
+        sse_encode_i_32(11, serializer);
+        sse_encode_String(field0, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+        self.ptr, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+        self.ptr, serializer);
+  }
+
+  @protected
+  void sse_encode_f_32(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat32(self);
+  }
+
+  @protected
+  void sse_encode_hex_error(HexError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case HexError_InvalidChar(field0: final field0):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_8(field0, serializer);
+      case HexError_OddLengthString(field0: final field0):
+        sse_encode_i_32(1, serializer);
+        sse_encode_usize(field0, serializer);
+      case HexError_InvalidLength(field0: final field0, field1: final field1):
+        sse_encode_i_32(2, serializer);
+        sse_encode_usize(field0, serializer);
+        sse_encode_usize(field1, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_keychain_kind(KeychainKind self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
   }
 
   @protected
@@ -1841,9 +4421,37 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_mnemonic_base(MnemonicBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+        self.ptr, serializer);
+  }
+
+  @protected
   void sse_encode_network(Network self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_descriptor_base(
+      DescriptorBase? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_descriptor_base(self, serializer);
+    }
   }
 
   @protected
@@ -1878,6 +4486,21 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       ScriptBufBase self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(self.bytes, serializer);
+  }
+
+  @protected
+  void sse_encode_sled_db_configuration(
+      SledDbConfiguration self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.path, serializer);
+    sse_encode_String(self.treeName, serializer);
+  }
+
+  @protected
+  void sse_encode_sqlite_db_configuration(
+      SqliteDbConfiguration self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.path, serializer);
   }
 
   @protected
@@ -1945,8 +4568,21 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_wallet_base(WalletBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+        self.ptr, serializer);
+  }
+
+  @protected
   void sse_encode_witness_version(
       WitnessVersion self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_word_count(WordCount self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
   }

@@ -5,7 +5,7 @@
 
 import '../frb_generated.dart';
 import '../util/error.dart';
-import 'package:collection/collection.dart';
+import 'descriptor.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'types.freezed.dart';
@@ -15,12 +15,12 @@ part 'types.freezed.dart';
 // The type `Balance` is not used by any `pub` functions, thus it is ignored.
 // The type `BlockTime` is not used by any `pub` functions, thus it is ignored.
 // The type `ChangeSpendPolicy` is not used by any `pub` functions, thus it is ignored.
-// The type `KeychainKind` is not used by any `pub` functions, thus it is ignored.
+// The type `LocalUtxo` is not used by any `pub` functions, thus it is ignored.
 // The type `PsbtSigHashType` is not used by any `pub` functions, thus it is ignored.
 // The type `RbfValue` is not used by any `pub` functions, thus it is ignored.
 // The type `ScriptAmount` is not used by any `pub` functions, thus it is ignored.
+// The type `SignOptions` is not used by any `pub` functions, thus it is ignored.
 // The type `TransactionDetails` is not used by any `pub` functions, thus it is ignored.
-// The type `WordCount` is not used by any `pub` functions, thus it is ignored.
 
 // Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<bdk :: bitcoin :: Address>>
 @sealed
@@ -102,6 +102,29 @@ class AddressBase {
       other is AddressBase &&
           runtimeType == other.runtimeType &&
           field0 == other.field0;
+}
+
+@freezed
+sealed class DatabaseConfig with _$DatabaseConfig {
+  const factory DatabaseConfig.memory() = DatabaseConfig_Memory;
+
+  ///Simple key-value embedded database based on sled
+  const factory DatabaseConfig.sqlite({
+    required SqliteDbConfiguration config,
+  }) = DatabaseConfig_Sqlite;
+
+  ///Sqlite embedded database using rusqlite
+  const factory DatabaseConfig.sled({
+    required SledDbConfiguration config,
+  }) = DatabaseConfig_Sled;
+}
+
+///Types of keychains
+enum KeychainKind {
+  External,
+
+  ///Internal, usually used for change outputs
+  internal,
 }
 
 ///The cryptocurrency to act on
@@ -195,6 +218,51 @@ class ScriptBufBase {
       other is ScriptBufBase &&
           runtimeType == other.runtimeType &&
           bytes == other.bytes;
+}
+
+///Configuration type for a sled Tree database
+class SledDbConfiguration {
+  ///Main directory of the db
+  final String path;
+
+  ///Name of the database tree, a separated namespace for the data
+  final String treeName;
+
+  const SledDbConfiguration({
+    required this.path,
+    required this.treeName,
+  });
+
+  @override
+  int get hashCode => path.hashCode ^ treeName.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SledDbConfiguration &&
+          runtimeType == other.runtimeType &&
+          path == other.path &&
+          treeName == other.treeName;
+}
+
+///Configuration type for a SqliteDatabase database
+class SqliteDbConfiguration {
+  ///Main directory of the db
+  final String path;
+
+  const SqliteDbConfiguration({
+    required this.path,
+  });
+
+  @override
+  int get hashCode => path.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SqliteDbConfiguration &&
+          runtimeType == other.runtimeType &&
+          path == other.path;
 }
 
 class TransactionBase {
@@ -335,20 +403,6 @@ class TxOut {
           scriptPubkey == other.scriptPubkey;
 }
 
-class U8Array4 extends NonGrowableListView<int> {
-  static const arraySize = 4;
-
-  @internal
-  Uint8List get inner => _inner;
-  final Uint8List _inner;
-
-  U8Array4(this._inner)
-      : assert(_inner.length == arraySize),
-        super(_inner);
-
-  U8Array4.init() : this(Uint8List(arraySize));
-}
-
 enum Variant {
   bech32,
   bech32M,
@@ -405,4 +459,16 @@ enum WitnessVersion {
 
   /// Future (unsupported) version of witness program.
   v16,
+}
+
+///Type describing entropy length (aka word count) in the mnemonic
+enum WordCount {
+  ///12 words mnemonic (128 bits entropy)
+  words12,
+
+  ///18 words mnemonic (192 bits entropy)
+  words18,
+
+  ///24 words mnemonic (256 bits entropy)
+  words24,
 }
