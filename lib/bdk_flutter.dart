@@ -63,4 +63,5 @@ library bdk_flutter;
 //         Error_UnknownUtxo,
 //         DatabaseConfig_Sled;
 export './src/root.dart';
+export "src/frb/generated/api/types.dart";
 // export 'src/utils/exceptions.dart' hide BdkFfiException, handleBdkException;

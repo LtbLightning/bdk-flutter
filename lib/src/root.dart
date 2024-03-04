@@ -1,19 +1,49 @@
+import 'package:bdk_flutter/src/frb/generated/api/descriptor.dart';
+import 'package:bdk_flutter/src/frb/generated/api/key.dart';
 import 'package:bdk_flutter/src/frb/generated/api/types.dart';
 import 'package:bdk_flutter/src/frb/generated/util/error.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bdk_flutter/src/utils/utils.dart';
 
-import 'frb/generated/frb_generated.dart';
+class Mnemonic extends MnemonicBase {
+  Mnemonic._({required super.ptr});
 
-class BdkConfig {
-  static Future<void> initialize() async {
+  /// Generates [Mnemonic] with given [WordCount]
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> create(WordCount wordCount) async {
     try {
-      if (!BdkCore.instance.initialized) {
-        await BdkCore.init();
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      throw Exception(
-          "Failed to initialize bdk-flutter: Ensure that BdkConfig.initialize() is called and awaited (if in an async environment) before using bdk-flutter service.");
+      await Frb.verifyInit();
+      final res = await MnemonicBase.newMnemonicBase(wordCount: wordCount);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Create a new [Mnemonic] in the specified language from the given entropy.
+  /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> fromEntropy(List<int> entropy) async {
+    try {
+      await Frb.verifyInit();
+      final res = await MnemonicBase.fromEntropy(entropy: entropy);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Parse a [Mnemonic] with given string
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> fromString(String mnemonic) async {
+    try {
+      await Frb.verifyInit();
+      final res = await MnemonicBase.fromString(mnemonic: mnemonic);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
     }
   }
 }
@@ -23,14 +53,14 @@ class Address extends AddressBase {
   Address._({required super.field0});
   static Future<Address> fromScript(
       {required ScriptBuf script, required Network network}) async {
-    await BdkConfig.initialize();
+    await Frb.verifyInit();
     final res = await AddressBase.fromScript(script: script, network: network);
     return Address._(field0: res.field0);
   }
 
   static Future<Address> fromString(
       {required String s, required Network network}) async {
-    await BdkConfig.initialize();
+    await Frb.verifyInit();
     final res = await AddressBase.fromString(address: s, network: network);
     return Address._(field0: res.field0);
   }
@@ -41,21 +71,21 @@ class ScriptBuf extends ScriptBufBase {
 
   ///Creates a new empty script.
   static Future<ScriptBuf> empty() async {
-    await BdkConfig.initialize();
+    await Frb.verifyInit();
     final res = await ScriptBufBase.empty();
     return ScriptBuf(bytes: res.bytes);
   }
 
   ///Creates a new empty script with pre-allocated capacity.
   static Future<ScriptBuf> withCapacity(int capacity) async {
-    await BdkConfig.initialize();
+    await Frb.verifyInit();
     final res = await ScriptBufBase.withCapacity(capacity: capacity);
     return ScriptBuf(bytes: res.bytes);
   }
 
   ///Creates a ScriptBuf from a hex string.
   static Future<ScriptBuf> fromHex(String s) async {
-    await BdkConfig.initialize();
+    await Frb.verifyInit();
     final res = await ScriptBufBase.fromHex(s: s);
     return ScriptBuf(bytes: res.bytes);
   }
@@ -70,7 +100,7 @@ class Transaction extends TransactionBase {
     required List<int> transactionBytes,
   }) async {
     try {
-      await BdkConfig.initialize();
+      await Frb.verifyInit();
       final res = await TransactionBase.newTransactionBase(
           transactionBytes: transactionBytes);
       return Transaction._(inner: res.inner);
@@ -82,6 +112,245 @@ class Transaction extends TransactionBase {
   @override
   String toString() {
     return inner;
+  }
+}
+
+///A `BIP-32` derivation path
+class DerivationPath extends DerivationPathBase {
+  DerivationPath._({required super.ptr});
+
+  ///  [DerivationPath] constructor
+  static Future<DerivationPath> create({required String path}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DerivationPathBase.fromString(path: path);
+      return DerivationPath._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+}
+
+///Script descriptor
+class Descriptor extends DescriptorBase {
+  Descriptor._({required super.extendedDescriptor, required super.keyMap});
+
+  ///  [Descriptor] constructor
+  static Future<Descriptor> create(
+      {required String descriptor, required Network network}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newDescriptorBase(
+          descriptor: descriptor, network: network);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP44 template. Expands to pkh(key/44'/{0,1}'/0'/{0,1}/*)
+  ///
+  /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
+  static Future<Descriptor> newBip44(
+      {required DescriptorSecretKey secretKey,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip44(
+          secretKey: secretKey, network: network, keychainKind: keychain);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP44 public template. Expands to pkh(key/{0,1}/*)
+  ///
+  /// This assumes that the key used has already been derived with m/44'/0'/0' for Mainnet or m/44'/1'/0' for Testnet.
+  ///
+  /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
+  static Future<Descriptor> newBip44Public(
+      {required DescriptorPublicKey publicKey,
+      required String fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip44Public(
+          network: network,
+          keychainKind: keychain,
+          publicKey: publicKey,
+          fingerprint: fingerPrint);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP49 template. Expands to sh(wpkh(key/49'/{0,1}'/0'/{0,1}/*))
+  ///
+  ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
+  static Future<Descriptor> newBip49(
+      {required DescriptorSecretKey secretKey,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip49(
+          secretKey: secretKey, network: network, keychainKind: keychain);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP49 public template. Expands to sh(wpkh(key/{0,1}/*))
+  ///
+  /// This assumes that the key used has already been derived with m/49'/0'/0'.
+  ///
+  /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
+  static Future<Descriptor> newBip49Public(
+      {required DescriptorPublicKey publicKey,
+      required String fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip44Public(
+          network: network,
+          keychainKind: keychain,
+          publicKey: publicKey,
+          fingerprint: fingerPrint);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP84 template. Expands to wpkh(key/84'/{0,1}'/0'/{0,1}/*)
+  ///
+  ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
+  static Future<Descriptor> newBip84(
+      {required DescriptorSecretKey secretKey,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip84(
+          secretKey: secretKey, network: network, keychainKind: keychain);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP84 public template. Expands to wpkh(key/{0,1}/*)
+  ///
+  /// This assumes that the key used has already been derived with m/84'/0'/0'.
+  ///
+  /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
+  static Future<Descriptor> newBip84Public(
+      {required DescriptorPublicKey publicKey,
+      required String fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip44Public(
+          network: network,
+          keychainKind: keychain,
+          publicKey: publicKey,
+          fingerprint: fingerPrint);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP86 template. Expands to tr(key/86'/{0,1}'/0'/{0,1}/*)
+  ///
+  /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
+  static Future<Descriptor> newBip86(
+      {required DescriptorSecretKey secretKey,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip86(
+          secretKey: secretKey, network: network, keychainKind: keychain);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+
+  ///BIP86 public template. Expands to tr(key/{0,1}/*)
+  ///
+  /// This assumes that the key used has already been derived with m/86'/0'/0' for Mainnet or m/86'/1'/0' for Testnet.
+  ///
+  /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
+  static Future<Descriptor> newBip86Public(
+      {required DescriptorPublicKey publicKey,
+      required String fingerPrint,
+      required Network network,
+      required KeychainKind keychain}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorBase.newBip44Public(
+          network: network,
+          keychainKind: keychain,
+          publicKey: publicKey,
+          fingerprint: fingerPrint);
+      return Descriptor._(
+          extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+}
+
+///An extended public key.
+class DescriptorPublicKey extends DescriptorPublicKeyBase {
+  DescriptorPublicKey._({required super.ptr});
+
+  /// [DescriptorPublicKey] constructor
+  static Future<DescriptorPublicKey> fromString(String publicKey) async {
+    try {
+      await Frb.verifyInit();
+      final res =
+          await DescriptorPublicKeyBase.fromString(publicKey: publicKey);
+      return DescriptorPublicKey._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
+    }
+  }
+}
+
+class DescriptorSecretKey extends DescriptorSecretKeyBase {
+  DescriptorSecretKey._({required super.ptr});
+
+  /// [DescriptorSecretKey] constructor
+  static Future<DescriptorSecretKey> create(
+      {required Network network,
+      required Mnemonic mnemonic,
+      String? password}) async {
+    try {
+      await Frb.verifyInit();
+      final res = await DescriptorSecretKeyBase.create(
+          network: network, mnemonic: mnemonic, password: password);
+      return DescriptorSecretKey._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      rethrow;
+    }
   }
 }
 
@@ -206,378 +475,7 @@ class Transaction extends TransactionBase {
 //   }
 // }
 //
-// ///A `BIP-32` derivation path
-// class DerivationPath {
-//   final String? _path;
-//   DerivationPath._(this._path);
-//
-//   ///  [DerivationPath] constructor
-//   static Future<DerivationPath> create({required String path}) async {
-//     try {
-//       final res = await bdkFfi.createDerivationPathStaticMethodApi(path: path);
-//       return DerivationPath._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   @override
-//   String toString() {
-//     return _path!;
-//   }
-// }
-//
-// ///Script descriptor
-// class Descriptor {
-//   final String _descriptorInstance;
-//   final bridge.Network _network;
-//   Descriptor._(this._descriptorInstance, this._network);
-//
-//   ///  [Descriptor] constructor
-//   static Future<Descriptor> create(
-//       {required String descriptor, required bridge.Network network}) async {
-//     try {
-//       final res = await bdkFfi.createDescriptorStaticMethodApi(
-//           descriptor: descriptor, network: network);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   Future<int> maxSatisfactionWeight() async {
-//     try {
-//       final res = await bdkFfi.maxSatisfactionWeightStaticMethodApi(
-//           descriptor: _descriptorInstance, network: _network);
-//       return res;
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP44 template. Expands to pkh(key/44'/{0,1}'/0'/{0,1}/*)
-//   ///
-//   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-//   static Future<Descriptor> newBip44(
-//       {required DescriptorSecretKey secretKey,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip44DescriptorStaticMethodApi(
-//           secretKey: secretKey.asString(),
-//           network: network,
-//           keyChainKind: keychain);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP44 public template. Expands to pkh(key/{0,1}/*)
-//   ///
-//   /// This assumes that the key used has already been derived with m/44'/0'/0' for Mainnet or m/44'/1'/0' for Testnet.
-//   ///
-//   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-//   static Future<Descriptor> newBip44Public(
-//       {required DescriptorPublicKey publicKey,
-//       required String fingerPrint,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip44PublicStaticMethodApi(
-//           keyChainKind: keychain,
-//           publicKey: publicKey.asString(),
-//           network: network,
-//           fingerprint: fingerPrint);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP49 template. Expands to sh(wpkh(key/49'/{0,1}'/0'/{0,1}/*))
-//   ///
-//   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-//   static Future<Descriptor> newBip49(
-//       {required DescriptorSecretKey secretKey,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip49DescriptorStaticMethodApi(
-//           secretKey: secretKey.asString(),
-//           network: network,
-//           keyChainKind: keychain);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP49 public template. Expands to sh(wpkh(key/{0,1}/*))
-//   ///
-//   /// This assumes that the key used has already been derived with m/49'/0'/0'.
-//   ///
-//   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-//   static Future<Descriptor> newBip49Public(
-//       {required DescriptorPublicKey publicKey,
-//       required String fingerPrint,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip49PublicStaticMethodApi(
-//           keyChainKind: keychain,
-//           publicKey: publicKey.asString(),
-//           network: network,
-//           fingerprint: fingerPrint);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP84 template. Expands to wpkh(key/84'/{0,1}'/0'/{0,1}/*)
-//   ///
-//   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-//   static Future<Descriptor> newBip84(
-//       {required DescriptorSecretKey secretKey,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip84DescriptorStaticMethodApi(
-//           secretKey: secretKey.asString(),
-//           network: network,
-//           keyChainKind: keychain);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP84 public template. Expands to wpkh(key/{0,1}/*)
-//   ///
-//   /// This assumes that the key used has already been derived with m/84'/0'/0'.
-//   ///
-//   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-//   static Future<Descriptor> newBip84Public(
-//       {required DescriptorPublicKey publicKey,
-//       required String fingerPrint,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip84PublicStaticMethodApi(
-//           keyChainKind: keychain,
-//           publicKey: publicKey.asString(),
-//           network: network,
-//           fingerprint: fingerPrint);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP86 template. Expands to tr(key/86'/{0,1}'/0'/{0,1}/*)
-//   ///
-//   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
-//   static Future<Descriptor> newBip86(
-//       {required DescriptorSecretKey secretKey,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip86DescriptorStaticMethodApi(
-//           secretKey: secretKey.asString(),
-//           network: network,
-//           keyChainKind: keychain);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///BIP86 public template. Expands to tr(key/{0,1}/*)
-//   ///
-//   /// This assumes that the key used has already been derived with m/86'/0'/0' for Mainnet or m/86'/1'/0' for Testnet.
-//   ///
-//   /// This template requires the parent fingerprint to populate correctly the metadata of PSBTs.
-//   static Future<Descriptor> newBip86Public(
-//       {required DescriptorPublicKey publicKey,
-//       required String fingerPrint,
-//       required bridge.Network network,
-//       required bridge.KeychainKind keychain}) async {
-//     try {
-//       final res = await bdkFfi.newBip86PublicStaticMethodApi(
-//           keyChainKind: keychain,
-//           publicKey: publicKey.asString(),
-//           network: network,
-//           fingerprint: fingerPrint);
-//       return Descriptor._(res, network);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///Return the private version of the output descriptor if available, otherwise return the public version.
-//   Future<String> asStringPrivate() async {
-//     try {
-//       final res = await bdkFfi.descriptorAsStringPrivateStaticMethodApi(
-//           descriptor: _descriptorInstance, network: _network);
-//       return res;
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///Return the public version of the output descriptor.
-//   Future<String> asString() async {
-//     try {
-//       final res = await bdkFfi.descriptorAsStringStaticMethodApi(
-//           descriptor: _descriptorInstance, network: _network);
-//       return res;
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-// }
-//
-// ///An extended public key.
-// class DescriptorPublicKey {
-//   final String? _descriptorPublicKey;
-//
-//   DescriptorPublicKey._(this._descriptorPublicKey);
-//
-//   /// Get the public key as string.
-//   String asString() {
-//     return _descriptorPublicKey.toString();
-//   }
-//
-//   ///Derive a public descriptor at a given path.
-//   Future<DescriptorPublicKey> derive(DerivationPath derivationPath) async {
-//     try {
-//       final res = await bdkFfi.createDescriptorPublicStaticMethodApi(
-//           xpub: _descriptorPublicKey,
-//           path: derivationPath._path.toString(),
-//           derive: true);
-//       return DescriptorPublicKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   ///Extend the public descriptor with a custom path.
-//   Future<DescriptorPublicKey> extend(DerivationPath derivationPath) async {
-//     try {
-//       final res = await bdkFfi.createDescriptorPublicStaticMethodApi(
-//           xpub: _descriptorPublicKey,
-//           path: derivationPath._path.toString(),
-//           derive: false);
-//       return DescriptorPublicKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// [DescriptorPublicKey] constructor
-//   static Future<DescriptorPublicKey> fromString(String publicKey) async {
-//     try {
-//       final res = await bdkFfi.descriptorPublicFromStringStaticMethodApi(
-//           publicKey: publicKey);
-//       return DescriptorPublicKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   @override
-//   String toString() {
-//     return asString();
-//   }
-// }
-//
-// class DescriptorSecretKey {
-//   final String _descriptorSecretKey;
-//   DescriptorSecretKey._(this._descriptorSecretKey);
-//
-//   ///Returns the public version of this key.
-//   ///
-//   /// If the key is an “XPrv”, the hardened derivation steps will be applied before converting it to a public key.
-//   Future<DescriptorPublicKey> asPublic() async {
-//     try {
-//       final xpub = await bdkFfi.descriptorSecretAsPublicStaticMethodApi(
-//           secret: _descriptorSecretKey);
-//       return DescriptorPublicKey._(xpub);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Get the private key as string.
-//   String asString() {
-//     return _descriptorSecretKey;
-//   }
-//
-//   /// [DescriptorSecretKey] constructor
-//   static Future<DescriptorSecretKey> create(
-//       {required bridge.Network network,
-//       required Mnemonic mnemonic,
-//       String? password}) async {
-//     try {
-//       final res = await bdkFfi.createDescriptorSecretStaticMethodApi(
-//           network: network, mnemonic: mnemonic.asString(), password: password);
-//       return DescriptorSecretKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Derived the `XPrv` using the derivation path
-//   Future<DescriptorSecretKey> derive(DerivationPath derivationPath) async {
-//     try {
-//       final res = await bdkFfi.deriveDescriptorSecretStaticMethodApi(
-//           secret: _descriptorSecretKey, path: derivationPath._path.toString());
-//       return DescriptorSecretKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Extends the “XPrv” using the derivation path
-//   Future<DescriptorSecretKey> extend(DerivationPath derivationPath) async {
-//     try {
-//       final res = await bdkFfi.extendDescriptorSecretStaticMethodApi(
-//           secret: _descriptorSecretKey, path: derivationPath._path.toString());
-//       return DescriptorSecretKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// [DescriptorSecretKey] constructor
-//   static Future<DescriptorSecretKey> fromString(String secretKey) async {
-//     try {
-//       final res = await bdkFfi.descriptorSecretFromStringStaticMethodApi(
-//           secret: secretKey);
-//       return DescriptorSecretKey._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Get the private key as bytes.
-//   Future<List<int>> secretBytes() async {
-//     try {
-//       final res = await bdkFfi.descriptorSecretAsSecretBytesStaticMethodApi(
-//           secret: _descriptorSecretKey);
-//       return res;
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   @override
-//   String toString() {
-//     return asString();
-//   }
-// }
-//
+
 // class FeeRate {
 //   final double _feeRate;
 //   FeeRate._(this._feeRate);
@@ -604,61 +502,7 @@ class Transaction extends TransactionBase {
 //
 // /// Mnemonic phrases are a human-readable version of the private keys.
 // /// Supported number of words are 12, 18, and 24.
-// class Mnemonic {
-//   final String? _mnemonic;
-//   Mnemonic._(this._mnemonic);
-//
-//   /// Generates [Mnemonic] with given [WordCount]
-//   ///
-//   /// [Mnemonic] constructor
-//   static Future<Mnemonic> create(bridge.WordCount wordCount) async {
-//     try {
-//       final res = await bdkFfi.generateSeedFromWordCountStaticMethodApi(
-//           wordCount: wordCount);
-//       return Mnemonic._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Returns [Mnemonic] as string
-//   String asString() {
-//     return _mnemonic.toString();
-//   }
-//
-//   /// Create a new [Mnemonic] in the specified language from the given entropy.
-//   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
-//   ///
-//   /// [Mnemonic] constructor
-//   static Future<Mnemonic> fromEntropy(typed_data.Uint8List entropy) async {
-//     try {
-//       final res =
-//           await bdkFfi.generateSeedFromEntropyStaticMethodApi(entropy: entropy);
-//       return Mnemonic._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   /// Parse a [Mnemonic] with given string
-//   ///
-//   /// [Mnemonic] constructor
-//   static Future<Mnemonic> fromString(String mnemonic) async {
-//     try {
-//       final res = await bdkFfi.generateSeedFromStringStaticMethodApi(
-//           mnemonic: mnemonic);
-//       return Mnemonic._(res);
-//     } on bridge.Error catch (e) {
-//       throw handleBdkException(e);
-//     }
-//   }
-//
-//   @override
-//   String toString() {
-//     return asString();
-//   }
-// }
-//
+
 // ///A Partially Signed Transaction
 // class PartiallySignedTransaction {
 //   final String psbtBase64;

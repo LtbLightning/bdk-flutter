@@ -1,3 +1,4 @@
+import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/material.dart';
 
 class SimpleWallet extends StatefulWidget {
@@ -15,6 +16,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   // BdkLibrary lib = BdkLibrary();
   @override
   void initState() {
+    restoreWallet();
     super.initState();
   }
 
@@ -28,16 +30,12 @@ class _SimpleWalletState extends State<SimpleWallet> {
   //   }
   // }
   //
-  // restoreWallet() async {
-  //   final aliceMnemonic = await Mnemonic.fromString(
-  //       'certain sense kiss guide crumble hint transfer crime much stereo warm coral');
-  //   final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
-  //   aliceWallet = await lib.restoreWallet(aliceDescriptor);
-  //   setState(() {
-  //     displayText = "Wallets restored";
-  //   });
-  // }
-  //
+  restoreWallet() async {
+    final address = await Address.fromString(
+        s: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB", network: Network.testnet);
+    print(await address.toQrUri());
+  }
+
   // initBlockchain(bool isElectrumBlockchain) async {
   //   blockchain = await lib.initializeBlockchain(isElectrumBlockchain);
   // }
