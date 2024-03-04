@@ -4,7 +4,10 @@
 // Section: imports
 
 use super::*;
+use crate::api::descriptor::*;
+use crate::api::key::*;
 use crate::api::types::*;
+use crate::api::wallet::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::transform_result_dco;
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -15,6 +18,80 @@ flutter_rust_bridge::frb_generated_boilerplate_io!();
 
 // Section: dart2rust
 
+impl CstDecode<Arc<bitcoin::bip32::DerivationPath>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Arc<bitcoin::bip32::DerivationPath> {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<
+                    Arc<bitcoin::bip32::DerivationPath>,
+                >,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<Arc<keys::DescriptorPublicKey>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Arc<keys::DescriptorPublicKey> {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<
+                    Arc<keys::DescriptorPublicKey>,
+                >,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<Arc<keys::DescriptorSecretKey>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Arc<keys::DescriptorSecretKey> {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<
+                    Arc<keys::DescriptorSecretKey>,
+                >,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<Arc<keys::bip39::Mnemonic>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Arc<keys::bip39::Mnemonic> {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<ExtendedDescriptor> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> ExtendedDescriptor {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<Mutex<bdk::Wallet<AnyDatabase>>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Mutex<bdk::Wallet<AnyDatabase>> {
+        CstDecode::<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::rust_async::RwLock<
+                    Mutex<bdk::Wallet<AnyDatabase>>,
+                >,
+            >,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
 impl CstDecode<bdk::bitcoin::Address> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> bdk::bitcoin::Address {
@@ -24,6 +101,110 @@ impl CstDecode<bdk::bitcoin::Address> for usize {
             >,
         >::cst_decode(self)
         .rust_auto_opaque_decode_owned()
+    }
+}
+impl CstDecode<keys::KeyMap> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> keys::KeyMap {
+        CstDecode::<
+            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>>,
+        >::cst_decode(self)
+        .rust_auto_opaque_decode_owned()
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<
+                Arc<bitcoin::bip32::DerivationPath>,
+            >,
+        >,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<bitcoin::bip32::DerivationPath>>,
+    > {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+        >,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+    > {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+        >,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+    > {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+        >,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+    > {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>
+    {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl
+    CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+        >,
+    > for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+    > {
+        unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
 impl
@@ -41,6 +222,16 @@ impl
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
+impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>>>
+    for usize
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(
+        self,
+    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
 impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> String {
@@ -54,81 +245,57 @@ impl CstDecode<crate::api::types::AddressBase> for wire_cst_address_base {
         crate::api::types::AddressBase(self.field0.cst_decode())
     }
 }
-impl CstDecode<crate::util::error::BdkError> for wire_cst_bdk_error {
+impl CstDecode<crate::util::error::AddressError> for wire_cst_address_error {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BdkError {
-        match self.tag {
-            0 => {
-                let ans = unsafe { self.kind.HexError };
-                crate::util::error::BdkError::HexError(ans.field0.cst_decode())
-            }
-            1 => {
-                let ans = unsafe { self.kind.ConsensusError };
-                crate::util::error::BdkError::ConsensusError(ans.field0.cst_decode())
-            }
-            2 => {
-                let ans = unsafe { self.kind.AddressError };
-                crate::util::error::BdkError::AddressError(ans.field0.cst_decode())
-            }
-            _ => unreachable!(),
-        }
-    }
-}
-impl CstDecode<crate::util::error::BitcoinAddressError> for wire_cst_bitcoin_address_error {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinAddressError {
+    fn cst_decode(self) -> crate::util::error::AddressError {
         match self.tag {
             0 => {
                 let ans = unsafe { self.kind.Base58 };
-                crate::util::error::BitcoinAddressError::Base58(ans.field0.cst_decode())
+                crate::util::error::AddressError::Base58(ans.field0.cst_decode())
             }
             1 => {
                 let ans = unsafe { self.kind.Bech32 };
-                crate::util::error::BitcoinAddressError::Bech32(ans.field0.cst_decode())
+                crate::util::error::AddressError::Bech32(ans.field0.cst_decode())
             }
-            2 => crate::util::error::BitcoinAddressError::EmptyBech32Payload,
+            2 => crate::util::error::AddressError::EmptyBech32Payload,
             3 => {
                 let ans = unsafe { self.kind.InvalidBech32Variant };
-                crate::util::error::BitcoinAddressError::InvalidBech32Variant {
+                crate::util::error::AddressError::InvalidBech32Variant {
                     expected: ans.expected.cst_decode(),
                     found: ans.found.cst_decode(),
                 }
             }
             4 => {
                 let ans = unsafe { self.kind.InvalidWitnessVersion };
-                crate::util::error::BitcoinAddressError::InvalidWitnessVersion(
-                    ans.field0.cst_decode(),
-                )
+                crate::util::error::AddressError::InvalidWitnessVersion(ans.field0.cst_decode())
             }
             5 => {
                 let ans = unsafe { self.kind.UnparsableWitnessVersion };
-                crate::util::error::BitcoinAddressError::UnparsableWitnessVersion(
-                    ans.field0.cst_decode(),
-                )
+                crate::util::error::AddressError::UnparsableWitnessVersion(ans.field0.cst_decode())
             }
-            6 => crate::util::error::BitcoinAddressError::MalformedWitnessVersion,
+            6 => crate::util::error::AddressError::MalformedWitnessVersion,
             7 => {
                 let ans = unsafe { self.kind.InvalidWitnessProgramLength };
-                crate::util::error::BitcoinAddressError::InvalidWitnessProgramLength(
+                crate::util::error::AddressError::InvalidWitnessProgramLength(
                     ans.field0.cst_decode(),
                 )
             }
             8 => {
                 let ans = unsafe { self.kind.InvalidSegwitV0ProgramLength };
-                crate::util::error::BitcoinAddressError::InvalidSegwitV0ProgramLength(
+                crate::util::error::AddressError::InvalidSegwitV0ProgramLength(
                     ans.field0.cst_decode(),
                 )
             }
-            9 => crate::util::error::BitcoinAddressError::UncompressedPubkey,
-            10 => crate::util::error::BitcoinAddressError::ExcessiveScriptSize,
-            11 => crate::util::error::BitcoinAddressError::UnrecognizedScript,
+            9 => crate::util::error::AddressError::UncompressedPubkey,
+            10 => crate::util::error::AddressError::ExcessiveScriptSize,
+            11 => crate::util::error::AddressError::UnrecognizedScript,
             12 => {
                 let ans = unsafe { self.kind.UnknownAddressType };
-                crate::util::error::BitcoinAddressError::UnknownAddressType(ans.field0.cst_decode())
+                crate::util::error::AddressError::UnknownAddressType(ans.field0.cst_decode())
             }
             13 => {
                 let ans = unsafe { self.kind.NetworkValidation };
-                crate::util::error::BitcoinAddressError::NetworkValidation {
+                crate::util::error::AddressError::NetworkValidation {
                     network_required: ans.network_required.cst_decode(),
                     network_found: ans.network_found.cst_decode(),
                     address: ans.address.cst_decode(),
@@ -138,61 +305,161 @@ impl CstDecode<crate::util::error::BitcoinAddressError> for wire_cst_bitcoin_add
         }
     }
 }
-impl CstDecode<crate::util::error::BitcoinConsensusError> for wire_cst_bitcoin_consensus_error {
+impl CstDecode<crate::util::error::BdkError> for wire_cst_bdk_error {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinConsensusError {
+    fn cst_decode(self) -> crate::util::error::BdkError {
         match self.tag {
             0 => {
-                let ans = unsafe { self.kind.Io };
-                crate::util::error::BitcoinConsensusError::Io(ans.field0.cst_decode())
+                let ans = unsafe { self.kind.Hex };
+                crate::util::error::BdkError::Hex(ans.field0.cst_decode())
             }
             1 => {
-                let ans = unsafe { self.kind.OversizedVectorAllocation };
-                crate::util::error::BitcoinConsensusError::OversizedVectorAllocation {
-                    requested: ans.requested.cst_decode(),
-                    max: ans.max.cst_decode(),
-                }
+                let ans = unsafe { self.kind.Consensus };
+                crate::util::error::BdkError::Consensus(ans.field0.cst_decode())
             }
             2 => {
-                let ans = unsafe { self.kind.InvalidChecksum };
-                crate::util::error::BitcoinConsensusError::InvalidChecksum {
-                    expected: ans.expected.cst_decode(),
-                    actual: ans.actual.cst_decode(),
-                }
+                let ans = unsafe { self.kind.Address };
+                crate::util::error::BdkError::Address(ans.field0.cst_decode())
             }
-            3 => crate::util::error::BitcoinConsensusError::NonMinimalVarInt,
+            3 => {
+                let ans = unsafe { self.kind.Descriptor };
+                crate::util::error::BdkError::Descriptor(ans.field0.cst_decode())
+            }
             4 => {
-                let ans = unsafe { self.kind.ParseFailed };
-                crate::util::error::BitcoinConsensusError::ParseFailed(ans.field0.cst_decode())
+                let ans = unsafe { self.kind.InvalidU32Bytes };
+                crate::util::error::BdkError::InvalidU32Bytes(ans.field0.cst_decode())
             }
             5 => {
-                let ans = unsafe { self.kind.UnsupportedSegwitFlag };
-                crate::util::error::BitcoinConsensusError::UnsupportedSegwitFlag(
-                    ans.field0.cst_decode(),
-                )
+                let ans = unsafe { self.kind.Generic };
+                crate::util::error::BdkError::Generic(ans.field0.cst_decode())
             }
-            _ => unreachable!(),
-        }
-    }
-}
-impl CstDecode<crate::util::error::BitcoinHexError> for wire_cst_bitcoin_hex_error {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinHexError {
-        match self.tag {
-            0 => {
-                let ans = unsafe { self.kind.InvalidChar };
-                crate::util::error::BitcoinHexError::InvalidChar(ans.field0.cst_decode())
+            6 => crate::util::error::BdkError::ScriptDoesntHaveAddressForm,
+            7 => crate::util::error::BdkError::NoRecipients,
+            8 => crate::util::error::BdkError::NoUtxosSelected,
+            9 => {
+                let ans = unsafe { self.kind.OutputBelowDustLimit };
+                crate::util::error::BdkError::OutputBelowDustLimit(ans.field0.cst_decode())
             }
-            1 => {
-                let ans = unsafe { self.kind.OddLengthString };
-                crate::util::error::BitcoinHexError::OddLengthString(ans.field0.cst_decode())
+            10 => {
+                let ans = unsafe { self.kind.InsufficientFunds };
+                crate::util::error::BdkError::InsufficientFunds {
+                    needed: ans.needed.cst_decode(),
+                    available: ans.available.cst_decode(),
+                }
             }
-            2 => {
-                let ans = unsafe { self.kind.InvalidLength };
-                crate::util::error::BitcoinHexError::InvalidLength(
+            11 => crate::util::error::BdkError::BnBTotalTriesExceeded,
+            12 => crate::util::error::BdkError::BnBNoExactMatch,
+            13 => crate::util::error::BdkError::UnknownUtxo,
+            14 => crate::util::error::BdkError::TransactionNotFound,
+            15 => crate::util::error::BdkError::TransactionConfirmed,
+            16 => crate::util::error::BdkError::IrreplaceableTransaction,
+            17 => {
+                let ans = unsafe { self.kind.FeeRateTooLow };
+                crate::util::error::BdkError::FeeRateTooLow {
+                    needed: ans.needed.cst_decode(),
+                }
+            }
+            18 => {
+                let ans = unsafe { self.kind.FeeTooLow };
+                crate::util::error::BdkError::FeeTooLow {
+                    needed: ans.needed.cst_decode(),
+                }
+            }
+            19 => crate::util::error::BdkError::FeeRateUnavailable,
+            20 => {
+                let ans = unsafe { self.kind.MissingKeyOrigin };
+                crate::util::error::BdkError::MissingKeyOrigin(ans.field0.cst_decode())
+            }
+            21 => {
+                let ans = unsafe { self.kind.Key };
+                crate::util::error::BdkError::Key(ans.field0.cst_decode())
+            }
+            22 => crate::util::error::BdkError::ChecksumMismatch,
+            23 => {
+                let ans = unsafe { self.kind.SpendingPolicyRequired };
+                crate::util::error::BdkError::SpendingPolicyRequired(ans.field0.cst_decode())
+            }
+            24 => {
+                let ans = unsafe { self.kind.InvalidPolicyPathError };
+                crate::util::error::BdkError::InvalidPolicyPathError(ans.field0.cst_decode())
+            }
+            25 => {
+                let ans = unsafe { self.kind.Signer };
+                crate::util::error::BdkError::Signer(ans.field0.cst_decode())
+            }
+            26 => {
+                let ans = unsafe { self.kind.InvalidNetwork };
+                crate::util::error::BdkError::InvalidNetwork {
+                    requested: ans.requested.cst_decode(),
+                    found: ans.found.cst_decode(),
+                }
+            }
+            27 => {
+                let ans = unsafe { self.kind.InvalidOutpoint };
+                crate::util::error::BdkError::InvalidOutpoint(ans.field0.cst_decode())
+            }
+            28 => {
+                let ans = unsafe { self.kind.Encode };
+                crate::util::error::BdkError::Encode(ans.field0.cst_decode())
+            }
+            29 => {
+                let ans = unsafe { self.kind.Miniscript };
+                crate::util::error::BdkError::Miniscript(ans.field0.cst_decode())
+            }
+            30 => {
+                let ans = unsafe { self.kind.MiniscriptPsbt };
+                crate::util::error::BdkError::MiniscriptPsbt(ans.field0.cst_decode())
+            }
+            31 => {
+                let ans = unsafe { self.kind.Bip32 };
+                crate::util::error::BdkError::Bip32(ans.field0.cst_decode())
+            }
+            32 => {
+                let ans = unsafe { self.kind.Bip39 };
+                crate::util::error::BdkError::Bip39(ans.field0.cst_decode())
+            }
+            33 => {
+                let ans = unsafe { self.kind.Secp256k1 };
+                crate::util::error::BdkError::Secp256k1(ans.field0.cst_decode())
+            }
+            34 => {
+                let ans = unsafe { self.kind.Json };
+                crate::util::error::BdkError::Json(ans.field0.cst_decode())
+            }
+            35 => {
+                let ans = unsafe { self.kind.Psbt };
+                crate::util::error::BdkError::Psbt(ans.field0.cst_decode())
+            }
+            36 => {
+                let ans = unsafe { self.kind.PsbtParse };
+                crate::util::error::BdkError::PsbtParse(ans.field0.cst_decode())
+            }
+            37 => {
+                let ans = unsafe { self.kind.MissingCachedScripts };
+                crate::util::error::BdkError::MissingCachedScripts(
                     ans.field0.cst_decode(),
                     ans.field1.cst_decode(),
                 )
+            }
+            38 => {
+                let ans = unsafe { self.kind.Electrum };
+                crate::util::error::BdkError::Electrum(ans.field0.cst_decode())
+            }
+            39 => {
+                let ans = unsafe { self.kind.Esplora };
+                crate::util::error::BdkError::Esplora(ans.field0.cst_decode())
+            }
+            40 => {
+                let ans = unsafe { self.kind.Sled };
+                crate::util::error::BdkError::Sled(ans.field0.cst_decode())
+            }
+            41 => {
+                let ans = unsafe { self.kind.Rpc };
+                crate::util::error::BdkError::Rpc(ans.field0.cst_decode())
+            }
+            42 => {
+                let ans = unsafe { self.kind.Rusqlite };
+                crate::util::error::BdkError::Rusqlite(ans.field0.cst_decode())
             }
             _ => unreachable!(),
         }
@@ -205,27 +472,85 @@ impl CstDecode<crate::api::types::AddressBase> for *mut wire_cst_address_base {
         CstDecode::<crate::api::types::AddressBase>::cst_decode(*wrap).into()
     }
 }
-impl CstDecode<crate::util::error::BitcoinAddressError> for *mut wire_cst_bitcoin_address_error {
+impl CstDecode<crate::util::error::AddressError> for *mut wire_cst_address_error {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinAddressError {
+    fn cst_decode(self) -> crate::util::error::AddressError {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-        CstDecode::<crate::util::error::BitcoinAddressError>::cst_decode(*wrap).into()
+        CstDecode::<crate::util::error::AddressError>::cst_decode(*wrap).into()
     }
 }
-impl CstDecode<crate::util::error::BitcoinConsensusError>
-    for *mut wire_cst_bitcoin_consensus_error
+impl CstDecode<crate::util::error::ConsensusError> for *mut wire_cst_consensus_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::ConsensusError {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::util::error::ConsensusError>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::types::DatabaseConfig> for *mut wire_cst_database_config {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::DatabaseConfig {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::DatabaseConfig>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::DerivationPathBase> for *mut wire_cst_derivation_path_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DerivationPathBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::DerivationPathBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::descriptor::DescriptorBase> for *mut wire_cst_descriptor_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::descriptor::DescriptorBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::descriptor::DescriptorBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::util::error::DescriptorError> for *mut wire_cst_descriptor_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::DescriptorError {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::util::error::DescriptorError>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::DescriptorPublicKeyBase>
+    for *mut wire_cst_descriptor_public_key_base
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinConsensusError {
+    fn cst_decode(self) -> crate::api::key::DescriptorPublicKeyBase {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-        CstDecode::<crate::util::error::BitcoinConsensusError>::cst_decode(*wrap).into()
+        CstDecode::<crate::api::key::DescriptorPublicKeyBase>::cst_decode(*wrap).into()
     }
 }
-impl CstDecode<crate::util::error::BitcoinHexError> for *mut wire_cst_bitcoin_hex_error {
+impl CstDecode<crate::api::key::DescriptorSecretKeyBase>
+    for *mut wire_cst_descriptor_secret_key_base
+{
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::util::error::BitcoinHexError {
+    fn cst_decode(self) -> crate::api::key::DescriptorSecretKeyBase {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-        CstDecode::<crate::util::error::BitcoinHexError>::cst_decode(*wrap).into()
+        CstDecode::<crate::api::key::DescriptorSecretKeyBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::util::error::HexError> for *mut wire_cst_hex_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::HexError {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::util::error::HexError>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::MnemonicBase> for *mut wire_cst_mnemonic_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::MnemonicBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::MnemonicBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::types::OutPoint> for *mut wire_cst_out_point {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::OutPoint {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::OutPoint>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::types::ScriptBufBase> for *mut wire_cst_script_buf_base {
@@ -235,11 +560,183 @@ impl CstDecode<crate::api::types::ScriptBufBase> for *mut wire_cst_script_buf_ba
         CstDecode::<crate::api::types::ScriptBufBase>::cst_decode(*wrap).into()
     }
 }
+impl CstDecode<crate::api::types::SledDbConfiguration> for *mut wire_cst_sled_db_configuration {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::SledDbConfiguration {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::SledDbConfiguration>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::types::SqliteDbConfiguration> for *mut wire_cst_sqlite_db_configuration {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::SqliteDbConfiguration {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::SqliteDbConfiguration>::cst_decode(*wrap).into()
+    }
+}
 impl CstDecode<crate::api::types::TransactionBase> for *mut wire_cst_transaction_base {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::TransactionBase {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
         CstDecode::<crate::api::types::TransactionBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::util::error::ConsensusError> for wire_cst_consensus_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::ConsensusError {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.Io };
+                crate::util::error::ConsensusError::Io(ans.field0.cst_decode())
+            }
+            1 => {
+                let ans = unsafe { self.kind.OversizedVectorAllocation };
+                crate::util::error::ConsensusError::OversizedVectorAllocation {
+                    requested: ans.requested.cst_decode(),
+                    max: ans.max.cst_decode(),
+                }
+            }
+            2 => {
+                let ans = unsafe { self.kind.InvalidChecksum };
+                crate::util::error::ConsensusError::InvalidChecksum {
+                    expected: ans.expected.cst_decode(),
+                    actual: ans.actual.cst_decode(),
+                }
+            }
+            3 => crate::util::error::ConsensusError::NonMinimalVarInt,
+            4 => {
+                let ans = unsafe { self.kind.ParseFailed };
+                crate::util::error::ConsensusError::ParseFailed(ans.field0.cst_decode())
+            }
+            5 => {
+                let ans = unsafe { self.kind.UnsupportedSegwitFlag };
+                crate::util::error::ConsensusError::UnsupportedSegwitFlag(ans.field0.cst_decode())
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::DatabaseConfig> for wire_cst_database_config {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::DatabaseConfig {
+        match self.tag {
+            0 => crate::api::types::DatabaseConfig::Memory,
+            1 => {
+                let ans = unsafe { self.kind.Sqlite };
+                crate::api::types::DatabaseConfig::Sqlite {
+                    config: ans.config.cst_decode(),
+                }
+            }
+            2 => {
+                let ans = unsafe { self.kind.Sled };
+                crate::api::types::DatabaseConfig::Sled {
+                    config: ans.config.cst_decode(),
+                }
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DerivationPathBase> for wire_cst_derivation_path_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DerivationPathBase {
+        crate::api::key::DerivationPathBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::descriptor::DescriptorBase> for wire_cst_descriptor_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::descriptor::DescriptorBase {
+        crate::api::descriptor::DescriptorBase {
+            extended_descriptor: self.extended_descriptor.cst_decode(),
+            key_map: self.key_map.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::util::error::DescriptorError> for wire_cst_descriptor_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::DescriptorError {
+        match self.tag {
+            0 => crate::util::error::DescriptorError::InvalidHdKeyPath,
+            1 => crate::util::error::DescriptorError::InvalidDescriptorChecksum,
+            2 => crate::util::error::DescriptorError::HardenedDerivationXpub,
+            3 => crate::util::error::DescriptorError::MultiPath,
+            4 => {
+                let ans = unsafe { self.kind.Key };
+                crate::util::error::DescriptorError::Key(ans.field0.cst_decode())
+            }
+            5 => {
+                let ans = unsafe { self.kind.Policy };
+                crate::util::error::DescriptorError::Policy(ans.field0.cst_decode())
+            }
+            6 => {
+                let ans = unsafe { self.kind.InvalidDescriptorCharacter };
+                crate::util::error::DescriptorError::InvalidDescriptorCharacter(
+                    ans.field0.cst_decode(),
+                )
+            }
+            7 => {
+                let ans = unsafe { self.kind.Bip32 };
+                crate::util::error::DescriptorError::Bip32(ans.field0.cst_decode())
+            }
+            8 => {
+                let ans = unsafe { self.kind.Base58 };
+                crate::util::error::DescriptorError::Base58(ans.field0.cst_decode())
+            }
+            9 => {
+                let ans = unsafe { self.kind.Pk };
+                crate::util::error::DescriptorError::Pk(ans.field0.cst_decode())
+            }
+            10 => {
+                let ans = unsafe { self.kind.Miniscript };
+                crate::util::error::DescriptorError::Miniscript(ans.field0.cst_decode())
+            }
+            11 => {
+                let ans = unsafe { self.kind.Hex };
+                crate::util::error::DescriptorError::Hex(ans.field0.cst_decode())
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorPublicKeyBase> for wire_cst_descriptor_public_key_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorPublicKeyBase {
+        crate::api::key::DescriptorPublicKeyBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorSecretKeyBase> for wire_cst_descriptor_secret_key_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorSecretKeyBase {
+        crate::api::key::DescriptorSecretKeyBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::util::error::HexError> for wire_cst_hex_error {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::util::error::HexError {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.InvalidChar };
+                crate::util::error::HexError::InvalidChar(ans.field0.cst_decode())
+            }
+            1 => {
+                let ans = unsafe { self.kind.OddLengthString };
+                crate::util::error::HexError::OddLengthString(ans.field0.cst_decode())
+            }
+            2 => {
+                let ans = unsafe { self.kind.InvalidLength };
+                crate::util::error::HexError::InvalidLength(
+                    ans.field0.cst_decode(),
+                    ans.field1.cst_decode(),
+                )
+            }
+            _ => unreachable!(),
+        }
     }
 }
 impl CstDecode<Vec<Vec<u8>>> for *mut wire_cst_list_list_prim_u_8_strict {
@@ -290,6 +787,14 @@ impl CstDecode<Vec<crate::api::types::TxOut>> for *mut wire_cst_list_tx_out {
         vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
+impl CstDecode<crate::api::key::MnemonicBase> for wire_cst_mnemonic_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::MnemonicBase {
+        crate::api::key::MnemonicBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::types::OutPoint> for wire_cst_out_point {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::OutPoint {
@@ -334,6 +839,23 @@ impl CstDecode<crate::api::types::ScriptBufBase> for wire_cst_script_buf_base {
         }
     }
 }
+impl CstDecode<crate::api::types::SledDbConfiguration> for wire_cst_sled_db_configuration {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::SledDbConfiguration {
+        crate::api::types::SledDbConfiguration {
+            path: self.path.cst_decode(),
+            tree_name: self.tree_name.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::SqliteDbConfiguration> for wire_cst_sqlite_db_configuration {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::SqliteDbConfiguration {
+        crate::api::types::SqliteDbConfiguration {
+            path: self.path.cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::types::TransactionBase> for wire_cst_transaction_base {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::TransactionBase {
@@ -369,6 +891,14 @@ impl CstDecode<[u8; 4]> for *mut wire_cst_list_prim_u_8_strict {
         flutter_rust_bridge::for_generated::from_vec_to_array(vec)
     }
 }
+impl CstDecode<crate::api::wallet::WalletBase> for wire_cst_wallet_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::wallet::WalletBase {
+        crate::api::wallet::WalletBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
 impl NewWithNullPtr for wire_cst_address_base {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -377,6 +907,19 @@ impl NewWithNullPtr for wire_cst_address_base {
     }
 }
 impl Default for wire_cst_address_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_address_error {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: AddressErrorKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_address_error {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -394,41 +937,115 @@ impl Default for wire_cst_bdk_error {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_bitcoin_address_error {
+impl NewWithNullPtr for wire_cst_consensus_error {
     fn new_with_null_ptr() -> Self {
         Self {
             tag: -1,
-            kind: BitcoinAddressErrorKind { nil__: () },
+            kind: ConsensusErrorKind { nil__: () },
         }
     }
 }
-impl Default for wire_cst_bitcoin_address_error {
+impl Default for wire_cst_consensus_error {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_bitcoin_consensus_error {
+impl NewWithNullPtr for wire_cst_database_config {
     fn new_with_null_ptr() -> Self {
         Self {
             tag: -1,
-            kind: BitcoinConsensusErrorKind { nil__: () },
+            kind: DatabaseConfigKind { nil__: () },
         }
     }
 }
-impl Default for wire_cst_bitcoin_consensus_error {
+impl Default for wire_cst_database_config {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_bitcoin_hex_error {
+impl NewWithNullPtr for wire_cst_derivation_path_base {
     fn new_with_null_ptr() -> Self {
         Self {
-            tag: -1,
-            kind: BitcoinHexErrorKind { nil__: () },
+            ptr: Default::default(),
         }
     }
 }
-impl Default for wire_cst_bitcoin_hex_error {
+impl Default for wire_cst_derivation_path_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            extended_descriptor: Default::default(),
+            key_map: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_error {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: DescriptorErrorKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_descriptor_error {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_public_key_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_public_key_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_secret_key_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_secret_key_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_hex_error {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: HexErrorKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_hex_error {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_mnemonic_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_mnemonic_base {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -467,6 +1084,31 @@ impl NewWithNullPtr for wire_cst_script_buf_base {
     }
 }
 impl Default for wire_cst_script_buf_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_sled_db_configuration {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            path: core::ptr::null_mut(),
+            tree_name: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_sled_db_configuration {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_sqlite_db_configuration {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            path: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_sqlite_db_configuration {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -510,6 +1152,290 @@ impl Default for wire_cst_tx_out {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
+}
+impl NewWithNullPtr for wire_cst_wallet_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_wallet_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_descriptor_base,
+) {
+    wire_DescriptorBase_as_string_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string_private(
+    port_: i64,
+    that: *mut wire_cst_descriptor_base,
+) {
+    wire_DescriptorBase_as_string_private_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight(
+    port_: i64,
+    that: *mut wire_cst_descriptor_base,
+) {
+    wire_DescriptorBase_max_satisfaction_weight_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new(
+    port_: i64,
+    descriptor: *mut wire_cst_list_prim_u_8_strict,
+    network: i32,
+) {
+    wire_DescriptorBase_new_impl(port_, descriptor, network)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44(
+    port_: i64,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip44_impl(port_, secret_key, keychain_kind, network)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44_public(
+    port_: i64,
+    public_key: *mut wire_cst_descriptor_public_key_base,
+    fingerprint: *mut wire_cst_list_prim_u_8_strict,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip44_public_impl(
+        port_,
+        public_key,
+        fingerprint,
+        keychain_kind,
+        network,
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49(
+    port_: i64,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip49_impl(port_, secret_key, keychain_kind, network)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49_public(
+    port_: i64,
+    public_key: *mut wire_cst_descriptor_public_key_base,
+    fingerprint: *mut wire_cst_list_prim_u_8_strict,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip49_public_impl(
+        port_,
+        public_key,
+        fingerprint,
+        keychain_kind,
+        network,
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84(
+    port_: i64,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip84_impl(port_, secret_key, keychain_kind, network)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84_public(
+    port_: i64,
+    public_key: *mut wire_cst_descriptor_public_key_base,
+    fingerprint: *mut wire_cst_list_prim_u_8_strict,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip84_public_impl(
+        port_,
+        public_key,
+        fingerprint,
+        keychain_kind,
+        network,
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip86(
+    port_: i64,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip86_impl(port_, secret_key, keychain_kind, network)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip86_public(
+    port_: i64,
+    public_key: *mut wire_cst_descriptor_public_key_base,
+    fingerprint: *mut wire_cst_list_prim_u_8_strict,
+    keychain_kind: i32,
+    network: i32,
+) {
+    wire_DescriptorBase_new_bip86_public_impl(
+        port_,
+        public_key,
+        fingerprint,
+        keychain_kind,
+        network,
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DerivationPathBase_from_string(
+    port_: i64,
+    path: *mut wire_cst_list_prim_u_8_strict,
+) {
+    wire_DerivationPathBase_from_string_impl(port_, path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_descriptor_public_key_base,
+) {
+    wire_DescriptorPublicKeyBase_as_string_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(
+    port_: i64,
+    that: *mut wire_cst_descriptor_public_key_base,
+    path: *mut wire_cst_derivation_path_base,
+) {
+    wire_DescriptorPublicKeyBase_derive_impl(port_, that, path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend(
+    port_: i64,
+    that: *mut wire_cst_descriptor_public_key_base,
+    path: *mut wire_cst_derivation_path_base,
+) {
+    wire_DescriptorPublicKeyBase_extend_impl(port_, that, path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_from_string(
+    port_: i64,
+    public_key: *mut wire_cst_list_prim_u_8_strict,
+) {
+    wire_DescriptorPublicKeyBase_from_string_impl(port_, public_key)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(
+    port_: i64,
+    that: *mut wire_cst_descriptor_secret_key_base,
+) {
+    wire_DescriptorSecretKeyBase_as_public_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_descriptor_secret_key_base,
+) {
+    wire_DescriptorSecretKeyBase_as_string_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(
+    port_: i64,
+    network: i32,
+    mnemonic: *mut wire_cst_mnemonic_base,
+    password: *mut wire_cst_list_prim_u_8_strict,
+) {
+    wire_DescriptorSecretKeyBase_create_impl(port_, network, mnemonic, password)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(
+    port_: i64,
+    that: *mut wire_cst_descriptor_secret_key_base,
+    path: *mut wire_cst_derivation_path_base,
+) {
+    wire_DescriptorSecretKeyBase_derive_impl(port_, that, path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend(
+    port_: i64,
+    that: *mut wire_cst_descriptor_secret_key_base,
+    path: *mut wire_cst_derivation_path_base,
+) {
+    wire_DescriptorSecretKeyBase_extend_impl(port_, that, path)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_from_string(
+    port_: i64,
+    key_str: *mut wire_cst_list_prim_u_8_strict,
+) {
+    wire_DescriptorSecretKeyBase_from_string_impl(port_, key_str)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes(
+    port_: i64,
+    that: *mut wire_cst_descriptor_secret_key_base,
+) {
+    wire_DescriptorSecretKeyBase_secret_bytes_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_mnemonic_base,
+) {
+    wire_MnemonicBase_as_string_impl(port_, that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_from_entropy(
+    port_: i64,
+    entropy: *mut wire_cst_list_prim_u_8_loose,
+) {
+    wire_MnemonicBase_from_entropy_impl(port_, entropy)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_from_string(
+    port_: i64,
+    mnemonic: *mut wire_cst_list_prim_u_8_strict,
+) {
+    wire_MnemonicBase_from_string_impl(port_, mnemonic)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_new(port_: i64, word_count: i32) {
+    wire_MnemonicBase_new_impl(port_, word_count)
 }
 
 #[no_mangle]
@@ -702,6 +1628,151 @@ pub extern "C" fn frbgen_bdk_flutter_wire_TransactionBase_weight(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_new(
+    port_: i64,
+    descriptor: *mut wire_cst_descriptor_base,
+    change_descriptor: *mut wire_cst_descriptor_base,
+    network: i32,
+    database_config: *mut wire_cst_database_config,
+) {
+    wire_WalletBase_new_impl(
+        port_,
+        descriptor,
+        change_descriptor,
+        network,
+        database_config,
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<
+                Arc<bitcoin::bip32::DerivationPath>,
+            >,
+        >::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<
+                Arc<bitcoin::bip32::DerivationPath>,
+            >,
+        >::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+        >::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+        >::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+        >::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+        >::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<Arc < keys :: bip39 :: Mnemonic >>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<Arc < keys :: bip39 :: Mnemonic >>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+        >::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+        >::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
     ptr: *const std::ffi::c_void,
 ) {
@@ -720,33 +1791,105 @@ pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<keys :: KeyMap>>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<keys :: KeyMap>>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_address_base() -> *mut wire_cst_address_base
 {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_address_base::new_with_null_ptr())
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bitcoin_address_error(
-) -> *mut wire_cst_bitcoin_address_error {
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_address_error(
+) -> *mut wire_cst_address_error {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_address_error::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_consensus_error(
+) -> *mut wire_cst_consensus_error {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
-        wire_cst_bitcoin_address_error::new_with_null_ptr(),
+        wire_cst_consensus_error::new_with_null_ptr(),
     )
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bitcoin_consensus_error(
-) -> *mut wire_cst_bitcoin_consensus_error {
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_database_config(
+) -> *mut wire_cst_database_config {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
-        wire_cst_bitcoin_consensus_error::new_with_null_ptr(),
+        wire_cst_database_config::new_with_null_ptr(),
     )
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bitcoin_hex_error(
-) -> *mut wire_cst_bitcoin_hex_error {
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_derivation_path_base(
+) -> *mut wire_cst_derivation_path_base {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
-        wire_cst_bitcoin_hex_error::new_with_null_ptr(),
+        wire_cst_derivation_path_base::new_with_null_ptr(),
     )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_base(
+) -> *mut wire_cst_descriptor_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_error(
+) -> *mut wire_cst_descriptor_error {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_error::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_public_key_base(
+) -> *mut wire_cst_descriptor_public_key_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_public_key_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_secret_key_base(
+) -> *mut wire_cst_descriptor_secret_key_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_secret_key_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_hex_error() -> *mut wire_cst_hex_error {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_hex_error::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_mnemonic_base(
+) -> *mut wire_cst_mnemonic_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_mnemonic_base::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_out_point() -> *mut wire_cst_out_point {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_out_point::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -754,6 +1897,22 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_script_buf_base(
 ) -> *mut wire_cst_script_buf_base {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
         wire_cst_script_buf_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_sled_db_configuration(
+) -> *mut wire_cst_sled_db_configuration {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_sled_db_configuration::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_sqlite_db_configuration(
+) -> *mut wire_cst_sqlite_db_configuration {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_sqlite_db_configuration::new_with_null_ptr(),
     )
 }
 
@@ -832,6 +1991,74 @@ pub struct wire_cst_address_base {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_address_error {
+    tag: i32,
+    kind: AddressErrorKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union AddressErrorKind {
+    Base58: wire_cst_AddressError_Base58,
+    Bech32: wire_cst_AddressError_Bech32,
+    InvalidBech32Variant: wire_cst_AddressError_InvalidBech32Variant,
+    InvalidWitnessVersion: wire_cst_AddressError_InvalidWitnessVersion,
+    UnparsableWitnessVersion: wire_cst_AddressError_UnparsableWitnessVersion,
+    InvalidWitnessProgramLength: wire_cst_AddressError_InvalidWitnessProgramLength,
+    InvalidSegwitV0ProgramLength: wire_cst_AddressError_InvalidSegwitV0ProgramLength,
+    UnknownAddressType: wire_cst_AddressError_UnknownAddressType,
+    NetworkValidation: wire_cst_AddressError_NetworkValidation,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_Base58 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_Bech32 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_InvalidBech32Variant {
+    expected: i32,
+    found: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_InvalidWitnessVersion {
+    field0: u8,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_UnparsableWitnessVersion {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_InvalidWitnessProgramLength {
+    field0: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_InvalidSegwitV0ProgramLength {
+    field0: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_UnknownAddressType {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_AddressError_NetworkValidation {
+    network_required: i32,
+    network_found: i32,
+    address: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_bdk_error {
     tag: i32,
     kind: BdkErrorKind,
@@ -839,164 +2066,376 @@ pub struct wire_cst_bdk_error {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub union BdkErrorKind {
-    HexError: wire_cst_BdkError_HexError,
-    ConsensusError: wire_cst_BdkError_ConsensusError,
-    AddressError: wire_cst_BdkError_AddressError,
+    Hex: wire_cst_BdkError_Hex,
+    Consensus: wire_cst_BdkError_Consensus,
+    Address: wire_cst_BdkError_Address,
+    Descriptor: wire_cst_BdkError_Descriptor,
+    InvalidU32Bytes: wire_cst_BdkError_InvalidU32Bytes,
+    Generic: wire_cst_BdkError_Generic,
+    OutputBelowDustLimit: wire_cst_BdkError_OutputBelowDustLimit,
+    InsufficientFunds: wire_cst_BdkError_InsufficientFunds,
+    FeeRateTooLow: wire_cst_BdkError_FeeRateTooLow,
+    FeeTooLow: wire_cst_BdkError_FeeTooLow,
+    MissingKeyOrigin: wire_cst_BdkError_MissingKeyOrigin,
+    Key: wire_cst_BdkError_Key,
+    SpendingPolicyRequired: wire_cst_BdkError_SpendingPolicyRequired,
+    InvalidPolicyPathError: wire_cst_BdkError_InvalidPolicyPathError,
+    Signer: wire_cst_BdkError_Signer,
+    InvalidNetwork: wire_cst_BdkError_InvalidNetwork,
+    InvalidOutpoint: wire_cst_BdkError_InvalidOutpoint,
+    Encode: wire_cst_BdkError_Encode,
+    Miniscript: wire_cst_BdkError_Miniscript,
+    MiniscriptPsbt: wire_cst_BdkError_MiniscriptPsbt,
+    Bip32: wire_cst_BdkError_Bip32,
+    Bip39: wire_cst_BdkError_Bip39,
+    Secp256k1: wire_cst_BdkError_Secp256k1,
+    Json: wire_cst_BdkError_Json,
+    Psbt: wire_cst_BdkError_Psbt,
+    PsbtParse: wire_cst_BdkError_PsbtParse,
+    MissingCachedScripts: wire_cst_BdkError_MissingCachedScripts,
+    Electrum: wire_cst_BdkError_Electrum,
+    Esplora: wire_cst_BdkError_Esplora,
+    Sled: wire_cst_BdkError_Sled,
+    Rpc: wire_cst_BdkError_Rpc,
+    Rusqlite: wire_cst_BdkError_Rusqlite,
     nil__: (),
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BdkError_HexError {
-    field0: *mut wire_cst_bitcoin_hex_error,
+pub struct wire_cst_BdkError_Hex {
+    field0: *mut wire_cst_hex_error,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BdkError_ConsensusError {
-    field0: *mut wire_cst_bitcoin_consensus_error,
+pub struct wire_cst_BdkError_Consensus {
+    field0: *mut wire_cst_consensus_error,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BdkError_AddressError {
-    field0: *mut wire_cst_bitcoin_address_error,
+pub struct wire_cst_BdkError_Address {
+    field0: *mut wire_cst_address_error,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_bitcoin_address_error {
-    tag: i32,
-    kind: BitcoinAddressErrorKind,
+pub struct wire_cst_BdkError_Descriptor {
+    field0: *mut wire_cst_descriptor_error,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub union BitcoinAddressErrorKind {
-    Base58: wire_cst_BitcoinAddressError_Base58,
-    Bech32: wire_cst_BitcoinAddressError_Bech32,
-    InvalidBech32Variant: wire_cst_BitcoinAddressError_InvalidBech32Variant,
-    InvalidWitnessVersion: wire_cst_BitcoinAddressError_InvalidWitnessVersion,
-    UnparsableWitnessVersion: wire_cst_BitcoinAddressError_UnparsableWitnessVersion,
-    InvalidWitnessProgramLength: wire_cst_BitcoinAddressError_InvalidWitnessProgramLength,
-    InvalidSegwitV0ProgramLength: wire_cst_BitcoinAddressError_InvalidSegwitV0ProgramLength,
-    UnknownAddressType: wire_cst_BitcoinAddressError_UnknownAddressType,
-    NetworkValidation: wire_cst_BitcoinAddressError_NetworkValidation,
-    nil__: (),
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_Base58 {
+pub struct wire_cst_BdkError_InvalidU32Bytes {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_Bech32 {
+pub struct wire_cst_BdkError_Generic {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_InvalidBech32Variant {
-    expected: i32,
+pub struct wire_cst_BdkError_OutputBelowDustLimit {
+    field0: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_InsufficientFunds {
+    needed: u64,
+    available: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_FeeRateTooLow {
+    needed: f32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_FeeTooLow {
+    needed: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_MissingKeyOrigin {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Key {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_SpendingPolicyRequired {
+    field0: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_InvalidPolicyPathError {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Signer {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_InvalidNetwork {
+    requested: i32,
     found: i32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_InvalidWitnessVersion {
-    field0: u8,
+pub struct wire_cst_BdkError_InvalidOutpoint {
+    field0: *mut wire_cst_out_point,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_UnparsableWitnessVersion {
+pub struct wire_cst_BdkError_Encode {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_InvalidWitnessProgramLength {
-    field0: usize,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_InvalidSegwitV0ProgramLength {
-    field0: usize,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_UnknownAddressType {
+pub struct wire_cst_BdkError_Miniscript {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinAddressError_NetworkValidation {
-    network_required: i32,
-    network_found: i32,
-    address: *mut wire_cst_list_prim_u_8_strict,
+pub struct wire_cst_BdkError_MiniscriptPsbt {
+    field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_bitcoin_consensus_error {
+pub struct wire_cst_BdkError_Bip32 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Bip39 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Secp256k1 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Json {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Psbt {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_PsbtParse {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_MissingCachedScripts {
+    field0: usize,
+    field1: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Electrum {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Esplora {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Sled {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Rpc {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_Rusqlite {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_consensus_error {
     tag: i32,
-    kind: BitcoinConsensusErrorKind,
+    kind: ConsensusErrorKind,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub union BitcoinConsensusErrorKind {
-    Io: wire_cst_BitcoinConsensusError_Io,
-    OversizedVectorAllocation: wire_cst_BitcoinConsensusError_OversizedVectorAllocation,
-    InvalidChecksum: wire_cst_BitcoinConsensusError_InvalidChecksum,
-    ParseFailed: wire_cst_BitcoinConsensusError_ParseFailed,
-    UnsupportedSegwitFlag: wire_cst_BitcoinConsensusError_UnsupportedSegwitFlag,
+pub union ConsensusErrorKind {
+    Io: wire_cst_ConsensusError_Io,
+    OversizedVectorAllocation: wire_cst_ConsensusError_OversizedVectorAllocation,
+    InvalidChecksum: wire_cst_ConsensusError_InvalidChecksum,
+    ParseFailed: wire_cst_ConsensusError_ParseFailed,
+    UnsupportedSegwitFlag: wire_cst_ConsensusError_UnsupportedSegwitFlag,
     nil__: (),
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinConsensusError_Io {
+pub struct wire_cst_ConsensusError_Io {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinConsensusError_OversizedVectorAllocation {
+pub struct wire_cst_ConsensusError_OversizedVectorAllocation {
     requested: usize,
     max: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinConsensusError_InvalidChecksum {
+pub struct wire_cst_ConsensusError_InvalidChecksum {
     expected: *mut wire_cst_list_prim_u_8_strict,
     actual: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinConsensusError_ParseFailed {
+pub struct wire_cst_ConsensusError_ParseFailed {
     field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinConsensusError_UnsupportedSegwitFlag {
+pub struct wire_cst_ConsensusError_UnsupportedSegwitFlag {
     field0: u8,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_bitcoin_hex_error {
+pub struct wire_cst_database_config {
     tag: i32,
-    kind: BitcoinHexErrorKind,
+    kind: DatabaseConfigKind,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub union BitcoinHexErrorKind {
-    InvalidChar: wire_cst_BitcoinHexError_InvalidChar,
-    OddLengthString: wire_cst_BitcoinHexError_OddLengthString,
-    InvalidLength: wire_cst_BitcoinHexError_InvalidLength,
+pub union DatabaseConfigKind {
+    Sqlite: wire_cst_DatabaseConfig_Sqlite,
+    Sled: wire_cst_DatabaseConfig_Sled,
     nil__: (),
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinHexError_InvalidChar {
+pub struct wire_cst_DatabaseConfig_Sqlite {
+    config: *mut wire_cst_sqlite_db_configuration,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DatabaseConfig_Sled {
+    config: *mut wire_cst_sled_db_configuration,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_derivation_path_base {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_base {
+    extended_descriptor: usize,
+    key_map: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_error {
+    tag: i32,
+    kind: DescriptorErrorKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union DescriptorErrorKind {
+    Key: wire_cst_DescriptorError_Key,
+    Policy: wire_cst_DescriptorError_Policy,
+    InvalidDescriptorCharacter: wire_cst_DescriptorError_InvalidDescriptorCharacter,
+    Bip32: wire_cst_DescriptorError_Bip32,
+    Base58: wire_cst_DescriptorError_Base58,
+    Pk: wire_cst_DescriptorError_Pk,
+    Miniscript: wire_cst_DescriptorError_Miniscript,
+    Hex: wire_cst_DescriptorError_Hex,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Key {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Policy {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_InvalidDescriptorCharacter {
     field0: u8,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinHexError_OddLengthString {
+pub struct wire_cst_DescriptorError_Bip32 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Base58 {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Pk {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Miniscript {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_DescriptorError_Hex {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_public_key_base {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_secret_key_base {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_hex_error {
+    tag: i32,
+    kind: HexErrorKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union HexErrorKind {
+    InvalidChar: wire_cst_HexError_InvalidChar,
+    OddLengthString: wire_cst_HexError_OddLengthString,
+    InvalidLength: wire_cst_HexError_InvalidLength,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_HexError_InvalidChar {
+    field0: u8,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_HexError_OddLengthString {
     field0: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_BitcoinHexError_InvalidLength {
+pub struct wire_cst_HexError_InvalidLength {
     field0: usize,
     field1: usize,
 }
@@ -1029,6 +2468,11 @@ pub struct wire_cst_list_tx_in {
 pub struct wire_cst_list_tx_out {
     ptr: *mut wire_cst_tx_out,
     len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_mnemonic_base {
+    ptr: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -1073,6 +2517,17 @@ pub struct wire_cst_script_buf_base {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_sled_db_configuration {
+    path: *mut wire_cst_list_prim_u_8_strict,
+    tree_name: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_sqlite_db_configuration {
+    path: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_transaction_base {
     inner: *mut wire_cst_list_prim_u_8_strict,
 }
@@ -1089,4 +2544,9 @@ pub struct wire_cst_tx_in {
 pub struct wire_cst_tx_out {
     value: u64,
     script_pubkey: wire_cst_script_buf_base,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_wallet_base {
+    ptr: usize,
 }

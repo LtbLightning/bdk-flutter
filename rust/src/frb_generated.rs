@@ -19,7 +19,10 @@
 
 // Section: imports
 
+use crate::api::descriptor::*;
+use crate::api::key::*;
 use crate::api::types::*;
+use crate::api::wallet::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::transform_result_dco;
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -39,6 +42,666 @@ flutter_rust_bridge::frb_generated_default_handler!();
 
 // Section: wire_funcs
 
+fn wire_DescriptorBase_as_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_as_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    Result::<_, ()>::Ok(crate::api::descriptor::DescriptorBase::as_string(
+                        &api_that,
+                    ))
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_as_string_private_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_as_string_private",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    Result::<_, ()>::Ok(crate::api::descriptor::DescriptorBase::as_string_private(
+                        &api_that,
+                    ))
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_max_satisfaction_weight_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_max_satisfaction_weight",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::max_satisfaction_weight(&api_that)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    descriptor: impl CstDecode<String>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_descriptor = descriptor.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new(api_descriptor, api_network)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip44_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip44",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_secret_key = secret_key.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip44(
+                        api_secret_key,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip44_public_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    fingerprint: impl CstDecode<String>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip44_public",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.cst_decode();
+            let api_fingerprint = fingerprint.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip44_public(
+                        api_public_key,
+                        api_fingerprint,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip49_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip49",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_secret_key = secret_key.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip49(
+                        api_secret_key,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip49_public_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    fingerprint: impl CstDecode<String>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip49_public",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.cst_decode();
+            let api_fingerprint = fingerprint.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip49_public(
+                        api_public_key,
+                        api_fingerprint,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip84_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip84",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_secret_key = secret_key.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip84(
+                        api_secret_key,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip84_public_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    fingerprint: impl CstDecode<String>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip84_public",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.cst_decode();
+            let api_fingerprint = fingerprint.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip84_public(
+                        api_public_key,
+                        api_fingerprint,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip86_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip86",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_secret_key = secret_key.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip86(
+                        api_secret_key,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorBase_new_bip86_public_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    fingerprint: impl CstDecode<String>,
+    keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
+    network: impl CstDecode<crate::api::types::Network>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorBase_new_bip86_public",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.cst_decode();
+            let api_fingerprint = fingerprint.cst_decode();
+            let api_keychain_kind = keychain_kind.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::descriptor::DescriptorBase::new_bip86_public(
+                        api_public_key,
+                        api_fingerprint,
+                        api_keychain_kind,
+                        api_network,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DerivationPathBase_from_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    path: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DerivationPathBase_from_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_path = path.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DerivationPathBase::from_string(api_path)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorPublicKeyBase_as_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorPublicKeyBase_as_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    Result::<_, ()>::Ok(crate::api::key::DescriptorPublicKeyBase::as_string(
+                        &api_that,
+                    ))
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorPublicKeyBase_derive_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorPublicKeyBase_derive",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_path = path.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorPublicKeyBase::derive(&api_that, api_path)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorPublicKeyBase_extend_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorPublicKeyBase_extend",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_path = path.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorPublicKeyBase::extend(&api_that, api_path)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorPublicKeyBase_from_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    public_key: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorPublicKeyBase_from_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_public_key = public_key.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorPublicKeyBase::from_string(api_public_key)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_as_public_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_as_public",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::as_public(&api_that)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_as_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_as_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    Result::<_, ()>::Ok(crate::api::key::DescriptorSecretKeyBase::as_string(
+                        &api_that,
+                    ))
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_create_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    network: impl CstDecode<crate::api::types::Network>,
+    mnemonic: impl CstDecode<crate::api::key::MnemonicBase>,
+    password: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_create",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_password = password.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::create(
+                        api_network,
+                        api_mnemonic,
+                        api_password,
+                    )
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_derive_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_derive",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_path = path.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::derive(&api_that, api_path)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_extend_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_extend",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_path = path.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::extend(&api_that, api_path)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_from_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    key_str: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_from_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_key_str = key_str.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::from_string(api_key_str)
+                })())
+            }
+        },
+    )
+}
+fn wire_DescriptorSecretKeyBase_secret_bytes_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DescriptorSecretKeyBase_secret_bytes",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::DescriptorSecretKeyBase::secret_bytes(&api_that)
+                })())
+            }
+        },
+    )
+}
+fn wire_MnemonicBase_as_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::key::MnemonicBase>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "MnemonicBase_as_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    Result::<_, ()>::Ok(crate::api::key::MnemonicBase::as_string(&api_that))
+                })())
+            }
+        },
+    )
+}
+fn wire_MnemonicBase_from_entropy_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    entropy: impl CstDecode<Vec<u8>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "MnemonicBase_from_entropy",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_entropy = entropy.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::MnemonicBase::from_entropy(api_entropy)
+                })())
+            }
+        },
+    )
+}
+fn wire_MnemonicBase_from_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "MnemonicBase_from_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::key::MnemonicBase::from_string(api_mnemonic)
+                })())
+            }
+        },
+    )
+}
+fn wire_MnemonicBase_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    word_count: impl CstDecode<crate::api::types::WordCount>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "MnemonicBase_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_word_count = word_count.cst_decode();
+            move |context| {
+                transform_result_dco((move || crate::api::key::MnemonicBase::new(api_word_count))())
+            }
+        },
+    )
+}
 fn wire_AddressBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::AddressBase>,
@@ -528,6 +1191,37 @@ fn wire_TransactionBase_weight_impl(
         },
     )
 }
+fn wire_WalletBase_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    descriptor: impl CstDecode<crate::api::descriptor::DescriptorBase>,
+    change_descriptor: impl CstDecode<Option<crate::api::descriptor::DescriptorBase>>,
+    network: impl CstDecode<crate::api::types::Network>,
+    database_config: impl CstDecode<crate::api::types::DatabaseConfig>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "WalletBase_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_descriptor = descriptor.cst_decode();
+            let api_change_descriptor = change_descriptor.cst_decode();
+            let api_network = network.cst_decode();
+            let api_database_config = database_config.cst_decode();
+            move |context| {
+                transform_result_dco((move || {
+                    crate::api::wallet::WalletBase::new(
+                        api_descriptor,
+                        api_change_descriptor,
+                        api_network,
+                        api_database_config,
+                    )
+                })())
+            }
+        },
+    )
+}
 
 // Section: dart2rust
 
@@ -537,10 +1231,26 @@ impl CstDecode<bool> for bool {
         self
     }
 }
+impl CstDecode<f32> for f32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> f32 {
+        self
+    }
+}
 impl CstDecode<i32> for i32 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> i32 {
         self
+    }
+}
+impl CstDecode<crate::api::types::KeychainKind> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::KeychainKind {
+        match self {
+            0 => crate::api::types::KeychainKind::External,
+            1 => crate::api::types::KeychainKind::Internal,
+            _ => unreachable!("Invalid variant for KeychainKind: {}", self),
+        }
     }
 }
 impl CstDecode<crate::api::types::Network> for i32 {
@@ -614,6 +1324,79 @@ impl CstDecode<crate::api::types::WitnessVersion> for i32 {
         }
     }
 }
+impl CstDecode<crate::api::types::WordCount> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::WordCount {
+        match self {
+            0 => crate::api::types::WordCount::Words12,
+            1 => crate::api::types::WordCount::Words18,
+            2 => crate::api::types::WordCount::Words24,
+            _ => unreachable!("Invalid variant for WordCount: {}", self),
+        }
+    }
+}
+impl SseDecode for Arc<bitcoin::bip32::DerivationPath> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<
+                Arc<bitcoin::bip32::DerivationPath>,
+            >,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode for Arc<keys::DescriptorPublicKey> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode for Arc<keys::DescriptorSecretKey> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode for Arc<keys::bip39::Mnemonic> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode for ExtendedDescriptor {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode for Mutex<bdk::Wallet<AnyDatabase>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
 impl SseDecode for bdk::bitcoin::Address {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -624,8 +1407,98 @@ impl SseDecode for bdk::bitcoin::Address {
     }
 }
 
+impl SseDecode for keys::KeyMap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>,
+        >>::sse_decode(deserializer);
+        return inner.rust_auto_opaque_decode_owned();
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<bitcoin::bip32::DerivationPath>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
 impl SseDecode
     for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<bdk::bitcoin::Address>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -650,101 +1523,68 @@ impl SseDecode for crate::api::types::AddressBase {
     }
 }
 
-impl SseDecode for crate::util::error::BdkError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut tag_ = <i32>::sse_decode(deserializer);
-        match tag_ {
-            0 => {
-                let mut var_field0 =
-                    <crate::util::error::BitcoinHexError>::sse_decode(deserializer);
-                return crate::util::error::BdkError::HexError(var_field0);
-            }
-            1 => {
-                let mut var_field0 =
-                    <crate::util::error::BitcoinConsensusError>::sse_decode(deserializer);
-                return crate::util::error::BdkError::ConsensusError(var_field0);
-            }
-            2 => {
-                let mut var_field0 =
-                    <crate::util::error::BitcoinAddressError>::sse_decode(deserializer);
-                return crate::util::error::BdkError::AddressError(var_field0);
-            }
-            _ => {
-                unimplemented!("");
-            }
-        }
-    }
-}
-
-impl SseDecode for crate::util::error::BitcoinAddressError {
+impl SseDecode for crate::util::error::AddressError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut tag_ = <i32>::sse_decode(deserializer);
         match tag_ {
             0 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::Base58(var_field0);
+                return crate::util::error::AddressError::Base58(var_field0);
             }
             1 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::Bech32(var_field0);
+                return crate::util::error::AddressError::Bech32(var_field0);
             }
             2 => {
-                return crate::util::error::BitcoinAddressError::EmptyBech32Payload;
+                return crate::util::error::AddressError::EmptyBech32Payload;
             }
             3 => {
                 let mut var_expected = <crate::api::types::Variant>::sse_decode(deserializer);
                 let mut var_found = <crate::api::types::Variant>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::InvalidBech32Variant {
+                return crate::util::error::AddressError::InvalidBech32Variant {
                     expected: var_expected,
                     found: var_found,
                 };
             }
             4 => {
                 let mut var_field0 = <u8>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::InvalidWitnessVersion(var_field0);
+                return crate::util::error::AddressError::InvalidWitnessVersion(var_field0);
             }
             5 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::UnparsableWitnessVersion(
-                    var_field0,
-                );
+                return crate::util::error::AddressError::UnparsableWitnessVersion(var_field0);
             }
             6 => {
-                return crate::util::error::BitcoinAddressError::MalformedWitnessVersion;
+                return crate::util::error::AddressError::MalformedWitnessVersion;
             }
             7 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::InvalidWitnessProgramLength(
-                    var_field0,
-                );
+                return crate::util::error::AddressError::InvalidWitnessProgramLength(var_field0);
             }
             8 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::InvalidSegwitV0ProgramLength(
-                    var_field0,
-                );
+                return crate::util::error::AddressError::InvalidSegwitV0ProgramLength(var_field0);
             }
             9 => {
-                return crate::util::error::BitcoinAddressError::UncompressedPubkey;
+                return crate::util::error::AddressError::UncompressedPubkey;
             }
             10 => {
-                return crate::util::error::BitcoinAddressError::ExcessiveScriptSize;
+                return crate::util::error::AddressError::ExcessiveScriptSize;
             }
             11 => {
-                return crate::util::error::BitcoinAddressError::UnrecognizedScript;
+                return crate::util::error::AddressError::UnrecognizedScript;
             }
             12 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::UnknownAddressType(var_field0);
+                return crate::util::error::AddressError::UnknownAddressType(var_field0);
             }
             13 => {
                 let mut var_networkRequired =
                     <crate::api::types::Network>::sse_decode(deserializer);
                 let mut var_networkFound = <crate::api::types::Network>::sse_decode(deserializer);
                 let mut var_address = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinAddressError::NetworkValidation {
+                return crate::util::error::AddressError::NetworkValidation {
                     network_required: var_networkRequired,
                     network_found: var_networkFound,
                     address: var_address,
@@ -757,68 +1597,181 @@ impl SseDecode for crate::util::error::BitcoinAddressError {
     }
 }
 
-impl SseDecode for crate::util::error::BitcoinConsensusError {
+impl SseDecode for crate::util::error::BdkError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut tag_ = <i32>::sse_decode(deserializer);
         match tag_ {
             0 => {
-                let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinConsensusError::Io(var_field0);
+                let mut var_field0 = <crate::util::error::HexError>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Hex(var_field0);
             }
             1 => {
-                let mut var_requested = <usize>::sse_decode(deserializer);
-                let mut var_max = <usize>::sse_decode(deserializer);
-                return crate::util::error::BitcoinConsensusError::OversizedVectorAllocation {
-                    requested: var_requested,
-                    max: var_max,
-                };
+                let mut var_field0 = <crate::util::error::ConsensusError>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Consensus(var_field0);
             }
             2 => {
-                let mut var_expected = <[u8; 4]>::sse_decode(deserializer);
-                let mut var_actual = <[u8; 4]>::sse_decode(deserializer);
-                return crate::util::error::BitcoinConsensusError::InvalidChecksum {
-                    expected: var_expected,
-                    actual: var_actual,
-                };
+                let mut var_field0 = <crate::util::error::AddressError>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Address(var_field0);
             }
             3 => {
-                return crate::util::error::BitcoinConsensusError::NonMinimalVarInt;
+                let mut var_field0 =
+                    <crate::util::error::DescriptorError>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Descriptor(var_field0);
             }
             4 => {
-                let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::util::error::BitcoinConsensusError::ParseFailed(var_field0);
+                let mut var_field0 = <Vec<u8>>::sse_decode(deserializer);
+                return crate::util::error::BdkError::InvalidU32Bytes(var_field0);
             }
             5 => {
-                let mut var_field0 = <u8>::sse_decode(deserializer);
-                return crate::util::error::BitcoinConsensusError::UnsupportedSegwitFlag(
-                    var_field0,
-                );
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Generic(var_field0);
             }
-            _ => {
-                unimplemented!("");
+            6 => {
+                return crate::util::error::BdkError::ScriptDoesntHaveAddressForm;
             }
-        }
-    }
-}
-
-impl SseDecode for crate::util::error::BitcoinHexError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut tag_ = <i32>::sse_decode(deserializer);
-        match tag_ {
-            0 => {
-                let mut var_field0 = <u8>::sse_decode(deserializer);
-                return crate::util::error::BitcoinHexError::InvalidChar(var_field0);
+            7 => {
+                return crate::util::error::BdkError::NoRecipients;
             }
-            1 => {
+            8 => {
+                return crate::util::error::BdkError::NoUtxosSelected;
+            }
+            9 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
-                return crate::util::error::BitcoinHexError::OddLengthString(var_field0);
+                return crate::util::error::BdkError::OutputBelowDustLimit(var_field0);
             }
-            2 => {
+            10 => {
+                let mut var_needed = <u64>::sse_decode(deserializer);
+                let mut var_available = <u64>::sse_decode(deserializer);
+                return crate::util::error::BdkError::InsufficientFunds {
+                    needed: var_needed,
+                    available: var_available,
+                };
+            }
+            11 => {
+                return crate::util::error::BdkError::BnBTotalTriesExceeded;
+            }
+            12 => {
+                return crate::util::error::BdkError::BnBNoExactMatch;
+            }
+            13 => {
+                return crate::util::error::BdkError::UnknownUtxo;
+            }
+            14 => {
+                return crate::util::error::BdkError::TransactionNotFound;
+            }
+            15 => {
+                return crate::util::error::BdkError::TransactionConfirmed;
+            }
+            16 => {
+                return crate::util::error::BdkError::IrreplaceableTransaction;
+            }
+            17 => {
+                let mut var_needed = <f32>::sse_decode(deserializer);
+                return crate::util::error::BdkError::FeeRateTooLow { needed: var_needed };
+            }
+            18 => {
+                let mut var_needed = <u64>::sse_decode(deserializer);
+                return crate::util::error::BdkError::FeeTooLow { needed: var_needed };
+            }
+            19 => {
+                return crate::util::error::BdkError::FeeRateUnavailable;
+            }
+            20 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::MissingKeyOrigin(var_field0);
+            }
+            21 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Key(var_field0);
+            }
+            22 => {
+                return crate::util::error::BdkError::ChecksumMismatch;
+            }
+            23 => {
+                let mut var_field0 = <crate::api::types::KeychainKind>::sse_decode(deserializer);
+                return crate::util::error::BdkError::SpendingPolicyRequired(var_field0);
+            }
+            24 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::InvalidPolicyPathError(var_field0);
+            }
+            25 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Signer(var_field0);
+            }
+            26 => {
+                let mut var_requested = <crate::api::types::Network>::sse_decode(deserializer);
+                let mut var_found = <crate::api::types::Network>::sse_decode(deserializer);
+                return crate::util::error::BdkError::InvalidNetwork {
+                    requested: var_requested,
+                    found: var_found,
+                };
+            }
+            27 => {
+                let mut var_field0 = <crate::api::types::OutPoint>::sse_decode(deserializer);
+                return crate::util::error::BdkError::InvalidOutpoint(var_field0);
+            }
+            28 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Encode(var_field0);
+            }
+            29 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Miniscript(var_field0);
+            }
+            30 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::MiniscriptPsbt(var_field0);
+            }
+            31 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Bip32(var_field0);
+            }
+            32 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Bip39(var_field0);
+            }
+            33 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Secp256k1(var_field0);
+            }
+            34 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Json(var_field0);
+            }
+            35 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Psbt(var_field0);
+            }
+            36 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::PsbtParse(var_field0);
+            }
+            37 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
                 let mut var_field1 = <usize>::sse_decode(deserializer);
-                return crate::util::error::BitcoinHexError::InvalidLength(var_field0, var_field1);
+                return crate::util::error::BdkError::MissingCachedScripts(var_field0, var_field1);
+            }
+            38 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Electrum(var_field0);
+            }
+            39 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Esplora(var_field0);
+            }
+            40 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Sled(var_field0);
+            }
+            41 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Rpc(var_field0);
+            }
+            42 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::BdkError::Rusqlite(var_field0);
             }
             _ => {
                 unimplemented!("");
@@ -834,10 +1787,214 @@ impl SseDecode for bool {
     }
 }
 
+impl SseDecode for crate::util::error::ConsensusError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::ConsensusError::Io(var_field0);
+            }
+            1 => {
+                let mut var_requested = <usize>::sse_decode(deserializer);
+                let mut var_max = <usize>::sse_decode(deserializer);
+                return crate::util::error::ConsensusError::OversizedVectorAllocation {
+                    requested: var_requested,
+                    max: var_max,
+                };
+            }
+            2 => {
+                let mut var_expected = <[u8; 4]>::sse_decode(deserializer);
+                let mut var_actual = <[u8; 4]>::sse_decode(deserializer);
+                return crate::util::error::ConsensusError::InvalidChecksum {
+                    expected: var_expected,
+                    actual: var_actual,
+                };
+            }
+            3 => {
+                return crate::util::error::ConsensusError::NonMinimalVarInt;
+            }
+            4 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::ConsensusError::ParseFailed(var_field0);
+            }
+            5 => {
+                let mut var_field0 = <u8>::sse_decode(deserializer);
+                return crate::util::error::ConsensusError::UnsupportedSegwitFlag(var_field0);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for crate::api::types::DatabaseConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::types::DatabaseConfig::Memory;
+            }
+            1 => {
+                let mut var_config =
+                    <crate::api::types::SqliteDbConfiguration>::sse_decode(deserializer);
+                return crate::api::types::DatabaseConfig::Sqlite { config: var_config };
+            }
+            2 => {
+                let mut var_config =
+                    <crate::api::types::SledDbConfiguration>::sse_decode(deserializer);
+                return crate::api::types::DatabaseConfig::Sled { config: var_config };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for crate::api::key::DerivationPathBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <Arc<bitcoin::bip32::DerivationPath>>::sse_decode(deserializer);
+        return crate::api::key::DerivationPathBase { ptr: var_ptr };
+    }
+}
+
+impl SseDecode for crate::api::descriptor::DescriptorBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_extendedDescriptor = <ExtendedDescriptor>::sse_decode(deserializer);
+        let mut var_keyMap = <keys::KeyMap>::sse_decode(deserializer);
+        return crate::api::descriptor::DescriptorBase {
+            extended_descriptor: var_extendedDescriptor,
+            key_map: var_keyMap,
+        };
+    }
+}
+
+impl SseDecode for crate::util::error::DescriptorError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::util::error::DescriptorError::InvalidHdKeyPath;
+            }
+            1 => {
+                return crate::util::error::DescriptorError::InvalidDescriptorChecksum;
+            }
+            2 => {
+                return crate::util::error::DescriptorError::HardenedDerivationXpub;
+            }
+            3 => {
+                return crate::util::error::DescriptorError::MultiPath;
+            }
+            4 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Key(var_field0);
+            }
+            5 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Policy(var_field0);
+            }
+            6 => {
+                let mut var_field0 = <u8>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::InvalidDescriptorCharacter(var_field0);
+            }
+            7 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Bip32(var_field0);
+            }
+            8 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Base58(var_field0);
+            }
+            9 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Pk(var_field0);
+            }
+            10 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Miniscript(var_field0);
+            }
+            11 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::util::error::DescriptorError::Hex(var_field0);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for crate::api::key::DescriptorPublicKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <Arc<keys::DescriptorPublicKey>>::sse_decode(deserializer);
+        return crate::api::key::DescriptorPublicKeyBase { ptr: var_ptr };
+    }
+}
+
+impl SseDecode for crate::api::key::DescriptorSecretKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <Arc<keys::DescriptorSecretKey>>::sse_decode(deserializer);
+        return crate::api::key::DescriptorSecretKeyBase { ptr: var_ptr };
+    }
+}
+
+impl SseDecode for f32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_f32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for crate::util::error::HexError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_field0 = <u8>::sse_decode(deserializer);
+                return crate::util::error::HexError::InvalidChar(var_field0);
+            }
+            1 => {
+                let mut var_field0 = <usize>::sse_decode(deserializer);
+                return crate::util::error::HexError::OddLengthString(var_field0);
+            }
+            2 => {
+                let mut var_field0 = <usize>::sse_decode(deserializer);
+                let mut var_field1 = <usize>::sse_decode(deserializer);
+                return crate::util::error::HexError::InvalidLength(var_field0, var_field1);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseDecode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         deserializer.cursor.read_i32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for crate::api::types::KeychainKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::types::KeychainKind::External,
+            1 => crate::api::types::KeychainKind::Internal,
+            _ => unreachable!("Invalid variant for KeychainKind: {}", inner),
+        };
     }
 }
 
@@ -889,6 +2046,14 @@ impl SseDecode for Vec<crate::api::types::TxOut> {
     }
 }
 
+impl SseDecode for crate::api::key::MnemonicBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <Arc<keys::bip39::Mnemonic>>::sse_decode(deserializer);
+        return crate::api::key::MnemonicBase { ptr: var_ptr };
+    }
+}
+
 impl SseDecode for crate::api::types::Network {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -900,6 +2065,30 @@ impl SseDecode for crate::api::types::Network {
             3 => crate::api::types::Network::Signet,
             _ => unreachable!("Invalid variant for Network: {}", inner),
         };
+    }
+}
+
+impl SseDecode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::descriptor::DescriptorBase> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::descriptor::DescriptorBase>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
     }
 }
 
@@ -952,6 +2141,26 @@ impl SseDecode for crate::api::types::ScriptBufBase {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_bytes = <Vec<u8>>::sse_decode(deserializer);
         return crate::api::types::ScriptBufBase { bytes: var_bytes };
+    }
+}
+
+impl SseDecode for crate::api::types::SledDbConfiguration {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_path = <String>::sse_decode(deserializer);
+        let mut var_treeName = <String>::sse_decode(deserializer);
+        return crate::api::types::SledDbConfiguration {
+            path: var_path,
+            tree_name: var_treeName,
+        };
+    }
+}
+
+impl SseDecode for crate::api::types::SqliteDbConfiguration {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_path = <String>::sse_decode(deserializer);
+        return crate::api::types::SqliteDbConfiguration { path: var_path };
     }
 }
 
@@ -1044,6 +2253,14 @@ impl SseDecode for crate::api::types::Variant {
     }
 }
 
+impl SseDecode for crate::api::wallet::WalletBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <Mutex<bdk::Wallet<AnyDatabase>>>::sse_decode(deserializer);
+        return crate::api::wallet::WalletBase { ptr: var_ptr };
+    }
+}
+
 impl SseDecode for crate::api::types::WitnessVersion {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1067,6 +2284,19 @@ impl SseDecode for crate::api::types::WitnessVersion {
             15 => crate::api::types::WitnessVersion::V15,
             16 => crate::api::types::WitnessVersion::V16,
             _ => unreachable!("Invalid variant for WitnessVersion: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for crate::api::types::WordCount {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::types::WordCount::Words12,
+            1 => crate::api::types::WordCount::Words18,
+            2 => crate::api::types::WordCount::Words24,
+            _ => unreachable!("Invalid variant for WordCount: {}", inner),
         };
     }
 }
@@ -1098,6 +2328,96 @@ fn pde_ffi_dispatcher_sync_impl(
 
 // Section: rust2dart
 
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
+    Arc<bitcoin::bip32::DerivationPath>,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath> for Arc < bitcoin :: bip32 :: DerivationPath > {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(self)
+            }
+        }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(
+    Arc<keys::DescriptorPublicKey>,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey> for Arc < keys :: DescriptorPublicKey > {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(self)
+            }
+        }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(
+    Arc<keys::DescriptorSecretKey>,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey> for Arc < keys :: DescriptorSecretKey > {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(self)
+            }
+        }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(
+    Arc<keys::bip39::Mnemonic>,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic> for Arc < keys :: bip39 :: Mnemonic > {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(self)
+            }
+        }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
+    ExtendedDescriptor,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor> for ExtendedDescriptor {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(self)
+            }
+        }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
+    Mutex<bdk::Wallet<AnyDatabase>>,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase {}
+impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase> for Mutex < bdk :: Wallet < AnyDatabase > > {
+            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase {
+                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(self)
+            }
+        }
 pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
     bdk::bitcoin::Address,
 );
@@ -1113,6 +2433,34 @@ impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_
                 Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(self)
             }
         }
+pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
+    keys::KeyMap,
+);
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<
+        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap,
+    > for keys::KeyMap
+{
+    fn into_into_dart(
+        self,
+    ) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap
+    {
+        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(self)
+    }
+}
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::AddressBase {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
@@ -1131,76 +2479,44 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::AddressBase>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::util::error::BdkError {
+impl flutter_rust_bridge::IntoDart for crate::util::error::AddressError {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
-            crate::util::error::BdkError::HexError(field0) => {
+            crate::util::error::AddressError::Base58(field0) => {
                 [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BdkError::ConsensusError(field0) => {
+            crate::util::error::AddressError::Bech32(field0) => {
                 [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BdkError::AddressError(field0) => {
-                [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::util::error::BdkError {}
-impl flutter_rust_bridge::IntoIntoDart<crate::util::error::BdkError>
-    for crate::util::error::BdkError
-{
-    fn into_into_dart(self) -> crate::util::error::BdkError {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::util::error::BitcoinAddressError {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            crate::util::error::BitcoinAddressError::Base58(field0) => {
-                [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::Bech32(field0) => {
-                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::EmptyBech32Payload => {
-                [2.into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::InvalidBech32Variant { expected, found } => [
+            crate::util::error::AddressError::EmptyBech32Payload => [2.into_dart()].into_dart(),
+            crate::util::error::AddressError::InvalidBech32Variant { expected, found } => [
                 3.into_dart(),
                 expected.into_into_dart().into_dart(),
                 found.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::util::error::BitcoinAddressError::InvalidWitnessVersion(field0) => {
+            crate::util::error::AddressError::InvalidWitnessVersion(field0) => {
                 [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::UnparsableWitnessVersion(field0) => {
+            crate::util::error::AddressError::UnparsableWitnessVersion(field0) => {
                 [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::MalformedWitnessVersion => {
+            crate::util::error::AddressError::MalformedWitnessVersion => {
                 [6.into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::InvalidWitnessProgramLength(field0) => {
+            crate::util::error::AddressError::InvalidWitnessProgramLength(field0) => {
                 [7.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::InvalidSegwitV0ProgramLength(field0) => {
+            crate::util::error::AddressError::InvalidSegwitV0ProgramLength(field0) => {
                 [8.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::UncompressedPubkey => {
-                [9.into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::ExcessiveScriptSize => {
-                [10.into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::UnrecognizedScript => {
-                [11.into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinAddressError::UnknownAddressType(field0) => {
+            crate::util::error::AddressError::UncompressedPubkey => [9.into_dart()].into_dart(),
+            crate::util::error::AddressError::ExcessiveScriptSize => [10.into_dart()].into_dart(),
+            crate::util::error::AddressError::UnrecognizedScript => [11.into_dart()].into_dart(),
+            crate::util::error::AddressError::UnknownAddressType(field0) => {
                 [12.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinAddressError::NetworkValidation {
+            crate::util::error::AddressError::NetworkValidation {
                 network_required,
                 network_found,
                 address,
@@ -1215,72 +2531,347 @@ impl flutter_rust_bridge::IntoDart for crate::util::error::BitcoinAddressError {
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::util::error::BitcoinAddressError
+    for crate::util::error::AddressError
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::util::error::BitcoinAddressError>
-    for crate::util::error::BitcoinAddressError
+impl flutter_rust_bridge::IntoIntoDart<crate::util::error::AddressError>
+    for crate::util::error::AddressError
 {
-    fn into_into_dart(self) -> crate::util::error::BitcoinAddressError {
+    fn into_into_dart(self) -> crate::util::error::AddressError {
         self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::util::error::BitcoinConsensusError {
+impl flutter_rust_bridge::IntoDart for crate::util::error::BdkError {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
-            crate::util::error::BitcoinConsensusError::Io(field0) => {
+            crate::util::error::BdkError::Hex(field0) => {
                 [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinConsensusError::OversizedVectorAllocation {
-                requested,
-                max,
-            } => [
+            crate::util::error::BdkError::Consensus(field0) => {
+                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Address(field0) => {
+                [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Descriptor(field0) => {
+                [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::InvalidU32Bytes(field0) => {
+                [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Generic(field0) => {
+                [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::ScriptDoesntHaveAddressForm => {
+                [6.into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::NoRecipients => [7.into_dart()].into_dart(),
+            crate::util::error::BdkError::NoUtxosSelected => [8.into_dart()].into_dart(),
+            crate::util::error::BdkError::OutputBelowDustLimit(field0) => {
+                [9.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::InsufficientFunds { needed, available } => [
+                10.into_dart(),
+                needed.into_into_dart().into_dart(),
+                available.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::util::error::BdkError::BnBTotalTriesExceeded => [11.into_dart()].into_dart(),
+            crate::util::error::BdkError::BnBNoExactMatch => [12.into_dart()].into_dart(),
+            crate::util::error::BdkError::UnknownUtxo => [13.into_dart()].into_dart(),
+            crate::util::error::BdkError::TransactionNotFound => [14.into_dart()].into_dart(),
+            crate::util::error::BdkError::TransactionConfirmed => [15.into_dart()].into_dart(),
+            crate::util::error::BdkError::IrreplaceableTransaction => [16.into_dart()].into_dart(),
+            crate::util::error::BdkError::FeeRateTooLow { needed } => {
+                [17.into_dart(), needed.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::FeeTooLow { needed } => {
+                [18.into_dart(), needed.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::FeeRateUnavailable => [19.into_dart()].into_dart(),
+            crate::util::error::BdkError::MissingKeyOrigin(field0) => {
+                [20.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Key(field0) => {
+                [21.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::ChecksumMismatch => [22.into_dart()].into_dart(),
+            crate::util::error::BdkError::SpendingPolicyRequired(field0) => {
+                [23.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::InvalidPolicyPathError(field0) => {
+                [24.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Signer(field0) => {
+                [25.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::InvalidNetwork { requested, found } => [
+                26.into_dart(),
+                requested.into_into_dart().into_dart(),
+                found.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::util::error::BdkError::InvalidOutpoint(field0) => {
+                [27.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Encode(field0) => {
+                [28.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Miniscript(field0) => {
+                [29.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::MiniscriptPsbt(field0) => {
+                [30.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Bip32(field0) => {
+                [31.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Bip39(field0) => {
+                [32.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Secp256k1(field0) => {
+                [33.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Json(field0) => {
+                [34.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Psbt(field0) => {
+                [35.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::PsbtParse(field0) => {
+                [36.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::MissingCachedScripts(field0, field1) => [
+                37.into_dart(),
+                field0.into_into_dart().into_dart(),
+                field1.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::util::error::BdkError::Electrum(field0) => {
+                [38.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Esplora(field0) => {
+                [39.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Sled(field0) => {
+                [40.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Rpc(field0) => {
+                [41.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::BdkError::Rusqlite(field0) => {
+                [42.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::util::error::BdkError {}
+impl flutter_rust_bridge::IntoIntoDart<crate::util::error::BdkError>
+    for crate::util::error::BdkError
+{
+    fn into_into_dart(self) -> crate::util::error::BdkError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::util::error::ConsensusError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::util::error::ConsensusError::Io(field0) => {
+                [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::ConsensusError::OversizedVectorAllocation { requested, max } => [
                 1.into_dart(),
                 requested.into_into_dart().into_dart(),
                 max.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::util::error::BitcoinConsensusError::InvalidChecksum { expected, actual } => [
+            crate::util::error::ConsensusError::InvalidChecksum { expected, actual } => [
                 2.into_dart(),
                 expected.into_into_dart().into_dart(),
                 actual.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::util::error::BitcoinConsensusError::NonMinimalVarInt => {
-                [3.into_dart()].into_dart()
-            }
-            crate::util::error::BitcoinConsensusError::ParseFailed(field0) => {
+            crate::util::error::ConsensusError::NonMinimalVarInt => [3.into_dart()].into_dart(),
+            crate::util::error::ConsensusError::ParseFailed(field0) => {
                 [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinConsensusError::UnsupportedSegwitFlag(field0) => {
+            crate::util::error::ConsensusError::UnsupportedSegwitFlag(field0) => {
                 [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
         }
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::util::error::BitcoinConsensusError
+    for crate::util::error::ConsensusError
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::util::error::BitcoinConsensusError>
-    for crate::util::error::BitcoinConsensusError
+impl flutter_rust_bridge::IntoIntoDart<crate::util::error::ConsensusError>
+    for crate::util::error::ConsensusError
 {
-    fn into_into_dart(self) -> crate::util::error::BitcoinConsensusError {
+    fn into_into_dart(self) -> crate::util::error::ConsensusError {
         self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::util::error::BitcoinHexError {
+impl flutter_rust_bridge::IntoDart for crate::api::types::DatabaseConfig {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
-            crate::util::error::BitcoinHexError::InvalidChar(field0) => {
+            crate::api::types::DatabaseConfig::Memory => [0.into_dart()].into_dart(),
+            crate::api::types::DatabaseConfig::Sqlite { config } => {
+                [1.into_dart(), config.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::DatabaseConfig::Sled { config } => {
+                [2.into_dart(), config.into_into_dart().into_dart()].into_dart()
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::DatabaseConfig
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::DatabaseConfig>
+    for crate::api::types::DatabaseConfig
+{
+    fn into_into_dart(self) -> crate::api::types::DatabaseConfig {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DerivationPathBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DerivationPathBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DerivationPathBase>
+    for crate::api::key::DerivationPathBase
+{
+    fn into_into_dart(self) -> crate::api::key::DerivationPathBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::descriptor::DescriptorBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.extended_descriptor.into_into_dart().into_dart(),
+            self.key_map.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::descriptor::DescriptorBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::descriptor::DescriptorBase>
+    for crate::api::descriptor::DescriptorBase
+{
+    fn into_into_dart(self) -> crate::api::descriptor::DescriptorBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::util::error::DescriptorError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::util::error::DescriptorError::InvalidHdKeyPath => [0.into_dart()].into_dart(),
+            crate::util::error::DescriptorError::InvalidDescriptorChecksum => {
+                [1.into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::HardenedDerivationXpub => {
+                [2.into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::MultiPath => [3.into_dart()].into_dart(),
+            crate::util::error::DescriptorError::Key(field0) => {
+                [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Policy(field0) => {
+                [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::InvalidDescriptorCharacter(field0) => {
+                [6.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Bip32(field0) => {
+                [7.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Base58(field0) => {
+                [8.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Pk(field0) => {
+                [9.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Miniscript(field0) => {
+                [10.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::util::error::DescriptorError::Hex(field0) => {
+                [11.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::util::error::DescriptorError
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::util::error::DescriptorError>
+    for crate::util::error::DescriptorError
+{
+    fn into_into_dart(self) -> crate::util::error::DescriptorError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DescriptorPublicKeyBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DescriptorPublicKeyBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DescriptorPublicKeyBase>
+    for crate::api::key::DescriptorPublicKeyBase
+{
+    fn into_into_dart(self) -> crate::api::key::DescriptorPublicKeyBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DescriptorSecretKeyBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DescriptorSecretKeyBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DescriptorSecretKeyBase>
+    for crate::api::key::DescriptorSecretKeyBase
+{
+    fn into_into_dart(self) -> crate::api::key::DescriptorSecretKeyBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::util::error::HexError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::util::error::HexError::InvalidChar(field0) => {
                 [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinHexError::OddLengthString(field0) => {
+            crate::util::error::HexError::OddLengthString(field0) => {
                 [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::util::error::BitcoinHexError::InvalidLength(field0, field1) => [
+            crate::util::error::HexError::InvalidLength(field0, field1) => [
                 2.into_dart(),
                 field0.into_into_dart().into_dart(),
                 field1.into_into_dart().into_dart(),
@@ -1289,14 +2880,45 @@ impl flutter_rust_bridge::IntoDart for crate::util::error::BitcoinHexError {
         }
     }
 }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::util::error::HexError {}
+impl flutter_rust_bridge::IntoIntoDart<crate::util::error::HexError>
+    for crate::util::error::HexError
+{
+    fn into_into_dart(self) -> crate::util::error::HexError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::KeychainKind {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::External => 0.into_dart(),
+            Self::Internal => 1.into_dart(),
+        }
+    }
+}
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::util::error::BitcoinHexError
+    for crate::api::types::KeychainKind
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::util::error::BitcoinHexError>
-    for crate::util::error::BitcoinHexError
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::KeychainKind>
+    for crate::api::types::KeychainKind
 {
-    fn into_into_dart(self) -> crate::util::error::BitcoinHexError {
+    fn into_into_dart(self) -> crate::api::types::KeychainKind {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::MnemonicBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::key::MnemonicBase {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::MnemonicBase>
+    for crate::api::key::MnemonicBase
+{
+    fn into_into_dart(self) -> crate::api::key::MnemonicBase {
         self
     }
 }
@@ -1378,6 +3000,44 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::ScriptBufBase>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::SledDbConfiguration {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.path.into_into_dart().into_dart(),
+            self.tree_name.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::SledDbConfiguration
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SledDbConfiguration>
+    for crate::api::types::SledDbConfiguration
+{
+    fn into_into_dart(self) -> crate::api::types::SledDbConfiguration {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::SqliteDbConfiguration {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.path.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::SqliteDbConfiguration
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SqliteDbConfiguration>
+    for crate::api::types::SqliteDbConfiguration
+{
+    fn into_into_dart(self) -> crate::api::types::SqliteDbConfiguration {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::TransactionBase {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [self.inner.into_into_dart().into_dart()].into_dart()
@@ -1444,6 +3104,23 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::Variant> for crate::ap
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::wallet::WalletBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::wallet::WalletBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::wallet::WalletBase>
+    for crate::api::wallet::WalletBase
+{
+    fn into_into_dart(self) -> crate::api::wallet::WalletBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::WitnessVersion {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -1478,6 +3155,93 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::WitnessVersion>
         self
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::WordCount {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::Words12 => 0.into_dart(),
+            Self::Words18 => 1.into_dart(),
+            Self::Words24 => 2.into_dart(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::WordCount {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::WordCount>
+    for crate::api::types::WordCount
+{
+    fn into_into_dart(self) -> crate::api::types::WordCount {
+        self
+    }
+}
+
+impl SseEncode for Arc<bitcoin::bip32::DerivationPath> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<
+                Arc<bitcoin::bip32::DerivationPath>,
+            >,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for Arc<keys::DescriptorPublicKey> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for Arc<keys::DescriptorSecretKey> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for Arc<keys::bip39::Mnemonic> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for ExtendedDescriptor {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for Mutex<bdk::Wallet<AnyDatabase>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
 
 impl SseEncode for bdk::bitcoin::Address {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -1491,8 +3255,102 @@ impl SseEncode for bdk::bitcoin::Address {
     }
 }
 
+impl SseEncode for keys::KeyMap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys :: KeyMap>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<bitcoin::bip32::DerivationPath>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorPublicKey>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::DescriptorSecretKey>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Arc<keys::bip39::Mnemonic>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<ExtendedDescriptor>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::rust_async::RwLock<Mutex<bdk::Wallet<AnyDatabase>>>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
 impl SseEncode
     for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<bdk::bitcoin::Address>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<keys::KeyMap>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -1516,79 +3374,59 @@ impl SseEncode for crate::api::types::AddressBase {
     }
 }
 
-impl SseEncode for crate::util::error::BdkError {
+impl SseEncode for crate::util::error::AddressError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         match self {
-            crate::util::error::BdkError::HexError(field0) => {
-                <i32>::sse_encode(0, serializer);
-                <crate::util::error::BitcoinHexError>::sse_encode(field0, serializer);
-            }
-            crate::util::error::BdkError::ConsensusError(field0) => {
-                <i32>::sse_encode(1, serializer);
-                <crate::util::error::BitcoinConsensusError>::sse_encode(field0, serializer);
-            }
-            crate::util::error::BdkError::AddressError(field0) => {
-                <i32>::sse_encode(2, serializer);
-                <crate::util::error::BitcoinAddressError>::sse_encode(field0, serializer);
-            }
-        }
-    }
-}
-
-impl SseEncode for crate::util::error::BitcoinAddressError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        match self {
-            crate::util::error::BitcoinAddressError::Base58(field0) => {
+            crate::util::error::AddressError::Base58(field0) => {
                 <i32>::sse_encode(0, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::Bech32(field0) => {
+            crate::util::error::AddressError::Bech32(field0) => {
                 <i32>::sse_encode(1, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::EmptyBech32Payload => {
+            crate::util::error::AddressError::EmptyBech32Payload => {
                 <i32>::sse_encode(2, serializer);
             }
-            crate::util::error::BitcoinAddressError::InvalidBech32Variant { expected, found } => {
+            crate::util::error::AddressError::InvalidBech32Variant { expected, found } => {
                 <i32>::sse_encode(3, serializer);
                 <crate::api::types::Variant>::sse_encode(expected, serializer);
                 <crate::api::types::Variant>::sse_encode(found, serializer);
             }
-            crate::util::error::BitcoinAddressError::InvalidWitnessVersion(field0) => {
+            crate::util::error::AddressError::InvalidWitnessVersion(field0) => {
                 <i32>::sse_encode(4, serializer);
                 <u8>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::UnparsableWitnessVersion(field0) => {
+            crate::util::error::AddressError::UnparsableWitnessVersion(field0) => {
                 <i32>::sse_encode(5, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::MalformedWitnessVersion => {
+            crate::util::error::AddressError::MalformedWitnessVersion => {
                 <i32>::sse_encode(6, serializer);
             }
-            crate::util::error::BitcoinAddressError::InvalidWitnessProgramLength(field0) => {
+            crate::util::error::AddressError::InvalidWitnessProgramLength(field0) => {
                 <i32>::sse_encode(7, serializer);
                 <usize>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::InvalidSegwitV0ProgramLength(field0) => {
+            crate::util::error::AddressError::InvalidSegwitV0ProgramLength(field0) => {
                 <i32>::sse_encode(8, serializer);
                 <usize>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::UncompressedPubkey => {
+            crate::util::error::AddressError::UncompressedPubkey => {
                 <i32>::sse_encode(9, serializer);
             }
-            crate::util::error::BitcoinAddressError::ExcessiveScriptSize => {
+            crate::util::error::AddressError::ExcessiveScriptSize => {
                 <i32>::sse_encode(10, serializer);
             }
-            crate::util::error::BitcoinAddressError::UnrecognizedScript => {
+            crate::util::error::AddressError::UnrecognizedScript => {
                 <i32>::sse_encode(11, serializer);
             }
-            crate::util::error::BitcoinAddressError::UnknownAddressType(field0) => {
+            crate::util::error::AddressError::UnknownAddressType(field0) => {
                 <i32>::sse_encode(12, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinAddressError::NetworkValidation {
+            crate::util::error::AddressError::NetworkValidation {
                 network_required,
                 network_found,
                 address,
@@ -1602,58 +3440,173 @@ impl SseEncode for crate::util::error::BitcoinAddressError {
     }
 }
 
-impl SseEncode for crate::util::error::BitcoinConsensusError {
+impl SseEncode for crate::util::error::BdkError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         match self {
-            crate::util::error::BitcoinConsensusError::Io(field0) => {
+            crate::util::error::BdkError::Hex(field0) => {
                 <i32>::sse_encode(0, serializer);
-                <String>::sse_encode(field0, serializer);
+                <crate::util::error::HexError>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinConsensusError::OversizedVectorAllocation {
-                requested,
-                max,
-            } => {
+            crate::util::error::BdkError::Consensus(field0) => {
                 <i32>::sse_encode(1, serializer);
-                <usize>::sse_encode(requested, serializer);
-                <usize>::sse_encode(max, serializer);
+                <crate::util::error::ConsensusError>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinConsensusError::InvalidChecksum { expected, actual } => {
+            crate::util::error::BdkError::Address(field0) => {
                 <i32>::sse_encode(2, serializer);
-                <[u8; 4]>::sse_encode(expected, serializer);
-                <[u8; 4]>::sse_encode(actual, serializer);
+                <crate::util::error::AddressError>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinConsensusError::NonMinimalVarInt => {
+            crate::util::error::BdkError::Descriptor(field0) => {
                 <i32>::sse_encode(3, serializer);
+                <crate::util::error::DescriptorError>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinConsensusError::ParseFailed(field0) => {
+            crate::util::error::BdkError::InvalidU32Bytes(field0) => {
                 <i32>::sse_encode(4, serializer);
+                <Vec<u8>>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Generic(field0) => {
+                <i32>::sse_encode(5, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinConsensusError::UnsupportedSegwitFlag(field0) => {
-                <i32>::sse_encode(5, serializer);
-                <u8>::sse_encode(field0, serializer);
+            crate::util::error::BdkError::ScriptDoesntHaveAddressForm => {
+                <i32>::sse_encode(6, serializer);
             }
-        }
-    }
-}
-
-impl SseEncode for crate::util::error::BitcoinHexError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        match self {
-            crate::util::error::BitcoinHexError::InvalidChar(field0) => {
-                <i32>::sse_encode(0, serializer);
-                <u8>::sse_encode(field0, serializer);
+            crate::util::error::BdkError::NoRecipients => {
+                <i32>::sse_encode(7, serializer);
             }
-            crate::util::error::BitcoinHexError::OddLengthString(field0) => {
-                <i32>::sse_encode(1, serializer);
+            crate::util::error::BdkError::NoUtxosSelected => {
+                <i32>::sse_encode(8, serializer);
+            }
+            crate::util::error::BdkError::OutputBelowDustLimit(field0) => {
+                <i32>::sse_encode(9, serializer);
                 <usize>::sse_encode(field0, serializer);
             }
-            crate::util::error::BitcoinHexError::InvalidLength(field0, field1) => {
-                <i32>::sse_encode(2, serializer);
+            crate::util::error::BdkError::InsufficientFunds { needed, available } => {
+                <i32>::sse_encode(10, serializer);
+                <u64>::sse_encode(needed, serializer);
+                <u64>::sse_encode(available, serializer);
+            }
+            crate::util::error::BdkError::BnBTotalTriesExceeded => {
+                <i32>::sse_encode(11, serializer);
+            }
+            crate::util::error::BdkError::BnBNoExactMatch => {
+                <i32>::sse_encode(12, serializer);
+            }
+            crate::util::error::BdkError::UnknownUtxo => {
+                <i32>::sse_encode(13, serializer);
+            }
+            crate::util::error::BdkError::TransactionNotFound => {
+                <i32>::sse_encode(14, serializer);
+            }
+            crate::util::error::BdkError::TransactionConfirmed => {
+                <i32>::sse_encode(15, serializer);
+            }
+            crate::util::error::BdkError::IrreplaceableTransaction => {
+                <i32>::sse_encode(16, serializer);
+            }
+            crate::util::error::BdkError::FeeRateTooLow { needed } => {
+                <i32>::sse_encode(17, serializer);
+                <f32>::sse_encode(needed, serializer);
+            }
+            crate::util::error::BdkError::FeeTooLow { needed } => {
+                <i32>::sse_encode(18, serializer);
+                <u64>::sse_encode(needed, serializer);
+            }
+            crate::util::error::BdkError::FeeRateUnavailable => {
+                <i32>::sse_encode(19, serializer);
+            }
+            crate::util::error::BdkError::MissingKeyOrigin(field0) => {
+                <i32>::sse_encode(20, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Key(field0) => {
+                <i32>::sse_encode(21, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::ChecksumMismatch => {
+                <i32>::sse_encode(22, serializer);
+            }
+            crate::util::error::BdkError::SpendingPolicyRequired(field0) => {
+                <i32>::sse_encode(23, serializer);
+                <crate::api::types::KeychainKind>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::InvalidPolicyPathError(field0) => {
+                <i32>::sse_encode(24, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Signer(field0) => {
+                <i32>::sse_encode(25, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::InvalidNetwork { requested, found } => {
+                <i32>::sse_encode(26, serializer);
+                <crate::api::types::Network>::sse_encode(requested, serializer);
+                <crate::api::types::Network>::sse_encode(found, serializer);
+            }
+            crate::util::error::BdkError::InvalidOutpoint(field0) => {
+                <i32>::sse_encode(27, serializer);
+                <crate::api::types::OutPoint>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Encode(field0) => {
+                <i32>::sse_encode(28, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Miniscript(field0) => {
+                <i32>::sse_encode(29, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::MiniscriptPsbt(field0) => {
+                <i32>::sse_encode(30, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Bip32(field0) => {
+                <i32>::sse_encode(31, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Bip39(field0) => {
+                <i32>::sse_encode(32, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Secp256k1(field0) => {
+                <i32>::sse_encode(33, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Json(field0) => {
+                <i32>::sse_encode(34, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Psbt(field0) => {
+                <i32>::sse_encode(35, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::PsbtParse(field0) => {
+                <i32>::sse_encode(36, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::MissingCachedScripts(field0, field1) => {
+                <i32>::sse_encode(37, serializer);
                 <usize>::sse_encode(field0, serializer);
                 <usize>::sse_encode(field1, serializer);
+            }
+            crate::util::error::BdkError::Electrum(field0) => {
+                <i32>::sse_encode(38, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Esplora(field0) => {
+                <i32>::sse_encode(39, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Sled(field0) => {
+                <i32>::sse_encode(40, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Rpc(field0) => {
+                <i32>::sse_encode(41, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::BdkError::Rusqlite(field0) => {
+                <i32>::sse_encode(42, serializer);
+                <String>::sse_encode(field0, serializer);
             }
         }
     }
@@ -1666,10 +3619,187 @@ impl SseEncode for bool {
     }
 }
 
+impl SseEncode for crate::util::error::ConsensusError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::util::error::ConsensusError::Io(field0) => {
+                <i32>::sse_encode(0, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::ConsensusError::OversizedVectorAllocation { requested, max } => {
+                <i32>::sse_encode(1, serializer);
+                <usize>::sse_encode(requested, serializer);
+                <usize>::sse_encode(max, serializer);
+            }
+            crate::util::error::ConsensusError::InvalidChecksum { expected, actual } => {
+                <i32>::sse_encode(2, serializer);
+                <[u8; 4]>::sse_encode(expected, serializer);
+                <[u8; 4]>::sse_encode(actual, serializer);
+            }
+            crate::util::error::ConsensusError::NonMinimalVarInt => {
+                <i32>::sse_encode(3, serializer);
+            }
+            crate::util::error::ConsensusError::ParseFailed(field0) => {
+                <i32>::sse_encode(4, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::ConsensusError::UnsupportedSegwitFlag(field0) => {
+                <i32>::sse_encode(5, serializer);
+                <u8>::sse_encode(field0, serializer);
+            }
+        }
+    }
+}
+
+impl SseEncode for crate::api::types::DatabaseConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::types::DatabaseConfig::Memory => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::types::DatabaseConfig::Sqlite { config } => {
+                <i32>::sse_encode(1, serializer);
+                <crate::api::types::SqliteDbConfiguration>::sse_encode(config, serializer);
+            }
+            crate::api::types::DatabaseConfig::Sled { config } => {
+                <i32>::sse_encode(2, serializer);
+                <crate::api::types::SledDbConfiguration>::sse_encode(config, serializer);
+            }
+        }
+    }
+}
+
+impl SseEncode for crate::api::key::DerivationPathBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Arc<bitcoin::bip32::DerivationPath>>::sse_encode(self.ptr, serializer);
+    }
+}
+
+impl SseEncode for crate::api::descriptor::DescriptorBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <ExtendedDescriptor>::sse_encode(self.extended_descriptor, serializer);
+        <keys::KeyMap>::sse_encode(self.key_map, serializer);
+    }
+}
+
+impl SseEncode for crate::util::error::DescriptorError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::util::error::DescriptorError::InvalidHdKeyPath => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::util::error::DescriptorError::InvalidDescriptorChecksum => {
+                <i32>::sse_encode(1, serializer);
+            }
+            crate::util::error::DescriptorError::HardenedDerivationXpub => {
+                <i32>::sse_encode(2, serializer);
+            }
+            crate::util::error::DescriptorError::MultiPath => {
+                <i32>::sse_encode(3, serializer);
+            }
+            crate::util::error::DescriptorError::Key(field0) => {
+                <i32>::sse_encode(4, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Policy(field0) => {
+                <i32>::sse_encode(5, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::InvalidDescriptorCharacter(field0) => {
+                <i32>::sse_encode(6, serializer);
+                <u8>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Bip32(field0) => {
+                <i32>::sse_encode(7, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Base58(field0) => {
+                <i32>::sse_encode(8, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Pk(field0) => {
+                <i32>::sse_encode(9, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Miniscript(field0) => {
+                <i32>::sse_encode(10, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::util::error::DescriptorError::Hex(field0) => {
+                <i32>::sse_encode(11, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+        }
+    }
+}
+
+impl SseEncode for crate::api::key::DescriptorPublicKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Arc<keys::DescriptorPublicKey>>::sse_encode(self.ptr, serializer);
+    }
+}
+
+impl SseEncode for crate::api::key::DescriptorSecretKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Arc<keys::DescriptorSecretKey>>::sse_encode(self.ptr, serializer);
+    }
+}
+
+impl SseEncode for f32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_f32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for crate::util::error::HexError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::util::error::HexError::InvalidChar(field0) => {
+                <i32>::sse_encode(0, serializer);
+                <u8>::sse_encode(field0, serializer);
+            }
+            crate::util::error::HexError::OddLengthString(field0) => {
+                <i32>::sse_encode(1, serializer);
+                <usize>::sse_encode(field0, serializer);
+            }
+            crate::util::error::HexError::InvalidLength(field0, field1) => {
+                <i32>::sse_encode(2, serializer);
+                <usize>::sse_encode(field0, serializer);
+                <usize>::sse_encode(field1, serializer);
+            }
+        }
+    }
+}
+
 impl SseEncode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for crate::api::types::KeychainKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                crate::api::types::KeychainKind::External => 0,
+                crate::api::types::KeychainKind::Internal => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
     }
 }
 
@@ -1713,6 +3843,13 @@ impl SseEncode for Vec<crate::api::types::TxOut> {
     }
 }
 
+impl SseEncode for crate::api::key::MnemonicBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Arc<keys::bip39::Mnemonic>>::sse_encode(self.ptr, serializer);
+    }
+}
+
 impl SseEncode for crate::api::types::Network {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -1728,6 +3865,26 @@ impl SseEncode for crate::api::types::Network {
             },
             serializer,
         );
+    }
+}
+
+impl SseEncode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::descriptor::DescriptorBase> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::descriptor::DescriptorBase>::sse_encode(value, serializer);
+        }
     }
 }
 
@@ -1764,6 +3921,21 @@ impl SseEncode for crate::api::types::ScriptBufBase {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<u8>>::sse_encode(self.bytes, serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::SledDbConfiguration {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.path, serializer);
+        <String>::sse_encode(self.tree_name, serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::SqliteDbConfiguration {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.path, serializer);
     }
 }
 
@@ -1857,6 +4029,13 @@ impl SseEncode for crate::api::types::Variant {
     }
 }
 
+impl SseEncode for crate::api::wallet::WalletBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Mutex<bdk::Wallet<AnyDatabase>>>::sse_encode(self.ptr, serializer);
+    }
+}
+
 impl SseEncode for crate::api::types::WitnessVersion {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -1879,6 +4058,23 @@ impl SseEncode for crate::api::types::WitnessVersion {
                 crate::api::types::WitnessVersion::V14 => 14,
                 crate::api::types::WitnessVersion::V15 => 15,
                 crate::api::types::WitnessVersion::V16 => 16,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for crate::api::types::WordCount {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                crate::api::types::WordCount::Words12 => 0,
+                crate::api::types::WordCount::Words18 => 1,
+                crate::api::types::WordCount::Words24 => 2,
                 _ => {
                     unimplemented!("");
                 }
