@@ -1,9 +1,11 @@
-use std::io::Cursor;
-use crate::util::error::{BdkError, BitcoinHexError};
+use crate::util::error::{BdkError, HexError};
+use bdk::bitcoin::consensus::{serialize, Decodable};
 use bdk::bitcoin::hashes::hex::Error;
+use bdk::bitcoin::ScriptBuf;
+use bdk::database::AnyDatabaseConfig;
 use serde::{Deserialize, Serialize};
+use std::io::Cursor;
 use std::str::FromStr;
-use bdk::bitcoin::consensus::{Decodable, serialize};
 
 /// A reference to a transaction output.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
@@ -87,17 +89,14 @@ impl ScriptBufBase {
     pub fn with_capacity(capacity: usize) -> ScriptBufBase {
         bdk::bitcoin::ScriptBuf::with_capacity(capacity).into()
     }
+
     pub fn from_hex(s: String) -> Result<ScriptBufBase, BdkError> {
         bdk::bitcoin::ScriptBuf::from_hex(s.as_str())
             .map(|e| e.into())
             .map_err(|e| match e {
-                Error::InvalidChar(e) => BdkError::HexError(BitcoinHexError::InvalidChar(e)),
-                Error::OddLengthString(e) => {
-                    BdkError::HexError(BitcoinHexError::OddLengthString(e))
-                }
-                Error::InvalidLength(e, f) => {
-                    BdkError::HexError(BitcoinHexError::InvalidLength(e, f))
-                }
+                Error::InvalidChar(e) => BdkError::Hex(HexError::InvalidChar(e)),
+                Error::OddLengthString(e) => BdkError::Hex(HexError::OddLengthString(e)),
+                Error::InvalidLength(e, f) => BdkError::Hex(HexError::InvalidLength(e, f)),
             })
     }
 }
@@ -212,6 +211,18 @@ impl From<&bdk::TransactionDetails> for TransactionDetails {
         }
     }
 }
+impl From<bdk::TransactionDetails> for TransactionDetails {
+    fn from(x: bdk::TransactionDetails) -> TransactionDetails {
+        TransactionDetails {
+            transaction: x.transaction.map(|e| e.into()),
+            fee: x.fee,
+            txid: x.txid.to_string(),
+            received: x.received,
+            sent: x.sent,
+            confirmation_time: x.confirmation_time.map(|e| e.into()),
+        }
+    }
+}
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 ///Block height and timestamp of a block
 pub struct BlockTime {
@@ -241,21 +252,6 @@ pub enum RbfValue {
     Value(u32),
 }
 
-#[derive(Debug, Clone)]
-///Types of keychains
-pub enum KeychainKind {
-    External,
-    ///Internal, usually used for change outputs
-    Internal,
-}
-impl From<bdk::KeychainKind> for KeychainKind {
-    fn from(e: bdk::KeychainKind) -> Self {
-        match e {
-            bdk::KeychainKind::External => KeychainKind::External,
-            bdk::KeychainKind::Internal => KeychainKind::Internal,
-        }
-    }
-}
 #[derive(Debug, Clone)]
 ///The cryptocurrency to act on
 pub enum Network {
@@ -474,7 +470,9 @@ impl AddressBase {
 
     pub fn is_valid_for_network(&self, network: Network) -> bool {
         let address_str = self.0.to_string();
-        if let Ok(unchecked_address) = address_str.parse::<bdk::bitcoin::address::Address<bdk::bitcoin::address::NetworkUnchecked>>() {
+        if let Ok(unchecked_address) = address_str
+            .parse::<bdk::bitcoin::address::Address<bdk::bitcoin::address::NetworkUnchecked>>()
+        {
             unchecked_address.is_valid_for_network(network.into())
         } else {
             false
@@ -519,7 +517,7 @@ impl TransactionBase {
             .to_string()
     }
 
-    pub  fn weight(&self) -> u64 {
+    pub fn weight(&self) -> u64 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .weight()
             .to_wu()
@@ -534,9 +532,7 @@ impl TransactionBase {
     }
 
     pub fn serialize(&self) -> Vec<u8> {
-        serialize(&<&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(
-            self,
-        ))
+        serialize(&<&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self))
     }
 
     pub fn is_coin_base(&self) -> bool {
@@ -551,7 +547,7 @@ impl TransactionBase {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_lock_time_enabled()
     }
 
-    pub  fn version(&self) -> i32 {
+    pub fn version(&self) -> i32 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).version
     }
 
@@ -589,5 +585,175 @@ impl From<&TransactionBase> for bdk::bitcoin::Transaction {
     fn from(tx: &TransactionBase) -> Self {
         let tx: bdk::bitcoin::Transaction = serde_json::from_str(&tx.inner).expect("invalid tx");
         tx
+    }
+}
+
+///Configuration type for a SqliteDatabase database
+pub struct SqliteDbConfiguration {
+    ///Main directory of the db
+    pub path: String,
+}
+///Configuration type for a sled Tree database
+pub struct SledDbConfiguration {
+    ///Main directory of the db
+    pub path: String,
+    ///Name of the database tree, a separated namespace for the data
+    pub tree_name: String,
+}
+/// Type that can contain any of the database configurations defined by the library
+/// This allows storing a single configuration that can be loaded into an DatabaseConfig
+/// instance. Wallets that plan to offer users the ability to switch blockchain backend at runtime
+/// will find this particularly useful.
+pub enum DatabaseConfig {
+    Memory,
+    ///Simple key-value embedded database based on sled
+    Sqlite {
+        config: SqliteDbConfiguration,
+    },
+    ///Sqlite embedded database using rusqlite
+    Sled {
+        config: SledDbConfiguration,
+    },
+}
+impl From<DatabaseConfig> for AnyDatabaseConfig {
+    fn from(config: DatabaseConfig) -> Self {
+        match config {
+            DatabaseConfig::Memory => AnyDatabaseConfig::Memory(()),
+            DatabaseConfig::Sqlite { config } => {
+                AnyDatabaseConfig::Sqlite(bdk::database::any::SqliteDbConfiguration {
+                    path: config.path,
+                })
+            }
+            DatabaseConfig::Sled { config } => {
+                AnyDatabaseConfig::Sled(bdk::database::any::SledDbConfiguration {
+                    path: config.path,
+                    tree_name: config.tree_name,
+                })
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+///Types of keychains
+pub enum KeychainKind {
+    External,
+    ///Internal, usually used for change outputs
+    Internal,
+}
+impl From<bdk::KeychainKind> for KeychainKind {
+    fn from(e: bdk::KeychainKind) -> Self {
+        match e {
+            bdk::KeychainKind::External => KeychainKind::External,
+            bdk::KeychainKind::Internal => KeychainKind::Internal,
+        }
+    }
+}
+impl From<KeychainKind> for bdk::KeychainKind {
+    fn from(kind: KeychainKind) -> Self {
+        match kind {
+            KeychainKind::External => bdk::KeychainKind::External,
+            KeychainKind::Internal => bdk::KeychainKind::Internal,
+        }
+    }
+}
+pub struct LocalUtxo {
+    outpoint: OutPoint,
+    txout: TxOut,
+    keychain: KeychainKind,
+    is_spent: bool,
+}
+
+impl From<bdk::LocalUtxo> for LocalUtxo {
+    fn from(local_utxo: bdk::LocalUtxo) -> Self {
+        LocalUtxo {
+            outpoint: OutPoint {
+                txid: local_utxo.outpoint.txid.to_string(),
+                vout: local_utxo.outpoint.vout,
+            },
+            txout: TxOut {
+                value: local_utxo.txout.value,
+                script_pubkey: ScriptBufBase {
+                    bytes: local_utxo.txout.script_pubkey.into_bytes(),
+                },
+            },
+            keychain: local_utxo.keychain.into(),
+            is_spent: local_utxo.is_spent,
+        }
+    }
+}
+
+/// Options for a software signer
+///
+/// Adjust the behavior of our software signers and the way a transaction is finalized
+#[derive(Debug, Clone, Default)]
+pub struct SignOptions {
+    /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
+    /// provided
+    ///
+    /// Defaults to `false` to mitigate the "SegWit bug" which should trick the wallet into
+    /// paying a fee larger than expected.
+    ///
+    /// Some wallets, especially if relatively old, might not provide the `non_witness_utxo` for
+    /// SegWit transactions in the PSBT they generate: in those cases setting this to `true`
+    /// should correctly produce a signature, at the expense of an increased trust in the creator
+    /// of the PSBT.
+    ///
+    /// For more details see: <https://blog.trezor.io/details-of-firmware-updates-for-trezor-one-version-1-9-1-and-trezor-model-t-version-2-3-1-1eba8f60f2dd>
+    pub trust_witness_utxo: bool,
+
+    /// Whether the wallet should assume a specific height has been reached when trying to finalize
+    /// a transaction
+    ///
+    /// The wallet will only "use" a timelock to satisfy the spending policy of an input if the
+    /// timelock height has already been reached. This option allows overriding the "current height" to let the
+    /// wallet use timelocks in the future to spend a coin.
+    pub assume_height: Option<u32>,
+
+    /// Whether the signer should use the `sighash_type` set in the PSBT when signing, no matter
+    /// what its value is
+    ///
+    /// Defaults to `false` which will only allow signing using `SIGHASH_ALL`.
+    pub allow_all_sighashes: bool,
+
+    /// Whether to remove partial signatures from the PSBT inputs while finalizing PSBT.
+    ///
+    /// Defaults to `true` which will remove partial signatures during finalization.
+    pub remove_partial_sigs: bool,
+
+    /// Whether to try finalizing the PSBT after the inputs are signed.
+    ///
+    /// Defaults to `true` which will try finalizing PSBT after inputs are signed.
+    pub try_finalize: bool,
+
+    // Specifies which Taproot script-spend leaves we should sign for. This option is
+    // ignored if we're signing a non-taproot PSBT.
+    //
+    // Defaults to All, i.e., the wallet will sign all the leaves it has a key for.
+    // TODO pub tap_leaves_options: TapLeavesOptions,
+    /// Whether we should try to sign a taproot transaction with the taproot internal key
+    /// or not. This option is ignored if we're signing a non-taproot PSBT.
+    ///
+    /// Defaults to `true`, i.e., we always try to sign with the taproot internal key.
+    pub sign_with_tap_internal_key: bool,
+
+    /// Whether we should grind ECDSA signature to ensure signing with low r
+    /// or not.
+    /// Defaults to `true`, i.e., we always grind ECDSA signature to sign with low r.
+    pub allow_grinding: bool,
+}
+
+impl From<SignOptions> for bdk::SignOptions {
+    fn from(sign_options: SignOptions) -> Self {
+        bdk::SignOptions {
+            trust_witness_utxo: sign_options.trust_witness_utxo,
+            assume_height: sign_options.assume_height,
+            allow_all_sighashes: sign_options.allow_all_sighashes,
+            remove_partial_sigs: sign_options.remove_partial_sigs,
+            try_finalize: sign_options.try_finalize,
+            tap_leaves_options: Default::default(),
+            sign_with_tap_internal_key: sign_options.sign_with_tap_internal_key,
+            allow_grinding: sign_options.allow_grinding,
+        }
     }
 }
