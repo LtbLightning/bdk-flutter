@@ -1,5 +1,5 @@
+use crate::api::error::BdkError;
 use crate::api::types::{Network, WordCount};
-use crate::util::error::BdkError;
 pub use bdk::bitcoin;
 use bdk::bitcoin::secp256k1::Secp256k1;
 pub use bdk::keys;
@@ -22,7 +22,7 @@ impl From<keys::bip39::Mnemonic> for MnemonicBase {
 }
 impl MnemonicBase {
     /// Generates Mnemonic with a random entropy
-    pub fn new(word_count: WordCount) -> Result<MnemonicBase, BdkError> {
+    pub fn new(word_count: WordCount) -> Result<Self, BdkError> {
         let generated_key: keys::GeneratedKey<_, BareCtx> =
             keys::bip39::Mnemonic::generate((word_count.into(), Language::English)).unwrap();
         keys::bip39::Mnemonic::parse_in(Language::English, generated_key.to_string())
@@ -154,9 +154,9 @@ impl DescriptorSecretKeyBase {
             )),
         }
     }
-    pub fn as_public(&self) -> Result<DescriptorPublicKeyBase, BdkError> {
+    pub fn as_public(secret: DescriptorSecretKeyBase) -> Result<DescriptorPublicKeyBase, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = self.ptr.to_public(&secp).unwrap();
+        let descriptor_public_key = secret.ptr.to_public(&secp).unwrap();
         Ok(descriptor_public_key.into())
     }
     /// Get the private key as bytes.

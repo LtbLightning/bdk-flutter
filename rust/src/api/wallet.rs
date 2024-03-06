@@ -1,18 +1,22 @@
 use crate::api::descriptor::DescriptorBase;
-use crate::api::types::{AddressBase, AddressIndex, AddressInfo, Balance, ChangeSpendPolicy, DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount, ScriptBufBase, SignOptions, TransactionDetails};
+use crate::api::types::{
+    AddressBase, AddressIndex, AddressInfo, Balance, ChangeSpendPolicy, DatabaseConfig, Input,
+    KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount,
+    ScriptBufBase, SignOptions, TransactionDetails,
+};
 use std::ops::Deref;
 use std::str::FromStr;
 
 use crate::api::blockchain::BlockchainBase;
 use crate::api::error::BdkError;
 use crate::api::psbt::PsbtBase;
+use crate::frb_generated::RustOpaque;
+use bdk::bitcoin::script::PushBytesBuf;
 use bdk::bitcoin::{Sequence, Txid};
 pub use bdk::database::any::AnyDatabase;
 use bdk::database::ConfigurableDatabase;
 pub use std::sync::Mutex;
 use std::sync::MutexGuard;
-use bdk::bitcoin::script::PushBytesBuf;
-use crate::frb_generated::RustOpaque;
 
 /// A Bitcoin wallet.
 /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
@@ -40,7 +44,9 @@ impl WalletBase {
             network.into(),
             database,
         )?;
-        Ok(WalletBase { ptr: RustOpaque::new( Mutex::new(wallet)) })
+        Ok(WalletBase {
+            ptr: RustOpaque::new(Mutex::new(wallet)),
+        })
     }
     fn get_wallet(&self) -> MutexGuard<bdk::Wallet<AnyDatabase>> {
         self.ptr.lock().expect("")
@@ -144,8 +150,11 @@ impl WalletBase {
         only_witness_utxo: bool,
         sighash_type: Option<PsbtSigHashType>,
     ) -> anyhow::Result<Input, BdkError> {
-        let input = self.get_wallet()
-            .get_psbt_input(utxo.into(),sighash_type.map(|e| e.into()), only_witness_utxo)?;
+        let input = self.get_wallet().get_psbt_input(
+            utxo.into(),
+            sighash_type.map(|e| e.into()),
+            only_witness_utxo,
+        )?;
         Ok(input.into())
     }
     ///Returns the descriptor used to create addresses for a particular keychain.
@@ -242,9 +251,8 @@ pub fn tx_builder_finish(
         tx_builder.drain_to(script_.into());
     }
     if let Some(utxo) = foreign_utxo {
-       let foreign_utxo:bdk::bitcoin::psbt::Input= utxo.1.into();
-        tx_builder
-            .add_foreign_utxo((&utxo.0).into(), foreign_utxo, utxo.2)?;
+        let foreign_utxo: bdk::bitcoin::psbt::Input = utxo.1.into();
+        tx_builder.add_foreign_utxo((&utxo.0).into(), foreign_utxo, utxo.2)?;
     }
     if let Some(rbf) = &rbf {
         match rbf {
@@ -257,17 +265,13 @@ pub fn tx_builder_finish(
         }
     }
     if !data.is_empty() {
-        let push_bytes = PushBytesBuf::try_from(data.clone()).map_err(|_| {
-            BdkError::Generic("Failed to convert data to PushBytes".to_string())
-        })?;
+        let push_bytes = PushBytesBuf::try_from(data.clone())
+            .map_err(|_| BdkError::Generic("Failed to convert data to PushBytes".to_string()))?;
         tx_builder.add_data(&push_bytes);
     }
 
     return match tx_builder.finish() {
-        Ok(e) => Ok((
-            e.0.into(),
-            TransactionDetails::from(&e.1),
-        )),
+        Ok(e) => Ok((e.0.into(), TransactionDetails::from(&e.1))),
         Err(e) => Err(e.into()),
     };
 }

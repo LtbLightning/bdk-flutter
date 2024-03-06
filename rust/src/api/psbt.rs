@@ -1,11 +1,11 @@
 use crate::api::error::BdkError;
 use crate::api::types::{FeeRate, TransactionBase};
+use crate::frb_generated::RustOpaque;
 pub use bdk::bitcoin::psbt::PartiallySignedTransaction;
 use bdk::psbt::PsbtUtils;
 use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::Mutex;
-use crate::frb_generated::RustOpaque;
 
 #[derive(Debug)]
 pub struct PsbtBase {

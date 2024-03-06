@@ -55,9 +55,12 @@ pub struct TxOut {
     /// The address of the output.
     pub script_pubkey: ScriptBufBase,
 }
-impl From<TxOut> for bdk::bitcoin::TxOut{
+impl From<TxOut> for bdk::bitcoin::TxOut {
     fn from(value: TxOut) -> Self {
-        Self{ value: value.value, script_pubkey: value.script_pubkey.into() }
+        Self {
+            value: value.value,
+            script_pubkey: value.script_pubkey.into(),
+        }
     }
 }
 impl From<&bdk::bitcoin::TxOut> for TxOut {
@@ -697,7 +700,7 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
 
 impl From<LocalUtxo> for bdk::LocalUtxo {
     fn from(value: LocalUtxo) -> Self {
-        Self{
+        Self {
             outpoint: (&value.outpoint).into(),
             txout: value.txout.into(),
             keychain: value.keychain.into(),
