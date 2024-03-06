@@ -1,7 +1,6 @@
-use crate::util::error::{BdkError, HexError};
+use crate::api::error::{BdkError, HexError};
 use bdk::bitcoin::consensus::{serialize, Decodable};
 use bdk::bitcoin::hashes::hex::Error;
-use bdk::bitcoin::ScriptBuf;
 use bdk::database::AnyDatabaseConfig;
 use serde::{Deserialize, Serialize};
 use std::io::Cursor;
@@ -18,7 +17,7 @@ pub struct OutPoint {
 impl From<&OutPoint> for bdk::bitcoin::OutPoint {
     fn from(x: &OutPoint) -> bdk::bitcoin::OutPoint {
         bdk::bitcoin::OutPoint {
-            txid: bdk::bitcoin::Txid::from_str(x.txid.as_str()).unwrap(),
+            txid: bdk::bitcoin::Txid::from_str(x.txid.as_str()).expect("invalid txid"),
             vout: x.clone().vout,
         }
     }
@@ -55,6 +54,11 @@ pub struct TxOut {
     pub value: u64,
     /// The address of the output.
     pub script_pubkey: ScriptBufBase,
+}
+impl From<TxOut> for bdk::bitcoin::TxOut{
+    fn from(value: TxOut) -> Self {
+        Self{ value: value.value, script_pubkey: value.script_pubkey.into() }
+    }
 }
 impl From<&bdk::bitcoin::TxOut> for TxOut {
     fn from(x: &bdk::bitcoin::TxOut) -> Self {
@@ -103,6 +107,12 @@ impl ScriptBufBase {
 pub struct PsbtSigHashType {
     pub inner: u32,
 }
+
+impl From<PsbtSigHashType> for bdk::bitcoin::psbt::PsbtSighashType {
+    fn from(value: PsbtSigHashType) -> Self {
+        bdk::bitcoin::psbt::PsbtSighashType::from_u32(value.inner)
+    }
+}
 /// Local Wallet's Balance
 #[derive(Deserialize)]
 pub struct Balance {
@@ -131,6 +141,8 @@ impl From<bdk::Balance> for Balance {
         }
     }
 }
+/// The address index selection strategy to use to derived an address from the wallet's external
+/// descriptor.
 pub enum AddressIndex {
     ///Return a new address after incrementing the current descriptor index.
     New,
@@ -464,8 +476,8 @@ impl AddressBase {
         self.0.network.into()
     }
 
-    pub fn script_pubkey(&self) -> ScriptBufBase {
-        self.0.script_pubkey().into()
+    pub fn script(address: AddressBase) -> ScriptBufBase {
+        address.0.script_pubkey().into()
     }
 
     pub fn is_valid_for_network(&self, network: Network) -> bool {
@@ -658,10 +670,10 @@ impl From<KeychainKind> for bdk::KeychainKind {
     }
 }
 pub struct LocalUtxo {
-    outpoint: OutPoint,
-    txout: TxOut,
-    keychain: KeychainKind,
-    is_spent: bool,
+    pub outpoint: OutPoint,
+    pub txout: TxOut,
+    pub keychain: KeychainKind,
+    pub is_spent: bool,
 }
 
 impl From<bdk::LocalUtxo> for LocalUtxo {
@@ -683,11 +695,23 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
     }
 }
 
+impl From<LocalUtxo> for bdk::LocalUtxo {
+    fn from(value: LocalUtxo) -> Self {
+        Self{
+            outpoint: (&value.outpoint).into(),
+            txout: value.txout.into(),
+            keychain: value.keychain.into(),
+            is_spent: value.is_spent,
+        }
+    }
+}
+
 /// Options for a software signer
 ///
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 #[derive(Debug, Clone, Default)]
 pub struct SignOptions {
+    pub multi_sig: bool,
     /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
     /// provided
     ///
@@ -754,6 +778,56 @@ impl From<SignOptions> for bdk::SignOptions {
             tap_leaves_options: Default::default(),
             sign_with_tap_internal_key: sign_options.sign_with_tap_internal_key,
             allow_grinding: sign_options.allow_grinding,
+        }
+    }
+}
+
+#[derive(Copy, Clone)]
+pub struct FeeRate {
+    pub sat_per_vb: f32,
+}
+
+impl From<FeeRate> for bdk::FeeRate {
+    fn from(value: FeeRate) -> Self {
+        bdk::FeeRate::from_sat_per_vb(value.sat_per_vb)
+    }
+}
+
+impl From<bdk::FeeRate> for FeeRate {
+    fn from(value: bdk::FeeRate) -> Self {
+        Self {
+            sat_per_vb: value.as_sat_per_vb(),
+        }
+    }
+}
+
+// impl FeeRate {
+//     /// Constructs `FeeRate` from satoshis per 1000 weight units.
+//     pub fn from_sat_per_kwu(sat_per_kwu: f32) -> Self {
+//         bdk::FeeRate::from_sat_per_kwu(sat_per_kwu).into()
+//     }
+//
+//     ///Create a new instance of FeeRate given a float fee rate in sats/kvb
+//     pub fn from_sat_per_vb(sat_per_kvb: f32) -> Self {
+//         bdk::FeeRate::from_sat_per_vb(sat_per_kvb).into()
+//     }
+//
+// }
+
+/// A key-value map for an input of the corresponding index in the unsigned
+pub struct Input {
+    pub s: String,
+}
+impl From<Input> for bdk::bitcoin::psbt::Input {
+    fn from(value: Input) -> Self {
+        serde_json::from_str(value.s.as_str()).expect("input cannot be de-serialized")
+    }
+}
+
+impl From<bdk::bitcoin::psbt::Input> for Input {
+    fn from(value: bdk::bitcoin::psbt::Input) -> Self {
+        Input {
+            s: serde_json::to_string(&value).expect("input cannot be serialized"),
         }
     }
 }
