@@ -60,7 +60,7 @@ pub enum BdkError {
     Key(String),
     /// Descriptor checksum mismatch
     ChecksumMismatch,
-    /// Spending policy is not compatible with this [`KeychainKind`]
+    /// Spending policy is not compatible with this [KeychainKind]
     SpendingPolicyRequired(KeychainKind),
     /// Error while extracting and manipulating policies
     InvalidPolicyPathError(String),
@@ -339,5 +339,16 @@ impl From<bdk::bitcoin::address::Error> for AddressError {
 impl From<bdk::miniscript::Error> for BdkError {
     fn from(value: bdk::miniscript::Error) -> Self {
         BdkError::Miniscript(value.to_string())
+    }
+}
+
+impl From<bdk::bitcoin::psbt::Error> for BdkError {
+    fn from(value: bdk::bitcoin::psbt::Error) -> Self {
+        BdkError::Psbt(value.to_string())
+    }
+}
+impl From<bdk::bitcoin::psbt::PsbtParseError> for BdkError {
+    fn from(value: bdk::bitcoin::psbt::PsbtParseError) -> Self {
+        BdkError::PsbtParse(value.to_string())
     }
 }
