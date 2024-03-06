@@ -1,6 +1,6 @@
+use crate::api::error::BdkError;
 use crate::api::key::{DescriptorPublicKeyBase, DescriptorSecretKeyBase};
 use crate::api::types::{KeychainKind, Network};
-use crate::util::error::BdkError;
 use bdk::bitcoin::bip32::Fingerprint;
 use bdk::bitcoin::key::Secp256k1;
 pub use bdk::descriptor::{ExtendedDescriptor, IntoWalletDescriptor};
