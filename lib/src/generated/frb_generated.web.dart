@@ -3,15 +3,17 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/blockchain.dart';
 import 'api/descriptor.dart';
+import 'api/error.dart';
 import 'api/key.dart';
+import 'api/psbt.dart';
 import 'api/types.dart';
 import 'api/wallet.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
-import 'util/error.dart';
 
 abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   BdkCoreApiImplPlatform({
@@ -20,6 +22,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_AnyBlockchainPtr =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_MutexPartiallySignedTransactionPtr =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase;
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ArcBitcoinBip32DerivationPathPtr => wire
@@ -40,10 +54,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr => wire
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase;
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_BdkBitcoinAddressPtr => wire
@@ -78,11 +88,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           dynamic raw);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic raw);
-
-  @protected
   BdkBitcoinAddress
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic raw);
@@ -91,6 +96,17 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   KeysKeyMap
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           dynamic raw);
+
+  @protected
+  AnyBlockchain dco_decode_RustOpaque_AnyBlockchain(dynamic raw);
+
+  @protected
+  MutexPartiallySignedTransaction
+      dco_decode_RustOpaque_MutexPartiallySignedTransaction(dynamic raw);
+
+  @protected
+  MutexBdkWalletAnyDatabase dco_decode_RustOpaque_MutexbdkWalletAnyDatabase(
+      dynamic raw);
 
   @protected
   ArcBitcoinBip32DerivationPath
@@ -118,11 +134,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           dynamic raw);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic raw);
-
-  @protected
   BdkBitcoinAddress
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic raw);
@@ -142,7 +153,28 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressError dco_decode_address_error(dynamic raw);
 
   @protected
+  AddressIndex dco_decode_address_index(dynamic raw);
+
+  @protected
+  AddressInfo dco_decode_address_info(dynamic raw);
+
+  @protected
+  Auth dco_decode_auth(dynamic raw);
+
+  @protected
+  Balance dco_decode_balance(dynamic raw);
+
+  @protected
   BdkError dco_decode_bdk_error(dynamic raw);
+
+  @protected
+  BlockTime dco_decode_block_time(dynamic raw);
+
+  @protected
+  BlockchainBase dco_decode_blockchain_base(dynamic raw);
+
+  @protected
+  BlockchainConfig dco_decode_blockchain_config(dynamic raw);
 
   @protected
   bool dco_decode_bool(dynamic raw);
@@ -152,6 +184,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressError dco_decode_box_autoadd_address_error(dynamic raw);
+
+  @protected
+  AddressIndex dco_decode_box_autoadd_address_index(dynamic raw);
+
+  @protected
+  BlockTime dco_decode_box_autoadd_block_time(dynamic raw);
+
+  @protected
+  BlockchainBase dco_decode_box_autoadd_blockchain_base(dynamic raw);
+
+  @protected
+  BlockchainConfig dco_decode_box_autoadd_blockchain_config(dynamic raw);
 
   @protected
   ConsensusError dco_decode_box_autoadd_consensus_error(dynamic raw);
@@ -177,7 +221,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       dynamic raw);
 
   @protected
+  ElectrumConfig dco_decode_box_autoadd_electrum_config(dynamic raw);
+
+  @protected
+  EsploraConfig dco_decode_box_autoadd_esplora_config(dynamic raw);
+
+  @protected
+  double dco_decode_box_autoadd_f_32(dynamic raw);
+
+  @protected
+  FeeRate dco_decode_box_autoadd_fee_rate(dynamic raw);
+
+  @protected
   HexError dco_decode_box_autoadd_hex_error(dynamic raw);
+
+  @protected
+  LocalUtxo dco_decode_box_autoadd_local_utxo(dynamic raw);
 
   @protected
   MnemonicBase dco_decode_box_autoadd_mnemonic_base(dynamic raw);
@@ -186,7 +245,29 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   OutPoint dco_decode_box_autoadd_out_point(dynamic raw);
 
   @protected
+  PsbtBase dco_decode_box_autoadd_psbt_base(dynamic raw);
+
+  @protected
+  PsbtSigHashType dco_decode_box_autoadd_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int) dco_decode_box_autoadd_record_out_point_input_usize(
+      dynamic raw);
+
+  @protected
+  RpcConfig dco_decode_box_autoadd_rpc_config(dynamic raw);
+
+  @protected
+  RpcSyncParams dco_decode_box_autoadd_rpc_sync_params(dynamic raw);
+
+  @protected
   ScriptBufBase dco_decode_box_autoadd_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions dco_decode_box_autoadd_sign_options(dynamic raw);
 
   @protected
   SledDbConfiguration dco_decode_box_autoadd_sled_db_configuration(dynamic raw);
@@ -197,6 +278,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase dco_decode_box_autoadd_transaction_base(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_8(dynamic raw);
+
+  @protected
+  WalletBase dco_decode_box_autoadd_wallet_base(dynamic raw);
+
+  @protected
+  ChangeSpendPolicy dco_decode_change_spend_policy(dynamic raw);
 
   @protected
   ConsensusError dco_decode_consensus_error(dynamic raw);
@@ -220,7 +316,16 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   DescriptorSecretKeyBase dco_decode_descriptor_secret_key_base(dynamic raw);
 
   @protected
+  ElectrumConfig dco_decode_electrum_config(dynamic raw);
+
+  @protected
+  EsploraConfig dco_decode_esplora_config(dynamic raw);
+
+  @protected
   double dco_decode_f_32(dynamic raw);
+
+  @protected
+  FeeRate dco_decode_fee_rate(dynamic raw);
 
   @protected
   HexError dco_decode_hex_error(dynamic raw);
@@ -229,10 +334,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   int dco_decode_i_32(dynamic raw);
 
   @protected
+  Input dco_decode_input(dynamic raw);
+
+  @protected
   KeychainKind dco_decode_keychain_kind(dynamic raw);
 
   @protected
   List<Uint8List> dco_decode_list_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  List<LocalUtxo> dco_decode_list_local_utxo(dynamic raw);
+
+  @protected
+  List<OutPoint> dco_decode_list_out_point(dynamic raw);
 
   @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
@@ -241,10 +355,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
+  List<ScriptAmount> dco_decode_list_script_amount(dynamic raw);
+
+  @protected
+  List<TransactionDetails> dco_decode_list_transaction_details(dynamic raw);
+
+  @protected
   List<TxIn> dco_decode_list_tx_in(dynamic raw);
 
   @protected
   List<TxOut> dco_decode_list_tx_out(dynamic raw);
+
+  @protected
+  LocalUtxo dco_decode_local_utxo(dynamic raw);
 
   @protected
   MnemonicBase dco_decode_mnemonic_base(dynamic raw);
@@ -256,7 +379,50 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
+  AddressBase? dco_decode_opt_box_autoadd_address_base(dynamic raw);
+
+  @protected
+  BlockTime? dco_decode_opt_box_autoadd_block_time(dynamic raw);
+
+  @protected
   DescriptorBase? dco_decode_opt_box_autoadd_descriptor_base(dynamic raw);
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_32(dynamic raw);
+
+  @protected
+  FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw);
+
+  @protected
+  PsbtSigHashType? dco_decode_opt_box_autoadd_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue? dco_decode_opt_box_autoadd_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int)?
+      dco_decode_opt_box_autoadd_record_out_point_input_usize(dynamic raw);
+
+  @protected
+  RpcSyncParams? dco_decode_opt_box_autoadd_rpc_sync_params(dynamic raw);
+
+  @protected
+  ScriptBufBase? dco_decode_opt_box_autoadd_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions? dco_decode_opt_box_autoadd_sign_options(dynamic raw);
+
+  @protected
+  TransactionBase? dco_decode_opt_box_autoadd_transaction_base(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_8(dynamic raw);
 
   @protected
   OutPoint dco_decode_out_point(dynamic raw);
@@ -265,7 +431,35 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Payload dco_decode_payload(dynamic raw);
 
   @protected
+  PsbtBase dco_decode_psbt_base(dynamic raw);
+
+  @protected
+  PsbtSigHashType dco_decode_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue dco_decode_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int) dco_decode_record_out_point_input_usize(dynamic raw);
+
+  @protected
+  (PsbtBase, TransactionDetails)
+      dco_decode_record_psbt_base_transaction_details(dynamic raw);
+
+  @protected
+  RpcConfig dco_decode_rpc_config(dynamic raw);
+
+  @protected
+  RpcSyncParams dco_decode_rpc_sync_params(dynamic raw);
+
+  @protected
+  ScriptAmount dco_decode_script_amount(dynamic raw);
+
+  @protected
   ScriptBufBase dco_decode_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions dco_decode_sign_options(dynamic raw);
 
   @protected
   SledDbConfiguration dco_decode_sled_db_configuration(dynamic raw);
@@ -275,6 +469,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase dco_decode_transaction_base(dynamic raw);
+
+  @protected
+  TransactionDetails dco_decode_transaction_details(dynamic raw);
 
   @protected
   TxIn dco_decode_tx_in(dynamic raw);
@@ -338,11 +535,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           SseDeserializer deserializer);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          SseDeserializer deserializer);
-
-  @protected
   BdkBitcoinAddress
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           SseDeserializer deserializer);
@@ -351,6 +543,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   KeysKeyMap
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           SseDeserializer deserializer);
+
+  @protected
+  AnyBlockchain sse_decode_RustOpaque_AnyBlockchain(
+      SseDeserializer deserializer);
+
+  @protected
+  MutexPartiallySignedTransaction
+      sse_decode_RustOpaque_MutexPartiallySignedTransaction(
+          SseDeserializer deserializer);
+
+  @protected
+  MutexBdkWalletAnyDatabase sse_decode_RustOpaque_MutexbdkWalletAnyDatabase(
+      SseDeserializer deserializer);
 
   @protected
   ArcBitcoinBip32DerivationPath
@@ -378,11 +583,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           SseDeserializer deserializer);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          SseDeserializer deserializer);
-
-  @protected
   BdkBitcoinAddress
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           SseDeserializer deserializer);
@@ -402,7 +602,28 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressError sse_decode_address_error(SseDeserializer deserializer);
 
   @protected
+  AddressIndex sse_decode_address_index(SseDeserializer deserializer);
+
+  @protected
+  AddressInfo sse_decode_address_info(SseDeserializer deserializer);
+
+  @protected
+  Auth sse_decode_auth(SseDeserializer deserializer);
+
+  @protected
+  Balance sse_decode_balance(SseDeserializer deserializer);
+
+  @protected
   BdkError sse_decode_bdk_error(SseDeserializer deserializer);
+
+  @protected
+  BlockTime sse_decode_block_time(SseDeserializer deserializer);
+
+  @protected
+  BlockchainBase sse_decode_blockchain_base(SseDeserializer deserializer);
+
+  @protected
+  BlockchainConfig sse_decode_blockchain_config(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
@@ -412,6 +633,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressError sse_decode_box_autoadd_address_error(
+      SseDeserializer deserializer);
+
+  @protected
+  AddressIndex sse_decode_box_autoadd_address_index(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockTime sse_decode_box_autoadd_block_time(SseDeserializer deserializer);
+
+  @protected
+  BlockchainBase sse_decode_box_autoadd_blockchain_base(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockchainConfig sse_decode_box_autoadd_blockchain_config(
       SseDeserializer deserializer);
 
   @protected
@@ -443,7 +679,24 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  ElectrumConfig sse_decode_box_autoadd_electrum_config(
+      SseDeserializer deserializer);
+
+  @protected
+  EsploraConfig sse_decode_box_autoadd_esplora_config(
+      SseDeserializer deserializer);
+
+  @protected
+  double sse_decode_box_autoadd_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate sse_decode_box_autoadd_fee_rate(SseDeserializer deserializer);
+
+  @protected
   HexError sse_decode_box_autoadd_hex_error(SseDeserializer deserializer);
+
+  @protected
+  LocalUtxo sse_decode_box_autoadd_local_utxo(SseDeserializer deserializer);
 
   @protected
   MnemonicBase sse_decode_box_autoadd_mnemonic_base(
@@ -453,8 +706,32 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer);
 
   @protected
+  PsbtBase sse_decode_box_autoadd_psbt_base(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType sse_decode_box_autoadd_psbt_sig_hash_type(
+      SseDeserializer deserializer);
+
+  @protected
+  RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int) sse_decode_box_autoadd_record_out_point_input_usize(
+      SseDeserializer deserializer);
+
+  @protected
+  RpcConfig sse_decode_box_autoadd_rpc_config(SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams sse_decode_box_autoadd_rpc_sync_params(
+      SseDeserializer deserializer);
+
+  @protected
   ScriptBufBase sse_decode_box_autoadd_script_buf_base(
       SseDeserializer deserializer);
+
+  @protected
+  SignOptions sse_decode_box_autoadd_sign_options(SseDeserializer deserializer);
 
   @protected
   SledDbConfiguration sse_decode_box_autoadd_sled_db_configuration(
@@ -466,6 +743,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase sse_decode_box_autoadd_transaction_base(
+      SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_8(SseDeserializer deserializer);
+
+  @protected
+  WalletBase sse_decode_box_autoadd_wallet_base(SseDeserializer deserializer);
+
+  @protected
+  ChangeSpendPolicy sse_decode_change_spend_policy(
       SseDeserializer deserializer);
 
   @protected
@@ -493,13 +786,25 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  ElectrumConfig sse_decode_electrum_config(SseDeserializer deserializer);
+
+  @protected
+  EsploraConfig sse_decode_esplora_config(SseDeserializer deserializer);
+
+  @protected
   double sse_decode_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate sse_decode_fee_rate(SseDeserializer deserializer);
 
   @protected
   HexError sse_decode_hex_error(SseDeserializer deserializer);
 
   @protected
   int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
+  Input sse_decode_input(SseDeserializer deserializer);
 
   @protected
   KeychainKind sse_decode_keychain_kind(SseDeserializer deserializer);
@@ -509,16 +814,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  List<LocalUtxo> sse_decode_list_local_utxo(SseDeserializer deserializer);
+
+  @protected
+  List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer);
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
+  List<ScriptAmount> sse_decode_list_script_amount(
+      SseDeserializer deserializer);
+
+  @protected
+  List<TransactionDetails> sse_decode_list_transaction_details(
+      SseDeserializer deserializer);
+
+  @protected
   List<TxIn> sse_decode_list_tx_in(SseDeserializer deserializer);
 
   @protected
   List<TxOut> sse_decode_list_tx_out(SseDeserializer deserializer);
+
+  @protected
+  LocalUtxo sse_decode_local_utxo(SseDeserializer deserializer);
 
   @protected
   MnemonicBase sse_decode_mnemonic_base(SseDeserializer deserializer);
@@ -530,8 +852,59 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
+  AddressBase? sse_decode_opt_box_autoadd_address_base(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockTime? sse_decode_opt_box_autoadd_block_time(
+      SseDeserializer deserializer);
+
+  @protected
   DescriptorBase? sse_decode_opt_box_autoadd_descriptor_base(
       SseDeserializer deserializer);
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType? sse_decode_opt_box_autoadd_psbt_sig_hash_type(
+      SseDeserializer deserializer);
+
+  @protected
+  RbfValue? sse_decode_opt_box_autoadd_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int)?
+      sse_decode_opt_box_autoadd_record_out_point_input_usize(
+          SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams? sse_decode_opt_box_autoadd_rpc_sync_params(
+      SseDeserializer deserializer);
+
+  @protected
+  ScriptBufBase? sse_decode_opt_box_autoadd_script_buf_base(
+      SseDeserializer deserializer);
+
+  @protected
+  SignOptions? sse_decode_opt_box_autoadd_sign_options(
+      SseDeserializer deserializer);
+
+  @protected
+  TransactionBase? sse_decode_opt_box_autoadd_transaction_base(
+      SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_8(SseDeserializer deserializer);
 
   @protected
   OutPoint sse_decode_out_point(SseDeserializer deserializer);
@@ -540,7 +913,37 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Payload sse_decode_payload(SseDeserializer deserializer);
 
   @protected
+  PsbtBase sse_decode_psbt_base(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType sse_decode_psbt_sig_hash_type(SseDeserializer deserializer);
+
+  @protected
+  RbfValue sse_decode_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int) sse_decode_record_out_point_input_usize(
+      SseDeserializer deserializer);
+
+  @protected
+  (PsbtBase, TransactionDetails)
+      sse_decode_record_psbt_base_transaction_details(
+          SseDeserializer deserializer);
+
+  @protected
+  RpcConfig sse_decode_rpc_config(SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams sse_decode_rpc_sync_params(SseDeserializer deserializer);
+
+  @protected
+  ScriptAmount sse_decode_script_amount(SseDeserializer deserializer);
+
+  @protected
   ScriptBufBase sse_decode_script_buf_base(SseDeserializer deserializer);
+
+  @protected
+  SignOptions sse_decode_sign_options(SseDeserializer deserializer);
 
   @protected
   SledDbConfiguration sse_decode_sled_db_configuration(
@@ -552,6 +955,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase sse_decode_transaction_base(SseDeserializer deserializer);
+
+  @protected
+  TransactionDetails sse_decode_transaction_details(
+      SseDeserializer deserializer);
 
   @protected
   TxIn sse_decode_tx_in(SseDeserializer deserializer);
@@ -660,6 +1067,64 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     }
 
     throw Exception('unreachable');
+  }
+
+  @protected
+  List<dynamic> cst_encode_address_index(AddressIndex raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    if (raw is AddressIndex_New) {
+      return [0];
+    }
+    if (raw is AddressIndex_LastUnused) {
+      return [1];
+    }
+    if (raw is AddressIndex_Peek) {
+      return [2, cst_encode_u_32(raw.index)];
+    }
+    if (raw is AddressIndex_Reset) {
+      return [3, cst_encode_u_32(raw.index)];
+    }
+
+    throw Exception('unreachable');
+  }
+
+  @protected
+  List<dynamic> cst_encode_address_info(AddressInfo raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_u_32(raw.index), cst_encode_String(raw.address)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_auth(Auth raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    if (raw is Auth_None) {
+      return [0];
+    }
+    if (raw is Auth_UserPass) {
+      return [
+        1,
+        cst_encode_String(raw.username),
+        cst_encode_String(raw.password)
+      ];
+    }
+    if (raw is Auth_Cookie) {
+      return [2, cst_encode_String(raw.file)];
+    }
+
+    throw Exception('unreachable');
+  }
+
+  @protected
+  List<dynamic> cst_encode_balance(Balance raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_u_64(raw.immature),
+      cst_encode_u_64(raw.trustedPending),
+      cst_encode_u_64(raw.untrustedPending),
+      cst_encode_u_64(raw.confirmed),
+      cst_encode_u_64(raw.spendable),
+      cst_encode_u_64(raw.total)
+    ];
   }
 
   @protected
@@ -803,6 +1268,34 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_block_time(BlockTime raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_u_32(raw.height), cst_encode_u_64(raw.timestamp)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_blockchain_base(BlockchainBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_RustOpaque_AnyBlockchain(raw.ptr)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_blockchain_config(BlockchainConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    if (raw is BlockchainConfig_Electrum) {
+      return [0, cst_encode_box_autoadd_electrum_config(raw.config)];
+    }
+    if (raw is BlockchainConfig_Esplora) {
+      return [1, cst_encode_box_autoadd_esplora_config(raw.config)];
+    }
+    if (raw is BlockchainConfig_Rpc) {
+      return [2, cst_encode_box_autoadd_rpc_config(raw.config)];
+    }
+
+    throw Exception('unreachable');
+  }
+
+  @protected
   List<dynamic> cst_encode_box_autoadd_address_base(AddressBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_address_base(raw);
@@ -812,6 +1305,30 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   List<dynamic> cst_encode_box_autoadd_address_error(AddressError raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_address_error(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_address_index(AddressIndex raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_address_index(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_block_time(BlockTime raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_block_time(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_blockchain_base(BlockchainBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_blockchain_base(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_blockchain_config(BlockchainConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_blockchain_config(raw);
   }
 
   @protected
@@ -860,9 +1377,39 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_box_autoadd_electrum_config(ElectrumConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_electrum_config(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_esplora_config(EsploraConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_esplora_config(raw);
+  }
+
+  @protected
+  double cst_encode_box_autoadd_f_32(double raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_f_32(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_fee_rate(FeeRate raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_fee_rate(raw);
+  }
+
+  @protected
   List<dynamic> cst_encode_box_autoadd_hex_error(HexError raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_hex_error(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_local_utxo(LocalUtxo raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_local_utxo(raw);
   }
 
   @protected
@@ -878,9 +1425,52 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_box_autoadd_psbt_base(PsbtBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_psbt_base(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_psbt_sig_hash_type(PsbtSigHashType raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_psbt_sig_hash_type(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_rbf_value(RbfValue raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_rbf_value(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_record_out_point_input_usize(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_rpc_config(RpcConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_rpc_config(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_rpc_sync_params(RpcSyncParams raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_rpc_sync_params(raw);
+  }
+
+  @protected
   List<dynamic> cst_encode_box_autoadd_script_buf_base(ScriptBufBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_script_buf_base(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_sign_options(SignOptions raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_sign_options(raw);
   }
 
   @protected
@@ -901,6 +1491,30 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   List<dynamic> cst_encode_box_autoadd_transaction_base(TransactionBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_transaction_base(raw);
+  }
+
+  @protected
+  int cst_encode_box_autoadd_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_u_32(raw);
+  }
+
+  @protected
+  Object cst_encode_box_autoadd_u_64(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_u_64(raw);
+  }
+
+  @protected
+  int cst_encode_box_autoadd_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_u_8(raw);
+  }
+
+  @protected
+  List<dynamic> cst_encode_box_autoadd_wallet_base(WalletBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_wallet_base(raw);
   }
 
   @protected
@@ -1032,6 +1646,37 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_electrum_config(ElectrumConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_String(raw.url),
+      cst_encode_opt_String(raw.socks5),
+      cst_encode_u_8(raw.retry),
+      cst_encode_opt_box_autoadd_u_8(raw.timeout),
+      cst_encode_u_64(raw.stopGap),
+      cst_encode_bool(raw.validateDomain)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_esplora_config(EsploraConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_String(raw.baseUrl),
+      cst_encode_opt_String(raw.proxy),
+      cst_encode_opt_box_autoadd_u_8(raw.concurrency),
+      cst_encode_u_64(raw.stopGap),
+      cst_encode_opt_box_autoadd_u_64(raw.timeout)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_fee_rate(FeeRate raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_f_32(raw.satPerVb)];
+  }
+
+  @protected
   List<dynamic> cst_encode_hex_error(HexError raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     if (raw is HexError_InvalidChar) {
@@ -1048,9 +1693,27 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_input(Input raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_String(raw.s)];
+  }
+
+  @protected
   List<dynamic> cst_encode_list_list_prim_u_8_strict(List<Uint8List> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw.map(cst_encode_list_prim_u_8_strict).toList();
+  }
+
+  @protected
+  List<dynamic> cst_encode_list_local_utxo(List<LocalUtxo> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.map(cst_encode_local_utxo).toList();
+  }
+
+  @protected
+  List<dynamic> cst_encode_list_out_point(List<OutPoint> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.map(cst_encode_out_point).toList();
   }
 
   @protected
@@ -1066,6 +1729,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_list_script_amount(List<ScriptAmount> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.map(cst_encode_script_amount).toList();
+  }
+
+  @protected
+  List<dynamic> cst_encode_list_transaction_details(
+      List<TransactionDetails> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.map(cst_encode_transaction_details).toList();
+  }
+
+  @protected
   List<dynamic> cst_encode_list_tx_in(List<TxIn> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw.map(cst_encode_tx_in).toList();
@@ -1075,6 +1751,17 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   List<dynamic> cst_encode_list_tx_out(List<TxOut> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw.map(cst_encode_tx_out).toList();
+  }
+
+  @protected
+  List<dynamic> cst_encode_local_utxo(LocalUtxo raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_out_point(raw.outpoint),
+      cst_encode_tx_out(raw.txout),
+      cst_encode_keychain_kind(raw.keychain),
+      cst_encode_bool(raw.isSpent)
+    ];
   }
 
   @protected
@@ -1093,10 +1780,101 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_address_base(AddressBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_address_base(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_block_time(BlockTime? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_block_time(raw);
+  }
+
+  @protected
   List<dynamic>? cst_encode_opt_box_autoadd_descriptor_base(
       DescriptorBase? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? null : cst_encode_box_autoadd_descriptor_base(raw);
+  }
+
+  @protected
+  double? cst_encode_opt_box_autoadd_f_32(double? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_f_32(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_fee_rate(FeeRate? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_psbt_sig_hash_type(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_rbf_value(RbfValue? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_rbf_value(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int)? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? null
+        : cst_encode_box_autoadd_record_out_point_input_usize(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_rpc_sync_params(
+      RpcSyncParams? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_rpc_sync_params(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_script_buf_base(
+      ScriptBufBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_script_buf_base(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_sign_options(SignOptions? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_sign_options(raw);
+  }
+
+  @protected
+  List<dynamic>? cst_encode_opt_box_autoadd_transaction_base(
+      TransactionBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_transaction_base(raw);
+  }
+
+  @protected
+  int? cst_encode_opt_box_autoadd_u_32(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  Object? cst_encode_opt_box_autoadd_u_64(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_u_64(raw);
+  }
+
+  @protected
+  int? cst_encode_opt_box_autoadd_u_8(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? null : cst_encode_box_autoadd_u_8(raw);
   }
 
   @protected
@@ -1126,9 +1904,102 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_psbt_base(PsbtBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_RustOpaque_MutexPartiallySignedTransaction(raw.ptr)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_psbt_sig_hash_type(PsbtSigHashType raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_u_32(raw.inner)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_rbf_value(RbfValue raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    if (raw is RbfValue_RbfDefault) {
+      return [0];
+    }
+    if (raw is RbfValue_Value) {
+      return [1, cst_encode_u_32(raw.field0)];
+    }
+
+    throw Exception('unreachable');
+  }
+
+  @protected
+  List<dynamic> cst_encode_record_out_point_input_usize(
+      (OutPoint, Input, int) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_out_point(raw.$1),
+      cst_encode_input(raw.$2),
+      cst_encode_usize(raw.$3)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_record_psbt_base_transaction_details(
+      (PsbtBase, TransactionDetails) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_psbt_base(raw.$1),
+      cst_encode_transaction_details(raw.$2)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_rpc_config(RpcConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_String(raw.url),
+      cst_encode_auth(raw.auth),
+      cst_encode_network(raw.network),
+      cst_encode_String(raw.walletName),
+      cst_encode_opt_box_autoadd_rpc_sync_params(raw.syncParams)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_rpc_sync_params(RpcSyncParams raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_u_64(raw.startScriptCount),
+      cst_encode_u_64(raw.startTime),
+      cst_encode_bool(raw.forceStartTime),
+      cst_encode_u_64(raw.pollRateSec)
+    ];
+  }
+
+  @protected
+  List<dynamic> cst_encode_script_amount(ScriptAmount raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_script_buf_base(raw.script),
+      cst_encode_u_64(raw.amount)
+    ];
+  }
+
+  @protected
   List<dynamic> cst_encode_script_buf_base(ScriptBufBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return [cst_encode_list_prim_u_8_strict(raw.bytes)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_sign_options(SignOptions raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_bool(raw.multiSig),
+      cst_encode_bool(raw.trustWitnessUtxo),
+      cst_encode_opt_box_autoadd_u_32(raw.assumeHeight),
+      cst_encode_bool(raw.allowAllSighashes),
+      cst_encode_bool(raw.removePartialSigs),
+      cst_encode_bool(raw.tryFinalize),
+      cst_encode_bool(raw.signWithTapInternalKey),
+      cst_encode_bool(raw.allowGrinding)
+    ];
   }
 
   @protected
@@ -1147,6 +2018,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   List<dynamic> cst_encode_transaction_base(TransactionBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return [cst_encode_String(raw.inner)];
+  }
+
+  @protected
+  List<dynamic> cst_encode_transaction_details(TransactionDetails raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [
+      cst_encode_opt_box_autoadd_transaction_base(raw.transaction),
+      cst_encode_String(raw.txid),
+      cst_encode_u_64(raw.received),
+      cst_encode_u_64(raw.sent),
+      cst_encode_opt_box_autoadd_u_64(raw.fee),
+      cst_encode_opt_box_autoadd_block_time(raw.confirmationTime)
+    ];
   }
 
   @protected
@@ -1184,10 +2068,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   List<dynamic> cst_encode_wallet_base(WalletBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return [
-      cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          raw.ptr)
-    ];
+    return [cst_encode_RustOpaque_MutexbdkWalletAnyDatabase(raw.ptr)];
   }
 
   @protected
@@ -1211,16 +2092,23 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       ExtendedDescriptor raw);
 
   @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      MutexBdkWalletAnyDatabase raw);
-
-  @protected
   int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
       BdkBitcoinAddress raw);
 
   @protected
   int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
       KeysKeyMap raw);
+
+  @protected
+  int cst_encode_RustOpaque_AnyBlockchain(AnyBlockchain raw);
+
+  @protected
+  int cst_encode_RustOpaque_MutexPartiallySignedTransaction(
+      MutexPartiallySignedTransaction raw);
+
+  @protected
+  int cst_encode_RustOpaque_MutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase raw);
 
   @protected
   int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
@@ -1243,10 +2131,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       ExtendedDescriptor raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      MutexBdkWalletAnyDatabase raw);
-
-  @protected
   int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
       BdkBitcoinAddress raw);
 
@@ -1256,6 +2140,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   bool cst_encode_bool(bool raw);
+
+  @protected
+  int cst_encode_change_spend_policy(ChangeSpendPolicy raw);
 
   @protected
   double cst_encode_f_32(double raw);
@@ -1317,11 +2204,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          MutexBdkWalletAnyDatabase self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer);
 
@@ -1329,6 +2211,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           KeysKeyMap self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_AnyBlockchain(
+      AnyBlockchain self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_MutexPartiallySignedTransaction(
+      MutexPartiallySignedTransaction self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_MutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase self, SseSerializer serializer);
 
   @protected
   void
@@ -1357,11 +2251,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          MutexBdkWalletAnyDatabase self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer);
 
@@ -1380,7 +2269,30 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_address_error(AddressError self, SseSerializer serializer);
 
   @protected
+  void sse_encode_address_index(AddressIndex self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_address_info(AddressInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_auth(Auth self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_balance(Balance self, SseSerializer serializer);
+
+  @protected
   void sse_encode_bdk_error(BdkError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_block_time(BlockTime self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_blockchain_base(
+      BlockchainBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_blockchain_config(
+      BlockchainConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_bool(bool self, SseSerializer serializer);
@@ -1392,6 +2304,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_box_autoadd_address_error(
       AddressError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_address_index(
+      AddressIndex self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_block_time(
+      BlockTime self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_blockchain_base(
+      BlockchainBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_blockchain_config(
+      BlockchainConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_consensus_error(
@@ -1422,8 +2350,26 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_electrum_config(
+      ElectrumConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_esplora_config(
+      EsploraConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_f_32(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_fee_rate(FeeRate self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_hex_error(
       HexError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_local_utxo(
+      LocalUtxo self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_mnemonic_base(
@@ -1434,8 +2380,36 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       OutPoint self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_psbt_base(
+      PsbtBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rbf_value(
+      RbfValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rpc_config(
+      RpcConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rpc_sync_params(
+      RpcSyncParams self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_script_buf_base(
       ScriptBufBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_sign_options(
+      SignOptions self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_sled_db_configuration(
@@ -1448,6 +2422,23 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_box_autoadd_transaction_base(
       TransactionBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_64(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_8(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_wallet_base(
+      WalletBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_change_spend_policy(
+      ChangeSpendPolicy self, SseSerializer serializer);
 
   @protected
   void sse_encode_consensus_error(
@@ -1478,13 +2469,26 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
+  void sse_encode_electrum_config(
+      ElectrumConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_esplora_config(EsploraConfig self, SseSerializer serializer);
+
+  @protected
   void sse_encode_f_32(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_fee_rate(FeeRate self, SseSerializer serializer);
 
   @protected
   void sse_encode_hex_error(HexError self, SseSerializer serializer);
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_input(Input self, SseSerializer serializer);
 
   @protected
   void sse_encode_keychain_kind(KeychainKind self, SseSerializer serializer);
@@ -1494,6 +2498,13 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       List<Uint8List> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_local_utxo(
+      List<LocalUtxo> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_out_point(List<OutPoint> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
@@ -1501,10 +2512,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       Uint8List self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_script_amount(
+      List<ScriptAmount> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_transaction_details(
+      List<TransactionDetails> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_tx_in(List<TxIn> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_tx_out(List<TxOut> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_local_utxo(LocalUtxo self, SseSerializer serializer);
 
   @protected
   void sse_encode_mnemonic_base(MnemonicBase self, SseSerializer serializer);
@@ -1516,8 +2538,60 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_address_base(
+      AddressBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_block_time(
+      BlockTime? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_descriptor_base(
       DescriptorBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_32(double? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_fee_rate(
+      FeeRate? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_rbf_value(
+      RbfValue? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int)? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_rpc_sync_params(
+      RpcSyncParams? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_script_buf_base(
+      ScriptBufBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_sign_options(
+      SignOptions? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_transaction_base(
+      TransactionBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_8(int? self, SseSerializer serializer);
 
   @protected
   void sse_encode_out_point(OutPoint self, SseSerializer serializer);
@@ -1526,7 +2600,37 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_payload(Payload self, SseSerializer serializer);
 
   @protected
+  void sse_encode_psbt_base(PsbtBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_psbt_sig_hash_type(
+      PsbtSigHashType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rbf_value(RbfValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_out_point_input_usize(
+      (OutPoint, Input, int) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_psbt_base_transaction_details(
+      (PsbtBase, TransactionDetails) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rpc_config(RpcConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rpc_sync_params(RpcSyncParams self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_script_amount(ScriptAmount self, SseSerializer serializer);
+
+  @protected
   void sse_encode_script_buf_base(ScriptBufBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sign_options(SignOptions self, SseSerializer serializer);
 
   @protected
   void sse_encode_sled_db_configuration(
@@ -1539,6 +2643,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_transaction_base(
       TransactionBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_transaction_details(
+      TransactionDetails self, SseSerializer serializer);
 
   @protected
   void sse_encode_tx_in(TxIn self, SseSerializer serializer);
@@ -1582,6 +2690,26 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
 class BdkCoreWire implements BaseWire {
   BdkCoreWire.fromExternalLibrary(ExternalLibrary lib);
+
+  void wire_BlockchainBase_broadcast(NativePortType port_, List<dynamic> that,
+          List<dynamic> transaction) =>
+      wasmModule.wire_BlockchainBase_broadcast(port_, that, transaction);
+
+  void wire_BlockchainBase_estimate_fee(
+          NativePortType port_, List<dynamic> that, Object target) =>
+      wasmModule.wire_BlockchainBase_estimate_fee(port_, that, target);
+
+  void wire_BlockchainBase_get_block_hash(
+          NativePortType port_, List<dynamic> that, int height) =>
+      wasmModule.wire_BlockchainBase_get_block_hash(port_, that, height);
+
+  void wire_BlockchainBase_get_height(
+          NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_BlockchainBase_get_height(port_, that);
+
+  void wire_BlockchainBase_new(
+          NativePortType port_, List<dynamic> blockchain_config) =>
+      wasmModule.wire_BlockchainBase_new(port_, blockchain_config);
 
   void wire_DescriptorBase_as_string(
           NativePortType port_, List<dynamic> that) =>
@@ -1675,8 +2803,8 @@ class BdkCoreWire implements BaseWire {
       wasmModule.wire_DescriptorPublicKeyBase_from_string(port_, public_key);
 
   void wire_DescriptorSecretKeyBase_as_public(
-          NativePortType port_, List<dynamic> that) =>
-      wasmModule.wire_DescriptorSecretKeyBase_as_public(port_, that);
+          NativePortType port_, List<dynamic> secret) =>
+      wasmModule.wire_DescriptorSecretKeyBase_as_public(port_, secret);
 
   void wire_DescriptorSecretKeyBase_as_string(
           NativePortType port_, List<dynamic> that) =>
@@ -1716,6 +2844,31 @@ class BdkCoreWire implements BaseWire {
   void wire_MnemonicBase_new(NativePortType port_, int word_count) =>
       wasmModule.wire_MnemonicBase_new(port_, word_count);
 
+  void wire_PsbtBase_combine(
+          NativePortType port_, List<dynamic> that, List<dynamic> other) =>
+      wasmModule.wire_PsbtBase_combine(port_, that, other);
+
+  void wire_PsbtBase_extract_tx(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_extract_tx(port_, that);
+
+  void wire_PsbtBase_fee_amount(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_fee_amount(port_, that);
+
+  void wire_PsbtBase_fee_rate(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_fee_rate(port_, that);
+
+  void wire_PsbtBase_from_str(NativePortType port_, String psbt_base64) =>
+      wasmModule.wire_PsbtBase_from_str(port_, psbt_base64);
+
+  void wire_PsbtBase_json_serialize(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_json_serialize(port_, that);
+
+  void wire_PsbtBase_serialize(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_serialize(port_, that);
+
+  void wire_PsbtBase_txid(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_PsbtBase_txid(port_, that);
+
   void wire_AddressBase_as_string(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_AddressBase_as_string(port_, that);
 
@@ -1737,9 +2890,8 @@ class BdkCoreWire implements BaseWire {
   void wire_AddressBase_payload(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_AddressBase_payload(port_, that);
 
-  void wire_AddressBase_script_pubkey(
-          NativePortType port_, List<dynamic> that) =>
-      wasmModule.wire_AddressBase_script_pubkey(port_, that);
+  void wire_AddressBase_script(NativePortType port_, List<dynamic> address) =>
+      wasmModule.wire_AddressBase_script(port_, address);
 
   void wire_AddressBase_to_qr_uri(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_AddressBase_to_qr_uri(port_, that);
@@ -1798,6 +2950,46 @@ class BdkCoreWire implements BaseWire {
   void wire_TransactionBase_weight(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_TransactionBase_weight(port_, that);
 
+  void wire_WalletBase_get_address(NativePortType port_, List<dynamic> that,
+          List<dynamic> address_index) =>
+      wasmModule.wire_WalletBase_get_address(port_, that, address_index);
+
+  void wire_WalletBase_get_balance(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_WalletBase_get_balance(port_, that);
+
+  void wire_WalletBase_get_descriptor_for_keychain(
+          NativePortType port_, List<dynamic> that, int keychain) =>
+      wasmModule.wire_WalletBase_get_descriptor_for_keychain(
+          port_, that, keychain);
+
+  void wire_WalletBase_get_internal_address(NativePortType port_,
+          List<dynamic> that, List<dynamic> address_index) =>
+      wasmModule.wire_WalletBase_get_internal_address(
+          port_, that, address_index);
+
+  void wire_WalletBase_get_psbt_input(
+          NativePortType port_,
+          List<dynamic> that,
+          List<dynamic> utxo,
+          bool only_witness_utxo,
+          List<dynamic>? sighash_type) =>
+      wasmModule.wire_WalletBase_get_psbt_input(
+          port_, that, utxo, only_witness_utxo, sighash_type);
+
+  void wire_WalletBase_is_mine(
+          NativePortType port_, List<dynamic> that, List<dynamic> script) =>
+      wasmModule.wire_WalletBase_is_mine(port_, that, script);
+
+  void wire_WalletBase_list_transactions(
+          NativePortType port_, List<dynamic> that, bool include_raw) =>
+      wasmModule.wire_WalletBase_list_transactions(port_, that, include_raw);
+
+  void wire_WalletBase_list_unspent(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_WalletBase_list_unspent(port_, that);
+
+  void wire_WalletBase_network(NativePortType port_, List<dynamic> that) =>
+      wasmModule.wire_WalletBase_network(port_, that);
+
   void wire_WalletBase_new(
           NativePortType port_,
           List<dynamic> descriptor,
@@ -1806,6 +2998,86 @@ class BdkCoreWire implements BaseWire {
           List<dynamic> database_config) =>
       wasmModule.wire_WalletBase_new(
           port_, descriptor, change_descriptor, network, database_config);
+
+  void wire_WalletBase_sign(NativePortType port_, List<dynamic> that,
+          List<dynamic> psbt, List<dynamic>? sign_options) =>
+      wasmModule.wire_WalletBase_sign(port_, that, psbt, sign_options);
+
+  void wire_WalletBase_sync(
+          NativePortType port_, List<dynamic> that, List<dynamic> blockchain) =>
+      wasmModule.wire_WalletBase_sync(port_, that, blockchain);
+
+  void wire_finish_bump_fee_tx_builder(
+          NativePortType port_,
+          String txid,
+          double fee_rate,
+          List<dynamic>? allow_shrinking,
+          List<dynamic> wallet,
+          bool enable_rbf,
+          int? n_sequence) =>
+      wasmModule.wire_finish_bump_fee_tx_builder(port_, txid, fee_rate,
+          allow_shrinking, wallet, enable_rbf, n_sequence);
+
+  void wire_tx_builder_finish(
+          NativePortType port_,
+          List<dynamic> wallet,
+          List<dynamic> recipients,
+          List<dynamic> utxos,
+          List<dynamic>? foreign_utxo,
+          List<dynamic> un_spendable,
+          int change_policy,
+          bool manually_selected_only,
+          double? fee_rate,
+          Object? fee_absolute,
+          bool drain_wallet,
+          List<dynamic>? drain_to,
+          List<dynamic>? rbf,
+          List<int> data) =>
+      wasmModule.wire_tx_builder_finish(
+          port_,
+          wallet,
+          recipients,
+          utxos,
+          foreign_utxo,
+          un_spendable,
+          change_policy,
+          manually_selected_only,
+          fee_rate,
+          fee_absolute,
+          drain_wallet,
+          drain_to,
+          rbf,
+          data);
+
+  void rust_arc_increment_strong_count_RustOpaque_AnyBlockchain(dynamic ptr) =>
+      wasmModule.rust_arc_increment_strong_count_RustOpaque_AnyBlockchain(ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(dynamic ptr) =>
+      wasmModule.rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(ptr);
+
+  void rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+          dynamic ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+          dynamic ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+              ptr);
+
+  void rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+          dynamic ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+          dynamic ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+              ptr);
 
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
           dynamic ptr) =>
@@ -1867,18 +3139,6 @@ class BdkCoreWire implements BaseWire {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
               ptr);
 
-  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic ptr) =>
-      wasmModule
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-              ptr);
-
-  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic ptr) =>
-      wasmModule
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-              ptr);
-
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic ptr) =>
       wasmModule
@@ -1915,6 +3175,21 @@ class BdkCoreWasmModule implements WasmModule {
 
   @override
   external BdkCoreWasmModule bind(dynamic thisArg, String moduleName);
+
+  external void wire_BlockchainBase_broadcast(
+      NativePortType port_, List<dynamic> that, List<dynamic> transaction);
+
+  external void wire_BlockchainBase_estimate_fee(
+      NativePortType port_, List<dynamic> that, Object target);
+
+  external void wire_BlockchainBase_get_block_hash(
+      NativePortType port_, List<dynamic> that, int height);
+
+  external void wire_BlockchainBase_get_height(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_BlockchainBase_new(
+      NativePortType port_, List<dynamic> blockchain_config);
 
   external void wire_DescriptorBase_as_string(
       NativePortType port_, List<dynamic> that);
@@ -1984,7 +3259,7 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, String public_key);
 
   external void wire_DescriptorSecretKeyBase_as_public(
-      NativePortType port_, List<dynamic> that);
+      NativePortType port_, List<dynamic> secret);
 
   external void wire_DescriptorSecretKeyBase_as_string(
       NativePortType port_, List<dynamic> that);
@@ -2015,6 +3290,29 @@ class BdkCoreWasmModule implements WasmModule {
 
   external void wire_MnemonicBase_new(NativePortType port_, int word_count);
 
+  external void wire_PsbtBase_combine(
+      NativePortType port_, List<dynamic> that, List<dynamic> other);
+
+  external void wire_PsbtBase_extract_tx(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_PsbtBase_fee_amount(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_PsbtBase_fee_rate(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_PsbtBase_from_str(
+      NativePortType port_, String psbt_base64);
+
+  external void wire_PsbtBase_json_serialize(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_PsbtBase_serialize(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_PsbtBase_txid(NativePortType port_, List<dynamic> that);
+
   external void wire_AddressBase_as_string(
       NativePortType port_, List<dynamic> that);
 
@@ -2033,8 +3331,8 @@ class BdkCoreWasmModule implements WasmModule {
   external void wire_AddressBase_payload(
       NativePortType port_, List<dynamic> that);
 
-  external void wire_AddressBase_script_pubkey(
-      NativePortType port_, List<dynamic> that);
+  external void wire_AddressBase_script(
+      NativePortType port_, List<dynamic> address);
 
   external void wire_AddressBase_to_qr_uri(
       NativePortType port_, List<dynamic> that);
@@ -2085,12 +3383,96 @@ class BdkCoreWasmModule implements WasmModule {
   external void wire_TransactionBase_weight(
       NativePortType port_, List<dynamic> that);
 
+  external void wire_WalletBase_get_address(
+      NativePortType port_, List<dynamic> that, List<dynamic> address_index);
+
+  external void wire_WalletBase_get_balance(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_WalletBase_get_descriptor_for_keychain(
+      NativePortType port_, List<dynamic> that, int keychain);
+
+  external void wire_WalletBase_get_internal_address(
+      NativePortType port_, List<dynamic> that, List<dynamic> address_index);
+
+  external void wire_WalletBase_get_psbt_input(
+      NativePortType port_,
+      List<dynamic> that,
+      List<dynamic> utxo,
+      bool only_witness_utxo,
+      List<dynamic>? sighash_type);
+
+  external void wire_WalletBase_is_mine(
+      NativePortType port_, List<dynamic> that, List<dynamic> script);
+
+  external void wire_WalletBase_list_transactions(
+      NativePortType port_, List<dynamic> that, bool include_raw);
+
+  external void wire_WalletBase_list_unspent(
+      NativePortType port_, List<dynamic> that);
+
+  external void wire_WalletBase_network(
+      NativePortType port_, List<dynamic> that);
+
   external void wire_WalletBase_new(
       NativePortType port_,
       List<dynamic> descriptor,
       List<dynamic>? change_descriptor,
       int network,
       List<dynamic> database_config);
+
+  external void wire_WalletBase_sign(NativePortType port_, List<dynamic> that,
+      List<dynamic> psbt, List<dynamic>? sign_options);
+
+  external void wire_WalletBase_sync(
+      NativePortType port_, List<dynamic> that, List<dynamic> blockchain);
+
+  external void wire_finish_bump_fee_tx_builder(
+      NativePortType port_,
+      String txid,
+      double fee_rate,
+      List<dynamic>? allow_shrinking,
+      List<dynamic> wallet,
+      bool enable_rbf,
+      int? n_sequence);
+
+  external void wire_tx_builder_finish(
+      NativePortType port_,
+      List<dynamic> wallet,
+      List<dynamic> recipients,
+      List<dynamic> utxos,
+      List<dynamic>? foreign_utxo,
+      List<dynamic> un_spendable,
+      int change_policy,
+      bool manually_selected_only,
+      double? fee_rate,
+      Object? fee_absolute,
+      bool drain_wallet,
+      List<dynamic>? drain_to,
+      List<dynamic>? rbf,
+      List<int> data);
+
+  external void rust_arc_increment_strong_count_RustOpaque_AnyBlockchain(
+      dynamic ptr);
+
+  external void rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(
+      dynamic ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+          dynamic ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+          dynamic ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+          dynamic ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+          dynamic ptr);
 
   external void
       rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
@@ -2130,14 +3512,6 @@ class BdkCoreWasmModule implements WasmModule {
 
   external void
       rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(
-          dynamic ptr);
-
-  external void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic ptr);
-
-  external void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
           dynamic ptr);
 
   external void

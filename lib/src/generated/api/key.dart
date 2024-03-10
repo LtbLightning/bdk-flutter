@@ -4,8 +4,9 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
-import '../util/error.dart';
+import 'blockchain.dart';
 import 'descriptor.dart';
+import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'types.dart';
 
@@ -118,10 +119,10 @@ class DescriptorSecretKeyBase {
     required this.ptr,
   });
 
-  Future<DescriptorPublicKeyBase> asPublic({dynamic hint}) =>
-      BdkCore.instance.api.descriptorSecretKeyBaseAsPublic(
-        that: this,
-      );
+  static Future<DescriptorPublicKeyBase> asPublic(
+          {required DescriptorSecretKeyBase secret, dynamic hint}) =>
+      BdkCore.instance.api
+          .descriptorSecretKeyBaseAsPublic(secret: secret, hint: hint);
 
   Future<String> asString({dynamic hint}) =>
       BdkCore.instance.api.descriptorSecretKeyBaseAsString(

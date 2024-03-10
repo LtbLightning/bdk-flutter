@@ -4,9 +4,9 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
-import '../util/error.dart';
+import 'blockchain.dart';
+import 'error.dart';
 import 'key.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'types.dart';
 
@@ -223,18 +223,4 @@ class DescriptorBase {
           runtimeType == other.runtimeType &&
           extendedDescriptor == other.extendedDescriptor &&
           keyMap == other.keyMap;
-}
-
-class U8Array4 extends NonGrowableListView<int> {
-  static const arraySize = 4;
-
-  @internal
-  Uint8List get inner => _inner;
-  final Uint8List _inner;
-
-  U8Array4(this._inner)
-      : assert(_inner.length == arraySize),
-        super(_inner);
-
-  U8Array4.init() : this(Uint8List(arraySize));
 }

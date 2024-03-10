@@ -3,11 +3,11 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../api/descriptor.dart';
-import '../api/types.dart';
 import '../frb_generated.dart';
+import 'blockchain.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+import 'types.dart';
 part 'error.freezed.dart';
 
 @freezed
@@ -158,7 +158,7 @@ sealed class BdkError with _$BdkError implements FrbException {
   /// Descriptor checksum mismatch
   const factory BdkError.checksumMismatch() = BdkError_ChecksumMismatch;
 
-  /// Spending policy is not compatible with this [`KeychainKind`]
+  /// Spending policy is not compatible with this [KeychainKind]
   const factory BdkError.spendingPolicyRequired(
     KeychainKind field0,
   ) = BdkError_SpendingPolicyRequired;

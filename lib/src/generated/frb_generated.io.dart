@@ -3,8 +3,11 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/blockchain.dart';
 import 'api/descriptor.dart';
+import 'api/error.dart';
 import 'api/key.dart';
+import 'api/psbt.dart';
 import 'api/types.dart';
 import 'api/wallet.dart';
 import 'dart:async';
@@ -12,7 +15,6 @@ import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
-import 'util/error.dart';
 
 abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   BdkCoreApiImplPlatform({
@@ -21,6 +23,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_AnyBlockchainPtr =>
+          wire._rust_arc_decrement_strong_count_RustOpaque_AnyBlockchainPtr;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_MutexPartiallySignedTransactionPtr =>
+          wire._rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr => wire
+          ._rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr;
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ArcBitcoinBip32DerivationPathPtr => wire
@@ -41,10 +55,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptorPtr;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabasePtr;
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_BdkBitcoinAddressPtr => wire
@@ -79,11 +89,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           dynamic raw);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic raw);
-
-  @protected
   BdkBitcoinAddress
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic raw);
@@ -92,6 +97,17 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   KeysKeyMap
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           dynamic raw);
+
+  @protected
+  AnyBlockchain dco_decode_RustOpaque_AnyBlockchain(dynamic raw);
+
+  @protected
+  MutexPartiallySignedTransaction
+      dco_decode_RustOpaque_MutexPartiallySignedTransaction(dynamic raw);
+
+  @protected
+  MutexBdkWalletAnyDatabase dco_decode_RustOpaque_MutexbdkWalletAnyDatabase(
+      dynamic raw);
 
   @protected
   ArcBitcoinBip32DerivationPath
@@ -119,11 +135,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           dynamic raw);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          dynamic raw);
-
-  @protected
   BdkBitcoinAddress
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           dynamic raw);
@@ -143,7 +154,28 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressError dco_decode_address_error(dynamic raw);
 
   @protected
+  AddressIndex dco_decode_address_index(dynamic raw);
+
+  @protected
+  AddressInfo dco_decode_address_info(dynamic raw);
+
+  @protected
+  Auth dco_decode_auth(dynamic raw);
+
+  @protected
+  Balance dco_decode_balance(dynamic raw);
+
+  @protected
   BdkError dco_decode_bdk_error(dynamic raw);
+
+  @protected
+  BlockTime dco_decode_block_time(dynamic raw);
+
+  @protected
+  BlockchainBase dco_decode_blockchain_base(dynamic raw);
+
+  @protected
+  BlockchainConfig dco_decode_blockchain_config(dynamic raw);
 
   @protected
   bool dco_decode_bool(dynamic raw);
@@ -153,6 +185,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressError dco_decode_box_autoadd_address_error(dynamic raw);
+
+  @protected
+  AddressIndex dco_decode_box_autoadd_address_index(dynamic raw);
+
+  @protected
+  BlockTime dco_decode_box_autoadd_block_time(dynamic raw);
+
+  @protected
+  BlockchainBase dco_decode_box_autoadd_blockchain_base(dynamic raw);
+
+  @protected
+  BlockchainConfig dco_decode_box_autoadd_blockchain_config(dynamic raw);
 
   @protected
   ConsensusError dco_decode_box_autoadd_consensus_error(dynamic raw);
@@ -178,7 +222,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       dynamic raw);
 
   @protected
+  ElectrumConfig dco_decode_box_autoadd_electrum_config(dynamic raw);
+
+  @protected
+  EsploraConfig dco_decode_box_autoadd_esplora_config(dynamic raw);
+
+  @protected
+  double dco_decode_box_autoadd_f_32(dynamic raw);
+
+  @protected
+  FeeRate dco_decode_box_autoadd_fee_rate(dynamic raw);
+
+  @protected
   HexError dco_decode_box_autoadd_hex_error(dynamic raw);
+
+  @protected
+  LocalUtxo dco_decode_box_autoadd_local_utxo(dynamic raw);
 
   @protected
   MnemonicBase dco_decode_box_autoadd_mnemonic_base(dynamic raw);
@@ -187,7 +246,29 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   OutPoint dco_decode_box_autoadd_out_point(dynamic raw);
 
   @protected
+  PsbtBase dco_decode_box_autoadd_psbt_base(dynamic raw);
+
+  @protected
+  PsbtSigHashType dco_decode_box_autoadd_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int) dco_decode_box_autoadd_record_out_point_input_usize(
+      dynamic raw);
+
+  @protected
+  RpcConfig dco_decode_box_autoadd_rpc_config(dynamic raw);
+
+  @protected
+  RpcSyncParams dco_decode_box_autoadd_rpc_sync_params(dynamic raw);
+
+  @protected
   ScriptBufBase dco_decode_box_autoadd_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions dco_decode_box_autoadd_sign_options(dynamic raw);
 
   @protected
   SledDbConfiguration dco_decode_box_autoadd_sled_db_configuration(dynamic raw);
@@ -198,6 +279,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase dco_decode_box_autoadd_transaction_base(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_8(dynamic raw);
+
+  @protected
+  WalletBase dco_decode_box_autoadd_wallet_base(dynamic raw);
+
+  @protected
+  ChangeSpendPolicy dco_decode_change_spend_policy(dynamic raw);
 
   @protected
   ConsensusError dco_decode_consensus_error(dynamic raw);
@@ -221,7 +317,16 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   DescriptorSecretKeyBase dco_decode_descriptor_secret_key_base(dynamic raw);
 
   @protected
+  ElectrumConfig dco_decode_electrum_config(dynamic raw);
+
+  @protected
+  EsploraConfig dco_decode_esplora_config(dynamic raw);
+
+  @protected
   double dco_decode_f_32(dynamic raw);
+
+  @protected
+  FeeRate dco_decode_fee_rate(dynamic raw);
 
   @protected
   HexError dco_decode_hex_error(dynamic raw);
@@ -230,10 +335,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   int dco_decode_i_32(dynamic raw);
 
   @protected
+  Input dco_decode_input(dynamic raw);
+
+  @protected
   KeychainKind dco_decode_keychain_kind(dynamic raw);
 
   @protected
   List<Uint8List> dco_decode_list_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  List<LocalUtxo> dco_decode_list_local_utxo(dynamic raw);
+
+  @protected
+  List<OutPoint> dco_decode_list_out_point(dynamic raw);
 
   @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
@@ -242,10 +356,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
+  List<ScriptAmount> dco_decode_list_script_amount(dynamic raw);
+
+  @protected
+  List<TransactionDetails> dco_decode_list_transaction_details(dynamic raw);
+
+  @protected
   List<TxIn> dco_decode_list_tx_in(dynamic raw);
 
   @protected
   List<TxOut> dco_decode_list_tx_out(dynamic raw);
+
+  @protected
+  LocalUtxo dco_decode_local_utxo(dynamic raw);
 
   @protected
   MnemonicBase dco_decode_mnemonic_base(dynamic raw);
@@ -257,7 +380,50 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
+  AddressBase? dco_decode_opt_box_autoadd_address_base(dynamic raw);
+
+  @protected
+  BlockTime? dco_decode_opt_box_autoadd_block_time(dynamic raw);
+
+  @protected
   DescriptorBase? dco_decode_opt_box_autoadd_descriptor_base(dynamic raw);
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_32(dynamic raw);
+
+  @protected
+  FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw);
+
+  @protected
+  PsbtSigHashType? dco_decode_opt_box_autoadd_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue? dco_decode_opt_box_autoadd_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int)?
+      dco_decode_opt_box_autoadd_record_out_point_input_usize(dynamic raw);
+
+  @protected
+  RpcSyncParams? dco_decode_opt_box_autoadd_rpc_sync_params(dynamic raw);
+
+  @protected
+  ScriptBufBase? dco_decode_opt_box_autoadd_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions? dco_decode_opt_box_autoadd_sign_options(dynamic raw);
+
+  @protected
+  TransactionBase? dco_decode_opt_box_autoadd_transaction_base(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_64(dynamic raw);
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_8(dynamic raw);
 
   @protected
   OutPoint dco_decode_out_point(dynamic raw);
@@ -266,7 +432,35 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Payload dco_decode_payload(dynamic raw);
 
   @protected
+  PsbtBase dco_decode_psbt_base(dynamic raw);
+
+  @protected
+  PsbtSigHashType dco_decode_psbt_sig_hash_type(dynamic raw);
+
+  @protected
+  RbfValue dco_decode_rbf_value(dynamic raw);
+
+  @protected
+  (OutPoint, Input, int) dco_decode_record_out_point_input_usize(dynamic raw);
+
+  @protected
+  (PsbtBase, TransactionDetails)
+      dco_decode_record_psbt_base_transaction_details(dynamic raw);
+
+  @protected
+  RpcConfig dco_decode_rpc_config(dynamic raw);
+
+  @protected
+  RpcSyncParams dco_decode_rpc_sync_params(dynamic raw);
+
+  @protected
+  ScriptAmount dco_decode_script_amount(dynamic raw);
+
+  @protected
   ScriptBufBase dco_decode_script_buf_base(dynamic raw);
+
+  @protected
+  SignOptions dco_decode_sign_options(dynamic raw);
 
   @protected
   SledDbConfiguration dco_decode_sled_db_configuration(dynamic raw);
@@ -276,6 +470,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase dco_decode_transaction_base(dynamic raw);
+
+  @protected
+  TransactionDetails dco_decode_transaction_details(dynamic raw);
 
   @protected
   TxIn dco_decode_tx_in(dynamic raw);
@@ -339,11 +536,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           SseDeserializer deserializer);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          SseDeserializer deserializer);
-
-  @protected
   BdkBitcoinAddress
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           SseDeserializer deserializer);
@@ -352,6 +544,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   KeysKeyMap
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           SseDeserializer deserializer);
+
+  @protected
+  AnyBlockchain sse_decode_RustOpaque_AnyBlockchain(
+      SseDeserializer deserializer);
+
+  @protected
+  MutexPartiallySignedTransaction
+      sse_decode_RustOpaque_MutexPartiallySignedTransaction(
+          SseDeserializer deserializer);
+
+  @protected
+  MutexBdkWalletAnyDatabase sse_decode_RustOpaque_MutexbdkWalletAnyDatabase(
+      SseDeserializer deserializer);
 
   @protected
   ArcBitcoinBip32DerivationPath
@@ -379,11 +584,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           SseDeserializer deserializer);
 
   @protected
-  MutexBdkWalletAnyDatabase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          SseDeserializer deserializer);
-
-  @protected
   BdkBitcoinAddress
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           SseDeserializer deserializer);
@@ -403,7 +603,28 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressError sse_decode_address_error(SseDeserializer deserializer);
 
   @protected
+  AddressIndex sse_decode_address_index(SseDeserializer deserializer);
+
+  @protected
+  AddressInfo sse_decode_address_info(SseDeserializer deserializer);
+
+  @protected
+  Auth sse_decode_auth(SseDeserializer deserializer);
+
+  @protected
+  Balance sse_decode_balance(SseDeserializer deserializer);
+
+  @protected
   BdkError sse_decode_bdk_error(SseDeserializer deserializer);
+
+  @protected
+  BlockTime sse_decode_block_time(SseDeserializer deserializer);
+
+  @protected
+  BlockchainBase sse_decode_blockchain_base(SseDeserializer deserializer);
+
+  @protected
+  BlockchainConfig sse_decode_blockchain_config(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
@@ -413,6 +634,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressError sse_decode_box_autoadd_address_error(
+      SseDeserializer deserializer);
+
+  @protected
+  AddressIndex sse_decode_box_autoadd_address_index(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockTime sse_decode_box_autoadd_block_time(SseDeserializer deserializer);
+
+  @protected
+  BlockchainBase sse_decode_box_autoadd_blockchain_base(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockchainConfig sse_decode_box_autoadd_blockchain_config(
       SseDeserializer deserializer);
 
   @protected
@@ -444,7 +680,24 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  ElectrumConfig sse_decode_box_autoadd_electrum_config(
+      SseDeserializer deserializer);
+
+  @protected
+  EsploraConfig sse_decode_box_autoadd_esplora_config(
+      SseDeserializer deserializer);
+
+  @protected
+  double sse_decode_box_autoadd_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate sse_decode_box_autoadd_fee_rate(SseDeserializer deserializer);
+
+  @protected
   HexError sse_decode_box_autoadd_hex_error(SseDeserializer deserializer);
+
+  @protected
+  LocalUtxo sse_decode_box_autoadd_local_utxo(SseDeserializer deserializer);
 
   @protected
   MnemonicBase sse_decode_box_autoadd_mnemonic_base(
@@ -454,8 +707,32 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer);
 
   @protected
+  PsbtBase sse_decode_box_autoadd_psbt_base(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType sse_decode_box_autoadd_psbt_sig_hash_type(
+      SseDeserializer deserializer);
+
+  @protected
+  RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int) sse_decode_box_autoadd_record_out_point_input_usize(
+      SseDeserializer deserializer);
+
+  @protected
+  RpcConfig sse_decode_box_autoadd_rpc_config(SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams sse_decode_box_autoadd_rpc_sync_params(
+      SseDeserializer deserializer);
+
+  @protected
   ScriptBufBase sse_decode_box_autoadd_script_buf_base(
       SseDeserializer deserializer);
+
+  @protected
+  SignOptions sse_decode_box_autoadd_sign_options(SseDeserializer deserializer);
 
   @protected
   SledDbConfiguration sse_decode_box_autoadd_sled_db_configuration(
@@ -467,6 +744,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase sse_decode_box_autoadd_transaction_base(
+      SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_8(SseDeserializer deserializer);
+
+  @protected
+  WalletBase sse_decode_box_autoadd_wallet_base(SseDeserializer deserializer);
+
+  @protected
+  ChangeSpendPolicy sse_decode_change_spend_policy(
       SseDeserializer deserializer);
 
   @protected
@@ -494,13 +787,25 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  ElectrumConfig sse_decode_electrum_config(SseDeserializer deserializer);
+
+  @protected
+  EsploraConfig sse_decode_esplora_config(SseDeserializer deserializer);
+
+  @protected
   double sse_decode_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate sse_decode_fee_rate(SseDeserializer deserializer);
 
   @protected
   HexError sse_decode_hex_error(SseDeserializer deserializer);
 
   @protected
   int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
+  Input sse_decode_input(SseDeserializer deserializer);
 
   @protected
   KeychainKind sse_decode_keychain_kind(SseDeserializer deserializer);
@@ -510,16 +815,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  List<LocalUtxo> sse_decode_list_local_utxo(SseDeserializer deserializer);
+
+  @protected
+  List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer);
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
+  List<ScriptAmount> sse_decode_list_script_amount(
+      SseDeserializer deserializer);
+
+  @protected
+  List<TransactionDetails> sse_decode_list_transaction_details(
+      SseDeserializer deserializer);
+
+  @protected
   List<TxIn> sse_decode_list_tx_in(SseDeserializer deserializer);
 
   @protected
   List<TxOut> sse_decode_list_tx_out(SseDeserializer deserializer);
+
+  @protected
+  LocalUtxo sse_decode_local_utxo(SseDeserializer deserializer);
 
   @protected
   MnemonicBase sse_decode_mnemonic_base(SseDeserializer deserializer);
@@ -531,8 +853,59 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
+  AddressBase? sse_decode_opt_box_autoadd_address_base(
+      SseDeserializer deserializer);
+
+  @protected
+  BlockTime? sse_decode_opt_box_autoadd_block_time(
+      SseDeserializer deserializer);
+
+  @protected
   DescriptorBase? sse_decode_opt_box_autoadd_descriptor_base(
       SseDeserializer deserializer);
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_32(SseDeserializer deserializer);
+
+  @protected
+  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType? sse_decode_opt_box_autoadd_psbt_sig_hash_type(
+      SseDeserializer deserializer);
+
+  @protected
+  RbfValue? sse_decode_opt_box_autoadd_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int)?
+      sse_decode_opt_box_autoadd_record_out_point_input_usize(
+          SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams? sse_decode_opt_box_autoadd_rpc_sync_params(
+      SseDeserializer deserializer);
+
+  @protected
+  ScriptBufBase? sse_decode_opt_box_autoadd_script_buf_base(
+      SseDeserializer deserializer);
+
+  @protected
+  SignOptions? sse_decode_opt_box_autoadd_sign_options(
+      SseDeserializer deserializer);
+
+  @protected
+  TransactionBase? sse_decode_opt_box_autoadd_transaction_base(
+      SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_8(SseDeserializer deserializer);
 
   @protected
   OutPoint sse_decode_out_point(SseDeserializer deserializer);
@@ -541,7 +914,37 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   Payload sse_decode_payload(SseDeserializer deserializer);
 
   @protected
+  PsbtBase sse_decode_psbt_base(SseDeserializer deserializer);
+
+  @protected
+  PsbtSigHashType sse_decode_psbt_sig_hash_type(SseDeserializer deserializer);
+
+  @protected
+  RbfValue sse_decode_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (OutPoint, Input, int) sse_decode_record_out_point_input_usize(
+      SseDeserializer deserializer);
+
+  @protected
+  (PsbtBase, TransactionDetails)
+      sse_decode_record_psbt_base_transaction_details(
+          SseDeserializer deserializer);
+
+  @protected
+  RpcConfig sse_decode_rpc_config(SseDeserializer deserializer);
+
+  @protected
+  RpcSyncParams sse_decode_rpc_sync_params(SseDeserializer deserializer);
+
+  @protected
+  ScriptAmount sse_decode_script_amount(SseDeserializer deserializer);
+
+  @protected
   ScriptBufBase sse_decode_script_buf_base(SseDeserializer deserializer);
+
+  @protected
+  SignOptions sse_decode_sign_options(SseDeserializer deserializer);
 
   @protected
   SledDbConfiguration sse_decode_sled_db_configuration(
@@ -553,6 +956,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   TransactionBase sse_decode_transaction_base(SseDeserializer deserializer);
+
+  @protected
+  TransactionDetails sse_decode_transaction_details(
+      SseDeserializer deserializer);
 
   @protected
   TxIn sse_decode_tx_in(SseDeserializer deserializer);
@@ -611,6 +1018,42 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_address_error();
     cst_api_fill_to_wire_address_error(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_address_index> cst_encode_box_autoadd_address_index(
+      AddressIndex raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_address_index();
+    cst_api_fill_to_wire_address_index(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_block_time> cst_encode_box_autoadd_block_time(
+      BlockTime raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_block_time();
+    cst_api_fill_to_wire_block_time(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_blockchain_base> cst_encode_box_autoadd_blockchain_base(
+      BlockchainBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_blockchain_base();
+    cst_api_fill_to_wire_blockchain_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_blockchain_config>
+      cst_encode_box_autoadd_blockchain_config(BlockchainConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_blockchain_config();
+    cst_api_fill_to_wire_blockchain_config(raw, ptr.ref);
     return ptr;
   }
 
@@ -680,11 +1123,52 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_electrum_config> cst_encode_box_autoadd_electrum_config(
+      ElectrumConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_electrum_config();
+    cst_api_fill_to_wire_electrum_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_esplora_config> cst_encode_box_autoadd_esplora_config(
+      EsploraConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_esplora_config();
+    cst_api_fill_to_wire_esplora_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<ffi.Float> cst_encode_box_autoadd_f_32(double raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_f_32(cst_encode_f_32(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_fee_rate> cst_encode_box_autoadd_fee_rate(FeeRate raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_fee_rate();
+    cst_api_fill_to_wire_fee_rate(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_hex_error> cst_encode_box_autoadd_hex_error(
       HexError raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_hex_error();
     cst_api_fill_to_wire_hex_error(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_local_utxo> cst_encode_box_autoadd_local_utxo(
+      LocalUtxo raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_local_utxo();
+    cst_api_fill_to_wire_local_utxo(raw, ptr.ref);
     return ptr;
   }
 
@@ -707,11 +1191,75 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_psbt_base> cst_encode_box_autoadd_psbt_base(
+      PsbtBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_psbt_base();
+    cst_api_fill_to_wire_psbt_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_psbt_sig_hash_type>
+      cst_encode_box_autoadd_psbt_sig_hash_type(PsbtSigHashType raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_psbt_sig_hash_type();
+    cst_api_fill_to_wire_psbt_sig_hash_type(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_rbf_value> cst_encode_box_autoadd_rbf_value(
+      RbfValue raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_rbf_value();
+    cst_api_fill_to_wire_rbf_value(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_record_out_point_input_usize>
+      cst_encode_box_autoadd_record_out_point_input_usize(
+          (OutPoint, Input, int) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_record_out_point_input_usize();
+    cst_api_fill_to_wire_record_out_point_input_usize(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_rpc_config> cst_encode_box_autoadd_rpc_config(
+      RpcConfig raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_rpc_config();
+    cst_api_fill_to_wire_rpc_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_rpc_sync_params> cst_encode_box_autoadd_rpc_sync_params(
+      RpcSyncParams raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_rpc_sync_params();
+    cst_api_fill_to_wire_rpc_sync_params(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_script_buf_base> cst_encode_box_autoadd_script_buf_base(
       ScriptBufBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_script_buf_base();
     cst_api_fill_to_wire_script_buf_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_sign_options> cst_encode_box_autoadd_sign_options(
+      SignOptions raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_sign_options();
+    cst_api_fill_to_wire_sign_options(raw, ptr.ref);
     return ptr;
   }
 
@@ -744,12 +1292,61 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  ffi.Pointer<ffi.Uint32> cst_encode_box_autoadd_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_u_32(cst_encode_u_32(raw));
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint64> cst_encode_box_autoadd_u_64(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_u_64(cst_encode_u_64(raw));
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint8> cst_encode_box_autoadd_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_u_8(cst_encode_u_8(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_wallet_base> cst_encode_box_autoadd_wallet_base(
+      WalletBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_wallet_base();
+    cst_api_fill_to_wire_wallet_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_encode_list_list_prim_u_8_strict(List<Uint8List> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ans = wire.cst_new_list_list_prim_u_8_strict(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       ans.ref.ptr[i] = cst_encode_list_prim_u_8_strict(raw[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_local_utxo> cst_encode_list_local_utxo(
+      List<LocalUtxo> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_local_utxo(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_local_utxo(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_out_point> cst_encode_list_out_point(
+      List<OutPoint> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_out_point(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_out_point(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -769,6 +1366,28 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ans = wire.cst_new_list_prim_u_8_strict(raw.length);
     ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_script_amount> cst_encode_list_script_amount(
+      List<ScriptAmount> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_script_amount(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_script_amount(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_transaction_details>
+      cst_encode_list_transaction_details(List<TransactionDetails> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_transaction_details(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_transaction_details(raw[i], ans.ref.ptr[i]);
+    }
     return ans;
   }
 
@@ -800,12 +1419,117 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_address_base> cst_encode_opt_box_autoadd_address_base(
+      AddressBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_address_base(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_block_time> cst_encode_opt_box_autoadd_block_time(
+      BlockTime? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_block_time(raw);
+  }
+
+  @protected
   ffi.Pointer<wire_cst_descriptor_base>
       cst_encode_opt_box_autoadd_descriptor_base(DescriptorBase? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null
         ? ffi.nullptr
         : cst_encode_box_autoadd_descriptor_base(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Float> cst_encode_opt_box_autoadd_f_32(double? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_f_32(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_fee_rate> cst_encode_opt_box_autoadd_fee_rate(
+      FeeRate? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_psbt_sig_hash_type>
+      cst_encode_opt_box_autoadd_psbt_sig_hash_type(PsbtSigHashType? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_psbt_sig_hash_type(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_rbf_value> cst_encode_opt_box_autoadd_rbf_value(
+      RbfValue? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_rbf_value(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_record_out_point_input_usize>
+      cst_encode_opt_box_autoadd_record_out_point_input_usize(
+          (OutPoint, Input, int)? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_record_out_point_input_usize(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_rpc_sync_params>
+      cst_encode_opt_box_autoadd_rpc_sync_params(RpcSyncParams? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_rpc_sync_params(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_script_buf_base>
+      cst_encode_opt_box_autoadd_script_buf_base(ScriptBufBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_script_buf_base(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_sign_options> cst_encode_opt_box_autoadd_sign_options(
+      SignOptions? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_sign_options(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_transaction_base>
+      cst_encode_opt_box_autoadd_transaction_base(TransactionBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_transaction_base(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint32> cst_encode_opt_box_autoadd_u_32(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint64> cst_encode_opt_box_autoadd_u_64(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_64(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint8> cst_encode_opt_box_autoadd_u_8(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_8(raw);
   }
 
   @protected
@@ -914,6 +1638,70 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       wireObj.kind.NetworkValidation.address = pre_address;
       return;
     }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_address_index(
+      AddressIndex apiObj, wire_cst_address_index wireObj) {
+    if (apiObj is AddressIndex_New) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is AddressIndex_LastUnused) {
+      wireObj.tag = 1;
+      return;
+    }
+    if (apiObj is AddressIndex_Peek) {
+      var pre_index = cst_encode_u_32(apiObj.index);
+      wireObj.tag = 2;
+      wireObj.kind.Peek.index = pre_index;
+      return;
+    }
+    if (apiObj is AddressIndex_Reset) {
+      var pre_index = cst_encode_u_32(apiObj.index);
+      wireObj.tag = 3;
+      wireObj.kind.Reset.index = pre_index;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_address_info(
+      AddressInfo apiObj, wire_cst_address_info wireObj) {
+    wireObj.index = cst_encode_u_32(apiObj.index);
+    wireObj.address = cst_encode_String(apiObj.address);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_auth(Auth apiObj, wire_cst_auth wireObj) {
+    if (apiObj is Auth_None) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is Auth_UserPass) {
+      var pre_username = cst_encode_String(apiObj.username);
+      var pre_password = cst_encode_String(apiObj.password);
+      wireObj.tag = 1;
+      wireObj.kind.UserPass.username = pre_username;
+      wireObj.kind.UserPass.password = pre_password;
+      return;
+    }
+    if (apiObj is Auth_Cookie) {
+      var pre_file = cst_encode_String(apiObj.file);
+      wireObj.tag = 2;
+      wireObj.kind.Cookie.file = pre_file;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_balance(Balance apiObj, wire_cst_balance wireObj) {
+    wireObj.immature = cst_encode_u_64(apiObj.immature);
+    wireObj.trusted_pending = cst_encode_u_64(apiObj.trustedPending);
+    wireObj.untrusted_pending = cst_encode_u_64(apiObj.untrustedPending);
+    wireObj.confirmed = cst_encode_u_64(apiObj.confirmed);
+    wireObj.spendable = cst_encode_u_64(apiObj.spendable);
+    wireObj.total = cst_encode_u_64(apiObj.total);
   }
 
   @protected
@@ -1164,6 +1952,42 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_block_time(
+      BlockTime apiObj, wire_cst_block_time wireObj) {
+    wireObj.height = cst_encode_u_32(apiObj.height);
+    wireObj.timestamp = cst_encode_u_64(apiObj.timestamp);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_blockchain_base(
+      BlockchainBase apiObj, wire_cst_blockchain_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_AnyBlockchain(apiObj.ptr);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_blockchain_config(
+      BlockchainConfig apiObj, wire_cst_blockchain_config wireObj) {
+    if (apiObj is BlockchainConfig_Electrum) {
+      var pre_config = cst_encode_box_autoadd_electrum_config(apiObj.config);
+      wireObj.tag = 0;
+      wireObj.kind.Electrum.config = pre_config;
+      return;
+    }
+    if (apiObj is BlockchainConfig_Esplora) {
+      var pre_config = cst_encode_box_autoadd_esplora_config(apiObj.config);
+      wireObj.tag = 1;
+      wireObj.kind.Esplora.config = pre_config;
+      return;
+    }
+    if (apiObj is BlockchainConfig_Rpc) {
+      var pre_config = cst_encode_box_autoadd_rpc_config(apiObj.config);
+      wireObj.tag = 2;
+      wireObj.kind.Rpc.config = pre_config;
+      return;
+    }
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_address_base(
       AddressBase apiObj, ffi.Pointer<wire_cst_address_base> wireObj) {
     cst_api_fill_to_wire_address_base(apiObj, wireObj.ref);
@@ -1173,6 +1997,31 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void cst_api_fill_to_wire_box_autoadd_address_error(
       AddressError apiObj, ffi.Pointer<wire_cst_address_error> wireObj) {
     cst_api_fill_to_wire_address_error(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_address_index(
+      AddressIndex apiObj, ffi.Pointer<wire_cst_address_index> wireObj) {
+    cst_api_fill_to_wire_address_index(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_block_time(
+      BlockTime apiObj, ffi.Pointer<wire_cst_block_time> wireObj) {
+    cst_api_fill_to_wire_block_time(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_blockchain_base(
+      BlockchainBase apiObj, ffi.Pointer<wire_cst_blockchain_base> wireObj) {
+    cst_api_fill_to_wire_blockchain_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_blockchain_config(
+      BlockchainConfig apiObj,
+      ffi.Pointer<wire_cst_blockchain_config> wireObj) {
+    cst_api_fill_to_wire_blockchain_config(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1221,9 +2070,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_electrum_config(
+      ElectrumConfig apiObj, ffi.Pointer<wire_cst_electrum_config> wireObj) {
+    cst_api_fill_to_wire_electrum_config(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_esplora_config(
+      EsploraConfig apiObj, ffi.Pointer<wire_cst_esplora_config> wireObj) {
+    cst_api_fill_to_wire_esplora_config(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_fee_rate(
+      FeeRate apiObj, ffi.Pointer<wire_cst_fee_rate> wireObj) {
+    cst_api_fill_to_wire_fee_rate(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_hex_error(
       HexError apiObj, ffi.Pointer<wire_cst_hex_error> wireObj) {
     cst_api_fill_to_wire_hex_error(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_local_utxo(
+      LocalUtxo apiObj, ffi.Pointer<wire_cst_local_utxo> wireObj) {
+    cst_api_fill_to_wire_local_utxo(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1239,9 +2112,53 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_psbt_base(
+      PsbtBase apiObj, ffi.Pointer<wire_cst_psbt_base> wireObj) {
+    cst_api_fill_to_wire_psbt_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType apiObj,
+      ffi.Pointer<wire_cst_psbt_sig_hash_type> wireObj) {
+    cst_api_fill_to_wire_psbt_sig_hash_type(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_rbf_value(
+      RbfValue apiObj, ffi.Pointer<wire_cst_rbf_value> wireObj) {
+    cst_api_fill_to_wire_rbf_value(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int) apiObj,
+      ffi.Pointer<wire_cst_record_out_point_input_usize> wireObj) {
+    cst_api_fill_to_wire_record_out_point_input_usize(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_rpc_config(
+      RpcConfig apiObj, ffi.Pointer<wire_cst_rpc_config> wireObj) {
+    cst_api_fill_to_wire_rpc_config(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_rpc_sync_params(
+      RpcSyncParams apiObj, ffi.Pointer<wire_cst_rpc_sync_params> wireObj) {
+    cst_api_fill_to_wire_rpc_sync_params(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_script_buf_base(
       ScriptBufBase apiObj, ffi.Pointer<wire_cst_script_buf_base> wireObj) {
     cst_api_fill_to_wire_script_buf_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_sign_options(
+      SignOptions apiObj, ffi.Pointer<wire_cst_sign_options> wireObj) {
+    cst_api_fill_to_wire_sign_options(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1262,6 +2179,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void cst_api_fill_to_wire_box_autoadd_transaction_base(
       TransactionBase apiObj, ffi.Pointer<wire_cst_transaction_base> wireObj) {
     cst_api_fill_to_wire_transaction_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_wallet_base(
+      WalletBase apiObj, ffi.Pointer<wire_cst_wallet_base> wireObj) {
+    cst_api_fill_to_wire_wallet_base(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1437,6 +2360,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_electrum_config(
+      ElectrumConfig apiObj, wire_cst_electrum_config wireObj) {
+    wireObj.url = cst_encode_String(apiObj.url);
+    wireObj.socks5 = cst_encode_opt_String(apiObj.socks5);
+    wireObj.retry = cst_encode_u_8(apiObj.retry);
+    wireObj.timeout = cst_encode_opt_box_autoadd_u_8(apiObj.timeout);
+    wireObj.stop_gap = cst_encode_u_64(apiObj.stopGap);
+    wireObj.validate_domain = cst_encode_bool(apiObj.validateDomain);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_esplora_config(
+      EsploraConfig apiObj, wire_cst_esplora_config wireObj) {
+    wireObj.base_url = cst_encode_String(apiObj.baseUrl);
+    wireObj.proxy = cst_encode_opt_String(apiObj.proxy);
+    wireObj.concurrency = cst_encode_opt_box_autoadd_u_8(apiObj.concurrency);
+    wireObj.stop_gap = cst_encode_u_64(apiObj.stopGap);
+    wireObj.timeout = cst_encode_opt_box_autoadd_u_64(apiObj.timeout);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_fee_rate(
+      FeeRate apiObj, wire_cst_fee_rate wireObj) {
+    wireObj.sat_per_vb = cst_encode_f_32(apiObj.satPerVb);
+  }
+
+  @protected
   void cst_api_fill_to_wire_hex_error(
       HexError apiObj, wire_cst_hex_error wireObj) {
     if (apiObj is HexError_InvalidChar) {
@@ -1459,6 +2409,20 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       wireObj.kind.InvalidLength.field1 = pre_field1;
       return;
     }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_input(Input apiObj, wire_cst_input wireObj) {
+    wireObj.s = cst_encode_String(apiObj.s);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_local_utxo(
+      LocalUtxo apiObj, wire_cst_local_utxo wireObj) {
+    cst_api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
+    cst_api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
+    wireObj.keychain = cst_encode_keychain_kind(apiObj.keychain);
+    wireObj.is_spent = cst_encode_bool(apiObj.isSpent);
   }
 
   @protected
@@ -1501,9 +2465,96 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_psbt_base(
+      PsbtBase apiObj, wire_cst_psbt_base wireObj) {
+    wireObj.ptr =
+        cst_encode_RustOpaque_MutexPartiallySignedTransaction(apiObj.ptr);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_psbt_sig_hash_type(
+      PsbtSigHashType apiObj, wire_cst_psbt_sig_hash_type wireObj) {
+    wireObj.inner = cst_encode_u_32(apiObj.inner);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_rbf_value(
+      RbfValue apiObj, wire_cst_rbf_value wireObj) {
+    if (apiObj is RbfValue_RbfDefault) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is RbfValue_Value) {
+      var pre_field0 = cst_encode_u_32(apiObj.field0);
+      wireObj.tag = 1;
+      wireObj.kind.Value.field0 = pre_field0;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_record_out_point_input_usize(
+      (OutPoint, Input, int) apiObj,
+      wire_cst_record_out_point_input_usize wireObj) {
+    cst_api_fill_to_wire_out_point(apiObj.$1, wireObj.field0);
+    cst_api_fill_to_wire_input(apiObj.$2, wireObj.field1);
+    wireObj.field2 = cst_encode_usize(apiObj.$3);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_record_psbt_base_transaction_details(
+      (PsbtBase, TransactionDetails) apiObj,
+      wire_cst_record_psbt_base_transaction_details wireObj) {
+    cst_api_fill_to_wire_psbt_base(apiObj.$1, wireObj.field0);
+    cst_api_fill_to_wire_transaction_details(apiObj.$2, wireObj.field1);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_rpc_config(
+      RpcConfig apiObj, wire_cst_rpc_config wireObj) {
+    wireObj.url = cst_encode_String(apiObj.url);
+    cst_api_fill_to_wire_auth(apiObj.auth, wireObj.auth);
+    wireObj.network = cst_encode_network(apiObj.network);
+    wireObj.wallet_name = cst_encode_String(apiObj.walletName);
+    wireObj.sync_params =
+        cst_encode_opt_box_autoadd_rpc_sync_params(apiObj.syncParams);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_rpc_sync_params(
+      RpcSyncParams apiObj, wire_cst_rpc_sync_params wireObj) {
+    wireObj.start_script_count = cst_encode_u_64(apiObj.startScriptCount);
+    wireObj.start_time = cst_encode_u_64(apiObj.startTime);
+    wireObj.force_start_time = cst_encode_bool(apiObj.forceStartTime);
+    wireObj.poll_rate_sec = cst_encode_u_64(apiObj.pollRateSec);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_script_amount(
+      ScriptAmount apiObj, wire_cst_script_amount wireObj) {
+    cst_api_fill_to_wire_script_buf_base(apiObj.script, wireObj.script);
+    wireObj.amount = cst_encode_u_64(apiObj.amount);
+  }
+
+  @protected
   void cst_api_fill_to_wire_script_buf_base(
       ScriptBufBase apiObj, wire_cst_script_buf_base wireObj) {
     wireObj.bytes = cst_encode_list_prim_u_8_strict(apiObj.bytes);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sign_options(
+      SignOptions apiObj, wire_cst_sign_options wireObj) {
+    wireObj.multi_sig = cst_encode_bool(apiObj.multiSig);
+    wireObj.trust_witness_utxo = cst_encode_bool(apiObj.trustWitnessUtxo);
+    wireObj.assume_height =
+        cst_encode_opt_box_autoadd_u_32(apiObj.assumeHeight);
+    wireObj.allow_all_sighashes = cst_encode_bool(apiObj.allowAllSighashes);
+    wireObj.remove_partial_sigs = cst_encode_bool(apiObj.removePartialSigs);
+    wireObj.try_finalize = cst_encode_bool(apiObj.tryFinalize);
+    wireObj.sign_with_tap_internal_key =
+        cst_encode_bool(apiObj.signWithTapInternalKey);
+    wireObj.allow_grinding = cst_encode_bool(apiObj.allowGrinding);
   }
 
   @protected
@@ -1526,6 +2577,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_transaction_details(
+      TransactionDetails apiObj, wire_cst_transaction_details wireObj) {
+    wireObj.transaction =
+        cst_encode_opt_box_autoadd_transaction_base(apiObj.transaction);
+    wireObj.txid = cst_encode_String(apiObj.txid);
+    wireObj.received = cst_encode_u_64(apiObj.received);
+    wireObj.sent = cst_encode_u_64(apiObj.sent);
+    wireObj.fee = cst_encode_opt_box_autoadd_u_64(apiObj.fee);
+    wireObj.confirmation_time =
+        cst_encode_opt_box_autoadd_block_time(apiObj.confirmationTime);
+  }
+
+  @protected
   void cst_api_fill_to_wire_tx_in(TxIn apiObj, wire_cst_tx_in wireObj) {
     cst_api_fill_to_wire_out_point(
         apiObj.previousOutput, wireObj.previous_output);
@@ -1544,9 +2608,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void cst_api_fill_to_wire_wallet_base(
       WalletBase apiObj, wire_cst_wallet_base wireObj) {
-    wireObj.ptr =
-        cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-            apiObj.ptr);
+    wireObj.ptr = cst_encode_RustOpaque_MutexbdkWalletAnyDatabase(apiObj.ptr);
   }
 
   @protected
@@ -1570,16 +2632,23 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       ExtendedDescriptor raw);
 
   @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      MutexBdkWalletAnyDatabase raw);
-
-  @protected
   int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
       BdkBitcoinAddress raw);
 
   @protected
   int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
       KeysKeyMap raw);
+
+  @protected
+  int cst_encode_RustOpaque_AnyBlockchain(AnyBlockchain raw);
+
+  @protected
+  int cst_encode_RustOpaque_MutexPartiallySignedTransaction(
+      MutexPartiallySignedTransaction raw);
+
+  @protected
+  int cst_encode_RustOpaque_MutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase raw);
 
   @protected
   int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
@@ -1602,10 +2671,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       ExtendedDescriptor raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      MutexBdkWalletAnyDatabase raw);
-
-  @protected
   int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
       BdkBitcoinAddress raw);
 
@@ -1615,6 +2680,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   bool cst_encode_bool(bool raw);
+
+  @protected
+  int cst_encode_change_spend_policy(ChangeSpendPolicy raw);
 
   @protected
   double cst_encode_f_32(double raw);
@@ -1676,11 +2744,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          MutexBdkWalletAnyDatabase self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer);
 
@@ -1688,6 +2751,18 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(
           KeysKeyMap self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_AnyBlockchain(
+      AnyBlockchain self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_MutexPartiallySignedTransaction(
+      MutexPartiallySignedTransaction self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_MutexbdkWalletAnyDatabase(
+      MutexBdkWalletAnyDatabase self, SseSerializer serializer);
 
   @protected
   void
@@ -1716,11 +2791,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-          MutexBdkWalletAnyDatabase self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
           BdkBitcoinAddress self, SseSerializer serializer);
 
@@ -1739,7 +2809,30 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_address_error(AddressError self, SseSerializer serializer);
 
   @protected
+  void sse_encode_address_index(AddressIndex self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_address_info(AddressInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_auth(Auth self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_balance(Balance self, SseSerializer serializer);
+
+  @protected
   void sse_encode_bdk_error(BdkError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_block_time(BlockTime self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_blockchain_base(
+      BlockchainBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_blockchain_config(
+      BlockchainConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_bool(bool self, SseSerializer serializer);
@@ -1751,6 +2844,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_box_autoadd_address_error(
       AddressError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_address_index(
+      AddressIndex self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_block_time(
+      BlockTime self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_blockchain_base(
+      BlockchainBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_blockchain_config(
+      BlockchainConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_consensus_error(
@@ -1781,8 +2890,26 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_electrum_config(
+      ElectrumConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_esplora_config(
+      EsploraConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_f_32(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_fee_rate(FeeRate self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_hex_error(
       HexError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_local_utxo(
+      LocalUtxo self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_mnemonic_base(
@@ -1793,8 +2920,36 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       OutPoint self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_psbt_base(
+      PsbtBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rbf_value(
+      RbfValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rpc_config(
+      RpcConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rpc_sync_params(
+      RpcSyncParams self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_script_buf_base(
       ScriptBufBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_sign_options(
+      SignOptions self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_sled_db_configuration(
@@ -1807,6 +2962,23 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_box_autoadd_transaction_base(
       TransactionBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_64(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_u_8(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_wallet_base(
+      WalletBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_change_spend_policy(
+      ChangeSpendPolicy self, SseSerializer serializer);
 
   @protected
   void sse_encode_consensus_error(
@@ -1837,13 +3009,26 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
+  void sse_encode_electrum_config(
+      ElectrumConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_esplora_config(EsploraConfig self, SseSerializer serializer);
+
+  @protected
   void sse_encode_f_32(double self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_fee_rate(FeeRate self, SseSerializer serializer);
 
   @protected
   void sse_encode_hex_error(HexError self, SseSerializer serializer);
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_input(Input self, SseSerializer serializer);
 
   @protected
   void sse_encode_keychain_kind(KeychainKind self, SseSerializer serializer);
@@ -1853,6 +3038,13 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       List<Uint8List> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_local_utxo(
+      List<LocalUtxo> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_out_point(List<OutPoint> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
@@ -1860,10 +3052,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       Uint8List self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_script_amount(
+      List<ScriptAmount> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_transaction_details(
+      List<TransactionDetails> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_tx_in(List<TxIn> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_tx_out(List<TxOut> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_local_utxo(LocalUtxo self, SseSerializer serializer);
 
   @protected
   void sse_encode_mnemonic_base(MnemonicBase self, SseSerializer serializer);
@@ -1875,8 +3078,60 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_address_base(
+      AddressBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_block_time(
+      BlockTime? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_descriptor_base(
       DescriptorBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_32(double? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_fee_rate(
+      FeeRate? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_psbt_sig_hash_type(
+      PsbtSigHashType? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_rbf_value(
+      RbfValue? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_record_out_point_input_usize(
+      (OutPoint, Input, int)? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_rpc_sync_params(
+      RpcSyncParams? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_script_buf_base(
+      ScriptBufBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_sign_options(
+      SignOptions? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_transaction_base(
+      TransactionBase? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_8(int? self, SseSerializer serializer);
 
   @protected
   void sse_encode_out_point(OutPoint self, SseSerializer serializer);
@@ -1885,7 +3140,37 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_payload(Payload self, SseSerializer serializer);
 
   @protected
+  void sse_encode_psbt_base(PsbtBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_psbt_sig_hash_type(
+      PsbtSigHashType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rbf_value(RbfValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_out_point_input_usize(
+      (OutPoint, Input, int) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_psbt_base_transaction_details(
+      (PsbtBase, TransactionDetails) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rpc_config(RpcConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rpc_sync_params(RpcSyncParams self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_script_amount(ScriptAmount self, SseSerializer serializer);
+
+  @protected
   void sse_encode_script_buf_base(ScriptBufBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sign_options(SignOptions self, SseSerializer serializer);
 
   @protected
   void sse_encode_sled_db_configuration(
@@ -1898,6 +3183,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_transaction_base(
       TransactionBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_transaction_details(
+      TransactionDetails self, SseSerializer serializer);
 
   @protected
   void sse_encode_tx_in(TxIn self, SseSerializer serializer);
@@ -1977,6 +3266,109 @@ class BdkCoreWire implements BaseWire {
           'store_dart_post_cobject');
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
       .asFunction<void Function(DartPostCObjectFnType)>();
+
+  void wire_BlockchainBase_broadcast(
+    int port_,
+    ffi.Pointer<wire_cst_blockchain_base> that,
+    ffi.Pointer<wire_cst_transaction_base> transaction,
+  ) {
+    return _wire_BlockchainBase_broadcast(
+      port_,
+      that,
+      transaction,
+    );
+  }
+
+  late final _wire_BlockchainBase_broadcastPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_blockchain_base>,
+                  ffi.Pointer<wire_cst_transaction_base>)>>(
+      'frbgen_bdk_flutter_wire_BlockchainBase_broadcast');
+  late final _wire_BlockchainBase_broadcast =
+      _wire_BlockchainBase_broadcastPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_blockchain_base>,
+              ffi.Pointer<wire_cst_transaction_base>)>();
+
+  void wire_BlockchainBase_estimate_fee(
+    int port_,
+    ffi.Pointer<wire_cst_blockchain_base> that,
+    int target,
+  ) {
+    return _wire_BlockchainBase_estimate_fee(
+      port_,
+      that,
+      target,
+    );
+  }
+
+  late final _wire_BlockchainBase_estimate_feePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_blockchain_base>, ffi.Uint64)>>(
+      'frbgen_bdk_flutter_wire_BlockchainBase_estimate_fee');
+  late final _wire_BlockchainBase_estimate_fee =
+      _wire_BlockchainBase_estimate_feePtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_blockchain_base>, int)>();
+
+  void wire_BlockchainBase_get_block_hash(
+    int port_,
+    ffi.Pointer<wire_cst_blockchain_base> that,
+    int height,
+  ) {
+    return _wire_BlockchainBase_get_block_hash(
+      port_,
+      that,
+      height,
+    );
+  }
+
+  late final _wire_BlockchainBase_get_block_hashPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_blockchain_base>, ffi.Uint32)>>(
+      'frbgen_bdk_flutter_wire_BlockchainBase_get_block_hash');
+  late final _wire_BlockchainBase_get_block_hash =
+      _wire_BlockchainBase_get_block_hashPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_blockchain_base>, int)>();
+
+  void wire_BlockchainBase_get_height(
+    int port_,
+    ffi.Pointer<wire_cst_blockchain_base> that,
+  ) {
+    return _wire_BlockchainBase_get_height(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_BlockchainBase_get_heightPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_blockchain_base>)>>(
+      'frbgen_bdk_flutter_wire_BlockchainBase_get_height');
+  late final _wire_BlockchainBase_get_height =
+      _wire_BlockchainBase_get_heightPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_blockchain_base>)>();
+
+  void wire_BlockchainBase_new(
+    int port_,
+    ffi.Pointer<wire_cst_blockchain_config> blockchain_config,
+  ) {
+    return _wire_BlockchainBase_new(
+      port_,
+      blockchain_config,
+    );
+  }
+
+  late final _wire_BlockchainBase_newPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_blockchain_config>)>>(
+      'frbgen_bdk_flutter_wire_BlockchainBase_new');
+  late final _wire_BlockchainBase_new = _wire_BlockchainBase_newPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_cst_blockchain_config>)>();
 
   void wire_DescriptorBase_as_string(
     int port_,
@@ -2387,11 +3779,11 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_as_public(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_secret_key_base> that,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret,
   ) {
     return _wire_DescriptorSecretKeyBase_as_public(
       port_,
-      that,
+      secret,
     );
   }
 
@@ -2611,6 +4003,147 @@ class BdkCoreWire implements BaseWire {
   late final _wire_MnemonicBase_new =
       _wire_MnemonicBase_newPtr.asFunction<void Function(int, int)>();
 
+  void wire_PsbtBase_combine(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+    ffi.Pointer<wire_cst_psbt_base> other,
+  ) {
+    return _wire_PsbtBase_combine(
+      port_,
+      that,
+      other,
+    );
+  }
+
+  late final _wire_PsbtBase_combinePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>,
+                  ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_combine');
+  late final _wire_PsbtBase_combine = _wire_PsbtBase_combinePtr.asFunction<
+      void Function(int, ffi.Pointer<wire_cst_psbt_base>,
+          ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_extract_tx(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_extract_tx(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_extract_txPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_extract_tx');
+  late final _wire_PsbtBase_extract_tx = _wire_PsbtBase_extract_txPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_fee_amount(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_fee_amount(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_fee_amountPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_fee_amount');
+  late final _wire_PsbtBase_fee_amount = _wire_PsbtBase_fee_amountPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_fee_rate(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_fee_rate(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_fee_ratePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_fee_rate');
+  late final _wire_PsbtBase_fee_rate = _wire_PsbtBase_fee_ratePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_from_str(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> psbt_base64,
+  ) {
+    return _wire_PsbtBase_from_str(
+      port_,
+      psbt_base64,
+    );
+  }
+
+  late final _wire_PsbtBase_from_strPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_from_str');
+  late final _wire_PsbtBase_from_str = _wire_PsbtBase_from_strPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire_PsbtBase_json_serialize(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_json_serialize(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_json_serializePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_json_serialize');
+  late final _wire_PsbtBase_json_serialize = _wire_PsbtBase_json_serializePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_serialize(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_serialize(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_serializePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_serialize');
+  late final _wire_PsbtBase_serialize = _wire_PsbtBase_serializePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
+  void wire_PsbtBase_txid(
+    int port_,
+    ffi.Pointer<wire_cst_psbt_base> that,
+  ) {
+    return _wire_PsbtBase_txid(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_PsbtBase_txidPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_psbt_base>)>>(
+      'frbgen_bdk_flutter_wire_PsbtBase_txid');
+  late final _wire_PsbtBase_txid = _wire_PsbtBase_txidPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_psbt_base>)>();
+
   void wire_AddressBase_as_string(
     int port_,
     ffi.Pointer<wire_cst_address_base> that,
@@ -2729,24 +4262,23 @@ class BdkCoreWire implements BaseWire {
   late final _wire_AddressBase_payload = _wire_AddressBase_payloadPtr
       .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
-  void wire_AddressBase_script_pubkey(
+  void wire_AddressBase_script(
     int port_,
-    ffi.Pointer<wire_cst_address_base> that,
+    ffi.Pointer<wire_cst_address_base> address,
   ) {
-    return _wire_AddressBase_script_pubkey(
+    return _wire_AddressBase_script(
       port_,
-      that,
+      address,
     );
   }
 
-  late final _wire_AddressBase_script_pubkeyPtr = _lookup<
+  late final _wire_AddressBase_scriptPtr = _lookup<
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
-      'frbgen_bdk_flutter_wire_AddressBase_script_pubkey');
-  late final _wire_AddressBase_script_pubkey =
-      _wire_AddressBase_script_pubkeyPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
+      'frbgen_bdk_flutter_wire_AddressBase_script');
+  late final _wire_AddressBase_script = _wire_AddressBase_scriptPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_AddressBase_to_qr_uri(
     int port_,
@@ -3056,6 +4588,198 @@ class BdkCoreWire implements BaseWire {
   late final _wire_TransactionBase_weight = _wire_TransactionBase_weightPtr
       .asFunction<void Function(int, ffi.Pointer<wire_cst_transaction_base>)>();
 
+  void wire_WalletBase_get_address(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_address_index> address_index,
+  ) {
+    return _wire_WalletBase_get_address(
+      port_,
+      that,
+      address_index,
+    );
+  }
+
+  late final _wire_WalletBase_get_addressPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_address_index>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_get_address');
+  late final _wire_WalletBase_get_address =
+      _wire_WalletBase_get_addressPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_wallet_base>,
+              ffi.Pointer<wire_cst_address_index>)>();
+
+  void wire_WalletBase_get_balance(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+  ) {
+    return _wire_WalletBase_get_balance(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_WalletBase_get_balancePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_get_balance');
+  late final _wire_WalletBase_get_balance = _wire_WalletBase_get_balancePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_wallet_base>)>();
+
+  void wire_WalletBase_get_descriptor_for_keychain(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    int keychain,
+  ) {
+    return _wire_WalletBase_get_descriptor_for_keychain(
+      port_,
+      that,
+      keychain,
+    );
+  }
+
+  late final _wire_WalletBase_get_descriptor_for_keychainPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_wallet_base>, ffi.Int32)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_get_descriptor_for_keychain');
+  late final _wire_WalletBase_get_descriptor_for_keychain =
+      _wire_WalletBase_get_descriptor_for_keychainPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_wallet_base>, int)>();
+
+  void wire_WalletBase_get_internal_address(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_address_index> address_index,
+  ) {
+    return _wire_WalletBase_get_internal_address(
+      port_,
+      that,
+      address_index,
+    );
+  }
+
+  late final _wire_WalletBase_get_internal_addressPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_address_index>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_get_internal_address');
+  late final _wire_WalletBase_get_internal_address =
+      _wire_WalletBase_get_internal_addressPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_wallet_base>,
+              ffi.Pointer<wire_cst_address_index>)>();
+
+  void wire_WalletBase_get_psbt_input(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_local_utxo> utxo,
+    bool only_witness_utxo,
+    ffi.Pointer<wire_cst_psbt_sig_hash_type> sighash_type,
+  ) {
+    return _wire_WalletBase_get_psbt_input(
+      port_,
+      that,
+      utxo,
+      only_witness_utxo,
+      sighash_type,
+    );
+  }
+
+  late final _wire_WalletBase_get_psbt_inputPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_local_utxo>,
+                  ffi.Bool,
+                  ffi.Pointer<wire_cst_psbt_sig_hash_type>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_get_psbt_input');
+  late final _wire_WalletBase_get_psbt_input =
+      _wire_WalletBase_get_psbt_inputPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_wallet_base>,
+              ffi.Pointer<wire_cst_local_utxo>,
+              bool,
+              ffi.Pointer<wire_cst_psbt_sig_hash_type>)>();
+
+  void wire_WalletBase_is_mine(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_script_buf_base> script,
+  ) {
+    return _wire_WalletBase_is_mine(
+      port_,
+      that,
+      script,
+    );
+  }
+
+  late final _wire_WalletBase_is_minePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_script_buf_base>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_is_mine');
+  late final _wire_WalletBase_is_mine = _wire_WalletBase_is_minePtr.asFunction<
+      void Function(int, ffi.Pointer<wire_cst_wallet_base>,
+          ffi.Pointer<wire_cst_script_buf_base>)>();
+
+  void wire_WalletBase_list_transactions(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    bool include_raw,
+  ) {
+    return _wire_WalletBase_list_transactions(
+      port_,
+      that,
+      include_raw,
+    );
+  }
+
+  late final _wire_WalletBase_list_transactionsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_wallet_base>, ffi.Bool)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_list_transactions');
+  late final _wire_WalletBase_list_transactions =
+      _wire_WalletBase_list_transactionsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_wallet_base>, bool)>();
+
+  void wire_WalletBase_list_unspent(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+  ) {
+    return _wire_WalletBase_list_unspent(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_WalletBase_list_unspentPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_list_unspent');
+  late final _wire_WalletBase_list_unspent = _wire_WalletBase_list_unspentPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_wallet_base>)>();
+
+  void wire_WalletBase_network(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+  ) {
+    return _wire_WalletBase_network(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_WalletBase_networkPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_network');
+  late final _wire_WalletBase_network = _wire_WalletBase_networkPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_wallet_base>)>();
+
   void wire_WalletBase_new(
     int port_,
     ffi.Pointer<wire_cst_descriptor_base> descriptor,
@@ -3088,6 +4812,259 @@ class BdkCoreWire implements BaseWire {
           ffi.Pointer<wire_cst_descriptor_base>,
           int,
           ffi.Pointer<wire_cst_database_config>)>();
+
+  void wire_WalletBase_sign(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_psbt_base> psbt,
+    ffi.Pointer<wire_cst_sign_options> sign_options,
+  ) {
+    return _wire_WalletBase_sign(
+      port_,
+      that,
+      psbt,
+      sign_options,
+    );
+  }
+
+  late final _wire_WalletBase_signPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_psbt_base>,
+                  ffi.Pointer<wire_cst_sign_options>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_sign');
+  late final _wire_WalletBase_sign = _wire_WalletBase_signPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_cst_wallet_base>,
+          ffi.Pointer<wire_cst_psbt_base>,
+          ffi.Pointer<wire_cst_sign_options>)>();
+
+  void wire_WalletBase_sync(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_blockchain_base> blockchain,
+  ) {
+    return _wire_WalletBase_sync(
+      port_,
+      that,
+      blockchain,
+    );
+  }
+
+  late final _wire_WalletBase_syncPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_blockchain_base>)>>(
+      'frbgen_bdk_flutter_wire_WalletBase_sync');
+  late final _wire_WalletBase_sync = _wire_WalletBase_syncPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_cst_wallet_base>,
+          ffi.Pointer<wire_cst_blockchain_base>)>();
+
+  void wire_finish_bump_fee_tx_builder(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
+    double fee_rate,
+    ffi.Pointer<wire_cst_address_base> allow_shrinking,
+    ffi.Pointer<wire_cst_wallet_base> wallet,
+    bool enable_rbf,
+    ffi.Pointer<ffi.Uint32> n_sequence,
+  ) {
+    return _wire_finish_bump_fee_tx_builder(
+      port_,
+      txid,
+      fee_rate,
+      allow_shrinking,
+      wallet,
+      enable_rbf,
+      n_sequence,
+    );
+  }
+
+  late final _wire_finish_bump_fee_tx_builderPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Float,
+                  ffi.Pointer<wire_cst_address_base>,
+                  ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Bool,
+                  ffi.Pointer<ffi.Uint32>)>>(
+      'frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder');
+  late final _wire_finish_bump_fee_tx_builder =
+      _wire_finish_bump_fee_tx_builderPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              double,
+              ffi.Pointer<wire_cst_address_base>,
+              ffi.Pointer<wire_cst_wallet_base>,
+              bool,
+              ffi.Pointer<ffi.Uint32>)>();
+
+  void wire_tx_builder_finish(
+    int port_,
+    ffi.Pointer<wire_cst_wallet_base> wallet,
+    ffi.Pointer<wire_cst_list_script_amount> recipients,
+    ffi.Pointer<wire_cst_list_out_point> utxos,
+    ffi.Pointer<wire_cst_record_out_point_input_usize> foreign_utxo,
+    ffi.Pointer<wire_cst_list_out_point> un_spendable,
+    int change_policy,
+    bool manually_selected_only,
+    ffi.Pointer<ffi.Float> fee_rate,
+    ffi.Pointer<ffi.Uint64> fee_absolute,
+    bool drain_wallet,
+    ffi.Pointer<wire_cst_script_buf_base> drain_to,
+    ffi.Pointer<wire_cst_rbf_value> rbf,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
+  ) {
+    return _wire_tx_builder_finish(
+      port_,
+      wallet,
+      recipients,
+      utxos,
+      foreign_utxo,
+      un_spendable,
+      change_policy,
+      manually_selected_only,
+      fee_rate,
+      fee_absolute,
+      drain_wallet,
+      drain_to,
+      rbf,
+      data,
+    );
+  }
+
+  late final _wire_tx_builder_finishPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_wallet_base>,
+                  ffi.Pointer<wire_cst_list_script_amount>,
+                  ffi.Pointer<wire_cst_list_out_point>,
+                  ffi.Pointer<wire_cst_record_out_point_input_usize>,
+                  ffi.Pointer<wire_cst_list_out_point>,
+                  ffi.Int32,
+                  ffi.Bool,
+                  ffi.Pointer<ffi.Float>,
+                  ffi.Pointer<ffi.Uint64>,
+                  ffi.Bool,
+                  ffi.Pointer<wire_cst_script_buf_base>,
+                  ffi.Pointer<wire_cst_rbf_value>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_loose>)>>(
+      'frbgen_bdk_flutter_wire_tx_builder_finish');
+  late final _wire_tx_builder_finish = _wire_tx_builder_finishPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_cst_wallet_base>,
+          ffi.Pointer<wire_cst_list_script_amount>,
+          ffi.Pointer<wire_cst_list_out_point>,
+          ffi.Pointer<wire_cst_record_out_point_input_usize>,
+          ffi.Pointer<wire_cst_list_out_point>,
+          int,
+          bool,
+          ffi.Pointer<ffi.Float>,
+          ffi.Pointer<ffi.Uint64>,
+          bool,
+          ffi.Pointer<wire_cst_script_buf_base>,
+          ffi.Pointer<wire_cst_rbf_value>,
+          ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_AnyBlockchain(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_AnyBlockchain(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_AnyBlockchainPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_AnyBlockchain');
+  late final _rust_arc_increment_strong_count_RustOpaque_AnyBlockchain =
+      _rust_arc_increment_strong_count_RustOpaque_AnyBlockchainPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_AnyBlockchainPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain');
+  late final _rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain =
+      _rust_arc_decrement_strong_count_RustOpaque_AnyBlockchainPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction');
+  late final _rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction =
+      _rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction');
+  late final _rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction =
+      _rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase');
+  late final _rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase =
+      _rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase');
+  late final _rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase =
+      _rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
       rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(
@@ -3250,38 +5227,6 @@ class BdkCoreWire implements BaseWire {
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabasePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabasePtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabasePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMutexbdkWalletAnyDatabasePtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
       rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
     ffi.Pointer<ffi.Void> ptr,
   ) {
@@ -3366,6 +5311,52 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_box_autoadd_address_error =
       _cst_new_box_autoadd_address_errorPtr
           .asFunction<ffi.Pointer<wire_cst_address_error> Function()>();
+
+  ffi.Pointer<wire_cst_address_index> cst_new_box_autoadd_address_index() {
+    return _cst_new_box_autoadd_address_index();
+  }
+
+  late final _cst_new_box_autoadd_address_indexPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_address_index> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_address_index');
+  late final _cst_new_box_autoadd_address_index =
+      _cst_new_box_autoadd_address_indexPtr
+          .asFunction<ffi.Pointer<wire_cst_address_index> Function()>();
+
+  ffi.Pointer<wire_cst_block_time> cst_new_box_autoadd_block_time() {
+    return _cst_new_box_autoadd_block_time();
+  }
+
+  late final _cst_new_box_autoadd_block_timePtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_block_time> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_block_time');
+  late final _cst_new_box_autoadd_block_time =
+      _cst_new_box_autoadd_block_timePtr
+          .asFunction<ffi.Pointer<wire_cst_block_time> Function()>();
+
+  ffi.Pointer<wire_cst_blockchain_base> cst_new_box_autoadd_blockchain_base() {
+    return _cst_new_box_autoadd_blockchain_base();
+  }
+
+  late final _cst_new_box_autoadd_blockchain_basePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_blockchain_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_blockchain_base');
+  late final _cst_new_box_autoadd_blockchain_base =
+      _cst_new_box_autoadd_blockchain_basePtr
+          .asFunction<ffi.Pointer<wire_cst_blockchain_base> Function()>();
+
+  ffi.Pointer<wire_cst_blockchain_config>
+      cst_new_box_autoadd_blockchain_config() {
+    return _cst_new_box_autoadd_blockchain_config();
+  }
+
+  late final _cst_new_box_autoadd_blockchain_configPtr = _lookup<
+          ffi
+          .NativeFunction<ffi.Pointer<wire_cst_blockchain_config> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_blockchain_config');
+  late final _cst_new_box_autoadd_blockchain_config =
+      _cst_new_box_autoadd_blockchain_configPtr
+          .asFunction<ffi.Pointer<wire_cst_blockchain_config> Function()>();
 
   ffi.Pointer<wire_cst_consensus_error> cst_new_box_autoadd_consensus_error() {
     return _cst_new_box_autoadd_consensus_error();
@@ -3452,6 +5443,52 @@ class BdkCoreWire implements BaseWire {
       _cst_new_box_autoadd_descriptor_secret_key_basePtr.asFunction<
           ffi.Pointer<wire_cst_descriptor_secret_key_base> Function()>();
 
+  ffi.Pointer<wire_cst_electrum_config> cst_new_box_autoadd_electrum_config() {
+    return _cst_new_box_autoadd_electrum_config();
+  }
+
+  late final _cst_new_box_autoadd_electrum_configPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_electrum_config> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_electrum_config');
+  late final _cst_new_box_autoadd_electrum_config =
+      _cst_new_box_autoadd_electrum_configPtr
+          .asFunction<ffi.Pointer<wire_cst_electrum_config> Function()>();
+
+  ffi.Pointer<wire_cst_esplora_config> cst_new_box_autoadd_esplora_config() {
+    return _cst_new_box_autoadd_esplora_config();
+  }
+
+  late final _cst_new_box_autoadd_esplora_configPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_esplora_config> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_esplora_config');
+  late final _cst_new_box_autoadd_esplora_config =
+      _cst_new_box_autoadd_esplora_configPtr
+          .asFunction<ffi.Pointer<wire_cst_esplora_config> Function()>();
+
+  ffi.Pointer<ffi.Float> cst_new_box_autoadd_f_32(
+    double value,
+  ) {
+    return _cst_new_box_autoadd_f_32(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_f_32Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Float> Function(ffi.Float)>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_f_32');
+  late final _cst_new_box_autoadd_f_32 = _cst_new_box_autoadd_f_32Ptr
+      .asFunction<ffi.Pointer<ffi.Float> Function(double)>();
+
+  ffi.Pointer<wire_cst_fee_rate> cst_new_box_autoadd_fee_rate() {
+    return _cst_new_box_autoadd_fee_rate();
+  }
+
+  late final _cst_new_box_autoadd_fee_ratePtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_fee_rate> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_fee_rate');
+  late final _cst_new_box_autoadd_fee_rate = _cst_new_box_autoadd_fee_ratePtr
+      .asFunction<ffi.Pointer<wire_cst_fee_rate> Function()>();
+
   ffi.Pointer<wire_cst_hex_error> cst_new_box_autoadd_hex_error() {
     return _cst_new_box_autoadd_hex_error();
   }
@@ -3461,6 +5498,17 @@ class BdkCoreWire implements BaseWire {
           'frbgen_bdk_flutter_cst_new_box_autoadd_hex_error');
   late final _cst_new_box_autoadd_hex_error = _cst_new_box_autoadd_hex_errorPtr
       .asFunction<ffi.Pointer<wire_cst_hex_error> Function()>();
+
+  ffi.Pointer<wire_cst_local_utxo> cst_new_box_autoadd_local_utxo() {
+    return _cst_new_box_autoadd_local_utxo();
+  }
+
+  late final _cst_new_box_autoadd_local_utxoPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_local_utxo> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_local_utxo');
+  late final _cst_new_box_autoadd_local_utxo =
+      _cst_new_box_autoadd_local_utxoPtr
+          .asFunction<ffi.Pointer<wire_cst_local_utxo> Function()>();
 
   ffi.Pointer<wire_cst_mnemonic_base> cst_new_box_autoadd_mnemonic_base() {
     return _cst_new_box_autoadd_mnemonic_base();
@@ -3483,6 +5531,74 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_box_autoadd_out_point = _cst_new_box_autoadd_out_pointPtr
       .asFunction<ffi.Pointer<wire_cst_out_point> Function()>();
 
+  ffi.Pointer<wire_cst_psbt_base> cst_new_box_autoadd_psbt_base() {
+    return _cst_new_box_autoadd_psbt_base();
+  }
+
+  late final _cst_new_box_autoadd_psbt_basePtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_psbt_base> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_psbt_base');
+  late final _cst_new_box_autoadd_psbt_base = _cst_new_box_autoadd_psbt_basePtr
+      .asFunction<ffi.Pointer<wire_cst_psbt_base> Function()>();
+
+  ffi.Pointer<wire_cst_psbt_sig_hash_type>
+      cst_new_box_autoadd_psbt_sig_hash_type() {
+    return _cst_new_box_autoadd_psbt_sig_hash_type();
+  }
+
+  late final _cst_new_box_autoadd_psbt_sig_hash_typePtr = _lookup<
+          ffi
+          .NativeFunction<ffi.Pointer<wire_cst_psbt_sig_hash_type> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_psbt_sig_hash_type');
+  late final _cst_new_box_autoadd_psbt_sig_hash_type =
+      _cst_new_box_autoadd_psbt_sig_hash_typePtr
+          .asFunction<ffi.Pointer<wire_cst_psbt_sig_hash_type> Function()>();
+
+  ffi.Pointer<wire_cst_rbf_value> cst_new_box_autoadd_rbf_value() {
+    return _cst_new_box_autoadd_rbf_value();
+  }
+
+  late final _cst_new_box_autoadd_rbf_valuePtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_rbf_value> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value');
+  late final _cst_new_box_autoadd_rbf_value = _cst_new_box_autoadd_rbf_valuePtr
+      .asFunction<ffi.Pointer<wire_cst_rbf_value> Function()>();
+
+  ffi.Pointer<wire_cst_record_out_point_input_usize>
+      cst_new_box_autoadd_record_out_point_input_usize() {
+    return _cst_new_box_autoadd_record_out_point_input_usize();
+  }
+
+  late final _cst_new_box_autoadd_record_out_point_input_usizePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_record_out_point_input_usize> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_record_out_point_input_usize');
+  late final _cst_new_box_autoadd_record_out_point_input_usize =
+      _cst_new_box_autoadd_record_out_point_input_usizePtr.asFunction<
+          ffi.Pointer<wire_cst_record_out_point_input_usize> Function()>();
+
+  ffi.Pointer<wire_cst_rpc_config> cst_new_box_autoadd_rpc_config() {
+    return _cst_new_box_autoadd_rpc_config();
+  }
+
+  late final _cst_new_box_autoadd_rpc_configPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_rpc_config> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_rpc_config');
+  late final _cst_new_box_autoadd_rpc_config =
+      _cst_new_box_autoadd_rpc_configPtr
+          .asFunction<ffi.Pointer<wire_cst_rpc_config> Function()>();
+
+  ffi.Pointer<wire_cst_rpc_sync_params> cst_new_box_autoadd_rpc_sync_params() {
+    return _cst_new_box_autoadd_rpc_sync_params();
+  }
+
+  late final _cst_new_box_autoadd_rpc_sync_paramsPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_rpc_sync_params> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_rpc_sync_params');
+  late final _cst_new_box_autoadd_rpc_sync_params =
+      _cst_new_box_autoadd_rpc_sync_paramsPtr
+          .asFunction<ffi.Pointer<wire_cst_rpc_sync_params> Function()>();
+
   ffi.Pointer<wire_cst_script_buf_base> cst_new_box_autoadd_script_buf_base() {
     return _cst_new_box_autoadd_script_buf_base();
   }
@@ -3493,6 +5609,17 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_box_autoadd_script_buf_base =
       _cst_new_box_autoadd_script_buf_basePtr
           .asFunction<ffi.Pointer<wire_cst_script_buf_base> Function()>();
+
+  ffi.Pointer<wire_cst_sign_options> cst_new_box_autoadd_sign_options() {
+    return _cst_new_box_autoadd_sign_options();
+  }
+
+  late final _cst_new_box_autoadd_sign_optionsPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_sign_options> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_sign_options');
+  late final _cst_new_box_autoadd_sign_options =
+      _cst_new_box_autoadd_sign_optionsPtr
+          .asFunction<ffi.Pointer<wire_cst_sign_options> Function()>();
 
   ffi.Pointer<wire_cst_sled_db_configuration>
       cst_new_box_autoadd_sled_db_configuration() {
@@ -3533,6 +5660,59 @@ class BdkCoreWire implements BaseWire {
       _cst_new_box_autoadd_transaction_basePtr
           .asFunction<ffi.Pointer<wire_cst_transaction_base> Function()>();
 
+  ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_u_32(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_u_32Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_u_32');
+  late final _cst_new_box_autoadd_u_32 = _cst_new_box_autoadd_u_32Ptr
+      .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
+
+  ffi.Pointer<ffi.Uint64> cst_new_box_autoadd_u_64(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_u_64(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_u_64Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_u_64');
+  late final _cst_new_box_autoadd_u_64 = _cst_new_box_autoadd_u_64Ptr
+      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
+
+  ffi.Pointer<ffi.Uint8> cst_new_box_autoadd_u_8(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_u_8(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_u_8Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint8> Function(ffi.Uint8)>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_u_8');
+  late final _cst_new_box_autoadd_u_8 = _cst_new_box_autoadd_u_8Ptr
+      .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
+
+  ffi.Pointer<wire_cst_wallet_base> cst_new_box_autoadd_wallet_base() {
+    return _cst_new_box_autoadd_wallet_base();
+  }
+
+  late final _cst_new_box_autoadd_wallet_basePtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_wallet_base> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_wallet_base');
+  late final _cst_new_box_autoadd_wallet_base =
+      _cst_new_box_autoadd_wallet_basePtr
+          .asFunction<ffi.Pointer<wire_cst_wallet_base> Function()>();
+
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_new_list_list_prim_u_8_strict(
     int len,
@@ -3550,6 +5730,36 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_list_list_prim_u_8_strict =
       _cst_new_list_list_prim_u_8_strictPtr.asFunction<
           ffi.Pointer<wire_cst_list_list_prim_u_8_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_local_utxo> cst_new_list_local_utxo(
+    int len,
+  ) {
+    return _cst_new_list_local_utxo(
+      len,
+    );
+  }
+
+  late final _cst_new_list_local_utxoPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_local_utxo> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_local_utxo');
+  late final _cst_new_list_local_utxo = _cst_new_list_local_utxoPtr
+      .asFunction<ffi.Pointer<wire_cst_list_local_utxo> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_out_point> cst_new_list_out_point(
+    int len,
+  ) {
+    return _cst_new_list_out_point(
+      len,
+    );
+  }
+
+  late final _cst_new_list_out_pointPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_out_point> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_out_point');
+  late final _cst_new_list_out_point = _cst_new_list_out_pointPtr
+      .asFunction<ffi.Pointer<wire_cst_list_out_point> Function(int)>();
 
   ffi.Pointer<wire_cst_list_prim_u_8_loose> cst_new_list_prim_u_8_loose(
     int len,
@@ -3580,6 +5790,39 @@ class BdkCoreWire implements BaseWire {
               ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_8_strict');
   late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
       .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_script_amount> cst_new_list_script_amount(
+    int len,
+  ) {
+    return _cst_new_list_script_amount(
+      len,
+    );
+  }
+
+  late final _cst_new_list_script_amountPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_script_amount> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_script_amount');
+  late final _cst_new_list_script_amount = _cst_new_list_script_amountPtr
+      .asFunction<ffi.Pointer<wire_cst_list_script_amount> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_transaction_details>
+      cst_new_list_transaction_details(
+    int len,
+  ) {
+    return _cst_new_list_transaction_details(
+      len,
+    );
+  }
+
+  late final _cst_new_list_transaction_detailsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_transaction_details> Function(
+                  ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_transaction_details');
+  late final _cst_new_list_transaction_details =
+      _cst_new_list_transaction_detailsPtr.asFunction<
+          ffi.Pointer<wire_cst_list_transaction_details> Function(int)>();
 
   ffi.Pointer<wire_cst_list_tx_in> cst_new_list_tx_in(
     int len,
@@ -3627,12 +5870,9 @@ typedef DartPostCObjectFnType = ffi.Pointer<
         ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
 typedef DartPort = ffi.Int64;
 
-final class wire_cst_descriptor_base extends ffi.Struct {
+final class wire_cst_blockchain_base extends ffi.Struct {
   @ffi.UintPtr()
-  external int extended_descriptor;
-
-  @ffi.UintPtr()
-  external int key_map;
+  external int ptr;
 }
 
 final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
@@ -3640,6 +5880,125 @@ final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_transaction_base extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> inner;
+}
+
+final class wire_cst_electrum_config extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> url;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> socks5;
+
+  @ffi.Uint8()
+  external int retry;
+
+  external ffi.Pointer<ffi.Uint8> timeout;
+
+  @ffi.Uint64()
+  external int stop_gap;
+
+  @ffi.Bool()
+  external bool validate_domain;
+}
+
+final class wire_cst_BlockchainConfig_Electrum extends ffi.Struct {
+  external ffi.Pointer<wire_cst_electrum_config> config;
+}
+
+final class wire_cst_esplora_config extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> base_url;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> proxy;
+
+  external ffi.Pointer<ffi.Uint8> concurrency;
+
+  @ffi.Uint64()
+  external int stop_gap;
+
+  external ffi.Pointer<ffi.Uint64> timeout;
+}
+
+final class wire_cst_BlockchainConfig_Esplora extends ffi.Struct {
+  external ffi.Pointer<wire_cst_esplora_config> config;
+}
+
+final class wire_cst_Auth_UserPass extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> username;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> password;
+}
+
+final class wire_cst_Auth_Cookie extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> file;
+}
+
+final class AuthKind extends ffi.Union {
+  external wire_cst_Auth_UserPass UserPass;
+
+  external wire_cst_Auth_Cookie Cookie;
+}
+
+final class wire_cst_auth extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external AuthKind kind;
+}
+
+final class wire_cst_rpc_sync_params extends ffi.Struct {
+  @ffi.Uint64()
+  external int start_script_count;
+
+  @ffi.Uint64()
+  external int start_time;
+
+  @ffi.Bool()
+  external bool force_start_time;
+
+  @ffi.Uint64()
+  external int poll_rate_sec;
+}
+
+final class wire_cst_rpc_config extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> url;
+
+  external wire_cst_auth auth;
+
+  @ffi.Int32()
+  external int network;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> wallet_name;
+
+  external ffi.Pointer<wire_cst_rpc_sync_params> sync_params;
+}
+
+final class wire_cst_BlockchainConfig_Rpc extends ffi.Struct {
+  external ffi.Pointer<wire_cst_rpc_config> config;
+}
+
+final class BlockchainConfigKind extends ffi.Union {
+  external wire_cst_BlockchainConfig_Electrum Electrum;
+
+  external wire_cst_BlockchainConfig_Esplora Esplora;
+
+  external wire_cst_BlockchainConfig_Rpc Rpc;
+}
+
+final class wire_cst_blockchain_config extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external BlockchainConfigKind kind;
+}
+
+final class wire_cst_descriptor_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int extended_descriptor;
+
+  @ffi.UintPtr()
+  external int key_map;
 }
 
 final class wire_cst_descriptor_secret_key_base extends ffi.Struct {
@@ -3669,6 +6028,11 @@ final class wire_cst_list_prim_u_8_loose extends ffi.Struct {
   external int len;
 }
 
+final class wire_cst_psbt_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
 final class wire_cst_address_base extends ffi.Struct {
   @ffi.UintPtr()
   external int field0;
@@ -3678,8 +6042,63 @@ final class wire_cst_script_buf_base extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> bytes;
 }
 
-final class wire_cst_transaction_base extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> inner;
+final class wire_cst_wallet_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
+final class wire_cst_AddressIndex_Peek extends ffi.Struct {
+  @ffi.Uint32()
+  external int index;
+}
+
+final class wire_cst_AddressIndex_Reset extends ffi.Struct {
+  @ffi.Uint32()
+  external int index;
+}
+
+final class AddressIndexKind extends ffi.Union {
+  external wire_cst_AddressIndex_Peek Peek;
+
+  external wire_cst_AddressIndex_Reset Reset;
+}
+
+final class wire_cst_address_index extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external AddressIndexKind kind;
+}
+
+final class wire_cst_out_point extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+
+  @ffi.Uint32()
+  external int vout;
+}
+
+final class wire_cst_tx_out extends ffi.Struct {
+  @ffi.Uint64()
+  external int value;
+
+  external wire_cst_script_buf_base script_pubkey;
+}
+
+final class wire_cst_local_utxo extends ffi.Struct {
+  external wire_cst_out_point outpoint;
+
+  external wire_cst_tx_out txout;
+
+  @ffi.Int32()
+  external int keychain;
+
+  @ffi.Bool()
+  external bool is_spent;
+}
+
+final class wire_cst_psbt_sig_hash_type extends ffi.Struct {
+  @ffi.Uint32()
+  external int inner;
 }
 
 final class wire_cst_sqlite_db_configuration extends ffi.Struct {
@@ -3711,6 +6130,81 @@ final class wire_cst_database_config extends ffi.Struct {
   external int tag;
 
   external DatabaseConfigKind kind;
+}
+
+final class wire_cst_sign_options extends ffi.Struct {
+  @ffi.Bool()
+  external bool multi_sig;
+
+  @ffi.Bool()
+  external bool trust_witness_utxo;
+
+  external ffi.Pointer<ffi.Uint32> assume_height;
+
+  @ffi.Bool()
+  external bool allow_all_sighashes;
+
+  @ffi.Bool()
+  external bool remove_partial_sigs;
+
+  @ffi.Bool()
+  external bool try_finalize;
+
+  @ffi.Bool()
+  external bool sign_with_tap_internal_key;
+
+  @ffi.Bool()
+  external bool allow_grinding;
+}
+
+final class wire_cst_script_amount extends ffi.Struct {
+  external wire_cst_script_buf_base script;
+
+  @ffi.Uint64()
+  external int amount;
+}
+
+final class wire_cst_list_script_amount extends ffi.Struct {
+  external ffi.Pointer<wire_cst_script_amount> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_out_point extends ffi.Struct {
+  external ffi.Pointer<wire_cst_out_point> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_input extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> s;
+}
+
+final class wire_cst_record_out_point_input_usize extends ffi.Struct {
+  external wire_cst_out_point field0;
+
+  external wire_cst_input field1;
+
+  @ffi.UintPtr()
+  external int field2;
+}
+
+final class wire_cst_RbfValue_Value extends ffi.Struct {
+  @ffi.Uint32()
+  external int field0;
+}
+
+final class RbfValueKind extends ffi.Union {
+  external wire_cst_RbfValue_Value Value;
+}
+
+final class wire_cst_rbf_value extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external RbfValueKind kind;
 }
 
 final class wire_cst_AddressError_Base58 extends ffi.Struct {
@@ -3792,6 +6286,14 @@ final class wire_cst_address_error extends ffi.Struct {
   external int tag;
 
   external AddressErrorKind kind;
+}
+
+final class wire_cst_block_time extends ffi.Struct {
+  @ffi.Uint32()
+  external int height;
+
+  @ffi.Uint64()
+  external int timestamp;
 }
 
 final class wire_cst_ConsensusError_Io extends ffi.Struct {
@@ -3902,6 +6404,11 @@ final class wire_cst_descriptor_error extends ffi.Struct {
   external DescriptorErrorKind kind;
 }
 
+final class wire_cst_fee_rate extends ffi.Struct {
+  @ffi.Float()
+  external double sat_per_vb;
+}
+
 final class wire_cst_HexError_InvalidChar extends ffi.Struct {
   @ffi.Uint8()
   external int field0;
@@ -3935,15 +6442,38 @@ final class wire_cst_hex_error extends ffi.Struct {
   external HexErrorKind kind;
 }
 
-final class wire_cst_out_point extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
-
-  @ffi.Uint32()
-  external int vout;
-}
-
 final class wire_cst_list_list_prim_u_8_strict extends ffi.Struct {
   external ffi.Pointer<ffi.Pointer<wire_cst_list_prim_u_8_strict>> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_local_utxo extends ffi.Struct {
+  external ffi.Pointer<wire_cst_local_utxo> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_transaction_details extends ffi.Struct {
+  external ffi.Pointer<wire_cst_transaction_base> transaction;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+
+  @ffi.Uint64()
+  external int received;
+
+  @ffi.Uint64()
+  external int sent;
+
+  external ffi.Pointer<ffi.Uint64> fee;
+
+  external ffi.Pointer<wire_cst_block_time> confirmation_time;
+}
+
+final class wire_cst_list_transaction_details extends ffi.Struct {
+  external ffi.Pointer<wire_cst_transaction_details> ptr;
 
   @ffi.Int32()
   external int len;
@@ -3967,18 +6497,38 @@ final class wire_cst_list_tx_in extends ffi.Struct {
   external int len;
 }
 
-final class wire_cst_tx_out extends ffi.Struct {
-  @ffi.Uint64()
-  external int value;
-
-  external wire_cst_script_buf_base script_pubkey;
-}
-
 final class wire_cst_list_tx_out extends ffi.Struct {
   external ffi.Pointer<wire_cst_tx_out> ptr;
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_address_info extends ffi.Struct {
+  @ffi.Uint32()
+  external int index;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> address;
+}
+
+final class wire_cst_balance extends ffi.Struct {
+  @ffi.Uint64()
+  external int immature;
+
+  @ffi.Uint64()
+  external int trusted_pending;
+
+  @ffi.Uint64()
+  external int untrusted_pending;
+
+  @ffi.Uint64()
+  external int confirmed;
+
+  @ffi.Uint64()
+  external int spendable;
+
+  @ffi.Uint64()
+  external int total;
 }
 
 final class wire_cst_BdkError_Hex extends ffi.Struct {
@@ -4228,7 +6778,8 @@ final class wire_cst_payload extends ffi.Struct {
   external PayloadKind kind;
 }
 
-final class wire_cst_wallet_base extends ffi.Struct {
-  @ffi.UintPtr()
-  external int ptr;
+final class wire_cst_record_psbt_base_transaction_details extends ffi.Struct {
+  external wire_cst_psbt_base field0;
+
+  external wire_cst_transaction_details field1;
 }
