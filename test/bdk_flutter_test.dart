@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:bdk_flutter/src/utils/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,19 +16,18 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<PartiallySignedTransaction>()])
 @GenerateNiceMocks([MockSpec<TxBuilder>()])
 @GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
-@GenerateNiceMocks([MockSpec<Script>()])
+@GenerateNiceMocks([MockSpec<ScriptBuf>()])
 @GenerateNiceMocks([MockSpec<Address>()])
 @GenerateNiceMocks([MockSpec<DerivationPath>()])
 @GenerateNiceMocks([MockSpec<FeeRate>()])
 @GenerateNiceMocks([MockSpec<LocalUtxo>()])
-@GenerateNiceMocks([MockSpec<TxBuilderResult>()])
 @GenerateNiceMocks([MockSpec<TransactionDetails>()])
 void main() {
   final mockWallet = MockWallet();
   final mockBlockchain = MockBlockchain();
   final mockDerivationPath = MockDerivationPath();
   final mockAddress = MockAddress();
-  final mockScript = MockScript();
+  final mockScript = MockScriptBuf();
   group('Blockchain', () {
     test('verify getHeight', () async {
       when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
@@ -35,9 +35,9 @@ void main() {
       expect(res, 2396450);
     });
     test('verify getHash', () async {
-      when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
+      when(mockBlockchain.getBlockHash(height: any)).thenAnswer((_) async =>
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-      final res = await mockBlockchain.getBlockHash(2396450);
+      final res = await mockBlockchain.getBlockHash(height: 2396450);
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
@@ -49,9 +49,9 @@ void main() {
       expect(res, 2396450);
     });
     test('verify getHash', () async {
-      when(mockBlockchain.getBlockHash(any)).thenAnswer((_) async =>
+      when(mockBlockchain.getBlockHash(height: any)).thenAnswer((_) async =>
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-      final res = await mockBlockchain.getBlockHash(2396450);
+      final res = await mockBlockchain.getBlockHash(height: 2396450);
       expect(res,
           "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
     });
@@ -98,34 +98,34 @@ void main() {
       expect(res, isA<Input>());
     });
     test('Should return a Descriptor object', () async {
-      final res =
-          await mockWallet.getDescriptorForKeyChain(KeychainKind.External);
+      final res = await mockWallet.getDescriptorForKeychain(
+          keychain: KeychainKind.External);
       expect(res, isA<Descriptor>());
     });
     test('Should return an empty list of TransactionDetails', () async {
-      when(mockWallet.listTransactions(any))
+      when(mockWallet.listTransactions(includeRaw: any))
           .thenAnswer((e) async => List.empty());
-      final res = await mockWallet.listTransactions(true);
+      final res = await mockWallet.listTransactions(includeRaw: true);
       expect(res, isA<List<TransactionDetails>>());
       expect(res, List.empty());
     });
     test('verify function call order', () async {
-      await mockWallet.sync(mockBlockchain);
-      await mockWallet.listTransactions(true);
+      await mockWallet.sync(blockchain: mockBlockchain);
+      await mockWallet.listTransactions(includeRaw: true);
       verifyInOrder([
-        await mockWallet.sync(mockBlockchain),
-        await mockWallet.listTransactions(true)
+        await mockWallet.sync(blockchain: mockBlockchain),
+        await mockWallet.listTransactions(includeRaw: true)
       ]);
     });
   });
   group('DescriptorSecret', () {
     final mockSDescriptorSecret = MockDescriptorSecretKey();
     test('verify derive()', () async {
-      final res = await mockSDescriptorSecret.derive(mockDerivationPath);
+      final res = await mockSDescriptorSecret.derive(path: mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
     });
     test('verify extend()', () async {
-      final res = await mockSDescriptorSecret.extend(mockDerivationPath);
+      final res = await mockSDescriptorSecret.extend(path: mockDerivationPath);
       expect(res, isA<DescriptorSecretKey>());
     });
     test('verify asPublic()', () async {
@@ -140,11 +140,11 @@ void main() {
   group('DescriptorPublic', () {
     final mockSDescriptorPublic = MockDescriptorPublicKey();
     test('verify derive()', () async {
-      final res = await mockSDescriptorPublic.derive(mockDerivationPath);
+      final res = await mockSDescriptorPublic.derive(path: mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify extend()', () async {
-      final res = await mockSDescriptorPublic.extend(mockDerivationPath);
+      final res = await mockSDescriptorPublic.extend(path: mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify asString', () async {
@@ -168,7 +168,7 @@ void main() {
         () async {
       try {
         when(mockTxBuilder.finish(mockWallet))
-            .thenThrow(NoRecipientsException(message: 'No recipient found'));
+            .thenThrow(NoRecipientsException());
         await mockTxBuilder.finish(mockWallet);
       } catch (error) {
         expect(error, isA<NoRecipientsException>());
@@ -244,25 +244,26 @@ void main() {
         "proprietary": [],
         "unknown": []
       };
-      final input = Input.create(json.encode(inputInternal));
+      final input = Input(s: json.encode(inputInternal));
       final outPoint = OutPoint(
           txid:
               'b3b72ce9c7aa09b9c868c214e88c002a28aac9a62fd3971eff6de83c418f4db3',
           vout: 0);
-      when(mockAddress.scriptPubKey())
+      when(mockAddress.scriptPubkey())
           .thenAnswer((_) async => Future.value(mockScript));
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.addForeignUtxo(input, outPoint, 0))
           .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.finish(mockWallet))
-          .thenAnswer((_) async => Future.value(MockTxBuilderResult()));
-      final script = await mockAddress.scriptPubKey();
+      when(mockTxBuilder.finish(mockWallet)).thenAnswer((_) async =>
+          Future.value(
+              (MockPartiallySignedTransaction(), MockTransactionDetails())));
+      final script = await mockAddress.scriptPubkey();
       final txBuilder = mockTxBuilder
           .addRecipient(script, 1200)
           .addForeignUtxo(input, outPoint, 0);
       final res = await txBuilder.finish(mockWallet);
-      expect(res, isA<TxBuilderResult>());
+      expect(res, isA<(PartiallySignedTransaction, TransactionDetails)>());
     });
     test('Create a proper psbt transaction ', () async {
       const psbtBase64 = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
@@ -271,22 +272,19 @@ void main() {
           "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
-      final psbt = PartiallySignedTransaction(psbtBase64: psbtBase64);
-      when(mockAddress.scriptPubKey()).thenAnswer((_) async => MockScript());
+      final psbt = await PartiallySignedTransaction.fromString(psbtBase64);
+      when(mockAddress.scriptPubkey()).thenAnswer((_) async => MockScriptBuf());
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
 
-      when(mockAddress.scriptPubKey())
+      when(mockAddress.scriptPubkey())
           .thenAnswer((_) async => Future.value(mockScript));
-      when(mockTxBuilder.finish(mockWallet))
-          .thenAnswer((_) async => Future.value(TxBuilderResult(
-                psbt: psbt,
-                txDetails: MockTransactionDetails(),
-              )));
-      final script = await mockAddress.scriptPubKey();
+      when(mockTxBuilder.finish(mockWallet)).thenAnswer(
+          (_) async => Future.value((psbt, MockTransactionDetails())));
+      final script = await mockAddress.scriptPubkey();
       final txBuilder = mockTxBuilder.addRecipient(script, 1200);
       final res = await txBuilder.finish(mockWallet);
-      expect(res.psbt, psbt);
+      expect(res.$1, psbt);
     });
   });
   group('Bump Fee Tx Builder', () {
@@ -311,14 +309,14 @@ void main() {
       expect(res, isA<Network>());
     });
     test('verify scriptPubKey()', () async {
-      final res = await mockAddress.scriptPubKey();
-      expect(res, isA<Script>());
+      final res = await mockAddress.scriptPubkey();
+      expect(res, isA<ScriptBuf>());
     });
   });
   group('Script', () {
     test('verify create', () async {
       final res = mockScript;
-      expect(res, isA<MockScript>());
+      expect(res, isA<MockScriptBuf>());
     });
   });
   group('Transaction', () {
