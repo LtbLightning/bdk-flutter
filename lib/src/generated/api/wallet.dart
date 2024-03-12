@@ -108,12 +108,12 @@ class WalletBase {
       );
 
   ///Returns the descriptor used to create addresses for a particular keychain.
-  Future<DescriptorBase> getDescriptorForKeychain(
-          {required KeychainKind keychain, dynamic hint}) =>
+  static Future<DescriptorBase> getDescriptorForKeychain(
+          {required WalletBase ptr,
+          required KeychainKind keychain,
+          dynamic hint}) =>
       BdkCore.instance.api.walletBaseGetDescriptorForKeychain(
-        that: this,
-        keychain: keychain,
-      );
+          ptr: ptr, keychain: keychain, hint: hint);
 
   /// Return a derived address using the internal (change) descriptor.
   ///
@@ -190,20 +190,21 @@ class WalletBase {
   /// the transaction is finalized at the end. Note that it can't be guaranteed that *every*
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
-  Future<bool> sign(
-          {required PsbtBase psbt, SignOptions? signOptions, dynamic hint}) =>
+  static Future<bool> sign(
+          {required WalletBase ptr,
+          required PsbtBase psbt,
+          SignOptions? signOptions,
+          dynamic hint}) =>
       BdkCore.instance.api.walletBaseSign(
-        that: this,
-        psbt: psbt,
-        signOptions: signOptions,
-      );
+          ptr: ptr, psbt: psbt, signOptions: signOptions, hint: hint);
 
   /// Sync the internal database with the blockchain.
-  Future<void> sync({required BlockchainBase blockchain, dynamic hint}) =>
-      BdkCore.instance.api.walletBaseSync(
-        that: this,
-        blockchain: blockchain,
-      );
+  static Future<void> sync(
+          {required WalletBase ptr,
+          required BlockchainBase blockchain,
+          dynamic hint}) =>
+      BdkCore.instance.api
+          .walletBaseSync(ptr: ptr, blockchain: blockchain, hint: hint);
 
   @override
   int get hashCode => ptr.hashCode;

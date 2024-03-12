@@ -124,12 +124,12 @@ impl WalletBase {
     /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
     /// in this library will.
     pub fn sign(
-        &self,
+        ptr: WalletBase,
         psbt: PsbtBase,
         sign_options: Option<SignOptions>,
     ) -> Result<bool, BdkError> {
         let mut psbt = psbt.ptr.lock().unwrap();
-        self.get_wallet()
+        ptr.get_wallet()
             .sign(
                 &mut psbt,
                 sign_options.map(SignOptions::into).unwrap_or_default(),
@@ -137,9 +137,9 @@ impl WalletBase {
             .map_err(|e| e.into())
     }
     /// Sync the internal database with the blockchain.
-    pub fn sync(&self, blockchain: BlockchainBase) -> Result<(), BdkError> {
+    pub fn sync(ptr: WalletBase, blockchain: BlockchainBase) -> Result<(), BdkError> {
         let blockchain = blockchain.get_blockchain();
-        self.get_wallet()
+        ptr.get_wallet()
             .sync(blockchain.deref(), bdk::SyncOptions::default())
             .map_err(|e| e.into())
     }
@@ -159,10 +159,10 @@ impl WalletBase {
     }
     ///Returns the descriptor used to create addresses for a particular keychain.
     pub fn get_descriptor_for_keychain(
-        &self,
+        ptr: WalletBase,
         keychain: KeychainKind,
     ) -> anyhow::Result<DescriptorBase, BdkError> {
-        let wallet = self.get_wallet();
+        let wallet = ptr.get_wallet();
         let extended_descriptor = wallet.get_descriptor_for_keychain(keychain.into());
         DescriptorBase::new(extended_descriptor.to_string(), wallet.network().into())
     }
@@ -182,7 +182,7 @@ pub fn finish_bump_fee_tx_builder(
     let mut tx_builder = bdk_wallet.build_fee_bump(txid)?;
     tx_builder.fee_rate(bdk::FeeRate::from_sat_per_vb(fee_rate));
     if let Some(allow_shrinking) = &allow_shrinking {
-        let address = allow_shrinking.0.clone();
+        let address = allow_shrinking.ptr.clone();
         let script = address.script_pubkey();
         tx_builder.allow_shrinking(script).unwrap();
     }
