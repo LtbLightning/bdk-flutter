@@ -37,17 +37,17 @@ impl PsbtBase {
     }
 
     /// Return the transaction.
-    pub fn extract_tx(&self) -> TransactionBase {
-        let tx = self.ptr.lock().unwrap().clone().extract_tx();
+    pub fn extract_tx(ptr: PsbtBase) -> TransactionBase {
+        let tx = ptr.ptr.lock().unwrap().clone().extract_tx();
         tx.into()
     }
 
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-    pub fn combine(&self, other: PsbtBase) -> Result<PsbtBase, BdkError> {
+    pub fn combine(ptr: PsbtBase, other: PsbtBase) -> Result<PsbtBase, BdkError> {
         let other_psbt = other.ptr.lock().unwrap().clone();
-        let mut original_psbt = self.ptr.lock().unwrap().clone();
+        let mut original_psbt = ptr.ptr.lock().unwrap().clone();
         original_psbt.combine(other_psbt)?;
         Ok(original_psbt.into())
     }

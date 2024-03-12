@@ -38,17 +38,14 @@ class PsbtBase {
   /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
   ///
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-  Future<PsbtBase> combine({required PsbtBase other, dynamic hint}) =>
-      BdkCore.instance.api.psbtBaseCombine(
-        that: this,
-        other: other,
-      );
+  static Future<PsbtBase> combine(
+          {required PsbtBase ptr, required PsbtBase other, dynamic hint}) =>
+      BdkCore.instance.api.psbtBaseCombine(ptr: ptr, other: other, hint: hint);
 
   /// Return the transaction.
-  Future<TransactionBase> extractTx({dynamic hint}) =>
-      BdkCore.instance.api.psbtBaseExtractTx(
-        that: this,
-      );
+  static Future<TransactionBase> extractTx(
+          {required PsbtBase ptr, dynamic hint}) =>
+      BdkCore.instance.api.psbtBaseExtractTx(ptr: ptr, hint: hint);
 
   /// The total transaction fee amount, sum of input amounts minus sum of output amounts, in Sats.
   /// If the PSBT is missing a TxOut for an input returns None.
