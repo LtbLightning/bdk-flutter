@@ -148,7 +148,7 @@ impl From<bdk::Balance> for Balance {
 /// descriptor.
 pub enum AddressIndex {
     ///Return a new address after incrementing the current descriptor index.
-    New,
+    Increase,
     ///Return the address for the current descriptor index if it has not been used in a received transaction. Otherwise return a new address as with AddressIndex.New.
     ///Use with caution, if the wallet has not yet detected an address has been used it could return an already used address. This function is primarily meant for situations where the caller is untrusted; for example when deriving donation addresses on-demand for a public web page.
     LastUnused,
@@ -169,7 +169,7 @@ pub enum AddressIndex {
 impl From<AddressIndex> for bdk::wallet::AddressIndex {
     fn from(x: AddressIndex) -> bdk::wallet::AddressIndex {
         match x {
-            AddressIndex::New => bdk::wallet::AddressIndex::New,
+            AddressIndex::Increase => bdk::wallet::AddressIndex::New,
             AddressIndex::LastUnused => bdk::wallet::AddressIndex::LastUnused,
             AddressIndex::Peek { index } => bdk::wallet::AddressIndex::Peek(index),
             AddressIndex::Reset { index } => bdk::wallet::AddressIndex::Reset(index),
@@ -419,15 +419,17 @@ impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy {
         }
     }
 }
-pub struct AddressBase(pub bdk::bitcoin::Address);
+pub struct AddressBase {
+    pub ptr: bdk::bitcoin::Address,
+}
 impl From<bdk::bitcoin::Address> for AddressBase {
     fn from(value: bdk::bitcoin::Address) -> Self {
-        Self(value)
+        Self { ptr: value }
     }
 }
 impl From<AddressBase> for bdk::bitcoin::Address {
     fn from(value: AddressBase) -> Self {
-        value.0
+        value.ptr
     }
 }
 impl AddressBase {
@@ -450,7 +452,7 @@ impl AddressBase {
         .map_err(|e| e.into())
     }
     pub fn payload(&self) -> Payload {
-        match self.0.clone().payload {
+        match self.ptr.clone().payload {
             bdk::bitcoin::address::Payload::PubkeyHash(pubkey_hash) => Payload::PubkeyHash {
                 pubkey_hash: pubkey_hash.to_string(),
             },
@@ -472,19 +474,19 @@ impl AddressBase {
     // If you want to avoid allocation you can use alternate display instead:
     // write!(writer, "{:#}", address)?;
     pub fn to_qr_uri(&self) -> String {
-        self.0.to_qr_uri()
+        self.ptr.to_qr_uri()
     }
     ///The network on which this address is usable.
     pub fn network(&self) -> Network {
-        self.0.network.into()
+        self.ptr.network.into()
     }
 
-    pub fn script(address: AddressBase) -> ScriptBufBase {
-        address.0.script_pubkey().into()
+    pub fn script(ptr: AddressBase) -> ScriptBufBase {
+        ptr.ptr.script_pubkey().into()
     }
 
     pub fn is_valid_for_network(&self, network: Network) -> bool {
-        let address_str = self.0.to_string();
+        let address_str = self.ptr.to_string();
         if let Ok(unchecked_address) = address_str
             .parse::<bdk::bitcoin::address::Address<bdk::bitcoin::address::NetworkUnchecked>>()
         {
@@ -495,7 +497,7 @@ impl AddressBase {
     }
 
     pub fn as_string(&self) -> String {
-        self.0.to_string()
+        self.ptr.to_string()
     }
 }
 
@@ -652,23 +654,23 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
 #[derive(Debug, Clone)]
 ///Types of keychains
 pub enum KeychainKind {
-    External,
+    ExternalChain,
     ///Internal, usually used for change outputs
-    Internal,
+    InternalChain,
 }
 impl From<bdk::KeychainKind> for KeychainKind {
     fn from(e: bdk::KeychainKind) -> Self {
         match e {
-            bdk::KeychainKind::External => KeychainKind::External,
-            bdk::KeychainKind::Internal => KeychainKind::Internal,
+            bdk::KeychainKind::External => KeychainKind::ExternalChain,
+            bdk::KeychainKind::Internal => KeychainKind::InternalChain,
         }
     }
 }
 impl From<KeychainKind> for bdk::KeychainKind {
     fn from(kind: KeychainKind) -> Self {
         match kind {
-            KeychainKind::External => bdk::KeychainKind::External,
-            KeychainKind::Internal => bdk::KeychainKind::Internal,
+            KeychainKind::ExternalChain => bdk::KeychainKind::External,
+            KeychainKind::InternalChain => bdk::KeychainKind::Internal,
         }
     }
 }

@@ -30,10 +30,10 @@ class BdkBitcoinAddress extends RustOpaque {
 }
 
 class AddressBase {
-  final BdkBitcoinAddress field0;
+  final BdkBitcoinAddress ptr;
 
   const AddressBase({
-    required this.field0,
+    required this.ptr,
   });
 
   Future<String> asString({dynamic hint}) =>
@@ -71,8 +71,8 @@ class AddressBase {
       );
 
   static Future<ScriptBufBase> script(
-          {required AddressBase address, dynamic hint}) =>
-      BdkCore.instance.api.addressBaseScript(address: address, hint: hint);
+          {required AddressBase ptr, dynamic hint}) =>
+      BdkCore.instance.api.addressBaseScript(ptr: ptr, hint: hint);
 
   ///Creates a URI string bitcoin:address optimized to be encoded in QR codes.
   Future<String> toQrUri({dynamic hint}) =>
@@ -81,20 +81,20 @@ class AddressBase {
       );
 
   @override
-  int get hashCode => field0.hashCode;
+  int get hashCode => ptr.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AddressBase &&
           runtimeType == other.runtimeType &&
-          field0 == other.field0;
+          ptr == other.ptr;
 }
 
 @freezed
 sealed class AddressIndex with _$AddressIndex {
   ///Return a new address after incrementing the current descriptor index.
-  const factory AddressIndex.new() = AddressIndex_New;
+  const factory AddressIndex.increase() = AddressIndex_Increase;
 
   ///Return the address for the current descriptor index if it has not been used in a received transaction. Otherwise return a new address as with AddressIndex.New.
   ///Use with caution, if the wallet has not yet detected an address has been used it could return an already used address. This function is primarily meant for situations where the caller is untrusted; for example when deriving donation addresses on-demand for a public web page.
@@ -278,10 +278,10 @@ class Input {
 
 ///Types of keychains
 enum KeychainKind {
-  External,
+  externalChain,
 
   ///Internal, usually used for change outputs
-  internal,
+  internalChain,
 }
 
 class LocalUtxo {
