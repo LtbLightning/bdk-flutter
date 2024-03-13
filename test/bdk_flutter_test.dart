@@ -58,15 +58,17 @@ void main() {
   });
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex());
+      final res =
+          await mockWallet.getAddress(addressIndex: AddressIndex.increase());
       expect(res, isA<AddressInfo>());
     });
     test('Should return a new AddressInfo', () async {
-      when(mockWallet.getAddress(addressIndex: AddressIndex())).thenAnswer(
-          (e) async => AddressInfo(
+      when(mockWallet.getAddress(addressIndex: AddressIndex.increase()))
+          .thenAnswer((e) async => AddressInfo(
               index: 82,
               address: "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd"));
-      final res = await mockWallet.getAddress(addressIndex: AddressIndex());
+      final res =
+          await mockWallet.getAddress(addressIndex: AddressIndex.increase());
       expect(res.index, 82);
       expect(res.address, "tb1qzn0qsh9wdp0m7sx877p9u8kptnvmykm9ld5lyd");
     });
@@ -99,7 +101,7 @@ void main() {
     });
     test('Should return a Descriptor object', () async {
       final res = await mockWallet.getDescriptorForKeychain(
-          keychain: KeychainKind.External);
+          keychain: KeychainKind.externalChain);
       expect(res, isA<Descriptor>());
     });
     test('Should return an empty list of TransactionDetails', () async {
@@ -120,14 +122,7 @@ void main() {
   });
   group('DescriptorSecret', () {
     final mockSDescriptorSecret = MockDescriptorSecretKey();
-    test('verify derive()', () async {
-      final res = await mockSDescriptorSecret.derive(path: mockDerivationPath);
-      expect(res, isA<DescriptorSecretKey>());
-    });
-    test('verify extend()', () async {
-      final res = await mockSDescriptorSecret.extend(path: mockDerivationPath);
-      expect(res, isA<DescriptorSecretKey>());
-    });
+
     test('verify asPublic()', () async {
       final res = await mockSDescriptorSecret.asPublic();
       expect(res, isA<DescriptorPublicKey>());
