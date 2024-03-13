@@ -15,7 +15,11 @@ linter:
 
 analyzer:
   exclude:
-    - lib/src/generated/bindings.dart
-    - lib/src/generated/bridge_definitions.dart
-    - lib/src/generated/bridge_definitions.freezed.dart
+    - lib/src/generated/frb_generated.dart
+    - lib/src/generated/frb_generated.io.dart
+    - lib/src/generated/frb_generated.dart
+    - lib/src/generated/api/types.freezed.dart
+    - lib/src/generated/api/error.freezed.dart
+    - lib/src/generated/api/blockchain.freezed.dart
     - README.md
+    - cargokit/
