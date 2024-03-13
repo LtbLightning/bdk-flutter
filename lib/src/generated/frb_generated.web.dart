@@ -1007,7 +1007,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return [
       cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
-          raw.field0)
+          raw.ptr)
     ];
   }
 
@@ -1072,7 +1072,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   List<dynamic> cst_encode_address_index(AddressIndex raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    if (raw is AddressIndex_New) {
+    if (raw is AddressIndex_Increase) {
       return [0];
     }
     if (raw is AddressIndex_LastUnused) {
@@ -2791,20 +2791,20 @@ class BdkCoreWire implements BaseWire {
       wasmModule.wire_DescriptorPublicKeyBase_as_string(port_, that);
 
   void wire_DescriptorPublicKeyBase_derive(
-          NativePortType port_, List<dynamic> that, List<dynamic> path) =>
-      wasmModule.wire_DescriptorPublicKeyBase_derive(port_, that, path);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> path) =>
+      wasmModule.wire_DescriptorPublicKeyBase_derive(port_, ptr, path);
 
   void wire_DescriptorPublicKeyBase_extend(
-          NativePortType port_, List<dynamic> that, List<dynamic> path) =>
-      wasmModule.wire_DescriptorPublicKeyBase_extend(port_, that, path);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> path) =>
+      wasmModule.wire_DescriptorPublicKeyBase_extend(port_, ptr, path);
 
   void wire_DescriptorPublicKeyBase_from_string(
           NativePortType port_, String public_key) =>
       wasmModule.wire_DescriptorPublicKeyBase_from_string(port_, public_key);
 
   void wire_DescriptorSecretKeyBase_as_public(
-          NativePortType port_, List<dynamic> secret) =>
-      wasmModule.wire_DescriptorSecretKeyBase_as_public(port_, secret);
+          NativePortType port_, List<dynamic> ptr) =>
+      wasmModule.wire_DescriptorSecretKeyBase_as_public(port_, ptr);
 
   void wire_DescriptorSecretKeyBase_as_string(
           NativePortType port_, List<dynamic> that) =>
@@ -2816,16 +2816,16 @@ class BdkCoreWire implements BaseWire {
           port_, network, mnemonic, password);
 
   void wire_DescriptorSecretKeyBase_derive(
-          NativePortType port_, List<dynamic> that, List<dynamic> path) =>
-      wasmModule.wire_DescriptorSecretKeyBase_derive(port_, that, path);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> path) =>
+      wasmModule.wire_DescriptorSecretKeyBase_derive(port_, ptr, path);
 
   void wire_DescriptorSecretKeyBase_extend(
-          NativePortType port_, List<dynamic> that, List<dynamic> path) =>
-      wasmModule.wire_DescriptorSecretKeyBase_extend(port_, that, path);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> path) =>
+      wasmModule.wire_DescriptorSecretKeyBase_extend(port_, ptr, path);
 
   void wire_DescriptorSecretKeyBase_from_string(
-          NativePortType port_, String key_str) =>
-      wasmModule.wire_DescriptorSecretKeyBase_from_string(port_, key_str);
+          NativePortType port_, String secret_key) =>
+      wasmModule.wire_DescriptorSecretKeyBase_from_string(port_, secret_key);
 
   void wire_DescriptorSecretKeyBase_secret_bytes(
           NativePortType port_, List<dynamic> that) =>
@@ -2845,11 +2845,11 @@ class BdkCoreWire implements BaseWire {
       wasmModule.wire_MnemonicBase_new(port_, word_count);
 
   void wire_PsbtBase_combine(
-          NativePortType port_, List<dynamic> that, List<dynamic> other) =>
-      wasmModule.wire_PsbtBase_combine(port_, that, other);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> other) =>
+      wasmModule.wire_PsbtBase_combine(port_, ptr, other);
 
-  void wire_PsbtBase_extract_tx(NativePortType port_, List<dynamic> that) =>
-      wasmModule.wire_PsbtBase_extract_tx(port_, that);
+  void wire_PsbtBase_extract_tx(NativePortType port_, List<dynamic> ptr) =>
+      wasmModule.wire_PsbtBase_extract_tx(port_, ptr);
 
   void wire_PsbtBase_fee_amount(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_PsbtBase_fee_amount(port_, that);
@@ -2890,8 +2890,8 @@ class BdkCoreWire implements BaseWire {
   void wire_AddressBase_payload(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_AddressBase_payload(port_, that);
 
-  void wire_AddressBase_script(NativePortType port_, List<dynamic> address) =>
-      wasmModule.wire_AddressBase_script(port_, address);
+  void wire_AddressBase_script(NativePortType port_, List<dynamic> ptr) =>
+      wasmModule.wire_AddressBase_script(port_, ptr);
 
   void wire_AddressBase_to_qr_uri(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_AddressBase_to_qr_uri(port_, that);
@@ -2958,9 +2958,9 @@ class BdkCoreWire implements BaseWire {
       wasmModule.wire_WalletBase_get_balance(port_, that);
 
   void wire_WalletBase_get_descriptor_for_keychain(
-          NativePortType port_, List<dynamic> that, int keychain) =>
+          NativePortType port_, List<dynamic> ptr, int keychain) =>
       wasmModule.wire_WalletBase_get_descriptor_for_keychain(
-          port_, that, keychain);
+          port_, ptr, keychain);
 
   void wire_WalletBase_get_internal_address(NativePortType port_,
           List<dynamic> that, List<dynamic> address_index) =>
@@ -2999,13 +2999,13 @@ class BdkCoreWire implements BaseWire {
       wasmModule.wire_WalletBase_new(
           port_, descriptor, change_descriptor, network, database_config);
 
-  void wire_WalletBase_sign(NativePortType port_, List<dynamic> that,
+  void wire_WalletBase_sign(NativePortType port_, List<dynamic> ptr,
           List<dynamic> psbt, List<dynamic>? sign_options) =>
-      wasmModule.wire_WalletBase_sign(port_, that, psbt, sign_options);
+      wasmModule.wire_WalletBase_sign(port_, ptr, psbt, sign_options);
 
   void wire_WalletBase_sync(
-          NativePortType port_, List<dynamic> that, List<dynamic> blockchain) =>
-      wasmModule.wire_WalletBase_sync(port_, that, blockchain);
+          NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain) =>
+      wasmModule.wire_WalletBase_sync(port_, ptr, blockchain);
 
   void wire_finish_bump_fee_tx_builder(
           NativePortType port_,
@@ -3250,16 +3250,16 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, List<dynamic> that);
 
   external void wire_DescriptorPublicKeyBase_derive(
-      NativePortType port_, List<dynamic> that, List<dynamic> path);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> path);
 
   external void wire_DescriptorPublicKeyBase_extend(
-      NativePortType port_, List<dynamic> that, List<dynamic> path);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> path);
 
   external void wire_DescriptorPublicKeyBase_from_string(
       NativePortType port_, String public_key);
 
   external void wire_DescriptorSecretKeyBase_as_public(
-      NativePortType port_, List<dynamic> secret);
+      NativePortType port_, List<dynamic> ptr);
 
   external void wire_DescriptorSecretKeyBase_as_string(
       NativePortType port_, List<dynamic> that);
@@ -3268,13 +3268,13 @@ class BdkCoreWasmModule implements WasmModule {
       int network, List<dynamic> mnemonic, String? password);
 
   external void wire_DescriptorSecretKeyBase_derive(
-      NativePortType port_, List<dynamic> that, List<dynamic> path);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> path);
 
   external void wire_DescriptorSecretKeyBase_extend(
-      NativePortType port_, List<dynamic> that, List<dynamic> path);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> path);
 
   external void wire_DescriptorSecretKeyBase_from_string(
-      NativePortType port_, String key_str);
+      NativePortType port_, String secret_key);
 
   external void wire_DescriptorSecretKeyBase_secret_bytes(
       NativePortType port_, List<dynamic> that);
@@ -3291,10 +3291,10 @@ class BdkCoreWasmModule implements WasmModule {
   external void wire_MnemonicBase_new(NativePortType port_, int word_count);
 
   external void wire_PsbtBase_combine(
-      NativePortType port_, List<dynamic> that, List<dynamic> other);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> other);
 
   external void wire_PsbtBase_extract_tx(
-      NativePortType port_, List<dynamic> that);
+      NativePortType port_, List<dynamic> ptr);
 
   external void wire_PsbtBase_fee_amount(
       NativePortType port_, List<dynamic> that);
@@ -3332,7 +3332,7 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, List<dynamic> that);
 
   external void wire_AddressBase_script(
-      NativePortType port_, List<dynamic> address);
+      NativePortType port_, List<dynamic> ptr);
 
   external void wire_AddressBase_to_qr_uri(
       NativePortType port_, List<dynamic> that);
@@ -3390,7 +3390,7 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, List<dynamic> that);
 
   external void wire_WalletBase_get_descriptor_for_keychain(
-      NativePortType port_, List<dynamic> that, int keychain);
+      NativePortType port_, List<dynamic> ptr, int keychain);
 
   external void wire_WalletBase_get_internal_address(
       NativePortType port_, List<dynamic> that, List<dynamic> address_index);
@@ -3421,11 +3421,11 @@ class BdkCoreWasmModule implements WasmModule {
       int network,
       List<dynamic> database_config);
 
-  external void wire_WalletBase_sign(NativePortType port_, List<dynamic> that,
+  external void wire_WalletBase_sign(NativePortType port_, List<dynamic> ptr,
       List<dynamic> psbt, List<dynamic>? sign_options);
 
   external void wire_WalletBase_sync(
-      NativePortType port_, List<dynamic> that, List<dynamic> blockchain);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain);
 
   external void wire_finish_bump_fee_tx_builder(
       NativePortType port_,

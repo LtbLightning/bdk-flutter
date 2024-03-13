@@ -42,7 +42,9 @@ impl CstDecode<crate::api::types::AddressBase>
             "Expected 1 elements, got {}",
             self_.length()
         );
-        crate::api::types::AddressBase(self_.get(0).cst_decode())
+        crate::api::types::AddressBase {
+            ptr: self_.get(0).cst_decode(),
+        }
     }
 }
 impl CstDecode<crate::api::error::AddressError>
@@ -90,7 +92,7 @@ impl CstDecode<crate::api::types::AddressIndex>
     fn cst_decode(self) -> crate::api::types::AddressIndex {
         let self_ = self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Array>();
         match self_.get(0).unchecked_into_f64() as _ {
-            0 => crate::api::types::AddressIndex::New,
+            0 => crate::api::types::AddressIndex::Increase,
             1 => crate::api::types::AddressIndex::LastUnused,
             2 => crate::api::types::AddressIndex::Peek {
                 index: self_.get(1).cst_decode(),
@@ -1649,19 +1651,19 @@ pub fn wire_DescriptorPublicKeyBase_as_string(
 #[wasm_bindgen]
 pub fn wire_DescriptorPublicKeyBase_derive(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     path: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_DescriptorPublicKeyBase_derive_impl(port_, that, path)
+    wire_DescriptorPublicKeyBase_derive_impl(port_, ptr, path)
 }
 
 #[wasm_bindgen]
 pub fn wire_DescriptorPublicKeyBase_extend(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     path: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_DescriptorPublicKeyBase_extend_impl(port_, that, path)
+    wire_DescriptorPublicKeyBase_extend_impl(port_, ptr, path)
 }
 
 #[wasm_bindgen]
@@ -1675,9 +1677,9 @@ pub fn wire_DescriptorPublicKeyBase_from_string(
 #[wasm_bindgen]
 pub fn wire_DescriptorSecretKeyBase_as_public(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_DescriptorSecretKeyBase_as_public_impl(port_, secret)
+    wire_DescriptorSecretKeyBase_as_public_impl(port_, ptr)
 }
 
 #[wasm_bindgen]
@@ -1701,27 +1703,27 @@ pub fn wire_DescriptorSecretKeyBase_create(
 #[wasm_bindgen]
 pub fn wire_DescriptorSecretKeyBase_derive(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     path: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_DescriptorSecretKeyBase_derive_impl(port_, that, path)
+    wire_DescriptorSecretKeyBase_derive_impl(port_, ptr, path)
 }
 
 #[wasm_bindgen]
 pub fn wire_DescriptorSecretKeyBase_extend(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     path: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_DescriptorSecretKeyBase_extend_impl(port_, that, path)
+    wire_DescriptorSecretKeyBase_extend_impl(port_, ptr, path)
 }
 
 #[wasm_bindgen]
 pub fn wire_DescriptorSecretKeyBase_from_string(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    key_str: String,
+    secret_key: String,
 ) {
-    wire_DescriptorSecretKeyBase_from_string_impl(port_, key_str)
+    wire_DescriptorSecretKeyBase_from_string_impl(port_, secret_key)
 }
 
 #[wasm_bindgen]
@@ -1767,18 +1769,18 @@ pub fn wire_MnemonicBase_new(
 #[wasm_bindgen]
 pub fn wire_PsbtBase_combine(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     other: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_PsbtBase_combine_impl(port_, that, other)
+    wire_PsbtBase_combine_impl(port_, ptr, other)
 }
 
 #[wasm_bindgen]
 pub fn wire_PsbtBase_extract_tx(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_PsbtBase_extract_tx_impl(port_, that)
+    wire_PsbtBase_extract_tx_impl(port_, ptr)
 }
 
 #[wasm_bindgen]
@@ -1883,9 +1885,9 @@ pub fn wire_AddressBase_payload(
 #[wasm_bindgen]
 pub fn wire_AddressBase_script(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    address: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_AddressBase_script_impl(port_, address)
+    wire_AddressBase_script_impl(port_, ptr)
 }
 
 #[wasm_bindgen]
@@ -2041,10 +2043,10 @@ pub fn wire_WalletBase_get_balance(
 #[wasm_bindgen]
 pub fn wire_WalletBase_get_descriptor_for_keychain(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     keychain: i32,
 ) {
-    wire_WalletBase_get_descriptor_for_keychain_impl(port_, that, keychain)
+    wire_WalletBase_get_descriptor_for_keychain_impl(port_, ptr, keychain)
 }
 
 #[wasm_bindgen]
@@ -2121,20 +2123,20 @@ pub fn wire_WalletBase_new(
 #[wasm_bindgen]
 pub fn wire_WalletBase_sign(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     psbt: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     sign_options: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_WalletBase_sign_impl(port_, that, psbt, sign_options)
+    wire_WalletBase_sign_impl(port_, ptr, psbt, sign_options)
 }
 
 #[wasm_bindgen]
 pub fn wire_WalletBase_sync(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     blockchain: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_WalletBase_sync_impl(port_, that, blockchain)
+    wire_WalletBase_sync_impl(port_, ptr, blockchain)
 }
 
 #[wasm_bindgen]

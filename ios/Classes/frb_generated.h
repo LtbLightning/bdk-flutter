@@ -132,7 +132,7 @@ typedef struct wire_cst_psbt_base {
 } wire_cst_psbt_base;
 
 typedef struct wire_cst_address_base {
-  uintptr_t field0;
+  uintptr_t ptr;
 } wire_cst_address_base;
 
 typedef struct wire_cst_script_buf_base {
@@ -767,18 +767,18 @@ void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(int64_t port_,
                                                                struct wire_cst_descriptor_public_key_base *that);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(int64_t port_,
-                                                            struct wire_cst_descriptor_public_key_base *that,
+                                                            struct wire_cst_descriptor_public_key_base *ptr,
                                                             struct wire_cst_derivation_path_base *path);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend(int64_t port_,
-                                                            struct wire_cst_descriptor_public_key_base *that,
+                                                            struct wire_cst_descriptor_public_key_base *ptr,
                                                             struct wire_cst_derivation_path_base *path);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_from_string(int64_t port_,
                                                                  struct wire_cst_list_prim_u_8_strict *public_key);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(int64_t port_,
-                                                               struct wire_cst_descriptor_secret_key_base *secret);
+                                                               struct wire_cst_descriptor_secret_key_base *ptr);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(int64_t port_,
                                                                struct wire_cst_descriptor_secret_key_base *that);
@@ -789,15 +789,15 @@ void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(int64_t port_,
                                                             struct wire_cst_list_prim_u_8_strict *password);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(int64_t port_,
-                                                            struct wire_cst_descriptor_secret_key_base *that,
+                                                            struct wire_cst_descriptor_secret_key_base *ptr,
                                                             struct wire_cst_derivation_path_base *path);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend(int64_t port_,
-                                                            struct wire_cst_descriptor_secret_key_base *that,
+                                                            struct wire_cst_descriptor_secret_key_base *ptr,
                                                             struct wire_cst_derivation_path_base *path);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_from_string(int64_t port_,
-                                                                 struct wire_cst_list_prim_u_8_strict *key_str);
+                                                                 struct wire_cst_list_prim_u_8_strict *secret_key);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes(int64_t port_,
                                                                   struct wire_cst_descriptor_secret_key_base *that);
@@ -814,10 +814,10 @@ void frbgen_bdk_flutter_wire_MnemonicBase_from_string(int64_t port_,
 void frbgen_bdk_flutter_wire_MnemonicBase_new(int64_t port_, int32_t word_count);
 
 void frbgen_bdk_flutter_wire_PsbtBase_combine(int64_t port_,
-                                              struct wire_cst_psbt_base *that,
+                                              struct wire_cst_psbt_base *ptr,
                                               struct wire_cst_psbt_base *other);
 
-void frbgen_bdk_flutter_wire_PsbtBase_extract_tx(int64_t port_, struct wire_cst_psbt_base *that);
+void frbgen_bdk_flutter_wire_PsbtBase_extract_tx(int64_t port_, struct wire_cst_psbt_base *ptr);
 
 void frbgen_bdk_flutter_wire_PsbtBase_fee_amount(int64_t port_, struct wire_cst_psbt_base *that);
 
@@ -852,8 +852,7 @@ void frbgen_bdk_flutter_wire_AddressBase_network(int64_t port_, struct wire_cst_
 
 void frbgen_bdk_flutter_wire_AddressBase_payload(int64_t port_, struct wire_cst_address_base *that);
 
-void frbgen_bdk_flutter_wire_AddressBase_script(int64_t port_,
-                                                struct wire_cst_address_base *address);
+void frbgen_bdk_flutter_wire_AddressBase_script(int64_t port_, struct wire_cst_address_base *ptr);
 
 void frbgen_bdk_flutter_wire_AddressBase_to_qr_uri(int64_t port_,
                                                    struct wire_cst_address_base *that);
@@ -912,7 +911,7 @@ void frbgen_bdk_flutter_wire_WalletBase_get_balance(int64_t port_,
                                                     struct wire_cst_wallet_base *that);
 
 void frbgen_bdk_flutter_wire_WalletBase_get_descriptor_for_keychain(int64_t port_,
-                                                                    struct wire_cst_wallet_base *that,
+                                                                    struct wire_cst_wallet_base *ptr,
                                                                     int32_t keychain);
 
 void frbgen_bdk_flutter_wire_WalletBase_get_internal_address(int64_t port_,
@@ -945,12 +944,12 @@ void frbgen_bdk_flutter_wire_WalletBase_new(int64_t port_,
                                             struct wire_cst_database_config *database_config);
 
 void frbgen_bdk_flutter_wire_WalletBase_sign(int64_t port_,
-                                             struct wire_cst_wallet_base *that,
+                                             struct wire_cst_wallet_base *ptr,
                                              struct wire_cst_psbt_base *psbt,
                                              struct wire_cst_sign_options *sign_options);
 
 void frbgen_bdk_flutter_wire_WalletBase_sync(int64_t port_,
-                                             struct wire_cst_wallet_base *that,
+                                             struct wire_cst_wallet_base *ptr,
                                              struct wire_cst_blockchain_base *blockchain);
 
 void frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(int64_t port_,

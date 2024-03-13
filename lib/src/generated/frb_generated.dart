@@ -156,12 +156,12 @@ abstract class BdkCoreApi extends BaseApi {
       {required DescriptorPublicKeyBase that, dynamic hint});
 
   Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseDerive(
-      {required DescriptorPublicKeyBase that,
+      {required DescriptorPublicKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint});
 
   Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseExtend(
-      {required DescriptorPublicKeyBase that,
+      {required DescriptorPublicKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint});
 
@@ -169,7 +169,7 @@ abstract class BdkCoreApi extends BaseApi {
       {required String publicKey, dynamic hint});
 
   Future<DescriptorPublicKeyBase> descriptorSecretKeyBaseAsPublic(
-      {required DescriptorSecretKeyBase secret, dynamic hint});
+      {required DescriptorSecretKeyBase ptr, dynamic hint});
 
   Future<String> descriptorSecretKeyBaseAsString(
       {required DescriptorSecretKeyBase that, dynamic hint});
@@ -181,17 +181,17 @@ abstract class BdkCoreApi extends BaseApi {
       dynamic hint});
 
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseDerive(
-      {required DescriptorSecretKeyBase that,
+      {required DescriptorSecretKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint});
 
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseExtend(
-      {required DescriptorSecretKeyBase that,
+      {required DescriptorSecretKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint});
 
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseFromString(
-      {required String keyStr, dynamic hint});
+      {required String secretKey, dynamic hint});
 
   Future<Uint8List> descriptorSecretKeyBaseSecretBytes(
       {required DescriptorSecretKeyBase that, dynamic hint});
@@ -209,10 +209,10 @@ abstract class BdkCoreApi extends BaseApi {
       {required WordCount wordCount, dynamic hint});
 
   Future<PsbtBase> psbtBaseCombine(
-      {required PsbtBase that, required PsbtBase other, dynamic hint});
+      {required PsbtBase ptr, required PsbtBase other, dynamic hint});
 
   Future<TransactionBase> psbtBaseExtractTx(
-      {required PsbtBase that, dynamic hint});
+      {required PsbtBase ptr, dynamic hint});
 
   Future<int?> psbtBaseFeeAmount({required PsbtBase that, dynamic hint});
 
@@ -242,7 +242,7 @@ abstract class BdkCoreApi extends BaseApi {
   Future<Payload> addressBasePayload({required AddressBase that, dynamic hint});
 
   Future<ScriptBufBase> addressBaseScript(
-      {required AddressBase address, dynamic hint});
+      {required AddressBase ptr, dynamic hint});
 
   Future<String> addressBaseToQrUri({required AddressBase that, dynamic hint});
 
@@ -301,7 +301,7 @@ abstract class BdkCoreApi extends BaseApi {
       {required WalletBase that, dynamic hint});
 
   Future<DescriptorBase> walletBaseGetDescriptorForKeychain(
-      {required WalletBase that, required KeychainKind keychain, dynamic hint});
+      {required WalletBase ptr, required KeychainKind keychain, dynamic hint});
 
   Future<AddressInfo> walletBaseGetInternalAddress(
       {required WalletBase that,
@@ -334,13 +334,13 @@ abstract class BdkCoreApi extends BaseApi {
       dynamic hint});
 
   Future<bool> walletBaseSign(
-      {required WalletBase that,
+      {required WalletBase ptr,
       required PsbtBase psbt,
       SignOptions? signOptions,
       dynamic hint});
 
   Future<void> walletBaseSync(
-      {required WalletBase that,
+      {required WalletBase ptr,
       required BlockchainBase blockchain,
       dynamic hint});
 
@@ -991,12 +991,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseDerive(
-      {required DescriptorPublicKeyBase that,
+      {required DescriptorPublicKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(ptr);
         var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorPublicKeyBase_derive(port_, arg0, arg1);
       },
@@ -1005,7 +1005,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorPublicKeyBaseDeriveConstMeta,
-      argValues: [that, path],
+      argValues: [ptr, path],
       apiImpl: this,
       hint: hint,
     ));
@@ -1014,17 +1014,17 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorPublicKeyBaseDeriveConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorPublicKeyBase_derive",
-        argNames: ["that", "path"],
+        argNames: ["ptr", "path"],
       );
 
   @override
   Future<DescriptorPublicKeyBase> descriptorPublicKeyBaseExtend(
-      {required DescriptorPublicKeyBase that,
+      {required DescriptorPublicKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(ptr);
         var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorPublicKeyBase_extend(port_, arg0, arg1);
       },
@@ -1033,7 +1033,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorPublicKeyBaseExtendConstMeta,
-      argValues: [that, path],
+      argValues: [ptr, path],
       apiImpl: this,
       hint: hint,
     ));
@@ -1042,7 +1042,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorPublicKeyBaseExtendConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorPublicKeyBase_extend",
-        argNames: ["that", "path"],
+        argNames: ["ptr", "path"],
       );
 
   @override
@@ -1072,10 +1072,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<DescriptorPublicKeyBase> descriptorSecretKeyBaseAsPublic(
-      {required DescriptorSecretKeyBase secret, dynamic hint}) {
+      {required DescriptorSecretKeyBase ptr, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secret);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
         return wire.wire_DescriptorSecretKeyBase_as_public(port_, arg0);
       },
       codec: DcoCodec(
@@ -1083,7 +1083,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseAsPublicConstMeta,
-      argValues: [secret],
+      argValues: [ptr],
       apiImpl: this,
       hint: hint,
     ));
@@ -1092,7 +1092,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorSecretKeyBaseAsPublicConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorSecretKeyBase_as_public",
-        argNames: ["secret"],
+        argNames: ["ptr"],
       );
 
   @override
@@ -1153,12 +1153,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseDerive(
-      {required DescriptorSecretKeyBase that,
+      {required DescriptorSecretKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
         var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorSecretKeyBase_derive(port_, arg0, arg1);
       },
@@ -1167,7 +1167,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseDeriveConstMeta,
-      argValues: [that, path],
+      argValues: [ptr, path],
       apiImpl: this,
       hint: hint,
     ));
@@ -1176,17 +1176,17 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorSecretKeyBaseDeriveConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorSecretKeyBase_derive",
-        argNames: ["that", "path"],
+        argNames: ["ptr", "path"],
       );
 
   @override
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseExtend(
-      {required DescriptorSecretKeyBase that,
+      {required DescriptorSecretKeyBase ptr,
       required DerivationPathBase path,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
         var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorSecretKeyBase_extend(port_, arg0, arg1);
       },
@@ -1195,7 +1195,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseExtendConstMeta,
-      argValues: [that, path],
+      argValues: [ptr, path],
       apiImpl: this,
       hint: hint,
     ));
@@ -1204,15 +1204,15 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorSecretKeyBaseExtendConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorSecretKeyBase_extend",
-        argNames: ["that", "path"],
+        argNames: ["ptr", "path"],
       );
 
   @override
   Future<DescriptorSecretKeyBase> descriptorSecretKeyBaseFromString(
-      {required String keyStr, dynamic hint}) {
+      {required String secretKey, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_String(keyStr);
+        var arg0 = cst_encode_String(secretKey);
         return wire.wire_DescriptorSecretKeyBase_from_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -1220,7 +1220,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseFromStringConstMeta,
-      argValues: [keyStr],
+      argValues: [secretKey],
       apiImpl: this,
       hint: hint,
     ));
@@ -1229,7 +1229,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kDescriptorSecretKeyBaseFromStringConstMeta =>
       const TaskConstMeta(
         debugName: "DescriptorSecretKeyBase_from_string",
-        argNames: ["keyStr"],
+        argNames: ["secretKey"],
       );
 
   @override
@@ -1355,10 +1355,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<PsbtBase> psbtBaseCombine(
-      {required PsbtBase that, required PsbtBase other, dynamic hint}) {
+      {required PsbtBase ptr, required PsbtBase other, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_psbt_base(that);
+        var arg0 = cst_encode_box_autoadd_psbt_base(ptr);
         var arg1 = cst_encode_box_autoadd_psbt_base(other);
         return wire.wire_PsbtBase_combine(port_, arg0, arg1);
       },
@@ -1367,7 +1367,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kPsbtBaseCombineConstMeta,
-      argValues: [that, other],
+      argValues: [ptr, other],
       apiImpl: this,
       hint: hint,
     ));
@@ -1375,15 +1375,15 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kPsbtBaseCombineConstMeta => const TaskConstMeta(
         debugName: "PsbtBase_combine",
-        argNames: ["that", "other"],
+        argNames: ["ptr", "other"],
       );
 
   @override
   Future<TransactionBase> psbtBaseExtractTx(
-      {required PsbtBase that, dynamic hint}) {
+      {required PsbtBase ptr, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_psbt_base(that);
+        var arg0 = cst_encode_box_autoadd_psbt_base(ptr);
         return wire.wire_PsbtBase_extract_tx(port_, arg0);
       },
       codec: DcoCodec(
@@ -1391,7 +1391,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: null,
       ),
       constMeta: kPsbtBaseExtractTxConstMeta,
-      argValues: [that],
+      argValues: [ptr],
       apiImpl: this,
       hint: hint,
     ));
@@ -1399,7 +1399,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kPsbtBaseExtractTxConstMeta => const TaskConstMeta(
         debugName: "PsbtBase_extract_tx",
-        argNames: ["that"],
+        argNames: ["ptr"],
       );
 
   @override
@@ -1690,10 +1690,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<ScriptBufBase> addressBaseScript(
-      {required AddressBase address, dynamic hint}) {
+      {required AddressBase ptr, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_address_base(address);
+        var arg0 = cst_encode_box_autoadd_address_base(ptr);
         return wire.wire_AddressBase_script(port_, arg0);
       },
       codec: DcoCodec(
@@ -1701,7 +1701,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: null,
       ),
       constMeta: kAddressBaseScriptConstMeta,
-      argValues: [address],
+      argValues: [ptr],
       apiImpl: this,
       hint: hint,
     ));
@@ -1709,7 +1709,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kAddressBaseScriptConstMeta => const TaskConstMeta(
         debugName: "AddressBase_script",
-        argNames: ["address"],
+        argNames: ["ptr"],
       );
 
   @override
@@ -2172,12 +2172,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<DescriptorBase> walletBaseGetDescriptorForKeychain(
-      {required WalletBase that,
-      required KeychainKind keychain,
-      dynamic hint}) {
+      {required WalletBase ptr, required KeychainKind keychain, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_wallet_base(that);
+        var arg0 = cst_encode_box_autoadd_wallet_base(ptr);
         var arg1 = cst_encode_keychain_kind(keychain);
         return wire.wire_WalletBase_get_descriptor_for_keychain(
             port_, arg0, arg1);
@@ -2187,7 +2185,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kWalletBaseGetDescriptorForKeychainConstMeta,
-      argValues: [that, keychain],
+      argValues: [ptr, keychain],
       apiImpl: this,
       hint: hint,
     ));
@@ -2196,7 +2194,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kWalletBaseGetDescriptorForKeychainConstMeta =>
       const TaskConstMeta(
         debugName: "WalletBase_get_descriptor_for_keychain",
-        argNames: ["that", "keychain"],
+        argNames: ["ptr", "keychain"],
       );
 
   @override
@@ -2394,13 +2392,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   @override
   Future<bool> walletBaseSign(
-      {required WalletBase that,
+      {required WalletBase ptr,
       required PsbtBase psbt,
       SignOptions? signOptions,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_wallet_base(that);
+        var arg0 = cst_encode_box_autoadd_wallet_base(ptr);
         var arg1 = cst_encode_box_autoadd_psbt_base(psbt);
         var arg2 = cst_encode_opt_box_autoadd_sign_options(signOptions);
         return wire.wire_WalletBase_sign(port_, arg0, arg1, arg2);
@@ -2410,7 +2408,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kWalletBaseSignConstMeta,
-      argValues: [that, psbt, signOptions],
+      argValues: [ptr, psbt, signOptions],
       apiImpl: this,
       hint: hint,
     ));
@@ -2418,17 +2416,17 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kWalletBaseSignConstMeta => const TaskConstMeta(
         debugName: "WalletBase_sign",
-        argNames: ["that", "psbt", "signOptions"],
+        argNames: ["ptr", "psbt", "signOptions"],
       );
 
   @override
   Future<void> walletBaseSync(
-      {required WalletBase that,
+      {required WalletBase ptr,
       required BlockchainBase blockchain,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_wallet_base(that);
+        var arg0 = cst_encode_box_autoadd_wallet_base(ptr);
         var arg1 = cst_encode_box_autoadd_blockchain_base(blockchain);
         return wire.wire_WalletBase_sync(port_, arg0, arg1);
       },
@@ -2437,7 +2435,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kWalletBaseSyncConstMeta,
-      argValues: [that, blockchain],
+      argValues: [ptr, blockchain],
       apiImpl: this,
       hint: hint,
     ));
@@ -2445,7 +2443,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kWalletBaseSyncConstMeta => const TaskConstMeta(
         debugName: "WalletBase_sync",
-        argNames: ["that", "blockchain"],
+        argNames: ["ptr", "blockchain"],
       );
 
   @override
@@ -2795,7 +2793,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return AddressBase(
-      field0:
+      ptr:
           dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
               arr[0]),
     );
@@ -2864,7 +2862,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
       case 0:
-        return AddressIndex_New();
+        return AddressIndex_Increase();
       case 1:
         return AddressIndex_LastUnused();
       case 2:
@@ -4273,10 +4271,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   @protected
   AddressBase sse_decode_address_base(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_field0 =
+    var var_ptr =
         sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
             deserializer);
-    return AddressBase(field0: var_field0);
+    return AddressBase(ptr: var_ptr);
   }
 
   @protected
@@ -4341,7 +4339,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     var tag_ = sse_decode_i_32(deserializer);
     switch (tag_) {
       case 0:
-        return AddressIndex_New();
+        return AddressIndex_Increase();
       case 1:
         return AddressIndex_LastUnused();
       case 2:
@@ -6004,7 +6002,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   void sse_encode_address_base(AddressBase self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
-        self.field0, serializer);
+        self.ptr, serializer);
   }
 
   @protected
@@ -6065,7 +6063,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   void sse_encode_address_index(AddressIndex self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     switch (self) {
-      case AddressIndex_New():
+      case AddressIndex_Increase():
         sse_encode_i_32(0, serializer);
       case AddressIndex_LastUnused():
         sse_encode_i_32(1, serializer);

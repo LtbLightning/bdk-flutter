@@ -1550,9 +1550,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void cst_api_fill_to_wire_address_base(
       AddressBase apiObj, wire_cst_address_base wireObj) {
-    wireObj.field0 =
+    wireObj.ptr =
         cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(
-            apiObj.field0);
+            apiObj.ptr);
   }
 
   @protected
@@ -1643,7 +1643,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void cst_api_fill_to_wire_address_index(
       AddressIndex apiObj, wire_cst_address_index wireObj) {
-    if (apiObj is AddressIndex_New) {
+    if (apiObj is AddressIndex_Increase) {
       wireObj.tag = 0;
       return;
     }
@@ -3712,12 +3712,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorPublicKeyBase_derive(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_public_key_base> that,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> ptr,
     ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorPublicKeyBase_derive(
       port_,
-      that,
+      ptr,
       path,
     );
   }
@@ -3736,12 +3736,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorPublicKeyBase_extend(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_public_key_base> that,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> ptr,
     ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorPublicKeyBase_extend(
       port_,
-      that,
+      ptr,
       path,
     );
   }
@@ -3779,11 +3779,11 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_as_public(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
   ) {
     return _wire_DescriptorSecretKeyBase_as_public(
       port_,
-      secret,
+      ptr,
     );
   }
 
@@ -3846,12 +3846,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_derive(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_secret_key_base> that,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
     ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorSecretKeyBase_derive(
       port_,
-      that,
+      ptr,
       path,
     );
   }
@@ -3870,12 +3870,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_extend(
     int port_,
-    ffi.Pointer<wire_cst_descriptor_secret_key_base> that,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
     ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorSecretKeyBase_extend(
       port_,
-      that,
+      ptr,
       path,
     );
   }
@@ -3894,11 +3894,11 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_from_string(
     int port_,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> key_str,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> secret_key,
   ) {
     return _wire_DescriptorSecretKeyBase_from_string(
       port_,
-      key_str,
+      secret_key,
     );
   }
 
@@ -4005,12 +4005,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_PsbtBase_combine(
     int port_,
-    ffi.Pointer<wire_cst_psbt_base> that,
+    ffi.Pointer<wire_cst_psbt_base> ptr,
     ffi.Pointer<wire_cst_psbt_base> other,
   ) {
     return _wire_PsbtBase_combine(
       port_,
-      that,
+      ptr,
       other,
     );
   }
@@ -4026,11 +4026,11 @@ class BdkCoreWire implements BaseWire {
 
   void wire_PsbtBase_extract_tx(
     int port_,
-    ffi.Pointer<wire_cst_psbt_base> that,
+    ffi.Pointer<wire_cst_psbt_base> ptr,
   ) {
     return _wire_PsbtBase_extract_tx(
       port_,
-      that,
+      ptr,
     );
   }
 
@@ -4264,11 +4264,11 @@ class BdkCoreWire implements BaseWire {
 
   void wire_AddressBase_script(
     int port_,
-    ffi.Pointer<wire_cst_address_base> address,
+    ffi.Pointer<wire_cst_address_base> ptr,
   ) {
     return _wire_AddressBase_script(
       port_,
-      address,
+      ptr,
     );
   }
 
@@ -4629,12 +4629,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_WalletBase_get_descriptor_for_keychain(
     int port_,
-    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_wallet_base> ptr,
     int keychain,
   ) {
     return _wire_WalletBase_get_descriptor_for_keychain(
       port_,
-      that,
+      ptr,
       keychain,
     );
   }
@@ -4815,13 +4815,13 @@ class BdkCoreWire implements BaseWire {
 
   void wire_WalletBase_sign(
     int port_,
-    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_wallet_base> ptr,
     ffi.Pointer<wire_cst_psbt_base> psbt,
     ffi.Pointer<wire_cst_sign_options> sign_options,
   ) {
     return _wire_WalletBase_sign(
       port_,
-      that,
+      ptr,
       psbt,
       sign_options,
     );
@@ -4844,12 +4844,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_WalletBase_sync(
     int port_,
-    ffi.Pointer<wire_cst_wallet_base> that,
+    ffi.Pointer<wire_cst_wallet_base> ptr,
     ffi.Pointer<wire_cst_blockchain_base> blockchain,
   ) {
     return _wire_WalletBase_sync(
       port_,
-      that,
+      ptr,
       blockchain,
     );
   }
@@ -6035,7 +6035,7 @@ final class wire_cst_psbt_base extends ffi.Struct {
 
 final class wire_cst_address_base extends ffi.Struct {
   @ffi.UintPtr()
-  external int field0;
+  external int ptr;
 }
 
 final class wire_cst_script_buf_base extends ffi.Struct {

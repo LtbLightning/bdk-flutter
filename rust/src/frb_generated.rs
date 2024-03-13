@@ -516,7 +516,7 @@ fn wire_DescriptorPublicKeyBase_as_string_impl(
 }
 fn wire_DescriptorPublicKeyBase_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -526,11 +526,11 @@ fn wire_DescriptorPublicKeyBase_derive_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorPublicKeyBase::derive(&api_that, api_path)
+                    crate::api::key::DescriptorPublicKeyBase::derive(api_ptr, api_path)
                 })())
             }
         },
@@ -538,7 +538,7 @@ fn wire_DescriptorPublicKeyBase_derive_impl(
 }
 fn wire_DescriptorPublicKeyBase_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -548,11 +548,11 @@ fn wire_DescriptorPublicKeyBase_extend_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorPublicKeyBase::extend(&api_that, api_path)
+                    crate::api::key::DescriptorPublicKeyBase::extend(api_ptr, api_path)
                 })())
             }
         },
@@ -580,7 +580,7 @@ fn wire_DescriptorPublicKeyBase_from_string_impl(
 }
 fn wire_DescriptorSecretKeyBase_as_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -589,10 +589,10 @@ fn wire_DescriptorSecretKeyBase_as_public_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_secret = secret.cst_decode();
+            let api_ptr = ptr.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorSecretKeyBase::as_public(api_secret)
+                    crate::api::key::DescriptorSecretKeyBase::as_public(api_ptr)
                 })())
             }
         },
@@ -650,7 +650,7 @@ fn wire_DescriptorSecretKeyBase_create_impl(
 }
 fn wire_DescriptorSecretKeyBase_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -660,11 +660,11 @@ fn wire_DescriptorSecretKeyBase_derive_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorSecretKeyBase::derive(&api_that, api_path)
+                    crate::api::key::DescriptorSecretKeyBase::derive(api_ptr, api_path)
                 })())
             }
         },
@@ -672,7 +672,7 @@ fn wire_DescriptorSecretKeyBase_derive_impl(
 }
 fn wire_DescriptorSecretKeyBase_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -682,11 +682,11 @@ fn wire_DescriptorSecretKeyBase_extend_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorSecretKeyBase::extend(&api_that, api_path)
+                    crate::api::key::DescriptorSecretKeyBase::extend(api_ptr, api_path)
                 })())
             }
         },
@@ -694,7 +694,7 @@ fn wire_DescriptorSecretKeyBase_extend_impl(
 }
 fn wire_DescriptorSecretKeyBase_from_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    key_str: impl CstDecode<String>,
+    secret_key: impl CstDecode<String>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -703,10 +703,10 @@ fn wire_DescriptorSecretKeyBase_from_string_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_key_str = key_str.cst_decode();
+            let api_secret_key = secret_key.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::key::DescriptorSecretKeyBase::from_string(api_key_str)
+                    crate::api::key::DescriptorSecretKeyBase::from_string(api_secret_key)
                 })())
             }
         },
@@ -812,7 +812,7 @@ fn wire_MnemonicBase_new_impl(
 }
 fn wire_PsbtBase_combine_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::psbt::PsbtBase>,
+    ptr: impl CstDecode<crate::api::psbt::PsbtBase>,
     other: impl CstDecode<crate::api::psbt::PsbtBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -822,11 +822,11 @@ fn wire_PsbtBase_combine_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_other = other.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::psbt::PsbtBase::combine(&api_that, api_other)
+                    crate::api::psbt::PsbtBase::combine(api_ptr, api_other)
                 })())
             }
         },
@@ -834,7 +834,7 @@ fn wire_PsbtBase_combine_impl(
 }
 fn wire_PsbtBase_extract_tx_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::psbt::PsbtBase>,
+    ptr: impl CstDecode<crate::api::psbt::PsbtBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -843,10 +843,10 @@ fn wire_PsbtBase_extract_tx_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    Result::<_, ()>::Ok(crate::api::psbt::PsbtBase::extract_tx(&api_that))
+                    Result::<_, ()>::Ok(crate::api::psbt::PsbtBase::extract_tx(api_ptr))
                 })())
             }
         },
@@ -1103,7 +1103,7 @@ fn wire_AddressBase_payload_impl(
 }
 fn wire_AddressBase_script_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    address: impl CstDecode<crate::api::types::AddressBase>,
+    ptr: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1112,10 +1112,10 @@ fn wire_AddressBase_script_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_address = address.cst_decode();
+            let api_ptr = ptr.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    Result::<_, ()>::Ok(crate::api::types::AddressBase::script(api_address))
+                    Result::<_, ()>::Ok(crate::api::types::AddressBase::script(api_ptr))
                 })())
             }
         },
@@ -1505,7 +1505,7 @@ fn wire_WalletBase_get_balance_impl(
 }
 fn wire_WalletBase_get_descriptor_for_keychain_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::WalletBase>,
+    ptr: impl CstDecode<crate::api::wallet::WalletBase>,
     keychain: impl CstDecode<crate::api::types::KeychainKind>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1515,12 +1515,12 @@ fn wire_WalletBase_get_descriptor_for_keychain_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_keychain = keychain.cst_decode();
             move |context| {
                 transform_result_dco((move || {
                     crate::api::wallet::WalletBase::get_descriptor_for_keychain(
-                        &api_that,
+                        api_ptr,
                         api_keychain,
                     )
                 })())
@@ -1701,7 +1701,7 @@ fn wire_WalletBase_new_impl(
 }
 fn wire_WalletBase_sign_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::WalletBase>,
+    ptr: impl CstDecode<crate::api::wallet::WalletBase>,
     psbt: impl CstDecode<crate::api::psbt::PsbtBase>,
     sign_options: impl CstDecode<Option<crate::api::types::SignOptions>>,
 ) {
@@ -1712,12 +1712,12 @@ fn wire_WalletBase_sign_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_psbt = psbt.cst_decode();
             let api_sign_options = sign_options.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::wallet::WalletBase::sign(&api_that, api_psbt, api_sign_options)
+                    crate::api::wallet::WalletBase::sign(api_ptr, api_psbt, api_sign_options)
                 })())
             }
         },
@@ -1725,7 +1725,7 @@ fn wire_WalletBase_sign_impl(
 }
 fn wire_WalletBase_sync_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::WalletBase>,
+    ptr: impl CstDecode<crate::api::wallet::WalletBase>,
     blockchain: impl CstDecode<crate::api::blockchain::BlockchainBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1735,11 +1735,11 @@ fn wire_WalletBase_sync_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_blockchain = blockchain.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::wallet::WalletBase::sync(&api_that, api_blockchain)
+                    crate::api::wallet::WalletBase::sync(api_ptr, api_blockchain)
                 })())
             }
         },
@@ -1876,8 +1876,8 @@ impl CstDecode<crate::api::types::KeychainKind> for i32 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::KeychainKind {
         match self {
-            0 => crate::api::types::KeychainKind::External,
-            1 => crate::api::types::KeychainKind::Internal,
+            0 => crate::api::types::KeychainKind::ExternalChain,
+            1 => crate::api::types::KeychainKind::InternalChain,
             _ => unreachable!("Invalid variant for KeychainKind: {}", self),
         }
     }
@@ -2149,8 +2149,8 @@ impl SseDecode for String {
 impl SseDecode for crate::api::types::AddressBase {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_field0 = <bdk::bitcoin::Address>::sse_decode(deserializer);
-        return crate::api::types::AddressBase(var_field0);
+        let mut var_ptr = <bdk::bitcoin::Address>::sse_decode(deserializer);
+        return crate::api::types::AddressBase { ptr: var_ptr };
     }
 }
 
@@ -2234,7 +2234,7 @@ impl SseDecode for crate::api::types::AddressIndex {
         let mut tag_ = <i32>::sse_decode(deserializer);
         match tag_ {
             0 => {
-                return crate::api::types::AddressIndex::New;
+                return crate::api::types::AddressIndex::Increase;
             }
             1 => {
                 return crate::api::types::AddressIndex::LastUnused;
@@ -2821,8 +2821,8 @@ impl SseDecode for crate::api::types::KeychainKind {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <i32>::sse_decode(deserializer);
         return match inner {
-            0 => crate::api::types::KeychainKind::External,
-            1 => crate::api::types::KeychainKind::Internal,
+            0 => crate::api::types::KeychainKind::ExternalChain,
+            1 => crate::api::types::KeychainKind::InternalChain,
             _ => unreachable!("Invalid variant for KeychainKind: {}", inner),
         };
     }
@@ -3663,7 +3663,7 @@ impl
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::AddressBase {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.0.into_into_dart().into_dart()].into_dart()
+        [self.ptr.into_into_dart().into_dart()].into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
@@ -3742,7 +3742,7 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::error::AddressError>
 impl flutter_rust_bridge::IntoDart for crate::api::types::AddressIndex {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
-            crate::api::types::AddressIndex::New => [0.into_dart()].into_dart(),
+            crate::api::types::AddressIndex::Increase => [0.into_dart()].into_dart(),
             crate::api::types::AddressIndex::LastUnused => [1.into_dart()].into_dart(),
             crate::api::types::AddressIndex::Peek { index } => {
                 [2.into_dart(), index.into_into_dart().into_dart()].into_dart()
@@ -4335,8 +4335,8 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::Input> for crate::api:
 impl flutter_rust_bridge::IntoDart for crate::api::types::KeychainKind {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
-            Self::External => 0.into_dart(),
-            Self::Internal => 1.into_dart(),
+            Self::ExternalChain => 0.into_dart(),
+            Self::InternalChain => 1.into_dart(),
         }
     }
 }
@@ -5003,7 +5003,7 @@ impl SseEncode for String {
 impl SseEncode for crate::api::types::AddressBase {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bdk::bitcoin::Address>::sse_encode(self.0, serializer);
+        <bdk::bitcoin::Address>::sse_encode(self.ptr, serializer);
     }
 }
 
@@ -5077,7 +5077,7 @@ impl SseEncode for crate::api::types::AddressIndex {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         match self {
-            crate::api::types::AddressIndex::New => {
+            crate::api::types::AddressIndex::Increase => {
                 <i32>::sse_encode(0, serializer);
             }
             crate::api::types::AddressIndex::LastUnused => {
@@ -5576,8 +5576,8 @@ impl SseEncode for crate::api::types::KeychainKind {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(
             match self {
-                crate::api::types::KeychainKind::External => 0,
-                crate::api::types::KeychainKind::Internal => 1,
+                crate::api::types::KeychainKind::ExternalChain => 0,
+                crate::api::types::KeychainKind::InternalChain => 1,
                 _ => {
                     unimplemented!("");
                 }

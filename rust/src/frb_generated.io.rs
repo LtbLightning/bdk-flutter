@@ -233,7 +233,9 @@ impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
 impl CstDecode<crate::api::types::AddressBase> for wire_cst_address_base {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::AddressBase {
-        crate::api::types::AddressBase(self.field0.cst_decode())
+        crate::api::types::AddressBase {
+            ptr: self.ptr.cst_decode(),
+        }
     }
 }
 impl CstDecode<crate::api::error::AddressError> for wire_cst_address_error {
@@ -300,7 +302,7 @@ impl CstDecode<crate::api::types::AddressIndex> for wire_cst_address_index {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::AddressIndex {
         match self.tag {
-            0 => crate::api::types::AddressIndex::New,
+            0 => crate::api::types::AddressIndex::Increase,
             1 => crate::api::types::AddressIndex::LastUnused,
             2 => {
                 let ans = unsafe { self.kind.Peek };
@@ -1354,7 +1356,7 @@ impl CstDecode<crate::api::wallet::WalletBase> for wire_cst_wallet_base {
 impl NewWithNullPtr for wire_cst_address_base {
     fn new_with_null_ptr() -> Self {
         Self {
-            field0: Default::default(),
+            ptr: Default::default(),
         }
     }
 }
@@ -2131,19 +2133,19 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(
     port_: i64,
-    that: *mut wire_cst_descriptor_public_key_base,
+    ptr: *mut wire_cst_descriptor_public_key_base,
     path: *mut wire_cst_derivation_path_base,
 ) {
-    wire_DescriptorPublicKeyBase_derive_impl(port_, that, path)
+    wire_DescriptorPublicKeyBase_derive_impl(port_, ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend(
     port_: i64,
-    that: *mut wire_cst_descriptor_public_key_base,
+    ptr: *mut wire_cst_descriptor_public_key_base,
     path: *mut wire_cst_derivation_path_base,
 ) {
-    wire_DescriptorPublicKeyBase_extend_impl(port_, that, path)
+    wire_DescriptorPublicKeyBase_extend_impl(port_, ptr, path)
 }
 
 #[no_mangle]
@@ -2157,9 +2159,9 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_from_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(
     port_: i64,
-    secret: *mut wire_cst_descriptor_secret_key_base,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
 ) {
-    wire_DescriptorSecretKeyBase_as_public_impl(port_, secret)
+    wire_DescriptorSecretKeyBase_as_public_impl(port_, ptr)
 }
 
 #[no_mangle]
@@ -2183,27 +2185,27 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(
     port_: i64,
-    that: *mut wire_cst_descriptor_secret_key_base,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
     path: *mut wire_cst_derivation_path_base,
 ) {
-    wire_DescriptorSecretKeyBase_derive_impl(port_, that, path)
+    wire_DescriptorSecretKeyBase_derive_impl(port_, ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend(
     port_: i64,
-    that: *mut wire_cst_descriptor_secret_key_base,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
     path: *mut wire_cst_derivation_path_base,
 ) {
-    wire_DescriptorSecretKeyBase_extend_impl(port_, that, path)
+    wire_DescriptorSecretKeyBase_extend_impl(port_, ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_from_string(
     port_: i64,
-    key_str: *mut wire_cst_list_prim_u_8_strict,
+    secret_key: *mut wire_cst_list_prim_u_8_strict,
 ) {
-    wire_DescriptorSecretKeyBase_from_string_impl(port_, key_str)
+    wire_DescriptorSecretKeyBase_from_string_impl(port_, secret_key)
 }
 
 #[no_mangle]
@@ -2246,18 +2248,18 @@ pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_new(port_: i64, word_coun
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_PsbtBase_combine(
     port_: i64,
-    that: *mut wire_cst_psbt_base,
+    ptr: *mut wire_cst_psbt_base,
     other: *mut wire_cst_psbt_base,
 ) {
-    wire_PsbtBase_combine_impl(port_, that, other)
+    wire_PsbtBase_combine_impl(port_, ptr, other)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_PsbtBase_extract_tx(
     port_: i64,
-    that: *mut wire_cst_psbt_base,
+    ptr: *mut wire_cst_psbt_base,
 ) {
-    wire_PsbtBase_extract_tx_impl(port_, that)
+    wire_PsbtBase_extract_tx_impl(port_, ptr)
 }
 
 #[no_mangle]
@@ -2359,9 +2361,9 @@ pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_payload(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_script(
     port_: i64,
-    address: *mut wire_cst_address_base,
+    ptr: *mut wire_cst_address_base,
 ) {
-    wire_AddressBase_script_impl(port_, address)
+    wire_AddressBase_script_impl(port_, ptr)
 }
 
 #[no_mangle]
@@ -2514,10 +2516,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_get_balance(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_get_descriptor_for_keychain(
     port_: i64,
-    that: *mut wire_cst_wallet_base,
+    ptr: *mut wire_cst_wallet_base,
     keychain: i32,
 ) {
-    wire_WalletBase_get_descriptor_for_keychain_impl(port_, that, keychain)
+    wire_WalletBase_get_descriptor_for_keychain_impl(port_, ptr, keychain)
 }
 
 #[no_mangle]
@@ -2594,20 +2596,20 @@ pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_new(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_sign(
     port_: i64,
-    that: *mut wire_cst_wallet_base,
+    ptr: *mut wire_cst_wallet_base,
     psbt: *mut wire_cst_psbt_base,
     sign_options: *mut wire_cst_sign_options,
 ) {
-    wire_WalletBase_sign_impl(port_, that, psbt, sign_options)
+    wire_WalletBase_sign_impl(port_, ptr, psbt, sign_options)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_sync(
     port_: i64,
-    that: *mut wire_cst_wallet_base,
+    ptr: *mut wire_cst_wallet_base,
     blockchain: *mut wire_cst_blockchain_base,
 ) {
-    wire_WalletBase_sync_impl(port_, that, blockchain)
+    wire_WalletBase_sync_impl(port_, ptr, blockchain)
 }
 
 #[no_mangle]
@@ -3221,7 +3223,7 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_tx_out(len: i32) -> *mut wire_
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct wire_cst_address_base {
-    field0: usize,
+    ptr: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

@@ -97,9 +97,12 @@ impl DescriptorSecretKeyBase {
         Ok(descriptor_secret_key.into())
     }
 
-    pub fn derive(&self, path: DerivationPathBase) -> Result<Self, BdkError> {
+    pub fn derive(
+        ptr: DescriptorSecretKeyBase,
+        path: DerivationPathBase,
+    ) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_secret_key = &(*self.ptr);
+        let descriptor_secret_key = (*ptr.ptr).clone();
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derived_xprv = descriptor_x_key
@@ -132,8 +135,11 @@ impl DescriptorSecretKeyBase {
             )),
         }
     }
-    pub fn extend(&self, path: DerivationPathBase) -> Result<Self, BdkError> {
-        let descriptor_secret_key = &(*self.ptr);
+    pub fn extend(
+        ptr: DescriptorSecretKeyBase,
+        path: DerivationPathBase,
+    ) -> Result<Self, BdkError> {
+        let descriptor_secret_key = (*ptr.ptr).clone();
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let extended_path = descriptor_x_key.derivation_path.extend((*path.ptr).clone());
@@ -154,9 +160,9 @@ impl DescriptorSecretKeyBase {
             )),
         }
     }
-    pub fn as_public(secret: DescriptorSecretKeyBase) -> Result<DescriptorPublicKeyBase, BdkError> {
+    pub fn as_public(ptr: DescriptorSecretKeyBase) -> Result<DescriptorPublicKeyBase, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = secret.ptr.to_public(&secp).unwrap();
+        let descriptor_public_key = ptr.ptr.to_public(&secp).unwrap();
         Ok(descriptor_public_key.into())
     }
     /// Get the private key as bytes.
@@ -175,8 +181,8 @@ impl DescriptorSecretKeyBase {
         }
     }
 
-    pub fn from_string(key_str: String) -> Result<Self, BdkError> {
-        let key = keys::DescriptorSecretKey::from_str(&*key_str).unwrap();
+    pub fn from_string(secret_key: String) -> Result<Self, BdkError> {
+        let key = keys::DescriptorSecretKey::from_str(&*secret_key).unwrap();
         Ok(key.into())
     }
     pub fn as_string(&self) -> String {
@@ -201,9 +207,12 @@ impl DescriptorPublicKeyBase {
             .map_err(|e| BdkError::Generic(e.to_string()))
             .map(|e| e.into())
     }
-    pub fn derive(&self, path: DerivationPathBase) -> Result<Self, BdkError> {
+    pub fn derive(
+        ptr: DescriptorPublicKeyBase,
+        path: DerivationPathBase,
+    ) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = &(*self.ptr);
+        let descriptor_public_key = (*ptr.ptr).clone();
         match descriptor_public_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derived_xpub = descriptor_x_key
@@ -236,8 +245,11 @@ impl DescriptorPublicKeyBase {
         }
     }
 
-    pub fn extend(&self, path: DerivationPathBase) -> Result<Self, BdkError> {
-        let descriptor_public_key = &(*self.ptr);
+    pub fn extend(
+        ptr: DescriptorPublicKeyBase,
+        path: DerivationPathBase,
+    ) -> Result<Self, BdkError> {
+        let descriptor_public_key = (*ptr.ptr).clone();
         match descriptor_public_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let extended_path = descriptor_x_key

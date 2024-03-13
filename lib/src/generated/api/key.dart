@@ -82,19 +82,19 @@ class DescriptorPublicKeyBase {
         that: this,
       );
 
-  Future<DescriptorPublicKeyBase> derive(
-          {required DerivationPathBase path, dynamic hint}) =>
-      BdkCore.instance.api.descriptorPublicKeyBaseDerive(
-        that: this,
-        path: path,
-      );
+  static Future<DescriptorPublicKeyBase> derive(
+          {required DescriptorPublicKeyBase ptr,
+          required DerivationPathBase path,
+          dynamic hint}) =>
+      BdkCore.instance.api
+          .descriptorPublicKeyBaseDerive(ptr: ptr, path: path, hint: hint);
 
-  Future<DescriptorPublicKeyBase> extend(
-          {required DerivationPathBase path, dynamic hint}) =>
-      BdkCore.instance.api.descriptorPublicKeyBaseExtend(
-        that: this,
-        path: path,
-      );
+  static Future<DescriptorPublicKeyBase> extend(
+          {required DescriptorPublicKeyBase ptr,
+          required DerivationPathBase path,
+          dynamic hint}) =>
+      BdkCore.instance.api
+          .descriptorPublicKeyBaseExtend(ptr: ptr, path: path, hint: hint);
 
   static Future<DescriptorPublicKeyBase> fromString(
           {required String publicKey, dynamic hint}) =>
@@ -120,9 +120,9 @@ class DescriptorSecretKeyBase {
   });
 
   static Future<DescriptorPublicKeyBase> asPublic(
-          {required DescriptorSecretKeyBase secret, dynamic hint}) =>
+          {required DescriptorSecretKeyBase ptr, dynamic hint}) =>
       BdkCore.instance.api
-          .descriptorSecretKeyBaseAsPublic(secret: secret, hint: hint);
+          .descriptorSecretKeyBaseAsPublic(ptr: ptr, hint: hint);
 
   Future<String> asString({dynamic hint}) =>
       BdkCore.instance.api.descriptorSecretKeyBaseAsString(
@@ -137,24 +137,24 @@ class DescriptorSecretKeyBase {
       BdkCore.instance.api.descriptorSecretKeyBaseCreate(
           network: network, mnemonic: mnemonic, password: password, hint: hint);
 
-  Future<DescriptorSecretKeyBase> derive(
-          {required DerivationPathBase path, dynamic hint}) =>
-      BdkCore.instance.api.descriptorSecretKeyBaseDerive(
-        that: this,
-        path: path,
-      );
+  static Future<DescriptorSecretKeyBase> derive(
+          {required DescriptorSecretKeyBase ptr,
+          required DerivationPathBase path,
+          dynamic hint}) =>
+      BdkCore.instance.api
+          .descriptorSecretKeyBaseDerive(ptr: ptr, path: path, hint: hint);
 
-  Future<DescriptorSecretKeyBase> extend(
-          {required DerivationPathBase path, dynamic hint}) =>
-      BdkCore.instance.api.descriptorSecretKeyBaseExtend(
-        that: this,
-        path: path,
-      );
+  static Future<DescriptorSecretKeyBase> extend(
+          {required DescriptorSecretKeyBase ptr,
+          required DerivationPathBase path,
+          dynamic hint}) =>
+      BdkCore.instance.api
+          .descriptorSecretKeyBaseExtend(ptr: ptr, path: path, hint: hint);
 
   static Future<DescriptorSecretKeyBase> fromString(
-          {required String keyStr, dynamic hint}) =>
+          {required String secretKey, dynamic hint}) =>
       BdkCore.instance.api
-          .descriptorSecretKeyBaseFromString(keyStr: keyStr, hint: hint);
+          .descriptorSecretKeyBaseFromString(secretKey: secretKey, hint: hint);
 
   /// Get the private key as bytes.
   Future<Uint8List> secretBytes({dynamic hint}) =>
