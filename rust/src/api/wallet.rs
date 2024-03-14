@@ -18,11 +18,6 @@ use bdk::database::ConfigurableDatabase;
 pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
-/// A Bitcoin wallet.
-/// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
-///     1. Output descriptors from which it can derive addresses.
-///     2. A Database where it tracks transactions and utxos related to the descriptors.
-///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 #[derive(Debug)]
 pub struct WalletBase {
     pub ptr: RustOpaque<Mutex<bdk::Wallet<AnyDatabase>>>,

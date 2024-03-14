@@ -78,11 +78,6 @@ class MutexBdkWalletAnyDatabase extends RustOpaque {
   );
 }
 
-/// A Bitcoin wallet.
-/// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
-///     1. Output descriptors from which it can derive addresses.
-///     2. A Database where it tracks transactions and utxos related to the descriptors.
-///     3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 class WalletBase {
   final MutexBdkWalletAnyDatabase ptr;
 
