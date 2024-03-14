@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/foundation.dart';
 
@@ -68,7 +66,7 @@ class MultiSigWallet {
           .addRecipient(script, 1000)
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
-      final aliceSbt = await aliceWallet.sign(
+      await aliceWallet.sign(
           psbt: psbt,
           signOptions: const SignOptions(
               multiSig: true,
@@ -78,9 +76,13 @@ class MultiSigWallet {
               tryFinalize: true,
               signWithTapInternalKey: true,
               allowGrinding: true));
-      final bobSbt = await bobWallet.sign(psbt: psbt);
-      final tx = await psbt.extractTx();
-      Isolate.run(() async => {await blockchain.broadcast(transaction: tx)});
+      final isFinalized = await bobWallet.sign(psbt: psbt);
+      if (isFinalized) {
+        final tx = await psbt.extractTx();
+        await blockchain.broadcast(transaction: tx);
+      } else {
+        debugPrint("Psbt not finalized!");
+      }
     } on FormatException catch (e) {
       if (kDebugMode) {
         print(e.message);
