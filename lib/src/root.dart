@@ -10,59 +10,6 @@ import 'generated/api/psbt.dart';
 import 'generated/api/types.dart';
 import 'generated/api/wallet.dart';
 
-class Mnemonic extends MnemonicBase {
-  Mnemonic._({required super.ptr});
-
-  /// Generates [Mnemonic] with given [WordCount]
-  ///
-  /// [Mnemonic] constructor
-  static Future<Mnemonic> create(WordCount wordCount) async {
-    try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.newMnemonicBase(wordCount: wordCount);
-      return Mnemonic._(ptr: res.ptr);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
-  /// Create a new [Mnemonic] in the specified language from the given entropy.
-  /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
-  ///
-  /// [Mnemonic] constructor
-  static Future<Mnemonic> fromEntropy(List<int> entropy) async {
-    try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.fromEntropy(entropy: entropy);
-      return Mnemonic._(ptr: res.ptr);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
-  /// Parse a [Mnemonic] with given string
-  ///
-  /// [Mnemonic] constructor
-  static Future<Mnemonic> fromString(String mnemonic) async {
-    try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.fromString(mnemonic: mnemonic);
-      return Mnemonic._(ptr: res.ptr);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
-  @override
-  Future<String> asString({hint}) async {
-    try {
-      return super.asString();
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-}
-
 ///A Bitcoin address.
 class Address extends AddressBase {
   Address._({required super.ptr});
@@ -100,64 +47,116 @@ class Address extends AddressBase {
   }
 }
 
-class ScriptBuf extends ScriptBufBase {
-  ScriptBuf({required super.bytes});
+/// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
+class Blockchain extends BlockchainBase {
+  Blockchain._({required super.ptr});
 
-  ///Creates a new empty script.
-  static Future<ScriptBuf> empty() async {
+  ///  [Blockchain] constructor
+  static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.empty();
-      return ScriptBuf(bytes: res.bytes);
+      final res =
+          await BlockchainBase.newBlockchainBase(blockchainConfig: config);
+      return Blockchain._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 
-  ///Creates a new empty script with pre-allocated capacity.
-  static Future<ScriptBuf> withCapacity(int capacity) async {
+  ///Estimate the fee rate required to confirm a transaction in a given target of blocks
+  @override
+  Future<FeeRate> estimateFee({required int target, hint}) async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.withCapacity(capacity: capacity);
-      return ScriptBuf(bytes: res.bytes);
+      return super.estimateFee(target: target);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 
-  ///Creates a ScriptBuf from a hex string.
-  static Future<ScriptBuf> fromHex(String s) async {
+  ///The function for broadcasting a transaction
+  @override
+  Future<String> broadcast({required TransactionBase transaction, hint}) async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.fromHex(s: s);
-      return ScriptBuf(bytes: res.bytes);
+      return super.broadcast(transaction: transaction);
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+
+  ///The function for getting block hash by block height
+  @override
+  Future<String> getBlockHash({required int height, hint}) async {
+    try {
+      return super.getBlockHash(height: height);
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+
+  ///The function for getting the current height of the blockchain.
+  @override
+  Future<int> getHeight({hint}) {
+    try {
+      return super.getHeight();
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 }
 
-///A bitcoin transaction.
-class Transaction extends TransactionBase {
-  Transaction._({required super.inner});
+/// The BumpFeeTxBuilder is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
+class BumpFeeTxBuilder {
+  int? _nSequence;
+  Address? _allowShrinking;
+  bool _enableRbf = false;
+  final String txid;
+  final double feeRate;
 
-  ///  [Transaction] constructor
-  static Future<Transaction> create({
-    required List<int> transactionBytes,
-  }) async {
+  BumpFeeTxBuilder({required this.txid, required this.feeRate});
+
+  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this `address` in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
+  ///
+  /// Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
+  ///
+  /// Throws and exception if address can’t be found among the recipients of the transaction we are bumping.
+  BumpFeeTxBuilder allowShrinking(Address address) {
+    _allowShrinking = address;
+    return this;
+  }
+
+  ///Enable signaling RBF
+  ///
+  /// This will use the default nSequence value of `0xFFFFFFFD`
+  BumpFeeTxBuilder enableRbf() {
+    _enableRbf = true;
+    return this;
+  }
+
+  ///Enable signaling RBF with a specific nSequence value
+  ///
+  /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
+  ///
+  /// If the nsequence is higher than `0xFFFFFFFD` an error will be thrown, since it would not be a valid nSequence to signal RBF.
+
+  BumpFeeTxBuilder enableRbfWithSequence(int nSequence) {
+    _nSequence = nSequence;
+    return this;
+  }
+
+  /// Finish building the transaction. Returns the  [PartiallySignedTransaction]& [TransactionDetails].
+  Future<(PartiallySignedTransaction, TransactionDetails)> finish(
+      Wallet wallet) async {
     try {
-      await Frb.verifyInit();
-      final res = await TransactionBase.newTransactionBase(
-          transactionBytes: transactionBytes);
-      return Transaction._(inner: res.inner);
+      final res = await finishBumpFeeTxBuilder(
+          txid: txid.toString(),
+          enableRbf: _enableRbf,
+          feeRate: feeRate,
+          wallet: wallet,
+          nSequence: _nSequence,
+          allowShrinking: _allowShrinking);
+      return (PartiallySignedTransaction._(ptr: res.$1.ptr), res.$2);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
-  }
-
-  @override
-  String toString() {
-    return inner;
   }
 }
 
@@ -363,6 +362,7 @@ class Descriptor extends DescriptorBase {
     }
   }
 
+  ///Return the public version of the output descriptor.
   @override
   Future<String> asString({hint}) async {
     try {
@@ -372,6 +372,7 @@ class Descriptor extends DescriptorBase {
     }
   }
 
+  ///Return the private version of the output descriptor if available, otherwise return the public version.
   @override
   Future<String> asStringPrivate({hint}) async {
     try {
@@ -381,6 +382,7 @@ class Descriptor extends DescriptorBase {
     }
   }
 
+  ///Computes an upper bound on the difference between a non-satisfied TxIn's segwit_weight and a satisfied TxIn's segwit_weight
   @override
   Future<int> maxSatisfactionWeight({hint}) async {
     try {
@@ -407,6 +409,7 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
     }
   }
 
+  ///Get the public key as string.
   @override
   Future<String> asString({hint}) async {
     try {
@@ -416,6 +419,7 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
     }
   }
 
+  ///Derive a public descriptor at a given path.
   Future<DescriptorPublicKey> derive(
       {required DerivationPathBase path, hint}) async {
     try {
@@ -426,6 +430,7 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
     }
   }
 
+  ///Extend the public descriptor with a custom path.
   Future<DescriptorPublicKey> extend(
       {required DerivationPathBase path, hint}) async {
     try {
@@ -437,6 +442,7 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
   }
 }
 
+///Script descriptor
 class DescriptorSecretKey extends DescriptorSecretKeyBase {
   DescriptorSecretKey._({required super.ptr});
 
@@ -467,6 +473,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
     }
   }
 
+  ///Derived the XPrv using the derivation path
   Future<DescriptorSecretKey> derive(
       {required DescriptorSecretKeyBase key,
       required DerivationPathBase path}) async {
@@ -478,6 +485,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
     }
   }
 
+  ///Extends the XPrv using the derivation path
   Future<DescriptorSecretKey> extend({
     required DescriptorSecretKeyBase key,
     required DerivationPathBase path,
@@ -490,6 +498,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
     }
   }
 
+  ///Returns the public version of this key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
       final res = await DescriptorSecretKeyBase.asPublic(ptr: this);
@@ -499,6 +508,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
     }
   }
 
+  ///Get the private key as string.
   @override
   Future<String> asString({hint}) {
     try {
@@ -508,6 +518,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
     }
   }
 
+  ///Get the private key as bytes.
   @override
   Future<Uint8List> secretBytes({hint}) async {
     try {
@@ -518,10 +529,68 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   }
 }
 
+///Mnemonic phrases are a human-readable version of the private keys. Supported number of words are 12, 18, and 24.
+class Mnemonic extends MnemonicBase {
+  Mnemonic._({required super.ptr});
+
+  /// Generates [Mnemonic] with given [WordCount]
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> create(WordCount wordCount) async {
+    try {
+      await Frb.verifyInit();
+      final res = await MnemonicBase.newMnemonicBase(wordCount: wordCount);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+
+  /// Create a new [Mnemonic] in the specified language from the given entropy.
+  /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> fromEntropy(List<int> entropy) async {
+    try {
+      await Frb.verifyInit();
+      final res = await MnemonicBase.fromEntropy(entropy: entropy);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+
+  /// Parse a [Mnemonic] with given string
+  ///
+  /// [Mnemonic] constructor
+  static Future<Mnemonic> fromString(String mnemonic) async {
+    try {
+      await Frb.verifyInit();
+      final res = await MnemonicBase.fromString(mnemonic: mnemonic);
+      return Mnemonic._(ptr: res.ptr);
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+
+  ///Returns Mnemonic as string
+  @override
+  Future<String> asString({hint}) async {
+    try {
+      return super.asString();
+    } on BdkError catch (e) {
+      throw mapToException(e);
+    }
+  }
+}
+
 ///A Partially Signed Transaction
 class PartiallySignedTransaction extends PsbtBase {
   PartiallySignedTransaction._({required super.ptr});
 
+  /// Parse a [PartiallySignedTransaction] with given Base64 string
+  ///
+  /// [PartiallySignedTransaction] constructor
   static Future<PartiallySignedTransaction> fromString(
       String psbtBase64) async {
     try {
@@ -533,6 +602,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Return fee amount
   @override
   Future<int?> feeAmount({hint}) {
     try {
@@ -542,6 +612,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Return fee rate
   @override
   Future<FeeRate?> feeRate({hint}) {
     try {
@@ -560,6 +631,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Return psbt as string
   @override
   Future<String> serialize({hint}) {
     try {
@@ -569,6 +641,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Return the transaction as bytes.
   Future<Transaction> extractTx() async {
     try {
       final res = await PsbtBase.extractTx(ptr: this);
@@ -578,6 +651,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
   Future<PartiallySignedTransaction> combine(
       PartiallySignedTransaction other) async {
     try {
@@ -588,6 +662,7 @@ class PartiallySignedTransaction extends PsbtBase {
     }
   }
 
+  ///Returns the [PartiallySignedTransaction]'s transaction id
   @override
   Future<String> txid({hint}) {
     try {
@@ -598,112 +673,68 @@ class PartiallySignedTransaction extends PsbtBase {
   }
 }
 
-/// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
-class Blockchain extends BlockchainBase {
-  Blockchain._({required super.ptr});
+///Bitcoin script.
+class ScriptBuf extends ScriptBufBase {
+  /// [ScriptBuf] constructor
+  ScriptBuf({required super.bytes});
 
-  ///  [Blockchain] constructor
-  static Future<Blockchain> create({required BlockchainConfig config}) async {
+  ///Creates a new empty script.
+  static Future<ScriptBuf> empty() async {
     try {
-      final res =
-          await BlockchainBase.newBlockchainBase(blockchainConfig: config);
-      return Blockchain._(ptr: res.ptr);
+      await Frb.verifyInit();
+      final res = await ScriptBufBase.empty();
+      return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 
-  @override
-  Future<FeeRate> estimateFee({required int target, hint}) async {
+  ///Creates a new empty script with pre-allocated capacity.
+  static Future<ScriptBuf> withCapacity(int capacity) async {
     try {
-      return super.estimateFee(target: target);
+      await Frb.verifyInit();
+      final res = await ScriptBufBase.withCapacity(capacity: capacity);
+      return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 
-  @override
-  Future<String> broadcast({required TransactionBase transaction, hint}) async {
+  ///Creates a ScriptBuf from a hex string.
+  static Future<ScriptBuf> fromHex(String s) async {
     try {
-      return super.broadcast(transaction: transaction);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
-  @override
-  Future<String> getBlockHash({required int height, hint}) async {
-    try {
-      return super.getBlockHash(height: height);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
-  @override
-  Future<int> getHeight({hint}) {
-    try {
-      return super.getHeight();
+      await Frb.verifyInit();
+      final res = await ScriptBufBase.fromHex(s: s);
+      return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
 }
 
-/// The BumpFeeTxBuilder is used to bump the fee on a transaction that has been broadcast and has its RBF flag set to true.
-class BumpFeeTxBuilder {
-  int? _nSequence;
-  Address? _allowShrinking;
-  bool _enableRbf = false;
-  final String txid;
-  final double feeRate;
+///A bitcoin transaction.
+class Transaction extends TransactionBase {
+  Transaction._({required super.inner});
 
-  BumpFeeTxBuilder({required this.txid, required this.feeRate});
-
-  ///Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this `address` in order to bump the transaction fee. Without specifying this the wallet will attempt to find a change output to shrink instead.
-  ///
-  /// Note that the output may shrink to below the dust limit and therefore be removed. If it is preserved then it is currently not guaranteed to be in the same position as it was originally.
-  ///
-  /// Throws and exception if address can’t be found among the recipients of the transaction we are bumping.
-  BumpFeeTxBuilder allowShrinking(Address address) {
-    _allowShrinking = address;
-    return this;
-  }
-
-  ///Enable signaling RBF
-  ///
-  /// This will use the default nSequence value of `0xFFFFFFFD`
-  BumpFeeTxBuilder enableRbf() {
-    _enableRbf = true;
-    return this;
-  }
-
-  ///Enable signaling RBF with a specific nSequence value
-  ///
-  /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
-  ///
-  /// If the nsequence is higher than `0xFFFFFFFD` an error will be thrown, since it would not be a valid nSequence to signal RBF.
-
-  BumpFeeTxBuilder enableRbfWithSequence(int nSequence) {
-    _nSequence = nSequence;
-    return this;
-  }
-
-  /// Finish building the transaction. Returns the  [PartiallySignedTransaction]& [TransactionDetails].
-  Future<(PartiallySignedTransaction, TransactionDetails)> finish(
-      Wallet wallet) async {
+  ///  [Transaction] constructor
+  ///  Decode an object with a well-defined format.
+  // This is the method that should be implemented for a typical, fixed sized type implementing this trait.
+  static Future<Transaction> create({
+    required List<int> transactionBytes,
+  }) async {
     try {
-      final res = await finishBumpFeeTxBuilder(
-          txid: txid.toString(),
-          enableRbf: _enableRbf,
-          feeRate: feeRate,
-          wallet: wallet,
-          nSequence: _nSequence,
-          allowShrinking: _allowShrinking);
-      return (PartiallySignedTransaction._(ptr: res.$1.ptr), res.$2);
+      await Frb.verifyInit();
+      final res = await TransactionBase.newTransactionBase(
+          transactionBytes: transactionBytes);
+      return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
       throw mapToException(e);
     }
+  }
+
+  @override
+  String toString() {
+    return inner;
   }
 }
 
@@ -910,15 +941,18 @@ class TxBuilder {
   }
 }
 
+/// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
+///
+///  1. Output descriptors from which it can derive addresses.
+///  2. A Database where it tracks transactions and utxos related to the descriptors.
+///  3. Signers that can contribute signatures to addresses instantiated from the descriptors.
 class Wallet extends WalletBase {
   Wallet._({required super.ptr});
 
   ///  [Wallet] constructor
-  /// The Wallet acts as a way of coherently interfacing with output descriptors and related transactions. Its main components are:
-  ///
-  ///  1. Output descriptors from which it can derive addresses.
-  ///  2. A Database where it tracks transactions and utxos related to the descriptors.
-  ///  3. Signers that can contribute signatures to addresses instantiated from the descriptors.
+
+  ///Create a wallet.
+  // The only way this can fail is if the descriptors passed in do not match the checksums in database.
   static Future<Wallet> create({
     required Descriptor descriptor,
     Descriptor? changeDescriptor,
@@ -962,6 +996,7 @@ class Wallet extends WalletBase {
     }
   }
 
+  ///Returns the descriptor used to create addresses for a particular keychain.
   Future<Descriptor> getDescriptorForKeychain(
       {required KeychainKind keychain, hint}) async {
     try {

@@ -284,6 +284,7 @@ enum KeychainKind {
   internalChain,
 }
 
+///Unspent outputs of this wallet
 class LocalUtxo {
   final OutPoint outpoint;
   final TxOut txout;
@@ -597,26 +598,32 @@ class TransactionBase {
     required this.inner,
   });
 
+  ///List of transaction inputs.
   Future<List<TxIn>> input({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseInput(
         that: this,
       );
 
+  ///Is this a coin base transaction?
   Future<bool> isCoinBase({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseIsCoinBase(
         that: this,
       );
 
+  ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
+  /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
   Future<bool> isExplicitlyRbf({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseIsExplicitlyRbf(
         that: this,
       );
 
+  ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
   Future<bool> isLockTimeEnabled({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseIsLockTimeEnabled(
         that: this,
       );
 
+  ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
   Future<int> lockTime({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseLockTime(
         that: this,
@@ -627,35 +634,44 @@ class TransactionBase {
       BdkCore.instance.api
           .transactionBaseNew(transactionBytes: transactionBytes, hint: hint);
 
+  ///List of transaction outputs.
   Future<List<TxOut>> output({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseOutput(
         that: this,
       );
 
+  ///Encodes an object into a vector.
   Future<Uint8List> serialize({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseSerialize(
         that: this,
       );
 
+  ///Returns the regular byte-wise consensus-serialized size of this transaction.
   Future<int> size({dynamic hint}) => BdkCore.instance.api.transactionBaseSize(
         that: this,
       );
 
+  ///Computes the txid. For non-segwit transactions this will be identical to the output of wtxid(),
+  /// but for segwit transactions, this will give the correct txid (not including witnesses) while wtxid will also hash witnesses.
   Future<String> txid({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseTxid(
         that: this,
       );
 
+  ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
   Future<int> version({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseVersion(
         that: this,
       );
 
+  ///Returns the “virtual size” (vsize) of this transaction.
+  ///
   Future<int> vsize({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseVsize(
         that: this,
       );
 
+  ///Returns the regular byte-wise consensus-serialized size of this transaction.
   Future<int> weight({dynamic hint}) =>
       BdkCore.instance.api.transactionBaseWeight(
         that: this,

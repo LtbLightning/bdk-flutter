@@ -527,53 +527,58 @@ impl TransactionBase {
             bdk::bitcoin::transaction::Transaction::consensus_decode(&mut decoder)?;
         Ok(tx.into())
     }
-
+    ///Computes the txid. For non-segwit transactions this will be identical to the output of wtxid(),
+    /// but for segwit transactions, this will give the correct txid (not including witnesses) while wtxid will also hash witnesses.
     pub fn txid(&self) -> String {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .txid()
             .to_string()
     }
-
+    ///Returns the regular byte-wise consensus-serialized size of this transaction.
     pub fn weight(&self) -> u64 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .weight()
             .to_wu()
     }
-
+    ///Returns the regular byte-wise consensus-serialized size of this transaction.
     pub fn size(&self) -> u64 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).size() as u64
     }
-
+    ///Returns the “virtual size” (vsize) of this transaction.
+    ///
+    // Will be ceil(weight / 4.0). Note this implements the virtual size as per BIP141, which is different to what is implemented in Bitcoin Core.
+    // The computation should be the same for any remotely sane transaction, and a standardness-rule-correct version is available in the policy module.
     pub fn vsize(&self) -> u64 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).vsize() as u64
     }
-
+    ///Encodes an object into a vector.
     pub fn serialize(&self) -> Vec<u8> {
         serialize(&<&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self))
     }
-
+    ///Is this a coin base transaction?
     pub fn is_coin_base(&self) -> bool {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_coin_base()
     }
-
+    ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
+    /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
     pub fn is_explicitly_rbf(&self) -> bool {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_explicitly_rbf()
     }
-
+    ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
     pub fn is_lock_time_enabled(&self) -> bool {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_lock_time_enabled()
     }
-
+    ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
     pub fn version(&self) -> i32 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).version
     }
-
+    ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
     pub fn lock_time(&self) -> u32 {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .lock_time
             .to_consensus_u32()
     }
-
+    ///List of transaction inputs.
     pub fn input(&self) -> Vec<TxIn> {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .input
@@ -581,7 +586,7 @@ impl TransactionBase {
             .map(|x| x.into())
             .collect()
     }
-
+    ///List of transaction outputs.
     pub fn output(&self) -> Vec<TxOut> {
         <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
             .output
@@ -674,6 +679,7 @@ impl From<KeychainKind> for bdk::KeychainKind {
         }
     }
 }
+///Unspent outputs of this wallet
 pub struct LocalUtxo {
     pub outpoint: OutPoint,
     pub txout: TxOut,
