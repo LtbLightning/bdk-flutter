@@ -54,6 +54,7 @@ class Blockchain extends BlockchainBase {
   ///  [Blockchain] constructor
   static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
+      await Frb.verifyInit();
       final res =
           await BlockchainBase.newBlockchainBase(blockchainConfig: config);
       return Blockchain._(ptr: res.ptr);
@@ -960,6 +961,7 @@ class Wallet extends WalletBase {
     required DatabaseConfig databaseConfig,
   }) async {
     try {
+      await Frb.verifyInit();
       final res = await WalletBase.newWalletBase(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
