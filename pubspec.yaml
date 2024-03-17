@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_rust_bridge: ">2.0.0-dev.24 <= 2.0.0-dev.25"
+  flutter_rust_bridge: ">2.0.0-dev.25 <= 2.0.0-dev.28"
   ffi: ^2.0.1
   freezed_annotation: ^2.2.0
   mockito: ^5.4.0
@@ -29,9 +29,6 @@ dev_dependencies:
   lints: ^3.0.0
 
 flutter:
-  assets:
-    - assets/
-
   plugin:
     platforms:
       android:
