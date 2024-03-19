@@ -101,27 +101,6 @@ typedef struct wire_cst_blockchain_config {
   union BlockchainConfigKind kind;
 } wire_cst_blockchain_config;
 
-typedef struct wire_cst_descriptor_base {
-  uintptr_t extended_descriptor;
-  uintptr_t key_map;
-} wire_cst_descriptor_base;
-
-typedef struct wire_cst_descriptor_secret_key_base {
-  uintptr_t ptr;
-} wire_cst_descriptor_secret_key_base;
-
-typedef struct wire_cst_descriptor_public_key_base {
-  uintptr_t ptr;
-} wire_cst_descriptor_public_key_base;
-
-typedef struct wire_cst_derivation_path_base {
-  uintptr_t ptr;
-} wire_cst_derivation_path_base;
-
-typedef struct wire_cst_mnemonic_base {
-  uintptr_t ptr;
-} wire_cst_mnemonic_base;
-
 typedef struct wire_cst_list_prim_u_8_loose {
   uint8_t *ptr;
   int32_t len;
@@ -130,10 +109,6 @@ typedef struct wire_cst_list_prim_u_8_loose {
 typedef struct wire_cst_psbt_base {
   uintptr_t ptr;
 } wire_cst_psbt_base;
-
-typedef struct wire_cst_address_base {
-  uintptr_t ptr;
-} wire_cst_address_base;
 
 typedef struct wire_cst_script_buf_base {
   struct wire_cst_list_prim_u_8_strict *bytes;
@@ -703,59 +678,56 @@ void frbgen_bdk_flutter_wire_BlockchainBase_get_height(int64_t port_,
 void frbgen_bdk_flutter_wire_BlockchainBase_new(int64_t port_,
                                                 struct wire_cst_blockchain_config *blockchain_config);
 
-void frbgen_bdk_flutter_wire_DescriptorBase_as_string(int64_t port_,
-                                                      struct wire_cst_descriptor_base *that);
+void frbgen_bdk_flutter_wire_DescriptorBase_as_string(int64_t port_, uintptr_t that);
 
-void frbgen_bdk_flutter_wire_DescriptorBase_as_string_private(int64_t port_,
-                                                              struct wire_cst_descriptor_base *that);
+void frbgen_bdk_flutter_wire_DescriptorBase_as_string_private(int64_t port_, uintptr_t that);
 
-void frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight(int64_t port_,
-                                                                    struct wire_cst_descriptor_base *that);
+void frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new(int64_t port_,
                                                 struct wire_cst_list_prim_u_8_strict *descriptor,
                                                 int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip44(int64_t port_,
-                                                      struct wire_cst_descriptor_secret_key_base *secret_key,
+                                                      uintptr_t secret_key,
                                                       int32_t keychain_kind,
                                                       int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip44_public(int64_t port_,
-                                                             struct wire_cst_descriptor_public_key_base *public_key,
+                                                             uintptr_t public_key,
                                                              struct wire_cst_list_prim_u_8_strict *fingerprint,
                                                              int32_t keychain_kind,
                                                              int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip49(int64_t port_,
-                                                      struct wire_cst_descriptor_secret_key_base *secret_key,
+                                                      uintptr_t secret_key,
                                                       int32_t keychain_kind,
                                                       int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip49_public(int64_t port_,
-                                                             struct wire_cst_descriptor_public_key_base *public_key,
+                                                             uintptr_t public_key,
                                                              struct wire_cst_list_prim_u_8_strict *fingerprint,
                                                              int32_t keychain_kind,
                                                              int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip84(int64_t port_,
-                                                      struct wire_cst_descriptor_secret_key_base *secret_key,
+                                                      uintptr_t secret_key,
                                                       int32_t keychain_kind,
                                                       int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip84_public(int64_t port_,
-                                                             struct wire_cst_descriptor_public_key_base *public_key,
+                                                             uintptr_t public_key,
                                                              struct wire_cst_list_prim_u_8_strict *fingerprint,
                                                              int32_t keychain_kind,
                                                              int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip86(int64_t port_,
-                                                      struct wire_cst_descriptor_secret_key_base *secret_key,
+                                                      uintptr_t secret_key,
                                                       int32_t keychain_kind,
                                                       int32_t network);
 
 void frbgen_bdk_flutter_wire_DescriptorBase_new_bip86_public(int64_t port_,
-                                                             struct wire_cst_descriptor_public_key_base *public_key,
+                                                             uintptr_t public_key,
                                                              struct wire_cst_list_prim_u_8_strict *fingerprint,
                                                              int32_t keychain_kind,
                                                              int32_t network);
@@ -763,47 +735,42 @@ void frbgen_bdk_flutter_wire_DescriptorBase_new_bip86_public(int64_t port_,
 void frbgen_bdk_flutter_wire_DerivationPathBase_from_string(int64_t port_,
                                                             struct wire_cst_list_prim_u_8_strict *path);
 
-void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(int64_t port_,
-                                                               struct wire_cst_descriptor_public_key_base *that);
+void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(int64_t port_,
-                                                            struct wire_cst_descriptor_public_key_base *ptr,
-                                                            struct wire_cst_derivation_path_base *path);
+                                                            uintptr_t ptr,
+                                                            uintptr_t path);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend(int64_t port_,
-                                                            struct wire_cst_descriptor_public_key_base *ptr,
-                                                            struct wire_cst_derivation_path_base *path);
+                                                            uintptr_t ptr,
+                                                            uintptr_t path);
 
 void frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_from_string(int64_t port_,
                                                                  struct wire_cst_list_prim_u_8_strict *public_key);
 
-void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(int64_t port_,
-                                                               struct wire_cst_descriptor_secret_key_base *ptr);
+void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(int64_t port_, uintptr_t ptr);
 
-void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(int64_t port_,
-                                                               struct wire_cst_descriptor_secret_key_base *that);
+void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(int64_t port_,
                                                             int32_t network,
-                                                            struct wire_cst_mnemonic_base *mnemonic,
+                                                            uintptr_t mnemonic,
                                                             struct wire_cst_list_prim_u_8_strict *password);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(int64_t port_,
-                                                            struct wire_cst_descriptor_secret_key_base *ptr,
-                                                            struct wire_cst_derivation_path_base *path);
+                                                            uintptr_t ptr,
+                                                            uintptr_t path);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend(int64_t port_,
-                                                            struct wire_cst_descriptor_secret_key_base *ptr,
-                                                            struct wire_cst_derivation_path_base *path);
+                                                            uintptr_t ptr,
+                                                            uintptr_t path);
 
 void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_from_string(int64_t port_,
                                                                  struct wire_cst_list_prim_u_8_strict *secret_key);
 
-void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes(int64_t port_,
-                                                                  struct wire_cst_descriptor_secret_key_base *that);
+void frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes(int64_t port_, uintptr_t that);
 
-void frbgen_bdk_flutter_wire_MnemonicBase_as_string(int64_t port_,
-                                                    struct wire_cst_mnemonic_base *that);
+void frbgen_bdk_flutter_wire_MnemonicBase_as_string(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_MnemonicBase_from_entropy(int64_t port_,
                                                        struct wire_cst_list_prim_u_8_loose *entropy);
@@ -833,8 +800,7 @@ void frbgen_bdk_flutter_wire_PsbtBase_serialize(int64_t port_, struct wire_cst_p
 
 void frbgen_bdk_flutter_wire_PsbtBase_txid(int64_t port_, struct wire_cst_psbt_base *that);
 
-void frbgen_bdk_flutter_wire_AddressBase_as_string(int64_t port_,
-                                                   struct wire_cst_address_base *that);
+void frbgen_bdk_flutter_wire_AddressBase_as_string(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_AddressBase_from_script(int64_t port_,
                                                      struct wire_cst_script_buf_base *script,
@@ -845,17 +811,16 @@ void frbgen_bdk_flutter_wire_AddressBase_from_string(int64_t port_,
                                                      int32_t network);
 
 void frbgen_bdk_flutter_wire_AddressBase_is_valid_for_network(int64_t port_,
-                                                              struct wire_cst_address_base *that,
+                                                              uintptr_t that,
                                                               int32_t network);
 
-void frbgen_bdk_flutter_wire_AddressBase_network(int64_t port_, struct wire_cst_address_base *that);
+void frbgen_bdk_flutter_wire_AddressBase_network(int64_t port_, uintptr_t that);
 
-void frbgen_bdk_flutter_wire_AddressBase_payload(int64_t port_, struct wire_cst_address_base *that);
+void frbgen_bdk_flutter_wire_AddressBase_payload(int64_t port_, uintptr_t that);
 
-void frbgen_bdk_flutter_wire_AddressBase_script(int64_t port_, struct wire_cst_address_base *ptr);
+void frbgen_bdk_flutter_wire_AddressBase_script(int64_t port_, uintptr_t ptr);
 
-void frbgen_bdk_flutter_wire_AddressBase_to_qr_uri(int64_t port_,
-                                                   struct wire_cst_address_base *that);
+void frbgen_bdk_flutter_wire_AddressBase_to_qr_uri(int64_t port_, uintptr_t that);
 
 void frbgen_bdk_flutter_wire_ScriptBufBase_empty(int64_t port_);
 
@@ -938,8 +903,8 @@ void frbgen_bdk_flutter_wire_WalletBase_list_unspent(int64_t port_,
 void frbgen_bdk_flutter_wire_WalletBase_network(int64_t port_, struct wire_cst_wallet_base *that);
 
 void frbgen_bdk_flutter_wire_WalletBase_new(int64_t port_,
-                                            struct wire_cst_descriptor_base *descriptor,
-                                            struct wire_cst_descriptor_base *change_descriptor,
+                                            uintptr_t descriptor,
+                                            uintptr_t *change_descriptor,
                                             int32_t network,
                                             struct wire_cst_database_config *database_config);
 
@@ -955,7 +920,7 @@ void frbgen_bdk_flutter_wire_WalletBase_sync(int64_t port_,
 void frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(int64_t port_,
                                                         struct wire_cst_list_prim_u_8_strict *txid,
                                                         float fee_rate,
-                                                        struct wire_cst_address_base *allow_shrinking,
+                                                        uintptr_t *allow_shrinking,
                                                         struct wire_cst_wallet_base *wallet,
                                                         bool enable_rbf,
                                                         uint32_t *n_sequence);
@@ -987,35 +952,33 @@ void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexbdkWalle
 
 void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress(const void *ptr);
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(const void *ptr);
 
-void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(const void *ptr);
+uintptr_t *frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(uintptr_t value);
 
-void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap(const void *ptr);
-
-struct wire_cst_address_base *frbgen_bdk_flutter_cst_new_box_autoadd_address_base(void);
+uintptr_t *frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(uintptr_t value);
 
 struct wire_cst_address_error *frbgen_bdk_flutter_cst_new_box_autoadd_address_error(void);
 
@@ -1031,15 +994,7 @@ struct wire_cst_consensus_error *frbgen_bdk_flutter_cst_new_box_autoadd_consensu
 
 struct wire_cst_database_config *frbgen_bdk_flutter_cst_new_box_autoadd_database_config(void);
 
-struct wire_cst_derivation_path_base *frbgen_bdk_flutter_cst_new_box_autoadd_derivation_path_base(void);
-
-struct wire_cst_descriptor_base *frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_base(void);
-
 struct wire_cst_descriptor_error *frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_error(void);
-
-struct wire_cst_descriptor_public_key_base *frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_public_key_base(void);
-
-struct wire_cst_descriptor_secret_key_base *frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_secret_key_base(void);
 
 struct wire_cst_electrum_config *frbgen_bdk_flutter_cst_new_box_autoadd_electrum_config(void);
 
@@ -1052,8 +1007,6 @@ struct wire_cst_fee_rate *frbgen_bdk_flutter_cst_new_box_autoadd_fee_rate(void);
 struct wire_cst_hex_error *frbgen_bdk_flutter_cst_new_box_autoadd_hex_error(void);
 
 struct wire_cst_local_utxo *frbgen_bdk_flutter_cst_new_box_autoadd_local_utxo(void);
-
-struct wire_cst_mnemonic_base *frbgen_bdk_flutter_cst_new_box_autoadd_mnemonic_base(void);
 
 struct wire_cst_out_point *frbgen_bdk_flutter_cst_new_box_autoadd_out_point(void);
 
@@ -1106,7 +1059,8 @@ struct wire_cst_list_tx_in *frbgen_bdk_flutter_cst_new_list_tx_in(int32_t len);
 struct wire_cst_list_tx_out *frbgen_bdk_flutter_cst_new_list_tx_out(int32_t len);
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_address_base);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_address_error);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_address_index);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_block_time);
@@ -1114,18 +1068,13 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_blockchain_config);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_consensus_error);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_database_config);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_derivation_path_base);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_base);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_error);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_public_key_base);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_secret_key_base);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_electrum_config);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_esplora_config);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_f_32);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_fee_rate);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_hex_error);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_local_utxo);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_mnemonic_base);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_out_point);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_psbt_base);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_psbt_sig_hash_type);
@@ -1154,23 +1103,21 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransaction);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_AnyBlockchain);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexbdkWalletAnyDatabase);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArcbitcoinbip32DerivationPath);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorPublicKey);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysDescriptorSecretKey);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockArckeysbip39Mnemonic);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockExtendedDescriptor);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockbdkbitcoinAddress);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockkeysKeyMap);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_AddressBase_as_string);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_AddressBase_from_script);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_AddressBase_from_string);
