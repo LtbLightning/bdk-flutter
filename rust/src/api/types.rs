@@ -5,6 +5,7 @@ use bdk::database::AnyDatabaseConfig;
 use serde::{Deserialize, Serialize};
 use std::io::Cursor;
 use std::str::FromStr;
+use crate::frb_generated::RustOpaque;
 
 /// A reference to a transaction output.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
@@ -110,7 +111,6 @@ impl ScriptBufBase {
 pub struct PsbtSigHashType {
     pub inner: u32,
 }
-
 impl From<PsbtSigHashType> for bdk::bitcoin::psbt::PsbtSighashType {
     fn from(value: PsbtSigHashType) -> Self {
         bdk::bitcoin::psbt::PsbtSighashType::from_u32(value.inner)
@@ -191,7 +191,6 @@ impl From<bdk::wallet::AddressInfo> for AddressInfo {
         }
     }
 }
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 ///A wallet transaction
 pub struct TransactionDetails {
@@ -259,14 +258,12 @@ pub struct ScriptAmount {
     pub script: ScriptBufBase,
     pub amount: u64,
 }
-
 #[allow(dead_code)]
 #[derive(Clone, Debug)]
 pub enum RbfValue {
     RbfDefault,
     Value(u32),
 }
-
 #[derive(Debug, Clone)]
 ///The cryptocurrency to act on
 pub enum Network {
@@ -305,7 +302,6 @@ impl From<bdk::bitcoin::Network> for Network {
         }
     }
 }
-
 ///Type describing entropy length (aka word count) in the mnemonic
 pub enum WordCount {
     ///12 words mnemonic (128 bits entropy)
@@ -339,7 +335,6 @@ pub enum Payload {
         program: Vec<u8>,
     },
 }
-
 #[derive(Debug, Clone)]
 pub enum WitnessVersion {
     /// Initial version of witness program. Used for P2WPKH and P2WPK outputs
@@ -400,7 +395,6 @@ impl From<bdk::bitcoin::address::WitnessVersion> for WitnessVersion {
         }
     }
 }
-
 pub enum ChangeSpendPolicy {
     ChangeAllowed,
     OnlyChange,
@@ -420,16 +414,16 @@ impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy {
     }
 }
 pub struct AddressBase {
-    pub ptr: bdk::bitcoin::Address,
+    pub ptr: RustOpaque<bdk::bitcoin::Address>,
 }
 impl From<bdk::bitcoin::Address> for AddressBase {
     fn from(value: bdk::bitcoin::Address) -> Self {
-        Self { ptr: value }
+        Self { ptr: RustOpaque::new(value) }
     }
 }
-impl From<AddressBase> for bdk::bitcoin::Address {
-    fn from(value: AddressBase) -> Self {
-        value.ptr
+impl From<&AddressBase> for bdk::bitcoin::Address {
+    fn from(value: &AddressBase) -> Self {
+        (*value.ptr).clone()
     }
 }
 impl AddressBase {
@@ -452,7 +446,7 @@ impl AddressBase {
         .map_err(|e| e.into())
     }
     pub fn payload(&self) -> Payload {
-        match self.ptr.clone().payload {
+        match <&AddressBase as Into<bdk::bitcoin::Address>>::into(self).payload {
             bdk::bitcoin::address::Payload::PubkeyHash(pubkey_hash) => Payload::PubkeyHash {
                 pubkey_hash: pubkey_hash.to_string(),
             },
@@ -500,12 +494,10 @@ impl AddressBase {
         self.ptr.to_string()
     }
 }
-
 pub enum Variant {
     Bech32,
     Bech32m,
 }
-
 impl From<bdk::bitcoin::bech32::Variant> for Variant {
     fn from(value: bdk::bitcoin::bech32::Variant) -> Self {
         match value {
@@ -519,7 +511,6 @@ impl From<bdk::bitcoin::bech32::Variant> for Variant {
 pub struct TransactionBase {
     pub inner: String,
 }
-
 impl TransactionBase {
     pub fn new(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);
@@ -595,7 +586,6 @@ impl TransactionBase {
             .collect()
     }
 }
-
 impl From<bdk::bitcoin::Transaction> for TransactionBase {
     fn from(tx: bdk::bitcoin::Transaction) -> Self {
         TransactionBase {
@@ -609,7 +599,6 @@ impl From<&TransactionBase> for bdk::bitcoin::Transaction {
         tx
     }
 }
-
 ///Configuration type for a SqliteDatabase database
 pub struct SqliteDbConfiguration {
     ///Main directory of the db
@@ -686,7 +675,6 @@ pub struct LocalUtxo {
     pub keychain: KeychainKind,
     pub is_spent: bool,
 }
-
 impl From<bdk::LocalUtxo> for LocalUtxo {
     fn from(local_utxo: bdk::LocalUtxo) -> Self {
         LocalUtxo {
@@ -705,7 +693,6 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
         }
     }
 }
-
 impl From<LocalUtxo> for bdk::LocalUtxo {
     fn from(value: LocalUtxo) -> Self {
         Self {
@@ -716,7 +703,6 @@ impl From<LocalUtxo> for bdk::LocalUtxo {
         }
     }
 }
-
 /// Options for a software signer
 ///
 /// Adjust the behavior of our software signers and the way a transaction is finalized
@@ -777,7 +763,6 @@ pub struct SignOptions {
     /// Defaults to `true`, i.e., we always grind ECDSA signature to sign with low r.
     pub allow_grinding: bool,
 }
-
 impl From<SignOptions> for bdk::SignOptions {
     fn from(sign_options: SignOptions) -> Self {
         bdk::SignOptions {
@@ -792,18 +777,15 @@ impl From<SignOptions> for bdk::SignOptions {
         }
     }
 }
-
 #[derive(Copy, Clone)]
 pub struct FeeRate {
     pub sat_per_vb: f32,
 }
-
 impl From<FeeRate> for bdk::FeeRate {
     fn from(value: FeeRate) -> Self {
         bdk::FeeRate::from_sat_per_vb(value.sat_per_vb)
     }
 }
-
 impl From<bdk::FeeRate> for FeeRate {
     fn from(value: bdk::FeeRate) -> Self {
         Self {
@@ -811,7 +793,6 @@ impl From<bdk::FeeRate> for FeeRate {
         }
     }
 }
-
 // impl FeeRate {
 //     /// Constructs `FeeRate` from satoshis per 1000 weight units.
 //     pub fn from_sat_per_kwu(sat_per_kwu: f32) -> Self {
@@ -834,7 +815,6 @@ impl From<Input> for bdk::bitcoin::psbt::Input {
         serde_json::from_str(value.s.as_str()).expect("input cannot be de-serialized")
     }
 }
-
 impl From<bdk::bitcoin::psbt::Input> for Input {
     fn from(value: bdk::bitcoin::psbt::Input) -> Self {
         Input {

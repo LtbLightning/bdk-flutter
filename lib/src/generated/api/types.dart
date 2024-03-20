@@ -10,23 +10,31 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'types.freezed.dart';
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>
+// Rust type: RustOpaqueNom<bdk :: bitcoin :: Address>
 @sealed
-class AddressBase extends RustOpaque {
-  AddressBase.dcoDecode(List<dynamic> wire)
+class BdkBitcoinAddress extends RustOpaque {
+  BdkBitcoinAddress.dcoDecode(List<dynamic> wire)
       : super.dcoDecode(wire, _kStaticData);
 
-  AddressBase.sseDecode(int ptr, int externalSizeOnNative)
+  BdkBitcoinAddress.sseDecode(int ptr, int externalSizeOnNative)
       : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        BdkCore.instance.api.rust_arc_increment_strong_count_AddressBase,
+        BdkCore.instance.api.rust_arc_increment_strong_count_BdkBitcoinAddress,
     rustArcDecrementStrongCount:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_AddressBase,
-    rustArcDecrementStrongCountPtr:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_AddressBasePtr,
+        BdkCore.instance.api.rust_arc_decrement_strong_count_BdkBitcoinAddress,
+    rustArcDecrementStrongCountPtr: BdkCore
+        .instance.api.rust_arc_decrement_strong_count_BdkBitcoinAddressPtr,
   );
+}
+
+class AddressBase {
+  final BdkBitcoinAddress ptr;
+
+  const AddressBase({
+    required this.ptr,
+  });
 
   Future<String> asString({dynamic hint}) =>
       BdkCore.instance.api.addressBaseAsString(
@@ -71,6 +79,16 @@ class AddressBase extends RustOpaque {
       BdkCore.instance.api.addressBaseToQrUri(
         that: this,
       );
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AddressBase &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
 }
 
 @freezed
