@@ -8,15 +8,15 @@ use bdk::keys::{DerivableKey, GeneratableKey};
 use bdk::miniscript::descriptor::{DescriptorXKey, Wildcard};
 use bdk::miniscript::BareCtx;
 use std::str::FromStr;
-use std::sync::Arc;
+use crate::frb_generated::RustOpaque;
 
 pub struct MnemonicBase {
-    pub ptr: Arc<keys::bip39::Mnemonic>,
+    pub ptr: RustOpaque<keys::bip39::Mnemonic>,
 }
 impl From<keys::bip39::Mnemonic> for MnemonicBase {
     fn from(value: keys::bip39::Mnemonic) -> Self {
         Self {
-            ptr: Arc::new(value),
+            ptr: RustOpaque::new(value),
         }
     }
 }
@@ -51,12 +51,12 @@ impl MnemonicBase {
     }
 }
 pub struct DerivationPathBase {
-    pub ptr: Arc<bitcoin::bip32::DerivationPath>,
+    pub ptr: RustOpaque<bitcoin::bip32::DerivationPath>,
 }
 impl From<bitcoin::bip32::DerivationPath> for DerivationPathBase {
     fn from(value: bitcoin::bip32::DerivationPath) -> Self {
         DerivationPathBase {
-            ptr: Arc::new(value),
+            ptr: RustOpaque::new(value),
         }
     }
 }
@@ -71,12 +71,12 @@ impl DerivationPathBase {
 
 #[derive(Debug)]
 pub struct DescriptorSecretKeyBase {
-    pub ptr: Arc<keys::DescriptorSecretKey>,
+    pub ptr: RustOpaque<keys::DescriptorSecretKey>,
 }
 impl From<keys::DescriptorSecretKey> for DescriptorSecretKeyBase {
     fn from(value: keys::DescriptorSecretKey) -> Self {
         Self {
-            ptr: Arc::new(value),
+            ptr: RustOpaque::new(value),
         }
     }
 }
@@ -191,12 +191,12 @@ impl DescriptorSecretKeyBase {
 }
 #[derive(Debug)]
 pub struct DescriptorPublicKeyBase {
-    pub ptr: Arc<keys::DescriptorPublicKey>,
+    pub ptr: RustOpaque<keys::DescriptorPublicKey>,
 }
 impl From<keys::DescriptorPublicKey> for DescriptorPublicKeyBase {
     fn from(value: keys::DescriptorPublicKey) -> Self {
         Self {
-            ptr: Arc::new(value),
+            ptr: RustOpaque::new(value),
         }
     }
 }
@@ -233,7 +233,7 @@ impl DescriptorPublicKeyBase {
                         wildcard: descriptor_x_key.wildcard,
                     });
                 Ok(Self {
-                    ptr: Arc::new(derived_descriptor_public_key),
+                    ptr: RustOpaque::new(derived_descriptor_public_key),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(
@@ -263,7 +263,7 @@ impl DescriptorPublicKeyBase {
                         wildcard: descriptor_x_key.wildcard,
                     });
                 Ok(Self {
-                    ptr: Arc::new(extended_descriptor_public_key),
+                    ptr: RustOpaque::new(extended_descriptor_public_key),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(

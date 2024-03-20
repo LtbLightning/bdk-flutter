@@ -5,50 +5,77 @@
 
 import '../frb_generated.dart';
 import 'blockchain.dart';
+import 'descriptor.dart';
 import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'types.dart';
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>
+// Rust type: RustOpaqueNom<bitcoin :: bip32 :: DerivationPath>
 @sealed
-class DerivationPathBase extends RustOpaque {
-  DerivationPathBase.dcoDecode(List<dynamic> wire)
+class BitcoinBip32DerivationPath extends RustOpaque {
+  BitcoinBip32DerivationPath.dcoDecode(List<dynamic> wire)
       : super.dcoDecode(wire, _kStaticData);
 
-  DerivationPathBase.sseDecode(int ptr, int externalSizeOnNative)
+  BitcoinBip32DerivationPath.sseDecode(int ptr, int externalSizeOnNative)
+      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: BdkCore.instance.api
+        .rust_arc_increment_strong_count_BitcoinBip32DerivationPath,
+    rustArcDecrementStrongCount: BdkCore.instance.api
+        .rust_arc_decrement_strong_count_BitcoinBip32DerivationPath,
+    rustArcDecrementStrongCountPtr: BdkCore.instance.api
+        .rust_arc_decrement_strong_count_BitcoinBip32DerivationPathPtr,
+  );
+}
+
+// Rust type: RustOpaqueNom<keys :: bip39 :: Mnemonic>
+@sealed
+class KeysBip39Mnemonic extends RustOpaque {
+  KeysBip39Mnemonic.dcoDecode(List<dynamic> wire)
+      : super.dcoDecode(wire, _kStaticData);
+
+  KeysBip39Mnemonic.sseDecode(int ptr, int externalSizeOnNative)
       : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        BdkCore.instance.api.rust_arc_increment_strong_count_DerivationPathBase,
+        BdkCore.instance.api.rust_arc_increment_strong_count_KeysBip39Mnemonic,
     rustArcDecrementStrongCount:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_DerivationPathBase,
+        BdkCore.instance.api.rust_arc_decrement_strong_count_KeysBip39Mnemonic,
     rustArcDecrementStrongCountPtr: BdkCore
-        .instance.api.rust_arc_decrement_strong_count_DerivationPathBasePtr,
+        .instance.api.rust_arc_decrement_strong_count_KeysBip39MnemonicPtr,
   );
+}
+
+class DerivationPathBase {
+  final BitcoinBip32DerivationPath ptr;
+
+  const DerivationPathBase({
+    required this.ptr,
+  });
 
   static Future<DerivationPathBase> fromString(
           {required String path, dynamic hint}) =>
       BdkCore.instance.api.derivationPathBaseFromString(path: path, hint: hint);
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DerivationPathBase &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
 }
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>>
-@sealed
-class DescriptorPublicKeyBase extends RustOpaque {
-  DescriptorPublicKeyBase.dcoDecode(List<dynamic> wire)
-      : super.dcoDecode(wire, _kStaticData);
+class DescriptorPublicKeyBase {
+  final KeysDescriptorPublicKey ptr;
 
-  DescriptorPublicKeyBase.sseDecode(int ptr, int externalSizeOnNative)
-      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: BdkCore
-        .instance.api.rust_arc_increment_strong_count_DescriptorPublicKeyBase,
-    rustArcDecrementStrongCount: BdkCore
-        .instance.api.rust_arc_decrement_strong_count_DescriptorPublicKeyBase,
-    rustArcDecrementStrongCountPtr: BdkCore.instance.api
-        .rust_arc_decrement_strong_count_DescriptorPublicKeyBasePtr,
-  );
+  const DescriptorPublicKeyBase({
+    required this.ptr,
+  });
 
   Future<String> asString({dynamic hint}) =>
       BdkCore.instance.api.descriptorPublicKeyBaseAsString(
@@ -73,25 +100,24 @@ class DescriptorPublicKeyBase extends RustOpaque {
           {required String publicKey, dynamic hint}) =>
       BdkCore.instance.api
           .descriptorPublicKeyBaseFromString(publicKey: publicKey, hint: hint);
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DescriptorPublicKeyBase &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
 }
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>>
-@sealed
-class DescriptorSecretKeyBase extends RustOpaque {
-  DescriptorSecretKeyBase.dcoDecode(List<dynamic> wire)
-      : super.dcoDecode(wire, _kStaticData);
+class DescriptorSecretKeyBase {
+  final KeysDescriptorSecretKey ptr;
 
-  DescriptorSecretKeyBase.sseDecode(int ptr, int externalSizeOnNative)
-      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: BdkCore
-        .instance.api.rust_arc_increment_strong_count_DescriptorSecretKeyBase,
-    rustArcDecrementStrongCount: BdkCore
-        .instance.api.rust_arc_decrement_strong_count_DescriptorSecretKeyBase,
-    rustArcDecrementStrongCountPtr: BdkCore.instance.api
-        .rust_arc_decrement_strong_count_DescriptorSecretKeyBasePtr,
-  );
+  const DescriptorSecretKeyBase({
+    required this.ptr,
+  });
 
   static Future<DescriptorPublicKeyBase> asPublic(
           {required DescriptorSecretKeyBase ptr, dynamic hint}) =>
@@ -135,25 +161,24 @@ class DescriptorSecretKeyBase extends RustOpaque {
       BdkCore.instance.api.descriptorSecretKeyBaseSecretBytes(
         that: this,
       );
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DescriptorSecretKeyBase &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
 }
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>
-@sealed
-class MnemonicBase extends RustOpaque {
-  MnemonicBase.dcoDecode(List<dynamic> wire)
-      : super.dcoDecode(wire, _kStaticData);
+class MnemonicBase {
+  final KeysBip39Mnemonic ptr;
 
-  MnemonicBase.sseDecode(int ptr, int externalSizeOnNative)
-      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        BdkCore.instance.api.rust_arc_increment_strong_count_MnemonicBase,
-    rustArcDecrementStrongCount:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_MnemonicBase,
-    rustArcDecrementStrongCountPtr:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_MnemonicBasePtr,
-  );
+  const MnemonicBase({
+    required this.ptr,
+  });
 
   /// Returns Mnemonic as string
   Future<String> asString({dynamic hint}) =>
@@ -179,4 +204,14 @@ class MnemonicBase extends RustOpaque {
   static Future<MnemonicBase> newInstance(
           {required WordCount wordCount, dynamic hint}) =>
       BdkCore.instance.api.mnemonicBaseNew(wordCount: wordCount, hint: hint);
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MnemonicBase &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
 }
