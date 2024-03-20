@@ -10,11 +10,12 @@ use bdk::template::{
     DescriptorTemplate,
 };
 use std::str::FromStr;
+use crate::frb_generated::RustOpaque;
 
 #[derive(Debug)]
 pub struct DescriptorBase {
-    pub extended_descriptor: ExtendedDescriptor,
-    pub key_map: keys::KeyMap,
+    pub extended_descriptor: RustOpaque<ExtendedDescriptor>,
+    pub key_map: RustOpaque<keys::KeyMap>,
 }
 
 impl DescriptorBase {
@@ -23,8 +24,8 @@ impl DescriptorBase {
         let (extended_descriptor, key_map) =
             descriptor.into_wallet_descriptor(&secp, network.into())?;
         Ok(Self {
-            extended_descriptor,
-            key_map,
+            extended_descriptor: RustOpaque::new(extended_descriptor),
+            key_map: RustOpaque::new(key_map),
         })
     }
 
@@ -40,8 +41,8 @@ impl DescriptorBase {
                 let (extended_descriptor, key_map, _) =
                     Bip44(derivable_key, keychain_kind.into()).build(network.into())?;
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorSecretKey::Single(_) => Err(BdkError::Generic(
@@ -69,8 +70,8 @@ impl DescriptorBase {
                         .build(network.into())?;
 
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(
@@ -94,8 +95,8 @@ impl DescriptorBase {
                 let (extended_descriptor, key_map, _) =
                     Bip49(derivable_key, keychain_kind.into()).build(network.into())?;
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorSecretKey::Single(_) => Err(BdkError::Generic(
@@ -124,8 +125,8 @@ impl DescriptorBase {
                         .build(network.into())?;
 
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(
@@ -149,8 +150,8 @@ impl DescriptorBase {
                 let (extended_descriptor, key_map, _) =
                     Bip84(derivable_key, keychain_kind.into()).build(network.into())?;
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorSecretKey::Single(_) => Err(BdkError::Generic(
@@ -180,8 +181,8 @@ impl DescriptorBase {
                         .unwrap();
 
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(
@@ -206,8 +207,8 @@ impl DescriptorBase {
                 let (extended_descriptor, key_map, _) =
                     Bip86(derivable_key, keychain_kind.into()).build(network.into())?;
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorSecretKey::Single(_) => Err(BdkError::Generic(
@@ -236,8 +237,8 @@ impl DescriptorBase {
                         .build(network.into())?;
 
                 Ok(Self {
-                    extended_descriptor,
-                    key_map,
+                    extended_descriptor: RustOpaque::new(extended_descriptor),
+                    key_map: RustOpaque::new(key_map),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(BdkError::Generic(
@@ -251,7 +252,7 @@ impl DescriptorBase {
 
     pub fn as_string_private(&self) -> String {
         let descriptor = &self.extended_descriptor;
-        let key_map = &self.key_map;
+        let key_map = &(*self.key_map);
         descriptor.to_string_with_secret(key_map)
     }
 

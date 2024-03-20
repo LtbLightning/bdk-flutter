@@ -10,23 +10,90 @@ import 'key.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'types.dart';
 
-// Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>
+// Rust type: RustOpaqueNom<ExtendedDescriptor>
 @sealed
-class DescriptorBase extends RustOpaque {
-  DescriptorBase.dcoDecode(List<dynamic> wire)
+class ExtendedDescriptor extends RustOpaque {
+  ExtendedDescriptor.dcoDecode(List<dynamic> wire)
       : super.dcoDecode(wire, _kStaticData);
 
-  DescriptorBase.sseDecode(int ptr, int externalSizeOnNative)
+  ExtendedDescriptor.sseDecode(int ptr, int externalSizeOnNative)
       : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        BdkCore.instance.api.rust_arc_increment_strong_count_DescriptorBase,
+        BdkCore.instance.api.rust_arc_increment_strong_count_ExtendedDescriptor,
     rustArcDecrementStrongCount:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_DescriptorBase,
-    rustArcDecrementStrongCountPtr:
-        BdkCore.instance.api.rust_arc_decrement_strong_count_DescriptorBasePtr,
+        BdkCore.instance.api.rust_arc_decrement_strong_count_ExtendedDescriptor,
+    rustArcDecrementStrongCountPtr: BdkCore
+        .instance.api.rust_arc_decrement_strong_count_ExtendedDescriptorPtr,
   );
+}
+
+// Rust type: RustOpaqueNom<keys :: DescriptorPublicKey>
+@sealed
+class KeysDescriptorPublicKey extends RustOpaque {
+  KeysDescriptorPublicKey.dcoDecode(List<dynamic> wire)
+      : super.dcoDecode(wire, _kStaticData);
+
+  KeysDescriptorPublicKey.sseDecode(int ptr, int externalSizeOnNative)
+      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: BdkCore
+        .instance.api.rust_arc_increment_strong_count_KeysDescriptorPublicKey,
+    rustArcDecrementStrongCount: BdkCore
+        .instance.api.rust_arc_decrement_strong_count_KeysDescriptorPublicKey,
+    rustArcDecrementStrongCountPtr: BdkCore.instance.api
+        .rust_arc_decrement_strong_count_KeysDescriptorPublicKeyPtr,
+  );
+}
+
+// Rust type: RustOpaqueNom<keys :: DescriptorSecretKey>
+@sealed
+class KeysDescriptorSecretKey extends RustOpaque {
+  KeysDescriptorSecretKey.dcoDecode(List<dynamic> wire)
+      : super.dcoDecode(wire, _kStaticData);
+
+  KeysDescriptorSecretKey.sseDecode(int ptr, int externalSizeOnNative)
+      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: BdkCore
+        .instance.api.rust_arc_increment_strong_count_KeysDescriptorSecretKey,
+    rustArcDecrementStrongCount: BdkCore
+        .instance.api.rust_arc_decrement_strong_count_KeysDescriptorSecretKey,
+    rustArcDecrementStrongCountPtr: BdkCore.instance.api
+        .rust_arc_decrement_strong_count_KeysDescriptorSecretKeyPtr,
+  );
+}
+
+// Rust type: RustOpaqueNom<keys :: KeyMap>
+@sealed
+class KeysKeyMap extends RustOpaque {
+  KeysKeyMap.dcoDecode(List<dynamic> wire)
+      : super.dcoDecode(wire, _kStaticData);
+
+  KeysKeyMap.sseDecode(int ptr, int externalSizeOnNative)
+      : super.sseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        BdkCore.instance.api.rust_arc_increment_strong_count_KeysKeyMap,
+    rustArcDecrementStrongCount:
+        BdkCore.instance.api.rust_arc_decrement_strong_count_KeysKeyMap,
+    rustArcDecrementStrongCountPtr:
+        BdkCore.instance.api.rust_arc_decrement_strong_count_KeysKeyMapPtr,
+  );
+}
+
+class DescriptorBase {
+  final ExtendedDescriptor extendedDescriptor;
+  final KeysKeyMap keyMap;
+
+  const DescriptorBase({
+    required this.extendedDescriptor,
+    required this.keyMap,
+  });
 
   Future<String> asString({dynamic hint}) =>
       BdkCore.instance.api.descriptorBaseAsString(
@@ -146,4 +213,15 @@ class DescriptorBase extends RustOpaque {
           keychainKind: keychainKind,
           network: network,
           hint: hint);
+
+  @override
+  int get hashCode => extendedDescriptor.hashCode ^ keyMap.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DescriptorBase &&
+          runtimeType == other.runtimeType &&
+          extendedDescriptor == other.extendedDescriptor &&
+          keyMap == other.keyMap;
 }
