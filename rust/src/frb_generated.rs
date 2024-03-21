@@ -152,9 +152,7 @@ fn wire_BlockchainBase_new_impl(
 }
 fn wire_DescriptorBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>,
-    >,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -166,7 +164,6 @@ fn wire_DescriptorBase_as_string_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::descriptor::DescriptorBase::as_string(
                         &api_that,
                     ))
@@ -177,9 +174,7 @@ fn wire_DescriptorBase_as_string_impl(
 }
 fn wire_DescriptorBase_as_string_private_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>,
-    >,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -191,7 +186,6 @@ fn wire_DescriptorBase_as_string_private_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::descriptor::DescriptorBase::as_string_private(
                         &api_that,
                     ))
@@ -202,9 +196,7 @@ fn wire_DescriptorBase_as_string_private_impl(
 }
 fn wire_DescriptorBase_max_satisfaction_weight_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>,
-    >,
+    that: impl CstDecode<crate::api::descriptor::DescriptorBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -216,7 +208,6 @@ fn wire_DescriptorBase_max_satisfaction_weight_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     crate::api::descriptor::DescriptorBase::max_satisfaction_weight(&api_that)
                 })())
             }
@@ -247,7 +238,7 @@ fn wire_DescriptorBase_new_impl(
 }
 fn wire_DescriptorBase_new_bip44_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret_key: impl CstDecode<DescriptorSecretKeyBase>,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
 ) {
@@ -275,7 +266,7 @@ fn wire_DescriptorBase_new_bip44_impl(
 }
 fn wire_DescriptorBase_new_bip44_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    public_key: impl CstDecode<DescriptorPublicKeyBase>,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
@@ -306,7 +297,7 @@ fn wire_DescriptorBase_new_bip44_public_impl(
 }
 fn wire_DescriptorBase_new_bip49_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret_key: impl CstDecode<DescriptorSecretKeyBase>,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
 ) {
@@ -334,7 +325,7 @@ fn wire_DescriptorBase_new_bip49_impl(
 }
 fn wire_DescriptorBase_new_bip49_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    public_key: impl CstDecode<DescriptorPublicKeyBase>,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
@@ -365,7 +356,7 @@ fn wire_DescriptorBase_new_bip49_public_impl(
 }
 fn wire_DescriptorBase_new_bip84_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret_key: impl CstDecode<DescriptorSecretKeyBase>,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
 ) {
@@ -393,7 +384,7 @@ fn wire_DescriptorBase_new_bip84_impl(
 }
 fn wire_DescriptorBase_new_bip84_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    public_key: impl CstDecode<DescriptorPublicKeyBase>,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
@@ -424,7 +415,7 @@ fn wire_DescriptorBase_new_bip84_public_impl(
 }
 fn wire_DescriptorBase_new_bip86_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    secret_key: impl CstDecode<DescriptorSecretKeyBase>,
+    secret_key: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
 ) {
@@ -452,7 +443,7 @@ fn wire_DescriptorBase_new_bip86_impl(
 }
 fn wire_DescriptorBase_new_bip86_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    public_key: impl CstDecode<DescriptorPublicKeyBase>,
+    public_key: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
@@ -503,11 +494,7 @@ fn wire_DerivationPathBase_from_string_impl(
 }
 fn wire_DescriptorPublicKeyBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-        >,
-    >,
+    that: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -519,7 +506,6 @@ fn wire_DescriptorPublicKeyBase_as_string_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::key::DescriptorPublicKeyBase::as_string(
                         &api_that,
                     ))
@@ -530,8 +516,8 @@ fn wire_DescriptorPublicKeyBase_as_string_impl(
 }
 fn wire_DescriptorPublicKeyBase_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<DescriptorPublicKeyBase>,
-    path: impl CstDecode<DerivationPathBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -552,8 +538,8 @@ fn wire_DescriptorPublicKeyBase_derive_impl(
 }
 fn wire_DescriptorPublicKeyBase_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<DescriptorPublicKeyBase>,
-    path: impl CstDecode<DerivationPathBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorPublicKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -594,7 +580,7 @@ fn wire_DescriptorPublicKeyBase_from_string_impl(
 }
 fn wire_DescriptorSecretKeyBase_as_public_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<DescriptorSecretKeyBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -614,11 +600,7 @@ fn wire_DescriptorSecretKeyBase_as_public_impl(
 }
 fn wire_DescriptorSecretKeyBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >,
-    >,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -630,7 +612,6 @@ fn wire_DescriptorSecretKeyBase_as_string_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::key::DescriptorSecretKeyBase::as_string(
                         &api_that,
                     ))
@@ -642,7 +623,7 @@ fn wire_DescriptorSecretKeyBase_as_string_impl(
 fn wire_DescriptorSecretKeyBase_create_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     network: impl CstDecode<crate::api::types::Network>,
-    mnemonic: impl CstDecode<MnemonicBase>,
+    mnemonic: impl CstDecode<crate::api::key::MnemonicBase>,
     password: impl CstDecode<Option<String>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -669,8 +650,8 @@ fn wire_DescriptorSecretKeyBase_create_impl(
 }
 fn wire_DescriptorSecretKeyBase_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<DescriptorSecretKeyBase>,
-    path: impl CstDecode<DerivationPathBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -691,8 +672,8 @@ fn wire_DescriptorSecretKeyBase_derive_impl(
 }
 fn wire_DescriptorSecretKeyBase_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<DescriptorSecretKeyBase>,
-    path: impl CstDecode<DerivationPathBase>,
+    ptr: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
+    path: impl CstDecode<crate::api::key::DerivationPathBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -733,11 +714,7 @@ fn wire_DescriptorSecretKeyBase_from_string_impl(
 }
 fn wire_DescriptorSecretKeyBase_secret_bytes_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >,
-    >,
+    that: impl CstDecode<crate::api::key::DescriptorSecretKeyBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -749,7 +726,6 @@ fn wire_DescriptorSecretKeyBase_secret_bytes_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     crate::api::key::DescriptorSecretKeyBase::secret_bytes(&api_that)
                 })())
             }
@@ -758,9 +734,7 @@ fn wire_DescriptorSecretKeyBase_secret_bytes_impl(
 }
 fn wire_MnemonicBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>,
-    >,
+    that: impl CstDecode<crate::api::key::MnemonicBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -772,7 +746,6 @@ fn wire_MnemonicBase_as_string_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::key::MnemonicBase::as_string(&api_that))
                 })())
             }
@@ -1001,9 +974,7 @@ fn wire_PsbtBase_txid_impl(
 }
 fn wire_AddressBase_as_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-    >,
+    that: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1015,7 +986,6 @@ fn wire_AddressBase_as_string_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::types::AddressBase::as_string(&api_that))
                 })())
             }
@@ -1068,9 +1038,7 @@ fn wire_AddressBase_from_string_impl(
 }
 fn wire_AddressBase_is_valid_for_network_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-    >,
+    that: impl CstDecode<crate::api::types::AddressBase>,
     network: impl CstDecode<crate::api::types::Network>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1084,7 +1052,6 @@ fn wire_AddressBase_is_valid_for_network_impl(
             let api_network = network.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::types::AddressBase::is_valid_for_network(
                         &api_that,
                         api_network,
@@ -1096,9 +1063,7 @@ fn wire_AddressBase_is_valid_for_network_impl(
 }
 fn wire_AddressBase_network_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-    >,
+    that: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1110,7 +1075,6 @@ fn wire_AddressBase_network_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::types::AddressBase::network(&api_that))
                 })())
             }
@@ -1119,9 +1083,7 @@ fn wire_AddressBase_network_impl(
 }
 fn wire_AddressBase_payload_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-    >,
+    that: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1133,7 +1095,6 @@ fn wire_AddressBase_payload_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::types::AddressBase::payload(&api_that))
                 })())
             }
@@ -1142,7 +1103,7 @@ fn wire_AddressBase_payload_impl(
 }
 fn wire_AddressBase_script_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<AddressBase>,
+    ptr: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1162,9 +1123,7 @@ fn wire_AddressBase_script_impl(
 }
 fn wire_AddressBase_to_qr_uri_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-    >,
+    that: impl CstDecode<crate::api::types::AddressBase>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1176,7 +1135,6 @@ fn wire_AddressBase_to_qr_uri_impl(
             let api_that = that.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    let api_that = api_that.rust_auto_opaque_decode_ref();
                     Result::<_, ()>::Ok(crate::api::types::AddressBase::to_qr_uri(&api_that))
                 })())
             }
@@ -1712,8 +1670,8 @@ fn wire_WalletBase_network_impl(
 }
 fn wire_WalletBase_new_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    descriptor: impl CstDecode<DescriptorBase>,
-    change_descriptor: impl CstDecode<Option<DescriptorBase>>,
+    descriptor: impl CstDecode<crate::api::descriptor::DescriptorBase>,
+    change_descriptor: impl CstDecode<Option<crate::api::descriptor::DescriptorBase>>,
     network: impl CstDecode<crate::api::types::Network>,
     database_config: impl CstDecode<crate::api::types::DatabaseConfig>,
 ) {
@@ -1791,7 +1749,7 @@ fn wire_finish_bump_fee_tx_builder_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     txid: impl CstDecode<String>,
     fee_rate: impl CstDecode<f32>,
-    allow_shrinking: impl CstDecode<Option<AddressBase>>,
+    allow_shrinking: impl CstDecode<Option<crate::api::types::AddressBase>>,
     wallet: impl CstDecode<crate::api::wallet::WalletBase>,
     enable_rbf: impl CstDecode<bool>,
     n_sequence: impl CstDecode<Option<u32>>,
@@ -2006,67 +1964,15 @@ impl CstDecode<crate::api::types::WordCount> for i32 {
         }
     }
 }
-impl SseDecode for AddressBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
-impl SseDecode for DerivationPathBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
-impl SseDecode for DescriptorBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
-impl SseDecode for DescriptorPublicKeyBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
-impl SseDecode for DescriptorSecretKeyBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
-impl SseDecode for MnemonicBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>,
-        >>::sse_decode(deserializer);
-        return inner.rust_auto_opaque_decode_owned();
-    }
-}
-
 impl SseDecode for RustOpaqueNom<AnyBlockchain> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode for RustOpaqueNom<ExtendedDescriptor> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2090,9 +1996,7 @@ impl SseDecode for RustOpaqueNom<Mutex<bdk::Wallet<AnyDatabase>>> {
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>
-{
+impl SseDecode for RustOpaqueNom<bdk::bitcoin::Address> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2100,9 +2004,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>
-{
+impl SseDecode for RustOpaqueNom<bitcoin::bip32::DerivationPath> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2110,9 +2012,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>
-{
+impl SseDecode for RustOpaqueNom<keys::DescriptorPublicKey> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2120,11 +2020,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-    >
-{
+impl SseDecode for RustOpaqueNom<keys::DescriptorSecretKey> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2132,11 +2028,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-    >
-{
+impl SseDecode for RustOpaqueNom<keys::KeyMap> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2144,9 +2036,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>
-{
+impl SseDecode for RustOpaqueNom<keys::bip39::Mnemonic> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2159,6 +2049,14 @@ impl SseDecode for String {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <Vec<u8>>::sse_decode(deserializer);
         return String::from_utf8(inner).unwrap();
+    }
+}
+
+impl SseDecode for crate::api::types::AddressBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<bdk::bitcoin::Address>>::sse_decode(deserializer);
+        return crate::api::types::AddressBase { ptr: var_ptr };
     }
 }
 
@@ -2637,6 +2535,27 @@ impl SseDecode for crate::api::types::DatabaseConfig {
     }
 }
 
+impl SseDecode for crate::api::key::DerivationPathBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<bitcoin::bip32::DerivationPath>>::sse_decode(deserializer);
+        return crate::api::key::DerivationPathBase { ptr: var_ptr };
+    }
+}
+
+impl SseDecode for crate::api::descriptor::DescriptorBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_extendedDescriptor =
+            <RustOpaqueNom<ExtendedDescriptor>>::sse_decode(deserializer);
+        let mut var_keyMap = <RustOpaqueNom<keys::KeyMap>>::sse_decode(deserializer);
+        return crate::api::descriptor::DescriptorBase {
+            extended_descriptor: var_extendedDescriptor,
+            key_map: var_keyMap,
+        };
+    }
+}
+
 impl SseDecode for crate::api::error::DescriptorError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2690,6 +2609,22 @@ impl SseDecode for crate::api::error::DescriptorError {
                 unimplemented!("");
             }
         }
+    }
+}
+
+impl SseDecode for crate::api::key::DescriptorPublicKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<keys::DescriptorPublicKey>>::sse_decode(deserializer);
+        return crate::api::key::DescriptorPublicKeyBase { ptr: var_ptr };
+    }
+}
+
+impl SseDecode for crate::api::key::DescriptorSecretKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<keys::DescriptorSecretKey>>::sse_decode(deserializer);
+        return crate::api::key::DescriptorSecretKeyBase { ptr: var_ptr };
     }
 }
 
@@ -2914,6 +2849,14 @@ impl SseDecode for crate::api::types::LocalUtxo {
     }
 }
 
+impl SseDecode for crate::api::key::MnemonicBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<keys::bip39::Mnemonic>>::sse_decode(deserializer);
+        return crate::api::key::MnemonicBase { ptr: var_ptr };
+    }
+}
+
 impl SseDecode for crate::api::types::Network {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2939,22 +2882,11 @@ impl SseDecode for Option<String> {
     }
 }
 
-impl SseDecode for Option<AddressBase> {
+impl SseDecode for Option<crate::api::types::AddressBase> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<AddressBase>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
-impl SseDecode for Option<DescriptorBase> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<DescriptorBase>::sse_decode(deserializer));
+            return Some(<crate::api::types::AddressBase>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -2966,6 +2898,19 @@ impl SseDecode for Option<crate::api::types::BlockTime> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<crate::api::types::BlockTime>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::descriptor::DescriptorBase> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::descriptor::DescriptorBase>::sse_decode(
+                deserializer,
+            ));
         } else {
             return None;
         }
@@ -3504,139 +3449,21 @@ fn pde_ffi_dispatcher_sync_impl(
 
 // Section: rust2dart
 
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-    AddressBase,
-);
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase
-{
+impl flutter_rust_bridge::IntoDart for crate::api::types::AddressBase {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
-            .into_dart()
+        [self.ptr.into_into_dart().into_dart()].into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase
+    for crate::api::types::AddressBase
 {
 }
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase,
-    > for AddressBase
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::AddressBase>
+    for crate::api::types::AddressBase
 {
-    fn into_into_dart(
-        self,
-    ) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase
-    {
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-            self,
-        )
-    }
-}
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-    DerivationPathBase,
-);
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase {
-                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
-                }
-            }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase {}
-impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase> for DerivationPathBase {
-            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase {
-                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(self)
-            }
-        }
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-    DescriptorBase,
-);
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
-    > for DescriptorBase
-{
-    fn into_into_dart(
-        self,
-    ) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase
-    {
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-            self,
-        )
-    }
-}
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-    DescriptorPublicKeyBase,
-);
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase {
-                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
-                }
-            }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase {}
-impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase> for DescriptorPublicKeyBase {
-            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase {
-                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(self)
-            }
-        }
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-    DescriptorSecretKeyBase,
-);
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase {
-                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-                    flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0).into_dart()
-                }
-            }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase {}
-impl flutter_rust_bridge::IntoIntoDart<Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase> for DescriptorSecretKeyBase {
-            fn into_into_dart(self) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase {
-                Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(self)
-            }
-        }
-pub struct Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-    MnemonicBase,
-);
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase,
-    > for MnemonicBase
-{
-    fn into_into_dart(
-        self,
-    ) -> Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase
-    {
-        Local_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-            self,
-        )
+    fn into_into_dart(self) -> crate::api::types::AddressBase {
+        self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -4072,6 +3899,44 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::DatabaseConfig>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DerivationPathBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DerivationPathBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DerivationPathBase>
+    for crate::api::key::DerivationPathBase
+{
+    fn into_into_dart(self) -> crate::api::key::DerivationPathBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::descriptor::DescriptorBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.extended_descriptor.into_into_dart().into_dart(),
+            self.key_map.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::descriptor::DescriptorBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::descriptor::DescriptorBase>
+    for crate::api::descriptor::DescriptorBase
+{
+    fn into_into_dart(self) -> crate::api::descriptor::DescriptorBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::error::DescriptorError {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -4118,6 +3983,40 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::error::DescriptorError>
     for crate::api::error::DescriptorError
 {
     fn into_into_dart(self) -> crate::api::error::DescriptorError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DescriptorPublicKeyBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DescriptorPublicKeyBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DescriptorPublicKeyBase>
+    for crate::api::key::DescriptorPublicKeyBase
+{
+    fn into_into_dart(self) -> crate::api::key::DescriptorPublicKeyBase {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::DescriptorSecretKeyBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::key::DescriptorSecretKeyBase
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::DescriptorSecretKeyBase>
+    for crate::api::key::DescriptorSecretKeyBase
+{
+    fn into_into_dart(self) -> crate::api::key::DescriptorSecretKeyBase {
         self
     }
 }
@@ -4258,6 +4157,20 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::LocalUtxo>
     for crate::api::types::LocalUtxo
 {
     fn into_into_dart(self) -> crate::api::types::LocalUtxo {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::key::MnemonicBase {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::key::MnemonicBase {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::key::MnemonicBase>
+    for crate::api::key::MnemonicBase
+{
+    fn into_into_dart(self) -> crate::api::key::MnemonicBase {
         self
     }
 }
@@ -4681,59 +4594,16 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::WordCount>
     }
 }
 
-impl SseEncode for AddressBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
-    }
-}
-
-impl SseEncode for DerivationPathBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
-    }
-}
-
-impl SseEncode for DescriptorBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
-    }
-}
-
-impl SseEncode for DescriptorPublicKeyBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-        >>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
-            serializer,
-        );
-    }
-}
-
-impl SseEncode for DescriptorSecretKeyBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
-            serializer,
-        );
-    }
-}
-
-impl SseEncode for MnemonicBase {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
-    }
-}
-
 impl SseEncode for RustOpaqueNom<AnyBlockchain> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode for RustOpaqueNom<ExtendedDescriptor> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4760,9 +4630,7 @@ impl SseEncode for RustOpaqueNom<Mutex<bdk::Wallet<AnyDatabase>>> {
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>
-{
+impl SseEncode for RustOpaqueNom<bdk::bitcoin::Address> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4771,9 +4639,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>
-{
+impl SseEncode for RustOpaqueNom<bitcoin::bip32::DerivationPath> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4782,9 +4648,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>
-{
+impl SseEncode for RustOpaqueNom<keys::DescriptorPublicKey> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4793,11 +4657,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-    >
-{
+impl SseEncode for RustOpaqueNom<keys::DescriptorSecretKey> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4806,11 +4666,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-    >
-{
+impl SseEncode for RustOpaqueNom<keys::KeyMap> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4819,9 +4675,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>
-{
+impl SseEncode for RustOpaqueNom<keys::bip39::Mnemonic> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4834,6 +4688,13 @@ impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<u8>>::sse_encode(self.into_bytes(), serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::AddressBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<bdk::bitcoin::Address>>::sse_encode(self.ptr, serializer);
     }
 }
 
@@ -5248,6 +5109,21 @@ impl SseEncode for crate::api::types::DatabaseConfig {
     }
 }
 
+impl SseEncode for crate::api::key::DerivationPathBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<bitcoin::bip32::DerivationPath>>::sse_encode(self.ptr, serializer);
+    }
+}
+
+impl SseEncode for crate::api::descriptor::DescriptorBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<ExtendedDescriptor>>::sse_encode(self.extended_descriptor, serializer);
+        <RustOpaqueNom<keys::KeyMap>>::sse_encode(self.key_map, serializer);
+    }
+}
+
 impl SseEncode for crate::api::error::DescriptorError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5297,6 +5173,20 @@ impl SseEncode for crate::api::error::DescriptorError {
                 <String>::sse_encode(field0, serializer);
             }
         }
+    }
+}
+
+impl SseEncode for crate::api::key::DescriptorPublicKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<keys::DescriptorPublicKey>>::sse_encode(self.ptr, serializer);
+    }
+}
+
+impl SseEncode for crate::api::key::DescriptorSecretKeyBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<keys::DescriptorSecretKey>>::sse_encode(self.ptr, serializer);
     }
 }
 
@@ -5478,6 +5368,13 @@ impl SseEncode for crate::api::types::LocalUtxo {
     }
 }
 
+impl SseEncode for crate::api::key::MnemonicBase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<keys::bip39::Mnemonic>>::sse_encode(self.ptr, serializer);
+    }
+}
+
 impl SseEncode for crate::api::types::Network {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5506,22 +5403,12 @@ impl SseEncode for Option<String> {
     }
 }
 
-impl SseEncode for Option<AddressBase> {
+impl SseEncode for Option<crate::api::types::AddressBase> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
-            <AddressBase>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<DescriptorBase> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <DescriptorBase>::sse_encode(value, serializer);
+            <crate::api::types::AddressBase>::sse_encode(value, serializer);
         }
     }
 }
@@ -5532,6 +5419,16 @@ impl SseEncode for Option<crate::api::types::BlockTime> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::types::BlockTime>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::descriptor::DescriptorBase> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::descriptor::DescriptorBase>::sse_encode(value, serializer);
         }
     }
 }

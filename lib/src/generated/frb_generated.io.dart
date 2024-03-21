@@ -29,6 +29,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           wire._rust_arc_decrement_strong_count_RustOpaque_AnyBlockchainPtr;
 
   CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ExtendedDescriptorPtr => wire
+          ._rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptorPtr;
+
+  CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_MutexPartiallySignedTransactionPtr =>
           wire._rust_arc_decrement_strong_count_RustOpaque_MutexPartiallySignedTransactionPtr;
 
@@ -37,86 +41,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
           ._rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_AddressBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr;
+      get rust_arc_decrement_strong_count_BdkBitcoinAddressPtr =>
+          wire._rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddressPtr;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DerivationPathBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBasePtr;
+      get rust_arc_decrement_strong_count_BitcoinBip32DerivationPathPtr => wire
+          ._rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPathPtr;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr;
+      get rust_arc_decrement_strong_count_KeysDescriptorPublicKeyPtr => wire
+          ._rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKeyPtr;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorPublicKeyBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBasePtr;
+      get rust_arc_decrement_strong_count_KeysDescriptorSecretKeyPtr => wire
+          ._rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKeyPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_KeysKeyMapPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_keysKeyMapPtr;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorSecretKeyBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBasePtr;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_MnemonicBasePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBasePtr;
-
-  @protected
-  AddressBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw);
-
-  @protected
-  DerivationPathBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          dynamic raw);
-
-  @protected
-  DescriptorBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw);
-
-  @protected
-  DescriptorPublicKeyBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw);
-
-  @protected
-  DescriptorSecretKeyBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw);
-
-  @protected
-  MnemonicBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw);
-
-  @protected
-  AddressBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw);
-
-  @protected
-  DescriptorBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw);
-
-  @protected
-  DescriptorPublicKeyBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw);
-
-  @protected
-  DescriptorSecretKeyBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw);
-
-  @protected
-  MnemonicBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw);
+      get rust_arc_decrement_strong_count_KeysBip39MnemonicPtr =>
+          wire._rust_arc_decrement_strong_count_RustOpaque_keysbip39MnemonicPtr;
 
   @protected
   AnyBlockchain dco_decode_RustOpaque_AnyBlockchain(dynamic raw);
+
+  @protected
+  ExtendedDescriptor dco_decode_RustOpaque_ExtendedDescriptor(dynamic raw);
 
   @protected
   MutexPartiallySignedTransaction
@@ -127,37 +78,31 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       dynamic raw);
 
   @protected
-  AddressBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw);
+  BdkBitcoinAddress dco_decode_RustOpaque_bdkbitcoinAddress(dynamic raw);
 
   @protected
-  DerivationPathBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          dynamic raw);
+  BitcoinBip32DerivationPath dco_decode_RustOpaque_bitcoinbip32DerivationPath(
+      dynamic raw);
 
   @protected
-  DescriptorBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw);
+  KeysDescriptorPublicKey dco_decode_RustOpaque_keysDescriptorPublicKey(
+      dynamic raw);
 
   @protected
-  DescriptorPublicKeyBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw);
+  KeysDescriptorSecretKey dco_decode_RustOpaque_keysDescriptorSecretKey(
+      dynamic raw);
 
   @protected
-  DescriptorSecretKeyBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw);
+  KeysKeyMap dco_decode_RustOpaque_keysKeyMap(dynamic raw);
 
   @protected
-  MnemonicBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw);
+  KeysBip39Mnemonic dco_decode_RustOpaque_keysbip39Mnemonic(dynamic raw);
 
   @protected
   String dco_decode_String(dynamic raw);
+
+  @protected
+  AddressBase dco_decode_address_base(dynamic raw);
 
   @protected
   AddressError dco_decode_address_error(dynamic raw);
@@ -190,14 +135,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   bool dco_decode_bool(dynamic raw);
 
   @protected
-  AddressBase
-      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw);
-
-  @protected
-  DescriptorBase
-      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw);
+  AddressBase dco_decode_box_autoadd_address_base(dynamic raw);
 
   @protected
   AddressError dco_decode_box_autoadd_address_error(dynamic raw);
@@ -221,7 +159,21 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   DatabaseConfig dco_decode_box_autoadd_database_config(dynamic raw);
 
   @protected
+  DerivationPathBase dco_decode_box_autoadd_derivation_path_base(dynamic raw);
+
+  @protected
+  DescriptorBase dco_decode_box_autoadd_descriptor_base(dynamic raw);
+
+  @protected
   DescriptorError dco_decode_box_autoadd_descriptor_error(dynamic raw);
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_box_autoadd_descriptor_public_key_base(
+      dynamic raw);
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_box_autoadd_descriptor_secret_key_base(
+      dynamic raw);
 
   @protected
   ElectrumConfig dco_decode_box_autoadd_electrum_config(dynamic raw);
@@ -240,6 +192,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   LocalUtxo dco_decode_box_autoadd_local_utxo(dynamic raw);
+
+  @protected
+  MnemonicBase dco_decode_box_autoadd_mnemonic_base(dynamic raw);
 
   @protected
   OutPoint dco_decode_box_autoadd_out_point(dynamic raw);
@@ -301,7 +256,19 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   DatabaseConfig dco_decode_database_config(dynamic raw);
 
   @protected
+  DerivationPathBase dco_decode_derivation_path_base(dynamic raw);
+
+  @protected
+  DescriptorBase dco_decode_descriptor_base(dynamic raw);
+
+  @protected
   DescriptorError dco_decode_descriptor_error(dynamic raw);
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_descriptor_public_key_base(dynamic raw);
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_descriptor_secret_key_base(dynamic raw);
 
   @protected
   ElectrumConfig dco_decode_electrum_config(dynamic raw);
@@ -358,23 +325,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   LocalUtxo dco_decode_local_utxo(dynamic raw);
 
   @protected
+  MnemonicBase dco_decode_mnemonic_base(dynamic raw);
+
+  @protected
   Network dco_decode_network(dynamic raw);
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
-  AddressBase?
-      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw);
-
-  @protected
-  DescriptorBase?
-      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw);
+  AddressBase? dco_decode_opt_box_autoadd_address_base(dynamic raw);
 
   @protected
   BlockTime? dco_decode_opt_box_autoadd_block_time(dynamic raw);
+
+  @protected
+  DescriptorBase? dco_decode_opt_box_autoadd_descriptor_base(dynamic raw);
 
   @protected
   double? dco_decode_opt_box_autoadd_f_32(dynamic raw);
@@ -499,62 +465,11 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   WordCount dco_decode_word_count(dynamic raw);
 
   @protected
-  AddressBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DerivationPathBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorPublicKeyBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorSecretKeyBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer);
-
-  @protected
-  MnemonicBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer);
-
-  @protected
-  AddressBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorPublicKeyBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorSecretKeyBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer);
-
-  @protected
-  MnemonicBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer);
-
-  @protected
   AnyBlockchain sse_decode_RustOpaque_AnyBlockchain(
+      SseDeserializer deserializer);
+
+  @protected
+  ExtendedDescriptor sse_decode_RustOpaque_ExtendedDescriptor(
       SseDeserializer deserializer);
 
   @protected
@@ -567,37 +482,33 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
-  AddressBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer);
+  BdkBitcoinAddress sse_decode_RustOpaque_bdkbitcoinAddress(
+      SseDeserializer deserializer);
 
   @protected
-  DerivationPathBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          SseDeserializer deserializer);
+  BitcoinBip32DerivationPath sse_decode_RustOpaque_bitcoinbip32DerivationPath(
+      SseDeserializer deserializer);
 
   @protected
-  DescriptorBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer);
+  KeysDescriptorPublicKey sse_decode_RustOpaque_keysDescriptorPublicKey(
+      SseDeserializer deserializer);
 
   @protected
-  DescriptorPublicKeyBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer);
+  KeysDescriptorSecretKey sse_decode_RustOpaque_keysDescriptorSecretKey(
+      SseDeserializer deserializer);
 
   @protected
-  DescriptorSecretKeyBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer);
+  KeysKeyMap sse_decode_RustOpaque_keysKeyMap(SseDeserializer deserializer);
 
   @protected
-  MnemonicBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer);
+  KeysBip39Mnemonic sse_decode_RustOpaque_keysbip39Mnemonic(
+      SseDeserializer deserializer);
 
   @protected
   String sse_decode_String(SseDeserializer deserializer);
+
+  @protected
+  AddressBase sse_decode_address_base(SseDeserializer deserializer);
 
   @protected
   AddressError sse_decode_address_error(SseDeserializer deserializer);
@@ -630,14 +541,7 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
-  AddressBase
-      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorBase
-      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer);
+  AddressBase sse_decode_box_autoadd_address_base(SseDeserializer deserializer);
 
   @protected
   AddressError sse_decode_box_autoadd_address_error(
@@ -667,7 +571,23 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       SseDeserializer deserializer);
 
   @protected
+  DerivationPathBase sse_decode_box_autoadd_derivation_path_base(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorBase sse_decode_box_autoadd_descriptor_base(
+      SseDeserializer deserializer);
+
+  @protected
   DescriptorError sse_decode_box_autoadd_descriptor_error(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_box_autoadd_descriptor_public_key_base(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_box_autoadd_descriptor_secret_key_base(
       SseDeserializer deserializer);
 
   @protected
@@ -689,6 +609,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   LocalUtxo sse_decode_box_autoadd_local_utxo(SseDeserializer deserializer);
+
+  @protected
+  MnemonicBase sse_decode_box_autoadd_mnemonic_base(
+      SseDeserializer deserializer);
 
   @protected
   OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer);
@@ -756,7 +680,22 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   DatabaseConfig sse_decode_database_config(SseDeserializer deserializer);
 
   @protected
+  DerivationPathBase sse_decode_derivation_path_base(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorBase sse_decode_descriptor_base(SseDeserializer deserializer);
+
+  @protected
   DescriptorError sse_decode_descriptor_error(SseDeserializer deserializer);
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_descriptor_public_key_base(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_descriptor_secret_key_base(
+      SseDeserializer deserializer);
 
   @protected
   ElectrumConfig sse_decode_electrum_config(SseDeserializer deserializer);
@@ -816,23 +755,24 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   LocalUtxo sse_decode_local_utxo(SseDeserializer deserializer);
 
   @protected
+  MnemonicBase sse_decode_mnemonic_base(SseDeserializer deserializer);
+
+  @protected
   Network sse_decode_network(SseDeserializer deserializer);
 
   @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
-  AddressBase?
-      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer);
-
-  @protected
-  DescriptorBase?
-      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer);
+  AddressBase? sse_decode_opt_box_autoadd_address_base(
+      SseDeserializer deserializer);
 
   @protected
   BlockTime? sse_decode_opt_box_autoadd_block_time(
+      SseDeserializer deserializer);
+
+  @protected
+  DescriptorBase? sse_decode_opt_box_autoadd_descriptor_base(
       SseDeserializer deserializer);
 
   @protected
@@ -975,25 +915,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
-  ffi.Pointer<ffi.UintPtr>
-      cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase raw) {
+  ffi.Pointer<wire_cst_address_base> cst_encode_box_autoadd_address_base(
+      AddressBase raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return wire
-        .cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                raw));
-  }
-
-  @protected
-  ffi.Pointer<ffi.UintPtr>
-      cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return wire
-        .cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                raw));
+    final ptr = wire.cst_new_box_autoadd_address_base();
+    cst_api_fill_to_wire_address_base(raw, ptr.ref);
+    return ptr;
   }
 
   @protected
@@ -1060,11 +987,49 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_derivation_path_base>
+      cst_encode_box_autoadd_derivation_path_base(DerivationPathBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_derivation_path_base();
+    cst_api_fill_to_wire_derivation_path_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_descriptor_base> cst_encode_box_autoadd_descriptor_base(
+      DescriptorBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_descriptor_base();
+    cst_api_fill_to_wire_descriptor_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_descriptor_error>
       cst_encode_box_autoadd_descriptor_error(DescriptorError raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_descriptor_error();
     cst_api_fill_to_wire_descriptor_error(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_descriptor_public_key_base>
+      cst_encode_box_autoadd_descriptor_public_key_base(
+          DescriptorPublicKeyBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_descriptor_public_key_base();
+    cst_api_fill_to_wire_descriptor_public_key_base(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_descriptor_secret_key_base>
+      cst_encode_box_autoadd_descriptor_secret_key_base(
+          DescriptorSecretKeyBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_descriptor_secret_key_base();
+    cst_api_fill_to_wire_descriptor_secret_key_base(raw, ptr.ref);
     return ptr;
   }
 
@@ -1115,6 +1080,15 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_local_utxo();
     cst_api_fill_to_wire_local_utxo(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_mnemonic_base> cst_encode_box_autoadd_mnemonic_base(
+      MnemonicBase raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_mnemonic_base();
+    cst_api_fill_to_wire_mnemonic_base(raw, ptr.ref);
     return ptr;
   }
 
@@ -1356,25 +1330,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
-  ffi.Pointer<ffi.UintPtr>
-      cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase? raw) {
+  ffi.Pointer<wire_cst_address_base> cst_encode_opt_box_autoadd_address_base(
+      AddressBase? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw == null
-        ? ffi.nullptr
-        : cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-            raw);
-  }
-
-  @protected
-  ffi.Pointer<ffi.UintPtr>
-      cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase? raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw == null
-        ? ffi.nullptr
-        : cst_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-            raw);
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_address_base(raw);
   }
 
   @protected
@@ -1382,6 +1341,15 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       BlockTime? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_block_time(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_descriptor_base>
+      cst_encode_opt_box_autoadd_descriptor_base(DescriptorBase? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_descriptor_base(raw);
   }
 
   @protected
@@ -1488,6 +1456,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     final ans = wire.cst_new_list_prim_u_8_strict(4);
     ans.ref.ptr.asTypedList(4).setAll(0, raw);
     return ans;
+  }
+
+  @protected
+  void cst_api_fill_to_wire_address_base(
+      AddressBase apiObj, wire_cst_address_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_bdkbitcoinAddress(apiObj.ptr);
   }
 
   @protected
@@ -1923,6 +1897,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_address_base(
+      AddressBase apiObj, ffi.Pointer<wire_cst_address_base> wireObj) {
+    cst_api_fill_to_wire_address_base(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_address_error(
       AddressError apiObj, ffi.Pointer<wire_cst_address_error> wireObj) {
     cst_api_fill_to_wire_address_error(apiObj, wireObj.ref);
@@ -1966,9 +1946,36 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_derivation_path_base(
+      DerivationPathBase apiObj,
+      ffi.Pointer<wire_cst_derivation_path_base> wireObj) {
+    cst_api_fill_to_wire_derivation_path_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_descriptor_base(
+      DescriptorBase apiObj, ffi.Pointer<wire_cst_descriptor_base> wireObj) {
+    cst_api_fill_to_wire_descriptor_base(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_descriptor_error(
       DescriptorError apiObj, ffi.Pointer<wire_cst_descriptor_error> wireObj) {
     cst_api_fill_to_wire_descriptor_error(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_descriptor_public_key_base(
+      DescriptorPublicKeyBase apiObj,
+      ffi.Pointer<wire_cst_descriptor_public_key_base> wireObj) {
+    cst_api_fill_to_wire_descriptor_public_key_base(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_descriptor_secret_key_base(
+      DescriptorSecretKeyBase apiObj,
+      ffi.Pointer<wire_cst_descriptor_secret_key_base> wireObj) {
+    cst_api_fill_to_wire_descriptor_secret_key_base(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1999,6 +2006,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void cst_api_fill_to_wire_box_autoadd_local_utxo(
       LocalUtxo apiObj, ffi.Pointer<wire_cst_local_utxo> wireObj) {
     cst_api_fill_to_wire_local_utxo(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_mnemonic_base(
+      MnemonicBase apiObj, ffi.Pointer<wire_cst_mnemonic_base> wireObj) {
+    cst_api_fill_to_wire_mnemonic_base(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2150,6 +2163,20 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_derivation_path_base(
+      DerivationPathBase apiObj, wire_cst_derivation_path_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_bitcoinbip32DerivationPath(apiObj.ptr);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_descriptor_base(
+      DescriptorBase apiObj, wire_cst_descriptor_base wireObj) {
+    wireObj.extended_descriptor =
+        cst_encode_RustOpaque_ExtendedDescriptor(apiObj.extendedDescriptor);
+    wireObj.key_map = cst_encode_RustOpaque_keysKeyMap(apiObj.keyMap);
+  }
+
+  @protected
   void cst_api_fill_to_wire_descriptor_error(
       DescriptorError apiObj, wire_cst_descriptor_error wireObj) {
     if (apiObj is DescriptorError_InvalidHdKeyPath) {
@@ -2219,6 +2246,20 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_descriptor_public_key_base(
+      DescriptorPublicKeyBase apiObj,
+      wire_cst_descriptor_public_key_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_keysDescriptorPublicKey(apiObj.ptr);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_descriptor_secret_key_base(
+      DescriptorSecretKeyBase apiObj,
+      wire_cst_descriptor_secret_key_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_keysDescriptorSecretKey(apiObj.ptr);
+  }
+
+  @protected
   void cst_api_fill_to_wire_electrum_config(
       ElectrumConfig apiObj, wire_cst_electrum_config wireObj) {
     wireObj.url = cst_encode_String(apiObj.url);
@@ -2282,6 +2323,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     cst_api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
     wireObj.keychain = cst_encode_keychain_kind(apiObj.keychain);
     wireObj.is_spent = cst_encode_bool(apiObj.isSpent);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_mnemonic_base(
+      MnemonicBase apiObj, wire_cst_mnemonic_base wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_keysbip39Mnemonic(apiObj.ptr);
   }
 
   @protected
@@ -2463,51 +2510,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw);
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-      DerivationPathBase raw);
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw);
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw);
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw);
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw);
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw);
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw);
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw);
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw);
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw);
-
-  @protected
   int cst_encode_RustOpaque_AnyBlockchain(AnyBlockchain raw);
+
+  @protected
+  int cst_encode_RustOpaque_ExtendedDescriptor(ExtendedDescriptor raw);
 
   @protected
   int cst_encode_RustOpaque_MutexPartiallySignedTransaction(
@@ -2518,28 +2524,25 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       MutexBdkWalletAnyDatabase raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw);
+  int cst_encode_RustOpaque_bdkbitcoinAddress(BdkBitcoinAddress raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-      DerivationPathBase raw);
+  int cst_encode_RustOpaque_bitcoinbip32DerivationPath(
+      BitcoinBip32DerivationPath raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw);
+  int cst_encode_RustOpaque_keysDescriptorPublicKey(
+      KeysDescriptorPublicKey raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw);
+  int cst_encode_RustOpaque_keysDescriptorSecretKey(
+      KeysDescriptorSecretKey raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw);
+  int cst_encode_RustOpaque_keysKeyMap(KeysKeyMap raw);
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw);
+  int cst_encode_RustOpaque_keysbip39Mnemonic(KeysBip39Mnemonic raw);
 
   @protected
   bool cst_encode_bool(bool raw);
@@ -2581,63 +2584,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   int cst_encode_word_count(WordCount raw);
 
   @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          DerivationPathBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer);
-
-  @protected
   void sse_encode_RustOpaque_AnyBlockchain(
       AnyBlockchain self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_ExtendedDescriptor(
+      ExtendedDescriptor self, SseSerializer serializer);
 
   @protected
   void sse_encode_RustOpaque_MutexPartiallySignedTransaction(
@@ -2648,37 +2600,34 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       MutexBdkWalletAnyDatabase self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_bdkbitcoinAddress(
+      BdkBitcoinAddress self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          DerivationPathBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_bitcoinbip32DerivationPath(
+      BitcoinBip32DerivationPath self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_keysDescriptorPublicKey(
+      KeysDescriptorPublicKey self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_keysDescriptorSecretKey(
+      KeysDescriptorSecretKey self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_keysKeyMap(
+      KeysKeyMap self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer);
+  void sse_encode_RustOpaque_keysbip39Mnemonic(
+      KeysBip39Mnemonic self, SseSerializer serializer);
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_address_base(AddressBase self, SseSerializer serializer);
 
   @protected
   void sse_encode_address_error(AddressError self, SseSerializer serializer);
@@ -2713,14 +2662,8 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_bool(bool self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer);
+  void sse_encode_box_autoadd_address_base(
+      AddressBase self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_address_error(
@@ -2751,8 +2694,24 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DatabaseConfig self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_base(
+      DescriptorBase self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_descriptor_error(
       DescriptorError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_electrum_config(
@@ -2775,6 +2734,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   @protected
   void sse_encode_box_autoadd_local_utxo(
       LocalUtxo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_mnemonic_base(
+      MnemonicBase self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_out_point(
@@ -2850,8 +2813,24 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       DatabaseConfig self, SseSerializer serializer);
 
   @protected
+  void sse_encode_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_descriptor_base(
+      DescriptorBase self, SseSerializer serializer);
+
+  @protected
   void sse_encode_descriptor_error(
       DescriptorError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer);
 
   @protected
   void sse_encode_electrum_config(
@@ -2914,24 +2893,25 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_local_utxo(LocalUtxo self, SseSerializer serializer);
 
   @protected
+  void sse_encode_mnemonic_base(MnemonicBase self, SseSerializer serializer);
+
+  @protected
   void sse_encode_network(Network self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
-  void
-      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase? self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase? self, SseSerializer serializer);
+  void sse_encode_opt_box_autoadd_address_base(
+      AddressBase? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_block_time(
       BlockTime? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_descriptor_base(
+      DescriptorBase? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_f_32(double? self, SseSerializer serializer);
@@ -3216,7 +3196,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorBase_as_string(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_base> that,
   ) {
     return _wire_DescriptorBase_as_string(
       port_,
@@ -3224,15 +3204,17 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorBase_as_stringPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorBase_as_string');
-  late final _wire_DescriptorBase_as_string =
-      _wire_DescriptorBase_as_stringPtr.asFunction<void Function(int, int)>();
+  late final _wire_DescriptorBase_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_descriptor_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorBase_as_string');
+  late final _wire_DescriptorBase_as_string = _wire_DescriptorBase_as_stringPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_descriptor_base>)>();
 
   void wire_DescriptorBase_as_string_private(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_base> that,
   ) {
     return _wire_DescriptorBase_as_string_private(
       port_,
@@ -3240,16 +3222,18 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorBase_as_string_privatePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorBase_as_string_private');
+  late final _wire_DescriptorBase_as_string_privatePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_descriptor_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorBase_as_string_private');
   late final _wire_DescriptorBase_as_string_private =
-      _wire_DescriptorBase_as_string_privatePtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorBase_as_string_privatePtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_base>)>();
 
   void wire_DescriptorBase_max_satisfaction_weight(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_base> that,
   ) {
     return _wire_DescriptorBase_max_satisfaction_weight(
       port_,
@@ -3257,12 +3241,14 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorBase_max_satisfaction_weightPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight');
+  late final _wire_DescriptorBase_max_satisfaction_weightPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_descriptor_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight');
   late final _wire_DescriptorBase_max_satisfaction_weight =
-      _wire_DescriptorBase_max_satisfaction_weightPtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorBase_max_satisfaction_weightPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_base>)>();
 
   void wire_DescriptorBase_new(
     int port_,
@@ -3287,7 +3273,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorBase_new_bip44(
     int port_,
-    int secret_key,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret_key,
     int keychain_kind,
     int network,
   ) {
@@ -3301,14 +3287,19 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorBase_new_bip44Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Int32,
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Int32,
               ffi.Int32)>>('frbgen_bdk_flutter_wire_DescriptorBase_new_bip44');
-  late final _wire_DescriptorBase_new_bip44 = _wire_DescriptorBase_new_bip44Ptr
-      .asFunction<void Function(int, int, int, int)>();
+  late final _wire_DescriptorBase_new_bip44 =
+      _wire_DescriptorBase_new_bip44Ptr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              int, int)>();
 
   void wire_DescriptorBase_new_bip44_public(
     int port_,
-    int public_key,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> public_key,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> fingerprint,
     int keychain_kind,
     int network,
@@ -3326,19 +3317,19 @@ class BdkCoreWire implements BaseWire {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.UintPtr,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>,
                   ffi.Int32,
                   ffi.Int32)>>(
       'frbgen_bdk_flutter_wire_DescriptorBase_new_bip44_public');
   late final _wire_DescriptorBase_new_bip44_public =
       _wire_DescriptorBase_new_bip44_publicPtr.asFunction<
-          void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int, int)>();
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>, int, int)>();
 
   void wire_DescriptorBase_new_bip49(
     int port_,
-    int secret_key,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret_key,
     int keychain_kind,
     int network,
   ) {
@@ -3352,14 +3343,19 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorBase_new_bip49Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Int32,
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Int32,
               ffi.Int32)>>('frbgen_bdk_flutter_wire_DescriptorBase_new_bip49');
-  late final _wire_DescriptorBase_new_bip49 = _wire_DescriptorBase_new_bip49Ptr
-      .asFunction<void Function(int, int, int, int)>();
+  late final _wire_DescriptorBase_new_bip49 =
+      _wire_DescriptorBase_new_bip49Ptr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              int, int)>();
 
   void wire_DescriptorBase_new_bip49_public(
     int port_,
-    int public_key,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> public_key,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> fingerprint,
     int keychain_kind,
     int network,
@@ -3377,19 +3373,19 @@ class BdkCoreWire implements BaseWire {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.UintPtr,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>,
                   ffi.Int32,
                   ffi.Int32)>>(
       'frbgen_bdk_flutter_wire_DescriptorBase_new_bip49_public');
   late final _wire_DescriptorBase_new_bip49_public =
       _wire_DescriptorBase_new_bip49_publicPtr.asFunction<
-          void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int, int)>();
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>, int, int)>();
 
   void wire_DescriptorBase_new_bip84(
     int port_,
-    int secret_key,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret_key,
     int keychain_kind,
     int network,
   ) {
@@ -3403,14 +3399,19 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorBase_new_bip84Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Int32,
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Int32,
               ffi.Int32)>>('frbgen_bdk_flutter_wire_DescriptorBase_new_bip84');
-  late final _wire_DescriptorBase_new_bip84 = _wire_DescriptorBase_new_bip84Ptr
-      .asFunction<void Function(int, int, int, int)>();
+  late final _wire_DescriptorBase_new_bip84 =
+      _wire_DescriptorBase_new_bip84Ptr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              int, int)>();
 
   void wire_DescriptorBase_new_bip84_public(
     int port_,
-    int public_key,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> public_key,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> fingerprint,
     int keychain_kind,
     int network,
@@ -3428,19 +3429,19 @@ class BdkCoreWire implements BaseWire {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.UintPtr,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>,
                   ffi.Int32,
                   ffi.Int32)>>(
       'frbgen_bdk_flutter_wire_DescriptorBase_new_bip84_public');
   late final _wire_DescriptorBase_new_bip84_public =
       _wire_DescriptorBase_new_bip84_publicPtr.asFunction<
-          void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int, int)>();
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>, int, int)>();
 
   void wire_DescriptorBase_new_bip86(
     int port_,
-    int secret_key,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> secret_key,
     int keychain_kind,
     int network,
   ) {
@@ -3454,14 +3455,19 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorBase_new_bip86Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Int32,
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Int32,
               ffi.Int32)>>('frbgen_bdk_flutter_wire_DescriptorBase_new_bip86');
-  late final _wire_DescriptorBase_new_bip86 = _wire_DescriptorBase_new_bip86Ptr
-      .asFunction<void Function(int, int, int, int)>();
+  late final _wire_DescriptorBase_new_bip86 =
+      _wire_DescriptorBase_new_bip86Ptr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              int, int)>();
 
   void wire_DescriptorBase_new_bip86_public(
     int port_,
-    int public_key,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> public_key,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> fingerprint,
     int keychain_kind,
     int network,
@@ -3479,15 +3485,15 @@ class BdkCoreWire implements BaseWire {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.UintPtr,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>,
                   ffi.Int32,
                   ffi.Int32)>>(
       'frbgen_bdk_flutter_wire_DescriptorBase_new_bip86_public');
   late final _wire_DescriptorBase_new_bip86_public =
       _wire_DescriptorBase_new_bip86_publicPtr.asFunction<
-          void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int, int)>();
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>, int, int)>();
 
   void wire_DerivationPathBase_from_string(
     int port_,
@@ -3510,7 +3516,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorPublicKeyBase_as_string(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> that,
   ) {
     return _wire_DescriptorPublicKeyBase_as_string(
       port_,
@@ -3518,17 +3524,20 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorPublicKeyBase_as_stringPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string');
+  late final _wire_DescriptorPublicKeyBase_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string');
   late final _wire_DescriptorPublicKeyBase_as_string =
-      _wire_DescriptorPublicKeyBase_as_stringPtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorPublicKeyBase_as_stringPtr.asFunction<
+          void Function(
+              int, ffi.Pointer<wire_cst_descriptor_public_key_base>)>();
 
   void wire_DescriptorPublicKeyBase_derive(
     int port_,
-    int ptr,
-    int path,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> ptr,
+    ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorPublicKeyBase_derive(
       port_,
@@ -3539,16 +3548,20 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorPublicKeyBase_derivePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.UintPtr)>>(
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
+                  ffi.Pointer<wire_cst_derivation_path_base>)>>(
       'frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive');
   late final _wire_DescriptorPublicKeyBase_derive =
-      _wire_DescriptorPublicKeyBase_derivePtr
-          .asFunction<void Function(int, int, int)>();
+      _wire_DescriptorPublicKeyBase_derivePtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_derivation_path_base>)>();
 
   void wire_DescriptorPublicKeyBase_extend(
     int port_,
-    int ptr,
-    int path,
+    ffi.Pointer<wire_cst_descriptor_public_key_base> ptr,
+    ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorPublicKeyBase_extend(
       port_,
@@ -3559,11 +3572,15 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorPublicKeyBase_extendPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.UintPtr)>>(
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_public_key_base>,
+                  ffi.Pointer<wire_cst_derivation_path_base>)>>(
       'frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend');
   late final _wire_DescriptorPublicKeyBase_extend =
-      _wire_DescriptorPublicKeyBase_extendPtr
-          .asFunction<void Function(int, int, int)>();
+      _wire_DescriptorPublicKeyBase_extendPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_public_key_base>,
+              ffi.Pointer<wire_cst_derivation_path_base>)>();
 
   void wire_DescriptorPublicKeyBase_from_string(
     int port_,
@@ -3586,7 +3603,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_as_public(
     int port_,
-    int ptr,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
   ) {
     return _wire_DescriptorSecretKeyBase_as_public(
       port_,
@@ -3594,16 +3611,19 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorSecretKeyBase_as_publicPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public');
+  late final _wire_DescriptorSecretKeyBase_as_publicPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_secret_key_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public');
   late final _wire_DescriptorSecretKeyBase_as_public =
-      _wire_DescriptorSecretKeyBase_as_publicPtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorSecretKeyBase_as_publicPtr.asFunction<
+          void Function(
+              int, ffi.Pointer<wire_cst_descriptor_secret_key_base>)>();
 
   void wire_DescriptorSecretKeyBase_as_string(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> that,
   ) {
     return _wire_DescriptorSecretKeyBase_as_string(
       port_,
@@ -3611,17 +3631,20 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorSecretKeyBase_as_stringPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string');
+  late final _wire_DescriptorSecretKeyBase_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_secret_key_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string');
   late final _wire_DescriptorSecretKeyBase_as_string =
-      _wire_DescriptorSecretKeyBase_as_stringPtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorSecretKeyBase_as_stringPtr.asFunction<
+          void Function(
+              int, ffi.Pointer<wire_cst_descriptor_secret_key_base>)>();
 
   void wire_DescriptorSecretKeyBase_create(
     int port_,
     int network,
-    int mnemonic,
+    ffi.Pointer<wire_cst_mnemonic_base> mnemonic,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> password,
   ) {
     return _wire_DescriptorSecretKeyBase_create(
@@ -3634,18 +3657,21 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorSecretKeyBase_createPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Int32, ffi.UintPtr,
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Int32,
+                  ffi.Pointer<wire_cst_mnemonic_base>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
       'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create');
   late final _wire_DescriptorSecretKeyBase_create =
       _wire_DescriptorSecretKeyBase_createPtr.asFunction<
-          void Function(
-              int, int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(int, int, ffi.Pointer<wire_cst_mnemonic_base>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
 
   void wire_DescriptorSecretKeyBase_derive(
     int port_,
-    int ptr,
-    int path,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
+    ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorSecretKeyBase_derive(
       port_,
@@ -3656,16 +3682,20 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorSecretKeyBase_derivePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.UintPtr)>>(
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+                  ffi.Pointer<wire_cst_derivation_path_base>)>>(
       'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive');
   late final _wire_DescriptorSecretKeyBase_derive =
-      _wire_DescriptorSecretKeyBase_derivePtr
-          .asFunction<void Function(int, int, int)>();
+      _wire_DescriptorSecretKeyBase_derivePtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Pointer<wire_cst_derivation_path_base>)>();
 
   void wire_DescriptorSecretKeyBase_extend(
     int port_,
-    int ptr,
-    int path,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> ptr,
+    ffi.Pointer<wire_cst_derivation_path_base> path,
   ) {
     return _wire_DescriptorSecretKeyBase_extend(
       port_,
@@ -3676,11 +3706,15 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_DescriptorSecretKeyBase_extendPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.UintPtr)>>(
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+                  ffi.Pointer<wire_cst_derivation_path_base>)>>(
       'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend');
   late final _wire_DescriptorSecretKeyBase_extend =
-      _wire_DescriptorSecretKeyBase_extendPtr
-          .asFunction<void Function(int, int, int)>();
+      _wire_DescriptorSecretKeyBase_extendPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_descriptor_secret_key_base>,
+              ffi.Pointer<wire_cst_derivation_path_base>)>();
 
   void wire_DescriptorSecretKeyBase_from_string(
     int port_,
@@ -3703,7 +3737,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_DescriptorSecretKeyBase_secret_bytes(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_descriptor_secret_key_base> that,
   ) {
     return _wire_DescriptorSecretKeyBase_secret_bytes(
       port_,
@@ -3711,16 +3745,19 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_DescriptorSecretKeyBase_secret_bytesPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes');
+  late final _wire_DescriptorSecretKeyBase_secret_bytesPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64,
+                  ffi.Pointer<wire_cst_descriptor_secret_key_base>)>>(
+      'frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes');
   late final _wire_DescriptorSecretKeyBase_secret_bytes =
-      _wire_DescriptorSecretKeyBase_secret_bytesPtr
-          .asFunction<void Function(int, int)>();
+      _wire_DescriptorSecretKeyBase_secret_bytesPtr.asFunction<
+          void Function(
+              int, ffi.Pointer<wire_cst_descriptor_secret_key_base>)>();
 
   void wire_MnemonicBase_as_string(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_mnemonic_base> that,
   ) {
     return _wire_MnemonicBase_as_string(
       port_,
@@ -3728,11 +3765,13 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_MnemonicBase_as_stringPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_MnemonicBase_as_string');
-  late final _wire_MnemonicBase_as_string =
-      _wire_MnemonicBase_as_stringPtr.asFunction<void Function(int, int)>();
+  late final _wire_MnemonicBase_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_mnemonic_base>)>>(
+      'frbgen_bdk_flutter_wire_MnemonicBase_as_string');
+  late final _wire_MnemonicBase_as_string = _wire_MnemonicBase_as_stringPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_mnemonic_base>)>();
 
   void wire_MnemonicBase_from_entropy(
     int port_,
@@ -3931,7 +3970,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_AddressBase_as_string(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_address_base> that,
   ) {
     return _wire_AddressBase_as_string(
       port_,
@@ -3939,11 +3978,13 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_AddressBase_as_stringPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_AddressBase_as_string');
-  late final _wire_AddressBase_as_string =
-      _wire_AddressBase_as_stringPtr.asFunction<void Function(int, int)>();
+  late final _wire_AddressBase_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
+      'frbgen_bdk_flutter_wire_AddressBase_as_string');
+  late final _wire_AddressBase_as_string = _wire_AddressBase_as_stringPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_AddressBase_from_script(
     int port_,
@@ -3990,7 +4031,7 @@ class BdkCoreWire implements BaseWire {
 
   void wire_AddressBase_is_valid_for_network(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_address_base> that,
     int network,
   ) {
     return _wire_AddressBase_is_valid_for_network(
@@ -4002,15 +4043,16 @@ class BdkCoreWire implements BaseWire {
 
   late final _wire_AddressBase_is_valid_for_networkPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Int32)>>(
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>, ffi.Int32)>>(
       'frbgen_bdk_flutter_wire_AddressBase_is_valid_for_network');
   late final _wire_AddressBase_is_valid_for_network =
-      _wire_AddressBase_is_valid_for_networkPtr
-          .asFunction<void Function(int, int, int)>();
+      _wire_AddressBase_is_valid_for_networkPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_address_base>, int)>();
 
   void wire_AddressBase_network(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_address_base> that,
   ) {
     return _wire_AddressBase_network(
       port_,
@@ -4018,15 +4060,17 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_AddressBase_networkPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_AddressBase_network');
-  late final _wire_AddressBase_network =
-      _wire_AddressBase_networkPtr.asFunction<void Function(int, int)>();
+  late final _wire_AddressBase_networkPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
+      'frbgen_bdk_flutter_wire_AddressBase_network');
+  late final _wire_AddressBase_network = _wire_AddressBase_networkPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_AddressBase_payload(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_address_base> that,
   ) {
     return _wire_AddressBase_payload(
       port_,
@@ -4034,15 +4078,17 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_AddressBase_payloadPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_AddressBase_payload');
-  late final _wire_AddressBase_payload =
-      _wire_AddressBase_payloadPtr.asFunction<void Function(int, int)>();
+  late final _wire_AddressBase_payloadPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
+      'frbgen_bdk_flutter_wire_AddressBase_payload');
+  late final _wire_AddressBase_payload = _wire_AddressBase_payloadPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_AddressBase_script(
     int port_,
-    int ptr,
+    ffi.Pointer<wire_cst_address_base> ptr,
   ) {
     return _wire_AddressBase_script(
       port_,
@@ -4050,15 +4096,17 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_AddressBase_scriptPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_AddressBase_script');
-  late final _wire_AddressBase_script =
-      _wire_AddressBase_scriptPtr.asFunction<void Function(int, int)>();
+  late final _wire_AddressBase_scriptPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
+      'frbgen_bdk_flutter_wire_AddressBase_script');
+  late final _wire_AddressBase_script = _wire_AddressBase_scriptPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_AddressBase_to_qr_uri(
     int port_,
-    int that,
+    ffi.Pointer<wire_cst_address_base> that,
   ) {
     return _wire_AddressBase_to_qr_uri(
       port_,
@@ -4066,11 +4114,13 @@ class BdkCoreWire implements BaseWire {
     );
   }
 
-  late final _wire_AddressBase_to_qr_uriPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_wire_AddressBase_to_qr_uri');
-  late final _wire_AddressBase_to_qr_uri =
-      _wire_AddressBase_to_qr_uriPtr.asFunction<void Function(int, int)>();
+  late final _wire_AddressBase_to_qr_uriPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64, ffi.Pointer<wire_cst_address_base>)>>(
+      'frbgen_bdk_flutter_wire_AddressBase_to_qr_uri');
+  late final _wire_AddressBase_to_qr_uri = _wire_AddressBase_to_qr_uriPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_cst_address_base>)>();
 
   void wire_ScriptBufBase_empty(
     int port_,
@@ -4556,8 +4606,8 @@ class BdkCoreWire implements BaseWire {
 
   void wire_WalletBase_new(
     int port_,
-    int descriptor,
-    ffi.Pointer<ffi.UintPtr> change_descriptor,
+    ffi.Pointer<wire_cst_descriptor_base> descriptor,
+    ffi.Pointer<wire_cst_descriptor_base> change_descriptor,
     int network,
     ffi.Pointer<wire_cst_database_config> database_config,
   ) {
@@ -4574,13 +4624,17 @@ class BdkCoreWire implements BaseWire {
           ffi.NativeFunction<
               ffi.Void Function(
                   ffi.Int64,
-                  ffi.UintPtr,
-                  ffi.Pointer<ffi.UintPtr>,
+                  ffi.Pointer<wire_cst_descriptor_base>,
+                  ffi.Pointer<wire_cst_descriptor_base>,
                   ffi.Int32,
                   ffi.Pointer<wire_cst_database_config>)>>(
       'frbgen_bdk_flutter_wire_WalletBase_new');
   late final _wire_WalletBase_new = _wire_WalletBase_newPtr.asFunction<
-      void Function(int, int, ffi.Pointer<ffi.UintPtr>, int,
+      void Function(
+          int,
+          ffi.Pointer<wire_cst_descriptor_base>,
+          ffi.Pointer<wire_cst_descriptor_base>,
+          int,
           ffi.Pointer<wire_cst_database_config>)>();
 
   void wire_WalletBase_sign(
@@ -4637,7 +4691,7 @@ class BdkCoreWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
     double fee_rate,
-    ffi.Pointer<ffi.UintPtr> allow_shrinking,
+    ffi.Pointer<wire_cst_address_base> allow_shrinking,
     ffi.Pointer<wire_cst_wallet_base> wallet,
     bool enable_rbf,
     ffi.Pointer<ffi.Uint32> n_sequence,
@@ -4659,7 +4713,7 @@ class BdkCoreWire implements BaseWire {
                   ffi.Int64,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>,
                   ffi.Float,
-                  ffi.Pointer<ffi.UintPtr>,
+                  ffi.Pointer<wire_cst_address_base>,
                   ffi.Pointer<wire_cst_wallet_base>,
                   ffi.Bool,
                   ffi.Pointer<ffi.Uint32>)>>(
@@ -4670,7 +4724,7 @@ class BdkCoreWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               double,
-              ffi.Pointer<ffi.UintPtr>,
+              ffi.Pointer<wire_cst_address_base>,
               ffi.Pointer<wire_cst_wallet_base>,
               bool,
               ffi.Pointer<ffi.Uint32>)>();
@@ -4774,6 +4828,36 @@ class BdkCoreWire implements BaseWire {
       _rust_arc_decrement_strong_count_RustOpaque_AnyBlockchainPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
+  void rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptorPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor');
+  late final _rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor =
+      _rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptorPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptorPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor');
+  late final _rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor =
+      _rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptorPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
   void
       rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
     ffi.Pointer<ffi.Void> ptr,
@@ -4836,233 +4920,196 @@ class BdkCoreWire implements BaseWire {
       _rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabasePtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+  void rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+    return _rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr =
+  late final _rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddressPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress');
+  late final _rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress =
+      _rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddressPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+  void rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr =
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddressPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress');
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress =
+      _rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddressPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+  void rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+    return _rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBasePtr =
+  late final _rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPathPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBasePtr
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath');
+  late final _rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath =
+      _rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPathPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+  void rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBasePtr =
+  late final _rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPathPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBasePtr
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath');
+  late final _rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath =
+      _rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPathPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+  void rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+    return _rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr =
+  late final _rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKeyPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey');
+  late final _rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey =
+      _rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKeyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+  void rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr =
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKeyPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey');
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey =
+      _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKeyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+  void rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+    return _rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBasePtr =
+  late final _rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKeyPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBasePtr
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey');
+  late final _rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey =
+      _rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKeyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+  void rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBasePtr =
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKeyPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBasePtr
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey');
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey =
+      _rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKeyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+  void rust_arc_increment_strong_count_RustOpaque_keysKeyMap(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+    return _rust_arc_increment_strong_count_RustOpaque_keysKeyMap(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBasePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBasePtr
+  late final _rust_arc_increment_strong_count_RustOpaque_keysKeyMapPtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysKeyMap');
+  late final _rust_arc_increment_strong_count_RustOpaque_keysKeyMap =
+      _rust_arc_increment_strong_count_RustOpaque_keysKeyMapPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+  void rust_arc_decrement_strong_count_RustOpaque_keysKeyMap(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_keysKeyMap(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBasePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBasePtr
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysKeyMapPtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysKeyMap');
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysKeyMap =
+      _rust_arc_decrement_strong_count_RustOpaque_keysKeyMapPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+  void rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+    return _rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBasePtr =
+  late final _rust_arc_increment_strong_count_RustOpaque_keysbip39MnemonicPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBasePtr
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic');
+  late final _rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic =
+      _rust_arc_increment_strong_count_RustOpaque_keysbip39MnemonicPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+  void rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic(
     ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+    return _rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic(
       ptr,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBasePtr =
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysbip39MnemonicPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBasePtr
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic');
+  late final _rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic =
+      _rust_arc_decrement_strong_count_RustOpaque_keysbip39MnemonicPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  ffi.Pointer<ffi.UintPtr>
-      cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-    int value,
-  ) {
-    return _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      value,
-    );
+  ffi.Pointer<wire_cst_address_base> cst_new_box_autoadd_address_base() {
+    return _cst_new_box_autoadd_address_base();
   }
 
-  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr =
-      _lookup<
-              ffi
-              .NativeFunction<ffi.Pointer<ffi.UintPtr> Function(ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase');
-  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase =
-      _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBasePtr
-          .asFunction<ffi.Pointer<ffi.UintPtr> Function(int)>();
-
-  ffi.Pointer<ffi.UintPtr>
-      cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-    int value,
-  ) {
-    return _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      value,
-    );
-  }
-
-  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr =
-      _lookup<
-              ffi
-              .NativeFunction<ffi.Pointer<ffi.UintPtr> Function(ffi.UintPtr)>>(
-          'frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase');
-  late final _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase =
-      _cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBasePtr
-          .asFunction<ffi.Pointer<ffi.UintPtr> Function(int)>();
+  late final _cst_new_box_autoadd_address_basePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_address_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_address_base');
+  late final _cst_new_box_autoadd_address_base =
+      _cst_new_box_autoadd_address_basePtr
+          .asFunction<ffi.Pointer<wire_cst_address_base> Function()>();
 
   ffi.Pointer<wire_cst_address_error> cst_new_box_autoadd_address_error() {
     return _cst_new_box_autoadd_address_error();
@@ -5143,6 +5190,30 @@ class BdkCoreWire implements BaseWire {
       _cst_new_box_autoadd_database_configPtr
           .asFunction<ffi.Pointer<wire_cst_database_config> Function()>();
 
+  ffi.Pointer<wire_cst_derivation_path_base>
+      cst_new_box_autoadd_derivation_path_base() {
+    return _cst_new_box_autoadd_derivation_path_base();
+  }
+
+  late final _cst_new_box_autoadd_derivation_path_basePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_derivation_path_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_derivation_path_base');
+  late final _cst_new_box_autoadd_derivation_path_base =
+      _cst_new_box_autoadd_derivation_path_basePtr
+          .asFunction<ffi.Pointer<wire_cst_derivation_path_base> Function()>();
+
+  ffi.Pointer<wire_cst_descriptor_base> cst_new_box_autoadd_descriptor_base() {
+    return _cst_new_box_autoadd_descriptor_base();
+  }
+
+  late final _cst_new_box_autoadd_descriptor_basePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_descriptor_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_base');
+  late final _cst_new_box_autoadd_descriptor_base =
+      _cst_new_box_autoadd_descriptor_basePtr
+          .asFunction<ffi.Pointer<wire_cst_descriptor_base> Function()>();
+
   ffi.Pointer<wire_cst_descriptor_error>
       cst_new_box_autoadd_descriptor_error() {
     return _cst_new_box_autoadd_descriptor_error();
@@ -5155,6 +5226,32 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_box_autoadd_descriptor_error =
       _cst_new_box_autoadd_descriptor_errorPtr
           .asFunction<ffi.Pointer<wire_cst_descriptor_error> Function()>();
+
+  ffi.Pointer<wire_cst_descriptor_public_key_base>
+      cst_new_box_autoadd_descriptor_public_key_base() {
+    return _cst_new_box_autoadd_descriptor_public_key_base();
+  }
+
+  late final _cst_new_box_autoadd_descriptor_public_key_basePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_descriptor_public_key_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_public_key_base');
+  late final _cst_new_box_autoadd_descriptor_public_key_base =
+      _cst_new_box_autoadd_descriptor_public_key_basePtr.asFunction<
+          ffi.Pointer<wire_cst_descriptor_public_key_base> Function()>();
+
+  ffi.Pointer<wire_cst_descriptor_secret_key_base>
+      cst_new_box_autoadd_descriptor_secret_key_base() {
+    return _cst_new_box_autoadd_descriptor_secret_key_base();
+  }
+
+  late final _cst_new_box_autoadd_descriptor_secret_key_basePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_descriptor_secret_key_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_secret_key_base');
+  late final _cst_new_box_autoadd_descriptor_secret_key_base =
+      _cst_new_box_autoadd_descriptor_secret_key_basePtr.asFunction<
+          ffi.Pointer<wire_cst_descriptor_secret_key_base> Function()>();
 
   ffi.Pointer<wire_cst_electrum_config> cst_new_box_autoadd_electrum_config() {
     return _cst_new_box_autoadd_electrum_config();
@@ -5222,6 +5319,17 @@ class BdkCoreWire implements BaseWire {
   late final _cst_new_box_autoadd_local_utxo =
       _cst_new_box_autoadd_local_utxoPtr
           .asFunction<ffi.Pointer<wire_cst_local_utxo> Function()>();
+
+  ffi.Pointer<wire_cst_mnemonic_base> cst_new_box_autoadd_mnemonic_base() {
+    return _cst_new_box_autoadd_mnemonic_base();
+  }
+
+  late final _cst_new_box_autoadd_mnemonic_basePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_mnemonic_base> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_mnemonic_base');
+  late final _cst_new_box_autoadd_mnemonic_base =
+      _cst_new_box_autoadd_mnemonic_basePtr
+          .asFunction<ffi.Pointer<wire_cst_mnemonic_base> Function()>();
 
   ffi.Pointer<wire_cst_out_point> cst_new_box_autoadd_out_point() {
     return _cst_new_box_autoadd_out_point();
@@ -5695,6 +5803,34 @@ final class wire_cst_blockchain_config extends ffi.Struct {
   external BlockchainConfigKind kind;
 }
 
+final class wire_cst_descriptor_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int extended_descriptor;
+
+  @ffi.UintPtr()
+  external int key_map;
+}
+
+final class wire_cst_descriptor_secret_key_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
+final class wire_cst_descriptor_public_key_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
+final class wire_cst_derivation_path_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
+final class wire_cst_mnemonic_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
 final class wire_cst_list_prim_u_8_loose extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;
 
@@ -5703,6 +5839,11 @@ final class wire_cst_list_prim_u_8_loose extends ffi.Struct {
 }
 
 final class wire_cst_psbt_base extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
+final class wire_cst_address_base extends ffi.Struct {
   @ffi.UintPtr()
   external int ptr;
 }

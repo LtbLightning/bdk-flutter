@@ -20,69 +20,15 @@ flutter_rust_bridge::frb_generated_boilerplate_io!();
 
 // Section: dart2rust
 
-impl CstDecode<AddressBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> AddressBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DerivationPathBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DerivationPathBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorPublicKeyBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorPublicKeyBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorSecretKeyBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorSecretKeyBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<MnemonicBase> for usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> MnemonicBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
 impl CstDecode<RustOpaqueNom<AnyBlockchain>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> RustOpaqueNom<AnyBlockchain> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<ExtendedDescriptor>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<ExtendedDescriptor> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
@@ -98,79 +44,39 @@ impl CstDecode<RustOpaqueNom<Mutex<bdk::Wallet<AnyDatabase>>>> for usize {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>>
-    for usize
-{
+impl CstDecode<RustOpaqueNom<bdk::bitcoin::Address>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<bdk::bitcoin::Address> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl
-    CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>,
-    > for usize
-{
+impl CstDecode<RustOpaqueNom<bitcoin::bip32::DerivationPath>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>
-    {
+    fn cst_decode(self) -> RustOpaqueNom<bitcoin::bip32::DerivationPath> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl
-    CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>>
-    for usize
-{
+impl CstDecode<RustOpaqueNom<keys::DescriptorPublicKey>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<keys::DescriptorPublicKey> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl
-    CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-        >,
-    > for usize
-{
+impl CstDecode<RustOpaqueNom<keys::DescriptorSecretKey>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-    > {
+    fn cst_decode(self) -> RustOpaqueNom<keys::DescriptorSecretKey> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl
-    CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >,
-    > for usize
-{
+impl CstDecode<RustOpaqueNom<keys::KeyMap>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-    > {
+    fn cst_decode(self) -> RustOpaqueNom<keys::KeyMap> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
-impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>>
-    for usize
-{
+impl CstDecode<RustOpaqueNom<keys::bip39::Mnemonic>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<keys::bip39::Mnemonic> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
@@ -179,6 +85,14 @@ impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
     fn cst_decode(self) -> String {
         let vec: Vec<u8> = self.cst_decode();
         String::from_utf8(vec).unwrap()
+    }
+}
+impl CstDecode<crate::api::types::AddressBase> for wire_cst_address_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::AddressBase {
+        crate::api::types::AddressBase {
+            ptr: self.ptr.cst_decode(),
+        }
     }
 }
 impl CstDecode<crate::api::error::AddressError> for wire_cst_address_error {
@@ -510,18 +424,11 @@ impl CstDecode<crate::api::blockchain::BlockchainConfig> for wire_cst_blockchain
         }
     }
 }
-impl CstDecode<AddressBase> for *mut usize {
+impl CstDecode<crate::api::types::AddressBase> for *mut wire_cst_address_base {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> AddressBase {
+    fn cst_decode(self) -> crate::api::types::AddressBase {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-        CstDecode::<AddressBase>::cst_decode(*wrap).into()
-    }
-}
-impl CstDecode<DescriptorBase> for *mut usize {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorBase {
-        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-        CstDecode::<DescriptorBase>::cst_decode(*wrap).into()
+        CstDecode::<crate::api::types::AddressBase>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::error::AddressError> for *mut wire_cst_address_error {
@@ -573,11 +480,43 @@ impl CstDecode<crate::api::types::DatabaseConfig> for *mut wire_cst_database_con
         CstDecode::<crate::api::types::DatabaseConfig>::cst_decode(*wrap).into()
     }
 }
+impl CstDecode<crate::api::key::DerivationPathBase> for *mut wire_cst_derivation_path_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DerivationPathBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::DerivationPathBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::descriptor::DescriptorBase> for *mut wire_cst_descriptor_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::descriptor::DescriptorBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::descriptor::DescriptorBase>::cst_decode(*wrap).into()
+    }
+}
 impl CstDecode<crate::api::error::DescriptorError> for *mut wire_cst_descriptor_error {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::error::DescriptorError {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
         CstDecode::<crate::api::error::DescriptorError>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::DescriptorPublicKeyBase>
+    for *mut wire_cst_descriptor_public_key_base
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorPublicKeyBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::DescriptorPublicKeyBase>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::DescriptorSecretKeyBase>
+    for *mut wire_cst_descriptor_secret_key_base
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorSecretKeyBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::DescriptorSecretKeyBase>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::blockchain::ElectrumConfig> for *mut wire_cst_electrum_config {
@@ -619,6 +558,13 @@ impl CstDecode<crate::api::types::LocalUtxo> for *mut wire_cst_local_utxo {
     fn cst_decode(self) -> crate::api::types::LocalUtxo {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
         CstDecode::<crate::api::types::LocalUtxo>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::key::MnemonicBase> for *mut wire_cst_mnemonic_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::MnemonicBase {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::key::MnemonicBase>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::types::OutPoint> for *mut wire_cst_out_point {
@@ -791,6 +737,23 @@ impl CstDecode<crate::api::types::DatabaseConfig> for wire_cst_database_config {
         }
     }
 }
+impl CstDecode<crate::api::key::DerivationPathBase> for wire_cst_derivation_path_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DerivationPathBase {
+        crate::api::key::DerivationPathBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::descriptor::DescriptorBase> for wire_cst_descriptor_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::descriptor::DescriptorBase {
+        crate::api::descriptor::DescriptorBase {
+            extended_descriptor: self.extended_descriptor.cst_decode(),
+            key_map: self.key_map.cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::error::DescriptorError> for wire_cst_descriptor_error {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::error::DescriptorError {
@@ -834,6 +797,22 @@ impl CstDecode<crate::api::error::DescriptorError> for wire_cst_descriptor_error
                 crate::api::error::DescriptorError::Hex(ans.field0.cst_decode())
             }
             _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorPublicKeyBase> for wire_cst_descriptor_public_key_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorPublicKeyBase {
+        crate::api::key::DescriptorPublicKeyBase {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorSecretKeyBase> for wire_cst_descriptor_secret_key_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorSecretKeyBase {
+        crate::api::key::DescriptorSecretKeyBase {
+            ptr: self.ptr.cst_decode(),
         }
     }
 }
@@ -999,6 +978,14 @@ impl CstDecode<crate::api::types::LocalUtxo> for wire_cst_local_utxo {
             txout: self.txout.cst_decode(),
             keychain: self.keychain.cst_decode(),
             is_spent: self.is_spent.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::MnemonicBase> for wire_cst_mnemonic_base {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::MnemonicBase {
+        crate::api::key::MnemonicBase {
+            ptr: self.ptr.cst_decode(),
         }
     }
 }
@@ -1223,6 +1210,18 @@ impl CstDecode<crate::api::wallet::WalletBase> for wire_cst_wallet_base {
         }
     }
 }
+impl NewWithNullPtr for wire_cst_address_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_address_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
 impl NewWithNullPtr for wire_cst_address_error {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1369,6 +1368,31 @@ impl Default for wire_cst_database_config {
         Self::new_with_null_ptr()
     }
 }
+impl NewWithNullPtr for wire_cst_derivation_path_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_derivation_path_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            extended_descriptor: Default::default(),
+            key_map: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
 impl NewWithNullPtr for wire_cst_descriptor_error {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1378,6 +1402,30 @@ impl NewWithNullPtr for wire_cst_descriptor_error {
     }
 }
 impl Default for wire_cst_descriptor_error {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_public_key_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_public_key_base {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_descriptor_secret_key_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_descriptor_secret_key_base {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -1463,6 +1511,18 @@ impl NewWithNullPtr for wire_cst_local_utxo {
     }
 }
 impl Default for wire_cst_local_utxo {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_mnemonic_base {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_mnemonic_base {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -1771,14 +1831,17 @@ pub extern "C" fn frbgen_bdk_flutter_wire_BlockchainBase_new(
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_descriptor_base,
+) {
     wire_DescriptorBase_as_string_impl(port_, that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string_private(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_descriptor_base,
 ) {
     wire_DescriptorBase_as_string_private_impl(port_, that)
 }
@@ -1786,7 +1849,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_as_string_private(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_max_satisfaction_weight(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_descriptor_base,
 ) {
     wire_DescriptorBase_max_satisfaction_weight_impl(port_, that)
 }
@@ -1803,7 +1866,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44(
     port_: i64,
-    secret_key: usize,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
     keychain_kind: i32,
     network: i32,
 ) {
@@ -1813,7 +1876,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44_public(
     port_: i64,
-    public_key: usize,
+    public_key: *mut wire_cst_descriptor_public_key_base,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
@@ -1830,7 +1893,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip44_public(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49(
     port_: i64,
-    secret_key: usize,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
     keychain_kind: i32,
     network: i32,
 ) {
@@ -1840,7 +1903,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49_public(
     port_: i64,
-    public_key: usize,
+    public_key: *mut wire_cst_descriptor_public_key_base,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
@@ -1857,7 +1920,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip49_public(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84(
     port_: i64,
-    secret_key: usize,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
     keychain_kind: i32,
     network: i32,
 ) {
@@ -1867,7 +1930,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84_public(
     port_: i64,
-    public_key: usize,
+    public_key: *mut wire_cst_descriptor_public_key_base,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
@@ -1884,7 +1947,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip84_public(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip86(
     port_: i64,
-    secret_key: usize,
+    secret_key: *mut wire_cst_descriptor_secret_key_base,
     keychain_kind: i32,
     network: i32,
 ) {
@@ -1894,7 +1957,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip86(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorBase_new_bip86_public(
     port_: i64,
-    public_key: usize,
+    public_key: *mut wire_cst_descriptor_public_key_base,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
@@ -1919,7 +1982,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DerivationPathBase_from_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_descriptor_public_key_base,
 ) {
     wire_DescriptorPublicKeyBase_as_string_impl(port_, that)
 }
@@ -1927,8 +1990,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_as_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(
     port_: i64,
-    ptr: usize,
-    path: usize,
+    ptr: *mut wire_cst_descriptor_public_key_base,
+    path: *mut wire_cst_derivation_path_base,
 ) {
     wire_DescriptorPublicKeyBase_derive_impl(port_, ptr, path)
 }
@@ -1936,8 +1999,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_derive(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_extend(
     port_: i64,
-    ptr: usize,
-    path: usize,
+    ptr: *mut wire_cst_descriptor_public_key_base,
+    path: *mut wire_cst_derivation_path_base,
 ) {
     wire_DescriptorPublicKeyBase_extend_impl(port_, ptr, path)
 }
@@ -1953,7 +2016,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorPublicKeyBase_from_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(
     port_: i64,
-    ptr: usize,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
 ) {
     wire_DescriptorSecretKeyBase_as_public_impl(port_, ptr)
 }
@@ -1961,7 +2024,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_public(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_descriptor_secret_key_base,
 ) {
     wire_DescriptorSecretKeyBase_as_string_impl(port_, that)
 }
@@ -1970,7 +2033,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_as_string(
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(
     port_: i64,
     network: i32,
-    mnemonic: usize,
+    mnemonic: *mut wire_cst_mnemonic_base,
     password: *mut wire_cst_list_prim_u_8_strict,
 ) {
     wire_DescriptorSecretKeyBase_create_impl(port_, network, mnemonic, password)
@@ -1979,8 +2042,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_create(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(
     port_: i64,
-    ptr: usize,
-    path: usize,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
+    path: *mut wire_cst_derivation_path_base,
 ) {
     wire_DescriptorSecretKeyBase_derive_impl(port_, ptr, path)
 }
@@ -1988,8 +2051,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_derive(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_extend(
     port_: i64,
-    ptr: usize,
-    path: usize,
+    ptr: *mut wire_cst_descriptor_secret_key_base,
+    path: *mut wire_cst_derivation_path_base,
 ) {
     wire_DescriptorSecretKeyBase_extend_impl(port_, ptr, path)
 }
@@ -2005,13 +2068,16 @@ pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_from_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_DescriptorSecretKeyBase_secret_bytes(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_descriptor_secret_key_base,
 ) {
     wire_DescriptorSecretKeyBase_secret_bytes_impl(port_, that)
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_as_string(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_MnemonicBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_mnemonic_base,
+) {
     wire_MnemonicBase_as_string_impl(port_, that)
 }
 
@@ -2099,7 +2165,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire_PsbtBase_txid(port_: i64, that: *mut w
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_as_string(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_as_string(
+    port_: i64,
+    that: *mut wire_cst_address_base,
+) {
     wire_AddressBase_as_string_impl(port_, that)
 }
 
@@ -2124,29 +2193,41 @@ pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_from_string(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_is_valid_for_network(
     port_: i64,
-    that: usize,
+    that: *mut wire_cst_address_base,
     network: i32,
 ) {
     wire_AddressBase_is_valid_for_network_impl(port_, that, network)
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_network(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_network(
+    port_: i64,
+    that: *mut wire_cst_address_base,
+) {
     wire_AddressBase_network_impl(port_, that)
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_payload(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_payload(
+    port_: i64,
+    that: *mut wire_cst_address_base,
+) {
     wire_AddressBase_payload_impl(port_, that)
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_script(port_: i64, ptr: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_script(
+    port_: i64,
+    ptr: *mut wire_cst_address_base,
+) {
     wire_AddressBase_script_impl(port_, ptr)
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_to_qr_uri(port_: i64, that: usize) {
+pub extern "C" fn frbgen_bdk_flutter_wire_AddressBase_to_qr_uri(
+    port_: i64,
+    that: *mut wire_cst_address_base,
+) {
     wire_AddressBase_to_qr_uri_impl(port_, that)
 }
 
@@ -2355,8 +2436,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_network(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_WalletBase_new(
     port_: i64,
-    descriptor: usize,
-    change_descriptor: *mut usize,
+    descriptor: *mut wire_cst_descriptor_base,
+    change_descriptor: *mut wire_cst_descriptor_base,
     network: i32,
     database_config: *mut wire_cst_database_config,
 ) {
@@ -2393,7 +2474,7 @@ pub extern "C" fn frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(
     port_: i64,
     txid: *mut wire_cst_list_prim_u_8_strict,
     fee_rate: f32,
-    allow_shrinking: *mut usize,
+    allow_shrinking: *mut wire_cst_address_base,
     wallet: *mut wire_cst_wallet_base,
     enable_rbf: bool,
     n_sequence: *mut u32,
@@ -2463,6 +2544,24 @@ pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<ExtendedDescriptor>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<ExtendedDescriptor>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
     ptr: *const std::ffi::c_void,
 ) {
@@ -2499,125 +2598,117 @@ pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>::increment_strong_count(ptr as _);
+        StdArc::<bdk::bitcoin::Address>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>::decrement_strong_count(ptr as _);
+        StdArc::<bdk::bitcoin::Address>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>::increment_strong_count(ptr as _);
+        StdArc::<bitcoin::bip32::DerivationPath>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>::decrement_strong_count(ptr as _);
+        StdArc::<bitcoin::bip32::DerivationPath>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::DescriptorPublicKey>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::DescriptorPublicKey>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::DescriptorSecretKey>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::DescriptorSecretKey>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysKeyMap(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::KeyMap>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysKeyMap(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::KeyMap>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::bip39::Mnemonic>::increment_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::bip39::Mnemonic>::decrement_strong_count(ptr as _);
     }
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-    value: usize,
-) -> *mut usize {
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-    value: usize,
-) -> *mut usize {
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_address_base() -> *mut wire_cst_address_base
+{
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_address_base::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -2670,10 +2761,42 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_database_config(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_derivation_path_base(
+) -> *mut wire_cst_derivation_path_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_derivation_path_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_base(
+) -> *mut wire_cst_descriptor_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_error(
 ) -> *mut wire_cst_descriptor_error {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
         wire_cst_descriptor_error::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_public_key_base(
+) -> *mut wire_cst_descriptor_public_key_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_public_key_base::new_with_null_ptr(),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_descriptor_secret_key_base(
+) -> *mut wire_cst_descriptor_secret_key_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(
+        wire_cst_descriptor_secret_key_base::new_with_null_ptr(),
     )
 }
 
@@ -2711,6 +2834,12 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_hex_error() -> *mut wir
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_local_utxo() -> *mut wire_cst_local_utxo {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_local_utxo::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_mnemonic_base(
+) -> *mut wire_cst_mnemonic_base {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_mnemonic_base::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -2932,6 +3061,11 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_tx_out(len: i32) -> *mut wire_
     flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
 }
 
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_address_base {
+    ptr: usize,
+}
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct wire_cst_address_error {
@@ -3377,6 +3511,17 @@ pub struct wire_cst_DatabaseConfig_Sled {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_derivation_path_base {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_base {
+    extended_descriptor: usize,
+    key_map: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_descriptor_error {
     tag: i32,
     kind: DescriptorErrorKind,
@@ -3433,6 +3578,16 @@ pub struct wire_cst_DescriptorError_Miniscript {
 #[derive(Clone, Copy)]
 pub struct wire_cst_DescriptorError_Hex {
     field0: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_public_key_base {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_descriptor_secret_key_base {
+    ptr: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -3554,6 +3709,11 @@ pub struct wire_cst_local_utxo {
     txout: wire_cst_tx_out,
     keychain: i32,
     is_spent: bool,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_mnemonic_base {
+    ptr: usize,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

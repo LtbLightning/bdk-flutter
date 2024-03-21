@@ -379,6 +379,15 @@ abstract class BdkCoreApi extends BaseApi {
       get rust_arc_decrement_strong_count_AnyBlockchainPtr;
 
   RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ExtendedDescriptor;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ExtendedDescriptor;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_ExtendedDescriptorPtr;
+
+  RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_MutexPartiallySignedTransaction;
 
   RustArcDecrementStrongCountFnType
@@ -397,56 +406,57 @@ abstract class BdkCoreApi extends BaseApi {
       get rust_arc_decrement_strong_count_MutexBdkWalletAnyDatabasePtr;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_AddressBase;
+      get rust_arc_increment_strong_count_BdkBitcoinAddress;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_AddressBase;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_AddressBasePtr;
-
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DerivationPathBase;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DerivationPathBase;
+      get rust_arc_decrement_strong_count_BdkBitcoinAddress;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DerivationPathBasePtr;
+      get rust_arc_decrement_strong_count_BdkBitcoinAddressPtr;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorBase;
+      get rust_arc_increment_strong_count_BitcoinBip32DerivationPath;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorBase;
+      get rust_arc_decrement_strong_count_BitcoinBip32DerivationPath;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorBasePtr;
+      get rust_arc_decrement_strong_count_BitcoinBip32DerivationPathPtr;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorPublicKeyBase;
+      get rust_arc_increment_strong_count_KeysDescriptorPublicKey;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorPublicKeyBase;
+      get rust_arc_decrement_strong_count_KeysDescriptorPublicKey;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorPublicKeyBasePtr;
+      get rust_arc_decrement_strong_count_KeysDescriptorPublicKeyPtr;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorSecretKeyBase;
+      get rust_arc_increment_strong_count_KeysDescriptorSecretKey;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorSecretKeyBase;
+      get rust_arc_decrement_strong_count_KeysDescriptorSecretKey;
 
   CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_DescriptorSecretKeyBasePtr;
+      get rust_arc_decrement_strong_count_KeysDescriptorSecretKeyPtr;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_MnemonicBase;
+      get rust_arc_increment_strong_count_KeysKeyMap;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_MnemonicBase;
+      get rust_arc_decrement_strong_count_KeysKeyMap;
 
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_MnemonicBasePtr;
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_KeysKeyMapPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_KeysBip39Mnemonic;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_KeysBip39Mnemonic;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_KeysBip39MnemonicPtr;
 }
 
 class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
@@ -587,9 +597,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
         return wire.wire_DescriptorBase_as_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -613,9 +621,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
         return wire.wire_DescriptorBase_as_string_private(port_, arg0);
       },
       codec: DcoCodec(
@@ -640,9 +646,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_base(that);
         return wire.wire_DescriptorBase_max_satisfaction_weight(port_, arg0);
       },
       codec: DcoCodec(
@@ -672,8 +676,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_DescriptorBase_new(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewConstMeta,
@@ -696,16 +699,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                secretKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
         var arg1 = cst_encode_keychain_kind(keychainKind);
         var arg2 = cst_encode_network(network);
         return wire.wire_DescriptorBase_new_bip44(port_, arg0, arg1, arg2);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip44ConstMeta,
@@ -729,9 +729,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                publicKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
         var arg1 = cst_encode_String(fingerprint);
         var arg2 = cst_encode_keychain_kind(keychainKind);
         var arg3 = cst_encode_network(network);
@@ -739,8 +737,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
             port_, arg0, arg1, arg2, arg3);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip44PublicConstMeta,
@@ -764,16 +761,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                secretKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
         var arg1 = cst_encode_keychain_kind(keychainKind);
         var arg2 = cst_encode_network(network);
         return wire.wire_DescriptorBase_new_bip49(port_, arg0, arg1, arg2);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip49ConstMeta,
@@ -797,9 +791,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                publicKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
         var arg1 = cst_encode_String(fingerprint);
         var arg2 = cst_encode_keychain_kind(keychainKind);
         var arg3 = cst_encode_network(network);
@@ -807,8 +799,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
             port_, arg0, arg1, arg2, arg3);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip49PublicConstMeta,
@@ -832,16 +823,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                secretKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
         var arg1 = cst_encode_keychain_kind(keychainKind);
         var arg2 = cst_encode_network(network);
         return wire.wire_DescriptorBase_new_bip84(port_, arg0, arg1, arg2);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip84ConstMeta,
@@ -865,9 +853,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                publicKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
         var arg1 = cst_encode_String(fingerprint);
         var arg2 = cst_encode_keychain_kind(keychainKind);
         var arg3 = cst_encode_network(network);
@@ -875,8 +861,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
             port_, arg0, arg1, arg2, arg3);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip84PublicConstMeta,
@@ -900,16 +885,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                secretKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(secretKey);
         var arg1 = cst_encode_keychain_kind(keychainKind);
         var arg2 = cst_encode_network(network);
         return wire.wire_DescriptorBase_new_bip86(port_, arg0, arg1, arg2);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip86ConstMeta,
@@ -933,9 +915,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                publicKey);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(publicKey);
         var arg1 = cst_encode_String(fingerprint);
         var arg2 = cst_encode_keychain_kind(keychainKind);
         var arg3 = cst_encode_network(network);
@@ -943,8 +923,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
             port_, arg0, arg1, arg2, arg3);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorBaseNewBip86PublicConstMeta,
@@ -969,8 +948,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_DerivationPathBase_from_string(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase,
+        decodeSuccessData: dco_decode_derivation_path_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDerivationPathBaseFromStringConstMeta,
@@ -991,9 +969,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorPublicKeyBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(that);
         return wire.wire_DescriptorPublicKeyBase_as_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -1020,17 +996,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                ptr);
-        var arg1 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-                path);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(ptr);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorPublicKeyBase_derive(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase,
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorPublicKeyBaseDeriveConstMeta,
@@ -1053,17 +1024,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-                ptr);
-        var arg1 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-                path);
+        var arg0 = cst_encode_box_autoadd_descriptor_public_key_base(ptr);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorPublicKeyBase_extend(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase,
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorPublicKeyBaseExtendConstMeta,
@@ -1088,8 +1054,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_DescriptorPublicKeyBase_from_string(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase,
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorPublicKeyBaseFromStringConstMeta,
@@ -1110,14 +1075,11 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorSecretKeyBase ptr, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                ptr);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
         return wire.wire_DescriptorSecretKeyBase_as_public(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase,
+        decodeSuccessData: dco_decode_descriptor_public_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseAsPublicConstMeta,
@@ -1138,9 +1100,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorSecretKeyBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
         return wire.wire_DescriptorSecretKeyBase_as_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -1169,16 +1129,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         var arg0 = cst_encode_network(network);
-        var arg1 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-                mnemonic);
+        var arg1 = cst_encode_box_autoadd_mnemonic_base(mnemonic);
         var arg2 = cst_encode_opt_String(password);
         return wire.wire_DescriptorSecretKeyBase_create(
             port_, arg0, arg1, arg2);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase,
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseCreateConstMeta,
@@ -1201,17 +1158,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                ptr);
-        var arg1 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-                path);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorSecretKeyBase_derive(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase,
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseDeriveConstMeta,
@@ -1234,17 +1186,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                ptr);
-        var arg1 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-                path);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(ptr);
+        var arg1 = cst_encode_box_autoadd_derivation_path_base(path);
         return wire.wire_DescriptorSecretKeyBase_extend(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase,
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseExtendConstMeta,
@@ -1269,8 +1216,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_DescriptorSecretKeyBase_from_string(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase,
+        decodeSuccessData: dco_decode_descriptor_secret_key_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kDescriptorSecretKeyBaseFromStringConstMeta,
@@ -1291,9 +1237,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required DescriptorSecretKeyBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_descriptor_secret_key_base(that);
         return wire.wire_DescriptorSecretKeyBase_secret_bytes(port_, arg0);
       },
       codec: DcoCodec(
@@ -1318,9 +1262,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required MnemonicBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_mnemonic_base(that);
         return wire.wire_MnemonicBase_as_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -1348,8 +1290,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_MnemonicBase_from_entropy(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase,
+        decodeSuccessData: dco_decode_mnemonic_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kMnemonicBaseFromEntropyConstMeta,
@@ -1373,8 +1314,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_MnemonicBase_from_string(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase,
+        decodeSuccessData: dco_decode_mnemonic_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kMnemonicBaseFromStringConstMeta,
@@ -1398,8 +1338,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_MnemonicBase_new(port_, arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase,
+        decodeSuccessData: dco_decode_mnemonic_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kMnemonicBaseNewConstMeta,
@@ -1606,9 +1545,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required AddressBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_address_base(that);
         return wire.wire_AddressBase_as_string(port_, arg0);
       },
       codec: DcoCodec(
@@ -1637,8 +1574,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_AddressBase_from_script(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase,
+        decodeSuccessData: dco_decode_address_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kAddressBaseFromScriptConstMeta,
@@ -1663,8 +1599,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         return wire.wire_AddressBase_from_string(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase,
+        decodeSuccessData: dco_decode_address_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kAddressBaseFromStringConstMeta,
@@ -1684,9 +1619,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required AddressBase that, required Network network, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_address_base(that);
         var arg1 = cst_encode_network(network);
         return wire.wire_AddressBase_is_valid_for_network(port_, arg0, arg1);
       },
@@ -1712,9 +1645,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required AddressBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_address_base(that);
         return wire.wire_AddressBase_network(port_, arg0);
       },
       codec: DcoCodec(
@@ -1738,9 +1669,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required AddressBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_address_base(that);
         return wire.wire_AddressBase_payload(port_, arg0);
       },
       codec: DcoCodec(
@@ -1764,9 +1693,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       {required AddressBase ptr, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                ptr);
+        var arg0 = cst_encode_box_autoadd_address_base(ptr);
         return wire.wire_AddressBase_script(port_, arg0);
       },
       codec: DcoCodec(
@@ -1789,9 +1716,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   Future<String> addressBaseToQrUri({required AddressBase that, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                that);
+        var arg0 = cst_encode_box_autoadd_address_base(that);
         return wire.wire_AddressBase_to_qr_uri(port_, arg0);
       },
       codec: DcoCodec(
@@ -2256,8 +2181,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
             port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData:
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase,
+        decodeSuccessData: dco_decode_descriptor_base,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kWalletBaseGetDescriptorForKeychainConstMeta,
@@ -2439,12 +2363,8 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 =
-            cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                descriptor);
-        var arg1 =
-            cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-                changeDescriptor);
+        var arg0 = cst_encode_box_autoadd_descriptor_base(descriptor);
+        var arg1 = cst_encode_opt_box_autoadd_descriptor_base(changeDescriptor);
         var arg2 = cst_encode_network(network);
         var arg3 = cst_encode_box_autoadd_database_config(databaseConfig);
         return wire.wire_WalletBase_new(port_, arg0, arg1, arg2, arg3);
@@ -2539,9 +2459,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       callFfi: (port_) {
         var arg0 = cst_encode_String(txid);
         var arg1 = cst_encode_f_32(feeRate);
-        var arg2 =
-            cst_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-                allowShrinking);
+        var arg2 = cst_encode_opt_box_autoadd_address_base(allowShrinking);
         var arg3 = cst_encode_box_autoadd_wallet_base(wallet);
         var arg4 = cst_encode_bool(enableRbf);
         var arg5 = cst_encode_opt_box_autoadd_u_32(nSequence);
@@ -2659,6 +2577,14 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
           wire.rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain;
 
   RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_ExtendedDescriptor =>
+          wire.rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_ExtendedDescriptor =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor;
+
+  RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_MutexPartiallySignedTransaction => wire
           .rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction;
 
@@ -2675,145 +2601,63 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
           .rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_AddressBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase;
+      get rust_arc_increment_strong_count_BdkBitcoinAddress =>
+          wire.rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_AddressBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase;
+      get rust_arc_decrement_strong_count_BdkBitcoinAddress =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DerivationPathBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase;
+      get rust_arc_increment_strong_count_BitcoinBip32DerivationPath => wire
+          .rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DerivationPathBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase;
+      get rust_arc_decrement_strong_count_BitcoinBip32DerivationPath => wire
+          .rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase;
+      get rust_arc_increment_strong_count_KeysDescriptorPublicKey => wire
+          .rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase;
+      get rust_arc_decrement_strong_count_KeysDescriptorPublicKey => wire
+          .rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorPublicKeyBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase;
+      get rust_arc_increment_strong_count_KeysDescriptorSecretKey => wire
+          .rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorPublicKeyBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase;
+      get rust_arc_decrement_strong_count_KeysDescriptorSecretKey => wire
+          .rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_DescriptorSecretKeyBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase;
+      get rust_arc_increment_strong_count_KeysKeyMap =>
+          wire.rust_arc_increment_strong_count_RustOpaque_keysKeyMap;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_DescriptorSecretKeyBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase;
+      get rust_arc_decrement_strong_count_KeysKeyMap =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_keysKeyMap;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_MnemonicBase => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase;
+      get rust_arc_increment_strong_count_KeysBip39Mnemonic =>
+          wire.rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic;
 
   RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_MnemonicBase => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase;
-
-  @protected
-  AddressBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return AddressBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DerivationPathBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DerivationPathBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorPublicKeyBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorPublicKeyBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorSecretKeyBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorSecretKeyBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MnemonicBase
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MnemonicBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  AddressBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return AddressBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorPublicKeyBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorPublicKeyBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  DescriptorSecretKeyBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorSecretKeyBase.dcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MnemonicBase
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MnemonicBase.dcoDecode(raw as List<dynamic>);
-  }
+      get rust_arc_decrement_strong_count_KeysBip39Mnemonic =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic;
 
   @protected
   AnyBlockchain dco_decode_RustOpaque_AnyBlockchain(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return AnyBlockchain.dcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  ExtendedDescriptor dco_decode_RustOpaque_ExtendedDescriptor(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ExtendedDescriptor.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2831,57 +2675,59 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw) {
+  BdkBitcoinAddress dco_decode_RustOpaque_bdkbitcoinAddress(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return AddressBase.dcoDecode(raw as List<dynamic>);
+    return BdkBitcoinAddress.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  DerivationPathBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          dynamic raw) {
+  BitcoinBip32DerivationPath dco_decode_RustOpaque_bitcoinbip32DerivationPath(
+      dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DerivationPathBase.dcoDecode(raw as List<dynamic>);
+    return BitcoinBip32DerivationPath.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  DescriptorBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw) {
+  KeysDescriptorPublicKey dco_decode_RustOpaque_keysDescriptorPublicKey(
+      dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorBase.dcoDecode(raw as List<dynamic>);
+    return KeysDescriptorPublicKey.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  DescriptorPublicKeyBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          dynamic raw) {
+  KeysDescriptorSecretKey dco_decode_RustOpaque_keysDescriptorSecretKey(
+      dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorPublicKeyBase.dcoDecode(raw as List<dynamic>);
+    return KeysDescriptorSecretKey.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  DescriptorSecretKeyBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          dynamic raw) {
+  KeysKeyMap dco_decode_RustOpaque_keysKeyMap(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return DescriptorSecretKeyBase.dcoDecode(raw as List<dynamic>);
+    return KeysKeyMap.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  MnemonicBase
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          dynamic raw) {
+  KeysBip39Mnemonic dco_decode_RustOpaque_keysbip39Mnemonic(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MnemonicBase.dcoDecode(raw as List<dynamic>);
+    return KeysBip39Mnemonic.dcoDecode(raw as List<dynamic>);
   }
 
   @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as String;
+  }
+
+  @protected
+  AddressBase dco_decode_address_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return AddressBase(
+      ptr: dco_decode_RustOpaque_bdkbitcoinAddress(arr[0]),
+    );
   }
 
   @protected
@@ -3224,21 +3070,9 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase
-      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw) {
+  AddressBase dco_decode_box_autoadd_address_base(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-        raw);
-  }
-
-  @protected
-  DescriptorBase
-      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-        raw);
+    return dco_decode_address_base(raw);
   }
 
   @protected
@@ -3284,9 +3118,35 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  DerivationPathBase dco_decode_box_autoadd_derivation_path_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_derivation_path_base(raw);
+  }
+
+  @protected
+  DescriptorBase dco_decode_box_autoadd_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_base(raw);
+  }
+
+  @protected
   DescriptorError dco_decode_box_autoadd_descriptor_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_descriptor_error(raw);
+  }
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_box_autoadd_descriptor_public_key_base(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_public_key_base(raw);
+  }
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_box_autoadd_descriptor_secret_key_base(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor_secret_key_base(raw);
   }
 
   @protected
@@ -3323,6 +3183,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   LocalUtxo dco_decode_box_autoadd_local_utxo(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_local_utxo(raw);
+  }
+
+  @protected
+  MnemonicBase dco_decode_box_autoadd_mnemonic_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_mnemonic_base(raw);
   }
 
   @protected
@@ -3483,6 +3349,29 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  DerivationPathBase dco_decode_derivation_path_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DerivationPathBase(
+      ptr: dco_decode_RustOpaque_bitcoinbip32DerivationPath(arr[0]),
+    );
+  }
+
+  @protected
+  DescriptorBase dco_decode_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return DescriptorBase(
+      extendedDescriptor: dco_decode_RustOpaque_ExtendedDescriptor(arr[0]),
+      keyMap: dco_decode_RustOpaque_keysKeyMap(arr[1]),
+    );
+  }
+
+  @protected
   DescriptorError dco_decode_descriptor_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
@@ -3529,6 +3418,28 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       default:
         throw Exception("unreachable");
     }
+  }
+
+  @protected
+  DescriptorPublicKeyBase dco_decode_descriptor_public_key_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DescriptorPublicKeyBase(
+      ptr: dco_decode_RustOpaque_keysDescriptorPublicKey(arr[0]),
+    );
+  }
+
+  @protected
+  DescriptorSecretKeyBase dco_decode_descriptor_secret_key_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return DescriptorSecretKeyBase(
+      ptr: dco_decode_RustOpaque_keysDescriptorSecretKey(arr[0]),
+    );
   }
 
   @protected
@@ -3693,6 +3604,17 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  MnemonicBase dco_decode_mnemonic_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return MnemonicBase(
+      ptr: dco_decode_RustOpaque_keysbip39Mnemonic(arr[0]),
+    );
+  }
+
+  @protected
   Network dco_decode_network(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Network.values[raw as int];
@@ -3705,31 +3627,21 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase?
-      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          dynamic raw) {
+  AddressBase? dco_decode_opt_box_autoadd_address_base(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null
-        ? null
-        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-            raw);
-  }
-
-  @protected
-  DescriptorBase?
-      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null
-        ? null
-        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-            raw);
+    return raw == null ? null : dco_decode_box_autoadd_address_base(raw);
   }
 
   @protected
   BlockTime? dco_decode_opt_box_autoadd_block_time(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_block_time(raw);
+  }
+
+  @protected
+  DescriptorBase? dco_decode_opt_box_autoadd_descriptor_base(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_descriptor_base(raw);
   }
 
   @protected
@@ -4118,109 +4030,18 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return AddressBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DerivationPathBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DerivationPathBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorPublicKeyBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorPublicKeyBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorSecretKeyBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorSecretKeyBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  MnemonicBase
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MnemonicBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  AddressBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return AddressBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorPublicKeyBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorPublicKeyBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  DescriptorSecretKeyBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorSecretKeyBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  MnemonicBase
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MnemonicBase.sseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
   AnyBlockchain sse_decode_RustOpaque_AnyBlockchain(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return AnyBlockchain.sseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  ExtendedDescriptor sse_decode_RustOpaque_ExtendedDescriptor(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ExtendedDescriptor.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -4242,56 +4063,49 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer) {
+  BdkBitcoinAddress sse_decode_RustOpaque_bdkbitcoinAddress(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return AddressBase.sseDecode(
+    return BdkBitcoinAddress.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
-  DerivationPathBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          SseDeserializer deserializer) {
+  BitcoinBip32DerivationPath sse_decode_RustOpaque_bitcoinbip32DerivationPath(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return DerivationPathBase.sseDecode(
+    return BitcoinBip32DerivationPath.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
-  DescriptorBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer) {
+  KeysDescriptorPublicKey sse_decode_RustOpaque_keysDescriptorPublicKey(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorBase.sseDecode(
+    return KeysDescriptorPublicKey.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
-  DescriptorPublicKeyBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          SseDeserializer deserializer) {
+  KeysDescriptorSecretKey sse_decode_RustOpaque_keysDescriptorSecretKey(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorPublicKeyBase.sseDecode(
+    return KeysDescriptorSecretKey.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
-  DescriptorSecretKeyBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          SseDeserializer deserializer) {
+  KeysKeyMap sse_decode_RustOpaque_keysKeyMap(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return DescriptorSecretKeyBase.sseDecode(
+    return KeysKeyMap.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
-  MnemonicBase
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          SseDeserializer deserializer) {
+  KeysBip39Mnemonic sse_decode_RustOpaque_keysbip39Mnemonic(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return MnemonicBase.sseDecode(
+    return KeysBip39Mnemonic.sseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -4300,6 +4114,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
     return utf8.decoder.convert(inner);
+  }
+
+  @protected
+  AddressBase sse_decode_address_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr = sse_decode_RustOpaque_bdkbitcoinAddress(deserializer);
+    return AddressBase(ptr: var_ptr);
   }
 
   @protected
@@ -4600,21 +4421,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase
-      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer) {
+  AddressBase sse_decode_box_autoadd_address_base(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-        deserializer));
-  }
-
-  @protected
-  DescriptorBase
-      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-        deserializer));
+    return (sse_decode_address_base(deserializer));
   }
 
   @protected
@@ -4666,10 +4476,38 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  DerivationPathBase sse_decode_box_autoadd_derivation_path_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_derivation_path_base(deserializer));
+  }
+
+  @protected
+  DescriptorBase sse_decode_box_autoadd_descriptor_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_base(deserializer));
+  }
+
+  @protected
   DescriptorError sse_decode_box_autoadd_descriptor_error(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_descriptor_error(deserializer));
+  }
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_box_autoadd_descriptor_public_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_public_key_base(deserializer));
+  }
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_box_autoadd_descriptor_secret_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor_secret_key_base(deserializer));
   }
 
   @protected
@@ -4708,6 +4546,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   LocalUtxo sse_decode_box_autoadd_local_utxo(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_local_utxo(deserializer));
+  }
+
+  @protected
+  MnemonicBase sse_decode_box_autoadd_mnemonic_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_mnemonic_base(deserializer));
   }
 
   @protected
@@ -4876,6 +4721,25 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  DerivationPathBase sse_decode_derivation_path_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr =
+        sse_decode_RustOpaque_bitcoinbip32DerivationPath(deserializer);
+    return DerivationPathBase(ptr: var_ptr);
+  }
+
+  @protected
+  DescriptorBase sse_decode_descriptor_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_extendedDescriptor =
+        sse_decode_RustOpaque_ExtendedDescriptor(deserializer);
+    var var_keyMap = sse_decode_RustOpaque_keysKeyMap(deserializer);
+    return DescriptorBase(
+        extendedDescriptor: var_extendedDescriptor, keyMap: var_keyMap);
+  }
+
+  @protected
   DescriptorError sse_decode_descriptor_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4916,6 +4780,22 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       default:
         throw UnimplementedError('');
     }
+  }
+
+  @protected
+  DescriptorPublicKeyBase sse_decode_descriptor_public_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr = sse_decode_RustOpaque_keysDescriptorPublicKey(deserializer);
+    return DescriptorPublicKeyBase(ptr: var_ptr);
+  }
+
+  @protected
+  DescriptorSecretKeyBase sse_decode_descriptor_secret_key_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr = sse_decode_RustOpaque_keysDescriptorSecretKey(deserializer);
+    return DescriptorSecretKeyBase(ptr: var_ptr);
   }
 
   @protected
@@ -5122,6 +5002,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  MnemonicBase sse_decode_mnemonic_base(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr = sse_decode_RustOpaque_keysbip39Mnemonic(deserializer);
+    return MnemonicBase(ptr: var_ptr);
+  }
+
+  @protected
   Network sse_decode_network(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
@@ -5140,28 +5027,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  AddressBase?
-      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          SseDeserializer deserializer) {
+  AddressBase? sse_decode_opt_box_autoadd_address_base(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
-  DescriptorBase?
-      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          deserializer));
+      return (sse_decode_box_autoadd_address_base(deserializer));
     } else {
       return null;
     }
@@ -5174,6 +5045,18 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_block_time(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  DescriptorBase? sse_decode_opt_box_autoadd_descriptor_base(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_descriptor_base(deserializer));
     } else {
       return null;
     }
@@ -5600,95 +5483,14 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-      DerivationPathBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: true);
-  }
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: false);
-  }
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: false);
-  }
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: false);
-  }
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: false);
-  }
-
-  @protected
-  int cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-// ignore: invalid_use_of_internal_member
-    return raw.cstEncode(move: false);
-  }
-
-  @protected
   int cst_encode_RustOpaque_AnyBlockchain(AnyBlockchain raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return raw.cstEncode();
+  }
+
+  @protected
+  int cst_encode_RustOpaque_ExtendedDescriptor(ExtendedDescriptor raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
@@ -5711,48 +5513,45 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-      AddressBase raw) {
+  int cst_encode_RustOpaque_bdkbitcoinAddress(BdkBitcoinAddress raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-      DerivationPathBase raw) {
+  int cst_encode_RustOpaque_bitcoinbip32DerivationPath(
+      BitcoinBip32DerivationPath raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-      DescriptorBase raw) {
+  int cst_encode_RustOpaque_keysDescriptorPublicKey(
+      KeysDescriptorPublicKey raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-      DescriptorPublicKeyBase raw) {
+  int cst_encode_RustOpaque_keysDescriptorSecretKey(
+      KeysDescriptorSecretKey raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-      DescriptorSecretKeyBase raw) {
+  int cst_encode_RustOpaque_keysKeyMap(KeysKeyMap raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
   }
 
   @protected
-  int cst_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-      MnemonicBase raw) {
+  int cst_encode_RustOpaque_keysbip39Mnemonic(KeysBip39Mnemonic raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
 // ignore: invalid_use_of_internal_member
     return raw.cstEncode();
@@ -5837,96 +5636,15 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          DerivationPathBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: false), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: false), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: false), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: false), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(self.sseEncode(move: false), serializer);
-  }
-
-  @protected
   void sse_encode_RustOpaque_AnyBlockchain(
       AnyBlockchain self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.sseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_ExtendedDescriptor(
+      ExtendedDescriptor self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
@@ -5946,49 +5664,43 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_bdkbitcoinAddress(
+      BdkBitcoinAddress self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
-          DerivationPathBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_bitcoinbip32DerivationPath(
+      BitcoinBip32DerivationPath self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_keysDescriptorPublicKey(
+      KeysDescriptorPublicKey self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
-          DescriptorPublicKeyBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_keysDescriptorSecretKey(
+      KeysDescriptorSecretKey self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-          DescriptorSecretKeyBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_keysKeyMap(
+      KeysKeyMap self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
 
   @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-          MnemonicBase self, SseSerializer serializer) {
+  void sse_encode_RustOpaque_keysbip39Mnemonic(
+      KeysBip39Mnemonic self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.sseEncode(move: null), serializer);
   }
@@ -5997,6 +5709,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_address_base(AddressBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_bdkbitcoinAddress(self.ptr, serializer);
   }
 
   @protected
@@ -6279,21 +5997,10 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase self, SseSerializer serializer) {
+  void sse_encode_box_autoadd_address_base(
+      AddressBase self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-        self, serializer);
-  }
-
-  @protected
-  void
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-        self, serializer);
+    sse_encode_address_base(self, serializer);
   }
 
   @protected
@@ -6346,10 +6053,38 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_derivation_path_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_base(
+      DescriptorBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_base(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_descriptor_error(
       DescriptorError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_descriptor_error(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_public_key_base(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor_secret_key_base(self, serializer);
   }
 
   @protected
@@ -6390,6 +6125,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       LocalUtxo self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_local_utxo(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_mnemonic_base(
+      MnemonicBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mnemonic_base(self, serializer);
   }
 
   @protected
@@ -6558,6 +6300,22 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_derivation_path_base(
+      DerivationPathBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_bitcoinbip32DerivationPath(self.ptr, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor_base(
+      DescriptorBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_ExtendedDescriptor(
+        self.extendedDescriptor, serializer);
+    sse_encode_RustOpaque_keysKeyMap(self.keyMap, serializer);
+  }
+
+  @protected
   void sse_encode_descriptor_error(
       DescriptorError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -6595,6 +6353,20 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         sse_encode_i_32(11, serializer);
         sse_encode_String(field0, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_descriptor_public_key_base(
+      DescriptorPublicKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_keysDescriptorPublicKey(self.ptr, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor_secret_key_base(
+      DescriptorSecretKeyBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_keysDescriptorSecretKey(self.ptr, serializer);
   }
 
   @protected
@@ -6761,6 +6533,12 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  void sse_encode_mnemonic_base(MnemonicBase self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_keysbip39Mnemonic(self.ptr, serializer);
+  }
+
+  @protected
   void sse_encode_network(Network self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
@@ -6777,28 +6555,13 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
-  void
-      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          AddressBase? self, SseSerializer serializer) {
+  void sse_encode_opt_box_autoadd_address_base(
+      AddressBase? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     sse_encode_bool(self != null, serializer);
     if (self != null) {
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-          self, serializer);
-    }
-  }
-
-  @protected
-  void
-      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          DescriptorBase? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
-          self, serializer);
+      sse_encode_box_autoadd_address_base(self, serializer);
     }
   }
 
@@ -6810,6 +6573,17 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_block_time(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_descriptor_base(
+      DescriptorBase? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_descriptor_base(self, serializer);
     }
   }
 

@@ -28,6 +28,25 @@ impl CstDecode<String> for String {
         self
     }
 }
+impl CstDecode<crate::api::types::AddressBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::AddressBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            1,
+            "Expected 1 elements, got {}",
+            self_.length()
+        );
+        crate::api::types::AddressBase {
+            ptr: self_.get(0).cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::error::AddressError>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
@@ -317,6 +336,45 @@ impl CstDecode<crate::api::types::DatabaseConfig>
         }
     }
 }
+impl CstDecode<crate::api::key::DerivationPathBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DerivationPathBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            1,
+            "Expected 1 elements, got {}",
+            self_.length()
+        );
+        crate::api::key::DerivationPathBase {
+            ptr: self_.get(0).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::descriptor::DescriptorBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::descriptor::DescriptorBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            2,
+            "Expected 2 elements, got {}",
+            self_.length()
+        );
+        crate::api::descriptor::DescriptorBase {
+            extended_descriptor: self_.get(0).cst_decode(),
+            key_map: self_.get(1).cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::error::DescriptorError>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
@@ -339,6 +397,44 @@ impl CstDecode<crate::api::error::DescriptorError>
             10 => crate::api::error::DescriptorError::Miniscript(self_.get(1).cst_decode()),
             11 => crate::api::error::DescriptorError::Hex(self_.get(1).cst_decode()),
             _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorPublicKeyBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorPublicKeyBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            1,
+            "Expected 1 elements, got {}",
+            self_.length()
+        );
+        crate::api::key::DescriptorPublicKeyBase {
+            ptr: self_.get(0).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::DescriptorSecretKeyBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::DescriptorSecretKeyBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            1,
+            "Expected 1 elements, got {}",
+            self_.length()
+        );
+        crate::api::key::DescriptorSecretKeyBase {
+            ptr: self_.get(0).cst_decode(),
         }
     }
 }
@@ -551,6 +647,25 @@ impl CstDecode<crate::api::types::LocalUtxo>
             txout: self_.get(1).cst_decode(),
             keychain: self_.get(2).cst_decode(),
             is_spent: self_.get(3).cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::key::MnemonicBase>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::key::MnemonicBase {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            1,
+            "Expected 1 elements, got {}",
+            self_.length()
+        );
+        crate::api::key::MnemonicBase {
+            ptr: self_.get(0).cst_decode(),
         }
     }
 }
@@ -958,75 +1073,23 @@ impl CstDecode<crate::api::wallet::WalletBase>
         }
     }
 }
-impl CstDecode<AddressBase> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> AddressBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DerivationPathBase> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DerivationPathBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorBase> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorPublicKeyBase>
-    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorPublicKeyBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<DescriptorSecretKeyBase>
-    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> DescriptorSecretKeyBase {
-        CstDecode::<
-            RustOpaqueNom<
-                flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-            >,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
-impl CstDecode<MnemonicBase> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> MnemonicBase {
-        CstDecode::<
-            RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>,
-        >::cst_decode(self)
-        .rust_auto_opaque_decode_owned()
-    }
-}
 impl CstDecode<RustOpaqueNom<AnyBlockchain>>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> RustOpaqueNom<AnyBlockchain> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<ExtendedDescriptor>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<ExtendedDescriptor> {
         #[cfg(target_pointer_width = "64")]
         {
             compile_error!("64-bit pointers are not supported.");
@@ -1058,13 +1121,11 @@ impl CstDecode<RustOpaqueNom<Mutex<bdk::Wallet<AnyDatabase>>>>
         unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
     }
 }
-impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>>
+impl CstDecode<RustOpaqueNom<bdk::bitcoin::Address>>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<bdk::bitcoin::Address> {
         #[cfg(target_pointer_width = "64")]
         {
             compile_error!("64-bit pointers are not supported.");
@@ -1072,31 +1133,11 @@ impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwL
         unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
     }
 }
-impl
-    CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>,
-    > for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>
-    {
-        #[cfg(target_pointer_width = "64")]
-        {
-            compile_error!("64-bit pointers are not supported.");
-        }
-        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
-    }
-}
-impl
-    CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>>
+impl CstDecode<RustOpaqueNom<bitcoin::bip32::DerivationPath>>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<bitcoin::bip32::DerivationPath> {
         #[cfg(target_pointer_width = "64")]
         {
             compile_error!("64-bit pointers are not supported.");
@@ -1104,53 +1145,47 @@ impl
         unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
     }
 }
-impl
-    CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-        >,
-    > for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>,
-    > {
-        #[cfg(target_pointer_width = "64")]
-        {
-            compile_error!("64-bit pointers are not supported.");
-        }
-        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
-    }
-}
-impl
-    CstDecode<
-        RustOpaqueNom<
-            flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-        >,
-    > for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<
-        flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>,
-    > {
-        #[cfg(target_pointer_width = "64")]
-        {
-            compile_error!("64-bit pointers are not supported.");
-        }
-        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
-    }
-}
-impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>>
+impl CstDecode<RustOpaqueNom<keys::DescriptorPublicKey>>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(
-        self,
-    ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>> {
+    fn cst_decode(self) -> RustOpaqueNom<keys::DescriptorPublicKey> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<keys::DescriptorSecretKey>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<keys::DescriptorSecretKey> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<keys::KeyMap>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<keys::KeyMap> {
+        #[cfg(target_pointer_width = "64")]
+        {
+            compile_error!("64-bit pointers are not supported.");
+        }
+        unsafe { decode_rust_opaque_nom((self.as_f64().unwrap() as usize) as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<keys::bip39::Mnemonic>>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<keys::bip39::Mnemonic> {
         #[cfg(target_pointer_width = "64")]
         {
             compile_error!("64-bit pointers are not supported.");
@@ -2036,6 +2071,20 @@ pub fn rust_arc_decrement_strong_count_RustOpaque_AnyBlockchain(ptr: *const std:
 }
 
 #[wasm_bindgen]
+pub fn rust_arc_increment_strong_count_RustOpaque_ExtendedDescriptor(ptr: *const std::ffi::c_void) {
+    unsafe {
+        StdArc::<ExtendedDescriptor>::increment_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_decrement_strong_count_RustOpaque_ExtendedDescriptor(ptr: *const std::ffi::c_void) {
+    unsafe {
+        StdArc::<ExtendedDescriptor>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[wasm_bindgen]
 pub fn rust_arc_increment_strong_count_RustOpaque_MutexPartiallySignedTransaction(
     ptr: *const std::ffi::c_void,
 ) {
@@ -2072,109 +2121,97 @@ pub fn rust_arc_decrement_strong_count_RustOpaque_MutexbdkWalletAnyDatabase(
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>::increment_strong_count(ptr as _);
+        StdArc::<bdk::bitcoin::Address>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockAddressBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_decrement_strong_count_RustOpaque_bdkbitcoinAddress(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<AddressBase>>::decrement_strong_count(ptr as _);
+        StdArc::<bdk::bitcoin::Address>::decrement_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+pub fn rust_arc_increment_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>::increment_strong_count(ptr as _);
+        StdArc::<bitcoin::bip32::DerivationPath>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDerivationPathBase(
+pub fn rust_arc_decrement_strong_count_RustOpaque_bitcoinbip32DerivationPath(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DerivationPathBase>>::decrement_strong_count(ptr as _);
+        StdArc::<bitcoin::bip32::DerivationPath>::decrement_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+pub fn rust_arc_increment_strong_count_RustOpaque_keysDescriptorPublicKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::DescriptorPublicKey>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorBase(
+pub fn rust_arc_decrement_strong_count_RustOpaque_keysDescriptorPublicKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::DescriptorPublicKey>::decrement_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+pub fn rust_arc_increment_strong_count_RustOpaque_keysDescriptorSecretKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::DescriptorSecretKey>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorPublicKeyBase(
+pub fn rust_arc_decrement_strong_count_RustOpaque_keysDescriptorSecretKey(
     ptr: *const std::ffi::c_void,
 ) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorPublicKeyBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::DescriptorSecretKey>::decrement_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_increment_strong_count_RustOpaque_keysKeyMap(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::KeyMap>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockDescriptorSecretKeyBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_decrement_strong_count_RustOpaque_keysKeyMap(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<DescriptorSecretKeyBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::KeyMap>::decrement_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_increment_strong_count_RustOpaque_keysbip39Mnemonic(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>::increment_strong_count(ptr as _);
+        StdArc::<keys::bip39::Mnemonic>::increment_strong_count(ptr as _);
     }
 }
 
 #[wasm_bindgen]
-pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedrust_asyncRwLockMnemonicBase(
-    ptr: *const std::ffi::c_void,
-) {
+pub fn rust_arc_decrement_strong_count_RustOpaque_keysbip39Mnemonic(ptr: *const std::ffi::c_void) {
     unsafe {
-        StdArc::<flutter_rust_bridge::for_generated::rust_async::RwLock<MnemonicBase>>::decrement_strong_count(ptr as _);
+        StdArc::<keys::bip39::Mnemonic>::decrement_strong_count(ptr as _);
     }
 }
