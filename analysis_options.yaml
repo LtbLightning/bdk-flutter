@@ -19,7 +19,13 @@ analyzer:
     - lib/src/generated/frb_generated.io.dart
     - lib/src/generated/frb_generated.dart
     - lib/src/generated/api/types.freezed.dart
+    - lib/src/generated/api/types.dart
+    - lib/src/generated/api/descriptor.dart
     - lib/src/generated/api/error.freezed.dart
+    - lib/src/generated/api/error.dart
+    - lib/src/generated/api/key.dart
+    - lib/src/generated/api/psbt.dart
+    - lib/src/generated/api/wallet.dart
     - lib/src/generated/api/blockchain.freezed.dart
     - README.md
     - cargokit/

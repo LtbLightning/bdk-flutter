@@ -15,16 +15,16 @@ export './src/generated/api/descriptor.dart'
     hide
         DescriptorBase,
         ExtendedDescriptor,
-        KeysKeyMap,
-        ArcKeysDescriptorPublicKey,
-        ArcKeysDescriptorSecretKey;
+        KeysDescriptorSecretKey,
+        KeysDescriptorPublicKey,
+        KeysKeyMap;
 export './src/generated/api/key.dart'
     hide
-        ArcKeysBip39Mnemonic,
-        ArcBitcoinBip32DerivationPath,
         DerivationPathBase,
         DescriptorPublicKeyBase,
         DescriptorSecretKeyBase,
+        BitcoinBip32DerivationPath,
+        KeysBip39Mnemonic,
         MnemonicBase;
 export './src/generated/api/psbt.dart'
     hide MutexPartiallySignedTransaction, PsbtBase;
