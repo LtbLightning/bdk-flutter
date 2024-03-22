@@ -1,6 +1,6 @@
 [package]
 name = "bdk_flutter"
-version = "0.31.0"
+version = "0.31.0-dev"
 edition = "2021"
 
 [lib]

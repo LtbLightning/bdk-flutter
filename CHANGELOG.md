@@ -1,3 +1,5 @@
+[0.31.0-dev]
+
 ## [0.30.0]
 Updated Rust and Flutter dependencies.
 macOs support bug resolved
