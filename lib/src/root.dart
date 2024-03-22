@@ -55,8 +55,7 @@ class Blockchain extends BlockchainBase {
   static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
       await Frb.verifyInit();
-      final res =
-          await BlockchainBase.newBlockchainBase(blockchainConfig: config);
+      final res = await BlockchainBase.newInstance(blockchainConfig: config);
       return Blockchain._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -186,7 +185,7 @@ class Descriptor extends DescriptorBase {
       {required String descriptor, required Network network}) async {
     try {
       await Frb.verifyInit();
-      final res = await DescriptorBase.newDescriptorBase(
+      final res = await DescriptorBase.newInstance(
           descriptor: descriptor, network: network);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -540,7 +539,7 @@ class Mnemonic extends MnemonicBase {
   static Future<Mnemonic> create(WordCount wordCount) async {
     try {
       await Frb.verifyInit();
-      final res = await MnemonicBase.newMnemonicBase(wordCount: wordCount);
+      final res = await MnemonicBase.newInstance(wordCount: wordCount);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -725,8 +724,8 @@ class Transaction extends TransactionBase {
   }) async {
     try {
       await Frb.verifyInit();
-      final res = await TransactionBase.newTransactionBase(
-          transactionBytes: transactionBytes);
+      final res =
+          await TransactionBase.newInstance(transactionBytes: transactionBytes);
       return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -962,7 +961,7 @@ class Wallet extends WalletBase {
   }) async {
     try {
       await Frb.verifyInit();
-      final res = await WalletBase.newWalletBase(
+      final res = await WalletBase.newInstance(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
         network: network,
