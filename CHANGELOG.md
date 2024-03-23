@@ -6,7 +6,9 @@ Updated Rust and Flutter dependencies.
 
 #### Fixed
 - Functions hang indefinitely on iOs devices
-- Replace `AddressIndex`'s `new` with`increase` 
+- Replace `AddressIndex`'s `new` with`increase`.
+- Renamed `Address`'s create to `fromString`.
+- txBuilder.finish returns a tuple.
 
 ## [0.30.0]
 Updated Rust and Flutter dependencies.
