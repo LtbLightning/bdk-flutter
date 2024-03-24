@@ -53,3 +53,4 @@ export './src/generated/api/wallet.dart'
         finishBumpFeeTxBuilder,
         txBuilderFinish;
 export './src/root.dart';
+export 'src/utils/exceptions.dart';
