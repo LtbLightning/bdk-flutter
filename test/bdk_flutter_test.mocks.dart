@@ -900,29 +900,18 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i6.KeysDescriptorSecretKey);
 
   @override
-  _i9.Future<_i4.DescriptorSecretKey> derive({
-    required _i8.DescriptorSecretKeyBase? key,
-    required _i8.DerivationPathBase? path,
-  }) =>
+  _i9.Future<_i4.DescriptorSecretKey> derive(_i8.DerivationPathBase? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
-          [],
-          {
-            #key: key,
-            #path: path,
-          },
+          [path],
         ),
         returnValue: _i9.Future<_i4.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #derive,
-            [],
-            {
-              #key: key,
-              #path: path,
-            },
+            [path],
           ),
         )),
         returnValueForMissingStub: _i9.Future<_i4.DescriptorSecretKey>.value(
@@ -930,39 +919,24 @@ class MockDescriptorSecretKey extends _i1.Mock
           this,
           Invocation.method(
             #derive,
-            [],
-            {
-              #key: key,
-              #path: path,
-            },
+            [path],
           ),
         )),
       ) as _i9.Future<_i4.DescriptorSecretKey>);
 
   @override
-  _i9.Future<_i4.DescriptorSecretKey> extend({
-    required _i8.DescriptorSecretKeyBase? key,
-    required _i8.DerivationPathBase? path,
-  }) =>
+  _i9.Future<_i4.DescriptorSecretKey> extend(_i8.DerivationPathBase? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
-          [],
-          {
-            #key: key,
-            #path: path,
-          },
+          [path],
         ),
         returnValue: _i9.Future<_i4.DescriptorSecretKey>.value(
             _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #extend,
-            [],
-            {
-              #key: key,
-              #path: path,
-            },
+            [path],
           ),
         )),
         returnValueForMissingStub: _i9.Future<_i4.DescriptorSecretKey>.value(
@@ -970,11 +944,7 @@ class MockDescriptorSecretKey extends _i1.Mock
           this,
           Invocation.method(
             #extend,
-            [],
-            {
-              #key: key,
-              #path: path,
-            },
+            [path],
           ),
         )),
       ) as _i9.Future<_i4.DescriptorSecretKey>);

@@ -474,9 +474,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   }
 
   ///Derived the XPrv using the derivation path
-  Future<DescriptorSecretKey> derive(
-      {required DescriptorSecretKeyBase key,
-      required DerivationPathBase path}) async {
+  Future<DescriptorSecretKey> derive(DerivationPathBase path) async {
     try {
       final res = await DescriptorSecretKeyBase.derive(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
@@ -486,10 +484,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   }
 
   ///Extends the XPrv using the derivation path
-  Future<DescriptorSecretKey> extend({
-    required DescriptorSecretKeyBase key,
-    required DerivationPathBase path,
-  }) async {
+  Future<DescriptorSecretKey> extend(DerivationPathBase path) async {
     try {
       final res = await DescriptorSecretKeyBase.extend(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
