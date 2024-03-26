@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
         s.name             = 'bdk_flutter'
-        s.version          = "0.31.1"
+        s.version          = "0.31.1-dev"
         s.summary          = 'A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)'
         s.description      = <<-DESC
             A new Flutter plugin project.
@@ -14,8 +14,7 @@ Pod::Spec.new do |s|
         s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
         s.swift_version = '5.0'
         s.dependency 'FlutterMacOS'
-        s.ios.deployment_target = '11.0'
-        s.osx.deployment_target = '10.13'
+        s.osx.deployment_target = '14.0'
         s.script_phase = {
                 :name => 'Build Rust library',
                 # First argument is relative path to the `rust` folder, second is name of rust library
