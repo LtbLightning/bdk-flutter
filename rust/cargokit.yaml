@@ -1,0 +1,10 @@
+cargo:
+  release:
+    toolchain: nightly
+    extra_flags:
+      - -Z
+      - build-std=panic_abort,std
+
+precompiled_binaries:
+  url_prefix: https://github.com/LtbLightning/bdk-flutter/releases/download/precompiled_
+  public_key: b8771896f9326bba8c9b1170094a205776d675d6464e9938d3e71e43ac47e73e

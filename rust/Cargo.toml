@@ -1,6 +1,6 @@
 [package]
-name = "rust_bdk_ffi"
-version = "0.30.0"
+name = "bdk_flutter"
+version = "0.31.0-dev"
 edition = "2021"
 
 [lib]
@@ -9,11 +9,12 @@ crate-type = ["staticlib", "cdylib"]
 assert_matches = "1.5"
 
 [build-dependencies]
-flutter_rust_bridge_codegen = { version = "= 1.82.6"  }
+flutter_rust_bridge_codegen = { version = "= 2.0.0-dev.28"  }
+anyhow = "1.0.68"
 [dependencies]
+flutter_rust_bridge = "=2.0.0-dev.28"
 rand = "0.8"
-bdk = { version = "0.28.2", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled", "rpc"] }
-flutter_rust_bridge = { version = "= 1.82.6"  }
+bdk = { version = "0.29.0", features = ["all-keys", "use-esplora-ureq", "sqlite-bundled", "rpc"] }
 serde = "1.0.89"
 serde_json = "1.0.96"
 anyhow = "1.0.68"

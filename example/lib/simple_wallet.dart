@@ -29,7 +29,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
       displayText = res.toString();
     });
     if (kDebugMode) {
-      print(res.asString());
+      print(await res.asString());
     }
   }
 
@@ -74,7 +74,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(" fee: ${e.fee}");
         print(" received: ${e.received}");
         print(" send: ${e.sent}");
-        print(" output address: ${txOut.last.scriptPubkey.inner}");
+        print(" output address: ${txOut.last.scriptPubkey.bytes}");
         print("===========================");
       }
     }
@@ -100,7 +100,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         }
         print("         =============TxOut==============");
         for (var e in txOut) {
-          print("         script: ${e.scriptPubkey.inner}");
+          print("         script: ${e.scriptPubkey.bytes}");
           print("         value: ${e.value}");
         }
         print("========================================");
@@ -129,7 +129,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print(
-            "txout: { address:${e.txout.scriptPubkey.inner.toString()}, value: ${e.txout.value} }");
+            "txout: { address:${e.txout.scriptPubkey.bytes}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
@@ -148,7 +148,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   getBlockHash() async {
     final height = await getBlockHeight();
-    final blockHash = await blockchain!.getBlockHash(height);
+    final blockHash = await blockchain!.getBlockHash(height: height);
     setState(() {
       displayText = "BlockHash: $blockHash";
     });
