@@ -1,4 +1,4 @@
-[0.31.0-dev]
+## [0.31.0-dev]
 Updated Rust and Flutter dependencies.
 #### APIs added
 - Add sealed class `Auth` in `RpcConfig`.
@@ -7,20 +7,21 @@ Updated Rust and Flutter dependencies.
 #### Changed
 - Replace `AddressIndex`'s `new` with`increase`.
 - Renamed `Address`'s create to `fromString`.
-- txBuilder.finish returns a tuple.
+- `txBuilder.finish` returns a tuple.
+- Added `cargokit` to handle rust binary build
 
 #### Fixed
-- Functions hang indefinitely on iOs devices.
-- Thread 'frb_workerpool' panicked.
+- Functions hang indefinitely on iOS devices.
+- Thread `frb_workerpool` panicked.
 
 ## [0.30.0]
 Updated Rust and Flutter dependencies.
-macOs support bug resolved
+MacOS support bug resolved
 #### APIs added
 - Add BIP-86 descriptor template
 
 ## [0.29.2]
-Support macOs and unit testing.
+Support MacOS and unit testing.
 Updated flutter dependencies.
 
 ## [0.29.1]
