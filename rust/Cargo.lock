@@ -262,7 +262,7 @@ dependencies = [
 
 [[package]]
 name = "bdk_flutter"
-version = "0.31.0-dev"
+version = "0.31.1-dev"
 dependencies = [
  "anyhow",
  "assert_matches",

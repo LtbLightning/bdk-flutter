@@ -1,3 +1,7 @@
+## [0.31.1-dev]
+#### Fixed
+- Failed to load `.so` files in android.
+
 ## [0.31.0-dev]
 Updated Rust and Flutter dependencies.
 #### APIs added
