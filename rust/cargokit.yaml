@@ -1,6 +1,9 @@
 cargo:
   release:
-    toolchain: stable
+    toolchain: nightly
+    extra_flags:
+      - -Z
+      - build-std=panic_abort,std
 
 precompiled_binaries:
   url_prefix: https://github.com/LtbLightning/bdk-flutter/releases/download/precompiled_

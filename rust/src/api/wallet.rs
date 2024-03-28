@@ -221,7 +221,7 @@ pub fn tx_builder_finish(
         let bdk_utxos: Vec<bdk::bitcoin::OutPoint> =
             utxos.iter().map(bdk::bitcoin::OutPoint::from).collect();
         let utxos: &[bdk::bitcoin::OutPoint] = &bdk_utxos;
-        tx_builder.add_utxos(utxos).unwrap();
+        tx_builder.add_utxos(utxos).map_err(|e|  <bdk::Error as Into<BdkError>>::into(e))?;
     }
     if !un_spendable.is_empty() {
         let bdk_unspendable: Vec<bdk::bitcoin::OutPoint> = un_spendable

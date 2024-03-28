@@ -23,7 +23,6 @@ migrate_working_dir/
 
 # Flutter/Dart/Pub related
 **/doc/api/
-/pubspec.lock
 /ios/Podfile.lock
 **/ios/Flutter/.last_build_id
 .dart_tool/
