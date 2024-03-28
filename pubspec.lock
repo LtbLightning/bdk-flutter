@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.0"
-  archive:
-    dependency: "direct main"
-    description:
-      name: archive
-      sha256: "22600aa1e926be775fa5fe7e6894e7fb3df9efda8891c73f70fb3262399a432d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.4.10"
   args:
     dependency: transitive
     description:
@@ -162,7 +154,7 @@ packages:
     source: hosted
     version: "4.10.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -242,17 +234,17 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_rust_bridge
-      sha256: "02720226035257ad0b571c1256f43df3e1556a499f6bcb004849a0faaa0e87f0"
+      sha256: c51fa002e57e64d13030269ed9cd43752173ee4c6f60ec1e9c41450d63c75bae
       url: "https://pub.dev"
     source: hosted
-    version: "1.82.6"
+    version: "2.0.0-dev.28"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
   freezed:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: freezed
       sha256: "6c5031daae12c7072b3a87eff98983076434b4889ef2a44384d0cae3f82372ba"
@@ -291,14 +283,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      sha256: d4872660c46d929f6b8a9ef4e7a7eff7e49bbf0c4ec3f385ee32df5119175139
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -411,22 +395,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.2"
-  pointycastle:
-    dependency: transitive
-    description:
-      name: pointycastle
-      sha256: "7c1e5f0d23c9016c5bbd8b1473d0d3fb3fc851b876046039509e18e0c7485f2c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.7.3"
   pool:
     dependency: transitive
     description:
@@ -451,14 +419,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  puppeteer:
-    dependency: transitive
-    description:
-      name: puppeteer
-      sha256: eedeaae6ec5d2e54f9ae22ab4d6b3dda2e8791c356cc783046d06c287ffe11d8
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.6.0"
   quiver:
     dependency: transitive
     description:
@@ -475,14 +435,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
-  shelf_static:
-    dependency: transitive
-    description:
-      name: shelf_static
-      sha256: a41d3f53c4adf0f57480578c1d61d90342cd617de7fc8077b1304643c2d85c1e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -576,14 +528,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -649,5 +593,5 @@ packages:
     source: hosted
     version: "2.1.1"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.2.0-194.0.dev <4.0.0"
   flutter: ">=3.0.0"

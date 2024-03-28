@@ -39,7 +39,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.30.0
+  bdk_flutter: ^0.31.0-dev
 ```
 
 ### Examples
@@ -51,15 +51,15 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 // ....
 
-final mnemonic = await Mnemonic.create(WordCount.Words12);
-final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
+final mnemonic = await Mnemonic.create(WordCount.words12);
+final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.testnet,
                                                               mnemonic: mnemonic );
-final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
-                                                      network: Network.Testnet,
-                                                      keychain: KeyChainKind.External );
-final internalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
-                                                      network: Network.Testnet,
-                                                      keychain: KeyChainKind.Internal );
+final externalDescriptor = await Descriptor.newBip44( secretKey: descriptorSecretKey,
+                                                      network: Network.testnet,
+                                                      keychain: KeychainKind.externalChain );
+final internalDescriptor = await Descriptor.newBip44( secretKey: descriptorSecretKey,
+                                                      network: Network.testnet,
+                                                      keychain: KeyChainKind.internalChain );
 final blockchain = await Blockchain.create( config: BlockchainConfig.electrum(
                                                                         config: ElectrumConfig(
                                                                             stopGap: 10,
@@ -68,7 +68,7 @@ final blockchain = await Blockchain.create( config: BlockchainConfig.electrum(
                                                                             url: "ssl://electrum.blockstream.info:60002" )));
 final wallet = await Wallet.create( descriptor: externalDescriptor,
                                     changeDescriptor: internalDescriptor,
-                                    network: Network.TESTNET,
+                                    network: Network.testnet,
                                     databaseConfig: const DatabaseConfig.memory() );
 final _ = await wallet.sync( blockchain );
 ```
@@ -80,15 +80,15 @@ import 'package:bdk_flutter/bdk_flutter.dart';
 
 // ....
 
-final mnemonic = await Mnemonic.create(WordCount.Words12);
-final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.Testnet,
+final mnemonic = await Mnemonic.create(WordCount.words12);
+final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.testnet,
                                                               mnemonic: mnemonic );
-final externalDescriptor = await Descriptor.newBip44( descriptorSecretKey: descriptorSecretKey,
-                                                      network: Network.Testnet,
-                                                      keychain: KeyChainKind.External );
+final externalDescriptor = await Descriptor.newBip44( secretKey: descriptorSecretKey,
+                                                      network: Network.testnet,
+                                                      keychain: KeychainKind.externalChain  );
 final externalPublicDescriptorStr = await externalDescriptor.asString();
 final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
-                                                    network: Network.Testnet);
+                                                    network: Network.testnet);
 ```
 
 ### Get the transaction details
@@ -101,16 +101,16 @@ final bdkWallet = .....
 // ....
 
 final txBuilder  = TxBuilder();
-final address = await Address.create(address: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+final address = await Address.fromString(s: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB", network: Network.testnet);
 
-final script = await address.scriptPubKey();
-final feeRate = await estimateFeeRate(25);
+final script = await address.scriptPubkey();
+final feeRate = await blockchain.estimateFee(target: 25);
 
-final txBuilderResult = await txBuilder.feeRate( feeRate.asSatPerVb() )
+final (psbt, transactionDetails) = await txBuilder.feeRate( feeRate.satPerVb )
                                        .addRecipient( script, 2000 )
                                        .finish( bdkWallet );
 
-final serializedPsbt = await txBuilderResult.psbt.jsonSerialize();
+final serializedPsbt = await psbt.jsonSerialize();
 final jsonObject = json.decode(serializedPsbt);
 final outputs = jsonObject['unsigned_tx']['output'] as List;
 final inputs = jsonObject['inputs'][0]['non_witness_utxo']['output'] as List;
@@ -135,9 +135,9 @@ debugPrint("=========Outputs=====");
 import 'package:bdk_flutter/bdk_flutter.dart';
 
 
-final mnemonic = await Mnemonic.create(WordCount.Words12);
+final mnemonic = await Mnemonic.create(WordCount.words12);
 final descriptorSecretKey = await DescriptorSecretKey.create(
-        network: Network.Testnet, mnemonic: mnemonic);
+        network: Network.testnet, mnemonic: mnemonic);
 
 // create external descriptor
 final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
@@ -145,7 +145,7 @@ final descriptorPrivateKey =
         await descriptorSecretKey.derive(derivationPath);
 final Descriptor descriptorPrivate = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKey.toString()})",
-      network: Network.Testnet,
+      network: Network.testnet,
     );
 
 // create internal descriptor
@@ -155,20 +155,20 @@ final descriptorPrivateKeyInt =
         await descriptorSecretKey.derive(derivationPathInt);
 final Descriptor descriptorPrivateInt = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
-      network: Network.Testnet,
+      network: Network.testnet,
     );
 
 final bdkWallet = await Wallet.create(
       descriptor: descriptorPrivate,
       changeDescriptor: descriptorPrivateInt,
-      network: Network.Testnet,
+      network: Network.testnet,
       databaseConfig: const DatabaseConfig.memory(),
     );
 
 final address =
-        await bdkWallet.getAddress(addressIndex: const AddressIndex());
+        await bdkWallet.getAddress(addressIndex: const AddressIndex.increase());
 final internalAddress =
-        await bdkWallet.getInternalAddress(addressIndex: const AddressIndex());
+        await bdkWallet.getInternalAddress(addressIndex: const AddressIndex.increase());
 
 ```
 
@@ -176,58 +176,17 @@ final internalAddress =
 
 The latest API documentation is available [here](https://pub.dev/documentation/bdk_flutter/latest/bdk_flutter/bdk_flutter-library.html)
 
-### Example Projects 
+### Example Projects
 
-- **\*BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-demo-app)
+- **\*BDK Flutter Demo App:** The [BDK Flutter Demo App](https://github.com/LtbLightning/bdk-flutter-quickstart)
   is a simple bitcoin app built in flutter to serve as a reference app to demonstrate `bdk-flutter` api usage.
-
-### How to build
-
-_Note that Flutter version `3.0` or later is required to build the plugin._
-
-1. Install `Rust` and `Cargo`
-   The easiest way to get Cargo is to install the current stable release of Rust by using [rustup](https://doc.rust-lang.org/cargo/getting-started/installation.html). Installing Rust using rustup will also install cargo.
-
-2. Clone this repository
-
-   ```shell
-   git clone https://github.com/LtbLightning/bdk-flutter
-   ```
-
-3. Activate dart `ffigen`
-
-   ```shell
-   dart pub global activate ffigen
-   ```
-
-4. Android Setup
-
-- The [Android NDK](https://developer.android.com/ndk), or Native Development Kit, enables code written in other languages to be run on the JVM via the Java Native Interface, or JNI for short.
-  After following the instructions above, the NDK should be installed in your $ANDROID_SDK_HOME/ndk folder, where ANDROID_SDK_HOME usually is:
-  <br/> Windows: %APPDATA%\Local\Android\sdk
-  <br/> MacOS: ~/Library/Android/sdk
-
-  An [issue](https://github.com/rust-lang/rust/pull/85806) regarding building Rust's core library against the latest NDK means that as of writing only NDK versions 22 and older can be used.
-
-  You can alternatively use the latest version of the Android NDK which is greater than 22. However, this requires a hack to prevent the [`unable to find library -lgcc error`](https://github.com/rust-lang/rust/pull/85806#issuecomment-1096266946).
-
-5. Build flutter bindings
-   Navigate to `rust` directory, and run the following commands
-   ```shell
-   cargo build
-   make all
-   ```
-
-### _Generating Docs Manually (Optional)_
-
-Please use the [Dart documentation generator](https://pub.dev/packages/dartdoc) to generate the API documentation.
 
 ### References:
 
 - Setting up a local Esplora instance for testing:
   https://bitcoin.stackexchange.com/questions/116937/how-do-i-setup-an-esplora-instance-for-local-testing/116938#116938
 
-_Note: Caution this is Beta at this stage
-Please consider reviewing, experimenting, and contributing ⚡️_
+_Note: This Flutter plugin is currently in its development (dev) stage and has been released for community review and experimentation. 
+We warmly welcome feedback, bug reports, and contributions from developers and enthusiasts alike ⚡️_
 
 Thanks for taking a look!

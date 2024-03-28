@@ -1,4 +1,4 @@
-import '../generated/bridge_definitions.dart' as bindings;
+import '../generated/api/error.dart';
 
 abstract class BdkFfiException implements Exception {
   String? message;
@@ -256,7 +256,22 @@ class HexException extends BdkFfiException {
   HexException({super.message});
 }
 
-Exception handleBdkException(bindings.Error error) {
+class AddressException extends BdkFfiException {
+  /// Constructs the [AddressException]
+  AddressException({super.message});
+}
+
+class ConsensusError extends BdkFfiException {
+  /// Constructs the [ConsensusError]
+  ConsensusError({super.message});
+}
+
+class Bip39Exception extends BdkFfiException {
+  /// Constructs the [Bip39Exception]
+  Bip39Exception({super.message});
+}
+
+Exception mapToException(BdkError error) {
   return error.when(
     noUtxosSelected: () => NoUtxosSelectedException(
         message:
@@ -327,5 +342,9 @@ Exception handleBdkException(bindings.Error error) {
     sled: (e) => SledException(message: e.toString()),
     rpc: (e) => RpcException(message: e.toString()),
     rusqlite: (e) => RusqliteException(message: e.toString()),
+    //TODO; Map the following errors properly
+    consensus: (e) => ConsensusError(message: e.toString()),
+    address: (e) => AddressException(message: e.toString()),
+    bip39: (e) => Bip39Exception(message: e.toString()),
   );
 }

@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter/foundation.dart';
 
@@ -8,7 +6,7 @@ class MultiSigWallet {
     final List<DescriptorKeyInfo> descriptorInfos = [];
     for (var e in mnemonics) {
       final secret = await DescriptorSecretKey.create(
-          network: Network.Testnet, mnemonic: e);
+          network: Network.testnet, mnemonic: e);
       final public = await secret.asPublic();
       descriptorInfos.add(DescriptorKeyInfo(secret, public));
     }
@@ -22,7 +20,7 @@ class MultiSigWallet {
     final parsedDes = [alice, bob, dave];
     for (var e in parsedDes) {
       final res =
-          await Descriptor.create(descriptor: e, network: Network.Testnet);
+          await Descriptor.create(descriptor: e, network: Network.testnet);
       descriptors.add(res);
     }
     return descriptors;
@@ -43,15 +41,15 @@ class MultiSigWallet {
     final descriptors = await createDescriptors();
     final alice = await Wallet.create(
         descriptor: descriptors[0],
-        network: Network.Testnet,
+        network: Network.testnet,
         databaseConfig: const DatabaseConfig.memory());
     final bob = await Wallet.create(
         descriptor: descriptors[1],
-        network: Network.Testnet,
+        network: Network.testnet,
         databaseConfig: const DatabaseConfig.memory());
     final dave = await Wallet.create(
         descriptor: descriptors[2],
-        network: Network.Testnet,
+        network: Network.testnet,
         databaseConfig: const DatabaseConfig.memory());
     return [alice, bob, dave];
   }
@@ -60,26 +58,31 @@ class MultiSigWallet {
       String addressStr) async {
     try {
       final txBuilder = TxBuilder();
-      final address = await Address.create(address: addressStr);
-      final script = await address.scriptPubKey();
-      final feeRate = await blockchain.estimateFee(25);
-      final txBuilderResult = await txBuilder
+      final address = await Address.fromString(
+          s: addressStr, network: (await aliceWallet.network()));
+      final script = await address.scriptPubkey();
+      final feeRate = await blockchain.estimateFee(target: 25);
+      final (psbt, _) = await txBuilder
           .addRecipient(script, 1000)
-          .feeRate(feeRate.asSatPerVb())
+          .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
-      final aliceSbt = await aliceWallet.sign(
-          psbt: txBuilderResult.psbt,
+      await aliceWallet.sign(
+          psbt: psbt,
           signOptions: const SignOptions(
-              isMultiSig: true,
+              multiSig: true,
               trustWitnessUtxo: false,
               allowAllSighashes: true,
               removePartialSigs: true,
               tryFinalize: true,
               signWithTapInternalKey: true,
               allowGrinding: true));
-      final bobSbt = await bobWallet.sign(psbt: aliceSbt);
-      final tx = await bobSbt.extractTx();
-      Isolate.run(() async => {await blockchain.broadcast(tx)});
+      final isFinalized = await bobWallet.sign(psbt: psbt);
+      if (isFinalized) {
+        final tx = await psbt.extractTx();
+        await blockchain.broadcast(transaction: tx);
+      } else {
+        debugPrint("Psbt not finalized!");
+      }
     } on FormatException catch (e) {
       if (kDebugMode) {
         print(e.message);

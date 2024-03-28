@@ -1,24 +1,35 @@
+## [0.31.0-dev]
+Updated Rust and Flutter dependencies.
+#### APIs added
+- Add sealed class `Auth` in `RpcConfig`.
+- Made `PartiallySignedTransaction` class mutable.
+
+#### Changed
+- Replace `AddressIndex`'s `new` with`increase`.
+- Renamed `Address`'s create to `fromString`.
+- `txBuilder.finish` returns a tuple.
+- Added `cargokit` to handle rust binary build
+
+#### Fixed
+- Functions hang indefinitely on iOS devices.
+- Thread `frb_workerpool` panicked.
+
 ## [0.30.0]
 Updated Rust and Flutter dependencies.
-macOs support bug resolved
-
+MacOS support bug resolved
 #### APIs added
 - Add BIP-86 descriptor template
 
-
 ## [0.29.2]
-Support macOs and unit testing.
-
+Support MacOS and unit testing.
 Updated flutter dependencies.
 
 ## [0.29.1]
 Updated Rust and Flutter dependencies.
-
 Exposed strongly-typed exceptions.
 
 ## [0.29.0]
 Support Dart 3.
-
 Updated Rust and Flutter dependencies.
 #### APIs added
 - Add `isMine` method to `Wallet`.
@@ -41,7 +52,6 @@ Updated Rust and Flutter dependencies.
 
 ## [0.28.0]
 Updated Rust ( Bdk to latest version 0.28.0 ) and Flutter dependencies.
-
 #### APIs added
 - Expose `Address` class's `payload` and `network` functions
 - Add `fromScript` constructor to `Address` class
@@ -55,13 +65,11 @@ Updated Rust ( Bdk to latest version 0.28.0 ) and Flutter dependencies.
 
 ## [0.27.1]
 Updated Rust ( Bdk to latest version 0.27.1 ) and Flutter dependencies.
-
 #### APIs added
 - New `Transaction` class that can be created from or serialized to consensus encoded bytes.
 - Add estimateFee(int Target) function for `Blockchain`
 - Add getInternalAddress() function for `Wallet`
 - Add AddressIndex.reset(int index) & AddressIndex.peek(int index)
-
 #### APIs changed
 - partiallySignedTransaction.extractTx() returns a `Transaction` instead of a the transaction bytes.
 - blockchain.broadcast() takes a `Transaction` instead of a `PartiallySignedTransaction`
@@ -78,13 +86,9 @@ Updated Rust ( Bdk to latest version 0.27.1 ) and Flutter dependencies.
 
 ## [0.3.0]
 Updated Rust ( Bdk to latest version 0.26.0 ) and Flutter dependencies.
-
 #### APIs changed
-
 - The descriptor and changeDescriptor arguments on the wallet constructor now take a `Descriptor` instead of a String.
-
 #### APIs added
-
 - Added RpcConfig, BlockchainConfig.rpc
 - Added Descriptor type with the following named constructors:
 - Default `create` constructor, that requires a descriptor in String format and a Network
@@ -97,37 +101,24 @@ Updated Rust ( Bdk to latest version 0.26.0 ) and Flutter dependencies.
 - asString returns the public version of the output descriptor in String format
 - asPrivateString returns the private version of the output descriptor if available, otherwise, return the public version
 
-### Fixed
-
-- Dependencies Upgraded
-
 ## [0.2.3]
-
 ### Fixed
-
 - pub.dev analysis score
 
 ## [0.2.2]
-
 ### Fixed
-
 - pub.dev analysis score
 
 ## [0.2.1]
-
 ### Fixed
-
 - pub.dev static analysis warning
 - removing internal helper functions from public api
 
 ## [0.2.0]
-
 Updated API to match bdk-ffi
 
 ## [0.1.4]
-
 #### Functionality Added
-
 - Generate Mnemonic method
 - Create Descriptors
 - Create Extended Key

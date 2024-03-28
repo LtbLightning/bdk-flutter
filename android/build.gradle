@@ -43,14 +43,15 @@ android {
     defaultConfig {
         minSdkVersion 23
     }
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
-        }
-    }
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.databinding:databinding-runtime:7.2.1'
     testImplementation 'junit:junit:4.13.2'
+}
+apply from: "../cargokit/gradle/plugin.gradle"
+
+cargokit {
+    manifestDir = "../rust"
+    libname = "bdk_flutter"
 }
