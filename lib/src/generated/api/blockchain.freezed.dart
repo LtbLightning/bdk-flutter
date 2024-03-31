@@ -97,8 +97,8 @@ class __$$Auth_NoneImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Auth_NoneImpl implements Auth_None {
-  const _$Auth_NoneImpl();
+class _$Auth_NoneImpl extends Auth_None {
+  const _$Auth_NoneImpl() : super._();
 
   @override
   String toString() {
@@ -183,8 +183,9 @@ class _$Auth_NoneImpl implements Auth_None {
   }
 }
 
-abstract class Auth_None implements Auth {
+abstract class Auth_None extends Auth {
   const factory Auth_None() = _$Auth_NoneImpl;
+  const Auth_None._() : super._();
 }
 
 /// @nodoc
@@ -225,8 +226,9 @@ class __$$Auth_UserPassImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Auth_UserPassImpl implements Auth_UserPass {
-  const _$Auth_UserPassImpl({required this.username, required this.password});
+class _$Auth_UserPassImpl extends Auth_UserPass {
+  const _$Auth_UserPassImpl({required this.username, required this.password})
+      : super._();
 
   /// Username
   @override
@@ -330,10 +332,11 @@ class _$Auth_UserPassImpl implements Auth_UserPass {
   }
 }
 
-abstract class Auth_UserPass implements Auth {
+abstract class Auth_UserPass extends Auth {
   const factory Auth_UserPass(
       {required final String username,
       required final String password}) = _$Auth_UserPassImpl;
+  const Auth_UserPass._() : super._();
 
   /// Username
   String get username;
@@ -378,8 +381,8 @@ class __$$Auth_CookieImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Auth_CookieImpl implements Auth_Cookie {
-  const _$Auth_CookieImpl({required this.file});
+class _$Auth_CookieImpl extends Auth_Cookie {
+  const _$Auth_CookieImpl({required this.file}) : super._();
 
   /// Cookie file
   @override
@@ -476,8 +479,9 @@ class _$Auth_CookieImpl implements Auth_Cookie {
   }
 }
 
-abstract class Auth_Cookie implements Auth {
+abstract class Auth_Cookie extends Auth {
   const factory Auth_Cookie({required final String file}) = _$Auth_CookieImpl;
+  const Auth_Cookie._() : super._();
 
   /// Cookie file
   String get file;
@@ -589,8 +593,8 @@ class __$$BlockchainConfig_ElectrumImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BlockchainConfig_ElectrumImpl implements BlockchainConfig_Electrum {
-  const _$BlockchainConfig_ElectrumImpl({required this.config});
+class _$BlockchainConfig_ElectrumImpl extends BlockchainConfig_Electrum {
+  const _$BlockchainConfig_ElectrumImpl({required this.config}) : super._();
 
   @override
   final ElectrumConfig config;
@@ -687,9 +691,10 @@ class _$BlockchainConfig_ElectrumImpl implements BlockchainConfig_Electrum {
   }
 }
 
-abstract class BlockchainConfig_Electrum implements BlockchainConfig {
+abstract class BlockchainConfig_Electrum extends BlockchainConfig {
   const factory BlockchainConfig_Electrum(
       {required final ElectrumConfig config}) = _$BlockchainConfig_ElectrumImpl;
+  const BlockchainConfig_Electrum._() : super._();
 
   @override
   ElectrumConfig get config;
@@ -733,8 +738,8 @@ class __$$BlockchainConfig_EsploraImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BlockchainConfig_EsploraImpl implements BlockchainConfig_Esplora {
-  const _$BlockchainConfig_EsploraImpl({required this.config});
+class _$BlockchainConfig_EsploraImpl extends BlockchainConfig_Esplora {
+  const _$BlockchainConfig_EsploraImpl({required this.config}) : super._();
 
   @override
   final EsploraConfig config;
@@ -831,9 +836,10 @@ class _$BlockchainConfig_EsploraImpl implements BlockchainConfig_Esplora {
   }
 }
 
-abstract class BlockchainConfig_Esplora implements BlockchainConfig {
+abstract class BlockchainConfig_Esplora extends BlockchainConfig {
   const factory BlockchainConfig_Esplora(
       {required final EsploraConfig config}) = _$BlockchainConfig_EsploraImpl;
+  const BlockchainConfig_Esplora._() : super._();
 
   @override
   EsploraConfig get config;
@@ -875,8 +881,8 @@ class __$$BlockchainConfig_RpcImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BlockchainConfig_RpcImpl implements BlockchainConfig_Rpc {
-  const _$BlockchainConfig_RpcImpl({required this.config});
+class _$BlockchainConfig_RpcImpl extends BlockchainConfig_Rpc {
+  const _$BlockchainConfig_RpcImpl({required this.config}) : super._();
 
   @override
   final RpcConfig config;
@@ -974,9 +980,10 @@ class _$BlockchainConfig_RpcImpl implements BlockchainConfig_Rpc {
   }
 }
 
-abstract class BlockchainConfig_Rpc implements BlockchainConfig {
+abstract class BlockchainConfig_Rpc extends BlockchainConfig {
   const factory BlockchainConfig_Rpc({required final RpcConfig config}) =
       _$BlockchainConfig_RpcImpl;
+  const BlockchainConfig_Rpc._() : super._();
 
   @override
   RpcConfig get config;

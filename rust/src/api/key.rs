@@ -1,5 +1,6 @@
 use crate::api::error::BdkError;
 use crate::api::types::{Network, WordCount};
+use crate::frb_generated::RustOpaque;
 pub use bdk::bitcoin;
 use bdk::bitcoin::secp256k1::Secp256k1;
 pub use bdk::keys;
@@ -8,19 +9,18 @@ use bdk::keys::{DerivableKey, GeneratableKey};
 use bdk::miniscript::descriptor::{DescriptorXKey, Wildcard};
 use bdk::miniscript::BareCtx;
 use std::str::FromStr;
-use crate::frb_generated::RustOpaque;
 
-pub struct MnemonicBase {
+pub struct BdkMnemonic {
     pub ptr: RustOpaque<keys::bip39::Mnemonic>,
 }
-impl From<keys::bip39::Mnemonic> for MnemonicBase {
+impl From<keys::bip39::Mnemonic> for BdkMnemonic {
     fn from(value: keys::bip39::Mnemonic) -> Self {
         Self {
             ptr: RustOpaque::new(value),
         }
     }
 }
-impl MnemonicBase {
+impl BdkMnemonic {
     /// Generates Mnemonic with a random entropy
     pub fn new(word_count: WordCount) -> Result<Self, BdkError> {
         let generated_key: keys::GeneratedKey<_, BareCtx> =
@@ -50,18 +50,18 @@ impl MnemonicBase {
         self.ptr.to_string()
     }
 }
-pub struct DerivationPathBase {
+pub struct BdkDerivationPath {
     pub ptr: RustOpaque<bitcoin::bip32::DerivationPath>,
 }
-impl From<bitcoin::bip32::DerivationPath> for DerivationPathBase {
+impl From<bitcoin::bip32::DerivationPath> for BdkDerivationPath {
     fn from(value: bitcoin::bip32::DerivationPath) -> Self {
-        DerivationPathBase {
+        BdkDerivationPath {
             ptr: RustOpaque::new(value),
         }
     }
 }
 
-impl DerivationPathBase {
+impl BdkDerivationPath {
     pub fn from_string(path: String) -> Result<Self, BdkError> {
         bitcoin::bip32::DerivationPath::from_str(&path)
             .map(|e| e.into())
@@ -70,20 +70,20 @@ impl DerivationPathBase {
 }
 
 #[derive(Debug)]
-pub struct DescriptorSecretKeyBase {
+pub struct BdkDescriptorSecretKey {
     pub ptr: RustOpaque<keys::DescriptorSecretKey>,
 }
-impl From<keys::DescriptorSecretKey> for DescriptorSecretKeyBase {
+impl From<keys::DescriptorSecretKey> for BdkDescriptorSecretKey {
     fn from(value: keys::DescriptorSecretKey) -> Self {
         Self {
             ptr: RustOpaque::new(value),
         }
     }
 }
-impl DescriptorSecretKeyBase {
+impl BdkDescriptorSecretKey {
     pub fn create(
         network: Network,
-        mnemonic: MnemonicBase,
+        mnemonic: BdkMnemonic,
         password: Option<String>,
     ) -> Result<Self, BdkError> {
         let mnemonic = (*mnemonic.ptr).clone();
@@ -97,10 +97,7 @@ impl DescriptorSecretKeyBase {
         Ok(descriptor_secret_key.into())
     }
 
-    pub fn derive(
-        ptr: DescriptorSecretKeyBase,
-        path: DerivationPathBase,
-    ) -> Result<Self, BdkError> {
+    pub fn derive(ptr: BdkDescriptorSecretKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_secret_key = (*ptr.ptr).clone();
         match descriptor_secret_key {
@@ -135,10 +132,7 @@ impl DescriptorSecretKeyBase {
             )),
         }
     }
-    pub fn extend(
-        ptr: DescriptorSecretKeyBase,
-        path: DerivationPathBase,
-    ) -> Result<Self, BdkError> {
+    pub fn extend(ptr: BdkDescriptorSecretKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let descriptor_secret_key = (*ptr.ptr).clone();
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
@@ -160,7 +154,7 @@ impl DescriptorSecretKeyBase {
             )),
         }
     }
-    pub fn as_public(ptr: DescriptorSecretKeyBase) -> Result<DescriptorPublicKeyBase, BdkError> {
+    pub fn as_public(ptr: BdkDescriptorSecretKey) -> Result<BdkDescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = ptr.ptr.to_public(&secp).unwrap();
         Ok(descriptor_public_key.into())
@@ -190,10 +184,10 @@ impl DescriptorSecretKeyBase {
     }
 }
 #[derive(Debug)]
-pub struct DescriptorPublicKeyBase {
+pub struct BdkDescriptorPublicKey {
     pub ptr: RustOpaque<keys::DescriptorPublicKey>,
 }
-impl From<keys::DescriptorPublicKey> for DescriptorPublicKeyBase {
+impl From<keys::DescriptorPublicKey> for BdkDescriptorPublicKey {
     fn from(value: keys::DescriptorPublicKey) -> Self {
         Self {
             ptr: RustOpaque::new(value),
@@ -201,16 +195,13 @@ impl From<keys::DescriptorPublicKey> for DescriptorPublicKeyBase {
     }
 }
 
-impl DescriptorPublicKeyBase {
+impl BdkDescriptorPublicKey {
     pub fn from_string(public_key: String) -> Result<Self, BdkError> {
         keys::DescriptorPublicKey::from_str(public_key.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))
             .map(|e| e.into())
     }
-    pub fn derive(
-        ptr: DescriptorPublicKeyBase,
-        path: DerivationPathBase,
-    ) -> Result<Self, BdkError> {
+    pub fn derive(ptr: BdkDescriptorPublicKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = (*ptr.ptr).clone();
         match descriptor_public_key {
@@ -245,10 +236,7 @@ impl DescriptorPublicKeyBase {
         }
     }
 
-    pub fn extend(
-        ptr: DescriptorPublicKeyBase,
-        path: DerivationPathBase,
-    ) -> Result<Self, BdkError> {
+    pub fn extend(ptr: BdkDescriptorPublicKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let descriptor_public_key = (*ptr.ptr).clone();
         match descriptor_public_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {

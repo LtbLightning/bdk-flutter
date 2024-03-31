@@ -1,30 +1,30 @@
-use crate::api::types::{FeeRate, Network, TransactionBase};
+use crate::api::types::{BdkTransaction, FeeRate, Network};
 
 use crate::api::error::BdkError;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::Transaction;
 use bdk::blockchain;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
-use bdk::blockchain::Blockchain as BdkBlockchain;
+
 pub use bdk::blockchain::{
     AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
-    GetBlockHash, GetHeight,
+    rpc, GetBlockHash, GetHeight,Blockchain
 };
 use std::path::PathBuf;
 
-pub struct BlockchainBase {
+pub struct BdkBlockchain {
     pub ptr: RustOpaque<AnyBlockchain>,
 }
 
-impl From<AnyBlockchain> for BlockchainBase {
+impl From<AnyBlockchain> for BdkBlockchain {
     fn from(value: AnyBlockchain) -> Self {
         Self {
             ptr: RustOpaque::new(value),
         }
     }
 }
-impl BlockchainBase {
-    pub fn new(blockchain_config: BlockchainConfig) -> Result<BlockchainBase, BdkError> {
+impl BdkBlockchain {
+    pub fn new(blockchain_config: BlockchainConfig) -> Result<BdkBlockchain, BdkError> {
         let any_blockchain_config = match blockchain_config {
             BlockchainConfig::Electrum { config } => {
                 AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
@@ -62,9 +62,9 @@ impl BlockchainBase {
         self.ptr.clone()
     }
 
-    pub fn broadcast(&self, transaction: TransactionBase) -> Result<String, BdkError> {
-        let tx: &Transaction = &(&(transaction)).into();
-        self.get_blockchain().broadcast(tx)?;
+    pub fn broadcast(&self, transaction: BdkTransaction) -> Result<String, BdkError> {
+        let tx: Transaction = (&transaction).try_into()?;
+        self.get_blockchain().broadcast(&tx)?;
         Ok(tx.txid().to_string())
     }
 
@@ -141,7 +141,7 @@ pub enum Auth {
     },
 }
 
-impl From<Auth> for blockchain::rpc::Auth {
+impl From<Auth> for rpc::Auth {
     fn from(auth: Auth) -> Self {
         match auth {
             Auth::None => blockchain::rpc::Auth::None,
