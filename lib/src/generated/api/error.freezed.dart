@@ -216,8 +216,8 @@ class __$$AddressError_Base58ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressError_Base58Impl implements AddressError_Base58 {
-  const _$AddressError_Base58Impl(this.field0);
+class _$AddressError_Base58Impl extends AddressError_Base58 {
+  const _$AddressError_Base58Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -417,9 +417,10 @@ class _$AddressError_Base58Impl implements AddressError_Base58 {
   }
 }
 
-abstract class AddressError_Base58 implements AddressError {
+abstract class AddressError_Base58 extends AddressError {
   const factory AddressError_Base58(final String field0) =
       _$AddressError_Base58Impl;
+  const AddressError_Base58._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -460,8 +461,8 @@ class __$$AddressError_Bech32ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressError_Bech32Impl implements AddressError_Bech32 {
-  const _$AddressError_Bech32Impl(this.field0);
+class _$AddressError_Bech32Impl extends AddressError_Bech32 {
+  const _$AddressError_Bech32Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -661,9 +662,10 @@ class _$AddressError_Bech32Impl implements AddressError_Bech32 {
   }
 }
 
-abstract class AddressError_Bech32 implements AddressError {
+abstract class AddressError_Bech32 extends AddressError {
   const factory AddressError_Bech32(final String field0) =
       _$AddressError_Bech32Impl;
+  const AddressError_Bech32._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -693,8 +695,8 @@ class __$$AddressError_EmptyBech32PayloadImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_EmptyBech32PayloadImpl
-    implements AddressError_EmptyBech32Payload {
-  const _$AddressError_EmptyBech32PayloadImpl();
+    extends AddressError_EmptyBech32Payload {
+  const _$AddressError_EmptyBech32PayloadImpl() : super._();
 
   @override
   String toString() {
@@ -883,9 +885,10 @@ class _$AddressError_EmptyBech32PayloadImpl
   }
 }
 
-abstract class AddressError_EmptyBech32Payload implements AddressError {
+abstract class AddressError_EmptyBech32Payload extends AddressError {
   const factory AddressError_EmptyBech32Payload() =
       _$AddressError_EmptyBech32PayloadImpl;
+  const AddressError_EmptyBech32Payload._() : super._();
 }
 
 /// @nodoc
@@ -930,9 +933,10 @@ class __$$AddressError_InvalidBech32VariantImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_InvalidBech32VariantImpl
-    implements AddressError_InvalidBech32Variant {
+    extends AddressError_InvalidBech32Variant {
   const _$AddressError_InvalidBech32VariantImpl(
-      {required this.expected, required this.found});
+      {required this.expected, required this.found})
+      : super._();
 
   @override
   final Variant expected;
@@ -1137,10 +1141,11 @@ class _$AddressError_InvalidBech32VariantImpl
   }
 }
 
-abstract class AddressError_InvalidBech32Variant implements AddressError {
+abstract class AddressError_InvalidBech32Variant extends AddressError {
   const factory AddressError_InvalidBech32Variant(
       {required final Variant expected,
       required final Variant found}) = _$AddressError_InvalidBech32VariantImpl;
+  const AddressError_InvalidBech32Variant._() : super._();
 
   Variant get expected;
   Variant get found;
@@ -1187,8 +1192,8 @@ class __$$AddressError_InvalidWitnessVersionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_InvalidWitnessVersionImpl
-    implements AddressError_InvalidWitnessVersion {
-  const _$AddressError_InvalidWitnessVersionImpl(this.field0);
+    extends AddressError_InvalidWitnessVersion {
+  const _$AddressError_InvalidWitnessVersionImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -1389,9 +1394,10 @@ class _$AddressError_InvalidWitnessVersionImpl
   }
 }
 
-abstract class AddressError_InvalidWitnessVersion implements AddressError {
+abstract class AddressError_InvalidWitnessVersion extends AddressError {
   const factory AddressError_InvalidWitnessVersion(final int field0) =
       _$AddressError_InvalidWitnessVersionImpl;
+  const AddressError_InvalidWitnessVersion._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -1437,8 +1443,8 @@ class __$$AddressError_UnparsableWitnessVersionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_UnparsableWitnessVersionImpl
-    implements AddressError_UnparsableWitnessVersion {
-  const _$AddressError_UnparsableWitnessVersionImpl(this.field0);
+    extends AddressError_UnparsableWitnessVersion {
+  const _$AddressError_UnparsableWitnessVersionImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -1639,9 +1645,10 @@ class _$AddressError_UnparsableWitnessVersionImpl
   }
 }
 
-abstract class AddressError_UnparsableWitnessVersion implements AddressError {
+abstract class AddressError_UnparsableWitnessVersion extends AddressError {
   const factory AddressError_UnparsableWitnessVersion(final String field0) =
       _$AddressError_UnparsableWitnessVersionImpl;
+  const AddressError_UnparsableWitnessVersion._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -1672,8 +1679,8 @@ class __$$AddressError_MalformedWitnessVersionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_MalformedWitnessVersionImpl
-    implements AddressError_MalformedWitnessVersion {
-  const _$AddressError_MalformedWitnessVersionImpl();
+    extends AddressError_MalformedWitnessVersion {
+  const _$AddressError_MalformedWitnessVersionImpl() : super._();
 
   @override
   String toString() {
@@ -1862,9 +1869,10 @@ class _$AddressError_MalformedWitnessVersionImpl
   }
 }
 
-abstract class AddressError_MalformedWitnessVersion implements AddressError {
+abstract class AddressError_MalformedWitnessVersion extends AddressError {
   const factory AddressError_MalformedWitnessVersion() =
       _$AddressError_MalformedWitnessVersionImpl;
+  const AddressError_MalformedWitnessVersion._() : super._();
 }
 
 /// @nodoc
@@ -1904,8 +1912,8 @@ class __$$AddressError_InvalidWitnessProgramLengthImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_InvalidWitnessProgramLengthImpl
-    implements AddressError_InvalidWitnessProgramLength {
-  const _$AddressError_InvalidWitnessProgramLengthImpl(this.field0);
+    extends AddressError_InvalidWitnessProgramLength {
+  const _$AddressError_InvalidWitnessProgramLengthImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -2107,10 +2115,10 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
   }
 }
 
-abstract class AddressError_InvalidWitnessProgramLength
-    implements AddressError {
+abstract class AddressError_InvalidWitnessProgramLength extends AddressError {
   const factory AddressError_InvalidWitnessProgramLength(final int field0) =
       _$AddressError_InvalidWitnessProgramLengthImpl;
+  const AddressError_InvalidWitnessProgramLength._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -2156,8 +2164,9 @@ class __$$AddressError_InvalidSegwitV0ProgramLengthImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_InvalidSegwitV0ProgramLengthImpl
-    implements AddressError_InvalidSegwitV0ProgramLength {
-  const _$AddressError_InvalidSegwitV0ProgramLengthImpl(this.field0);
+    extends AddressError_InvalidSegwitV0ProgramLength {
+  const _$AddressError_InvalidSegwitV0ProgramLengthImpl(this.field0)
+      : super._();
 
   @override
   final int field0;
@@ -2360,10 +2369,10 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
   }
 }
 
-abstract class AddressError_InvalidSegwitV0ProgramLength
-    implements AddressError {
+abstract class AddressError_InvalidSegwitV0ProgramLength extends AddressError {
   const factory AddressError_InvalidSegwitV0ProgramLength(final int field0) =
       _$AddressError_InvalidSegwitV0ProgramLengthImpl;
+  const AddressError_InvalidSegwitV0ProgramLength._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -2394,8 +2403,8 @@ class __$$AddressError_UncompressedPubkeyImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_UncompressedPubkeyImpl
-    implements AddressError_UncompressedPubkey {
-  const _$AddressError_UncompressedPubkeyImpl();
+    extends AddressError_UncompressedPubkey {
+  const _$AddressError_UncompressedPubkeyImpl() : super._();
 
   @override
   String toString() {
@@ -2584,9 +2593,10 @@ class _$AddressError_UncompressedPubkeyImpl
   }
 }
 
-abstract class AddressError_UncompressedPubkey implements AddressError {
+abstract class AddressError_UncompressedPubkey extends AddressError {
   const factory AddressError_UncompressedPubkey() =
       _$AddressError_UncompressedPubkeyImpl;
+  const AddressError_UncompressedPubkey._() : super._();
 }
 
 /// @nodoc
@@ -2611,8 +2621,8 @@ class __$$AddressError_ExcessiveScriptSizeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_ExcessiveScriptSizeImpl
-    implements AddressError_ExcessiveScriptSize {
-  const _$AddressError_ExcessiveScriptSizeImpl();
+    extends AddressError_ExcessiveScriptSize {
+  const _$AddressError_ExcessiveScriptSizeImpl() : super._();
 
   @override
   String toString() {
@@ -2801,9 +2811,10 @@ class _$AddressError_ExcessiveScriptSizeImpl
   }
 }
 
-abstract class AddressError_ExcessiveScriptSize implements AddressError {
+abstract class AddressError_ExcessiveScriptSize extends AddressError {
   const factory AddressError_ExcessiveScriptSize() =
       _$AddressError_ExcessiveScriptSizeImpl;
+  const AddressError_ExcessiveScriptSize._() : super._();
 }
 
 /// @nodoc
@@ -2828,8 +2839,8 @@ class __$$AddressError_UnrecognizedScriptImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_UnrecognizedScriptImpl
-    implements AddressError_UnrecognizedScript {
-  const _$AddressError_UnrecognizedScriptImpl();
+    extends AddressError_UnrecognizedScript {
+  const _$AddressError_UnrecognizedScriptImpl() : super._();
 
   @override
   String toString() {
@@ -3018,9 +3029,10 @@ class _$AddressError_UnrecognizedScriptImpl
   }
 }
 
-abstract class AddressError_UnrecognizedScript implements AddressError {
+abstract class AddressError_UnrecognizedScript extends AddressError {
   const factory AddressError_UnrecognizedScript() =
       _$AddressError_UnrecognizedScriptImpl;
+  const AddressError_UnrecognizedScript._() : super._();
 }
 
 /// @nodoc
@@ -3060,8 +3072,8 @@ class __$$AddressError_UnknownAddressTypeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_UnknownAddressTypeImpl
-    implements AddressError_UnknownAddressType {
-  const _$AddressError_UnknownAddressTypeImpl(this.field0);
+    extends AddressError_UnknownAddressType {
+  const _$AddressError_UnknownAddressTypeImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -3262,9 +3274,10 @@ class _$AddressError_UnknownAddressTypeImpl
   }
 }
 
-abstract class AddressError_UnknownAddressType implements AddressError {
+abstract class AddressError_UnknownAddressType extends AddressError {
   const factory AddressError_UnknownAddressType(final String field0) =
       _$AddressError_UnknownAddressTypeImpl;
+  const AddressError_UnknownAddressType._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -3320,11 +3333,12 @@ class __$$AddressError_NetworkValidationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddressError_NetworkValidationImpl
-    implements AddressError_NetworkValidation {
+    extends AddressError_NetworkValidation {
   const _$AddressError_NetworkValidationImpl(
       {required this.networkRequired,
       required this.networkFound,
-      required this.address});
+      required this.address})
+      : super._();
 
   @override
   final Network networkRequired;
@@ -3534,11 +3548,12 @@ class _$AddressError_NetworkValidationImpl
   }
 }
 
-abstract class AddressError_NetworkValidation implements AddressError {
+abstract class AddressError_NetworkValidation extends AddressError {
   const factory AddressError_NetworkValidation(
       {required final Network networkRequired,
       required final Network networkFound,
       required final String address}) = _$AddressError_NetworkValidationImpl;
+  const AddressError_NetworkValidation._() : super._();
 
   Network get networkRequired;
   Network get networkFound;
@@ -3596,6 +3611,9 @@ mixin _$BdkError {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3643,6 +3661,9 @@ mixin _$BdkError {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3690,6 +3711,9 @@ mixin _$BdkError {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3749,6 +3773,10 @@ mixin _$BdkError {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3804,6 +3832,9 @@ mixin _$BdkError {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3856,6 +3887,9 @@ mixin _$BdkError {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3921,8 +3955,8 @@ class __$$BdkError_HexImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_HexImpl implements BdkError_Hex {
-  const _$BdkError_HexImpl(this.field0);
+class _$BdkError_HexImpl extends BdkError_Hex {
+  const _$BdkError_HexImpl(this.field0) : super._();
 
   @override
   final HexError field0;
@@ -3995,6 +4029,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return hex(field0);
   }
@@ -4045,6 +4082,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return hex?.call(field0);
   }
@@ -4095,6 +4135,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (hex != null) {
@@ -4160,6 +4203,10 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return hex(this);
   }
@@ -4218,6 +4265,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return hex?.call(this);
   }
@@ -4273,6 +4323,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (hex != null) {
@@ -4282,8 +4335,9 @@ class _$BdkError_HexImpl implements BdkError_Hex {
   }
 }
 
-abstract class BdkError_Hex implements BdkError {
+abstract class BdkError_Hex extends BdkError {
   const factory BdkError_Hex(final HexError field0) = _$BdkError_HexImpl;
+  const BdkError_Hex._() : super._();
 
   HexError get field0;
   @JsonKey(ignore: true)
@@ -4334,8 +4388,8 @@ class __$$BdkError_ConsensusImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_ConsensusImpl implements BdkError_Consensus {
-  const _$BdkError_ConsensusImpl(this.field0);
+class _$BdkError_ConsensusImpl extends BdkError_Consensus {
+  const _$BdkError_ConsensusImpl(this.field0) : super._();
 
   @override
   final ConsensusError field0;
@@ -4409,6 +4463,9 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return consensus(field0);
   }
@@ -4459,6 +4516,9 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return consensus?.call(field0);
   }
@@ -4509,6 +4569,9 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (consensus != null) {
@@ -4574,6 +4637,10 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return consensus(this);
   }
@@ -4632,6 +4699,9 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return consensus?.call(this);
   }
@@ -4687,6 +4757,9 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (consensus != null) {
@@ -4696,9 +4769,10 @@ class _$BdkError_ConsensusImpl implements BdkError_Consensus {
   }
 }
 
-abstract class BdkError_Consensus implements BdkError {
+abstract class BdkError_Consensus extends BdkError {
   const factory BdkError_Consensus(final ConsensusError field0) =
       _$BdkError_ConsensusImpl;
+  const BdkError_Consensus._() : super._();
 
   ConsensusError get field0;
   @JsonKey(ignore: true)
@@ -4749,8 +4823,8 @@ class __$$BdkError_AddressImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_AddressImpl implements BdkError_Address {
-  const _$BdkError_AddressImpl(this.field0);
+class _$BdkError_AddressImpl extends BdkError_Address {
+  const _$BdkError_AddressImpl(this.field0) : super._();
 
   @override
   final AddressError field0;
@@ -4824,6 +4898,9 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return address(field0);
   }
@@ -4874,6 +4951,9 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return address?.call(field0);
   }
@@ -4924,6 +5004,9 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (address != null) {
@@ -4989,6 +5072,10 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return address(this);
   }
@@ -5047,6 +5134,9 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return address?.call(this);
   }
@@ -5102,6 +5192,9 @@ class _$BdkError_AddressImpl implements BdkError_Address {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (address != null) {
@@ -5111,9 +5204,10 @@ class _$BdkError_AddressImpl implements BdkError_Address {
   }
 }
 
-abstract class BdkError_Address implements BdkError {
+abstract class BdkError_Address extends BdkError {
   const factory BdkError_Address(final AddressError field0) =
       _$BdkError_AddressImpl;
+  const BdkError_Address._() : super._();
 
   AddressError get field0;
   @JsonKey(ignore: true)
@@ -5164,8 +5258,8 @@ class __$$BdkError_DescriptorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
-  const _$BdkError_DescriptorImpl(this.field0);
+class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
+  const _$BdkError_DescriptorImpl(this.field0) : super._();
 
   @override
   final DescriptorError field0;
@@ -5239,6 +5333,9 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return descriptor(field0);
   }
@@ -5289,6 +5386,9 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return descriptor?.call(field0);
   }
@@ -5339,6 +5439,9 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (descriptor != null) {
@@ -5404,6 +5507,10 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return descriptor(this);
   }
@@ -5462,6 +5569,9 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return descriptor?.call(this);
   }
@@ -5517,6 +5627,9 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (descriptor != null) {
@@ -5526,9 +5639,10 @@ class _$BdkError_DescriptorImpl implements BdkError_Descriptor {
   }
 }
 
-abstract class BdkError_Descriptor implements BdkError {
+abstract class BdkError_Descriptor extends BdkError {
   const factory BdkError_Descriptor(final DescriptorError field0) =
       _$BdkError_DescriptorImpl;
+  const BdkError_Descriptor._() : super._();
 
   DescriptorError get field0;
   @JsonKey(ignore: true)
@@ -5571,8 +5685,8 @@ class __$$BdkError_InvalidU32BytesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
-  const _$BdkError_InvalidU32BytesImpl(this.field0);
+class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
+  const _$BdkError_InvalidU32BytesImpl(this.field0) : super._();
 
   @override
   final Uint8List field0;
@@ -5647,6 +5761,9 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return invalidU32Bytes(field0);
   }
@@ -5697,6 +5814,9 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return invalidU32Bytes?.call(field0);
   }
@@ -5747,6 +5867,9 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidU32Bytes != null) {
@@ -5812,6 +5935,10 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return invalidU32Bytes(this);
   }
@@ -5870,6 +5997,9 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return invalidU32Bytes?.call(this);
   }
@@ -5925,6 +6055,9 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidU32Bytes != null) {
@@ -5934,9 +6067,10 @@ class _$BdkError_InvalidU32BytesImpl implements BdkError_InvalidU32Bytes {
   }
 }
 
-abstract class BdkError_InvalidU32Bytes implements BdkError {
+abstract class BdkError_InvalidU32Bytes extends BdkError {
   const factory BdkError_InvalidU32Bytes(final Uint8List field0) =
       _$BdkError_InvalidU32BytesImpl;
+  const BdkError_InvalidU32Bytes._() : super._();
 
   Uint8List get field0;
   @JsonKey(ignore: true)
@@ -5977,8 +6111,8 @@ class __$$BdkError_GenericImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_GenericImpl implements BdkError_Generic {
-  const _$BdkError_GenericImpl(this.field0);
+class _$BdkError_GenericImpl extends BdkError_Generic {
+  const _$BdkError_GenericImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -6052,6 +6186,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return generic(field0);
   }
@@ -6102,6 +6239,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return generic?.call(field0);
   }
@@ -6152,6 +6292,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (generic != null) {
@@ -6217,6 +6360,10 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return generic(this);
   }
@@ -6275,6 +6422,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return generic?.call(this);
   }
@@ -6330,6 +6480,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (generic != null) {
@@ -6339,8 +6492,9 @@ class _$BdkError_GenericImpl implements BdkError_Generic {
   }
 }
 
-abstract class BdkError_Generic implements BdkError {
+abstract class BdkError_Generic extends BdkError {
   const factory BdkError_Generic(final String field0) = _$BdkError_GenericImpl;
+  const BdkError_Generic._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -6370,8 +6524,8 @@ class __$$BdkError_ScriptDoesntHaveAddressFormImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_ScriptDoesntHaveAddressFormImpl
-    implements BdkError_ScriptDoesntHaveAddressForm {
-  const _$BdkError_ScriptDoesntHaveAddressFormImpl();
+    extends BdkError_ScriptDoesntHaveAddressForm {
+  const _$BdkError_ScriptDoesntHaveAddressFormImpl() : super._();
 
   @override
   String toString() {
@@ -6434,6 +6588,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return scriptDoesntHaveAddressForm();
   }
@@ -6484,6 +6641,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return scriptDoesntHaveAddressForm?.call();
   }
@@ -6534,6 +6694,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (scriptDoesntHaveAddressForm != null) {
@@ -6599,6 +6762,10 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return scriptDoesntHaveAddressForm(this);
   }
@@ -6657,6 +6824,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return scriptDoesntHaveAddressForm?.call(this);
   }
@@ -6712,6 +6882,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (scriptDoesntHaveAddressForm != null) {
@@ -6721,9 +6894,10 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   }
 }
 
-abstract class BdkError_ScriptDoesntHaveAddressForm implements BdkError {
+abstract class BdkError_ScriptDoesntHaveAddressForm extends BdkError {
   const factory BdkError_ScriptDoesntHaveAddressForm() =
       _$BdkError_ScriptDoesntHaveAddressFormImpl;
+  const BdkError_ScriptDoesntHaveAddressForm._() : super._();
 }
 
 /// @nodoc
@@ -6745,8 +6919,8 @@ class __$$BdkError_NoRecipientsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
-  const _$BdkError_NoRecipientsImpl();
+class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
+  const _$BdkError_NoRecipientsImpl() : super._();
 
   @override
   String toString() {
@@ -6809,6 +6983,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return noRecipients();
   }
@@ -6859,6 +7036,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return noRecipients?.call();
   }
@@ -6909,6 +7089,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (noRecipients != null) {
@@ -6974,6 +7157,10 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return noRecipients(this);
   }
@@ -7032,6 +7219,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return noRecipients?.call(this);
   }
@@ -7087,6 +7277,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (noRecipients != null) {
@@ -7096,8 +7289,9 @@ class _$BdkError_NoRecipientsImpl implements BdkError_NoRecipients {
   }
 }
 
-abstract class BdkError_NoRecipients implements BdkError {
+abstract class BdkError_NoRecipients extends BdkError {
   const factory BdkError_NoRecipients() = _$BdkError_NoRecipientsImpl;
+  const BdkError_NoRecipients._() : super._();
 }
 
 /// @nodoc
@@ -7120,8 +7314,8 @@ class __$$BdkError_NoUtxosSelectedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
-  const _$BdkError_NoUtxosSelectedImpl();
+class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
+  const _$BdkError_NoUtxosSelectedImpl() : super._();
 
   @override
   String toString() {
@@ -7184,6 +7378,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return noUtxosSelected();
   }
@@ -7234,6 +7431,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return noUtxosSelected?.call();
   }
@@ -7284,6 +7484,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (noUtxosSelected != null) {
@@ -7349,6 +7552,10 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return noUtxosSelected(this);
   }
@@ -7407,6 +7614,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return noUtxosSelected?.call(this);
   }
@@ -7462,6 +7672,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (noUtxosSelected != null) {
@@ -7471,8 +7684,9 @@ class _$BdkError_NoUtxosSelectedImpl implements BdkError_NoUtxosSelected {
   }
 }
 
-abstract class BdkError_NoUtxosSelected implements BdkError {
+abstract class BdkError_NoUtxosSelected extends BdkError {
   const factory BdkError_NoUtxosSelected() = _$BdkError_NoUtxosSelectedImpl;
+  const BdkError_NoUtxosSelected._() : super._();
 }
 
 /// @nodoc
@@ -7511,8 +7725,8 @@ class __$$BdkError_OutputBelowDustLimitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_OutputBelowDustLimitImpl
-    implements BdkError_OutputBelowDustLimit {
-  const _$BdkError_OutputBelowDustLimitImpl(this.field0);
+    extends BdkError_OutputBelowDustLimit {
+  const _$BdkError_OutputBelowDustLimitImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -7587,6 +7801,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return outputBelowDustLimit(field0);
   }
@@ -7637,6 +7854,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return outputBelowDustLimit?.call(field0);
   }
@@ -7687,6 +7907,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (outputBelowDustLimit != null) {
@@ -7752,6 +7975,10 @@ class _$BdkError_OutputBelowDustLimitImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return outputBelowDustLimit(this);
   }
@@ -7810,6 +8037,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return outputBelowDustLimit?.call(this);
   }
@@ -7865,6 +8095,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (outputBelowDustLimit != null) {
@@ -7874,9 +8107,10 @@ class _$BdkError_OutputBelowDustLimitImpl
   }
 }
 
-abstract class BdkError_OutputBelowDustLimit implements BdkError {
+abstract class BdkError_OutputBelowDustLimit extends BdkError {
   const factory BdkError_OutputBelowDustLimit(final int field0) =
       _$BdkError_OutputBelowDustLimitImpl;
+  const BdkError_OutputBelowDustLimit._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -7925,9 +8159,10 @@ class __$$BdkError_InsufficientFundsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
+class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   const _$BdkError_InsufficientFundsImpl(
-      {required this.needed, required this.available});
+      {required this.needed, required this.available})
+      : super._();
 
   /// Sats needed for some transaction
   @override
@@ -8008,6 +8243,9 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return insufficientFunds(needed, available);
   }
@@ -8058,6 +8296,9 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return insufficientFunds?.call(needed, available);
   }
@@ -8108,6 +8349,9 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (insufficientFunds != null) {
@@ -8173,6 +8417,10 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return insufficientFunds(this);
   }
@@ -8231,6 +8479,9 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return insufficientFunds?.call(this);
   }
@@ -8286,6 +8537,9 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (insufficientFunds != null) {
@@ -8295,10 +8549,11 @@ class _$BdkError_InsufficientFundsImpl implements BdkError_InsufficientFunds {
   }
 }
 
-abstract class BdkError_InsufficientFunds implements BdkError {
+abstract class BdkError_InsufficientFunds extends BdkError {
   const factory BdkError_InsufficientFunds(
       {required final int needed,
       required final int available}) = _$BdkError_InsufficientFundsImpl;
+  const BdkError_InsufficientFunds._() : super._();
 
   /// Sats needed for some transaction
   int get needed;
@@ -8331,8 +8586,8 @@ class __$$BdkError_BnBTotalTriesExceededImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_BnBTotalTriesExceededImpl
-    implements BdkError_BnBTotalTriesExceeded {
-  const _$BdkError_BnBTotalTriesExceededImpl();
+    extends BdkError_BnBTotalTriesExceeded {
+  const _$BdkError_BnBTotalTriesExceededImpl() : super._();
 
   @override
   String toString() {
@@ -8395,6 +8650,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return bnBTotalTriesExceeded();
   }
@@ -8445,6 +8703,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return bnBTotalTriesExceeded?.call();
   }
@@ -8495,6 +8756,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bnBTotalTriesExceeded != null) {
@@ -8560,6 +8824,10 @@ class _$BdkError_BnBTotalTriesExceededImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return bnBTotalTriesExceeded(this);
   }
@@ -8618,6 +8886,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return bnBTotalTriesExceeded?.call(this);
   }
@@ -8673,6 +8944,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bnBTotalTriesExceeded != null) {
@@ -8682,9 +8956,10 @@ class _$BdkError_BnBTotalTriesExceededImpl
   }
 }
 
-abstract class BdkError_BnBTotalTriesExceeded implements BdkError {
+abstract class BdkError_BnBTotalTriesExceeded extends BdkError {
   const factory BdkError_BnBTotalTriesExceeded() =
       _$BdkError_BnBTotalTriesExceededImpl;
+  const BdkError_BnBTotalTriesExceeded._() : super._();
 }
 
 /// @nodoc
@@ -8707,8 +8982,8 @@ class __$$BdkError_BnBNoExactMatchImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
-  const _$BdkError_BnBNoExactMatchImpl();
+class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
+  const _$BdkError_BnBNoExactMatchImpl() : super._();
 
   @override
   String toString() {
@@ -8771,6 +9046,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return bnBNoExactMatch();
   }
@@ -8821,6 +9099,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return bnBNoExactMatch?.call();
   }
@@ -8871,6 +9152,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bnBNoExactMatch != null) {
@@ -8936,6 +9220,10 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return bnBNoExactMatch(this);
   }
@@ -8994,6 +9282,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return bnBNoExactMatch?.call(this);
   }
@@ -9049,6 +9340,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bnBNoExactMatch != null) {
@@ -9058,8 +9352,9 @@ class _$BdkError_BnBNoExactMatchImpl implements BdkError_BnBNoExactMatch {
   }
 }
 
-abstract class BdkError_BnBNoExactMatch implements BdkError {
+abstract class BdkError_BnBNoExactMatch extends BdkError {
   const factory BdkError_BnBNoExactMatch() = _$BdkError_BnBNoExactMatchImpl;
+  const BdkError_BnBNoExactMatch._() : super._();
 }
 
 /// @nodoc
@@ -9080,8 +9375,8 @@ class __$$BdkError_UnknownUtxoImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
-  const _$BdkError_UnknownUtxoImpl();
+class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
+  const _$BdkError_UnknownUtxoImpl() : super._();
 
   @override
   String toString() {
@@ -9144,6 +9439,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return unknownUtxo();
   }
@@ -9194,6 +9492,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return unknownUtxo?.call();
   }
@@ -9244,6 +9545,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (unknownUtxo != null) {
@@ -9309,6 +9613,10 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return unknownUtxo(this);
   }
@@ -9367,6 +9675,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return unknownUtxo?.call(this);
   }
@@ -9422,6 +9733,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (unknownUtxo != null) {
@@ -9431,8 +9745,9 @@ class _$BdkError_UnknownUtxoImpl implements BdkError_UnknownUtxo {
   }
 }
 
-abstract class BdkError_UnknownUtxo implements BdkError {
+abstract class BdkError_UnknownUtxo extends BdkError {
   const factory BdkError_UnknownUtxo() = _$BdkError_UnknownUtxoImpl;
+  const BdkError_UnknownUtxo._() : super._();
 }
 
 /// @nodoc
@@ -9455,9 +9770,8 @@ class __$$BdkError_TransactionNotFoundImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_TransactionNotFoundImpl
-    implements BdkError_TransactionNotFound {
-  const _$BdkError_TransactionNotFoundImpl();
+class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
+  const _$BdkError_TransactionNotFoundImpl() : super._();
 
   @override
   String toString() {
@@ -9520,6 +9834,9 @@ class _$BdkError_TransactionNotFoundImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return transactionNotFound();
   }
@@ -9570,6 +9887,9 @@ class _$BdkError_TransactionNotFoundImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return transactionNotFound?.call();
   }
@@ -9620,6 +9940,9 @@ class _$BdkError_TransactionNotFoundImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (transactionNotFound != null) {
@@ -9685,6 +10008,10 @@ class _$BdkError_TransactionNotFoundImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return transactionNotFound(this);
   }
@@ -9743,6 +10070,9 @@ class _$BdkError_TransactionNotFoundImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return transactionNotFound?.call(this);
   }
@@ -9798,6 +10128,9 @@ class _$BdkError_TransactionNotFoundImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (transactionNotFound != null) {
@@ -9807,9 +10140,10 @@ class _$BdkError_TransactionNotFoundImpl
   }
 }
 
-abstract class BdkError_TransactionNotFound implements BdkError {
+abstract class BdkError_TransactionNotFound extends BdkError {
   const factory BdkError_TransactionNotFound() =
       _$BdkError_TransactionNotFoundImpl;
+  const BdkError_TransactionNotFound._() : super._();
 }
 
 /// @nodoc
@@ -9833,8 +10167,8 @@ class __$$BdkError_TransactionConfirmedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_TransactionConfirmedImpl
-    implements BdkError_TransactionConfirmed {
-  const _$BdkError_TransactionConfirmedImpl();
+    extends BdkError_TransactionConfirmed {
+  const _$BdkError_TransactionConfirmedImpl() : super._();
 
   @override
   String toString() {
@@ -9897,6 +10231,9 @@ class _$BdkError_TransactionConfirmedImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return transactionConfirmed();
   }
@@ -9947,6 +10284,9 @@ class _$BdkError_TransactionConfirmedImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return transactionConfirmed?.call();
   }
@@ -9997,6 +10337,9 @@ class _$BdkError_TransactionConfirmedImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (transactionConfirmed != null) {
@@ -10062,6 +10405,10 @@ class _$BdkError_TransactionConfirmedImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return transactionConfirmed(this);
   }
@@ -10120,6 +10467,9 @@ class _$BdkError_TransactionConfirmedImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return transactionConfirmed?.call(this);
   }
@@ -10175,6 +10525,9 @@ class _$BdkError_TransactionConfirmedImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (transactionConfirmed != null) {
@@ -10184,9 +10537,10 @@ class _$BdkError_TransactionConfirmedImpl
   }
 }
 
-abstract class BdkError_TransactionConfirmed implements BdkError {
+abstract class BdkError_TransactionConfirmed extends BdkError {
   const factory BdkError_TransactionConfirmed() =
       _$BdkError_TransactionConfirmedImpl;
+  const BdkError_TransactionConfirmed._() : super._();
 }
 
 /// @nodoc
@@ -10211,8 +10565,8 @@ class __$$BdkError_IrreplaceableTransactionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_IrreplaceableTransactionImpl
-    implements BdkError_IrreplaceableTransaction {
-  const _$BdkError_IrreplaceableTransactionImpl();
+    extends BdkError_IrreplaceableTransaction {
+  const _$BdkError_IrreplaceableTransactionImpl() : super._();
 
   @override
   String toString() {
@@ -10275,6 +10629,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return irreplaceableTransaction();
   }
@@ -10325,6 +10682,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return irreplaceableTransaction?.call();
   }
@@ -10375,6 +10735,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (irreplaceableTransaction != null) {
@@ -10440,6 +10803,10 @@ class _$BdkError_IrreplaceableTransactionImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return irreplaceableTransaction(this);
   }
@@ -10498,6 +10865,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return irreplaceableTransaction?.call(this);
   }
@@ -10553,6 +10923,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (irreplaceableTransaction != null) {
@@ -10562,9 +10935,10 @@ class _$BdkError_IrreplaceableTransactionImpl
   }
 }
 
-abstract class BdkError_IrreplaceableTransaction implements BdkError {
+abstract class BdkError_IrreplaceableTransaction extends BdkError {
   const factory BdkError_IrreplaceableTransaction() =
       _$BdkError_IrreplaceableTransactionImpl;
+  const BdkError_IrreplaceableTransaction._() : super._();
 }
 
 /// @nodoc
@@ -10602,8 +10976,8 @@ class __$$BdkError_FeeRateTooLowImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
-  const _$BdkError_FeeRateTooLowImpl({required this.needed});
+class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
+  const _$BdkError_FeeRateTooLowImpl({required this.needed}) : super._();
 
   /// Required fee rate (satoshi/vbyte)
   @override
@@ -10678,6 +11052,9 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return feeRateTooLow(needed);
   }
@@ -10728,6 +11105,9 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return feeRateTooLow?.call(needed);
   }
@@ -10778,6 +11158,9 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeRateTooLow != null) {
@@ -10843,6 +11226,10 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return feeRateTooLow(this);
   }
@@ -10901,6 +11288,9 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return feeRateTooLow?.call(this);
   }
@@ -10956,6 +11346,9 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeRateTooLow != null) {
@@ -10965,9 +11358,10 @@ class _$BdkError_FeeRateTooLowImpl implements BdkError_FeeRateTooLow {
   }
 }
 
-abstract class BdkError_FeeRateTooLow implements BdkError {
+abstract class BdkError_FeeRateTooLow extends BdkError {
   const factory BdkError_FeeRateTooLow({required final double needed}) =
       _$BdkError_FeeRateTooLowImpl;
+  const BdkError_FeeRateTooLow._() : super._();
 
   /// Required fee rate (satoshi/vbyte)
   double get needed;
@@ -11009,8 +11403,8 @@ class __$$BdkError_FeeTooLowImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
-  const _$BdkError_FeeTooLowImpl({required this.needed});
+class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
+  const _$BdkError_FeeTooLowImpl({required this.needed}) : super._();
 
   /// Required fee absolute value (satoshi)
   @override
@@ -11085,6 +11479,9 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return feeTooLow(needed);
   }
@@ -11135,6 +11532,9 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return feeTooLow?.call(needed);
   }
@@ -11185,6 +11585,9 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeTooLow != null) {
@@ -11250,6 +11653,10 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return feeTooLow(this);
   }
@@ -11308,6 +11715,9 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return feeTooLow?.call(this);
   }
@@ -11363,6 +11773,9 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeTooLow != null) {
@@ -11372,9 +11785,10 @@ class _$BdkError_FeeTooLowImpl implements BdkError_FeeTooLow {
   }
 }
 
-abstract class BdkError_FeeTooLow implements BdkError {
+abstract class BdkError_FeeTooLow extends BdkError {
   const factory BdkError_FeeTooLow({required final int needed}) =
       _$BdkError_FeeTooLowImpl;
+  const BdkError_FeeTooLow._() : super._();
 
   /// Required fee absolute value (satoshi)
   int get needed;
@@ -11403,8 +11817,8 @@ class __$$BdkError_FeeRateUnavailableImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
-  const _$BdkError_FeeRateUnavailableImpl();
+class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
+  const _$BdkError_FeeRateUnavailableImpl() : super._();
 
   @override
   String toString() {
@@ -11467,6 +11881,9 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return feeRateUnavailable();
   }
@@ -11517,6 +11934,9 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return feeRateUnavailable?.call();
   }
@@ -11567,6 +11987,9 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeRateUnavailable != null) {
@@ -11632,6 +12055,10 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return feeRateUnavailable(this);
   }
@@ -11690,6 +12117,9 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return feeRateUnavailable?.call(this);
   }
@@ -11745,6 +12175,9 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (feeRateUnavailable != null) {
@@ -11754,9 +12187,10 @@ class _$BdkError_FeeRateUnavailableImpl implements BdkError_FeeRateUnavailable {
   }
 }
 
-abstract class BdkError_FeeRateUnavailable implements BdkError {
+abstract class BdkError_FeeRateUnavailable extends BdkError {
   const factory BdkError_FeeRateUnavailable() =
       _$BdkError_FeeRateUnavailableImpl;
+  const BdkError_FeeRateUnavailable._() : super._();
 }
 
 /// @nodoc
@@ -11794,8 +12228,8 @@ class __$$BdkError_MissingKeyOriginImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
-  const _$BdkError_MissingKeyOriginImpl(this.field0);
+class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
+  const _$BdkError_MissingKeyOriginImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -11869,6 +12303,9 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return missingKeyOrigin(field0);
   }
@@ -11919,6 +12356,9 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return missingKeyOrigin?.call(field0);
   }
@@ -11969,6 +12409,9 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (missingKeyOrigin != null) {
@@ -12034,6 +12477,10 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return missingKeyOrigin(this);
   }
@@ -12092,6 +12539,9 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return missingKeyOrigin?.call(this);
   }
@@ -12147,6 +12597,9 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (missingKeyOrigin != null) {
@@ -12156,9 +12609,10 @@ class _$BdkError_MissingKeyOriginImpl implements BdkError_MissingKeyOrigin {
   }
 }
 
-abstract class BdkError_MissingKeyOrigin implements BdkError {
+abstract class BdkError_MissingKeyOrigin extends BdkError {
   const factory BdkError_MissingKeyOrigin(final String field0) =
       _$BdkError_MissingKeyOriginImpl;
+  const BdkError_MissingKeyOrigin._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -12199,8 +12653,8 @@ class __$$BdkError_KeyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_KeyImpl implements BdkError_Key {
-  const _$BdkError_KeyImpl(this.field0);
+class _$BdkError_KeyImpl extends BdkError_Key {
+  const _$BdkError_KeyImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -12273,6 +12727,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return key(field0);
   }
@@ -12323,6 +12780,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return key?.call(field0);
   }
@@ -12373,6 +12833,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (key != null) {
@@ -12438,6 +12901,10 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return key(this);
   }
@@ -12496,6 +12963,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return key?.call(this);
   }
@@ -12551,6 +13021,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (key != null) {
@@ -12560,8 +13033,9 @@ class _$BdkError_KeyImpl implements BdkError_Key {
   }
 }
 
-abstract class BdkError_Key implements BdkError {
+abstract class BdkError_Key extends BdkError {
   const factory BdkError_Key(final String field0) = _$BdkError_KeyImpl;
+  const BdkError_Key._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -12589,8 +13063,8 @@ class __$$BdkError_ChecksumMismatchImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
-  const _$BdkError_ChecksumMismatchImpl();
+class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
+  const _$BdkError_ChecksumMismatchImpl() : super._();
 
   @override
   String toString() {
@@ -12653,6 +13127,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return checksumMismatch();
   }
@@ -12703,6 +13180,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return checksumMismatch?.call();
   }
@@ -12753,6 +13233,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (checksumMismatch != null) {
@@ -12818,6 +13301,10 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return checksumMismatch(this);
   }
@@ -12876,6 +13363,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return checksumMismatch?.call(this);
   }
@@ -12931,6 +13421,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (checksumMismatch != null) {
@@ -12940,8 +13433,9 @@ class _$BdkError_ChecksumMismatchImpl implements BdkError_ChecksumMismatch {
   }
 }
 
-abstract class BdkError_ChecksumMismatch implements BdkError {
+abstract class BdkError_ChecksumMismatch extends BdkError {
   const factory BdkError_ChecksumMismatch() = _$BdkError_ChecksumMismatchImpl;
+  const BdkError_ChecksumMismatch._() : super._();
 }
 
 /// @nodoc
@@ -12980,8 +13474,8 @@ class __$$BdkError_SpendingPolicyRequiredImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_SpendingPolicyRequiredImpl
-    implements BdkError_SpendingPolicyRequired {
-  const _$BdkError_SpendingPolicyRequiredImpl(this.field0);
+    extends BdkError_SpendingPolicyRequired {
+  const _$BdkError_SpendingPolicyRequiredImpl(this.field0) : super._();
 
   @override
   final KeychainKind field0;
@@ -13056,6 +13550,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return spendingPolicyRequired(field0);
   }
@@ -13106,6 +13603,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return spendingPolicyRequired?.call(field0);
   }
@@ -13156,6 +13656,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (spendingPolicyRequired != null) {
@@ -13221,6 +13724,10 @@ class _$BdkError_SpendingPolicyRequiredImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return spendingPolicyRequired(this);
   }
@@ -13279,6 +13786,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return spendingPolicyRequired?.call(this);
   }
@@ -13334,6 +13844,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (spendingPolicyRequired != null) {
@@ -13343,9 +13856,10 @@ class _$BdkError_SpendingPolicyRequiredImpl
   }
 }
 
-abstract class BdkError_SpendingPolicyRequired implements BdkError {
+abstract class BdkError_SpendingPolicyRequired extends BdkError {
   const factory BdkError_SpendingPolicyRequired(final KeychainKind field0) =
       _$BdkError_SpendingPolicyRequiredImpl;
+  const BdkError_SpendingPolicyRequired._() : super._();
 
   KeychainKind get field0;
   @JsonKey(ignore: true)
@@ -13390,8 +13904,8 @@ class __$$BdkError_InvalidPolicyPathErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_InvalidPolicyPathErrorImpl
-    implements BdkError_InvalidPolicyPathError {
-  const _$BdkError_InvalidPolicyPathErrorImpl(this.field0);
+    extends BdkError_InvalidPolicyPathError {
+  const _$BdkError_InvalidPolicyPathErrorImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -13466,6 +13980,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return invalidPolicyPathError(field0);
   }
@@ -13516,6 +14033,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return invalidPolicyPathError?.call(field0);
   }
@@ -13566,6 +14086,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidPolicyPathError != null) {
@@ -13631,6 +14154,10 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return invalidPolicyPathError(this);
   }
@@ -13689,6 +14216,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return invalidPolicyPathError?.call(this);
   }
@@ -13744,6 +14274,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidPolicyPathError != null) {
@@ -13753,9 +14286,10 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   }
 }
 
-abstract class BdkError_InvalidPolicyPathError implements BdkError {
+abstract class BdkError_InvalidPolicyPathError extends BdkError {
   const factory BdkError_InvalidPolicyPathError(final String field0) =
       _$BdkError_InvalidPolicyPathErrorImpl;
+  const BdkError_InvalidPolicyPathError._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -13797,8 +14331,8 @@ class __$$BdkError_SignerImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_SignerImpl implements BdkError_Signer {
-  const _$BdkError_SignerImpl(this.field0);
+class _$BdkError_SignerImpl extends BdkError_Signer {
+  const _$BdkError_SignerImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -13872,6 +14406,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return signer(field0);
   }
@@ -13922,6 +14459,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return signer?.call(field0);
   }
@@ -13972,6 +14512,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (signer != null) {
@@ -14037,6 +14580,10 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return signer(this);
   }
@@ -14095,6 +14642,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return signer?.call(this);
   }
@@ -14150,6 +14700,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (signer != null) {
@@ -14159,8 +14712,9 @@ class _$BdkError_SignerImpl implements BdkError_Signer {
   }
 }
 
-abstract class BdkError_Signer implements BdkError {
+abstract class BdkError_Signer extends BdkError {
   const factory BdkError_Signer(final String field0) = _$BdkError_SignerImpl;
+  const BdkError_Signer._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -14208,9 +14762,10 @@ class __$$BdkError_InvalidNetworkImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
+class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   const _$BdkError_InvalidNetworkImpl(
-      {required this.requested, required this.found});
+      {required this.requested, required this.found})
+      : super._();
 
   /// requested network, for example what is given as bdk-cli option
   @override
@@ -14291,6 +14846,9 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return invalidNetwork(requested, found);
   }
@@ -14341,6 +14899,9 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return invalidNetwork?.call(requested, found);
   }
@@ -14391,6 +14952,9 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidNetwork != null) {
@@ -14456,6 +15020,10 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return invalidNetwork(this);
   }
@@ -14514,6 +15082,9 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return invalidNetwork?.call(this);
   }
@@ -14569,6 +15140,9 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidNetwork != null) {
@@ -14578,10 +15152,11 @@ class _$BdkError_InvalidNetworkImpl implements BdkError_InvalidNetwork {
   }
 }
 
-abstract class BdkError_InvalidNetwork implements BdkError {
+abstract class BdkError_InvalidNetwork extends BdkError {
   const factory BdkError_InvalidNetwork(
       {required final Network requested,
       required final Network found}) = _$BdkError_InvalidNetworkImpl;
+  const BdkError_InvalidNetwork._() : super._();
 
   /// requested network, for example what is given as bdk-cli option
   Network get requested;
@@ -14628,8 +15203,8 @@ class __$$BdkError_InvalidOutpointImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
-  const _$BdkError_InvalidOutpointImpl(this.field0);
+class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
+  const _$BdkError_InvalidOutpointImpl(this.field0) : super._();
 
   @override
   final OutPoint field0;
@@ -14703,6 +15278,9 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return invalidOutpoint(field0);
   }
@@ -14753,6 +15331,9 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return invalidOutpoint?.call(field0);
   }
@@ -14803,6 +15384,9 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidOutpoint != null) {
@@ -14868,6 +15452,10 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return invalidOutpoint(this);
   }
@@ -14926,6 +15514,9 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return invalidOutpoint?.call(this);
   }
@@ -14981,6 +15572,9 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (invalidOutpoint != null) {
@@ -14990,9 +15584,10 @@ class _$BdkError_InvalidOutpointImpl implements BdkError_InvalidOutpoint {
   }
 }
 
-abstract class BdkError_InvalidOutpoint implements BdkError {
+abstract class BdkError_InvalidOutpoint extends BdkError {
   const factory BdkError_InvalidOutpoint(final OutPoint field0) =
       _$BdkError_InvalidOutpointImpl;
+  const BdkError_InvalidOutpoint._() : super._();
 
   OutPoint get field0;
   @JsonKey(ignore: true)
@@ -15033,8 +15628,8 @@ class __$$BdkError_EncodeImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_EncodeImpl implements BdkError_Encode {
-  const _$BdkError_EncodeImpl(this.field0);
+class _$BdkError_EncodeImpl extends BdkError_Encode {
+  const _$BdkError_EncodeImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -15108,6 +15703,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return encode(field0);
   }
@@ -15158,6 +15756,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return encode?.call(field0);
   }
@@ -15208,6 +15809,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (encode != null) {
@@ -15273,6 +15877,10 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return encode(this);
   }
@@ -15331,6 +15939,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return encode?.call(this);
   }
@@ -15386,6 +15997,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (encode != null) {
@@ -15395,8 +16009,9 @@ class _$BdkError_EncodeImpl implements BdkError_Encode {
   }
 }
 
-abstract class BdkError_Encode implements BdkError {
+abstract class BdkError_Encode extends BdkError {
   const factory BdkError_Encode(final String field0) = _$BdkError_EncodeImpl;
+  const BdkError_Encode._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -15437,8 +16052,8 @@ class __$$BdkError_MiniscriptImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
-  const _$BdkError_MiniscriptImpl(this.field0);
+class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
+  const _$BdkError_MiniscriptImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -15512,6 +16127,9 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return miniscript(field0);
   }
@@ -15562,6 +16180,9 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return miniscript?.call(field0);
   }
@@ -15612,6 +16233,9 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (miniscript != null) {
@@ -15677,6 +16301,10 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return miniscript(this);
   }
@@ -15735,6 +16363,9 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return miniscript?.call(this);
   }
@@ -15790,6 +16421,9 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (miniscript != null) {
@@ -15799,9 +16433,10 @@ class _$BdkError_MiniscriptImpl implements BdkError_Miniscript {
   }
 }
 
-abstract class BdkError_Miniscript implements BdkError {
+abstract class BdkError_Miniscript extends BdkError {
   const factory BdkError_Miniscript(final String field0) =
       _$BdkError_MiniscriptImpl;
+  const BdkError_Miniscript._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -15844,8 +16479,8 @@ class __$$BdkError_MiniscriptPsbtImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
-  const _$BdkError_MiniscriptPsbtImpl(this.field0);
+class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
+  const _$BdkError_MiniscriptPsbtImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -15919,6 +16554,9 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return miniscriptPsbt(field0);
   }
@@ -15969,6 +16607,9 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return miniscriptPsbt?.call(field0);
   }
@@ -16019,6 +16660,9 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (miniscriptPsbt != null) {
@@ -16084,6 +16728,10 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return miniscriptPsbt(this);
   }
@@ -16142,6 +16790,9 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return miniscriptPsbt?.call(this);
   }
@@ -16197,6 +16848,9 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (miniscriptPsbt != null) {
@@ -16206,9 +16860,10 @@ class _$BdkError_MiniscriptPsbtImpl implements BdkError_MiniscriptPsbt {
   }
 }
 
-abstract class BdkError_MiniscriptPsbt implements BdkError {
+abstract class BdkError_MiniscriptPsbt extends BdkError {
   const factory BdkError_MiniscriptPsbt(final String field0) =
       _$BdkError_MiniscriptPsbtImpl;
+  const BdkError_MiniscriptPsbt._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -16249,8 +16904,8 @@ class __$$BdkError_Bip32ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_Bip32Impl implements BdkError_Bip32 {
-  const _$BdkError_Bip32Impl(this.field0);
+class _$BdkError_Bip32Impl extends BdkError_Bip32 {
+  const _$BdkError_Bip32Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -16324,6 +16979,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return bip32(field0);
   }
@@ -16374,6 +17032,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return bip32?.call(field0);
   }
@@ -16424,6 +17085,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bip32 != null) {
@@ -16489,6 +17153,10 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return bip32(this);
   }
@@ -16547,6 +17215,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return bip32?.call(this);
   }
@@ -16602,6 +17273,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bip32 != null) {
@@ -16611,8 +17285,9 @@ class _$BdkError_Bip32Impl implements BdkError_Bip32 {
   }
 }
 
-abstract class BdkError_Bip32 implements BdkError {
+abstract class BdkError_Bip32 extends BdkError {
   const factory BdkError_Bip32(final String field0) = _$BdkError_Bip32Impl;
+  const BdkError_Bip32._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -16653,8 +17328,8 @@ class __$$BdkError_Bip39ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_Bip39Impl implements BdkError_Bip39 {
-  const _$BdkError_Bip39Impl(this.field0);
+class _$BdkError_Bip39Impl extends BdkError_Bip39 {
+  const _$BdkError_Bip39Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -16728,6 +17403,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return bip39(field0);
   }
@@ -16778,6 +17456,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return bip39?.call(field0);
   }
@@ -16828,6 +17509,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bip39 != null) {
@@ -16893,6 +17577,10 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return bip39(this);
   }
@@ -16951,6 +17639,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return bip39?.call(this);
   }
@@ -17006,6 +17697,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (bip39 != null) {
@@ -17015,8 +17709,9 @@ class _$BdkError_Bip39Impl implements BdkError_Bip39 {
   }
 }
 
-abstract class BdkError_Bip39 implements BdkError {
+abstract class BdkError_Bip39 extends BdkError {
   const factory BdkError_Bip39(final String field0) = _$BdkError_Bip39Impl;
+  const BdkError_Bip39._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -17057,8 +17752,8 @@ class __$$BdkError_Secp256k1ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
-  const _$BdkError_Secp256k1Impl(this.field0);
+class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
+  const _$BdkError_Secp256k1Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -17132,6 +17827,9 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return secp256K1(field0);
   }
@@ -17182,6 +17880,9 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return secp256K1?.call(field0);
   }
@@ -17232,6 +17933,9 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (secp256K1 != null) {
@@ -17297,6 +18001,10 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return secp256K1(this);
   }
@@ -17355,6 +18063,9 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return secp256K1?.call(this);
   }
@@ -17410,6 +18121,9 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (secp256K1 != null) {
@@ -17419,9 +18133,10 @@ class _$BdkError_Secp256k1Impl implements BdkError_Secp256k1 {
   }
 }
 
-abstract class BdkError_Secp256k1 implements BdkError {
+abstract class BdkError_Secp256k1 extends BdkError {
   const factory BdkError_Secp256k1(final String field0) =
       _$BdkError_Secp256k1Impl;
+  const BdkError_Secp256k1._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -17462,8 +18177,8 @@ class __$$BdkError_JsonImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_JsonImpl implements BdkError_Json {
-  const _$BdkError_JsonImpl(this.field0);
+class _$BdkError_JsonImpl extends BdkError_Json {
+  const _$BdkError_JsonImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -17536,6 +18251,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return json(field0);
   }
@@ -17586,6 +18304,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return json?.call(field0);
   }
@@ -17636,6 +18357,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (json != null) {
@@ -17701,6 +18425,10 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return json(this);
   }
@@ -17759,6 +18487,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return json?.call(this);
   }
@@ -17814,6 +18545,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (json != null) {
@@ -17823,8 +18557,9 @@ class _$BdkError_JsonImpl implements BdkError_Json {
   }
 }
 
-abstract class BdkError_Json implements BdkError {
+abstract class BdkError_Json extends BdkError {
   const factory BdkError_Json(final String field0) = _$BdkError_JsonImpl;
+  const BdkError_Json._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -17865,8 +18600,8 @@ class __$$BdkError_PsbtImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_PsbtImpl implements BdkError_Psbt {
-  const _$BdkError_PsbtImpl(this.field0);
+class _$BdkError_PsbtImpl extends BdkError_Psbt {
+  const _$BdkError_PsbtImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -17939,6 +18674,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return psbt(field0);
   }
@@ -17989,6 +18727,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return psbt?.call(field0);
   }
@@ -18039,6 +18780,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (psbt != null) {
@@ -18104,6 +18848,10 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return psbt(this);
   }
@@ -18162,6 +18910,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return psbt?.call(this);
   }
@@ -18217,6 +18968,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (psbt != null) {
@@ -18226,8 +18980,9 @@ class _$BdkError_PsbtImpl implements BdkError_Psbt {
   }
 }
 
-abstract class BdkError_Psbt implements BdkError {
+abstract class BdkError_Psbt extends BdkError {
   const factory BdkError_Psbt(final String field0) = _$BdkError_PsbtImpl;
+  const BdkError_Psbt._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -18268,8 +19023,8 @@ class __$$BdkError_PsbtParseImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
-  const _$BdkError_PsbtParseImpl(this.field0);
+class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
+  const _$BdkError_PsbtParseImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -18343,6 +19098,9 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return psbtParse(field0);
   }
@@ -18393,6 +19151,9 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return psbtParse?.call(field0);
   }
@@ -18443,6 +19204,9 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (psbtParse != null) {
@@ -18508,6 +19272,10 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return psbtParse(this);
   }
@@ -18566,6 +19334,9 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return psbtParse?.call(this);
   }
@@ -18621,6 +19392,9 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (psbtParse != null) {
@@ -18630,9 +19404,10 @@ class _$BdkError_PsbtParseImpl implements BdkError_PsbtParse {
   }
 }
 
-abstract class BdkError_PsbtParse implements BdkError {
+abstract class BdkError_PsbtParse extends BdkError {
   const factory BdkError_PsbtParse(final String field0) =
       _$BdkError_PsbtParseImpl;
+  const BdkError_PsbtParse._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -18681,8 +19456,9 @@ class __$$BdkError_MissingCachedScriptsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BdkError_MissingCachedScriptsImpl
-    implements BdkError_MissingCachedScripts {
-  const _$BdkError_MissingCachedScriptsImpl(this.field0, this.field1);
+    extends BdkError_MissingCachedScripts {
+  const _$BdkError_MissingCachedScriptsImpl(this.field0, this.field1)
+      : super._();
 
   @override
   final int field0;
@@ -18760,6 +19536,9 @@ class _$BdkError_MissingCachedScriptsImpl
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return missingCachedScripts(field0, field1);
   }
@@ -18810,6 +19589,9 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return missingCachedScripts?.call(field0, field1);
   }
@@ -18860,6 +19642,9 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (missingCachedScripts != null) {
@@ -18925,6 +19710,10 @@ class _$BdkError_MissingCachedScriptsImpl
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return missingCachedScripts(this);
   }
@@ -18983,6 +19772,9 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return missingCachedScripts?.call(this);
   }
@@ -19038,6 +19830,9 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (missingCachedScripts != null) {
@@ -19047,9 +19842,10 @@ class _$BdkError_MissingCachedScriptsImpl
   }
 }
 
-abstract class BdkError_MissingCachedScripts implements BdkError {
+abstract class BdkError_MissingCachedScripts extends BdkError {
   const factory BdkError_MissingCachedScripts(
       final int field0, final int field1) = _$BdkError_MissingCachedScriptsImpl;
+  const BdkError_MissingCachedScripts._() : super._();
 
   int get field0;
   int get field1;
@@ -19092,8 +19888,8 @@ class __$$BdkError_ElectrumImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_ElectrumImpl implements BdkError_Electrum {
-  const _$BdkError_ElectrumImpl(this.field0);
+class _$BdkError_ElectrumImpl extends BdkError_Electrum {
+  const _$BdkError_ElectrumImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -19167,6 +19963,9 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return electrum(field0);
   }
@@ -19217,6 +20016,9 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return electrum?.call(field0);
   }
@@ -19267,6 +20069,9 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (electrum != null) {
@@ -19332,6 +20137,10 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return electrum(this);
   }
@@ -19390,6 +20199,9 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return electrum?.call(this);
   }
@@ -19445,6 +20257,9 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (electrum != null) {
@@ -19454,9 +20269,10 @@ class _$BdkError_ElectrumImpl implements BdkError_Electrum {
   }
 }
 
-abstract class BdkError_Electrum implements BdkError {
+abstract class BdkError_Electrum extends BdkError {
   const factory BdkError_Electrum(final String field0) =
       _$BdkError_ElectrumImpl;
+  const BdkError_Electrum._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -19497,8 +20313,8 @@ class __$$BdkError_EsploraImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_EsploraImpl implements BdkError_Esplora {
-  const _$BdkError_EsploraImpl(this.field0);
+class _$BdkError_EsploraImpl extends BdkError_Esplora {
+  const _$BdkError_EsploraImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -19572,6 +20388,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return esplora(field0);
   }
@@ -19622,6 +20441,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return esplora?.call(field0);
   }
@@ -19672,6 +20494,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (esplora != null) {
@@ -19737,6 +20562,10 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return esplora(this);
   }
@@ -19795,6 +20624,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return esplora?.call(this);
   }
@@ -19850,6 +20682,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (esplora != null) {
@@ -19859,8 +20694,9 @@ class _$BdkError_EsploraImpl implements BdkError_Esplora {
   }
 }
 
-abstract class BdkError_Esplora implements BdkError {
+abstract class BdkError_Esplora extends BdkError {
   const factory BdkError_Esplora(final String field0) = _$BdkError_EsploraImpl;
+  const BdkError_Esplora._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -19901,8 +20737,8 @@ class __$$BdkError_SledImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_SledImpl implements BdkError_Sled {
-  const _$BdkError_SledImpl(this.field0);
+class _$BdkError_SledImpl extends BdkError_Sled {
+  const _$BdkError_SledImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -19975,6 +20811,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return sled(field0);
   }
@@ -20025,6 +20864,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return sled?.call(field0);
   }
@@ -20075,6 +20917,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (sled != null) {
@@ -20140,6 +20985,10 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return sled(this);
   }
@@ -20198,6 +21047,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return sled?.call(this);
   }
@@ -20253,6 +21105,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (sled != null) {
@@ -20262,8 +21117,9 @@ class _$BdkError_SledImpl implements BdkError_Sled {
   }
 }
 
-abstract class BdkError_Sled implements BdkError {
+abstract class BdkError_Sled extends BdkError {
   const factory BdkError_Sled(final String field0) = _$BdkError_SledImpl;
+  const BdkError_Sled._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -20304,8 +21160,8 @@ class __$$BdkError_RpcImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_RpcImpl implements BdkError_Rpc {
-  const _$BdkError_RpcImpl(this.field0);
+class _$BdkError_RpcImpl extends BdkError_Rpc {
+  const _$BdkError_RpcImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -20378,6 +21234,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return rpc(field0);
   }
@@ -20428,6 +21287,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return rpc?.call(field0);
   }
@@ -20478,6 +21340,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (rpc != null) {
@@ -20543,6 +21408,10 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return rpc(this);
   }
@@ -20601,6 +21470,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return rpc?.call(this);
   }
@@ -20656,6 +21528,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (rpc != null) {
@@ -20665,8 +21540,9 @@ class _$BdkError_RpcImpl implements BdkError_Rpc {
   }
 }
 
-abstract class BdkError_Rpc implements BdkError {
+abstract class BdkError_Rpc extends BdkError {
   const factory BdkError_Rpc(final String field0) = _$BdkError_RpcImpl;
+  const BdkError_Rpc._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -20707,8 +21583,8 @@ class __$$BdkError_RusqliteImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
-  const _$BdkError_RusqliteImpl(this.field0);
+class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
+  const _$BdkError_RusqliteImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -20782,6 +21658,9 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     required TResult Function(String field0) sled,
     required TResult Function(String field0) rpc,
     required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
   }) {
     return rusqlite(field0);
   }
@@ -20832,6 +21711,9 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     TResult? Function(String field0)? sled,
     TResult? Function(String field0)? rpc,
     TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
   }) {
     return rusqlite?.call(field0);
   }
@@ -20882,6 +21764,9 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     TResult Function(String field0)? sled,
     TResult Function(String field0)? rpc,
     TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (rusqlite != null) {
@@ -20947,6 +21832,10 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     required TResult Function(BdkError_Sled value) sled,
     required TResult Function(BdkError_Rpc value) rpc,
     required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
   }) {
     return rusqlite(this);
   }
@@ -21005,6 +21894,9 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     TResult? Function(BdkError_Sled value)? sled,
     TResult? Function(BdkError_Rpc value)? rpc,
     TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
   }) {
     return rusqlite?.call(this);
   }
@@ -21060,6 +21952,9 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
     TResult Function(BdkError_Sled value)? sled,
     TResult Function(BdkError_Rpc value)? rpc,
     TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
     required TResult orElse(),
   }) {
     if (rusqlite != null) {
@@ -21069,14 +21964,1295 @@ class _$BdkError_RusqliteImpl implements BdkError_Rusqlite {
   }
 }
 
-abstract class BdkError_Rusqlite implements BdkError {
+abstract class BdkError_Rusqlite extends BdkError {
   const factory BdkError_Rusqlite(final String field0) =
       _$BdkError_RusqliteImpl;
+  const BdkError_Rusqlite._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
   _$$BdkError_RusqliteImplCopyWith<_$BdkError_RusqliteImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BdkError_InvalidInputImplCopyWith<$Res> {
+  factory _$$BdkError_InvalidInputImplCopyWith(
+          _$BdkError_InvalidInputImpl value,
+          $Res Function(_$BdkError_InvalidInputImpl) then) =
+      __$$BdkError_InvalidInputImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$BdkError_InvalidInputImplCopyWithImpl<$Res>
+    extends _$BdkErrorCopyWithImpl<$Res, _$BdkError_InvalidInputImpl>
+    implements _$$BdkError_InvalidInputImplCopyWith<$Res> {
+  __$$BdkError_InvalidInputImplCopyWithImpl(_$BdkError_InvalidInputImpl _value,
+      $Res Function(_$BdkError_InvalidInputImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$BdkError_InvalidInputImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
+  const _$BdkError_InvalidInputImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'BdkError.invalidInput(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BdkError_InvalidInputImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BdkError_InvalidInputImplCopyWith<_$BdkError_InvalidInputImpl>
+      get copyWith => __$$BdkError_InvalidInputImplCopyWithImpl<
+          _$BdkError_InvalidInputImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(HexError field0) hex,
+    required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(AddressError field0) address,
+    required TResult Function(DescriptorError field0) descriptor,
+    required TResult Function(Uint8List field0) invalidU32Bytes,
+    required TResult Function(String field0) generic,
+    required TResult Function() scriptDoesntHaveAddressForm,
+    required TResult Function() noRecipients,
+    required TResult Function() noUtxosSelected,
+    required TResult Function(int field0) outputBelowDustLimit,
+    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function() bnBTotalTriesExceeded,
+    required TResult Function() bnBNoExactMatch,
+    required TResult Function() unknownUtxo,
+    required TResult Function() transactionNotFound,
+    required TResult Function() transactionConfirmed,
+    required TResult Function() irreplaceableTransaction,
+    required TResult Function(double needed) feeRateTooLow,
+    required TResult Function(int needed) feeTooLow,
+    required TResult Function() feeRateUnavailable,
+    required TResult Function(String field0) missingKeyOrigin,
+    required TResult Function(String field0) key,
+    required TResult Function() checksumMismatch,
+    required TResult Function(KeychainKind field0) spendingPolicyRequired,
+    required TResult Function(String field0) invalidPolicyPathError,
+    required TResult Function(String field0) signer,
+    required TResult Function(Network requested, Network found) invalidNetwork,
+    required TResult Function(OutPoint field0) invalidOutpoint,
+    required TResult Function(String field0) encode,
+    required TResult Function(String field0) miniscript,
+    required TResult Function(String field0) miniscriptPsbt,
+    required TResult Function(String field0) bip32,
+    required TResult Function(String field0) bip39,
+    required TResult Function(String field0) secp256K1,
+    required TResult Function(String field0) json,
+    required TResult Function(String field0) psbt,
+    required TResult Function(String field0) psbtParse,
+    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(String field0) electrum,
+    required TResult Function(String field0) esplora,
+    required TResult Function(String field0) sled,
+    required TResult Function(String field0) rpc,
+    required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
+  }) {
+    return invalidInput(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(HexError field0)? hex,
+    TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(AddressError field0)? address,
+    TResult? Function(DescriptorError field0)? descriptor,
+    TResult? Function(Uint8List field0)? invalidU32Bytes,
+    TResult? Function(String field0)? generic,
+    TResult? Function()? scriptDoesntHaveAddressForm,
+    TResult? Function()? noRecipients,
+    TResult? Function()? noUtxosSelected,
+    TResult? Function(int field0)? outputBelowDustLimit,
+    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function()? bnBTotalTriesExceeded,
+    TResult? Function()? bnBNoExactMatch,
+    TResult? Function()? unknownUtxo,
+    TResult? Function()? transactionNotFound,
+    TResult? Function()? transactionConfirmed,
+    TResult? Function()? irreplaceableTransaction,
+    TResult? Function(double needed)? feeRateTooLow,
+    TResult? Function(int needed)? feeTooLow,
+    TResult? Function()? feeRateUnavailable,
+    TResult? Function(String field0)? missingKeyOrigin,
+    TResult? Function(String field0)? key,
+    TResult? Function()? checksumMismatch,
+    TResult? Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult? Function(String field0)? invalidPolicyPathError,
+    TResult? Function(String field0)? signer,
+    TResult? Function(Network requested, Network found)? invalidNetwork,
+    TResult? Function(OutPoint field0)? invalidOutpoint,
+    TResult? Function(String field0)? encode,
+    TResult? Function(String field0)? miniscript,
+    TResult? Function(String field0)? miniscriptPsbt,
+    TResult? Function(String field0)? bip32,
+    TResult? Function(String field0)? bip39,
+    TResult? Function(String field0)? secp256K1,
+    TResult? Function(String field0)? json,
+    TResult? Function(String field0)? psbt,
+    TResult? Function(String field0)? psbtParse,
+    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(String field0)? electrum,
+    TResult? Function(String field0)? esplora,
+    TResult? Function(String field0)? sled,
+    TResult? Function(String field0)? rpc,
+    TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
+  }) {
+    return invalidInput?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HexError field0)? hex,
+    TResult Function(ConsensusError field0)? consensus,
+    TResult Function(AddressError field0)? address,
+    TResult Function(DescriptorError field0)? descriptor,
+    TResult Function(Uint8List field0)? invalidU32Bytes,
+    TResult Function(String field0)? generic,
+    TResult Function()? scriptDoesntHaveAddressForm,
+    TResult Function()? noRecipients,
+    TResult Function()? noUtxosSelected,
+    TResult Function(int field0)? outputBelowDustLimit,
+    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function()? bnBTotalTriesExceeded,
+    TResult Function()? bnBNoExactMatch,
+    TResult Function()? unknownUtxo,
+    TResult Function()? transactionNotFound,
+    TResult Function()? transactionConfirmed,
+    TResult Function()? irreplaceableTransaction,
+    TResult Function(double needed)? feeRateTooLow,
+    TResult Function(int needed)? feeTooLow,
+    TResult Function()? feeRateUnavailable,
+    TResult Function(String field0)? missingKeyOrigin,
+    TResult Function(String field0)? key,
+    TResult Function()? checksumMismatch,
+    TResult Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult Function(String field0)? invalidPolicyPathError,
+    TResult Function(String field0)? signer,
+    TResult Function(Network requested, Network found)? invalidNetwork,
+    TResult Function(OutPoint field0)? invalidOutpoint,
+    TResult Function(String field0)? encode,
+    TResult Function(String field0)? miniscript,
+    TResult Function(String field0)? miniscriptPsbt,
+    TResult Function(String field0)? bip32,
+    TResult Function(String field0)? bip39,
+    TResult Function(String field0)? secp256K1,
+    TResult Function(String field0)? json,
+    TResult Function(String field0)? psbt,
+    TResult Function(String field0)? psbtParse,
+    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(String field0)? electrum,
+    TResult Function(String field0)? esplora,
+    TResult Function(String field0)? sled,
+    TResult Function(String field0)? rpc,
+    TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidInput != null) {
+      return invalidInput(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BdkError_Hex value) hex,
+    required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_Address value) address,
+    required TResult Function(BdkError_Descriptor value) descriptor,
+    required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
+    required TResult Function(BdkError_Generic value) generic,
+    required TResult Function(BdkError_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
+    required TResult Function(BdkError_NoRecipients value) noRecipients,
+    required TResult Function(BdkError_NoUtxosSelected value) noUtxosSelected,
+    required TResult Function(BdkError_OutputBelowDustLimit value)
+        outputBelowDustLimit,
+    required TResult Function(BdkError_InsufficientFunds value)
+        insufficientFunds,
+    required TResult Function(BdkError_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
+    required TResult Function(BdkError_BnBNoExactMatch value) bnBNoExactMatch,
+    required TResult Function(BdkError_UnknownUtxo value) unknownUtxo,
+    required TResult Function(BdkError_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(BdkError_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(BdkError_IrreplaceableTransaction value)
+        irreplaceableTransaction,
+    required TResult Function(BdkError_FeeRateTooLow value) feeRateTooLow,
+    required TResult Function(BdkError_FeeTooLow value) feeTooLow,
+    required TResult Function(BdkError_FeeRateUnavailable value)
+        feeRateUnavailable,
+    required TResult Function(BdkError_MissingKeyOrigin value) missingKeyOrigin,
+    required TResult Function(BdkError_Key value) key,
+    required TResult Function(BdkError_ChecksumMismatch value) checksumMismatch,
+    required TResult Function(BdkError_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(BdkError_InvalidPolicyPathError value)
+        invalidPolicyPathError,
+    required TResult Function(BdkError_Signer value) signer,
+    required TResult Function(BdkError_InvalidNetwork value) invalidNetwork,
+    required TResult Function(BdkError_InvalidOutpoint value) invalidOutpoint,
+    required TResult Function(BdkError_Encode value) encode,
+    required TResult Function(BdkError_Miniscript value) miniscript,
+    required TResult Function(BdkError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(BdkError_Bip32 value) bip32,
+    required TResult Function(BdkError_Bip39 value) bip39,
+    required TResult Function(BdkError_Secp256k1 value) secp256K1,
+    required TResult Function(BdkError_Json value) json,
+    required TResult Function(BdkError_Psbt value) psbt,
+    required TResult Function(BdkError_PsbtParse value) psbtParse,
+    required TResult Function(BdkError_MissingCachedScripts value)
+        missingCachedScripts,
+    required TResult Function(BdkError_Electrum value) electrum,
+    required TResult Function(BdkError_Esplora value) esplora,
+    required TResult Function(BdkError_Sled value) sled,
+    required TResult Function(BdkError_Rpc value) rpc,
+    required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
+  }) {
+    return invalidInput(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BdkError_Hex value)? hex,
+    TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_Address value)? address,
+    TResult? Function(BdkError_Descriptor value)? descriptor,
+    TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult? Function(BdkError_Generic value)? generic,
+    TResult? Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult? Function(BdkError_NoRecipients value)? noRecipients,
+    TResult? Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult? Function(BdkError_OutputBelowDustLimit value)?
+        outputBelowDustLimit,
+    TResult? Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult? Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult? Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult? Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult? Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult? Function(BdkError_TransactionConfirmed value)?
+        transactionConfirmed,
+    TResult? Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult? Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult? Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult? Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult? Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult? Function(BdkError_Key value)? key,
+    TResult? Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult? Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult? Function(BdkError_Signer value)? signer,
+    TResult? Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult? Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult? Function(BdkError_Encode value)? encode,
+    TResult? Function(BdkError_Miniscript value)? miniscript,
+    TResult? Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(BdkError_Bip32 value)? bip32,
+    TResult? Function(BdkError_Bip39 value)? bip39,
+    TResult? Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult? Function(BdkError_Json value)? json,
+    TResult? Function(BdkError_Psbt value)? psbt,
+    TResult? Function(BdkError_PsbtParse value)? psbtParse,
+    TResult? Function(BdkError_MissingCachedScripts value)?
+        missingCachedScripts,
+    TResult? Function(BdkError_Electrum value)? electrum,
+    TResult? Function(BdkError_Esplora value)? esplora,
+    TResult? Function(BdkError_Sled value)? sled,
+    TResult? Function(BdkError_Rpc value)? rpc,
+    TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
+  }) {
+    return invalidInput?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BdkError_Hex value)? hex,
+    TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_Address value)? address,
+    TResult Function(BdkError_Descriptor value)? descriptor,
+    TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult Function(BdkError_Generic value)? generic,
+    TResult Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult Function(BdkError_NoRecipients value)? noRecipients,
+    TResult Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult Function(BdkError_OutputBelowDustLimit value)? outputBelowDustLimit,
+    TResult Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult Function(BdkError_TransactionConfirmed value)? transactionConfirmed,
+    TResult Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult Function(BdkError_Key value)? key,
+    TResult Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult Function(BdkError_Signer value)? signer,
+    TResult Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult Function(BdkError_Encode value)? encode,
+    TResult Function(BdkError_Miniscript value)? miniscript,
+    TResult Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(BdkError_Bip32 value)? bip32,
+    TResult Function(BdkError_Bip39 value)? bip39,
+    TResult Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult Function(BdkError_Json value)? json,
+    TResult Function(BdkError_Psbt value)? psbt,
+    TResult Function(BdkError_PsbtParse value)? psbtParse,
+    TResult Function(BdkError_MissingCachedScripts value)? missingCachedScripts,
+    TResult Function(BdkError_Electrum value)? electrum,
+    TResult Function(BdkError_Esplora value)? esplora,
+    TResult Function(BdkError_Sled value)? sled,
+    TResult Function(BdkError_Rpc value)? rpc,
+    TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidInput != null) {
+      return invalidInput(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BdkError_InvalidInput extends BdkError {
+  const factory BdkError_InvalidInput(final String field0) =
+      _$BdkError_InvalidInputImpl;
+  const BdkError_InvalidInput._() : super._();
+
+  String get field0;
+  @JsonKey(ignore: true)
+  _$$BdkError_InvalidInputImplCopyWith<_$BdkError_InvalidInputImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BdkError_InvalidLockTimeImplCopyWith<$Res> {
+  factory _$$BdkError_InvalidLockTimeImplCopyWith(
+          _$BdkError_InvalidLockTimeImpl value,
+          $Res Function(_$BdkError_InvalidLockTimeImpl) then) =
+      __$$BdkError_InvalidLockTimeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$BdkError_InvalidLockTimeImplCopyWithImpl<$Res>
+    extends _$BdkErrorCopyWithImpl<$Res, _$BdkError_InvalidLockTimeImpl>
+    implements _$$BdkError_InvalidLockTimeImplCopyWith<$Res> {
+  __$$BdkError_InvalidLockTimeImplCopyWithImpl(
+      _$BdkError_InvalidLockTimeImpl _value,
+      $Res Function(_$BdkError_InvalidLockTimeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$BdkError_InvalidLockTimeImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
+  const _$BdkError_InvalidLockTimeImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'BdkError.invalidLockTime(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BdkError_InvalidLockTimeImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BdkError_InvalidLockTimeImplCopyWith<_$BdkError_InvalidLockTimeImpl>
+      get copyWith => __$$BdkError_InvalidLockTimeImplCopyWithImpl<
+          _$BdkError_InvalidLockTimeImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(HexError field0) hex,
+    required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(AddressError field0) address,
+    required TResult Function(DescriptorError field0) descriptor,
+    required TResult Function(Uint8List field0) invalidU32Bytes,
+    required TResult Function(String field0) generic,
+    required TResult Function() scriptDoesntHaveAddressForm,
+    required TResult Function() noRecipients,
+    required TResult Function() noUtxosSelected,
+    required TResult Function(int field0) outputBelowDustLimit,
+    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function() bnBTotalTriesExceeded,
+    required TResult Function() bnBNoExactMatch,
+    required TResult Function() unknownUtxo,
+    required TResult Function() transactionNotFound,
+    required TResult Function() transactionConfirmed,
+    required TResult Function() irreplaceableTransaction,
+    required TResult Function(double needed) feeRateTooLow,
+    required TResult Function(int needed) feeTooLow,
+    required TResult Function() feeRateUnavailable,
+    required TResult Function(String field0) missingKeyOrigin,
+    required TResult Function(String field0) key,
+    required TResult Function() checksumMismatch,
+    required TResult Function(KeychainKind field0) spendingPolicyRequired,
+    required TResult Function(String field0) invalidPolicyPathError,
+    required TResult Function(String field0) signer,
+    required TResult Function(Network requested, Network found) invalidNetwork,
+    required TResult Function(OutPoint field0) invalidOutpoint,
+    required TResult Function(String field0) encode,
+    required TResult Function(String field0) miniscript,
+    required TResult Function(String field0) miniscriptPsbt,
+    required TResult Function(String field0) bip32,
+    required TResult Function(String field0) bip39,
+    required TResult Function(String field0) secp256K1,
+    required TResult Function(String field0) json,
+    required TResult Function(String field0) psbt,
+    required TResult Function(String field0) psbtParse,
+    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(String field0) electrum,
+    required TResult Function(String field0) esplora,
+    required TResult Function(String field0) sled,
+    required TResult Function(String field0) rpc,
+    required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
+  }) {
+    return invalidLockTime(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(HexError field0)? hex,
+    TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(AddressError field0)? address,
+    TResult? Function(DescriptorError field0)? descriptor,
+    TResult? Function(Uint8List field0)? invalidU32Bytes,
+    TResult? Function(String field0)? generic,
+    TResult? Function()? scriptDoesntHaveAddressForm,
+    TResult? Function()? noRecipients,
+    TResult? Function()? noUtxosSelected,
+    TResult? Function(int field0)? outputBelowDustLimit,
+    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function()? bnBTotalTriesExceeded,
+    TResult? Function()? bnBNoExactMatch,
+    TResult? Function()? unknownUtxo,
+    TResult? Function()? transactionNotFound,
+    TResult? Function()? transactionConfirmed,
+    TResult? Function()? irreplaceableTransaction,
+    TResult? Function(double needed)? feeRateTooLow,
+    TResult? Function(int needed)? feeTooLow,
+    TResult? Function()? feeRateUnavailable,
+    TResult? Function(String field0)? missingKeyOrigin,
+    TResult? Function(String field0)? key,
+    TResult? Function()? checksumMismatch,
+    TResult? Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult? Function(String field0)? invalidPolicyPathError,
+    TResult? Function(String field0)? signer,
+    TResult? Function(Network requested, Network found)? invalidNetwork,
+    TResult? Function(OutPoint field0)? invalidOutpoint,
+    TResult? Function(String field0)? encode,
+    TResult? Function(String field0)? miniscript,
+    TResult? Function(String field0)? miniscriptPsbt,
+    TResult? Function(String field0)? bip32,
+    TResult? Function(String field0)? bip39,
+    TResult? Function(String field0)? secp256K1,
+    TResult? Function(String field0)? json,
+    TResult? Function(String field0)? psbt,
+    TResult? Function(String field0)? psbtParse,
+    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(String field0)? electrum,
+    TResult? Function(String field0)? esplora,
+    TResult? Function(String field0)? sled,
+    TResult? Function(String field0)? rpc,
+    TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
+  }) {
+    return invalidLockTime?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HexError field0)? hex,
+    TResult Function(ConsensusError field0)? consensus,
+    TResult Function(AddressError field0)? address,
+    TResult Function(DescriptorError field0)? descriptor,
+    TResult Function(Uint8List field0)? invalidU32Bytes,
+    TResult Function(String field0)? generic,
+    TResult Function()? scriptDoesntHaveAddressForm,
+    TResult Function()? noRecipients,
+    TResult Function()? noUtxosSelected,
+    TResult Function(int field0)? outputBelowDustLimit,
+    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function()? bnBTotalTriesExceeded,
+    TResult Function()? bnBNoExactMatch,
+    TResult Function()? unknownUtxo,
+    TResult Function()? transactionNotFound,
+    TResult Function()? transactionConfirmed,
+    TResult Function()? irreplaceableTransaction,
+    TResult Function(double needed)? feeRateTooLow,
+    TResult Function(int needed)? feeTooLow,
+    TResult Function()? feeRateUnavailable,
+    TResult Function(String field0)? missingKeyOrigin,
+    TResult Function(String field0)? key,
+    TResult Function()? checksumMismatch,
+    TResult Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult Function(String field0)? invalidPolicyPathError,
+    TResult Function(String field0)? signer,
+    TResult Function(Network requested, Network found)? invalidNetwork,
+    TResult Function(OutPoint field0)? invalidOutpoint,
+    TResult Function(String field0)? encode,
+    TResult Function(String field0)? miniscript,
+    TResult Function(String field0)? miniscriptPsbt,
+    TResult Function(String field0)? bip32,
+    TResult Function(String field0)? bip39,
+    TResult Function(String field0)? secp256K1,
+    TResult Function(String field0)? json,
+    TResult Function(String field0)? psbt,
+    TResult Function(String field0)? psbtParse,
+    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(String field0)? electrum,
+    TResult Function(String field0)? esplora,
+    TResult Function(String field0)? sled,
+    TResult Function(String field0)? rpc,
+    TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidLockTime != null) {
+      return invalidLockTime(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BdkError_Hex value) hex,
+    required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_Address value) address,
+    required TResult Function(BdkError_Descriptor value) descriptor,
+    required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
+    required TResult Function(BdkError_Generic value) generic,
+    required TResult Function(BdkError_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
+    required TResult Function(BdkError_NoRecipients value) noRecipients,
+    required TResult Function(BdkError_NoUtxosSelected value) noUtxosSelected,
+    required TResult Function(BdkError_OutputBelowDustLimit value)
+        outputBelowDustLimit,
+    required TResult Function(BdkError_InsufficientFunds value)
+        insufficientFunds,
+    required TResult Function(BdkError_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
+    required TResult Function(BdkError_BnBNoExactMatch value) bnBNoExactMatch,
+    required TResult Function(BdkError_UnknownUtxo value) unknownUtxo,
+    required TResult Function(BdkError_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(BdkError_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(BdkError_IrreplaceableTransaction value)
+        irreplaceableTransaction,
+    required TResult Function(BdkError_FeeRateTooLow value) feeRateTooLow,
+    required TResult Function(BdkError_FeeTooLow value) feeTooLow,
+    required TResult Function(BdkError_FeeRateUnavailable value)
+        feeRateUnavailable,
+    required TResult Function(BdkError_MissingKeyOrigin value) missingKeyOrigin,
+    required TResult Function(BdkError_Key value) key,
+    required TResult Function(BdkError_ChecksumMismatch value) checksumMismatch,
+    required TResult Function(BdkError_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(BdkError_InvalidPolicyPathError value)
+        invalidPolicyPathError,
+    required TResult Function(BdkError_Signer value) signer,
+    required TResult Function(BdkError_InvalidNetwork value) invalidNetwork,
+    required TResult Function(BdkError_InvalidOutpoint value) invalidOutpoint,
+    required TResult Function(BdkError_Encode value) encode,
+    required TResult Function(BdkError_Miniscript value) miniscript,
+    required TResult Function(BdkError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(BdkError_Bip32 value) bip32,
+    required TResult Function(BdkError_Bip39 value) bip39,
+    required TResult Function(BdkError_Secp256k1 value) secp256K1,
+    required TResult Function(BdkError_Json value) json,
+    required TResult Function(BdkError_Psbt value) psbt,
+    required TResult Function(BdkError_PsbtParse value) psbtParse,
+    required TResult Function(BdkError_MissingCachedScripts value)
+        missingCachedScripts,
+    required TResult Function(BdkError_Electrum value) electrum,
+    required TResult Function(BdkError_Esplora value) esplora,
+    required TResult Function(BdkError_Sled value) sled,
+    required TResult Function(BdkError_Rpc value) rpc,
+    required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
+  }) {
+    return invalidLockTime(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BdkError_Hex value)? hex,
+    TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_Address value)? address,
+    TResult? Function(BdkError_Descriptor value)? descriptor,
+    TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult? Function(BdkError_Generic value)? generic,
+    TResult? Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult? Function(BdkError_NoRecipients value)? noRecipients,
+    TResult? Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult? Function(BdkError_OutputBelowDustLimit value)?
+        outputBelowDustLimit,
+    TResult? Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult? Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult? Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult? Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult? Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult? Function(BdkError_TransactionConfirmed value)?
+        transactionConfirmed,
+    TResult? Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult? Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult? Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult? Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult? Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult? Function(BdkError_Key value)? key,
+    TResult? Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult? Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult? Function(BdkError_Signer value)? signer,
+    TResult? Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult? Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult? Function(BdkError_Encode value)? encode,
+    TResult? Function(BdkError_Miniscript value)? miniscript,
+    TResult? Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(BdkError_Bip32 value)? bip32,
+    TResult? Function(BdkError_Bip39 value)? bip39,
+    TResult? Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult? Function(BdkError_Json value)? json,
+    TResult? Function(BdkError_Psbt value)? psbt,
+    TResult? Function(BdkError_PsbtParse value)? psbtParse,
+    TResult? Function(BdkError_MissingCachedScripts value)?
+        missingCachedScripts,
+    TResult? Function(BdkError_Electrum value)? electrum,
+    TResult? Function(BdkError_Esplora value)? esplora,
+    TResult? Function(BdkError_Sled value)? sled,
+    TResult? Function(BdkError_Rpc value)? rpc,
+    TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
+  }) {
+    return invalidLockTime?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BdkError_Hex value)? hex,
+    TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_Address value)? address,
+    TResult Function(BdkError_Descriptor value)? descriptor,
+    TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult Function(BdkError_Generic value)? generic,
+    TResult Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult Function(BdkError_NoRecipients value)? noRecipients,
+    TResult Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult Function(BdkError_OutputBelowDustLimit value)? outputBelowDustLimit,
+    TResult Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult Function(BdkError_TransactionConfirmed value)? transactionConfirmed,
+    TResult Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult Function(BdkError_Key value)? key,
+    TResult Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult Function(BdkError_Signer value)? signer,
+    TResult Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult Function(BdkError_Encode value)? encode,
+    TResult Function(BdkError_Miniscript value)? miniscript,
+    TResult Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(BdkError_Bip32 value)? bip32,
+    TResult Function(BdkError_Bip39 value)? bip39,
+    TResult Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult Function(BdkError_Json value)? json,
+    TResult Function(BdkError_Psbt value)? psbt,
+    TResult Function(BdkError_PsbtParse value)? psbtParse,
+    TResult Function(BdkError_MissingCachedScripts value)? missingCachedScripts,
+    TResult Function(BdkError_Electrum value)? electrum,
+    TResult Function(BdkError_Esplora value)? esplora,
+    TResult Function(BdkError_Sled value)? sled,
+    TResult Function(BdkError_Rpc value)? rpc,
+    TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidLockTime != null) {
+      return invalidLockTime(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BdkError_InvalidLockTime extends BdkError {
+  const factory BdkError_InvalidLockTime(final String field0) =
+      _$BdkError_InvalidLockTimeImpl;
+  const BdkError_InvalidLockTime._() : super._();
+
+  String get field0;
+  @JsonKey(ignore: true)
+  _$$BdkError_InvalidLockTimeImplCopyWith<_$BdkError_InvalidLockTimeImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BdkError_InvalidTransactionImplCopyWith<$Res> {
+  factory _$$BdkError_InvalidTransactionImplCopyWith(
+          _$BdkError_InvalidTransactionImpl value,
+          $Res Function(_$BdkError_InvalidTransactionImpl) then) =
+      __$$BdkError_InvalidTransactionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$BdkError_InvalidTransactionImplCopyWithImpl<$Res>
+    extends _$BdkErrorCopyWithImpl<$Res, _$BdkError_InvalidTransactionImpl>
+    implements _$$BdkError_InvalidTransactionImplCopyWith<$Res> {
+  __$$BdkError_InvalidTransactionImplCopyWithImpl(
+      _$BdkError_InvalidTransactionImpl _value,
+      $Res Function(_$BdkError_InvalidTransactionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$BdkError_InvalidTransactionImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
+  const _$BdkError_InvalidTransactionImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'BdkError.invalidTransaction(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BdkError_InvalidTransactionImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BdkError_InvalidTransactionImplCopyWith<_$BdkError_InvalidTransactionImpl>
+      get copyWith => __$$BdkError_InvalidTransactionImplCopyWithImpl<
+          _$BdkError_InvalidTransactionImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(HexError field0) hex,
+    required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(AddressError field0) address,
+    required TResult Function(DescriptorError field0) descriptor,
+    required TResult Function(Uint8List field0) invalidU32Bytes,
+    required TResult Function(String field0) generic,
+    required TResult Function() scriptDoesntHaveAddressForm,
+    required TResult Function() noRecipients,
+    required TResult Function() noUtxosSelected,
+    required TResult Function(int field0) outputBelowDustLimit,
+    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function() bnBTotalTriesExceeded,
+    required TResult Function() bnBNoExactMatch,
+    required TResult Function() unknownUtxo,
+    required TResult Function() transactionNotFound,
+    required TResult Function() transactionConfirmed,
+    required TResult Function() irreplaceableTransaction,
+    required TResult Function(double needed) feeRateTooLow,
+    required TResult Function(int needed) feeTooLow,
+    required TResult Function() feeRateUnavailable,
+    required TResult Function(String field0) missingKeyOrigin,
+    required TResult Function(String field0) key,
+    required TResult Function() checksumMismatch,
+    required TResult Function(KeychainKind field0) spendingPolicyRequired,
+    required TResult Function(String field0) invalidPolicyPathError,
+    required TResult Function(String field0) signer,
+    required TResult Function(Network requested, Network found) invalidNetwork,
+    required TResult Function(OutPoint field0) invalidOutpoint,
+    required TResult Function(String field0) encode,
+    required TResult Function(String field0) miniscript,
+    required TResult Function(String field0) miniscriptPsbt,
+    required TResult Function(String field0) bip32,
+    required TResult Function(String field0) bip39,
+    required TResult Function(String field0) secp256K1,
+    required TResult Function(String field0) json,
+    required TResult Function(String field0) psbt,
+    required TResult Function(String field0) psbtParse,
+    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(String field0) electrum,
+    required TResult Function(String field0) esplora,
+    required TResult Function(String field0) sled,
+    required TResult Function(String field0) rpc,
+    required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
+  }) {
+    return invalidTransaction(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(HexError field0)? hex,
+    TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(AddressError field0)? address,
+    TResult? Function(DescriptorError field0)? descriptor,
+    TResult? Function(Uint8List field0)? invalidU32Bytes,
+    TResult? Function(String field0)? generic,
+    TResult? Function()? scriptDoesntHaveAddressForm,
+    TResult? Function()? noRecipients,
+    TResult? Function()? noUtxosSelected,
+    TResult? Function(int field0)? outputBelowDustLimit,
+    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function()? bnBTotalTriesExceeded,
+    TResult? Function()? bnBNoExactMatch,
+    TResult? Function()? unknownUtxo,
+    TResult? Function()? transactionNotFound,
+    TResult? Function()? transactionConfirmed,
+    TResult? Function()? irreplaceableTransaction,
+    TResult? Function(double needed)? feeRateTooLow,
+    TResult? Function(int needed)? feeTooLow,
+    TResult? Function()? feeRateUnavailable,
+    TResult? Function(String field0)? missingKeyOrigin,
+    TResult? Function(String field0)? key,
+    TResult? Function()? checksumMismatch,
+    TResult? Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult? Function(String field0)? invalidPolicyPathError,
+    TResult? Function(String field0)? signer,
+    TResult? Function(Network requested, Network found)? invalidNetwork,
+    TResult? Function(OutPoint field0)? invalidOutpoint,
+    TResult? Function(String field0)? encode,
+    TResult? Function(String field0)? miniscript,
+    TResult? Function(String field0)? miniscriptPsbt,
+    TResult? Function(String field0)? bip32,
+    TResult? Function(String field0)? bip39,
+    TResult? Function(String field0)? secp256K1,
+    TResult? Function(String field0)? json,
+    TResult? Function(String field0)? psbt,
+    TResult? Function(String field0)? psbtParse,
+    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(String field0)? electrum,
+    TResult? Function(String field0)? esplora,
+    TResult? Function(String field0)? sled,
+    TResult? Function(String field0)? rpc,
+    TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
+  }) {
+    return invalidTransaction?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HexError field0)? hex,
+    TResult Function(ConsensusError field0)? consensus,
+    TResult Function(AddressError field0)? address,
+    TResult Function(DescriptorError field0)? descriptor,
+    TResult Function(Uint8List field0)? invalidU32Bytes,
+    TResult Function(String field0)? generic,
+    TResult Function()? scriptDoesntHaveAddressForm,
+    TResult Function()? noRecipients,
+    TResult Function()? noUtxosSelected,
+    TResult Function(int field0)? outputBelowDustLimit,
+    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function()? bnBTotalTriesExceeded,
+    TResult Function()? bnBNoExactMatch,
+    TResult Function()? unknownUtxo,
+    TResult Function()? transactionNotFound,
+    TResult Function()? transactionConfirmed,
+    TResult Function()? irreplaceableTransaction,
+    TResult Function(double needed)? feeRateTooLow,
+    TResult Function(int needed)? feeTooLow,
+    TResult Function()? feeRateUnavailable,
+    TResult Function(String field0)? missingKeyOrigin,
+    TResult Function(String field0)? key,
+    TResult Function()? checksumMismatch,
+    TResult Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult Function(String field0)? invalidPolicyPathError,
+    TResult Function(String field0)? signer,
+    TResult Function(Network requested, Network found)? invalidNetwork,
+    TResult Function(OutPoint field0)? invalidOutpoint,
+    TResult Function(String field0)? encode,
+    TResult Function(String field0)? miniscript,
+    TResult Function(String field0)? miniscriptPsbt,
+    TResult Function(String field0)? bip32,
+    TResult Function(String field0)? bip39,
+    TResult Function(String field0)? secp256K1,
+    TResult Function(String field0)? json,
+    TResult Function(String field0)? psbt,
+    TResult Function(String field0)? psbtParse,
+    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(String field0)? electrum,
+    TResult Function(String field0)? esplora,
+    TResult Function(String field0)? sled,
+    TResult Function(String field0)? rpc,
+    TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidTransaction != null) {
+      return invalidTransaction(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BdkError_Hex value) hex,
+    required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_Address value) address,
+    required TResult Function(BdkError_Descriptor value) descriptor,
+    required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
+    required TResult Function(BdkError_Generic value) generic,
+    required TResult Function(BdkError_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
+    required TResult Function(BdkError_NoRecipients value) noRecipients,
+    required TResult Function(BdkError_NoUtxosSelected value) noUtxosSelected,
+    required TResult Function(BdkError_OutputBelowDustLimit value)
+        outputBelowDustLimit,
+    required TResult Function(BdkError_InsufficientFunds value)
+        insufficientFunds,
+    required TResult Function(BdkError_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
+    required TResult Function(BdkError_BnBNoExactMatch value) bnBNoExactMatch,
+    required TResult Function(BdkError_UnknownUtxo value) unknownUtxo,
+    required TResult Function(BdkError_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(BdkError_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(BdkError_IrreplaceableTransaction value)
+        irreplaceableTransaction,
+    required TResult Function(BdkError_FeeRateTooLow value) feeRateTooLow,
+    required TResult Function(BdkError_FeeTooLow value) feeTooLow,
+    required TResult Function(BdkError_FeeRateUnavailable value)
+        feeRateUnavailable,
+    required TResult Function(BdkError_MissingKeyOrigin value) missingKeyOrigin,
+    required TResult Function(BdkError_Key value) key,
+    required TResult Function(BdkError_ChecksumMismatch value) checksumMismatch,
+    required TResult Function(BdkError_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(BdkError_InvalidPolicyPathError value)
+        invalidPolicyPathError,
+    required TResult Function(BdkError_Signer value) signer,
+    required TResult Function(BdkError_InvalidNetwork value) invalidNetwork,
+    required TResult Function(BdkError_InvalidOutpoint value) invalidOutpoint,
+    required TResult Function(BdkError_Encode value) encode,
+    required TResult Function(BdkError_Miniscript value) miniscript,
+    required TResult Function(BdkError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(BdkError_Bip32 value) bip32,
+    required TResult Function(BdkError_Bip39 value) bip39,
+    required TResult Function(BdkError_Secp256k1 value) secp256K1,
+    required TResult Function(BdkError_Json value) json,
+    required TResult Function(BdkError_Psbt value) psbt,
+    required TResult Function(BdkError_PsbtParse value) psbtParse,
+    required TResult Function(BdkError_MissingCachedScripts value)
+        missingCachedScripts,
+    required TResult Function(BdkError_Electrum value) electrum,
+    required TResult Function(BdkError_Esplora value) esplora,
+    required TResult Function(BdkError_Sled value) sled,
+    required TResult Function(BdkError_Rpc value) rpc,
+    required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
+  }) {
+    return invalidTransaction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BdkError_Hex value)? hex,
+    TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_Address value)? address,
+    TResult? Function(BdkError_Descriptor value)? descriptor,
+    TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult? Function(BdkError_Generic value)? generic,
+    TResult? Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult? Function(BdkError_NoRecipients value)? noRecipients,
+    TResult? Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult? Function(BdkError_OutputBelowDustLimit value)?
+        outputBelowDustLimit,
+    TResult? Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult? Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult? Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult? Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult? Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult? Function(BdkError_TransactionConfirmed value)?
+        transactionConfirmed,
+    TResult? Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult? Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult? Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult? Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult? Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult? Function(BdkError_Key value)? key,
+    TResult? Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult? Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult? Function(BdkError_Signer value)? signer,
+    TResult? Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult? Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult? Function(BdkError_Encode value)? encode,
+    TResult? Function(BdkError_Miniscript value)? miniscript,
+    TResult? Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(BdkError_Bip32 value)? bip32,
+    TResult? Function(BdkError_Bip39 value)? bip39,
+    TResult? Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult? Function(BdkError_Json value)? json,
+    TResult? Function(BdkError_Psbt value)? psbt,
+    TResult? Function(BdkError_PsbtParse value)? psbtParse,
+    TResult? Function(BdkError_MissingCachedScripts value)?
+        missingCachedScripts,
+    TResult? Function(BdkError_Electrum value)? electrum,
+    TResult? Function(BdkError_Esplora value)? esplora,
+    TResult? Function(BdkError_Sled value)? sled,
+    TResult? Function(BdkError_Rpc value)? rpc,
+    TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
+  }) {
+    return invalidTransaction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BdkError_Hex value)? hex,
+    TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_Address value)? address,
+    TResult Function(BdkError_Descriptor value)? descriptor,
+    TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult Function(BdkError_Generic value)? generic,
+    TResult Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult Function(BdkError_NoRecipients value)? noRecipients,
+    TResult Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult Function(BdkError_OutputBelowDustLimit value)? outputBelowDustLimit,
+    TResult Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult Function(BdkError_TransactionConfirmed value)? transactionConfirmed,
+    TResult Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult Function(BdkError_Key value)? key,
+    TResult Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult Function(BdkError_Signer value)? signer,
+    TResult Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult Function(BdkError_Encode value)? encode,
+    TResult Function(BdkError_Miniscript value)? miniscript,
+    TResult Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(BdkError_Bip32 value)? bip32,
+    TResult Function(BdkError_Bip39 value)? bip39,
+    TResult Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult Function(BdkError_Json value)? json,
+    TResult Function(BdkError_Psbt value)? psbt,
+    TResult Function(BdkError_PsbtParse value)? psbtParse,
+    TResult Function(BdkError_MissingCachedScripts value)? missingCachedScripts,
+    TResult Function(BdkError_Electrum value)? electrum,
+    TResult Function(BdkError_Esplora value)? esplora,
+    TResult Function(BdkError_Sled value)? sled,
+    TResult Function(BdkError_Rpc value)? rpc,
+    TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (invalidTransaction != null) {
+      return invalidTransaction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BdkError_InvalidTransaction extends BdkError {
+  const factory BdkError_InvalidTransaction(final String field0) =
+      _$BdkError_InvalidTransactionImpl;
+  const BdkError_InvalidTransaction._() : super._();
+
+  String get field0;
+  @JsonKey(ignore: true)
+  _$$BdkError_InvalidTransactionImplCopyWith<_$BdkError_InvalidTransactionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -21205,8 +23381,8 @@ class __$$ConsensusError_IoImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ConsensusError_IoImpl implements ConsensusError_Io {
-  const _$ConsensusError_IoImpl(this.field0);
+class _$ConsensusError_IoImpl extends ConsensusError_Io {
+  const _$ConsensusError_IoImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -21330,9 +23506,10 @@ class _$ConsensusError_IoImpl implements ConsensusError_Io {
   }
 }
 
-abstract class ConsensusError_Io implements ConsensusError {
+abstract class ConsensusError_Io extends ConsensusError {
   const factory ConsensusError_Io(final String field0) =
       _$ConsensusError_IoImpl;
+  const ConsensusError_Io._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -21382,9 +23559,10 @@ class __$$ConsensusError_OversizedVectorAllocationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConsensusError_OversizedVectorAllocationImpl
-    implements ConsensusError_OversizedVectorAllocation {
+    extends ConsensusError_OversizedVectorAllocation {
   const _$ConsensusError_OversizedVectorAllocationImpl(
-      {required this.requested, required this.max});
+      {required this.requested, required this.max})
+      : super._();
 
   @override
   final int requested;
@@ -21514,11 +23692,11 @@ class _$ConsensusError_OversizedVectorAllocationImpl
   }
 }
 
-abstract class ConsensusError_OversizedVectorAllocation
-    implements ConsensusError {
+abstract class ConsensusError_OversizedVectorAllocation extends ConsensusError {
   const factory ConsensusError_OversizedVectorAllocation(
       {required final int requested,
       required final int max}) = _$ConsensusError_OversizedVectorAllocationImpl;
+  const ConsensusError_OversizedVectorAllocation._() : super._();
 
   int get requested;
   int get max;
@@ -21570,9 +23748,10 @@ class __$$ConsensusError_InvalidChecksumImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConsensusError_InvalidChecksumImpl
-    implements ConsensusError_InvalidChecksum {
+    extends ConsensusError_InvalidChecksum {
   const _$ConsensusError_InvalidChecksumImpl(
-      {required this.expected, required this.actual});
+      {required this.expected, required this.actual})
+      : super._();
 
   @override
   final U8Array4 expected;
@@ -21703,10 +23882,11 @@ class _$ConsensusError_InvalidChecksumImpl
   }
 }
 
-abstract class ConsensusError_InvalidChecksum implements ConsensusError {
+abstract class ConsensusError_InvalidChecksum extends ConsensusError {
   const factory ConsensusError_InvalidChecksum(
       {required final U8Array4 expected,
       required final U8Array4 actual}) = _$ConsensusError_InvalidChecksumImpl;
+  const ConsensusError_InvalidChecksum._() : super._();
 
   U8Array4 get expected;
   U8Array4 get actual;
@@ -21738,8 +23918,8 @@ class __$$ConsensusError_NonMinimalVarIntImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConsensusError_NonMinimalVarIntImpl
-    implements ConsensusError_NonMinimalVarInt {
-  const _$ConsensusError_NonMinimalVarIntImpl();
+    extends ConsensusError_NonMinimalVarInt {
+  const _$ConsensusError_NonMinimalVarIntImpl() : super._();
 
   @override
   String toString() {
@@ -21852,9 +24032,10 @@ class _$ConsensusError_NonMinimalVarIntImpl
   }
 }
 
-abstract class ConsensusError_NonMinimalVarInt implements ConsensusError {
+abstract class ConsensusError_NonMinimalVarInt extends ConsensusError {
   const factory ConsensusError_NonMinimalVarInt() =
       _$ConsensusError_NonMinimalVarIntImpl;
+  const ConsensusError_NonMinimalVarInt._() : super._();
 }
 
 /// @nodoc
@@ -21892,8 +24073,8 @@ class __$$ConsensusError_ParseFailedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ConsensusError_ParseFailedImpl implements ConsensusError_ParseFailed {
-  const _$ConsensusError_ParseFailedImpl(this.field0);
+class _$ConsensusError_ParseFailedImpl extends ConsensusError_ParseFailed {
+  const _$ConsensusError_ParseFailedImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -22017,9 +24198,10 @@ class _$ConsensusError_ParseFailedImpl implements ConsensusError_ParseFailed {
   }
 }
 
-abstract class ConsensusError_ParseFailed implements ConsensusError {
+abstract class ConsensusError_ParseFailed extends ConsensusError {
   const factory ConsensusError_ParseFailed(final String field0) =
       _$ConsensusError_ParseFailedImpl;
+  const ConsensusError_ParseFailed._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -22064,8 +24246,8 @@ class __$$ConsensusError_UnsupportedSegwitFlagImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConsensusError_UnsupportedSegwitFlagImpl
-    implements ConsensusError_UnsupportedSegwitFlag {
-  const _$ConsensusError_UnsupportedSegwitFlagImpl(this.field0);
+    extends ConsensusError_UnsupportedSegwitFlag {
+  const _$ConsensusError_UnsupportedSegwitFlagImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -22190,9 +24372,10 @@ class _$ConsensusError_UnsupportedSegwitFlagImpl
   }
 }
 
-abstract class ConsensusError_UnsupportedSegwitFlag implements ConsensusError {
+abstract class ConsensusError_UnsupportedSegwitFlag extends ConsensusError {
   const factory ConsensusError_UnsupportedSegwitFlag(final int field0) =
       _$ConsensusError_UnsupportedSegwitFlagImpl;
+  const ConsensusError_UnsupportedSegwitFlag._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -22353,8 +24536,8 @@ class __$$DescriptorError_InvalidHdKeyPathImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DescriptorError_InvalidHdKeyPathImpl
-    implements DescriptorError_InvalidHdKeyPath {
-  const _$DescriptorError_InvalidHdKeyPathImpl();
+    extends DescriptorError_InvalidHdKeyPath {
+  const _$DescriptorError_InvalidHdKeyPathImpl() : super._();
 
   @override
   String toString() {
@@ -22504,9 +24687,10 @@ class _$DescriptorError_InvalidHdKeyPathImpl
   }
 }
 
-abstract class DescriptorError_InvalidHdKeyPath implements DescriptorError {
+abstract class DescriptorError_InvalidHdKeyPath extends DescriptorError {
   const factory DescriptorError_InvalidHdKeyPath() =
       _$DescriptorError_InvalidHdKeyPathImpl;
+  const DescriptorError_InvalidHdKeyPath._() : super._();
 }
 
 /// @nodoc
@@ -22531,8 +24715,8 @@ class __$$DescriptorError_InvalidDescriptorChecksumImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DescriptorError_InvalidDescriptorChecksumImpl
-    implements DescriptorError_InvalidDescriptorChecksum {
-  const _$DescriptorError_InvalidDescriptorChecksumImpl();
+    extends DescriptorError_InvalidDescriptorChecksum {
+  const _$DescriptorError_InvalidDescriptorChecksumImpl() : super._();
 
   @override
   String toString() {
@@ -22683,9 +24867,10 @@ class _$DescriptorError_InvalidDescriptorChecksumImpl
 }
 
 abstract class DescriptorError_InvalidDescriptorChecksum
-    implements DescriptorError {
+    extends DescriptorError {
   const factory DescriptorError_InvalidDescriptorChecksum() =
       _$DescriptorError_InvalidDescriptorChecksumImpl;
+  const DescriptorError_InvalidDescriptorChecksum._() : super._();
 }
 
 /// @nodoc
@@ -22710,8 +24895,8 @@ class __$$DescriptorError_HardenedDerivationXpubImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DescriptorError_HardenedDerivationXpubImpl
-    implements DescriptorError_HardenedDerivationXpub {
-  const _$DescriptorError_HardenedDerivationXpubImpl();
+    extends DescriptorError_HardenedDerivationXpub {
+  const _$DescriptorError_HardenedDerivationXpubImpl() : super._();
 
   @override
   String toString() {
@@ -22861,10 +25046,10 @@ class _$DescriptorError_HardenedDerivationXpubImpl
   }
 }
 
-abstract class DescriptorError_HardenedDerivationXpub
-    implements DescriptorError {
+abstract class DescriptorError_HardenedDerivationXpub extends DescriptorError {
   const factory DescriptorError_HardenedDerivationXpub() =
       _$DescriptorError_HardenedDerivationXpubImpl;
+  const DescriptorError_HardenedDerivationXpub._() : super._();
 }
 
 /// @nodoc
@@ -22887,8 +25072,8 @@ class __$$DescriptorError_MultiPathImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_MultiPathImpl implements DescriptorError_MultiPath {
-  const _$DescriptorError_MultiPathImpl();
+class _$DescriptorError_MultiPathImpl extends DescriptorError_MultiPath {
+  const _$DescriptorError_MultiPathImpl() : super._();
 
   @override
   String toString() {
@@ -23038,8 +25223,9 @@ class _$DescriptorError_MultiPathImpl implements DescriptorError_MultiPath {
   }
 }
 
-abstract class DescriptorError_MultiPath implements DescriptorError {
+abstract class DescriptorError_MultiPath extends DescriptorError {
   const factory DescriptorError_MultiPath() = _$DescriptorError_MultiPathImpl;
+  const DescriptorError_MultiPath._() : super._();
 }
 
 /// @nodoc
@@ -23075,8 +25261,8 @@ class __$$DescriptorError_KeyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_KeyImpl implements DescriptorError_Key {
-  const _$DescriptorError_KeyImpl(this.field0);
+class _$DescriptorError_KeyImpl extends DescriptorError_Key {
+  const _$DescriptorError_KeyImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -23237,9 +25423,10 @@ class _$DescriptorError_KeyImpl implements DescriptorError_Key {
   }
 }
 
-abstract class DescriptorError_Key implements DescriptorError {
+abstract class DescriptorError_Key extends DescriptorError {
   const factory DescriptorError_Key(final String field0) =
       _$DescriptorError_KeyImpl;
+  const DescriptorError_Key._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -23282,8 +25469,8 @@ class __$$DescriptorError_PolicyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_PolicyImpl implements DescriptorError_Policy {
-  const _$DescriptorError_PolicyImpl(this.field0);
+class _$DescriptorError_PolicyImpl extends DescriptorError_Policy {
+  const _$DescriptorError_PolicyImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -23444,9 +25631,10 @@ class _$DescriptorError_PolicyImpl implements DescriptorError_Policy {
   }
 }
 
-abstract class DescriptorError_Policy implements DescriptorError {
+abstract class DescriptorError_Policy extends DescriptorError {
   const factory DescriptorError_Policy(final String field0) =
       _$DescriptorError_PolicyImpl;
+  const DescriptorError_Policy._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -23492,8 +25680,9 @@ class __$$DescriptorError_InvalidDescriptorCharacterImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DescriptorError_InvalidDescriptorCharacterImpl
-    implements DescriptorError_InvalidDescriptorCharacter {
-  const _$DescriptorError_InvalidDescriptorCharacterImpl(this.field0);
+    extends DescriptorError_InvalidDescriptorCharacter {
+  const _$DescriptorError_InvalidDescriptorCharacterImpl(this.field0)
+      : super._();
 
   @override
   final int field0;
@@ -23658,9 +25847,10 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
 }
 
 abstract class DescriptorError_InvalidDescriptorCharacter
-    implements DescriptorError {
+    extends DescriptorError {
   const factory DescriptorError_InvalidDescriptorCharacter(final int field0) =
       _$DescriptorError_InvalidDescriptorCharacterImpl;
+  const DescriptorError_InvalidDescriptorCharacter._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
@@ -23703,8 +25893,8 @@ class __$$DescriptorError_Bip32ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_Bip32Impl implements DescriptorError_Bip32 {
-  const _$DescriptorError_Bip32Impl(this.field0);
+class _$DescriptorError_Bip32Impl extends DescriptorError_Bip32 {
+  const _$DescriptorError_Bip32Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -23865,9 +26055,10 @@ class _$DescriptorError_Bip32Impl implements DescriptorError_Bip32 {
   }
 }
 
-abstract class DescriptorError_Bip32 implements DescriptorError {
+abstract class DescriptorError_Bip32 extends DescriptorError {
   const factory DescriptorError_Bip32(final String field0) =
       _$DescriptorError_Bip32Impl;
+  const DescriptorError_Bip32._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -23910,8 +26101,8 @@ class __$$DescriptorError_Base58ImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_Base58Impl implements DescriptorError_Base58 {
-  const _$DescriptorError_Base58Impl(this.field0);
+class _$DescriptorError_Base58Impl extends DescriptorError_Base58 {
+  const _$DescriptorError_Base58Impl(this.field0) : super._();
 
   @override
   final String field0;
@@ -24072,9 +26263,10 @@ class _$DescriptorError_Base58Impl implements DescriptorError_Base58 {
   }
 }
 
-abstract class DescriptorError_Base58 implements DescriptorError {
+abstract class DescriptorError_Base58 extends DescriptorError {
   const factory DescriptorError_Base58(final String field0) =
       _$DescriptorError_Base58Impl;
+  const DescriptorError_Base58._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -24115,8 +26307,8 @@ class __$$DescriptorError_PkImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_PkImpl implements DescriptorError_Pk {
-  const _$DescriptorError_PkImpl(this.field0);
+class _$DescriptorError_PkImpl extends DescriptorError_Pk {
+  const _$DescriptorError_PkImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -24277,9 +26469,10 @@ class _$DescriptorError_PkImpl implements DescriptorError_Pk {
   }
 }
 
-abstract class DescriptorError_Pk implements DescriptorError {
+abstract class DescriptorError_Pk extends DescriptorError {
   const factory DescriptorError_Pk(final String field0) =
       _$DescriptorError_PkImpl;
+  const DescriptorError_Pk._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -24323,8 +26516,8 @@ class __$$DescriptorError_MiniscriptImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_MiniscriptImpl implements DescriptorError_Miniscript {
-  const _$DescriptorError_MiniscriptImpl(this.field0);
+class _$DescriptorError_MiniscriptImpl extends DescriptorError_Miniscript {
+  const _$DescriptorError_MiniscriptImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -24485,9 +26678,10 @@ class _$DescriptorError_MiniscriptImpl implements DescriptorError_Miniscript {
   }
 }
 
-abstract class DescriptorError_Miniscript implements DescriptorError {
+abstract class DescriptorError_Miniscript extends DescriptorError {
   const factory DescriptorError_Miniscript(final String field0) =
       _$DescriptorError_MiniscriptImpl;
+  const DescriptorError_Miniscript._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -24528,8 +26722,8 @@ class __$$DescriptorError_HexImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DescriptorError_HexImpl implements DescriptorError_Hex {
-  const _$DescriptorError_HexImpl(this.field0);
+class _$DescriptorError_HexImpl extends DescriptorError_Hex {
+  const _$DescriptorError_HexImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -24690,9 +26884,10 @@ class _$DescriptorError_HexImpl implements DescriptorError_Hex {
   }
 }
 
-abstract class DescriptorError_Hex implements DescriptorError {
+abstract class DescriptorError_Hex extends DescriptorError {
   const factory DescriptorError_Hex(final String field0) =
       _$DescriptorError_HexImpl;
+  const DescriptorError_Hex._() : super._();
 
   String get field0;
   @JsonKey(ignore: true)
@@ -24820,8 +27015,8 @@ class __$$HexError_InvalidCharImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HexError_InvalidCharImpl implements HexError_InvalidChar {
-  const _$HexError_InvalidCharImpl(this.field0);
+class _$HexError_InvalidCharImpl extends HexError_InvalidChar {
+  const _$HexError_InvalidCharImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -24919,9 +27114,10 @@ class _$HexError_InvalidCharImpl implements HexError_InvalidChar {
   }
 }
 
-abstract class HexError_InvalidChar implements HexError {
+abstract class HexError_InvalidChar extends HexError {
   const factory HexError_InvalidChar(final int field0) =
       _$HexError_InvalidCharImpl;
+  const HexError_InvalidChar._() : super._();
 
   @override
   int get field0;
@@ -24968,8 +27164,8 @@ class __$$HexError_OddLengthStringImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HexError_OddLengthStringImpl implements HexError_OddLengthString {
-  const _$HexError_OddLengthStringImpl(this.field0);
+class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
+  const _$HexError_OddLengthStringImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -25066,9 +27262,10 @@ class _$HexError_OddLengthStringImpl implements HexError_OddLengthString {
   }
 }
 
-abstract class HexError_OddLengthString implements HexError {
+abstract class HexError_OddLengthString extends HexError {
   const factory HexError_OddLengthString(final int field0) =
       _$HexError_OddLengthStringImpl;
+  const HexError_OddLengthString._() : super._();
 
   @override
   int get field0;
@@ -25120,8 +27317,8 @@ class __$$HexError_InvalidLengthImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HexError_InvalidLengthImpl implements HexError_InvalidLength {
-  const _$HexError_InvalidLengthImpl(this.field0, this.field1);
+class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
+  const _$HexError_InvalidLengthImpl(this.field0, this.field1) : super._();
 
   @override
   final int field0;
@@ -25221,9 +27418,10 @@ class _$HexError_InvalidLengthImpl implements HexError_InvalidLength {
   }
 }
 
-abstract class HexError_InvalidLength implements HexError {
+abstract class HexError_InvalidLength extends HexError {
   const factory HexError_InvalidLength(final int field0, final int field1) =
       _$HexError_InvalidLengthImpl;
+  const HexError_InvalidLength._() : super._();
 
   @override
   int get field0;

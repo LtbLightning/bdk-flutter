@@ -271,6 +271,21 @@ class Bip39Exception extends BdkFfiException {
   Bip39Exception({super.message});
 }
 
+class InvalidTransactionException extends BdkFfiException {
+  /// Constructs the [InvalidTransactionException]
+  InvalidTransactionException({super.message});
+}
+
+class InvalidLockTimeException extends BdkFfiException {
+  /// Constructs the [InvalidLockTimeException]
+  InvalidLockTimeException({super.message});
+}
+
+class InvalidInputException extends BdkFfiException {
+  /// Constructs the [InvalidInputException]
+  InvalidInputException({super.message});
+}
+
 Exception mapToException(BdkError error) {
   return error.when(
     noUtxosSelected: () => NoUtxosSelectedException(
@@ -346,5 +361,8 @@ Exception mapToException(BdkError error) {
     consensus: (e) => ConsensusError(message: e.toString()),
     address: (e) => AddressException(message: e.toString()),
     bip39: (e) => Bip39Exception(message: e.toString()),
+    invalidInput: (e) => InvalidInputException(message: e),
+    invalidLockTime: (e) => InvalidLockTimeException(message: e),
+    invalidTransaction: (e) => InvalidTransactionException(message: e),
   );
 }
