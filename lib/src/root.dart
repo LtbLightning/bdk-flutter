@@ -11,14 +11,13 @@ import 'generated/api/types.dart';
 import 'generated/api/wallet.dart';
 
 ///A Bitcoin address.
-class Address extends AddressBase {
+class Address extends BdkAddress {
   Address._({required super.ptr});
   static Future<Address> fromScript(
       {required ScriptBuf script, required Network network}) async {
     try {
-      await Frb.verifyInit();
-      final res =
-          await AddressBase.fromScript(script: script, network: network);
+      await Api.initialize();
+      final res = await BdkAddress.fromScript(script: script, network: network);
       return Address._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -28,8 +27,8 @@ class Address extends AddressBase {
   static Future<Address> fromString(
       {required String s, required Network network}) async {
     try {
-      await Frb.verifyInit();
-      final res = await AddressBase.fromString(address: s, network: network);
+      await Api.initialize();
+      final res = await BdkAddress.fromString(address: s, network: network);
       return Address._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -39,7 +38,7 @@ class Address extends AddressBase {
   ///Generates a script pubkey spending to this address
   Future<ScriptBuf> scriptPubkey() async {
     try {
-      final res = await AddressBase.script(ptr: this);
+      final res = await BdkAddress.script(ptr: this);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -48,14 +47,14 @@ class Address extends AddressBase {
 }
 
 /// Blockchain backends  module provides the implementation of a few commonly-used backends like Electrum, and Esplora.
-class Blockchain extends BlockchainBase {
+class Blockchain extends BdkBlockchain {
   Blockchain._({required super.ptr});
 
   ///  [Blockchain] constructor
   static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
-      await Frb.verifyInit();
-      final res = await BlockchainBase.newInstance(blockchainConfig: config);
+      await Api.initialize();
+      final res = await BdkBlockchain.newInstance(blockchainConfig: config);
       return Blockchain._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -74,7 +73,7 @@ class Blockchain extends BlockchainBase {
 
   ///The function for broadcasting a transaction
   @override
-  Future<String> broadcast({required TransactionBase transaction, hint}) async {
+  Future<String> broadcast({required BdkTransaction transaction, hint}) async {
     try {
       return super.broadcast(transaction: transaction);
     } on BdkError catch (e) {
@@ -161,14 +160,14 @@ class BumpFeeTxBuilder {
 }
 
 ///A `BIP-32` derivation path
-class DerivationPath extends DerivationPathBase {
+class DerivationPath extends BdkDerivationPath {
   DerivationPath._({required super.ptr});
 
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DerivationPathBase.fromString(path: path);
+      await Api.initialize();
+      final res = await BdkDerivationPath.fromString(path: path);
       return DerivationPath._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -177,15 +176,15 @@ class DerivationPath extends DerivationPathBase {
 }
 
 ///Script descriptor
-class Descriptor extends DescriptorBase {
+class Descriptor extends BdkDescriptor {
   Descriptor._({required super.extendedDescriptor, required super.keyMap});
 
   ///  [Descriptor] constructor
   static Future<Descriptor> create(
       {required String descriptor, required Network network}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newInstance(
+      await Api.initialize();
+      final res = await BdkDescriptor.newInstance(
           descriptor: descriptor, network: network);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -202,8 +201,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip44(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip44(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -223,8 +222,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip44Public(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -244,8 +243,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip49(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip49(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -265,8 +264,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip44Public(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -286,8 +285,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip84(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip84(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -307,8 +306,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip44Public(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -328,8 +327,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip86(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip86(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -349,8 +348,8 @@ class Descriptor extends DescriptorBase {
       required Network network,
       required KeychainKind keychain}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorBase.newBip44Public(
+      await Api.initialize();
+      final res = await BdkDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -394,15 +393,14 @@ class Descriptor extends DescriptorBase {
 }
 
 ///An extended public key.
-class DescriptorPublicKey extends DescriptorPublicKeyBase {
+class DescriptorPublicKey extends BdkDescriptorPublicKey {
   DescriptorPublicKey._({required super.ptr});
 
   /// [DescriptorPublicKey] constructor
   static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
-      await Frb.verifyInit();
-      final res =
-          await DescriptorPublicKeyBase.fromString(publicKey: publicKey);
+      await Api.initialize();
+      final res = await BdkDescriptorPublicKey.fromString(publicKey: publicKey);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -421,9 +419,9 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
 
   ///Derive a public descriptor at a given path.
   Future<DescriptorPublicKey> derive(
-      {required DerivationPathBase path, hint}) async {
+      {required BdkDerivationPath path, hint}) async {
     try {
-      final res = await DescriptorPublicKeyBase.derive(ptr: this, path: path);
+      final res = await BdkDescriptorPublicKey.derive(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -432,9 +430,9 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
 
   ///Extend the public descriptor with a custom path.
   Future<DescriptorPublicKey> extend(
-      {required DerivationPathBase path, hint}) async {
+      {required BdkDerivationPath path, hint}) async {
     try {
-      final res = await DescriptorPublicKeyBase.extend(ptr: this, path: path);
+      final res = await BdkDescriptorPublicKey.extend(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -443,15 +441,14 @@ class DescriptorPublicKey extends DescriptorPublicKeyBase {
 }
 
 ///Script descriptor
-class DescriptorSecretKey extends DescriptorSecretKeyBase {
+class DescriptorSecretKey extends BdkDescriptorSecretKey {
   DescriptorSecretKey._({required super.ptr});
 
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> fromString(String secretKey) async {
     try {
-      await Frb.verifyInit();
-      final res =
-          await DescriptorSecretKeyBase.fromString(secretKey: secretKey);
+      await Api.initialize();
+      final res = await BdkDescriptorSecretKey.fromString(secretKey: secretKey);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -464,8 +461,8 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
       required Mnemonic mnemonic,
       String? password}) async {
     try {
-      await Frb.verifyInit();
-      final res = await DescriptorSecretKeyBase.create(
+      await Api.initialize();
+      final res = await BdkDescriptorSecretKey.create(
           network: network, mnemonic: mnemonic, password: password);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
@@ -474,9 +471,9 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   }
 
   ///Derived the XPrv using the derivation path
-  Future<DescriptorSecretKey> derive(DerivationPathBase path) async {
+  Future<DescriptorSecretKey> derive(BdkDerivationPath path) async {
     try {
-      final res = await DescriptorSecretKeyBase.derive(ptr: this, path: path);
+      final res = await BdkDescriptorSecretKey.derive(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -484,9 +481,9 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   }
 
   ///Extends the XPrv using the derivation path
-  Future<DescriptorSecretKey> extend(DerivationPathBase path) async {
+  Future<DescriptorSecretKey> extend(BdkDerivationPath path) async {
     try {
-      final res = await DescriptorSecretKeyBase.extend(ptr: this, path: path);
+      final res = await BdkDescriptorSecretKey.extend(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -496,7 +493,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
   ///Returns the public version of this key.
   Future<DescriptorPublicKey> asPublic() async {
     try {
-      final res = await DescriptorSecretKeyBase.asPublic(ptr: this);
+      final res = await BdkDescriptorSecretKey.asPublic(ptr: this);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -525,7 +522,7 @@ class DescriptorSecretKey extends DescriptorSecretKeyBase {
 }
 
 ///Mnemonic phrases are a human-readable version of the private keys. Supported number of words are 12, 18, and 24.
-class Mnemonic extends MnemonicBase {
+class Mnemonic extends BdkMnemonic {
   Mnemonic._({required super.ptr});
 
   /// Generates [Mnemonic] with given [WordCount]
@@ -533,8 +530,8 @@ class Mnemonic extends MnemonicBase {
   /// [Mnemonic] constructor
   static Future<Mnemonic> create(WordCount wordCount) async {
     try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.newInstance(wordCount: wordCount);
+      await Api.initialize();
+      final res = await BdkMnemonic.newInstance(wordCount: wordCount);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -547,8 +544,8 @@ class Mnemonic extends MnemonicBase {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromEntropy(List<int> entropy) async {
     try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.fromEntropy(entropy: entropy);
+      await Api.initialize();
+      final res = await BdkMnemonic.fromEntropy(entropy: entropy);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -560,8 +557,8 @@ class Mnemonic extends MnemonicBase {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
-      await Frb.verifyInit();
-      final res = await MnemonicBase.fromString(mnemonic: mnemonic);
+      await Api.initialize();
+      final res = await BdkMnemonic.fromString(mnemonic: mnemonic);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -580,7 +577,7 @@ class Mnemonic extends MnemonicBase {
 }
 
 ///A Partially Signed Transaction
-class PartiallySignedTransaction extends PsbtBase {
+class PartiallySignedTransaction extends BdkPsbt {
   PartiallySignedTransaction._({required super.ptr});
 
   /// Parse a [PartiallySignedTransaction] with given Base64 string
@@ -589,8 +586,8 @@ class PartiallySignedTransaction extends PsbtBase {
   static Future<PartiallySignedTransaction> fromString(
       String psbtBase64) async {
     try {
-      await Frb.verifyInit();
-      final res = await PsbtBase.fromStr(psbtBase64: psbtBase64);
+      await Api.initialize();
+      final res = await BdkPsbt.fromStr(psbtBase64: psbtBase64);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -639,7 +636,7 @@ class PartiallySignedTransaction extends PsbtBase {
   ///Return the transaction as bytes.
   Future<Transaction> extractTx() async {
     try {
-      final res = await PsbtBase.extractTx(ptr: this);
+      final res = await BdkPsbt.extractTx(ptr: this);
       return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -650,7 +647,7 @@ class PartiallySignedTransaction extends PsbtBase {
   Future<PartiallySignedTransaction> combine(
       PartiallySignedTransaction other) async {
     try {
-      final res = await PsbtBase.combine(ptr: this, other: other);
+      final res = await BdkPsbt.combine(ptr: this, other: other);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -669,15 +666,15 @@ class PartiallySignedTransaction extends PsbtBase {
 }
 
 ///Bitcoin script.
-class ScriptBuf extends ScriptBufBase {
+class ScriptBuf extends BdkScriptBuf {
   /// [ScriptBuf] constructor
   ScriptBuf({required super.bytes});
 
   ///Creates a new empty script.
   static Future<ScriptBuf> empty() async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.empty();
+      await Api.initialize();
+      final res = await BdkScriptBuf.empty();
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -687,8 +684,8 @@ class ScriptBuf extends ScriptBufBase {
   ///Creates a new empty script with pre-allocated capacity.
   static Future<ScriptBuf> withCapacity(int capacity) async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.withCapacity(capacity: capacity);
+      await Api.initialize();
+      final res = await BdkScriptBuf.withCapacity(capacity: capacity);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -698,8 +695,8 @@ class ScriptBuf extends ScriptBufBase {
   ///Creates a ScriptBuf from a hex string.
   static Future<ScriptBuf> fromHex(String s) async {
     try {
-      await Frb.verifyInit();
-      final res = await ScriptBufBase.fromHex(s: s);
+      await Api.initialize();
+      final res = await BdkScriptBuf.fromHex(s: s);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -708,19 +705,19 @@ class ScriptBuf extends ScriptBufBase {
 }
 
 ///A bitcoin transaction.
-class Transaction extends TransactionBase {
+class Transaction extends BdkTransaction {
   Transaction._({required super.inner});
 
   ///  [Transaction] constructor
   ///  Decode an object with a well-defined format.
   // This is the method that should be implemented for a typical, fixed sized type implementing this trait.
-  static Future<Transaction> create({
+  static Future<Transaction> fromBytes({
     required List<int> transactionBytes,
   }) async {
     try {
-      await Frb.verifyInit();
+      await Api.initialize();
       final res =
-          await TransactionBase.newInstance(transactionBytes: transactionBytes);
+          await BdkTransaction.fromBytes(transactionBytes: transactionBytes);
       return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -941,7 +938,7 @@ class TxBuilder {
 ///  1. Output descriptors from which it can derive addresses.
 ///  2. A Database where it tracks transactions and utxos related to the descriptors.
 ///  3. Signers that can contribute signatures to addresses instantiated from the descriptors.
-class Wallet extends WalletBase {
+class Wallet extends BdkWallet {
   Wallet._({required super.ptr});
 
   ///  [Wallet] constructor
@@ -955,8 +952,8 @@ class Wallet extends WalletBase {
     required DatabaseConfig databaseConfig,
   }) async {
     try {
-      await Frb.verifyInit();
-      final res = await WalletBase.newInstance(
+      await Api.initialize();
+      final res = await BdkWallet.newInstance(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
         network: network,
@@ -971,11 +968,12 @@ class Wallet extends WalletBase {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  @override
   Future<AddressInfo> getAddress(
       {required AddressIndex addressIndex, hint}) async {
     try {
-      return super.getAddress(addressIndex: addressIndex);
+      final res =
+          await BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
+      return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapToException(e);
     }
@@ -996,7 +994,7 @@ class Wallet extends WalletBase {
   Future<Descriptor> getDescriptorForKeychain(
       {required KeychainKind keychain, hint}) async {
     try {
-      final res = await WalletBase.getDescriptorForKeychain(
+      final res = await BdkWallet.getDescriptorForKeychain(
           ptr: this, keychain: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -1012,11 +1010,13 @@ class Wallet extends WalletBase {
   /// see [AddressIndex] for available address index selection strategies. If none of the keys
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
-  @override
+
   Future<AddressInfo> getInternalAddress(
       {required AddressIndex addressIndex, hint}) async {
     try {
-      return super.getInternalAddress(addressIndex: addressIndex);
+      final res = await BdkWallet.getInternalAddress(
+          ptr: this, addressIndex: addressIndex);
+      return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapToException(e);
     }
@@ -1041,7 +1041,7 @@ class Wallet extends WalletBase {
 
   /// Return whether or not a script is part of this wallet (either internal or external).
   @override
-  Future<bool> isMine({required ScriptBufBase script, hint}) async {
+  Future<bool> isMine({required BdkScriptBuf script, hint}) async {
     try {
       return super.isMine(script: script);
     } on BdkError catch (e) {
@@ -1062,6 +1062,7 @@ class Wallet extends WalletBase {
 
   /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
   /// which first needs to be Wallet.sync manually.
+  /// TODO; Update; create custom LocalUtxo
   @override
   Future<List<LocalUtxo>> listUnspent({hint}) async {
     try {
@@ -1089,9 +1090,11 @@ class Wallet extends WalletBase {
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
   Future<bool> sign(
-      {required PsbtBase psbt, SignOptions? signOptions, hint}) async {
+      {required PartiallySignedTransaction psbt,
+      SignOptions? signOptions,
+      hint}) async {
     try {
-      final res = await WalletBase.sign(ptr: this, psbt: psbt);
+      final res = await BdkWallet.sign(ptr: this, psbt: psbt);
       return res;
     } on BdkError catch (e) {
       throw mapToException(e);
@@ -1102,10 +1105,21 @@ class Wallet extends WalletBase {
 
   Future<void> sync({required Blockchain blockchain, hint}) async {
     try {
-      final res = await WalletBase.sync(ptr: this, blockchain: blockchain);
+      final res = await BdkWallet.sync(ptr: this, blockchain: blockchain);
       return res;
     } on BdkError catch (e) {
       throw mapToException(e);
     }
   }
+}
+
+///A derived address and the index it was found at For convenience this automatically derefs to Address
+class AddressInfo {
+  ///Child index of this address
+  final int index;
+
+  /// Address
+  final Address address;
+
+  AddressInfo(this.index, this.address);
 }
