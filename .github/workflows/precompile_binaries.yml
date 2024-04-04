@@ -20,14 +20,7 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-      - name: Configure Cargo.toml optimizations
-        run: |
-          mkdir -p .cargo
-          echo "[profile.release]" >> .cargo/config.toml
-          echo "opt-level = 'z'" >> .cargo/config.toml
-          echo "lto = true" >> .cargo/config.toml
-          echo "codegen-units = 1" >> .cargo/config.toml
-          echo "panic = 'abort'" >> .cargo/config.toml
+
       - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v2
         with:
