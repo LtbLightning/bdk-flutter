@@ -1,11 +1,11 @@
 use crate::api::error::{BdkError, HexError};
+use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::consensus::{serialize, Decodable};
 use bdk::bitcoin::hashes::hex::Error;
 use bdk::database::AnyDatabaseConfig;
 use serde::{Deserialize, Serialize};
 use std::io::Cursor;
 use std::str::FromStr;
-use crate::frb_generated::RustOpaque;
 
 /// A reference to a transaction output.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
@@ -15,12 +15,18 @@ pub struct OutPoint {
     /// The index of the referenced output in its transaction's vout.
     pub(crate) vout: u32,
 }
-impl From<&OutPoint> for bdk::bitcoin::OutPoint {
-    fn from(x: &OutPoint) -> bdk::bitcoin::OutPoint {
-        bdk::bitcoin::OutPoint {
-            txid: bdk::bitcoin::Txid::from_str(x.txid.as_str()).expect("invalid txid"),
+impl TryFrom<&OutPoint> for bdk::bitcoin::OutPoint {
+    type Error = BdkError;
+
+    fn try_from(x: &OutPoint) -> Result<Self, Self::Error> {
+        Ok(bdk::bitcoin::OutPoint {
+            txid: bdk::bitcoin::Txid::from_str(x.txid.as_str()).map_err(|e| match e {
+                Error::InvalidChar(e) => BdkError::Hex(HexError::InvalidChar(e)),
+                Error::OddLengthString(e) => BdkError::Hex(HexError::OddLengthString(e)),
+                Error::InvalidLength(e, f) => BdkError::Hex(HexError::InvalidLength(e, f)),
+            })?,
             vout: x.clone().vout,
-        }
+        })
     }
 }
 impl From<bdk::bitcoin::OutPoint> for OutPoint {
@@ -34,11 +40,26 @@ impl From<bdk::bitcoin::OutPoint> for OutPoint {
 #[derive(Debug, Clone)]
 pub struct TxIn {
     pub previous_output: OutPoint,
-    pub script_sig: ScriptBufBase,
+    pub script_sig: BdkScriptBuf,
     pub sequence: u32,
     pub witness: Vec<Vec<u8>>,
 }
+impl TryFrom<&TxIn> for bdk::bitcoin::TxIn {
+    type Error = BdkError;
 
+    fn try_from(x: &TxIn) -> Result<Self, Self::Error> {
+        Ok(bdk::bitcoin::TxIn {
+            previous_output: (&x.previous_output).try_into()?,
+            script_sig: x.clone().script_sig.into(),
+            sequence: bdk::bitcoin::blockdata::transaction::Sequence::from_consensus(
+                x.sequence.clone(),
+            ),
+            witness: bdk::bitcoin::blockdata::witness::Witness::from_slice(
+                x.clone().witness.as_slice(),
+            ),
+        })
+    }
+}
 impl From<&bdk::bitcoin::TxIn> for TxIn {
     fn from(x: &bdk::bitcoin::TxIn) -> Self {
         TxIn {
@@ -54,7 +75,7 @@ pub struct TxOut {
     /// The value of the output, in satoshis.
     pub value: u64,
     /// The address of the output.
-    pub script_pubkey: ScriptBufBase,
+    pub script_pubkey: BdkScriptBuf,
 }
 impl From<TxOut> for bdk::bitcoin::TxOut {
     fn from(value: TxOut) -> Self {
@@ -72,33 +93,41 @@ impl From<&bdk::bitcoin::TxOut> for TxOut {
         }
     }
 }
+impl From<&TxOut> for bdk::bitcoin::TxOut {
+    fn from(x: &TxOut) -> Self {
+        Self {
+            value: x.value,
+            script_pubkey: x.script_pubkey.clone().into(),
+        }
+    }
+}
 #[derive(Clone, Debug)]
-pub struct ScriptBufBase {
+pub struct BdkScriptBuf {
     pub bytes: Vec<u8>,
 }
-impl From<bdk::bitcoin::ScriptBuf> for ScriptBufBase {
+impl From<bdk::bitcoin::ScriptBuf> for BdkScriptBuf {
     fn from(value: bdk::bitcoin::ScriptBuf) -> Self {
         Self {
             bytes: value.as_bytes().to_vec(),
         }
     }
 }
-impl From<ScriptBufBase> for bdk::bitcoin::ScriptBuf {
-    fn from(value: ScriptBufBase) -> Self {
+impl From<BdkScriptBuf> for bdk::bitcoin::ScriptBuf {
+    fn from(value: BdkScriptBuf) -> Self {
         bdk::bitcoin::ScriptBuf::from_bytes(value.bytes)
     }
 }
-impl ScriptBufBase {
+impl BdkScriptBuf {
     ///Creates a new empty script.
-    pub fn empty() -> ScriptBufBase {
+    pub fn empty() -> BdkScriptBuf {
         bdk::bitcoin::ScriptBuf::new().into()
     }
     ///Creates a new empty script with pre-allocated capacity.
-    pub fn with_capacity(capacity: usize) -> ScriptBufBase {
+    pub fn with_capacity(capacity: usize) -> BdkScriptBuf {
         bdk::bitcoin::ScriptBuf::with_capacity(capacity).into()
     }
 
-    pub fn from_hex(s: String) -> Result<ScriptBufBase, BdkError> {
+    pub fn from_hex(s: String) -> Result<BdkScriptBuf, BdkError> {
         bdk::bitcoin::ScriptBuf::from_hex(s.as_str())
             .map(|e| e.into())
             .map_err(|e| match e {
@@ -181,20 +210,20 @@ pub struct AddressInfo {
     ///Child index of this address
     pub index: u32,
     /// Address
-    pub address: String,
+    pub address: BdkAddress,
 }
 impl From<bdk::wallet::AddressInfo> for AddressInfo {
     fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
         AddressInfo {
             index: x.index,
-            address: x.address.to_string(),
+            address: x.address.into(),
         }
     }
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 ///A wallet transaction
 pub struct TransactionDetails {
-    pub transaction: Option<TransactionBase>,
+    pub transaction: Option<BdkTransaction>,
     /// Transaction id.
     pub txid: String,
     /// Received value (sats)
@@ -213,28 +242,42 @@ pub struct TransactionDetails {
     pub confirmation_time: Option<BlockTime>,
 }
 /// A wallet transaction
-impl From<&bdk::TransactionDetails> for TransactionDetails {
-    fn from(x: &bdk::TransactionDetails) -> TransactionDetails {
-        TransactionDetails {
-            transaction: x.clone().transaction.map(|e| e.into()),
+impl TryFrom<&bdk::TransactionDetails> for TransactionDetails {
+    type Error = BdkError;
+
+    fn try_from(x: &bdk::TransactionDetails) -> Result<Self, Self::Error> {
+        let transaction: Option<BdkTransaction> = if let Some(tx) = x.transaction.clone() {
+            Some(tx.try_into()?)
+        } else {
+            None
+        };
+        Ok(TransactionDetails {
+            transaction,
             fee: x.clone().fee,
             txid: x.clone().txid.to_string(),
             received: x.clone().received,
             sent: x.clone().sent,
             confirmation_time: x.confirmation_time.clone().map(|e| e.into()),
-        }
+        })
     }
 }
-impl From<bdk::TransactionDetails> for TransactionDetails {
-    fn from(x: bdk::TransactionDetails) -> TransactionDetails {
-        TransactionDetails {
-            transaction: x.transaction.map(|e| e.into()),
+impl TryFrom<bdk::TransactionDetails> for TransactionDetails {
+    type Error = BdkError;
+
+    fn try_from(x: bdk::TransactionDetails) -> Result<Self, Self::Error> {
+        let transaction: Option<BdkTransaction> = if let Some(tx) = x.transaction {
+            Some(tx.try_into()?)
+        } else {
+            None
+        };
+        Ok(TransactionDetails {
+            transaction,
             fee: x.fee,
             txid: x.txid.to_string(),
             received: x.received,
             sent: x.sent,
             confirmation_time: x.confirmation_time.map(|e| e.into()),
-        }
+        })
     }
 }
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
@@ -255,7 +298,7 @@ impl From<bdk::BlockTime> for BlockTime {
 }
 /// A output script and an amount of satoshis.
 pub struct ScriptAmount {
-    pub script: ScriptBufBase,
+    pub script: BdkScriptBuf,
     pub amount: u64,
 }
 #[allow(dead_code)]
@@ -413,20 +456,22 @@ impl From<ChangeSpendPolicy> for bdk::wallet::tx_builder::ChangeSpendPolicy {
         }
     }
 }
-pub struct AddressBase {
+pub struct BdkAddress {
     pub ptr: RustOpaque<bdk::bitcoin::Address>,
 }
-impl From<bdk::bitcoin::Address> for AddressBase {
+impl From<bdk::bitcoin::Address> for BdkAddress {
     fn from(value: bdk::bitcoin::Address) -> Self {
-        Self { ptr: RustOpaque::new(value) }
+        Self {
+            ptr: RustOpaque::new(value),
+        }
     }
 }
-impl From<&AddressBase> for bdk::bitcoin::Address {
-    fn from(value: &AddressBase) -> Self {
+impl From<&BdkAddress> for bdk::bitcoin::Address {
+    fn from(value: &BdkAddress) -> Self {
         (*value.ptr).clone()
     }
 }
-impl AddressBase {
+impl BdkAddress {
     pub fn from_string(address: String, network: Network) -> Result<Self, BdkError> {
         match bdk::bitcoin::Address::from_str(address.as_str()) {
             Ok(e) => match e.require_network(network.into()) {
@@ -437,16 +482,16 @@ impl AddressBase {
         }
     }
 
-    pub fn from_script(script: ScriptBufBase, network: Network) -> Result<Self, BdkError> {
+    pub fn from_script(script: BdkScriptBuf, network: Network) -> Result<Self, BdkError> {
         bdk::bitcoin::Address::from_script(
-            <ScriptBufBase as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script(),
+            <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script(),
             network.into(),
         )
         .map(|a| a.into())
         .map_err(|e| e.into())
     }
     pub fn payload(&self) -> Payload {
-        match <&AddressBase as Into<bdk::bitcoin::Address>>::into(self).payload {
+        match <&BdkAddress as Into<bdk::bitcoin::Address>>::into(self).payload {
             bdk::bitcoin::address::Payload::PubkeyHash(pubkey_hash) => Payload::PubkeyHash {
                 pubkey_hash: pubkey_hash.to_string(),
             },
@@ -475,7 +520,7 @@ impl AddressBase {
         self.ptr.network.into()
     }
 
-    pub fn script(ptr: AddressBase) -> ScriptBufBase {
+    pub fn script(ptr: BdkAddress) -> BdkScriptBuf {
         ptr.ptr.script_pubkey().into()
     }
 
@@ -506,97 +551,158 @@ impl From<bdk::bitcoin::bech32::Variant> for Variant {
         }
     }
 }
+pub enum LockTime {
+    Blocks(u32),
+    Seconds(u32),
+}
+
+impl TryFrom<LockTime> for bdk::bitcoin::blockdata::locktime::absolute::LockTime {
+    type Error = BdkError;
+
+    fn try_from(value: LockTime) -> Result<Self, Self::Error> {
+        match value {
+            LockTime::Blocks(e) => Ok(
+                bdk::bitcoin::blockdata::locktime::absolute::LockTime::Blocks(
+                    bdk::bitcoin::blockdata::locktime::absolute::Height::from_consensus(e)
+                        .map_err(|e| BdkError::InvalidLockTime(e.to_string()))?,
+                ),
+            ),
+            LockTime::Seconds(e) => Ok(
+                bdk::bitcoin::blockdata::locktime::absolute::LockTime::Seconds(
+                    bdk::bitcoin::blockdata::locktime::absolute::Time::from_consensus(e)
+                        .map_err(|e| BdkError::InvalidLockTime(e.to_string()))?,
+                ),
+            ),
+        }
+    }
+}
+
+impl From<bdk::bitcoin::blockdata::locktime::absolute::LockTime> for LockTime {
+    fn from(value: bdk::bitcoin::blockdata::locktime::absolute::LockTime) -> Self {
+        match value {
+            bdk::bitcoin::blockdata::locktime::absolute::LockTime::Blocks(e) => {
+                LockTime::Blocks(e.to_consensus_u32())
+            }
+            bdk::bitcoin::blockdata::locktime::absolute::LockTime::Seconds(e) => {
+                LockTime::Seconds(e.to_consensus_u32())
+            }
+        }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct TransactionBase {
+pub struct BdkTransaction {
     pub inner: String,
 }
-impl TransactionBase {
-    pub fn new(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
+impl BdkTransaction {
+    pub fn new(
+        version: i32,
+        lock_time: LockTime,
+        input: Vec<TxIn>,
+        output: Vec<TxOut>,
+    ) -> Result<BdkTransaction, BdkError> {
+        let mut inputs: Vec<bdk::bitcoin::blockdata::transaction::TxIn> = vec![];
+        for e in input.iter() {
+            inputs.push(e.try_into()?)
+        }
+        let output = output
+            .into_iter()
+            .map(|e| <&TxOut as Into<bdk::bitcoin::blockdata::transaction::TxOut>>::into(&e))
+            .collect();
+
+        bdk::bitcoin::Transaction {
+            version,
+            lock_time: lock_time.try_into()?,
+            input: inputs,
+            output: output,
+        }
+        .try_into()
+    }
+    pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);
         let tx: bdk::bitcoin::transaction::Transaction =
             bdk::bitcoin::transaction::Transaction::consensus_decode(&mut decoder)?;
-        Ok(tx.into())
+        tx.try_into()
     }
     ///Computes the txid. For non-segwit transactions this will be identical to the output of wtxid(),
     /// but for segwit transactions, this will give the correct txid (not including witnesses) while wtxid will also hash witnesses.
-    pub fn txid(&self) -> String {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
-            .txid()
-            .to_string()
+    pub fn txid(&self) -> Result<String, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.txid().to_string())
     }
     ///Returns the regular byte-wise consensus-serialized size of this transaction.
-    pub fn weight(&self) -> u64 {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
-            .weight()
-            .to_wu()
+    pub fn weight(&self) -> Result<u64, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.weight().to_wu())
     }
     ///Returns the regular byte-wise consensus-serialized size of this transaction.
-    pub fn size(&self) -> u64 {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).size() as u64
+    pub fn size(&self) -> Result<u64, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.size() as u64)
     }
     ///Returns the “virtual size” (vsize) of this transaction.
     ///
     // Will be ceil(weight / 4.0). Note this implements the virtual size as per BIP141, which is different to what is implemented in Bitcoin Core.
     // The computation should be the same for any remotely sane transaction, and a standardness-rule-correct version is available in the policy module.
-    pub fn vsize(&self) -> u64 {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).vsize() as u64
+    pub fn vsize(&self) -> Result<u64, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.vsize() as u64)
     }
     ///Encodes an object into a vector.
-    pub fn serialize(&self) -> Vec<u8> {
-        serialize(&<&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self))
+    pub fn serialize(&self) -> Result<Vec<u8>, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| serialize(&e))
     }
     ///Is this a coin base transaction?
-    pub fn is_coin_base(&self) -> bool {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_coin_base()
+    pub fn is_coin_base(&self) -> Result<bool, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.is_coin_base())
     }
     ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
     /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
-    pub fn is_explicitly_rbf(&self) -> bool {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_explicitly_rbf()
+    pub fn is_explicitly_rbf(&self) -> Result<bool, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.is_explicitly_rbf())
     }
     ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
-    pub fn is_lock_time_enabled(&self) -> bool {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).is_lock_time_enabled()
+    pub fn is_lock_time_enabled(&self) -> Result<bool, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.is_lock_time_enabled())
     }
     ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
-    pub fn version(&self) -> i32 {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self).version
+    pub fn version(&self) -> Result<i32, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.version)
     }
     ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
-    pub fn lock_time(&self) -> u32 {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
-            .lock_time
-            .to_consensus_u32()
+    pub fn lock_time(&self) -> Result<LockTime, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.lock_time.into())
     }
     ///List of transaction inputs.
-    pub fn input(&self) -> Vec<TxIn> {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
-            .input
-            .iter()
-            .map(|x| x.into())
-            .collect()
+    pub fn input(&self) -> Result<Vec<TxIn>, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.input.iter().map(|x| x.into()).collect())
     }
     ///List of transaction outputs.
-    pub fn output(&self) -> Vec<TxOut> {
-        <&TransactionBase as Into<bdk::bitcoin::Transaction>>::into(self)
-            .output
-            .iter()
-            .map(|x| (&x.clone()).into())
-            .collect()
+    pub fn output(&self) -> Result<Vec<TxOut>, BdkError> {
+        self.try_into()
+            .map(|e: bdk::bitcoin::Transaction| e.output.iter().map(|x| x.into()).collect())
     }
 }
-impl From<bdk::bitcoin::Transaction> for TransactionBase {
-    fn from(tx: bdk::bitcoin::Transaction) -> Self {
-        TransactionBase {
-            inner: serde_json::to_string(&tx).expect("invalid tx"),
-        }
+impl TryFrom<bdk::bitcoin::Transaction> for BdkTransaction {
+    type Error = BdkError;
+    fn try_from(tx: bdk::bitcoin::Transaction) -> Result<Self, Self::Error> {
+        Ok(BdkTransaction {
+            inner: serde_json::to_string(&tx)
+                .map_err(|e| BdkError::InvalidTransaction(e.to_string()))?,
+        })
     }
 }
-impl From<&TransactionBase> for bdk::bitcoin::Transaction {
-    fn from(tx: &TransactionBase) -> Self {
-        let tx: bdk::bitcoin::Transaction = serde_json::from_str(&tx.inner).expect("invalid tx");
-        tx
+impl TryFrom<&BdkTransaction> for bdk::bitcoin::Transaction {
+    type Error = BdkError;
+    fn try_from(tx: &BdkTransaction) -> Result<Self, Self::Error> {
+        serde_json::from_str(&tx.inner).map_err(|e| BdkError::InvalidTransaction(e.to_string()))
     }
 }
 ///Configuration type for a SqliteDatabase database
@@ -684,7 +790,7 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
             },
             txout: TxOut {
                 value: local_utxo.txout.value,
-                script_pubkey: ScriptBufBase {
+                script_pubkey: BdkScriptBuf {
                     bytes: local_utxo.txout.script_pubkey.into_bytes(),
                 },
             },
@@ -693,14 +799,16 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
         }
     }
 }
-impl From<LocalUtxo> for bdk::LocalUtxo {
-    fn from(value: LocalUtxo) -> Self {
-        Self {
-            outpoint: (&value.outpoint).into(),
+impl TryFrom<LocalUtxo> for bdk::LocalUtxo {
+    type Error = BdkError;
+
+    fn try_from(value: LocalUtxo) -> Result<Self, Self::Error> {
+        Ok(Self {
+            outpoint: (&value.outpoint).try_into()?,
             txout: value.txout.into(),
             keychain: value.keychain.into(),
             is_spent: value.is_spent,
-        }
+        })
     }
 }
 /// Options for a software signer
@@ -810,15 +918,18 @@ impl From<bdk::FeeRate> for FeeRate {
 pub struct Input {
     pub s: String,
 }
-impl From<Input> for bdk::bitcoin::psbt::Input {
-    fn from(value: Input) -> Self {
-        serde_json::from_str(value.s.as_str()).expect("input cannot be de-serialized")
+impl TryFrom<Input> for bdk::bitcoin::psbt::Input {
+    type Error = BdkError;
+    fn try_from(value: Input) -> Result<Self, Self::Error> {
+        serde_json::from_str(value.s.as_str()).map_err(|e| BdkError::InvalidInput(e.to_string()))
     }
 }
-impl From<bdk::bitcoin::psbt::Input> for Input {
-    fn from(value: bdk::bitcoin::psbt::Input) -> Self {
-        Input {
-            s: serde_json::to_string(&value).expect("input cannot be serialized"),
-        }
+impl TryFrom<bdk::bitcoin::psbt::Input> for Input {
+    type Error = BdkError;
+
+    fn try_from(value: bdk::bitcoin::psbt::Input) -> Result<Self, Self::Error> {
+        Ok(Input {
+            s: serde_json::to_string(&value).map_err(|e| BdkError::InvalidInput(e.to_string()))?,
+        })
     }
 }
