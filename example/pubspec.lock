@@ -39,7 +39,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.31.1-dev"
+    version: "0.31.1-dev.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -193,10 +193,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: c51fa002e57e64d13030269ed9cd43752173ee4c6f60ec1e9c41450d63c75bae
+      sha256: c02b20ac3bfdfeae9edcd46f8bbdecad942f33f859b43e885bf3030f4de19213
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0-dev.28"
+    version: "2.0.0-dev.30"
   flutter_test:
     dependency: "direct dev"
     description: flutter
