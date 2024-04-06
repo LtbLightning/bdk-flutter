@@ -1,6 +1,7 @@
 use crate::api::error::BdkError;
-use crate::api::key::{DescriptorPublicKeyBase, DescriptorSecretKeyBase};
+use crate::api::key::{BdkDescriptorPublicKey, BdkDescriptorSecretKey};
 use crate::api::types::{KeychainKind, Network};
+use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::bip32::Fingerprint;
 use bdk::bitcoin::key::Secp256k1;
 pub use bdk::descriptor::{ExtendedDescriptor, IntoWalletDescriptor};
@@ -10,15 +11,14 @@ use bdk::template::{
     DescriptorTemplate,
 };
 use std::str::FromStr;
-use crate::frb_generated::RustOpaque;
 
 #[derive(Debug)]
-pub struct DescriptorBase {
+pub struct BdkDescriptor {
     pub extended_descriptor: RustOpaque<ExtendedDescriptor>,
     pub key_map: RustOpaque<keys::KeyMap>,
 }
 
-impl DescriptorBase {
+impl BdkDescriptor {
     pub fn new(descriptor: String, network: Network) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let (extended_descriptor, key_map) =
@@ -30,7 +30,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip44(
-        secret_key: DescriptorSecretKeyBase,
+        secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
@@ -55,7 +55,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip44_public(
-        public_key: DescriptorPublicKeyBase,
+        public_key: BdkDescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -84,7 +84,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip49(
-        secret_key: DescriptorSecretKeyBase,
+        secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
@@ -109,7 +109,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip49_public(
-        public_key: DescriptorPublicKeyBase,
+        public_key: BdkDescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -139,7 +139,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip84(
-        secret_key: DescriptorSecretKeyBase,
+        secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
@@ -164,7 +164,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip84_public(
-        public_key: DescriptorPublicKeyBase,
+        public_key: BdkDescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
@@ -195,7 +195,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip86(
-        secret_key: DescriptorSecretKeyBase,
+        secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
@@ -221,7 +221,7 @@ impl DescriptorBase {
     }
 
     pub fn new_bip86_public(
-        public_key: DescriptorPublicKeyBase,
+        public_key: BdkDescriptorPublicKey,
         fingerprint: String,
         keychain_kind: KeychainKind,
         network: Network,
