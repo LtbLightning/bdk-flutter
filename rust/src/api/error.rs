@@ -106,6 +106,9 @@ pub enum BdkError {
     Rpc(String),
     /// Rusqlite client error
     Rusqlite(String),
+    InvalidInput(String),
+    InvalidLockTime(String),
+    InvalidTransaction(String),
 }
 
 impl From<bdk::Error> for BdkError {
