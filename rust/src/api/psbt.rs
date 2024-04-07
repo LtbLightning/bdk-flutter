@@ -1,5 +1,5 @@
 use crate::api::error::BdkError;
-use crate::api::types::{FeeRate, TransactionBase};
+use crate::api::types::{BdkTransaction, FeeRate, Input};
 use crate::frb_generated::RustOpaque;
 pub use bdk::bitcoin::psbt::PartiallySignedTransaction;
 use bdk::psbt::PsbtUtils;
@@ -8,23 +8,31 @@ use std::str::FromStr;
 use std::sync::Mutex;
 
 #[derive(Debug)]
-pub struct PsbtBase {
+pub struct BdkPsbt {
     pub ptr: RustOpaque<Mutex<PartiallySignedTransaction>>,
 }
 
-impl From<PartiallySignedTransaction> for PsbtBase {
+impl From<PartiallySignedTransaction> for BdkPsbt {
     fn from(value: PartiallySignedTransaction) -> Self {
         Self {
             ptr: RustOpaque::new(Mutex::new(value)),
         }
     }
 }
-impl PsbtBase {
-    pub fn from_str(psbt_base64: String) -> Result<PsbtBase, BdkError> {
+impl BdkPsbt {
+    pub fn from_str(psbt_base64: String) -> Result<BdkPsbt, BdkError> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
         Ok(psbt.into())
     }
-
+    pub fn update_input(&self, input:Input)-> Result<BdkPsbt, BdkError>{
+        let mut psbt = self.ptr.lock().unwrap().clone();
+        psbt.inputs.push(input.try_into()?);
+        Ok(psbt.into())
+    }
+    pub fn from_unsigned_tx(tx: BdkTransaction) -> Result<BdkPsbt, BdkError> {
+        let tx = (&tx).try_into();
+        Ok(PartiallySignedTransaction::from_unsigned_tx(tx?)?.into())
+    }
     pub fn serialize(&self) -> String {
         let psbt = self.ptr.lock().unwrap().clone();
         psbt.to_string()
@@ -37,15 +45,15 @@ impl PsbtBase {
     }
 
     /// Return the transaction.
-    pub fn extract_tx(ptr: PsbtBase) -> TransactionBase {
+    pub fn extract_tx(ptr: BdkPsbt) -> Result<BdkTransaction, BdkError> {
         let tx = ptr.ptr.lock().unwrap().clone().extract_tx();
-        tx.into()
+        tx.try_into()
     }
 
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-    pub fn combine(ptr: PsbtBase, other: PsbtBase) -> Result<PsbtBase, BdkError> {
+    pub fn combine(ptr: BdkPsbt, other: BdkPsbt) -> Result<BdkPsbt, BdkError> {
         let other_psbt = other.ptr.lock().unwrap().clone();
         let mut original_psbt = ptr.ptr.lock().unwrap().clone();
         original_psbt.combine(other_psbt)?;
