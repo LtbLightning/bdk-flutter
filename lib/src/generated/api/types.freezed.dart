@@ -105,8 +105,8 @@ class __$$AddressIndex_IncreaseImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressIndex_IncreaseImpl implements AddressIndex_Increase {
-  const _$AddressIndex_IncreaseImpl();
+class _$AddressIndex_IncreaseImpl extends AddressIndex_Increase {
+  const _$AddressIndex_IncreaseImpl() : super._();
 
   @override
   String toString() {
@@ -198,8 +198,9 @@ class _$AddressIndex_IncreaseImpl implements AddressIndex_Increase {
   }
 }
 
-abstract class AddressIndex_Increase implements AddressIndex {
+abstract class AddressIndex_Increase extends AddressIndex {
   const factory AddressIndex_Increase() = _$AddressIndex_IncreaseImpl;
+  const AddressIndex_Increase._() : super._();
 }
 
 /// @nodoc
@@ -222,8 +223,8 @@ class __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressIndex_LastUnusedImpl implements AddressIndex_LastUnused {
-  const _$AddressIndex_LastUnusedImpl();
+class _$AddressIndex_LastUnusedImpl extends AddressIndex_LastUnused {
+  const _$AddressIndex_LastUnusedImpl() : super._();
 
   @override
   String toString() {
@@ -315,8 +316,9 @@ class _$AddressIndex_LastUnusedImpl implements AddressIndex_LastUnused {
   }
 }
 
-abstract class AddressIndex_LastUnused implements AddressIndex {
+abstract class AddressIndex_LastUnused extends AddressIndex {
   const factory AddressIndex_LastUnused() = _$AddressIndex_LastUnusedImpl;
+  const AddressIndex_LastUnused._() : super._();
 }
 
 /// @nodoc
@@ -352,8 +354,8 @@ class __$$AddressIndex_PeekImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressIndex_PeekImpl implements AddressIndex_Peek {
-  const _$AddressIndex_PeekImpl({required this.index});
+class _$AddressIndex_PeekImpl extends AddressIndex_Peek {
+  const _$AddressIndex_PeekImpl({required this.index}) : super._();
 
   @override
   final int index;
@@ -456,9 +458,10 @@ class _$AddressIndex_PeekImpl implements AddressIndex_Peek {
   }
 }
 
-abstract class AddressIndex_Peek implements AddressIndex {
+abstract class AddressIndex_Peek extends AddressIndex {
   const factory AddressIndex_Peek({required final int index}) =
       _$AddressIndex_PeekImpl;
+  const AddressIndex_Peek._() : super._();
 
   int get index;
   @JsonKey(ignore: true)
@@ -499,8 +502,8 @@ class __$$AddressIndex_ResetImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddressIndex_ResetImpl implements AddressIndex_Reset {
-  const _$AddressIndex_ResetImpl({required this.index});
+class _$AddressIndex_ResetImpl extends AddressIndex_Reset {
+  const _$AddressIndex_ResetImpl({required this.index}) : super._();
 
   @override
   final int index;
@@ -603,9 +606,10 @@ class _$AddressIndex_ResetImpl implements AddressIndex_Reset {
   }
 }
 
-abstract class AddressIndex_Reset implements AddressIndex {
+abstract class AddressIndex_Reset extends AddressIndex {
   const factory AddressIndex_Reset({required final int index}) =
       _$AddressIndex_ResetImpl;
+  const AddressIndex_Reset._() : super._();
 
   int get index;
   @JsonKey(ignore: true)
@@ -698,8 +702,8 @@ class __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DatabaseConfig_MemoryImpl implements DatabaseConfig_Memory {
-  const _$DatabaseConfig_MemoryImpl();
+class _$DatabaseConfig_MemoryImpl extends DatabaseConfig_Memory {
+  const _$DatabaseConfig_MemoryImpl() : super._();
 
   @override
   String toString() {
@@ -785,8 +789,9 @@ class _$DatabaseConfig_MemoryImpl implements DatabaseConfig_Memory {
   }
 }
 
-abstract class DatabaseConfig_Memory implements DatabaseConfig {
+abstract class DatabaseConfig_Memory extends DatabaseConfig {
   const factory DatabaseConfig_Memory() = _$DatabaseConfig_MemoryImpl;
+  const DatabaseConfig_Memory._() : super._();
 }
 
 /// @nodoc
@@ -823,8 +828,8 @@ class __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DatabaseConfig_SqliteImpl implements DatabaseConfig_Sqlite {
-  const _$DatabaseConfig_SqliteImpl({required this.config});
+class _$DatabaseConfig_SqliteImpl extends DatabaseConfig_Sqlite {
+  const _$DatabaseConfig_SqliteImpl({required this.config}) : super._();
 
   @override
   final SqliteDbConfiguration config;
@@ -921,10 +926,11 @@ class _$DatabaseConfig_SqliteImpl implements DatabaseConfig_Sqlite {
   }
 }
 
-abstract class DatabaseConfig_Sqlite implements DatabaseConfig {
+abstract class DatabaseConfig_Sqlite extends DatabaseConfig {
   const factory DatabaseConfig_Sqlite(
           {required final SqliteDbConfiguration config}) =
       _$DatabaseConfig_SqliteImpl;
+  const DatabaseConfig_Sqlite._() : super._();
 
   SqliteDbConfiguration get config;
   @JsonKey(ignore: true)
@@ -965,8 +971,8 @@ class __$$DatabaseConfig_SledImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DatabaseConfig_SledImpl implements DatabaseConfig_Sled {
-  const _$DatabaseConfig_SledImpl({required this.config});
+class _$DatabaseConfig_SledImpl extends DatabaseConfig_Sled {
+  const _$DatabaseConfig_SledImpl({required this.config}) : super._();
 
   @override
   final SledDbConfiguration config;
@@ -1063,13 +1069,371 @@ class _$DatabaseConfig_SledImpl implements DatabaseConfig_Sled {
   }
 }
 
-abstract class DatabaseConfig_Sled implements DatabaseConfig {
+abstract class DatabaseConfig_Sled extends DatabaseConfig {
   const factory DatabaseConfig_Sled(
       {required final SledDbConfiguration config}) = _$DatabaseConfig_SledImpl;
+  const DatabaseConfig_Sled._() : super._();
 
   SledDbConfiguration get config;
   @JsonKey(ignore: true)
   _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$LockTime {
+  int get field0 => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int field0) blocks,
+    required TResult Function(int field0) seconds,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int field0)? blocks,
+    TResult? Function(int field0)? seconds,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int field0)? blocks,
+    TResult Function(int field0)? seconds,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LockTime_Blocks value) blocks,
+    required TResult Function(LockTime_Seconds value) seconds,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LockTime_Blocks value)? blocks,
+    TResult? Function(LockTime_Seconds value)? seconds,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LockTime_Blocks value)? blocks,
+    TResult Function(LockTime_Seconds value)? seconds,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LockTimeCopyWith<LockTime> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LockTimeCopyWith<$Res> {
+  factory $LockTimeCopyWith(LockTime value, $Res Function(LockTime) then) =
+      _$LockTimeCopyWithImpl<$Res, LockTime>;
+  @useResult
+  $Res call({int field0});
+}
+
+/// @nodoc
+class _$LockTimeCopyWithImpl<$Res, $Val extends LockTime>
+    implements $LockTimeCopyWith<$Res> {
+  _$LockTimeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_value.copyWith(
+      field0: null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LockTime_BlocksImplCopyWith<$Res>
+    implements $LockTimeCopyWith<$Res> {
+  factory _$$LockTime_BlocksImplCopyWith(_$LockTime_BlocksImpl value,
+          $Res Function(_$LockTime_BlocksImpl) then) =
+      __$$LockTime_BlocksImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int field0});
+}
+
+/// @nodoc
+class __$$LockTime_BlocksImplCopyWithImpl<$Res>
+    extends _$LockTimeCopyWithImpl<$Res, _$LockTime_BlocksImpl>
+    implements _$$LockTime_BlocksImplCopyWith<$Res> {
+  __$$LockTime_BlocksImplCopyWithImpl(
+      _$LockTime_BlocksImpl _value, $Res Function(_$LockTime_BlocksImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$LockTime_BlocksImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LockTime_BlocksImpl extends LockTime_Blocks {
+  const _$LockTime_BlocksImpl(this.field0) : super._();
+
+  @override
+  final int field0;
+
+  @override
+  String toString() {
+    return 'LockTime.blocks(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LockTime_BlocksImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LockTime_BlocksImplCopyWith<_$LockTime_BlocksImpl> get copyWith =>
+      __$$LockTime_BlocksImplCopyWithImpl<_$LockTime_BlocksImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int field0) blocks,
+    required TResult Function(int field0) seconds,
+  }) {
+    return blocks(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int field0)? blocks,
+    TResult? Function(int field0)? seconds,
+  }) {
+    return blocks?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int field0)? blocks,
+    TResult Function(int field0)? seconds,
+    required TResult orElse(),
+  }) {
+    if (blocks != null) {
+      return blocks(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LockTime_Blocks value) blocks,
+    required TResult Function(LockTime_Seconds value) seconds,
+  }) {
+    return blocks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LockTime_Blocks value)? blocks,
+    TResult? Function(LockTime_Seconds value)? seconds,
+  }) {
+    return blocks?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LockTime_Blocks value)? blocks,
+    TResult Function(LockTime_Seconds value)? seconds,
+    required TResult orElse(),
+  }) {
+    if (blocks != null) {
+      return blocks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LockTime_Blocks extends LockTime {
+  const factory LockTime_Blocks(final int field0) = _$LockTime_BlocksImpl;
+  const LockTime_Blocks._() : super._();
+
+  @override
+  int get field0;
+  @override
+  @JsonKey(ignore: true)
+  _$$LockTime_BlocksImplCopyWith<_$LockTime_BlocksImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LockTime_SecondsImplCopyWith<$Res>
+    implements $LockTimeCopyWith<$Res> {
+  factory _$$LockTime_SecondsImplCopyWith(_$LockTime_SecondsImpl value,
+          $Res Function(_$LockTime_SecondsImpl) then) =
+      __$$LockTime_SecondsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int field0});
+}
+
+/// @nodoc
+class __$$LockTime_SecondsImplCopyWithImpl<$Res>
+    extends _$LockTimeCopyWithImpl<$Res, _$LockTime_SecondsImpl>
+    implements _$$LockTime_SecondsImplCopyWith<$Res> {
+  __$$LockTime_SecondsImplCopyWithImpl(_$LockTime_SecondsImpl _value,
+      $Res Function(_$LockTime_SecondsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$LockTime_SecondsImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LockTime_SecondsImpl extends LockTime_Seconds {
+  const _$LockTime_SecondsImpl(this.field0) : super._();
+
+  @override
+  final int field0;
+
+  @override
+  String toString() {
+    return 'LockTime.seconds(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LockTime_SecondsImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LockTime_SecondsImplCopyWith<_$LockTime_SecondsImpl> get copyWith =>
+      __$$LockTime_SecondsImplCopyWithImpl<_$LockTime_SecondsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int field0) blocks,
+    required TResult Function(int field0) seconds,
+  }) {
+    return seconds(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int field0)? blocks,
+    TResult? Function(int field0)? seconds,
+  }) {
+    return seconds?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int field0)? blocks,
+    TResult Function(int field0)? seconds,
+    required TResult orElse(),
+  }) {
+    if (seconds != null) {
+      return seconds(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LockTime_Blocks value) blocks,
+    required TResult Function(LockTime_Seconds value) seconds,
+  }) {
+    return seconds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LockTime_Blocks value)? blocks,
+    TResult? Function(LockTime_Seconds value)? seconds,
+  }) {
+    return seconds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LockTime_Blocks value)? blocks,
+    TResult Function(LockTime_Seconds value)? seconds,
+    required TResult orElse(),
+  }) {
+    if (seconds != null) {
+      return seconds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LockTime_Seconds extends LockTime {
+  const factory LockTime_Seconds(final int field0) = _$LockTime_SecondsImpl;
+  const LockTime_Seconds._() : super._();
+
+  @override
+  int get field0;
+  @override
+  @JsonKey(ignore: true)
+  _$$LockTime_SecondsImplCopyWith<_$LockTime_SecondsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1173,8 +1537,8 @@ class __$$Payload_PubkeyHashImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Payload_PubkeyHashImpl implements Payload_PubkeyHash {
-  const _$Payload_PubkeyHashImpl({required this.pubkeyHash});
+class _$Payload_PubkeyHashImpl extends Payload_PubkeyHash {
+  const _$Payload_PubkeyHashImpl({required this.pubkeyHash}) : super._();
 
   @override
   final String pubkeyHash;
@@ -1274,9 +1638,10 @@ class _$Payload_PubkeyHashImpl implements Payload_PubkeyHash {
   }
 }
 
-abstract class Payload_PubkeyHash implements Payload {
+abstract class Payload_PubkeyHash extends Payload {
   const factory Payload_PubkeyHash({required final String pubkeyHash}) =
       _$Payload_PubkeyHashImpl;
+  const Payload_PubkeyHash._() : super._();
 
   String get pubkeyHash;
   @JsonKey(ignore: true)
@@ -1317,8 +1682,8 @@ class __$$Payload_ScriptHashImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Payload_ScriptHashImpl implements Payload_ScriptHash {
-  const _$Payload_ScriptHashImpl({required this.scriptHash});
+class _$Payload_ScriptHashImpl extends Payload_ScriptHash {
+  const _$Payload_ScriptHashImpl({required this.scriptHash}) : super._();
 
   @override
   final String scriptHash;
@@ -1418,9 +1783,10 @@ class _$Payload_ScriptHashImpl implements Payload_ScriptHash {
   }
 }
 
-abstract class Payload_ScriptHash implements Payload {
+abstract class Payload_ScriptHash extends Payload {
   const factory Payload_ScriptHash({required final String scriptHash}) =
       _$Payload_ScriptHashImpl;
+  const Payload_ScriptHash._() : super._();
 
   String get scriptHash;
   @JsonKey(ignore: true)
@@ -1468,9 +1834,10 @@ class __$$Payload_WitnessProgramImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Payload_WitnessProgramImpl implements Payload_WitnessProgram {
+class _$Payload_WitnessProgramImpl extends Payload_WitnessProgram {
   const _$Payload_WitnessProgramImpl(
-      {required this.version, required this.program});
+      {required this.version, required this.program})
+      : super._();
 
   /// The witness program version.
   @override
@@ -1576,10 +1943,11 @@ class _$Payload_WitnessProgramImpl implements Payload_WitnessProgram {
   }
 }
 
-abstract class Payload_WitnessProgram implements Payload {
+abstract class Payload_WitnessProgram extends Payload {
   const factory Payload_WitnessProgram(
       {required final WitnessVersion version,
       required final Uint8List program}) = _$Payload_WitnessProgramImpl;
+  const Payload_WitnessProgram._() : super._();
 
   /// The witness program version.
   WitnessVersion get version;
@@ -1668,8 +2036,8 @@ class __$$RbfValue_RbfDefaultImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RbfValue_RbfDefaultImpl implements RbfValue_RbfDefault {
-  const _$RbfValue_RbfDefaultImpl();
+class _$RbfValue_RbfDefaultImpl extends RbfValue_RbfDefault {
+  const _$RbfValue_RbfDefaultImpl() : super._();
 
   @override
   String toString() {
@@ -1749,8 +2117,9 @@ class _$RbfValue_RbfDefaultImpl implements RbfValue_RbfDefault {
   }
 }
 
-abstract class RbfValue_RbfDefault implements RbfValue {
+abstract class RbfValue_RbfDefault extends RbfValue {
   const factory RbfValue_RbfDefault() = _$RbfValue_RbfDefaultImpl;
+  const RbfValue_RbfDefault._() : super._();
 }
 
 /// @nodoc
@@ -1786,8 +2155,8 @@ class __$$RbfValue_ValueImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RbfValue_ValueImpl implements RbfValue_Value {
-  const _$RbfValue_ValueImpl(this.field0);
+class _$RbfValue_ValueImpl extends RbfValue_Value {
+  const _$RbfValue_ValueImpl(this.field0) : super._();
 
   @override
   final int field0;
@@ -1878,8 +2247,9 @@ class _$RbfValue_ValueImpl implements RbfValue_Value {
   }
 }
 
-abstract class RbfValue_Value implements RbfValue {
+abstract class RbfValue_Value extends RbfValue {
   const factory RbfValue_Value(final int field0) = _$RbfValue_ValueImpl;
+  const RbfValue_Value._() : super._();
 
   int get field0;
   @JsonKey(ignore: true)
