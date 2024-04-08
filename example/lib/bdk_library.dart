@@ -1,5 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class BdkLibrary {
   Future<Mnemonic> createMnemonic() async {
@@ -9,25 +9,18 @@ class BdkLibrary {
 
   Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
-      network: Network.testnet,
+      network: Network.regtest,
       mnemonic: mnemonic,
     );
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
-        network: Network.testnet,
+        network: Network.regtest,
         keychain: KeychainKind.externalChain);
     return descriptor;
   }
 
   Future<Blockchain> initializeBlockchain(bool isElectrumBlockchain) async {
     if (isElectrumBlockchain) {
-      final blockchain = await Blockchain.create(
-          config: const BlockchainConfig.esplora(
-              config: EsploraConfig(
-                  baseUrl: 'https://blockstream.info/testnet/api',
-                  stopGap: 10)));
-      return blockchain;
-    } else {
       final blockchain = await Blockchain.create(
           config: const BlockchainConfig.electrum(
               config: ElectrumConfig(
@@ -37,13 +30,20 @@ class BdkLibrary {
                   url: "ssl://electrum.blockstream.info:60002",
                   validateDomain: true)));
       return blockchain;
+    } else {
+      final blockchain = await Blockchain.create(
+          config: const BlockchainConfig.esplora(
+              config:
+                  EsploraConfig(baseUrl: 'http://0.0.0.0:30000', stopGap: 10)));
+
+      return blockchain;
     }
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
     final wallet = await Wallet.create(
         descriptor: descriptor,
-        network: Network.testnet,
+        network: Network.regtest,
         databaseConfig: const DatabaseConfig.memory());
     return wallet;
   }
@@ -108,22 +108,54 @@ class BdkLibrary {
     return feeRate;
   }
 
+  Future<List<Address>> getAddresses() async {
+    final a1 = await Address.fromString(
+        s: "bcrt1qvym2hzrtfdnlnmkg7dk5rw0ykmdr6n7f0w4hu9",
+        network: Network.regtest);
+    final a2 = await Address.fromString(
+        s: "bcrt1qc2thfuugj50e07pnegpdu5ztyvgymuz99t2t2n",
+        network: Network.regtest);
+    final c1 = await Address.fromString(
+        s: "bcrt1q5v5c5kheq4mj8xwnqluhv27gxptvxrfqd948wv",
+        network: Network.regtest);
+    final c2 = await Address.fromString(
+        s: "bcrt1qumf6alpht2veaarpr2xd5uc6l6g50pmwmgvyka",
+        network: Network.regtest);
+    return [a1, a2, c1, c2];
+  }
+
+  createPsbts(Blockchain blockchain, Wallet aliceWallet) async {
+    try {
+      final addresses = await getAddresses();
+      final txBuilder = TxBuilder();
+      final u1 = (await aliceWallet.listUnspent()).first;
+      final feeRate = await estimateFeeRate(25, blockchain);
+      final a1Script = (await addresses[0].scriptPubkey());
+      final c2Script = (await addresses[3].scriptPubkey());
+      final (psbt, _) = await txBuilder
+          .addRecipient(a1Script, 1000)
+          .addRecipient(c2Script, 10000)
+          .manuallySelectedOnly()
+          .addUtxo(u1.outpoint)
+          .feeRate(feeRate.satPerVb)
+          .finish(aliceWallet);
+
+      return [psbt];
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
+
   sendBitcoin(
       Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
-      final txBuilder = TxBuilder();
-      final address = await Address.fromString(
-          s: addressStr, network: (await aliceWallet.network()));
+      final List<PartiallySignedTransaction> psbts =
+          await createPsbts(blockchain, aliceWallet);
 
-      final script = await address.scriptPubkey();
-      final feeRate = await estimateFeeRate(25, blockchain);
-      final (psbt, _) = await txBuilder
-          .addRecipient(script, 750)
-          .feeRate(feeRate.satPerVb)
-          .finish(aliceWallet);
-      final isFinalized = await aliceWallet.sign(psbt: psbt);
+      final isFinalized = await aliceWallet.sign(psbt: psbts[0]);
+
       if (isFinalized) {
-        final tx = await psbt.extractTx();
+        final tx = await psbts[0].extractTx();
         final res = await blockchain.broadcast(transaction: tx);
         debugPrint(res);
       } else {

@@ -56,9 +56,9 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   getNewAddress() async {
     final res = await lib.getAddress(aliceWallet);
-    debugPrint(res.address);
+    final address = await res.address.asString();
     setState(() {
-      displayText = "Address: ${res.address} \n Index: ${res.index}";
+      displayText = "Address: $address \n Index: ${res.index}";
     });
   }
 
@@ -129,7 +129,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(
             "outPoint: { txid:${e.outpoint.txid}, vout: ${e.outpoint.vout} } ");
         print(
-            "txout: { address:${e.txout.scriptPubkey.bytes}, value: ${e.txout.value} }");
+            "txout: { script:${e.txout.scriptPubkey.bytes}, value: ${e.txout.value} }");
         print("===========================");
       }
     }
