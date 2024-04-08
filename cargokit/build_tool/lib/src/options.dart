@@ -240,7 +240,7 @@ class CargokitUserOptions {
   });
 
   CargokitUserOptions._()
-      : usePrecompiledBinaries = defaultUsePrecompiledBinaries(),
+      : usePrecompiledBinaries = true,
         verboseLogging = false;
 
   static CargokitUserOptions parse(YamlNode node) {
