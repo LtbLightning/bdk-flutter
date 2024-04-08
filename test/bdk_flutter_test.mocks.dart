@@ -176,8 +176,8 @@ class _FakePartiallySignedTransaction_13 extends _i1.SmartFake
         );
 }
 
-class _FakeTxBuilder_14 extends _i1.SmartFake implements _i4.TxBuilder {
-  _FakeTxBuilder_14(
+class _FakeBdkPsbt_14 extends _i1.SmartFake implements _i7.BdkPsbt {
+  _FakeBdkPsbt_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -186,9 +186,19 @@ class _FakeTxBuilder_14 extends _i1.SmartFake implements _i4.TxBuilder {
         );
 }
 
-class _FakeTransactionDetails_15 extends _i1.SmartFake
+class _FakeTxBuilder_15 extends _i1.SmartFake implements _i4.TxBuilder {
+  _FakeTxBuilder_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTransactionDetails_16 extends _i1.SmartFake
     implements _i3.TransactionDetails {
-  _FakeTransactionDetails_15(
+  _FakeTransactionDetails_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -197,9 +207,9 @@ class _FakeTransactionDetails_15 extends _i1.SmartFake
         );
 }
 
-class _FakeBumpFeeTxBuilder_16 extends _i1.SmartFake
+class _FakeBumpFeeTxBuilder_17 extends _i1.SmartFake
     implements _i4.BumpFeeTxBuilder {
-  _FakeBumpFeeTxBuilder_16(
+  _FakeBumpFeeTxBuilder_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -208,9 +218,9 @@ class _FakeBumpFeeTxBuilder_16 extends _i1.SmartFake
         );
 }
 
-class _FakeBdkBitcoinAddress_17 extends _i1.SmartFake
+class _FakeBdkBitcoinAddress_18 extends _i1.SmartFake
     implements _i3.BdkBitcoinAddress {
-  _FakeBdkBitcoinAddress_17(
+  _FakeBdkBitcoinAddress_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -219,8 +229,8 @@ class _FakeBdkBitcoinAddress_17 extends _i1.SmartFake
         );
 }
 
-class _FakeScriptBuf_18 extends _i1.SmartFake implements _i4.ScriptBuf {
-  _FakeScriptBuf_18(
+class _FakeScriptBuf_19 extends _i1.SmartFake implements _i4.ScriptBuf {
+  _FakeScriptBuf_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -229,9 +239,9 @@ class _FakeScriptBuf_18 extends _i1.SmartFake implements _i4.ScriptBuf {
         );
 }
 
-class _FakeBitcoinBip32DerivationPath_19 extends _i1.SmartFake
+class _FakeBitcoinBip32DerivationPath_20 extends _i1.SmartFake
     implements _i8.BitcoinBip32DerivationPath {
-  _FakeBitcoinBip32DerivationPath_19(
+  _FakeBitcoinBip32DerivationPath_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -240,8 +250,8 @@ class _FakeBitcoinBip32DerivationPath_19 extends _i1.SmartFake
         );
 }
 
-class _FakeOutPoint_20 extends _i1.SmartFake implements _i3.OutPoint {
-  _FakeOutPoint_20(
+class _FakeOutPoint_21 extends _i1.SmartFake implements _i3.OutPoint {
+  _FakeOutPoint_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -250,8 +260,8 @@ class _FakeOutPoint_20 extends _i1.SmartFake implements _i3.OutPoint {
         );
 }
 
-class _FakeTxOut_21 extends _i1.SmartFake implements _i3.TxOut {
-  _FakeTxOut_21(
+class _FakeTxOut_22 extends _i1.SmartFake implements _i3.TxOut {
+  _FakeTxOut_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -467,7 +477,7 @@ class MockWallet extends _i1.Mock implements _i4.Wallet {
 
   @override
   _i9.Future<bool> isMine({
-    required _i3.ScriptBufBase? script,
+    required _i3.BdkScriptBuf? script,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -531,7 +541,7 @@ class MockWallet extends _i1.Mock implements _i4.Wallet {
 
   @override
   _i9.Future<bool> sign({
-    required _i7.PsbtBase? psbt,
+    required _i7.BdkPsbt? psbt,
     _i3.SignOptions? signOptions,
     dynamic hint,
   }) =>
@@ -631,15 +641,31 @@ class MockTransaction extends _i1.Mock implements _i4.Transaction {
       ) as _i9.Future<bool>);
 
   @override
-  _i9.Future<int> lockTime({dynamic hint}) => (super.noSuchMethod(
+  _i9.Future<_i3.LockTime> lockTime({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #lockTime,
           [],
           {#hint: hint},
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue:
+            _i9.Future<_i3.LockTime>.value(_i10.dummyValue<_i3.LockTime>(
+          this,
+          Invocation.method(
+            #lockTime,
+            [],
+            {#hint: hint},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i9.Future<_i3.LockTime>.value(_i10.dummyValue<_i3.LockTime>(
+          this,
+          Invocation.method(
+            #lockTime,
+            [],
+            {#hint: hint},
+          ),
+        )),
+      ) as _i9.Future<_i3.LockTime>);
 
   @override
   _i9.Future<List<_i3.TxOut>> output({dynamic hint}) => (super.noSuchMethod(
@@ -793,7 +819,7 @@ class MockBlockchain extends _i1.Mock implements _i4.Blockchain {
 
   @override
   _i9.Future<String> broadcast({
-    required _i3.TransactionBase? transaction,
+    required _i3.BdkTransaction? transaction,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -900,7 +926,7 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i6.KeysDescriptorSecretKey);
 
   @override
-  _i9.Future<_i4.DescriptorSecretKey> derive(_i8.DerivationPathBase? path) =>
+  _i9.Future<_i4.DescriptorSecretKey> derive(_i8.BdkDerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
@@ -925,7 +951,7 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i9.Future<_i4.DescriptorSecretKey>);
 
   @override
-  _i9.Future<_i4.DescriptorSecretKey> extend(_i8.DerivationPathBase? path) =>
+  _i9.Future<_i4.DescriptorSecretKey> extend(_i8.BdkDerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
@@ -1058,7 +1084,7 @@ class MockDescriptorPublicKey extends _i1.Mock
 
   @override
   _i9.Future<_i4.DescriptorPublicKey> derive({
-    required _i8.DerivationPathBase? path,
+    required _i8.BdkDerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -1098,7 +1124,7 @@ class MockDescriptorPublicKey extends _i1.Mock
 
   @override
   _i9.Future<_i4.DescriptorPublicKey> extend({
-    required _i8.DerivationPathBase? path,
+    required _i8.BdkDerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -1304,6 +1330,45 @@ class MockPartiallySignedTransaction extends _i1.Mock
           ),
         )),
       ) as _i9.Future<String>);
+
+  @override
+  _i9.Future<_i7.BdkPsbt> updateInput({
+    required _i3.Input? input,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateInput,
+          [],
+          {
+            #input: input,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i9.Future<_i7.BdkPsbt>.value(_FakeBdkPsbt_14(
+          this,
+          Invocation.method(
+            #updateInput,
+            [],
+            {
+              #input: input,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i9.Future<_i7.BdkPsbt>.value(_FakeBdkPsbt_14(
+          this,
+          Invocation.method(
+            #updateInput,
+            [],
+            {
+              #input: input,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.BdkPsbt>);
 }
 
 /// A class which mocks [TxBuilder].
@@ -1317,7 +1382,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           [],
           {#data: data},
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addData,
@@ -1325,7 +1390,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
             {#data: data},
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addData,
@@ -1348,7 +1413,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
             amount,
           ],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addRecipient,
@@ -1358,7 +1423,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
             ],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addRecipient,
@@ -1377,14 +1442,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #unSpendable,
           [outpoints],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #unSpendable,
             [outpoints],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #unSpendable,
@@ -1399,14 +1464,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #addUtxo,
           [outpoint],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUtxo,
             [outpoint],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUtxo,
@@ -1421,14 +1486,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #addUtxos,
           [outpoints],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUtxos,
             [outpoints],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUtxos,
@@ -1452,7 +1517,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
             satisfactionWeight,
           ],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addForeignUtxo,
@@ -1463,7 +1528,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
             ],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addForeignUtxo,
@@ -1482,14 +1547,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #doNotSpendChange,
           [],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #doNotSpendChange,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #doNotSpendChange,
@@ -1504,14 +1569,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #drainWallet,
           [],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #drainWallet,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #drainWallet,
@@ -1526,14 +1591,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #drainTo,
           [script],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #drainTo,
             [script],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #drainTo,
@@ -1548,14 +1613,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #enableRbfWithSequence,
           [nSequence],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #enableRbfWithSequence,
             [nSequence],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #enableRbfWithSequence,
@@ -1570,14 +1635,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #enableRbf,
           [],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #enableRbf,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #enableRbf,
@@ -1592,14 +1657,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #feeAbsolute,
           [feeAmount],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #feeAbsolute,
             [feeAmount],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #feeAbsolute,
@@ -1614,14 +1679,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #feeRate,
           [satPerVbyte],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #feeRate,
             [satPerVbyte],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #feeRate,
@@ -1637,14 +1702,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #setRecipients,
           [recipients],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #setRecipients,
             [recipients],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #setRecipients,
@@ -1659,14 +1724,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #manuallySelectedOnly,
           [],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #manuallySelectedOnly,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #manuallySelectedOnly,
@@ -1682,14 +1747,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #addUnSpendable,
           [unSpendable],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUnSpendable,
             [unSpendable],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #addUnSpendable,
@@ -1704,14 +1769,14 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
           #onlySpendChange,
           [],
         ),
-        returnValue: _FakeTxBuilder_14(
+        returnValue: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #onlySpendChange,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_14(
+        returnValueForMissingStub: _FakeTxBuilder_15(
           this,
           Invocation.method(
             #onlySpendChange,
@@ -1737,7 +1802,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
               [wallet],
             ),
           ),
-          _FakeTransactionDetails_15(
+          _FakeTransactionDetails_16(
             this,
             Invocation.method(
               #finish,
@@ -1754,7 +1819,7 @@ class MockTxBuilder extends _i1.Mock implements _i4.TxBuilder {
               [wallet],
             ),
           ),
-          _FakeTransactionDetails_15(
+          _FakeTransactionDetails_16(
             this,
             Invocation.method(
               #finish,
@@ -1797,14 +1862,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i4.BumpFeeTxBuilder {
           #allowShrinking,
           [address],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_16(
+        returnValue: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #allowShrinking,
             [address],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #allowShrinking,
@@ -1819,14 +1884,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i4.BumpFeeTxBuilder {
           #enableRbf,
           [],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_16(
+        returnValue: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #enableRbf,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #enableRbf,
@@ -1842,14 +1907,14 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i4.BumpFeeTxBuilder {
           #enableRbfWithSequence,
           [nSequence],
         ),
-        returnValue: _FakeBumpFeeTxBuilder_16(
+        returnValue: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #enableRbfWithSequence,
             [nSequence],
           ),
         ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_17(
           this,
           Invocation.method(
             #enableRbfWithSequence,
@@ -1875,7 +1940,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i4.BumpFeeTxBuilder {
               [wallet],
             ),
           ),
-          _FakeTransactionDetails_15(
+          _FakeTransactionDetails_16(
             this,
             Invocation.method(
               #finish,
@@ -1892,7 +1957,7 @@ class MockBumpFeeTxBuilder extends _i1.Mock implements _i4.BumpFeeTxBuilder {
               [wallet],
             ),
           ),
-          _FakeTransactionDetails_15(
+          _FakeTransactionDetails_16(
             this,
             Invocation.method(
               #finish,
@@ -1923,11 +1988,11 @@ class MockAddress extends _i1.Mock implements _i4.Address {
   @override
   _i3.BdkBitcoinAddress get ptr => (super.noSuchMethod(
         Invocation.getter(#ptr),
-        returnValue: _FakeBdkBitcoinAddress_17(
+        returnValue: _FakeBdkBitcoinAddress_18(
           this,
           Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeBdkBitcoinAddress_17(
+        returnValueForMissingStub: _FakeBdkBitcoinAddress_18(
           this,
           Invocation.getter(#ptr),
         ),
@@ -1939,7 +2004,7 @@ class MockAddress extends _i1.Mock implements _i4.Address {
           #scriptPubkey,
           [],
         ),
-        returnValue: _i9.Future<_i4.ScriptBuf>.value(_FakeScriptBuf_18(
+        returnValue: _i9.Future<_i4.ScriptBuf>.value(_FakeScriptBuf_19(
           this,
           Invocation.method(
             #scriptPubkey,
@@ -1947,7 +2012,7 @@ class MockAddress extends _i1.Mock implements _i4.Address {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.ScriptBuf>.value(_FakeScriptBuf_18(
+            _i9.Future<_i4.ScriptBuf>.value(_FakeScriptBuf_19(
           this,
           Invocation.method(
             #scriptPubkey,
@@ -2072,11 +2137,11 @@ class MockDerivationPath extends _i1.Mock implements _i4.DerivationPath {
   @override
   _i8.BitcoinBip32DerivationPath get ptr => (super.noSuchMethod(
         Invocation.getter(#ptr),
-        returnValue: _FakeBitcoinBip32DerivationPath_19(
+        returnValue: _FakeBitcoinBip32DerivationPath_20(
           this,
           Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeBitcoinBip32DerivationPath_19(
+        returnValueForMissingStub: _FakeBitcoinBip32DerivationPath_20(
           this,
           Invocation.getter(#ptr),
         ),
@@ -2102,11 +2167,11 @@ class MockLocalUtxo extends _i1.Mock implements _i3.LocalUtxo {
   @override
   _i3.OutPoint get outpoint => (super.noSuchMethod(
         Invocation.getter(#outpoint),
-        returnValue: _FakeOutPoint_20(
+        returnValue: _FakeOutPoint_21(
           this,
           Invocation.getter(#outpoint),
         ),
-        returnValueForMissingStub: _FakeOutPoint_20(
+        returnValueForMissingStub: _FakeOutPoint_21(
           this,
           Invocation.getter(#outpoint),
         ),
@@ -2115,11 +2180,11 @@ class MockLocalUtxo extends _i1.Mock implements _i3.LocalUtxo {
   @override
   _i3.TxOut get txout => (super.noSuchMethod(
         Invocation.getter(#txout),
-        returnValue: _FakeTxOut_21(
+        returnValue: _FakeTxOut_22(
           this,
           Invocation.getter(#txout),
         ),
-        returnValueForMissingStub: _FakeTxOut_21(
+        returnValueForMissingStub: _FakeTxOut_22(
           this,
           Invocation.getter(#txout),
         ),
