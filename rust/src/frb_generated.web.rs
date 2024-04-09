@@ -85,26 +85,6 @@ impl CstDecode<crate::api::types::AddressIndex>
         }
     }
 }
-impl CstDecode<crate::api::types::AddressInfo>
-    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::api::types::AddressInfo {
-        let self_ = self
-            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
-            .unwrap();
-        assert_eq!(
-            self_.length(),
-            2,
-            "Expected 2 elements, got {}",
-            self_.length()
-        );
-        crate::api::types::AddressInfo {
-            index: self_.get(0).cst_decode(),
-            address: self_.get(1).cst_decode(),
-        }
-    }
-}
 impl CstDecode<crate::api::blockchain::Auth>
     for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
 {
@@ -838,6 +818,23 @@ impl CstDecode<crate::api::types::RbfValue>
             1 => crate::api::types::RbfValue::Value(self_.get(1).cst_decode()),
             _ => unreachable!(),
         }
+    }
+}
+impl CstDecode<(crate::api::types::BdkAddress, u32)>
+    for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> (crate::api::types::BdkAddress, u32) {
+        let self_ = self
+            .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+            .unwrap();
+        assert_eq!(
+            self_.length(),
+            2,
+            "Expected 2 elements, got {}",
+            self_.length()
+        );
+        (self_.get(0).cst_decode(), self_.get(1).cst_decode())
     }
 }
 impl
@@ -1907,10 +1904,10 @@ pub fn wire_BdkTransaction_weight(
 #[wasm_bindgen]
 pub fn wire_BdkWallet_get_address(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     address_index: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_BdkWallet_get_address_impl(port_, that, address_index)
+    wire_BdkWallet_get_address_impl(port_, ptr, address_index)
 }
 
 #[wasm_bindgen]
@@ -1933,10 +1930,10 @@ pub fn wire_BdkWallet_get_descriptor_for_keychain(
 #[wasm_bindgen]
 pub fn wire_BdkWallet_get_internal_address(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     address_index: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
-    wire_BdkWallet_get_internal_address_impl(port_, that, address_index)
+    wire_BdkWallet_get_internal_address_impl(port_, ptr, address_index)
 }
 
 #[wasm_bindgen]

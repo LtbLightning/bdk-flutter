@@ -108,9 +108,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressIndex dco_decode_address_index(dynamic raw);
 
   @protected
-  AddressInfo dco_decode_address_info(dynamic raw);
-
-  @protected
   Auth dco_decode_auth(dynamic raw);
 
   @protected
@@ -413,6 +410,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   RbfValue dco_decode_rbf_value(dynamic raw);
 
   @protected
+  (BdkAddress, int) dco_decode_record_bdk_address_u_32(dynamic raw);
+
+  @protected
   (BdkPsbt, TransactionDetails) dco_decode_record_bdk_psbt_transaction_details(
       dynamic raw);
 
@@ -521,9 +521,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressIndex sse_decode_address_index(SseDeserializer deserializer);
-
-  @protected
-  AddressInfo sse_decode_address_info(SseDeserializer deserializer);
 
   @protected
   Auth sse_decode_auth(SseDeserializer deserializer);
@@ -858,6 +855,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   RbfValue sse_decode_rbf_value(SseDeserializer deserializer);
+
+  @protected
+  (BdkAddress, int) sse_decode_record_bdk_address_u_32(
+      SseDeserializer deserializer);
 
   @protected
   (BdkPsbt, TransactionDetails) sse_decode_record_bdk_psbt_transaction_details(
@@ -1598,13 +1599,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
       wireObj.kind.Reset.index = pre_index;
       return;
     }
-  }
-
-  @protected
-  void cst_api_fill_to_wire_address_info(
-      AddressInfo apiObj, wire_cst_address_info wireObj) {
-    wireObj.index = cst_encode_u_32(apiObj.index);
-    cst_api_fill_to_wire_bdk_address(apiObj.address, wireObj.address);
   }
 
   @protected
@@ -2488,6 +2482,13 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_record_bdk_address_u_32(
+      (BdkAddress, int) apiObj, wire_cst_record_bdk_address_u_32 wireObj) {
+    cst_api_fill_to_wire_bdk_address(apiObj.$1, wireObj.field0);
+    wireObj.field1 = cst_encode_u_32(apiObj.$2);
+  }
+
+  @protected
   void cst_api_fill_to_wire_record_bdk_psbt_transaction_details(
       (BdkPsbt, TransactionDetails) apiObj,
       wire_cst_record_bdk_psbt_transaction_details wireObj) {
@@ -2710,9 +2711,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void sse_encode_address_index(AddressIndex self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_address_info(AddressInfo self, SseSerializer serializer);
 
   @protected
   void sse_encode_auth(Auth self, SseSerializer serializer);
@@ -3068,6 +3066,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void sse_encode_rbf_value(RbfValue self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_bdk_address_u_32(
+      (BdkAddress, int) self, SseSerializer serializer);
 
   @protected
   void sse_encode_record_bdk_psbt_transaction_details(
@@ -4562,12 +4564,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_BdkWallet_get_address(
     int port_,
-    ffi.Pointer<wire_cst_bdk_wallet> that,
+    ffi.Pointer<wire_cst_bdk_wallet> ptr,
     ffi.Pointer<wire_cst_address_index> address_index,
   ) {
     return _wire_BdkWallet_get_address(
       port_,
-      that,
+      ptr,
       address_index,
     );
   }
@@ -4622,12 +4624,12 @@ class BdkCoreWire implements BaseWire {
 
   void wire_BdkWallet_get_internal_address(
     int port_,
-    ffi.Pointer<wire_cst_bdk_wallet> that,
+    ffi.Pointer<wire_cst_bdk_wallet> ptr,
     ffi.Pointer<wire_cst_address_index> address_index,
   ) {
     return _wire_BdkWallet_get_internal_address(
       port_,
-      that,
+      ptr,
       address_index,
     );
   }
@@ -6503,13 +6505,6 @@ final class wire_cst_list_transaction_details extends ffi.Struct {
   external int len;
 }
 
-final class wire_cst_address_info extends ffi.Struct {
-  @ffi.Uint32()
-  external int index;
-
-  external wire_cst_bdk_address address;
-}
-
 final class wire_cst_balance extends ffi.Struct {
   @ffi.Uint64()
   external int immature;
@@ -6793,6 +6788,13 @@ final class wire_cst_payload extends ffi.Struct {
   external int tag;
 
   external PayloadKind kind;
+}
+
+final class wire_cst_record_bdk_address_u_32 extends ffi.Struct {
+  external wire_cst_bdk_address field0;
+
+  @ffi.Uint32()
+  external int field1;
 }
 
 final class wire_cst_record_bdk_psbt_transaction_details extends ffi.Struct {

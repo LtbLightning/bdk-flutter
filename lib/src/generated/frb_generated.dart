@@ -301,8 +301,8 @@ abstract class BdkCoreApi extends BaseApi {
   Future<int> bdkTransactionWeight(
       {required BdkTransaction that, dynamic hint});
 
-  Future<AddressInfo> bdkWalletGetAddress(
-      {required BdkWallet that,
+  Future<(BdkAddress, int)> bdkWalletGetAddress(
+      {required BdkWallet ptr,
       required AddressIndex addressIndex,
       dynamic hint});
 
@@ -311,8 +311,8 @@ abstract class BdkCoreApi extends BaseApi {
   Future<BdkDescriptor> bdkWalletGetDescriptorForKeychain(
       {required BdkWallet ptr, required KeychainKind keychain, dynamic hint});
 
-  Future<AddressInfo> bdkWalletGetInternalAddress(
-      {required BdkWallet that,
+  Future<(BdkAddress, int)> bdkWalletGetInternalAddress(
+      {required BdkWallet ptr,
       required AddressIndex addressIndex,
       dynamic hint});
 
@@ -2202,22 +2202,22 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       );
 
   @override
-  Future<AddressInfo> bdkWalletGetAddress(
-      {required BdkWallet that,
+  Future<(BdkAddress, int)> bdkWalletGetAddress(
+      {required BdkWallet ptr,
       required AddressIndex addressIndex,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
+        var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_box_autoadd_address_index(addressIndex);
         return wire.wire_BdkWallet_get_address(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData: dco_decode_address_info,
+        decodeSuccessData: dco_decode_record_bdk_address_u_32,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kBdkWalletGetAddressConstMeta,
-      argValues: [that, addressIndex],
+      argValues: [ptr, addressIndex],
       apiImpl: this,
       hint: hint,
     ));
@@ -2225,7 +2225,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
 
   TaskConstMeta get kBdkWalletGetAddressConstMeta => const TaskConstMeta(
         debugName: "BdkWallet_get_address",
-        argNames: ["that", "addressIndex"],
+        argNames: ["ptr", "addressIndex"],
       );
 
   @override
@@ -2279,22 +2279,22 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       );
 
   @override
-  Future<AddressInfo> bdkWalletGetInternalAddress(
-      {required BdkWallet that,
+  Future<(BdkAddress, int)> bdkWalletGetInternalAddress(
+      {required BdkWallet ptr,
       required AddressIndex addressIndex,
       dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
+        var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_box_autoadd_address_index(addressIndex);
         return wire.wire_BdkWallet_get_internal_address(port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData: dco_decode_address_info,
+        decodeSuccessData: dco_decode_record_bdk_address_u_32,
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kBdkWalletGetInternalAddressConstMeta,
-      argValues: [that, addressIndex],
+      argValues: [ptr, addressIndex],
       apiImpl: this,
       hint: hint,
     ));
@@ -2303,7 +2303,7 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   TaskConstMeta get kBdkWalletGetInternalAddressConstMeta =>
       const TaskConstMeta(
         debugName: "BdkWallet_get_internal_address",
-        argNames: ["that", "addressIndex"],
+        argNames: ["ptr", "addressIndex"],
       );
 
   @override
@@ -2877,18 +2877,6 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       default:
         throw Exception("unreachable");
     }
-  }
-
-  @protected
-  AddressInfo dco_decode_address_info(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2)
-      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return AddressInfo(
-      index: dco_decode_u_32(arr[0]),
-      address: dco_decode_bdk_address(arr[1]),
-    );
   }
 
   @protected
@@ -3946,6 +3934,19 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  (BdkAddress, int) dco_decode_record_bdk_address_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_bdk_address(arr[0]),
+      dco_decode_u_32(arr[1]),
+    );
+  }
+
+  @protected
   (BdkPsbt, TransactionDetails) dco_decode_record_bdk_psbt_transaction_details(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -4312,14 +4313,6 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
       default:
         throw UnimplementedError('');
     }
-  }
-
-  @protected
-  AddressInfo sse_decode_address_info(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_index = sse_decode_u_32(deserializer);
-    var var_address = sse_decode_bdk_address(deserializer);
-    return AddressInfo(index: var_index, address: var_address);
   }
 
   @protected
@@ -5444,6 +5437,15 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
   }
 
   @protected
+  (BdkAddress, int) sse_decode_record_bdk_address_u_32(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_bdk_address(deserializer);
+    var var_field1 = sse_decode_u_32(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
   (BdkPsbt, TransactionDetails) sse_decode_record_bdk_psbt_transaction_details(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5938,13 +5940,6 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         sse_encode_i_32(3, serializer);
         sse_encode_u_32(index, serializer);
     }
-  }
-
-  @protected
-  void sse_encode_address_info(AddressInfo self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_u_32(self.index, serializer);
-    sse_encode_bdk_address(self.address, serializer);
   }
 
   @protected
@@ -6974,6 +6969,14 @@ class BdkCoreApiImpl extends BdkCoreApiImplPlatform implements BdkCoreApi {
         sse_encode_i_32(1, serializer);
         sse_encode_u_32(field0, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_record_bdk_address_u_32(
+      (BdkAddress, int) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_bdk_address(self.$1, serializer);
+    sse_encode_u_32(self.$2, serializer);
   }
 
   @protected

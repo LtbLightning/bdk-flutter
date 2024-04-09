@@ -169,15 +169,6 @@ impl CstDecode<crate::api::types::AddressIndex> for wire_cst_address_index {
         }
     }
 }
-impl CstDecode<crate::api::types::AddressInfo> for wire_cst_address_info {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::api::types::AddressInfo {
-        crate::api::types::AddressInfo {
-            index: self.index.cst_decode(),
-            address: self.address.cst_decode(),
-        }
-    }
-}
 impl CstDecode<crate::api::blockchain::Auth> for wire_cst_auth {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::blockchain::Auth {
@@ -1120,6 +1111,12 @@ impl CstDecode<crate::api::types::RbfValue> for wire_cst_rbf_value {
         }
     }
 }
+impl CstDecode<(crate::api::types::BdkAddress, u32)> for wire_cst_record_bdk_address_u_32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> (crate::api::types::BdkAddress, u32) {
+        (self.field0.cst_decode(), self.field1.cst_decode())
+    }
+}
 impl
     CstDecode<(
         crate::api::psbt::BdkPsbt,
@@ -1274,19 +1271,6 @@ impl NewWithNullPtr for wire_cst_address_index {
     }
 }
 impl Default for wire_cst_address_index {
-    fn default() -> Self {
-        Self::new_with_null_ptr()
-    }
-}
-impl NewWithNullPtr for wire_cst_address_info {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            index: Default::default(),
-            address: Default::default(),
-        }
-    }
-}
-impl Default for wire_cst_address_info {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -1677,6 +1661,19 @@ impl NewWithNullPtr for wire_cst_rbf_value {
     }
 }
 impl Default for wire_cst_rbf_value {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_record_bdk_address_u_32 {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            field0: Default::default(),
+            field1: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_record_bdk_address_u_32 {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -2415,10 +2412,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire_BdkTransaction_weight(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_BdkWallet_get_address(
     port_: i64,
-    that: *mut wire_cst_bdk_wallet,
+    ptr: *mut wire_cst_bdk_wallet,
     address_index: *mut wire_cst_address_index,
 ) {
-    wire_BdkWallet_get_address_impl(port_, that, address_index)
+    wire_BdkWallet_get_address_impl(port_, ptr, address_index)
 }
 
 #[no_mangle]
@@ -2441,10 +2438,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire_BdkWallet_get_descriptor_for_keychain(
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_BdkWallet_get_internal_address(
     port_: i64,
-    that: *mut wire_cst_bdk_wallet,
+    ptr: *mut wire_cst_bdk_wallet,
     address_index: *mut wire_cst_address_index,
 ) {
-    wire_BdkWallet_get_internal_address_impl(port_, that, address_index)
+    wire_BdkWallet_get_internal_address_impl(port_, ptr, address_index)
 }
 
 #[no_mangle]
@@ -3222,12 +3219,6 @@ pub struct wire_cst_AddressIndex_Reset {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_address_info {
-    index: u32,
-    address: wire_cst_bdk_address,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
 pub struct wire_cst_auth {
     tag: i32,
     kind: AuthKind,
@@ -3901,6 +3892,12 @@ pub union RbfValueKind {
 #[derive(Clone, Copy)]
 pub struct wire_cst_RbfValue_Value {
     field0: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_record_bdk_address_u_32 {
+    field0: wire_cst_bdk_address,
+    field1: u32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

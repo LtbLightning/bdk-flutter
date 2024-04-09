@@ -107,9 +107,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   AddressIndex dco_decode_address_index(dynamic raw);
 
   @protected
-  AddressInfo dco_decode_address_info(dynamic raw);
-
-  @protected
   Auth dco_decode_auth(dynamic raw);
 
   @protected
@@ -412,6 +409,9 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   RbfValue dco_decode_rbf_value(dynamic raw);
 
   @protected
+  (BdkAddress, int) dco_decode_record_bdk_address_u_32(dynamic raw);
+
+  @protected
   (BdkPsbt, TransactionDetails) dco_decode_record_bdk_psbt_transaction_details(
       dynamic raw);
 
@@ -520,9 +520,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   AddressIndex sse_decode_address_index(SseDeserializer deserializer);
-
-  @protected
-  AddressInfo sse_decode_address_info(SseDeserializer deserializer);
 
   @protected
   Auth sse_decode_auth(SseDeserializer deserializer);
@@ -859,6 +856,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   RbfValue sse_decode_rbf_value(SseDeserializer deserializer);
 
   @protected
+  (BdkAddress, int) sse_decode_record_bdk_address_u_32(
+      SseDeserializer deserializer);
+
+  @protected
   (BdkPsbt, TransactionDetails) sse_decode_record_bdk_psbt_transaction_details(
       SseDeserializer deserializer);
 
@@ -1004,12 +1005,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
     }
 
     throw Exception('unreachable');
-  }
-
-  @protected
-  List<dynamic> cst_encode_address_info(AddressInfo raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return [cst_encode_u_32(raw.index), cst_encode_bdk_address(raw.address)];
   }
 
   @protected
@@ -1889,6 +1884,12 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   }
 
   @protected
+  List<dynamic> cst_encode_record_bdk_address_u_32((BdkAddress, int) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return [cst_encode_bdk_address(raw.$1), cst_encode_u_32(raw.$2)];
+  }
+
+  @protected
   List<dynamic> cst_encode_record_bdk_psbt_transaction_details(
       (BdkPsbt, TransactionDetails) raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -2132,9 +2133,6 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
 
   @protected
   void sse_encode_address_index(AddressIndex self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_address_info(AddressInfo self, SseSerializer serializer);
 
   @protected
   void sse_encode_auth(Auth self, SseSerializer serializer);
@@ -2492,6 +2490,10 @@ abstract class BdkCoreApiImplPlatform extends BaseApiImpl<BdkCoreWire> {
   void sse_encode_rbf_value(RbfValue self, SseSerializer serializer);
 
   @protected
+  void sse_encode_record_bdk_address_u_32(
+      (BdkAddress, int) self, SseSerializer serializer);
+
+  @protected
   void sse_encode_record_bdk_psbt_transaction_details(
       (BdkPsbt, TransactionDetails) self, SseSerializer serializer);
 
@@ -2832,9 +2834,9 @@ class BdkCoreWire implements BaseWire {
   void wire_BdkTransaction_weight(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_BdkTransaction_weight(port_, that);
 
-  void wire_BdkWallet_get_address(NativePortType port_, List<dynamic> that,
+  void wire_BdkWallet_get_address(NativePortType port_, List<dynamic> ptr,
           List<dynamic> address_index) =>
-      wasmModule.wire_BdkWallet_get_address(port_, that, address_index);
+      wasmModule.wire_BdkWallet_get_address(port_, ptr, address_index);
 
   void wire_BdkWallet_get_balance(NativePortType port_, List<dynamic> that) =>
       wasmModule.wire_BdkWallet_get_balance(port_, that);
@@ -2845,9 +2847,8 @@ class BdkCoreWire implements BaseWire {
           port_, ptr, keychain);
 
   void wire_BdkWallet_get_internal_address(NativePortType port_,
-          List<dynamic> that, List<dynamic> address_index) =>
-      wasmModule.wire_BdkWallet_get_internal_address(
-          port_, that, address_index);
+          List<dynamic> ptr, List<dynamic> address_index) =>
+      wasmModule.wire_BdkWallet_get_internal_address(port_, ptr, address_index);
 
   void wire_BdkWallet_get_psbt_input(
           NativePortType port_,
@@ -3260,7 +3261,7 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, List<dynamic> that);
 
   external void wire_BdkWallet_get_address(
-      NativePortType port_, List<dynamic> that, List<dynamic> address_index);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> address_index);
 
   external void wire_BdkWallet_get_balance(
       NativePortType port_, List<dynamic> that);
@@ -3269,7 +3270,7 @@ class BdkCoreWasmModule implements WasmModule {
       NativePortType port_, List<dynamic> ptr, int keychain);
 
   external void wire_BdkWallet_get_internal_address(
-      NativePortType port_, List<dynamic> that, List<dynamic> address_index);
+      NativePortType port_, List<dynamic> ptr, List<dynamic> address_index);
 
   external void wire_BdkWallet_get_psbt_input(
       NativePortType port_,

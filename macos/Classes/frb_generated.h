@@ -489,11 +489,6 @@ typedef struct wire_cst_list_transaction_details {
   int32_t len;
 } wire_cst_list_transaction_details;
 
-typedef struct wire_cst_address_info {
-  uint32_t index;
-  struct wire_cst_bdk_address address;
-} wire_cst_address_info;
-
 typedef struct wire_cst_balance {
   uint64_t immature;
   uint64_t trusted_pending;
@@ -712,6 +707,11 @@ typedef struct wire_cst_payload {
   int32_t tag;
   union PayloadKind kind;
 } wire_cst_payload;
+
+typedef struct wire_cst_record_bdk_address_u_32 {
+  struct wire_cst_bdk_address field0;
+  uint32_t field1;
+} wire_cst_record_bdk_address_u_32;
 
 typedef struct wire_cst_record_bdk_psbt_transaction_details {
   struct wire_cst_bdk_psbt field0;
@@ -947,7 +947,7 @@ void frbgen_bdk_flutter_wire_BdkTransaction_weight(int64_t port_,
                                                    struct wire_cst_bdk_transaction *that);
 
 void frbgen_bdk_flutter_wire_BdkWallet_get_address(int64_t port_,
-                                                   struct wire_cst_bdk_wallet *that,
+                                                   struct wire_cst_bdk_wallet *ptr,
                                                    struct wire_cst_address_index *address_index);
 
 void frbgen_bdk_flutter_wire_BdkWallet_get_balance(int64_t port_, struct wire_cst_bdk_wallet *that);
@@ -957,7 +957,7 @@ void frbgen_bdk_flutter_wire_BdkWallet_get_descriptor_for_keychain(int64_t port_
                                                                    int32_t keychain);
 
 void frbgen_bdk_flutter_wire_BdkWallet_get_internal_address(int64_t port_,
-                                                            struct wire_cst_bdk_wallet *that,
+                                                            struct wire_cst_bdk_wallet *ptr,
                                                             struct wire_cst_address_index *address_index);
 
 void frbgen_bdk_flutter_wire_BdkWallet_get_psbt_input(int64_t port_,

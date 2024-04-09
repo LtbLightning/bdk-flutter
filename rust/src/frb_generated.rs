@@ -1524,7 +1524,7 @@ fn wire_BdkTransaction_weight_impl(
 }
 fn wire_BdkWallet_get_address_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::BdkWallet>,
+    ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     address_index: impl CstDecode<crate::api::types::AddressIndex>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1534,11 +1534,11 @@ fn wire_BdkWallet_get_address_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_address_index = address_index.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::wallet::BdkWallet::get_address(&api_that, api_address_index)
+                    crate::api::wallet::BdkWallet::get_address(api_ptr, api_address_index)
                 })())
             }
         },
@@ -1591,7 +1591,7 @@ fn wire_BdkWallet_get_descriptor_for_keychain_impl(
 }
 fn wire_BdkWallet_get_internal_address_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::BdkWallet>,
+    ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     address_index: impl CstDecode<crate::api::types::AddressIndex>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1601,14 +1601,11 @@ fn wire_BdkWallet_get_internal_address_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_address_index = address_index.cst_decode();
             move |context| {
                 transform_result_dco((move || {
-                    crate::api::wallet::BdkWallet::get_internal_address(
-                        &api_that,
-                        api_address_index,
-                    )
+                    crate::api::wallet::BdkWallet::get_internal_address(api_ptr, api_address_index)
                 })())
             }
         },
@@ -2210,18 +2207,6 @@ impl SseDecode for crate::api::types::AddressIndex {
                 unimplemented!("");
             }
         }
-    }
-}
-
-impl SseDecode for crate::api::types::AddressInfo {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_index = <u32>::sse_decode(deserializer);
-        let mut var_address = <crate::api::types::BdkAddress>::sse_decode(deserializer);
-        return crate::api::types::AddressInfo {
-            index: var_index,
-            address: var_address,
-        };
     }
 }
 
@@ -3257,6 +3242,15 @@ impl SseDecode for crate::api::types::RbfValue {
     }
 }
 
+impl SseDecode for (crate::api::types::BdkAddress, u32) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 = <crate::api::types::BdkAddress>::sse_decode(deserializer);
+        let mut var_field1 = <u32>::sse_decode(deserializer);
+        return (var_field0, var_field1);
+    }
+}
+
 impl SseDecode
     for (
         crate::api::psbt::BdkPsbt,
@@ -3626,27 +3620,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::AddressIndex>
     for crate::api::types::AddressIndex
 {
     fn into_into_dart(self) -> crate::api::types::AddressIndex {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::types::AddressInfo {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.index.into_into_dart().into_dart(),
-            self.address.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::types::AddressInfo
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::types::AddressInfo>
-    for crate::api::types::AddressInfo
-{
-    fn into_into_dart(self) -> crate::api::types::AddressInfo {
         self
     }
 }
@@ -4896,14 +4869,6 @@ impl SseEncode for crate::api::types::AddressIndex {
     }
 }
 
-impl SseEncode for crate::api::types::AddressInfo {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <u32>::sse_encode(self.index, serializer);
-        <crate::api::types::BdkAddress>::sse_encode(self.address, serializer);
-    }
-}
-
 impl SseEncode for crate::api::blockchain::Auth {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5776,6 +5741,14 @@ impl SseEncode for crate::api::types::RbfValue {
                 <u32>::sse_encode(field0, serializer);
             }
         }
+    }
+}
+
+impl SseEncode for (crate::api::types::BdkAddress, u32) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <crate::api::types::BdkAddress>::sse_encode(self.0, serializer);
+        <u32>::sse_encode(self.1, serializer);
     }
 }
 
