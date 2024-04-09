@@ -1,5 +1,5 @@
 use crate::api::error::BdkError;
-use crate::api::types::{BdkTransaction, FeeRate, Input};
+use crate::api::types::{BdkTransaction, FeeRate};
 use crate::frb_generated::RustOpaque;
 pub use bdk::bitcoin::psbt::PartiallySignedTransaction;
 use bdk::psbt::PsbtUtils;
@@ -22,11 +22,6 @@ impl From<PartiallySignedTransaction> for BdkPsbt {
 impl BdkPsbt {
     pub fn from_str(psbt_base64: String) -> Result<BdkPsbt, BdkError> {
         let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
-        Ok(psbt.into())
-    }
-    pub fn update_input(&self, input:Input)-> Result<BdkPsbt, BdkError>{
-        let mut psbt = self.ptr.lock().unwrap().clone();
-        psbt.inputs.push(input.try_into()?);
         Ok(psbt.into())
     }
     pub fn from_unsigned_tx(tx: BdkTransaction) -> Result<BdkPsbt, BdkError> {
