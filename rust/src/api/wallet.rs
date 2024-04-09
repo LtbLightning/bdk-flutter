@@ -1,6 +1,6 @@
 use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressIndex, AddressInfo, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy,
     DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue,
     ScriptAmount, SignOptions, TransactionDetails,
 };
@@ -60,10 +60,10 @@ impl BdkWallet {
     /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
     /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
     /// then the same address will always be returned for any AddressIndex.
-    pub fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
-        self.get_wallet()
+    pub fn get_address( ptr: BdkWallet, address_index: AddressIndex) -> Result<(BdkAddress, u32), BdkError> {
+        ptr.get_wallet()
             .get_address(address_index.into())
-            .map(AddressInfo::from)
+            .map(|e|  (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 
@@ -75,12 +75,12 @@ impl BdkWallet {
     /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
     /// be returned for any [AddressIndex].
     pub fn get_internal_address(
-        &self,
+        ptr: BdkWallet,
         address_index: AddressIndex,
-    ) -> Result<AddressInfo, BdkError> {
-        self.get_wallet()
+    ) -> Result<(BdkAddress, u32), BdkError> {
+        ptr.get_wallet()
             .get_internal_address(address_index.into())
-            .map(|e| e.into())
+            .map(|e|  (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 

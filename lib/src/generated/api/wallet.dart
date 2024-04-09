@@ -88,10 +88,12 @@ class BdkWallet {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  Future<AddressInfo> getAddress(
-          {required AddressIndex addressIndex, dynamic hint}) =>
+  static Future<(BdkAddress, int)> getAddress(
+          {required BdkWallet ptr,
+          required AddressIndex addressIndex,
+          dynamic hint}) =>
       BdkCore.instance.api.bdkWalletGetAddress(
-        that: this,
+        ptr: ptr,
         addressIndex: addressIndex,
         hint: hint,
       );
@@ -122,10 +124,12 @@ class BdkWallet {
   /// see [AddressIndex] for available address index selection strategies. If none of the keys
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
-  Future<AddressInfo> getInternalAddress(
-          {required AddressIndex addressIndex, dynamic hint}) =>
+  static Future<(BdkAddress, int)> getInternalAddress(
+          {required BdkWallet ptr,
+          required AddressIndex addressIndex,
+          dynamic hint}) =>
       BdkCore.instance.api.bdkWalletGetInternalAddress(
-        that: this,
+        ptr: ptr,
         addressIndex: addressIndex,
         hint: hint,
       );
