@@ -101,62 +101,29 @@ class BdkLibrary {
   }
 
   Future<FeeRate> estimateFeeRate(
-    int blocks,
     Blockchain blockchain,
   ) async {
-    final feeRate = await blockchain.estimateFee(target: blocks);
+    final height = await blockchain.getHeight();
+    final feeRate = await blockchain.estimateFee(target: height);
     return feeRate;
-  }
-
-  Future<List<Address>> getAddresses() async {
-    final a1 = await Address.fromString(
-        s: "bcrt1qvym2hzrtfdnlnmkg7dk5rw0ykmdr6n7f0w4hu9",
-        network: Network.regtest);
-    final a2 = await Address.fromString(
-        s: "bcrt1qc2thfuugj50e07pnegpdu5ztyvgymuz99t2t2n",
-        network: Network.regtest);
-    final c1 = await Address.fromString(
-        s: "bcrt1q5v5c5kheq4mj8xwnqluhv27gxptvxrfqd948wv",
-        network: Network.regtest);
-    final c2 = await Address.fromString(
-        s: "bcrt1qumf6alpht2veaarpr2xd5uc6l6g50pmwmgvyka",
-        network: Network.regtest);
-    return [a1, a2, c1, c2];
-  }
-
-  createPsbts(Blockchain blockchain, Wallet aliceWallet) async {
-    try {
-      final addresses = await getAddresses();
-      final txBuilder = TxBuilder();
-      final u1 = (await aliceWallet.listUnspent()).first;
-      final feeRate = await estimateFeeRate(25, blockchain);
-      final a1Script = (await addresses[0].scriptPubkey());
-      final c2Script = (await addresses[3].scriptPubkey());
-      final (psbt, _) = await txBuilder
-          .addRecipient(a1Script, 1000)
-          .addRecipient(c2Script, 10000)
-          .manuallySelectedOnly()
-          .addUtxo(u1.outpoint)
-          .feeRate(feeRate.satPerVb)
-          .finish(aliceWallet);
-
-      return [psbt];
-    } on Exception catch (_) {
-      rethrow;
-    }
   }
 
   sendBitcoin(
       Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
-      final List<PartiallySignedTransaction> psbts =
-          await createPsbts(blockchain, aliceWallet);
+      final recipientScript = await (await Address.fromString(
+              s: addressStr, network: Network.regtest))
+          .scriptPubkey();
+      final (psbt, _) = await TxBuilder()
+          .addRecipient(recipientScript, 1000)
+          .feeRate((await estimateFeeRate(blockchain)).satPerVb)
+          .finish(aliceWallet);
 
-      final isFinalized = await aliceWallet.sign(psbt: psbts[0]);
+      final isFinalized = await aliceWallet.sign(psbt: psbt);
 
       if (isFinalized) {
-        final tx = await psbts[0].extractTx();
-        final res = await blockchain.broadcast(transaction: tx);
+        final tx = await psbt.extractTx();
+        final txid = await blockchain.broadcast(transaction: tx);
         debugPrint(res);
       } else {
         debugPrint("psbt not finalized!");
