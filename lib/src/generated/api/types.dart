@@ -60,31 +60,6 @@ sealed class AddressIndex with _$AddressIndex {
   }) = AddressIndex_Reset;
 }
 
-///A derived address and the index it was found at For convenience this automatically derefs to Address
-class AddressInfo {
-  ///Child index of this address
-  final int index;
-
-  /// Address
-  final BdkAddress address;
-
-  const AddressInfo({
-    required this.index,
-    required this.address,
-  });
-
-  @override
-  int get hashCode => index.hashCode ^ address.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AddressInfo &&
-          runtimeType == other.runtimeType &&
-          index == other.index &&
-          address == other.address;
-}
-
 /// Local Wallet's Balance
 class Balance {
   final int immature;

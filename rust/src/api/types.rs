@@ -205,21 +205,6 @@ impl From<AddressIndex> for bdk::wallet::AddressIndex {
         }
     }
 }
-///A derived address and the index it was found at For convenience this automatically derefs to Address
-pub struct AddressInfo {
-    ///Child index of this address
-    pub index: u32,
-    /// Address
-    pub address: BdkAddress,
-}
-impl From<bdk::wallet::AddressInfo> for AddressInfo {
-    fn from(x: bdk::wallet::AddressInfo) -> AddressInfo {
-        AddressInfo {
-            index: x.index,
-            address: x.address.into(),
-        }
-    }
-}
 #[derive(Debug, Clone, PartialEq, Eq)]
 ///A wallet transaction
 pub struct TransactionDetails {
@@ -614,7 +599,7 @@ impl BdkTransaction {
             version,
             lock_time: lock_time.try_into()?,
             input: inputs,
-            output: output,
+            output,
         }
         .try_into()
     }
