@@ -1004,11 +1004,12 @@ class Wallet extends BdkWallet {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  @override
   Future<AddressInfo> getAddress(
       {required AddressIndex addressIndex, hint}) async {
     try {
-      return super.getAddress(addressIndex: addressIndex);
+      final res =
+          await BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
+      return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapToException(e);
     }
@@ -1045,11 +1046,13 @@ class Wallet extends BdkWallet {
   /// see [AddressIndex] for available address index selection strategies. If none of the keys
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
-  @override
+
   Future<AddressInfo> getInternalAddress(
       {required AddressIndex addressIndex, hint}) async {
     try {
-      return super.getInternalAddress(addressIndex: addressIndex);
+      final res = await BdkWallet.getInternalAddress(
+          ptr: this, addressIndex: addressIndex);
+      return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapToException(e);
     }
@@ -1095,6 +1098,7 @@ class Wallet extends BdkWallet {
 
   /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
   /// which first needs to be Wallet.sync manually.
+  /// TODO; Update; create custom LocalUtxo
   @override
   Future<List<LocalUtxo>> listUnspent({hint}) async {
     try {
@@ -1114,7 +1118,6 @@ class Wallet extends BdkWallet {
     }
   }
 
-//TODO; Change BdkPsbt psbt to PartiallySignedBitcoinTransaction psbt
   /// Sign a transaction with all the wallet's signers. This function returns an encapsulated bool that
   /// has the value true if the PSBT was finalized, or false otherwise.
   ///
@@ -1123,7 +1126,9 @@ class Wallet extends BdkWallet {
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
   Future<bool> sign(
-      {required BdkPsbt psbt, SignOptions? signOptions, hint}) async {
+      {required PartiallySignedTransaction psbt,
+      SignOptions? signOptions,
+      hint}) async {
     try {
       final res = await BdkWallet.sign(ptr: this, psbt: psbt);
       return res;
@@ -1142,4 +1147,15 @@ class Wallet extends BdkWallet {
       throw mapToException(e);
     }
   }
+}
+
+///A derived address and the index it was found at For convenience this automatically derefs to Address
+class AddressInfo {
+  ///Child index of this address
+  final int index;
+
+  /// Address
+  final Address address;
+
+  AddressInfo(this.index, this.address);
 }
