@@ -124,7 +124,7 @@ class BdkLibrary {
       if (isFinalized) {
         final tx = await psbt.extractTx();
         final txid = await blockchain.broadcast(transaction: tx);
-        debugPrint(res);
+        debugPrint(txid);
       } else {
         debugPrint("psbt not finalized!");
       }
