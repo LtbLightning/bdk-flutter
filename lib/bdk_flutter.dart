@@ -3,7 +3,7 @@ library bdk_flutter;
 
 export './src/generated/api/blockchain.dart'
     hide
-        BlockchainBase,
+        BdkBlockchain,
         BlockchainConfig_Electrum,
         BlockchainConfig_Esplora,
         AnyBlockchain,
@@ -13,28 +13,30 @@ export './src/generated/api/blockchain.dart'
         BlockchainConfig_Rpc;
 export './src/generated/api/descriptor.dart'
     hide
-        DescriptorBase,
+        BdkDescriptor,
         ExtendedDescriptor,
         KeysDescriptorSecretKey,
         KeysDescriptorPublicKey,
         KeysKeyMap;
 export './src/generated/api/key.dart'
     hide
-        DerivationPathBase,
-        DescriptorPublicKeyBase,
-        DescriptorSecretKeyBase,
+        BdkDerivationPath,
+        BdkDescriptorPublicKey,
+        BdkDescriptorSecretKey,
         BitcoinBip32DerivationPath,
         KeysBip39Mnemonic,
-        MnemonicBase;
+        BdkMnemonic;
 export './src/generated/api/psbt.dart'
-    hide MutexPartiallySignedTransaction, PsbtBase;
+    hide MutexPartiallySignedTransaction, BdkPsbt;
 export './src/generated/api/types.dart'
     hide
         BdkBitcoinAddress,
-        ScriptBufBase,
-        TransactionBase,
+        BdkScriptBuf,
+        BdkTransaction,
         AddressIndex_Reset,
-        AddressBase,
+        LockTime_Blocks,
+        LockTime_Seconds,
+        BdkAddress,
         AddressIndex_Peek,
         AddressIndex_Increase,
         AddressIndex_LastUnused,
@@ -49,8 +51,8 @@ export './src/generated/api/types.dart'
 export './src/generated/api/wallet.dart'
     hide
         MutexBdkWalletAnyDatabase,
-        WalletBase,
+        BdkWallet,
         finishBumpFeeTxBuilder,
         txBuilderFinish;
 export './src/root.dart';
-export 'src/utils/exceptions.dart';
+export 'src/utils/exceptions.dart' hide mapToException, BdkFfiException;
