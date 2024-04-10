@@ -246,7 +246,7 @@ class TradeView {
       await wallet.sign(psbt: parentPsbt!);
       final txid = await blockchain.broadcast(
           transaction: (await parentPsbt.extractTx()));
-      print("trade patentTx broadcast $txid");
+      debugPrint("trade patentTx broadcast $txid");
       wallet.sync(blockchain: blockchain);
       available.remove(target);
       final List<LocalUtxo> selectedUtxos = [];
@@ -268,10 +268,10 @@ class TradeView {
         selectedUtxos.add(availableUtxos.firstWhere((e) => listEquals(
             e.txout.scriptPubkey.bytes, e.txout.scriptPubkey.bytes)));
       }
-      print("Available utxos");
+      debugPrint("Available utxos");
       for (var e in selectedUtxos) {
-        print(e.txout.value);
-        print(e.outpoint.txid);
+        debugPrint(e.txout.value.toString());
+        debugPrint(e.outpoint.txid);
       }
       final List<AssignedTrade> updated = [];
 
