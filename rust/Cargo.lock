@@ -816,9 +816,9 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge"
-version = "2.0.0-dev.30"
+version = "2.0.0-dev.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5cc32be8039ca8f9a305b06134f121d62a633a7acc44ef1e990f890a9c83bbad"
+checksum = "9d9ceb6f8db0bf711a55e20151c6699132bb5975f846ecac2c3bc7d23cc0845d"
 dependencies = [
  "allo-isolate",
  "android_logger",
@@ -843,9 +843,9 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge_codegen"
-version = "2.0.0-dev.29"
+version = "2.0.0-dev.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c95a0ab53dca0aaf1aa615d1340bd641cd04f813a50e1a645fea0d8070751920"
+checksum = "fb089f0e86a6873eb9538ee5dea459e9bb029feeb6777ecf1f996c805451a507"
 dependencies = [
  "anyhow",
  "atty",
@@ -860,6 +860,7 @@ dependencies = [
  "enum_dispatch",
  "fern",
  "glob",
+ "hex",
  "include_dir",
  "indicatif",
  "indicatif-log-bridge",
@@ -887,9 +888,14 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge_macros"
-version = "2.0.0-dev.30"
+version = "2.0.0-dev.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ccd41c403967dcc593ab21cb728ca781247b4aa8ebfc3871ff6832f9e85824f2"
+checksum = "e02edfe56f04af804d3145b17dfe7820d46a6753b214160f227dbdfa1073f7cb"
+dependencies = [
+ "hex",
+ "quote",
+ "syn 2.0.55",
+]
 
 [[package]]
 name = "form_urlencoded"
@@ -1091,6 +1097,12 @@ name = "hermit-abi"
 version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d231dfb89cfffdbc30e7fc41579ed6066ad03abda9e567ccafae602b97ec5024"
+
+[[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "hex_lit"

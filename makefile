@@ -11,7 +11,7 @@ help: makefile
 
 ## init: Install missing dependencies.
 init:
-	cargo install 'flutter_rust_bridge_codegen@^2.0.0-dev.28'
+	cargo install 'flutter_rust_bridge_codegen@^2.0.0-dev.31'
 ## :
 
 all: init generate-bindings
