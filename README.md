@@ -42,17 +42,6 @@ dependencies:
   bdk_flutter: ^0.31.2-dev
 ```
 
-Create a file named `cargokit_options.yaml` in your project root and paste the following content to utilize the pre-built binaries.
-
-```yaml
-  verbose_logging: false
-  use_precompiled_binaries: true
-```
-
-You can disable the `use_precompiled_binaries` option if you prefer to build the binaries from the source. Click [here](https://matejknopp.com/post/flutter_plugin_in_rust_with_no_prebuilt_binaries) for a tutorial on how to use `Cargokit`.
-
-> This Flutter plugin is currently in its development (dev) stage and has been released for community review and experimentation. As part of this phase, we have integrated `CargoKit` into our build and release pipeline to streamline the creation and distribution of Rust binaries.
-
 ### Examples
 
 ### Create a Wallet & sync the balance of a descriptor
