@@ -1,4 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
+import 'package:bdk_flutter_example/tradeview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -158,8 +159,38 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   sendBit() async {
-    await lib.sendBitcoin(
-        blockchain!, aliceWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+    await lib.sendBitcoin(blockchain!, aliceWallet,
+        "bcrt1q4ezz5hp9c0vfru9xd8frtj2xuzd78ym467skdu");
+  }
+
+  handleTradeView() async {
+    final tradeview = TradeView();
+    final trade1Destination = (await tradeview.getDestinationAddresses())[0];
+    final trade2Destination = (await tradeview.getDestinationAddresses())[1];
+    final trade3Destination = (await tradeview.getDestinationAddresses())[2];
+    final platformAndChange = await tradeview.getPlatformAndChange(aliceWallet);
+
+    final utxo = (await aliceWallet.listUnspent())
+        .firstWhere((e) => e.txout.value > 36000);
+    final step1 = await tradeview.openTrade([], [utxo], trade1Destination,
+        platformAndChange.$1, platformAndChange.$2[0], 10000, aliceWallet);
+    final step2 = await tradeview.openTrade(step1, [utxo], trade2Destination,
+        platformAndChange.$1, platformAndChange.$2[1], 10000, aliceWallet);
+    final step3 = await tradeview.openTrade(step2, [utxo], trade3Destination,
+        platformAndChange.$1, platformAndChange.$2[2], 10000, aliceWallet);
+    final step4 =
+        await tradeview.closeTrade(step3, step3[0], aliceWallet, blockchain!);
+    debugPrint("closed trade: ${step3[0].id.toString()}\n");
+
+    final step5 =
+        await tradeview.closeTrade(step4, step4[0], aliceWallet, blockchain!);
+    debugPrint("closed trade: ${step4[0].id}\n");
+    final step6 =
+        await tradeview.closeTrade(step5, step5[0], aliceWallet, blockchain!);
+    await lib.sync(blockchain!, aliceWallet);
+    if (step6.isEmpty) {
+      debugPrint("closed all trades \n");
+    }
   }
 
   @override
@@ -244,6 +275,16 @@ class _SimpleWalletState extends State<SimpleWallet> {
                   },
                   child: const Text(
                     'Press to  sync',
+                    style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontSize: 12,
+                        height: 1.5,
+                        fontWeight: FontWeight.w800),
+                  )),
+              TextButton(
+                  onPressed: () => handleTradeView(),
+                  child: const Text(
+                    'handleTradeView',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
