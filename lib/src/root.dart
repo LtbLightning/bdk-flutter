@@ -615,15 +615,6 @@ class PartiallySignedTransaction extends BdkPsbt {
     }
   }
 
-  @override
-  Future<BdkPsbt> updateInput({required Input input, hint}) {
-    try {
-      return super.updateInput(input: input);
-    } on BdkError catch (e) {
-      throw mapToException(e);
-    }
-  }
-
   ///Return fee rate
   @override
   Future<FeeRate?> feeRate({hint}) {
