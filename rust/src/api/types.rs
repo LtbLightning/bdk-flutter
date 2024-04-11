@@ -886,18 +886,6 @@ impl From<bdk::FeeRate> for FeeRate {
         }
     }
 }
-// impl FeeRate {
-//     /// Constructs `FeeRate` from satoshis per 1000 weight units.
-//     pub fn from_sat_per_kwu(sat_per_kwu: f32) -> Self {
-//         bdk::FeeRate::from_sat_per_kwu(sat_per_kwu).into()
-//     }
-//
-//     ///Create a new instance of FeeRate given a float fee rate in sats/kvb
-//     pub fn from_sat_per_vb(sat_per_kvb: f32) -> Self {
-//         bdk::FeeRate::from_sat_per_vb(sat_per_kvb).into()
-//     }
-//
-// }
 
 /// A key-value map for an input of the corresponding index in the unsigned
 pub struct Input {
