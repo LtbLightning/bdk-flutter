@@ -1,3 +1,9 @@
+## [0.31.1-dev.1]
+Updated Rust and Flutter dependencies.
+#### APIs added
+- Exposed `fromUnsignedTransaction` in `PartiallySignedTransaction`.
+- Exposed `create` in `Transaction`.
+
 ## [0.31.1-dev]
 #### Fixed
 - Failed to load `.so` files in android.
