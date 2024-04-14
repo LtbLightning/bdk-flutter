@@ -1,0 +1,41 @@
+on:
+  push:
+    branches: [v0.31.2-dev, master, main]
+
+name: Precompile Binaries
+
+jobs:
+  Precompile:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-20.04
+          - macOS-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Precompile (with iOS)
+        if: (matrix.os == 'macOS-latest')
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter
+        working-directory: cargokit/build_tool
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          PRIVATE_KEY: ${{ secrets.CARGOKIT_PRIVATE_KEY }}
+      - name: Precompile (with Android)
+        if: (matrix.os == 'ubuntu-20.04')
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=24.0.8215888 --android-min-sdk-version=23
+        working-directory: cargokit/build_tool
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          PRIVATE_KEY: ${{ secrets.CARGOKIT_PRIVATE_KEY }}
