@@ -1,0 +1,22 @@
+PODS:
+  - bdk_flutter (0.31.2-dev):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+
+DEPENDENCIES:
+  - bdk_flutter (from `Flutter/ephemeral/.symlinks/plugins/bdk_flutter/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+
+EXTERNAL SOURCES:
+  bdk_flutter:
+    :path: Flutter/ephemeral/.symlinks/plugins/bdk_flutter/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+
+SPEC CHECKSUMS:
+  bdk_flutter: 8280f582b6b9b49deb843763027d4864b231c1d2
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+
+PODFILE CHECKSUM: 6acf97521436d16fc31cd5e1a02000905acdb3ae
+
+COCOAPODS: 1.14.3
