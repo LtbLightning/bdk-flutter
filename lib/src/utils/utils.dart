@@ -2,11 +2,11 @@ import '../generated/frb_generated.dart';
 
 export 'exceptions.dart';
 
-class Frb {
-  static Future<void> verifyInit() async {
+class Api {
+  static Future<void> initialize() async {
     try {
-      if (!BdkCore.instance.initialized) {
-        await BdkCore.init();
+      if (!CApi.instance.initialized) {
+        await CApi.init();
       }
     } catch (e) {
       throw Exception("Failed to initialize bdk-flutter");

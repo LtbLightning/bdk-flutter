@@ -55,10 +55,11 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getNewAddress() async {
-    final res = await lib.getAddress(aliceWallet);
-    debugPrint(res.address);
-    setState(() {
-      displayText = "Address: ${res.address} \n Index: ${res.index}";
+    final res = (await lib.getAddress(aliceWallet));
+    debugPrint(await res.address.asString());
+    setState(() async {
+      displayText =
+          "Address: ${await res.address.asString()} \n Index: ${res.index}";
     });
   }
 

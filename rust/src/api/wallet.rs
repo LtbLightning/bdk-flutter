@@ -1,15 +1,15 @@
-use crate::api::descriptor::DescriptorBase;
+use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressBase, AddressIndex, AddressInfo, Balance, ChangeSpendPolicy, DatabaseConfig, Input,
-    KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount,
-    ScriptBufBase, SignOptions, TransactionDetails,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy,
+    DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue,
+    ScriptAmount, SignOptions, TransactionDetails,
 };
 use std::ops::Deref;
 use std::str::FromStr;
 
-use crate::api::blockchain::BlockchainBase;
+use crate::api::blockchain::BdkBlockchain;
 use crate::api::error::BdkError;
-use crate::api::psbt::PsbtBase;
+use crate::api::psbt::BdkPsbt;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
 use bdk::bitcoin::{Sequence, Txid};
@@ -19,13 +19,13 @@ pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
 #[derive(Debug)]
-pub struct WalletBase {
+pub struct BdkWallet {
     pub ptr: RustOpaque<Mutex<bdk::Wallet<AnyDatabase>>>,
 }
-impl WalletBase {
+impl BdkWallet {
     pub fn new(
-        descriptor: DescriptorBase,
-        change_descriptor: Option<DescriptorBase>,
+        descriptor: BdkDescriptor,
+        change_descriptor: Option<BdkDescriptor>,
         network: Network,
         database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
@@ -39,7 +39,7 @@ impl WalletBase {
             network.into(),
             database,
         )?;
-        Ok(WalletBase {
+        Ok(BdkWallet {
             ptr: RustOpaque::new(Mutex::new(wallet)),
         })
     }
@@ -52,18 +52,18 @@ impl WalletBase {
         self.get_wallet().network().into()
     }
     /// Return whether or not a script is part of this wallet (either internal or external).
-    pub fn is_mine(&self, script: ScriptBufBase) -> Result<bool, BdkError> {
+    pub fn is_mine(&self, script: BdkScriptBuf) -> Result<bool, BdkError> {
         self.get_wallet()
-            .is_mine(<ScriptBufBase as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script())
+            .is_mine(<BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script())
             .map_err(|e| e.into())
     }
     /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
     /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
     /// then the same address will always be returned for any AddressIndex.
-    pub fn get_address(&self, address_index: AddressIndex) -> Result<AddressInfo, BdkError> {
-        self.get_wallet()
+    pub fn get_address( ptr: BdkWallet, address_index: AddressIndex) -> Result<(BdkAddress, u32), BdkError> {
+        ptr.get_wallet()
             .get_address(address_index.into())
-            .map(AddressInfo::from)
+            .map(|e|  (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 
@@ -75,12 +75,12 @@ impl WalletBase {
     /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
     /// be returned for any [AddressIndex].
     pub fn get_internal_address(
-        &self,
+        ptr: BdkWallet,
         address_index: AddressIndex,
-    ) -> Result<AddressInfo, BdkError> {
-        self.get_wallet()
+    ) -> Result<(BdkAddress, u32), BdkError> {
+        ptr.get_wallet()
             .get_internal_address(address_index.into())
-            .map(|e| e.into())
+            .map(|e|  (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 
@@ -97,11 +97,15 @@ impl WalletBase {
         &self,
         include_raw: bool,
     ) -> Result<Vec<TransactionDetails>, BdkError> {
-        let transaction_details = self.get_wallet().list_transactions(include_raw)?;
-        Ok(transaction_details
+        let mut transaction_details = vec![];
+        for e in self
+            .get_wallet()
+            .list_transactions(include_raw)?
             .into_iter()
-            .map(TransactionDetails::from)
-            .collect())
+        {
+            transaction_details.push(e.try_into()?)
+        }
+        Ok(transaction_details)
     }
 
     /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
@@ -119,8 +123,8 @@ impl WalletBase {
     /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
     /// in this library will.
     pub fn sign(
-        ptr: WalletBase,
-        psbt: PsbtBase,
+        ptr: BdkWallet,
+        psbt: BdkPsbt,
         sign_options: Option<SignOptions>,
     ) -> Result<bool, BdkError> {
         let mut psbt = psbt.ptr.lock().unwrap();
@@ -132,7 +136,7 @@ impl WalletBase {
             .map_err(|e| e.into())
     }
     /// Sync the internal database with the blockchain.
-    pub fn sync(ptr: WalletBase, blockchain: BlockchainBase) -> Result<(), BdkError> {
+    pub fn sync(ptr: BdkWallet, blockchain: BdkBlockchain) -> Result<(), BdkError> {
         let blockchain = blockchain.get_blockchain();
         ptr.get_wallet()
             .sync(blockchain.deref(), bdk::SyncOptions::default())
@@ -146,31 +150,31 @@ impl WalletBase {
         sighash_type: Option<PsbtSigHashType>,
     ) -> anyhow::Result<Input, BdkError> {
         let input = self.get_wallet().get_psbt_input(
-            utxo.into(),
+            utxo.try_into()?,
             sighash_type.map(|e| e.into()),
             only_witness_utxo,
         )?;
-        Ok(input.into())
+        input.try_into()
     }
     ///Returns the descriptor used to create addresses for a particular keychain.
     pub fn get_descriptor_for_keychain(
-        ptr: WalletBase,
+        ptr: BdkWallet,
         keychain: KeychainKind,
-    ) -> anyhow::Result<DescriptorBase, BdkError> {
+    ) -> anyhow::Result<BdkDescriptor, BdkError> {
         let wallet = ptr.get_wallet();
         let extended_descriptor = wallet.get_descriptor_for_keychain(keychain.into());
-        DescriptorBase::new(extended_descriptor.to_string(), wallet.network().into())
+        BdkDescriptor::new(extended_descriptor.to_string(), wallet.network().into())
     }
 }
 
 pub fn finish_bump_fee_tx_builder(
     txid: String,
     fee_rate: f32,
-    allow_shrinking: Option<AddressBase>,
-    wallet: WalletBase,
+    allow_shrinking: Option<BdkAddress>,
+    wallet: BdkWallet,
     enable_rbf: bool,
     n_sequence: Option<u32>,
-) -> anyhow::Result<(PsbtBase, TransactionDetails), BdkError> {
+) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
     let txid = Txid::from_str(txid.as_str()).unwrap();
     let bdk_wallet = wallet.get_wallet();
 
@@ -188,13 +192,13 @@ pub fn finish_bump_fee_tx_builder(
         tx_builder.enable_rbf();
     }
     return match tx_builder.finish() {
-        Ok(e) => Ok((e.0.into(), TransactionDetails::from(&e.1))),
+        Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(e.1)?)),
         Err(e) => Err(e.into()),
     };
 }
 
 pub fn tx_builder_finish(
-    wallet: WalletBase,
+    wallet: BdkWallet,
     recipients: Vec<ScriptAmount>,
     utxos: Vec<OutPoint>,
     foreign_utxo: Option<(OutPoint, Input, usize)>,
@@ -204,10 +208,10 @@ pub fn tx_builder_finish(
     fee_rate: Option<f32>,
     fee_absolute: Option<u64>,
     drain_wallet: bool,
-    drain_to: Option<ScriptBufBase>,
+    drain_to: Option<BdkScriptBuf>,
     rbf: Option<RbfValue>,
     data: Vec<u8>,
-) -> anyhow::Result<(PsbtBase, TransactionDetails), BdkError> {
+) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
     let binding = wallet.get_wallet();
 
     let mut tx_builder = binding.build_tx();
@@ -218,16 +222,19 @@ pub fn tx_builder_finish(
     tx_builder.change_policy(change_policy.into());
 
     if !utxos.is_empty() {
-        let bdk_utxos: Vec<bdk::bitcoin::OutPoint> =
-            utxos.iter().map(bdk::bitcoin::OutPoint::from).collect();
-        let utxos: &[bdk::bitcoin::OutPoint] = &bdk_utxos;
-        tx_builder.add_utxos(utxos).map_err(|e|  <bdk::Error as Into<BdkError>>::into(e))?;
+        let bdk_utxos = utxos
+            .iter()
+            .map(|e| bdk::bitcoin::OutPoint::try_from(e))
+            .collect::<Result<Vec<bdk::bitcoin::OutPoint>, BdkError>>()?;
+        tx_builder
+            .add_utxos(bdk_utxos.as_slice())
+            .map_err(|e| <bdk::Error as Into<BdkError>>::into(e))?;
     }
     if !un_spendable.is_empty() {
-        let bdk_unspendable: Vec<bdk::bitcoin::OutPoint> = un_spendable
+        let bdk_unspendable = un_spendable
             .iter()
-            .map(bdk::bitcoin::OutPoint::from)
-            .collect();
+            .map(|e| bdk::bitcoin::OutPoint::try_from(e))
+            .collect::<Result<Vec<bdk::bitcoin::OutPoint>, BdkError>>()?;
         tx_builder.unspendable(bdk_unspendable);
     }
     if manually_selected_only {
@@ -246,8 +253,8 @@ pub fn tx_builder_finish(
         tx_builder.drain_to(script_.into());
     }
     if let Some(utxo) = foreign_utxo {
-        let foreign_utxo: bdk::bitcoin::psbt::Input = utxo.1.into();
-        tx_builder.add_foreign_utxo((&utxo.0).into(), foreign_utxo, utxo.2)?;
+        let foreign_utxo: bdk::bitcoin::psbt::Input = utxo.1.try_into()?;
+        tx_builder.add_foreign_utxo((&utxo.0).try_into()?, foreign_utxo, utxo.2)?;
     }
     if let Some(rbf) = &rbf {
         match rbf {
@@ -266,7 +273,7 @@ pub fn tx_builder_finish(
     }
 
     return match tx_builder.finish() {
-        Ok(e) => Ok((e.0.into(), TransactionDetails::from(&e.1))),
+        Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(&e.1)?)),
         Err(e) => Err(e.into()),
     };
 }

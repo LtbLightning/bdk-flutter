@@ -39,7 +39,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.31.1-dev
+  bdk_flutter: ^0.31.2-dev
 ```
 
 ### Examples
@@ -186,7 +186,5 @@ The latest API documentation is available [here](https://pub.dev/documentation/b
 - Setting up a local Esplora instance for testing:
   https://bitcoin.stackexchange.com/questions/116937/how-do-i-setup-an-esplora-instance-for-local-testing/116938#116938
 
-_Note: This Flutter plugin is currently in its development (dev) stage and has been released for community review and experimentation. 
-We warmly welcome feedback, bug reports, and contributions from developers and enthusiasts alike ⚡️_
 
 Thanks for taking a look!

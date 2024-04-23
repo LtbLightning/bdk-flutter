@@ -1,3 +1,10 @@
+## [0.31.2-dev]
+Updated Rust and Flutter dependencies.
+#### APIs added
+- Add `InvalidInputException`, `InvalidLockTimeException` & `InvalidTransactionException` .
+#### Fixed
+- Thread `frb_workerpool` panic on `UnknownUtxo` and `InvalidPsbtInput`.
+
 ## [0.31.1-dev]
 #### Fixed
 - Failed to load `.so` files in android.
