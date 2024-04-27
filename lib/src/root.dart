@@ -265,7 +265,7 @@ class Descriptor extends BdkDescriptor {
       required KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip44Public(
+      final res = await BdkDescriptor.newBip49Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -307,7 +307,7 @@ class Descriptor extends BdkDescriptor {
       required KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip44Public(
+      final res = await BdkDescriptor.newBip84Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -349,7 +349,7 @@ class Descriptor extends BdkDescriptor {
       required KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip44Public(
+      final res = await BdkDescriptor.newBip86Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,

@@ -1,3 +1,7 @@
+## [0.31.2-dev.1]
+#### Fixed
+- Invalid `Bip49Public`, `Bip84Public` & `Bip86Public`.
+
 ## [0.31.2-dev]
 Updated Rust and Flutter dependencies.
 #### APIs added
