@@ -43,13 +43,20 @@ class _SimpleWalletState extends State<SimpleWallet> {
     });
   }
 
-  initBlockchain(bool isElectrumBlockchain) async {
-    blockchain = await lib.initializeBlockchain(isElectrumBlockchain);
+  initBlockchain({
+    bool isElectrumBlockchain = false,
+    bool useTestnetDefaults = false,
+  }) async {
+    blockchain = await lib.initializeBlockchain(
+      isElectrumBlockchain: isElectrumBlockchain,
+      useTestnetDefaults: useTestnetDefaults,
+    );
   }
 
   sync() async {
     if (blockchain == null) {
-      await initBlockchain(false);
+      // Initialize blockchain with default testnet values and esplora server
+      await initBlockchain(useTestnetDefaults: true);
     }
     await lib.sync(blockchain!, aliceWallet);
   }
@@ -57,9 +64,9 @@ class _SimpleWalletState extends State<SimpleWallet> {
   getNewAddress() async {
     final res = (await lib.getAddress(aliceWallet));
     debugPrint(await res.address.asString());
-    setState(() async {
-      displayText =
-          "Address: ${await res.address.asString()} \n Index: ${res.index}";
+    final address = await res.address.asString();
+    setState(() {
+      displayText = "Address: $address \n Index: ${res.index}";
     });
   }
 

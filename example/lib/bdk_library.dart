@@ -19,24 +19,33 @@ class BdkLibrary {
     return descriptor;
   }
 
-  Future<Blockchain> initializeBlockchain(bool isElectrumBlockchain) async {
-    if (isElectrumBlockchain) {
-      final blockchain = await Blockchain.create(
-          config: const BlockchainConfig.esplora(
-              config: EsploraConfig(
-                  baseUrl: 'https://blockstream.info/testnet/api',
-                  stopGap: 10)));
-      return blockchain;
+  Future<Blockchain> initializeBlockchain({
+    bool isElectrumBlockchain = false,
+    bool useTestnetDefaults = false,
+  }) async {
+    if (useTestnetDefaults) {
+      return await Blockchain.createWithTestnetDefaults();
+    } else if (isElectrumBlockchain) {
+      return await Blockchain.create(
+        config: const BlockchainConfig.electrum(
+          config: ElectrumConfig(
+            stopGap: 10,
+            timeout: 5,
+            retry: 5,
+            url: "ssl://electrum.blockstream.info:60002",
+            validateDomain: true,
+          ),
+        ),
+      );
     } else {
-      final blockchain = await Blockchain.create(
-          config: const BlockchainConfig.electrum(
-              config: ElectrumConfig(
-                  stopGap: 10,
-                  timeout: 5,
-                  retry: 5,
-                  url: "ssl://electrum.blockstream.info:60002",
-                  validateDomain: true)));
-      return blockchain;
+      return await Blockchain.create(
+        config: const BlockchainConfig.esplora(
+          config: EsploraConfig(
+            baseUrl: 'https://blockstream.info/testnet/api',
+            stopGap: 10,
+          ),
+        ),
+      );
     }
   }
 

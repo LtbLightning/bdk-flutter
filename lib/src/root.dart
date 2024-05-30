@@ -61,6 +61,30 @@ class Blockchain extends BdkBlockchain {
     }
   }
 
+  static Future<Blockchain> createWithMutinynetDefaults({
+    int stopGap = 20,
+  }) async {
+    final config = BlockchainConfig.esplora(
+      config: EsploraConfig(
+        baseUrl: 'https://mutinynet.ltbl.io/api',
+        stopGap: stopGap,
+      ),
+    );
+    return create(config: config);
+  }
+
+  static Future<Blockchain> createWithTestnetDefaults({
+    int stopGap = 20,
+  }) async {
+    final config = BlockchainConfig.esplora(
+      config: EsploraConfig(
+        baseUrl: 'https://testnet.ltbl.io/api',
+        stopGap: stopGap,
+      ),
+    );
+    return create(config: config);
+  }
+
   ///Estimate the fee rate required to confirm a transaction in a given target of blocks
   @override
   Future<FeeRate> estimateFee({required int target, hint}) async {
