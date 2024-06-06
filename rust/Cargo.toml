@@ -19,7 +19,6 @@ bitcoinconsensus = {version = "0.106.0+26.0"}
 serde = "1.0.89"
 serde_json = "1.0.96"
 anyhow = "1.0.68"
-lazy_static = "1.4.0"
 
 [profile.release]
 strip = true
