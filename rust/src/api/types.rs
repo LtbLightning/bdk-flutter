@@ -472,8 +472,8 @@ impl BdkAddress {
             <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script(),
             network.into(),
         )
-            .map(|a| a.into())
-            .map_err(|e| e.into())
+        .map(|a| a.into())
+        .map_err(|e| e.into())
     }
     pub fn payload(&self) -> Payload {
         match <&BdkAddress as Into<bdk::bitcoin::Address>>::into(self).payload {
@@ -524,6 +524,7 @@ impl BdkAddress {
         self.ptr.to_string()
     }
 }
+#[derive(Debug)]
 pub enum Variant {
     Bech32,
     Bech32m,
@@ -601,7 +602,7 @@ impl BdkTransaction {
             input: inputs,
             output,
         }
-            .try_into()
+        .try_into()
     }
     pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);

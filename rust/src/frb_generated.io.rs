@@ -266,158 +266,162 @@ impl CstDecode<crate::api::error::BdkError> for wire_cst_bdk_error {
                 crate::api::error::BdkError::Consensus(ans.field0.cst_decode())
             }
             2 => {
+                let ans = unsafe { self.kind.VerifyTransaction };
+                crate::api::error::BdkError::VerifyTransaction(ans.field0.cst_decode())
+            }
+            3 => {
                 let ans = unsafe { self.kind.Address };
                 crate::api::error::BdkError::Address(ans.field0.cst_decode())
             }
-            3 => {
+            4 => {
                 let ans = unsafe { self.kind.Descriptor };
                 crate::api::error::BdkError::Descriptor(ans.field0.cst_decode())
             }
-            4 => {
+            5 => {
                 let ans = unsafe { self.kind.InvalidU32Bytes };
                 crate::api::error::BdkError::InvalidU32Bytes(ans.field0.cst_decode())
             }
-            5 => {
+            6 => {
                 let ans = unsafe { self.kind.Generic };
                 crate::api::error::BdkError::Generic(ans.field0.cst_decode())
             }
-            6 => crate::api::error::BdkError::ScriptDoesntHaveAddressForm,
-            7 => crate::api::error::BdkError::NoRecipients,
-            8 => crate::api::error::BdkError::NoUtxosSelected,
-            9 => {
+            7 => crate::api::error::BdkError::ScriptDoesntHaveAddressForm,
+            8 => crate::api::error::BdkError::NoRecipients,
+            9 => crate::api::error::BdkError::NoUtxosSelected,
+            10 => {
                 let ans = unsafe { self.kind.OutputBelowDustLimit };
                 crate::api::error::BdkError::OutputBelowDustLimit(ans.field0.cst_decode())
             }
-            10 => {
+            11 => {
                 let ans = unsafe { self.kind.InsufficientFunds };
                 crate::api::error::BdkError::InsufficientFunds {
                     needed: ans.needed.cst_decode(),
                     available: ans.available.cst_decode(),
                 }
             }
-            11 => crate::api::error::BdkError::BnBTotalTriesExceeded,
-            12 => crate::api::error::BdkError::BnBNoExactMatch,
-            13 => crate::api::error::BdkError::UnknownUtxo,
-            14 => crate::api::error::BdkError::TransactionNotFound,
-            15 => crate::api::error::BdkError::TransactionConfirmed,
-            16 => crate::api::error::BdkError::IrreplaceableTransaction,
-            17 => {
+            12 => crate::api::error::BdkError::BnBTotalTriesExceeded,
+            13 => crate::api::error::BdkError::BnBNoExactMatch,
+            14 => crate::api::error::BdkError::UnknownUtxo,
+            15 => crate::api::error::BdkError::TransactionNotFound,
+            16 => crate::api::error::BdkError::TransactionConfirmed,
+            17 => crate::api::error::BdkError::IrreplaceableTransaction,
+            18 => {
                 let ans = unsafe { self.kind.FeeRateTooLow };
                 crate::api::error::BdkError::FeeRateTooLow {
                     needed: ans.needed.cst_decode(),
                 }
             }
-            18 => {
+            19 => {
                 let ans = unsafe { self.kind.FeeTooLow };
                 crate::api::error::BdkError::FeeTooLow {
                     needed: ans.needed.cst_decode(),
                 }
             }
-            19 => crate::api::error::BdkError::FeeRateUnavailable,
-            20 => {
+            20 => crate::api::error::BdkError::FeeRateUnavailable,
+            21 => {
                 let ans = unsafe { self.kind.MissingKeyOrigin };
                 crate::api::error::BdkError::MissingKeyOrigin(ans.field0.cst_decode())
             }
-            21 => {
+            22 => {
                 let ans = unsafe { self.kind.Key };
                 crate::api::error::BdkError::Key(ans.field0.cst_decode())
             }
-            22 => crate::api::error::BdkError::ChecksumMismatch,
-            23 => {
+            23 => crate::api::error::BdkError::ChecksumMismatch,
+            24 => {
                 let ans = unsafe { self.kind.SpendingPolicyRequired };
                 crate::api::error::BdkError::SpendingPolicyRequired(ans.field0.cst_decode())
             }
-            24 => {
+            25 => {
                 let ans = unsafe { self.kind.InvalidPolicyPathError };
                 crate::api::error::BdkError::InvalidPolicyPathError(ans.field0.cst_decode())
             }
-            25 => {
+            26 => {
                 let ans = unsafe { self.kind.Signer };
                 crate::api::error::BdkError::Signer(ans.field0.cst_decode())
             }
-            26 => {
+            27 => {
                 let ans = unsafe { self.kind.InvalidNetwork };
                 crate::api::error::BdkError::InvalidNetwork {
                     requested: ans.requested.cst_decode(),
                     found: ans.found.cst_decode(),
                 }
             }
-            27 => {
+            28 => {
                 let ans = unsafe { self.kind.InvalidOutpoint };
                 crate::api::error::BdkError::InvalidOutpoint(ans.field0.cst_decode())
             }
-            28 => {
+            29 => {
                 let ans = unsafe { self.kind.Encode };
                 crate::api::error::BdkError::Encode(ans.field0.cst_decode())
             }
-            29 => {
+            30 => {
                 let ans = unsafe { self.kind.Miniscript };
                 crate::api::error::BdkError::Miniscript(ans.field0.cst_decode())
             }
-            30 => {
+            31 => {
                 let ans = unsafe { self.kind.MiniscriptPsbt };
                 crate::api::error::BdkError::MiniscriptPsbt(ans.field0.cst_decode())
             }
-            31 => {
+            32 => {
                 let ans = unsafe { self.kind.Bip32 };
                 crate::api::error::BdkError::Bip32(ans.field0.cst_decode())
             }
-            32 => {
+            33 => {
                 let ans = unsafe { self.kind.Bip39 };
                 crate::api::error::BdkError::Bip39(ans.field0.cst_decode())
             }
-            33 => {
+            34 => {
                 let ans = unsafe { self.kind.Secp256k1 };
                 crate::api::error::BdkError::Secp256k1(ans.field0.cst_decode())
             }
-            34 => {
+            35 => {
                 let ans = unsafe { self.kind.Json };
                 crate::api::error::BdkError::Json(ans.field0.cst_decode())
             }
-            35 => {
+            36 => {
                 let ans = unsafe { self.kind.Psbt };
                 crate::api::error::BdkError::Psbt(ans.field0.cst_decode())
             }
-            36 => {
+            37 => {
                 let ans = unsafe { self.kind.PsbtParse };
                 crate::api::error::BdkError::PsbtParse(ans.field0.cst_decode())
             }
-            37 => {
+            38 => {
                 let ans = unsafe { self.kind.MissingCachedScripts };
                 crate::api::error::BdkError::MissingCachedScripts(
                     ans.field0.cst_decode(),
                     ans.field1.cst_decode(),
                 )
             }
-            38 => {
+            39 => {
                 let ans = unsafe { self.kind.Electrum };
                 crate::api::error::BdkError::Electrum(ans.field0.cst_decode())
             }
-            39 => {
+            40 => {
                 let ans = unsafe { self.kind.Esplora };
                 crate::api::error::BdkError::Esplora(ans.field0.cst_decode())
             }
-            40 => {
+            41 => {
                 let ans = unsafe { self.kind.Sled };
                 crate::api::error::BdkError::Sled(ans.field0.cst_decode())
             }
-            41 => {
+            42 => {
                 let ans = unsafe { self.kind.Rpc };
                 crate::api::error::BdkError::Rpc(ans.field0.cst_decode())
             }
-            42 => {
+            43 => {
                 let ans = unsafe { self.kind.Rusqlite };
                 crate::api::error::BdkError::Rusqlite(ans.field0.cst_decode())
             }
-            43 => {
+            44 => {
                 let ans = unsafe { self.kind.InvalidInput };
                 crate::api::error::BdkError::InvalidInput(ans.field0.cst_decode())
             }
-            44 => {
+            45 => {
                 let ans = unsafe { self.kind.InvalidLockTime };
                 crate::api::error::BdkError::InvalidLockTime(ans.field0.cst_decode())
             }
-            45 => {
+            46 => {
                 let ans = unsafe { self.kind.InvalidTransaction };
                 crate::api::error::BdkError::InvalidTransaction(ans.field0.cst_decode())
             }
@@ -2529,6 +2533,15 @@ pub extern "C" fn frbgen_bdk_flutter_wire_bdk_wallet_sync(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire_bdk_wallet_verify_tx(
+    port_: i64,
+    ptr: *mut wire_cst_bdk_wallet,
+    tx: *mut wire_cst_bdk_transaction,
+) {
+    wire_bdk_wallet_verify_tx_impl(port_, ptr, tx)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(
     port_: i64,
     txid: *mut wire_cst_list_prim_u_8_strict,
@@ -3291,6 +3304,7 @@ pub struct wire_cst_bdk_error {
 pub union BdkErrorKind {
     Hex: wire_cst_BdkError_Hex,
     Consensus: wire_cst_BdkError_Consensus,
+    VerifyTransaction: wire_cst_BdkError_VerifyTransaction,
     Address: wire_cst_BdkError_Address,
     Descriptor: wire_cst_BdkError_Descriptor,
     InvalidU32Bytes: wire_cst_BdkError_InvalidU32Bytes,
@@ -3335,6 +3349,11 @@ pub struct wire_cst_BdkError_Hex {
 #[derive(Clone, Copy)]
 pub struct wire_cst_BdkError_Consensus {
     field0: *mut wire_cst_consensus_error,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_BdkError_VerifyTransaction {
+    field0: *mut wire_cst_list_prim_u_8_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

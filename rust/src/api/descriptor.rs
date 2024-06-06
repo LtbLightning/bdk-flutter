@@ -60,7 +60,8 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str())
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         let derivable_key = &(*public_key.ptr);
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -114,7 +115,8 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str())
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         let derivable_key = &(*public_key.ptr);
 
         match derivable_key {
@@ -169,7 +171,8 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str())
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         let derivable_key = &(*public_key.ptr);
 
         match derivable_key {
@@ -177,8 +180,7 @@ impl BdkDescriptor {
                 let derivable_key = descriptor_x_key.xkey;
                 let (extended_descriptor, key_map, _) =
                     Bip84Public(derivable_key, fingerprint, keychain_kind.into())
-                        .build(network.into())
-                        .unwrap();
+                        .build(network.into())?;
 
                 Ok(Self {
                     extended_descriptor: RustOpaque::new(extended_descriptor),
@@ -226,7 +228,8 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let fingerprint = Fingerprint::from_str(fingerprint.as_str()).unwrap();
+        let fingerprint = Fingerprint::from_str(fingerprint.as_str())
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         let derivable_key = &(*public_key.ptr);
 
         match derivable_key {

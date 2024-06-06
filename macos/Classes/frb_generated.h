@@ -506,6 +506,10 @@ typedef struct wire_cst_BdkError_Consensus {
   struct wire_cst_consensus_error *field0;
 } wire_cst_BdkError_Consensus;
 
+typedef struct wire_cst_BdkError_VerifyTransaction {
+  struct wire_cst_list_prim_u_8_strict *field0;
+} wire_cst_BdkError_VerifyTransaction;
+
 typedef struct wire_cst_BdkError_Address {
   struct wire_cst_address_error *field0;
 } wire_cst_BdkError_Address;
@@ -644,6 +648,7 @@ typedef struct wire_cst_BdkError_InvalidTransaction {
 typedef union BdkErrorKind {
   struct wire_cst_BdkError_Hex Hex;
   struct wire_cst_BdkError_Consensus Consensus;
+  struct wire_cst_BdkError_VerifyTransaction VerifyTransaction;
   struct wire_cst_BdkError_Address Address;
   struct wire_cst_BdkError_Descriptor Descriptor;
   struct wire_cst_BdkError_InvalidU32Bytes InvalidU32Bytes;
@@ -990,6 +995,10 @@ void frbgen_bdk_flutter_wire_bdk_wallet_sync(int64_t port_,
                                              struct wire_cst_bdk_wallet *ptr,
                                              struct wire_cst_bdk_blockchain *blockchain);
 
+void frbgen_bdk_flutter_wire_bdk_wallet_verify_tx(int64_t port_,
+                                                  struct wire_cst_bdk_wallet *ptr,
+                                                  struct wire_cst_bdk_transaction *tx);
+
 void frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(int64_t port_,
                                                         struct wire_cst_list_prim_u_8_strict *txid,
                                                         float fee_rate,
@@ -1290,6 +1299,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_new);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_sign);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_sync);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_verify_tx);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);

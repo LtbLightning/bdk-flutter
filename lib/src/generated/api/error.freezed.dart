@@ -3570,6 +3570,7 @@ mixin _$BdkError {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -3620,6 +3621,7 @@ mixin _$BdkError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -3670,6 +3672,7 @@ mixin _$BdkError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -3721,6 +3724,8 @@ mixin _$BdkError {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -3783,6 +3788,7 @@ mixin _$BdkError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -3841,6 +3847,7 @@ mixin _$BdkError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -3988,6 +3995,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -4041,6 +4049,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -4094,6 +4103,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -4151,6 +4161,8 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -4216,6 +4228,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -4277,6 +4290,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -4422,6 +4436,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -4475,6 +4490,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -4528,6 +4544,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -4585,6 +4602,8 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -4650,6 +4669,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -4711,6 +4731,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -4778,6 +4799,440 @@ abstract class BdkError_Consensus extends BdkError {
   @JsonKey(ignore: true)
   _$$BdkError_ConsensusImplCopyWith<_$BdkError_ConsensusImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$BdkError_VerifyTransactionImplCopyWith<$Res> {
+  factory _$$BdkError_VerifyTransactionImplCopyWith(
+          _$BdkError_VerifyTransactionImpl value,
+          $Res Function(_$BdkError_VerifyTransactionImpl) then) =
+      __$$BdkError_VerifyTransactionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field0});
+}
+
+/// @nodoc
+class __$$BdkError_VerifyTransactionImplCopyWithImpl<$Res>
+    extends _$BdkErrorCopyWithImpl<$Res, _$BdkError_VerifyTransactionImpl>
+    implements _$$BdkError_VerifyTransactionImplCopyWith<$Res> {
+  __$$BdkError_VerifyTransactionImplCopyWithImpl(
+      _$BdkError_VerifyTransactionImpl _value,
+      $Res Function(_$BdkError_VerifyTransactionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$BdkError_VerifyTransactionImpl(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
+  const _$BdkError_VerifyTransactionImpl(this.field0) : super._();
+
+  @override
+  final String field0;
+
+  @override
+  String toString() {
+    return 'BdkError.verifyTransaction(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BdkError_VerifyTransactionImpl &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BdkError_VerifyTransactionImplCopyWith<_$BdkError_VerifyTransactionImpl>
+      get copyWith => __$$BdkError_VerifyTransactionImplCopyWithImpl<
+          _$BdkError_VerifyTransactionImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(HexError field0) hex,
+    required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
+    required TResult Function(AddressError field0) address,
+    required TResult Function(DescriptorError field0) descriptor,
+    required TResult Function(Uint8List field0) invalidU32Bytes,
+    required TResult Function(String field0) generic,
+    required TResult Function() scriptDoesntHaveAddressForm,
+    required TResult Function() noRecipients,
+    required TResult Function() noUtxosSelected,
+    required TResult Function(int field0) outputBelowDustLimit,
+    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function() bnBTotalTriesExceeded,
+    required TResult Function() bnBNoExactMatch,
+    required TResult Function() unknownUtxo,
+    required TResult Function() transactionNotFound,
+    required TResult Function() transactionConfirmed,
+    required TResult Function() irreplaceableTransaction,
+    required TResult Function(double needed) feeRateTooLow,
+    required TResult Function(int needed) feeTooLow,
+    required TResult Function() feeRateUnavailable,
+    required TResult Function(String field0) missingKeyOrigin,
+    required TResult Function(String field0) key,
+    required TResult Function() checksumMismatch,
+    required TResult Function(KeychainKind field0) spendingPolicyRequired,
+    required TResult Function(String field0) invalidPolicyPathError,
+    required TResult Function(String field0) signer,
+    required TResult Function(Network requested, Network found) invalidNetwork,
+    required TResult Function(OutPoint field0) invalidOutpoint,
+    required TResult Function(String field0) encode,
+    required TResult Function(String field0) miniscript,
+    required TResult Function(String field0) miniscriptPsbt,
+    required TResult Function(String field0) bip32,
+    required TResult Function(String field0) bip39,
+    required TResult Function(String field0) secp256K1,
+    required TResult Function(String field0) json,
+    required TResult Function(String field0) psbt,
+    required TResult Function(String field0) psbtParse,
+    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(String field0) electrum,
+    required TResult Function(String field0) esplora,
+    required TResult Function(String field0) sled,
+    required TResult Function(String field0) rpc,
+    required TResult Function(String field0) rusqlite,
+    required TResult Function(String field0) invalidInput,
+    required TResult Function(String field0) invalidLockTime,
+    required TResult Function(String field0) invalidTransaction,
+  }) {
+    return verifyTransaction(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(HexError field0)? hex,
+    TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
+    TResult? Function(AddressError field0)? address,
+    TResult? Function(DescriptorError field0)? descriptor,
+    TResult? Function(Uint8List field0)? invalidU32Bytes,
+    TResult? Function(String field0)? generic,
+    TResult? Function()? scriptDoesntHaveAddressForm,
+    TResult? Function()? noRecipients,
+    TResult? Function()? noUtxosSelected,
+    TResult? Function(int field0)? outputBelowDustLimit,
+    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function()? bnBTotalTriesExceeded,
+    TResult? Function()? bnBNoExactMatch,
+    TResult? Function()? unknownUtxo,
+    TResult? Function()? transactionNotFound,
+    TResult? Function()? transactionConfirmed,
+    TResult? Function()? irreplaceableTransaction,
+    TResult? Function(double needed)? feeRateTooLow,
+    TResult? Function(int needed)? feeTooLow,
+    TResult? Function()? feeRateUnavailable,
+    TResult? Function(String field0)? missingKeyOrigin,
+    TResult? Function(String field0)? key,
+    TResult? Function()? checksumMismatch,
+    TResult? Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult? Function(String field0)? invalidPolicyPathError,
+    TResult? Function(String field0)? signer,
+    TResult? Function(Network requested, Network found)? invalidNetwork,
+    TResult? Function(OutPoint field0)? invalidOutpoint,
+    TResult? Function(String field0)? encode,
+    TResult? Function(String field0)? miniscript,
+    TResult? Function(String field0)? miniscriptPsbt,
+    TResult? Function(String field0)? bip32,
+    TResult? Function(String field0)? bip39,
+    TResult? Function(String field0)? secp256K1,
+    TResult? Function(String field0)? json,
+    TResult? Function(String field0)? psbt,
+    TResult? Function(String field0)? psbtParse,
+    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(String field0)? electrum,
+    TResult? Function(String field0)? esplora,
+    TResult? Function(String field0)? sled,
+    TResult? Function(String field0)? rpc,
+    TResult? Function(String field0)? rusqlite,
+    TResult? Function(String field0)? invalidInput,
+    TResult? Function(String field0)? invalidLockTime,
+    TResult? Function(String field0)? invalidTransaction,
+  }) {
+    return verifyTransaction?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HexError field0)? hex,
+    TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
+    TResult Function(AddressError field0)? address,
+    TResult Function(DescriptorError field0)? descriptor,
+    TResult Function(Uint8List field0)? invalidU32Bytes,
+    TResult Function(String field0)? generic,
+    TResult Function()? scriptDoesntHaveAddressForm,
+    TResult Function()? noRecipients,
+    TResult Function()? noUtxosSelected,
+    TResult Function(int field0)? outputBelowDustLimit,
+    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function()? bnBTotalTriesExceeded,
+    TResult Function()? bnBNoExactMatch,
+    TResult Function()? unknownUtxo,
+    TResult Function()? transactionNotFound,
+    TResult Function()? transactionConfirmed,
+    TResult Function()? irreplaceableTransaction,
+    TResult Function(double needed)? feeRateTooLow,
+    TResult Function(int needed)? feeTooLow,
+    TResult Function()? feeRateUnavailable,
+    TResult Function(String field0)? missingKeyOrigin,
+    TResult Function(String field0)? key,
+    TResult Function()? checksumMismatch,
+    TResult Function(KeychainKind field0)? spendingPolicyRequired,
+    TResult Function(String field0)? invalidPolicyPathError,
+    TResult Function(String field0)? signer,
+    TResult Function(Network requested, Network found)? invalidNetwork,
+    TResult Function(OutPoint field0)? invalidOutpoint,
+    TResult Function(String field0)? encode,
+    TResult Function(String field0)? miniscript,
+    TResult Function(String field0)? miniscriptPsbt,
+    TResult Function(String field0)? bip32,
+    TResult Function(String field0)? bip39,
+    TResult Function(String field0)? secp256K1,
+    TResult Function(String field0)? json,
+    TResult Function(String field0)? psbt,
+    TResult Function(String field0)? psbtParse,
+    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(String field0)? electrum,
+    TResult Function(String field0)? esplora,
+    TResult Function(String field0)? sled,
+    TResult Function(String field0)? rpc,
+    TResult Function(String field0)? rusqlite,
+    TResult Function(String field0)? invalidInput,
+    TResult Function(String field0)? invalidLockTime,
+    TResult Function(String field0)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (verifyTransaction != null) {
+      return verifyTransaction(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BdkError_Hex value) hex,
+    required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
+    required TResult Function(BdkError_Address value) address,
+    required TResult Function(BdkError_Descriptor value) descriptor,
+    required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
+    required TResult Function(BdkError_Generic value) generic,
+    required TResult Function(BdkError_ScriptDoesntHaveAddressForm value)
+        scriptDoesntHaveAddressForm,
+    required TResult Function(BdkError_NoRecipients value) noRecipients,
+    required TResult Function(BdkError_NoUtxosSelected value) noUtxosSelected,
+    required TResult Function(BdkError_OutputBelowDustLimit value)
+        outputBelowDustLimit,
+    required TResult Function(BdkError_InsufficientFunds value)
+        insufficientFunds,
+    required TResult Function(BdkError_BnBTotalTriesExceeded value)
+        bnBTotalTriesExceeded,
+    required TResult Function(BdkError_BnBNoExactMatch value) bnBNoExactMatch,
+    required TResult Function(BdkError_UnknownUtxo value) unknownUtxo,
+    required TResult Function(BdkError_TransactionNotFound value)
+        transactionNotFound,
+    required TResult Function(BdkError_TransactionConfirmed value)
+        transactionConfirmed,
+    required TResult Function(BdkError_IrreplaceableTransaction value)
+        irreplaceableTransaction,
+    required TResult Function(BdkError_FeeRateTooLow value) feeRateTooLow,
+    required TResult Function(BdkError_FeeTooLow value) feeTooLow,
+    required TResult Function(BdkError_FeeRateUnavailable value)
+        feeRateUnavailable,
+    required TResult Function(BdkError_MissingKeyOrigin value) missingKeyOrigin,
+    required TResult Function(BdkError_Key value) key,
+    required TResult Function(BdkError_ChecksumMismatch value) checksumMismatch,
+    required TResult Function(BdkError_SpendingPolicyRequired value)
+        spendingPolicyRequired,
+    required TResult Function(BdkError_InvalidPolicyPathError value)
+        invalidPolicyPathError,
+    required TResult Function(BdkError_Signer value) signer,
+    required TResult Function(BdkError_InvalidNetwork value) invalidNetwork,
+    required TResult Function(BdkError_InvalidOutpoint value) invalidOutpoint,
+    required TResult Function(BdkError_Encode value) encode,
+    required TResult Function(BdkError_Miniscript value) miniscript,
+    required TResult Function(BdkError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(BdkError_Bip32 value) bip32,
+    required TResult Function(BdkError_Bip39 value) bip39,
+    required TResult Function(BdkError_Secp256k1 value) secp256K1,
+    required TResult Function(BdkError_Json value) json,
+    required TResult Function(BdkError_Psbt value) psbt,
+    required TResult Function(BdkError_PsbtParse value) psbtParse,
+    required TResult Function(BdkError_MissingCachedScripts value)
+        missingCachedScripts,
+    required TResult Function(BdkError_Electrum value) electrum,
+    required TResult Function(BdkError_Esplora value) esplora,
+    required TResult Function(BdkError_Sled value) sled,
+    required TResult Function(BdkError_Rpc value) rpc,
+    required TResult Function(BdkError_Rusqlite value) rusqlite,
+    required TResult Function(BdkError_InvalidInput value) invalidInput,
+    required TResult Function(BdkError_InvalidLockTime value) invalidLockTime,
+    required TResult Function(BdkError_InvalidTransaction value)
+        invalidTransaction,
+  }) {
+    return verifyTransaction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(BdkError_Hex value)? hex,
+    TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
+    TResult? Function(BdkError_Address value)? address,
+    TResult? Function(BdkError_Descriptor value)? descriptor,
+    TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult? Function(BdkError_Generic value)? generic,
+    TResult? Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult? Function(BdkError_NoRecipients value)? noRecipients,
+    TResult? Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult? Function(BdkError_OutputBelowDustLimit value)?
+        outputBelowDustLimit,
+    TResult? Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult? Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult? Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult? Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult? Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult? Function(BdkError_TransactionConfirmed value)?
+        transactionConfirmed,
+    TResult? Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult? Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult? Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult? Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult? Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult? Function(BdkError_Key value)? key,
+    TResult? Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult? Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult? Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult? Function(BdkError_Signer value)? signer,
+    TResult? Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult? Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult? Function(BdkError_Encode value)? encode,
+    TResult? Function(BdkError_Miniscript value)? miniscript,
+    TResult? Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(BdkError_Bip32 value)? bip32,
+    TResult? Function(BdkError_Bip39 value)? bip39,
+    TResult? Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult? Function(BdkError_Json value)? json,
+    TResult? Function(BdkError_Psbt value)? psbt,
+    TResult? Function(BdkError_PsbtParse value)? psbtParse,
+    TResult? Function(BdkError_MissingCachedScripts value)?
+        missingCachedScripts,
+    TResult? Function(BdkError_Electrum value)? electrum,
+    TResult? Function(BdkError_Esplora value)? esplora,
+    TResult? Function(BdkError_Sled value)? sled,
+    TResult? Function(BdkError_Rpc value)? rpc,
+    TResult? Function(BdkError_Rusqlite value)? rusqlite,
+    TResult? Function(BdkError_InvalidInput value)? invalidInput,
+    TResult? Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult? Function(BdkError_InvalidTransaction value)? invalidTransaction,
+  }) {
+    return verifyTransaction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BdkError_Hex value)? hex,
+    TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
+    TResult Function(BdkError_Address value)? address,
+    TResult Function(BdkError_Descriptor value)? descriptor,
+    TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
+    TResult Function(BdkError_Generic value)? generic,
+    TResult Function(BdkError_ScriptDoesntHaveAddressForm value)?
+        scriptDoesntHaveAddressForm,
+    TResult Function(BdkError_NoRecipients value)? noRecipients,
+    TResult Function(BdkError_NoUtxosSelected value)? noUtxosSelected,
+    TResult Function(BdkError_OutputBelowDustLimit value)? outputBelowDustLimit,
+    TResult Function(BdkError_InsufficientFunds value)? insufficientFunds,
+    TResult Function(BdkError_BnBTotalTriesExceeded value)?
+        bnBTotalTriesExceeded,
+    TResult Function(BdkError_BnBNoExactMatch value)? bnBNoExactMatch,
+    TResult Function(BdkError_UnknownUtxo value)? unknownUtxo,
+    TResult Function(BdkError_TransactionNotFound value)? transactionNotFound,
+    TResult Function(BdkError_TransactionConfirmed value)? transactionConfirmed,
+    TResult Function(BdkError_IrreplaceableTransaction value)?
+        irreplaceableTransaction,
+    TResult Function(BdkError_FeeRateTooLow value)? feeRateTooLow,
+    TResult Function(BdkError_FeeTooLow value)? feeTooLow,
+    TResult Function(BdkError_FeeRateUnavailable value)? feeRateUnavailable,
+    TResult Function(BdkError_MissingKeyOrigin value)? missingKeyOrigin,
+    TResult Function(BdkError_Key value)? key,
+    TResult Function(BdkError_ChecksumMismatch value)? checksumMismatch,
+    TResult Function(BdkError_SpendingPolicyRequired value)?
+        spendingPolicyRequired,
+    TResult Function(BdkError_InvalidPolicyPathError value)?
+        invalidPolicyPathError,
+    TResult Function(BdkError_Signer value)? signer,
+    TResult Function(BdkError_InvalidNetwork value)? invalidNetwork,
+    TResult Function(BdkError_InvalidOutpoint value)? invalidOutpoint,
+    TResult Function(BdkError_Encode value)? encode,
+    TResult Function(BdkError_Miniscript value)? miniscript,
+    TResult Function(BdkError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(BdkError_Bip32 value)? bip32,
+    TResult Function(BdkError_Bip39 value)? bip39,
+    TResult Function(BdkError_Secp256k1 value)? secp256K1,
+    TResult Function(BdkError_Json value)? json,
+    TResult Function(BdkError_Psbt value)? psbt,
+    TResult Function(BdkError_PsbtParse value)? psbtParse,
+    TResult Function(BdkError_MissingCachedScripts value)? missingCachedScripts,
+    TResult Function(BdkError_Electrum value)? electrum,
+    TResult Function(BdkError_Esplora value)? esplora,
+    TResult Function(BdkError_Sled value)? sled,
+    TResult Function(BdkError_Rpc value)? rpc,
+    TResult Function(BdkError_Rusqlite value)? rusqlite,
+    TResult Function(BdkError_InvalidInput value)? invalidInput,
+    TResult Function(BdkError_InvalidLockTime value)? invalidLockTime,
+    TResult Function(BdkError_InvalidTransaction value)? invalidTransaction,
+    required TResult orElse(),
+  }) {
+    if (verifyTransaction != null) {
+      return verifyTransaction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BdkError_VerifyTransaction extends BdkError {
+  const factory BdkError_VerifyTransaction(final String field0) =
+      _$BdkError_VerifyTransactionImpl;
+  const BdkError_VerifyTransaction._() : super._();
+
+  String get field0;
+  @JsonKey(ignore: true)
+  _$$BdkError_VerifyTransactionImplCopyWith<_$BdkError_VerifyTransactionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4857,6 +5312,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -4910,6 +5366,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -4963,6 +5420,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -5020,6 +5478,8 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -5085,6 +5545,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -5146,6 +5607,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -5292,6 +5754,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -5345,6 +5808,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -5398,6 +5862,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -5455,6 +5920,8 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -5520,6 +5987,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -5581,6 +6049,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -5720,6 +6189,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -5773,6 +6243,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -5826,6 +6297,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -5883,6 +6355,8 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -5948,6 +6422,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6009,6 +6484,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6145,6 +6621,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -6198,6 +6675,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -6251,6 +6729,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -6308,6 +6787,8 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -6373,6 +6854,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6434,6 +6916,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6547,6 +7030,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -6600,6 +7084,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -6653,6 +7138,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -6710,6 +7196,8 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -6775,6 +7263,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6836,6 +7325,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -6942,6 +7432,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -6995,6 +7486,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -7048,6 +7540,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -7105,6 +7598,8 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -7170,6 +7665,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -7231,6 +7727,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -7337,6 +7834,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -7390,6 +7888,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -7443,6 +7942,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -7500,6 +8000,8 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -7565,6 +8067,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -7626,6 +8129,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -7760,6 +8264,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -7813,6 +8318,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -7866,6 +8372,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -7923,6 +8430,8 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -7988,6 +8497,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -8049,6 +8559,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -8202,6 +8713,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -8255,6 +8767,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -8308,6 +8821,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -8365,6 +8879,8 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -8430,6 +8946,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -8491,6 +9008,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -8609,6 +9127,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -8662,6 +9181,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -8715,6 +9235,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -8772,6 +9293,8 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -8837,6 +9360,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -8898,6 +9422,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -9005,6 +9530,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -9058,6 +9584,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -9111,6 +9638,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -9168,6 +9696,8 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -9233,6 +9763,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -9294,6 +9825,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -9398,6 +9930,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -9451,6 +9984,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -9504,6 +10038,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -9561,6 +10096,8 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -9626,6 +10163,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -9687,6 +10225,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -9793,6 +10332,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -9846,6 +10386,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -9899,6 +10440,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -9956,6 +10498,8 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -10021,6 +10565,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -10082,6 +10627,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -10190,6 +10736,7 @@ class _$BdkError_TransactionConfirmedImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -10243,6 +10790,7 @@ class _$BdkError_TransactionConfirmedImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -10296,6 +10844,7 @@ class _$BdkError_TransactionConfirmedImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -10353,6 +10902,8 @@ class _$BdkError_TransactionConfirmedImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -10418,6 +10969,7 @@ class _$BdkError_TransactionConfirmedImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -10479,6 +11031,7 @@ class _$BdkError_TransactionConfirmedImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -10588,6 +11141,7 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -10641,6 +11195,7 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -10694,6 +11249,7 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -10751,6 +11307,8 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -10816,6 +11374,7 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -10877,6 +11436,7 @@ class _$BdkError_IrreplaceableTransactionImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -11011,6 +11571,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -11064,6 +11625,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -11117,6 +11679,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -11174,6 +11737,8 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -11239,6 +11804,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -11300,6 +11866,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -11438,6 +12005,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -11491,6 +12059,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -11544,6 +12113,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -11601,6 +12171,8 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -11666,6 +12238,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -11727,6 +12300,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -11840,6 +12414,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -11893,6 +12468,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -11946,6 +12522,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -12003,6 +12580,8 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -12068,6 +12647,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -12129,6 +12709,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -12262,6 +12843,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -12315,6 +12897,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -12368,6 +12951,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -12425,6 +13009,8 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -12490,6 +13076,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -12551,6 +13138,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -12686,6 +13274,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -12739,6 +13328,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -12792,6 +13382,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -12849,6 +13440,8 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -12914,6 +13507,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -12975,6 +13569,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -13086,6 +13681,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -13139,6 +13735,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -13192,6 +13789,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -13249,6 +13847,8 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -13314,6 +13914,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -13375,6 +13976,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -13509,6 +14111,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -13562,6 +14165,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -13615,6 +14219,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -13672,6 +14277,8 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -13737,6 +14344,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -13798,6 +14406,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -13939,6 +14548,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -13992,6 +14602,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -14045,6 +14656,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -14102,6 +14714,8 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -14167,6 +14781,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -14228,6 +14843,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -14365,6 +14981,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -14418,6 +15035,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -14471,6 +15089,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -14528,6 +15147,8 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -14593,6 +15214,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -14654,6 +15276,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -14805,6 +15428,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -14858,6 +15482,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -14911,6 +15536,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -14968,6 +15594,8 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -15033,6 +15661,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -15094,6 +15723,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -15237,6 +15867,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -15290,6 +15921,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -15343,6 +15975,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -15400,6 +16033,8 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -15465,6 +16100,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -15526,6 +16162,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -15662,6 +16299,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -15715,6 +16353,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -15768,6 +16407,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -15825,6 +16465,8 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -15890,6 +16532,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -15951,6 +16594,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -16086,6 +16730,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -16139,6 +16784,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -16192,6 +16838,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -16249,6 +16896,8 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -16314,6 +16963,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -16375,6 +17025,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -16513,6 +17164,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -16566,6 +17218,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -16619,6 +17272,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -16676,6 +17330,8 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -16741,6 +17397,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -16802,6 +17459,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -16938,6 +17596,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -16991,6 +17650,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -17044,6 +17704,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -17101,6 +17762,8 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -17166,6 +17829,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -17227,6 +17891,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -17362,6 +18027,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -17415,6 +18081,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -17468,6 +18135,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -17525,6 +18193,8 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -17590,6 +18260,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -17651,6 +18322,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -17786,6 +18458,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -17839,6 +18512,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -17892,6 +18566,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -17949,6 +18624,8 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -18014,6 +18691,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -18075,6 +18753,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -18210,6 +18889,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -18263,6 +18943,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -18316,6 +18997,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -18373,6 +19055,8 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -18438,6 +19122,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -18499,6 +19184,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -18633,6 +19319,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -18686,6 +19373,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -18739,6 +19427,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -18796,6 +19485,8 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -18861,6 +19552,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -18922,6 +19614,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -19057,6 +19750,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -19110,6 +19804,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -19163,6 +19858,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -19220,6 +19916,8 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -19285,6 +19983,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -19346,6 +20045,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -19495,6 +20195,7 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -19548,6 +20249,7 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -19601,6 +20303,7 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -19658,6 +20361,8 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -19723,6 +20428,7 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -19784,6 +20490,7 @@ class _$BdkError_MissingCachedScriptsImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -19922,6 +20629,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -19975,6 +20683,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -20028,6 +20737,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -20085,6 +20795,8 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -20150,6 +20862,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -20211,6 +20924,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -20347,6 +21061,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -20400,6 +21115,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -20453,6 +21169,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -20510,6 +21227,8 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -20575,6 +21294,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -20636,6 +21356,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -20770,6 +21491,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -20823,6 +21545,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -20876,6 +21599,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -20933,6 +21657,8 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -20998,6 +21724,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -21059,6 +21786,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -21193,6 +21921,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -21246,6 +21975,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -21299,6 +22029,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -21356,6 +22087,8 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -21421,6 +22154,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -21482,6 +22216,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -21617,6 +22352,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -21670,6 +22406,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -21723,6 +22460,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -21780,6 +22518,8 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -21845,6 +22585,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -21906,6 +22647,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -22043,6 +22785,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -22096,6 +22839,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -22149,6 +22893,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -22206,6 +22951,8 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -22271,6 +23018,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -22332,6 +23080,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -22470,6 +23219,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -22523,6 +23273,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -22576,6 +23327,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -22633,6 +23385,8 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -22698,6 +23452,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -22759,6 +23514,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -22897,6 +23653,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult when<TResult extends Object?>({
     required TResult Function(HexError field0) hex,
     required TResult Function(ConsensusError field0) consensus,
+    required TResult Function(String field0) verifyTransaction,
     required TResult Function(AddressError field0) address,
     required TResult Function(DescriptorError field0) descriptor,
     required TResult Function(Uint8List field0) invalidU32Bytes,
@@ -22950,6 +23707,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(HexError field0)? hex,
     TResult? Function(ConsensusError field0)? consensus,
+    TResult? Function(String field0)? verifyTransaction,
     TResult? Function(AddressError field0)? address,
     TResult? Function(DescriptorError field0)? descriptor,
     TResult? Function(Uint8List field0)? invalidU32Bytes,
@@ -23003,6 +23761,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(HexError field0)? hex,
     TResult Function(ConsensusError field0)? consensus,
+    TResult Function(String field0)? verifyTransaction,
     TResult Function(AddressError field0)? address,
     TResult Function(DescriptorError field0)? descriptor,
     TResult Function(Uint8List field0)? invalidU32Bytes,
@@ -23060,6 +23819,8 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult map<TResult extends Object?>({
     required TResult Function(BdkError_Hex value) hex,
     required TResult Function(BdkError_Consensus value) consensus,
+    required TResult Function(BdkError_VerifyTransaction value)
+        verifyTransaction,
     required TResult Function(BdkError_Address value) address,
     required TResult Function(BdkError_Descriptor value) descriptor,
     required TResult Function(BdkError_InvalidU32Bytes value) invalidU32Bytes,
@@ -23125,6 +23886,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(BdkError_Hex value)? hex,
     TResult? Function(BdkError_Consensus value)? consensus,
+    TResult? Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult? Function(BdkError_Address value)? address,
     TResult? Function(BdkError_Descriptor value)? descriptor,
     TResult? Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,
@@ -23186,6 +23948,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BdkError_Hex value)? hex,
     TResult Function(BdkError_Consensus value)? consensus,
+    TResult Function(BdkError_VerifyTransaction value)? verifyTransaction,
     TResult Function(BdkError_Address value)? address,
     TResult Function(BdkError_Descriptor value)? descriptor,
     TResult Function(BdkError_InvalidU32Bytes value)? invalidU32Bytes,

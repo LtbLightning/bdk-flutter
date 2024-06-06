@@ -1084,141 +1084,144 @@ abstract class CApiApiImplPlatform extends BaseApiImpl<CApiWire> {
     if (raw is BdkError_Consensus) {
       return [1, cst_encode_box_autoadd_consensus_error(raw.field0)];
     }
+    if (raw is BdkError_VerifyTransaction) {
+      return [2, cst_encode_String(raw.field0)];
+    }
     if (raw is BdkError_Address) {
-      return [2, cst_encode_box_autoadd_address_error(raw.field0)];
+      return [3, cst_encode_box_autoadd_address_error(raw.field0)];
     }
     if (raw is BdkError_Descriptor) {
-      return [3, cst_encode_box_autoadd_descriptor_error(raw.field0)];
+      return [4, cst_encode_box_autoadd_descriptor_error(raw.field0)];
     }
     if (raw is BdkError_InvalidU32Bytes) {
-      return [4, cst_encode_list_prim_u_8_strict(raw.field0)];
+      return [5, cst_encode_list_prim_u_8_strict(raw.field0)];
     }
     if (raw is BdkError_Generic) {
-      return [5, cst_encode_String(raw.field0)];
+      return [6, cst_encode_String(raw.field0)];
     }
     if (raw is BdkError_ScriptDoesntHaveAddressForm) {
-      return [6];
-    }
-    if (raw is BdkError_NoRecipients) {
       return [7];
     }
-    if (raw is BdkError_NoUtxosSelected) {
+    if (raw is BdkError_NoRecipients) {
       return [8];
     }
+    if (raw is BdkError_NoUtxosSelected) {
+      return [9];
+    }
     if (raw is BdkError_OutputBelowDustLimit) {
-      return [9, cst_encode_usize(raw.field0)];
+      return [10, cst_encode_usize(raw.field0)];
     }
     if (raw is BdkError_InsufficientFunds) {
-      return [10, cst_encode_u_64(raw.needed), cst_encode_u_64(raw.available)];
+      return [11, cst_encode_u_64(raw.needed), cst_encode_u_64(raw.available)];
     }
     if (raw is BdkError_BnBTotalTriesExceeded) {
-      return [11];
-    }
-    if (raw is BdkError_BnBNoExactMatch) {
       return [12];
     }
-    if (raw is BdkError_UnknownUtxo) {
+    if (raw is BdkError_BnBNoExactMatch) {
       return [13];
     }
-    if (raw is BdkError_TransactionNotFound) {
+    if (raw is BdkError_UnknownUtxo) {
       return [14];
     }
-    if (raw is BdkError_TransactionConfirmed) {
+    if (raw is BdkError_TransactionNotFound) {
       return [15];
     }
-    if (raw is BdkError_IrreplaceableTransaction) {
+    if (raw is BdkError_TransactionConfirmed) {
       return [16];
     }
+    if (raw is BdkError_IrreplaceableTransaction) {
+      return [17];
+    }
     if (raw is BdkError_FeeRateTooLow) {
-      return [17, cst_encode_f_32(raw.needed)];
+      return [18, cst_encode_f_32(raw.needed)];
     }
     if (raw is BdkError_FeeTooLow) {
-      return [18, cst_encode_u_64(raw.needed)];
+      return [19, cst_encode_u_64(raw.needed)];
     }
     if (raw is BdkError_FeeRateUnavailable) {
-      return [19];
+      return [20];
     }
     if (raw is BdkError_MissingKeyOrigin) {
-      return [20, cst_encode_String(raw.field0)];
-    }
-    if (raw is BdkError_Key) {
       return [21, cst_encode_String(raw.field0)];
     }
+    if (raw is BdkError_Key) {
+      return [22, cst_encode_String(raw.field0)];
+    }
     if (raw is BdkError_ChecksumMismatch) {
-      return [22];
+      return [23];
     }
     if (raw is BdkError_SpendingPolicyRequired) {
-      return [23, cst_encode_keychain_kind(raw.field0)];
+      return [24, cst_encode_keychain_kind(raw.field0)];
     }
     if (raw is BdkError_InvalidPolicyPathError) {
-      return [24, cst_encode_String(raw.field0)];
+      return [25, cst_encode_String(raw.field0)];
     }
     if (raw is BdkError_Signer) {
-      return [25, cst_encode_String(raw.field0)];
+      return [26, cst_encode_String(raw.field0)];
     }
     if (raw is BdkError_InvalidNetwork) {
       return [
-        26,
+        27,
         cst_encode_network(raw.requested),
         cst_encode_network(raw.found)
       ];
     }
     if (raw is BdkError_InvalidOutpoint) {
-      return [27, cst_encode_box_autoadd_out_point(raw.field0)];
+      return [28, cst_encode_box_autoadd_out_point(raw.field0)];
     }
     if (raw is BdkError_Encode) {
-      return [28, cst_encode_String(raw.field0)];
-    }
-    if (raw is BdkError_Miniscript) {
       return [29, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_MiniscriptPsbt) {
+    if (raw is BdkError_Miniscript) {
       return [30, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Bip32) {
+    if (raw is BdkError_MiniscriptPsbt) {
       return [31, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Bip39) {
+    if (raw is BdkError_Bip32) {
       return [32, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Secp256k1) {
+    if (raw is BdkError_Bip39) {
       return [33, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Json) {
+    if (raw is BdkError_Secp256k1) {
       return [34, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Psbt) {
+    if (raw is BdkError_Json) {
       return [35, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_PsbtParse) {
+    if (raw is BdkError_Psbt) {
       return [36, cst_encode_String(raw.field0)];
     }
+    if (raw is BdkError_PsbtParse) {
+      return [37, cst_encode_String(raw.field0)];
+    }
     if (raw is BdkError_MissingCachedScripts) {
-      return [37, cst_encode_usize(raw.field0), cst_encode_usize(raw.field1)];
+      return [38, cst_encode_usize(raw.field0), cst_encode_usize(raw.field1)];
     }
     if (raw is BdkError_Electrum) {
-      return [38, cst_encode_String(raw.field0)];
-    }
-    if (raw is BdkError_Esplora) {
       return [39, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Sled) {
+    if (raw is BdkError_Esplora) {
       return [40, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Rpc) {
+    if (raw is BdkError_Sled) {
       return [41, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_Rusqlite) {
+    if (raw is BdkError_Rpc) {
       return [42, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_InvalidInput) {
+    if (raw is BdkError_Rusqlite) {
       return [43, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_InvalidLockTime) {
+    if (raw is BdkError_InvalidInput) {
       return [44, cst_encode_String(raw.field0)];
     }
-    if (raw is BdkError_InvalidTransaction) {
+    if (raw is BdkError_InvalidLockTime) {
       return [45, cst_encode_String(raw.field0)];
+    }
+    if (raw is BdkError_InvalidTransaction) {
+      return [46, cst_encode_String(raw.field0)];
     }
 
     throw Exception('unreachable');
@@ -2872,6 +2875,10 @@ class CApiWire implements BaseWire {
           NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain) =>
       wasmModule.wire_bdk_wallet_sync(port_, ptr, blockchain);
 
+  void wire_bdk_wallet_verify_tx(
+          NativePortType port_, List<dynamic> ptr, List<dynamic> tx) =>
+      wasmModule.wire_bdk_wallet_verify_tx(port_, ptr, tx);
+
   void wire_finish_bump_fee_tx_builder(
           NativePortType port_,
           String txid,
@@ -3282,6 +3289,9 @@ class CApiWasmModule implements WasmModule {
 
   external void wire_bdk_wallet_sync(
       NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain);
+
+  external void wire_bdk_wallet_verify_tx(
+      NativePortType port_, List<dynamic> ptr, List<dynamic> tx);
 
   external void wire_finish_bump_fee_tx_builder(
       NativePortType port_,

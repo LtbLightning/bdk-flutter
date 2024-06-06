@@ -1,6 +1,6 @@
 use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, BdkTransaction, ChangeSpendPolicy,
     DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue,
     ScriptAmount, SignOptions, TransactionDetails,
 };
@@ -12,9 +12,10 @@ use crate::api::error::BdkError;
 use crate::api::psbt::BdkPsbt;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
-use bdk::bitcoin::{Sequence, Txid};
+use bdk::bitcoin::{Sequence, Transaction, Txid};
+pub use bdk::blockchain::GetTx;
 pub use bdk::database::any::AnyDatabase;
-use bdk::database::ConfigurableDatabase;
+use bdk::database::{ConfigurableDatabase, Database};
 pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
@@ -60,10 +61,13 @@ impl BdkWallet {
     /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
     /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
     /// then the same address will always be returned for any AddressIndex.
-    pub fn get_address( ptr: BdkWallet, address_index: AddressIndex) -> Result<(BdkAddress, u32), BdkError> {
+    pub fn get_address(
+        ptr: BdkWallet,
+        address_index: AddressIndex,
+    ) -> Result<(BdkAddress, u32), BdkError> {
         ptr.get_wallet()
             .get_address(address_index.into())
-            .map(|e|  (e.address.into(), e.index))
+            .map(|e| (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 
@@ -80,7 +84,7 @@ impl BdkWallet {
     ) -> Result<(BdkAddress, u32), BdkError> {
         ptr.get_wallet()
             .get_internal_address(address_index.into())
-            .map(|e|  (e.address.into(), e.index))
+            .map(|e| (e.address.into(), e.index))
             .map_err(|e| e.into())
     }
 
@@ -141,6 +145,50 @@ impl BdkWallet {
         ptr.get_wallet()
             .sync(blockchain.deref(), bdk::SyncOptions::default())
             .map_err(|e| e.into())
+    }
+    pub fn verify_tx(ptr: BdkWallet, tx: BdkTransaction) -> Result<(), BdkError> {
+        let serialized_tx = tx.serialize()?;
+        let tx: Transaction = (&tx).try_into()?;
+        let locked_wallet = ptr.get_wallet();
+        // Loop through all the inputs
+        for (index, input) in tx.input.iter().enumerate() {
+            let input = input.clone();
+            let txid = input.previous_output.txid;
+            let prev_tx = match  locked_wallet.database().get_raw_tx(&txid){
+                Ok(prev_tx) => Ok(prev_tx),
+                Err(e) => Err(BdkError::VerifyTransaction(format!("The transaction {:?} being spent is not available in the wallet database: {:?} ", txid,e)))
+            };
+            if let Some(prev_tx) = prev_tx? {
+                let spent_output = match prev_tx.output.get(input.previous_output.vout as usize) {
+                    Some(output) => Ok(output),
+                    None => Err(BdkError::VerifyTransaction(format!(
+                        "Failed to verify transaction: missing output {:?} in tx {:?}",
+                        input.previous_output.vout, txid
+                    ))),
+                };
+                let spent_output = spent_output?;
+                return match bitcoinconsensus::verify(
+                    &spent_output.clone().script_pubkey.to_bytes(),
+                    spent_output.value,
+                    &serialized_tx,
+                    None,
+                    index,
+                ) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(BdkError::VerifyTransaction(e.to_string())),
+                };
+            } else {
+                if tx.is_coin_base() {
+                    continue;
+                } else {
+                    return Err(BdkError::VerifyTransaction(format!(
+                        "Failed to verify transaction: missing previous transaction {:?}",
+                        txid
+                    )));
+                }
+            }
+        }
+        Ok(())
     }
     ///get the corresponding PSBT Input for a LocalUtxo
     pub fn get_psbt_input(

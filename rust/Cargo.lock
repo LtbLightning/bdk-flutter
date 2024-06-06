@@ -267,6 +267,7 @@ dependencies = [
  "anyhow",
  "assert_matches",
  "bdk",
+ "bitcoinconsensus",
  "flutter_rust_bridge",
  "flutter_rust_bridge_codegen",
  "lazy_static",
@@ -333,6 +334,15 @@ checksum = "5d7066118b13d4b20b23645932dfb3a81ce7e29f95726c2036fa33cd7b092501"
 dependencies = [
  "bitcoin-private",
  "serde",
+]
+
+[[package]]
+name = "bitcoinconsensus"
+version = "0.106.0+26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e12cba9cce5043cdda968e07b9df6d05ec6b0b38aa27a9a40bb575cf3e521ae9"
+dependencies = [
+ "cc",
 ]
 
 [[package]]

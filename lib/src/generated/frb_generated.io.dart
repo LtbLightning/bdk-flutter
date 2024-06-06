@@ -1674,251 +1674,257 @@ abstract class CApiApiImplPlatform extends BaseApiImpl<CApiWire> {
       wireObj.kind.Consensus.field0 = pre_field0;
       return;
     }
+    if (apiObj is BdkError_VerifyTransaction) {
+      var pre_field0 = cst_encode_String(apiObj.field0);
+      wireObj.tag = 2;
+      wireObj.kind.VerifyTransaction.field0 = pre_field0;
+      return;
+    }
     if (apiObj is BdkError_Address) {
       var pre_field0 = cst_encode_box_autoadd_address_error(apiObj.field0);
-      wireObj.tag = 2;
+      wireObj.tag = 3;
       wireObj.kind.Address.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Descriptor) {
       var pre_field0 = cst_encode_box_autoadd_descriptor_error(apiObj.field0);
-      wireObj.tag = 3;
+      wireObj.tag = 4;
       wireObj.kind.Descriptor.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidU32Bytes) {
       var pre_field0 = cst_encode_list_prim_u_8_strict(apiObj.field0);
-      wireObj.tag = 4;
+      wireObj.tag = 5;
       wireObj.kind.InvalidU32Bytes.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Generic) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 5;
+      wireObj.tag = 6;
       wireObj.kind.Generic.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_ScriptDoesntHaveAddressForm) {
-      wireObj.tag = 6;
-      return;
-    }
-    if (apiObj is BdkError_NoRecipients) {
       wireObj.tag = 7;
       return;
     }
-    if (apiObj is BdkError_NoUtxosSelected) {
+    if (apiObj is BdkError_NoRecipients) {
       wireObj.tag = 8;
+      return;
+    }
+    if (apiObj is BdkError_NoUtxosSelected) {
+      wireObj.tag = 9;
       return;
     }
     if (apiObj is BdkError_OutputBelowDustLimit) {
       var pre_field0 = cst_encode_usize(apiObj.field0);
-      wireObj.tag = 9;
+      wireObj.tag = 10;
       wireObj.kind.OutputBelowDustLimit.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InsufficientFunds) {
       var pre_needed = cst_encode_u_64(apiObj.needed);
       var pre_available = cst_encode_u_64(apiObj.available);
-      wireObj.tag = 10;
+      wireObj.tag = 11;
       wireObj.kind.InsufficientFunds.needed = pre_needed;
       wireObj.kind.InsufficientFunds.available = pre_available;
       return;
     }
     if (apiObj is BdkError_BnBTotalTriesExceeded) {
-      wireObj.tag = 11;
-      return;
-    }
-    if (apiObj is BdkError_BnBNoExactMatch) {
       wireObj.tag = 12;
       return;
     }
-    if (apiObj is BdkError_UnknownUtxo) {
+    if (apiObj is BdkError_BnBNoExactMatch) {
       wireObj.tag = 13;
       return;
     }
-    if (apiObj is BdkError_TransactionNotFound) {
+    if (apiObj is BdkError_UnknownUtxo) {
       wireObj.tag = 14;
       return;
     }
-    if (apiObj is BdkError_TransactionConfirmed) {
+    if (apiObj is BdkError_TransactionNotFound) {
       wireObj.tag = 15;
       return;
     }
-    if (apiObj is BdkError_IrreplaceableTransaction) {
+    if (apiObj is BdkError_TransactionConfirmed) {
       wireObj.tag = 16;
+      return;
+    }
+    if (apiObj is BdkError_IrreplaceableTransaction) {
+      wireObj.tag = 17;
       return;
     }
     if (apiObj is BdkError_FeeRateTooLow) {
       var pre_needed = cst_encode_f_32(apiObj.needed);
-      wireObj.tag = 17;
+      wireObj.tag = 18;
       wireObj.kind.FeeRateTooLow.needed = pre_needed;
       return;
     }
     if (apiObj is BdkError_FeeTooLow) {
       var pre_needed = cst_encode_u_64(apiObj.needed);
-      wireObj.tag = 18;
+      wireObj.tag = 19;
       wireObj.kind.FeeTooLow.needed = pre_needed;
       return;
     }
     if (apiObj is BdkError_FeeRateUnavailable) {
-      wireObj.tag = 19;
+      wireObj.tag = 20;
       return;
     }
     if (apiObj is BdkError_MissingKeyOrigin) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 20;
+      wireObj.tag = 21;
       wireObj.kind.MissingKeyOrigin.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Key) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 21;
+      wireObj.tag = 22;
       wireObj.kind.Key.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_ChecksumMismatch) {
-      wireObj.tag = 22;
+      wireObj.tag = 23;
       return;
     }
     if (apiObj is BdkError_SpendingPolicyRequired) {
       var pre_field0 = cst_encode_keychain_kind(apiObj.field0);
-      wireObj.tag = 23;
+      wireObj.tag = 24;
       wireObj.kind.SpendingPolicyRequired.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidPolicyPathError) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 24;
+      wireObj.tag = 25;
       wireObj.kind.InvalidPolicyPathError.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Signer) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 25;
+      wireObj.tag = 26;
       wireObj.kind.Signer.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidNetwork) {
       var pre_requested = cst_encode_network(apiObj.requested);
       var pre_found = cst_encode_network(apiObj.found);
-      wireObj.tag = 26;
+      wireObj.tag = 27;
       wireObj.kind.InvalidNetwork.requested = pre_requested;
       wireObj.kind.InvalidNetwork.found = pre_found;
       return;
     }
     if (apiObj is BdkError_InvalidOutpoint) {
       var pre_field0 = cst_encode_box_autoadd_out_point(apiObj.field0);
-      wireObj.tag = 27;
+      wireObj.tag = 28;
       wireObj.kind.InvalidOutpoint.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Encode) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 28;
+      wireObj.tag = 29;
       wireObj.kind.Encode.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Miniscript) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 29;
+      wireObj.tag = 30;
       wireObj.kind.Miniscript.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_MiniscriptPsbt) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 30;
+      wireObj.tag = 31;
       wireObj.kind.MiniscriptPsbt.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Bip32) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 31;
+      wireObj.tag = 32;
       wireObj.kind.Bip32.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Bip39) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 32;
+      wireObj.tag = 33;
       wireObj.kind.Bip39.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Secp256k1) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 33;
+      wireObj.tag = 34;
       wireObj.kind.Secp256k1.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Json) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 34;
+      wireObj.tag = 35;
       wireObj.kind.Json.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Psbt) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 35;
+      wireObj.tag = 36;
       wireObj.kind.Psbt.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_PsbtParse) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 36;
+      wireObj.tag = 37;
       wireObj.kind.PsbtParse.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_MissingCachedScripts) {
       var pre_field0 = cst_encode_usize(apiObj.field0);
       var pre_field1 = cst_encode_usize(apiObj.field1);
-      wireObj.tag = 37;
+      wireObj.tag = 38;
       wireObj.kind.MissingCachedScripts.field0 = pre_field0;
       wireObj.kind.MissingCachedScripts.field1 = pre_field1;
       return;
     }
     if (apiObj is BdkError_Electrum) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 38;
+      wireObj.tag = 39;
       wireObj.kind.Electrum.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Esplora) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 39;
+      wireObj.tag = 40;
       wireObj.kind.Esplora.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Sled) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 40;
+      wireObj.tag = 41;
       wireObj.kind.Sled.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Rpc) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 41;
+      wireObj.tag = 42;
       wireObj.kind.Rpc.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_Rusqlite) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 42;
+      wireObj.tag = 43;
       wireObj.kind.Rusqlite.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidInput) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 43;
+      wireObj.tag = 44;
       wireObj.kind.InvalidInput.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidLockTime) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 44;
+      wireObj.tag = 45;
       wireObj.kind.InvalidLockTime.field0 = pre_field0;
       return;
     }
     if (apiObj is BdkError_InvalidTransaction) {
       var pre_field0 = cst_encode_String(apiObj.field0);
-      wireObj.tag = 45;
+      wireObj.tag = 46;
       wireObj.kind.InvalidTransaction.field0 = pre_field0;
       return;
     }
@@ -4778,6 +4784,28 @@ class CApiWire implements BaseWire {
       void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
           ffi.Pointer<wire_cst_bdk_blockchain>)>();
 
+  void wire_bdk_wallet_verify_tx(
+    int port_,
+    ffi.Pointer<wire_cst_bdk_wallet> ptr,
+    ffi.Pointer<wire_cst_bdk_transaction> tx,
+  ) {
+    return _wire_bdk_wallet_verify_tx(
+      port_,
+      ptr,
+      tx,
+    );
+  }
+
+  late final _wire_bdk_wallet_verify_txPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>,
+                  ffi.Pointer<wire_cst_bdk_transaction>)>>(
+      'frbgen_bdk_flutter_wire_bdk_wallet_verify_tx');
+  late final _wire_bdk_wallet_verify_tx =
+      _wire_bdk_wallet_verify_txPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
+              ffi.Pointer<wire_cst_bdk_transaction>)>();
+
   void wire_finish_bump_fee_tx_builder(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
@@ -6464,6 +6492,10 @@ final class wire_cst_BdkError_Consensus extends ffi.Struct {
   external ffi.Pointer<wire_cst_consensus_error> field0;
 }
 
+final class wire_cst_BdkError_VerifyTransaction extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
+}
+
 final class wire_cst_BdkError_Address extends ffi.Struct {
   external ffi.Pointer<wire_cst_address_error> field0;
 }
@@ -6616,6 +6648,8 @@ final class BdkErrorKind extends ffi.Union {
   external wire_cst_BdkError_Hex Hex;
 
   external wire_cst_BdkError_Consensus Consensus;
+
+  external wire_cst_BdkError_VerifyTransaction VerifyTransaction;
 
   external wire_cst_BdkError_Address Address;
 

@@ -191,6 +191,10 @@ class BdkWallet {
       CApi.instance.api
           .bdkWalletSync(ptr: ptr, blockchain: blockchain, hint: hint);
 
+  static Future<void> verifyTx(
+          {required BdkWallet ptr, required BdkTransaction tx, dynamic hint}) =>
+      CApi.instance.api.bdkWalletVerifyTx(ptr: ptr, tx: tx, hint: hint);
+
   @override
   int get hashCode => ptr.hashCode;
 

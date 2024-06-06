@@ -55,4 +55,4 @@ export './src/generated/api/wallet.dart'
         finishBumpFeeTxBuilder,
         txBuilderFinish;
 export './src/root.dart';
-export 'src/utils/exceptions.dart' hide mapToException, BdkFfiException;
+export 'src/utils/exceptions.dart' hide mapBdkError, BdkFfiException;
