@@ -12,6 +12,7 @@ pub use bdk::blockchain::{
 };
 use std::path::PathBuf;
 
+#[derive(Clone)]
 pub struct BdkBlockchain {
     pub ptr: RustOpaque<AnyBlockchain>,
 }
