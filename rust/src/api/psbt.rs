@@ -7,7 +7,7 @@ use std::ops::Deref;
 use std::str::FromStr;
 use std::sync::Mutex;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BdkPsbt {
     pub ptr: RustOpaque<Mutex<PartiallySignedTransaction>>,
 }
