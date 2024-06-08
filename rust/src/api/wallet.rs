@@ -19,7 +19,7 @@ use bdk::database::{ConfigurableDatabase, Database};
 pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BdkWallet {
     pub ptr: RustOpaque<Mutex<bdk::Wallet<AnyDatabase>>>,
 }
@@ -44,7 +44,7 @@ impl BdkWallet {
             ptr: RustOpaque::new(Mutex::new(wallet)),
         })
     }
-    fn get_wallet(&self) -> MutexGuard<bdk::Wallet<AnyDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<bdk::Wallet<AnyDatabase>> {
         self.ptr.lock().expect("")
     }
 
