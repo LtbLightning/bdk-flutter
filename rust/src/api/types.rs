@@ -146,7 +146,7 @@ impl From<PsbtSigHashType> for bdk::bitcoin::psbt::PsbtSighashType {
     }
 }
 /// Local Wallet's Balance
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct Balance {
     // All coinbase outputs not yet matured
     pub immature: u64,
