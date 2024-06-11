@@ -107,7 +107,7 @@ impl BdkWallet {
             .list_transactions(include_raw)?
             .into_iter()
         {
-            transaction_details.push(e.try_into()?)
+            transaction_details.push(e.try_into()?);
         }
         Ok(transaction_details)
     }
@@ -146,50 +146,50 @@ impl BdkWallet {
             .sync(blockchain.deref(), bdk::SyncOptions::default())
             .map_err(|e| e.into())
     }
-    pub fn verify_tx(ptr: BdkWallet, tx: BdkTransaction) -> Result<(), BdkError> {
-        let serialized_tx = tx.serialize()?;
-        let tx: Transaction = (&tx).try_into()?;
-        let locked_wallet = ptr.get_wallet();
-        // Loop through all the inputs
-        for (index, input) in tx.input.iter().enumerate() {
-            let input = input.clone();
-            let txid = input.previous_output.txid;
-            let prev_tx = match  locked_wallet.database().get_raw_tx(&txid){
-                Ok(prev_tx) => Ok(prev_tx),
-                Err(e) => Err(BdkError::VerifyTransaction(format!("The transaction {:?} being spent is not available in the wallet database: {:?} ", txid,e)))
-            };
-            if let Some(prev_tx) = prev_tx? {
-                let spent_output = match prev_tx.output.get(input.previous_output.vout as usize) {
-                    Some(output) => Ok(output),
-                    None => Err(BdkError::VerifyTransaction(format!(
-                        "Failed to verify transaction: missing output {:?} in tx {:?}",
-                        input.previous_output.vout, txid
-                    ))),
-                };
-                let spent_output = spent_output?;
-                return match bitcoinconsensus::verify(
-                    &spent_output.clone().script_pubkey.to_bytes(),
-                    spent_output.value,
-                    &serialized_tx,
-                    None,
-                    index,
-                ) {
-                    Ok(()) => Ok(()),
-                    Err(e) => Err(BdkError::VerifyTransaction(e.to_string())),
-                };
-            } else {
-                if tx.is_coin_base() {
-                    continue;
-                } else {
-                    return Err(BdkError::VerifyTransaction(format!(
-                        "Failed to verify transaction: missing previous transaction {:?}",
-                        txid
-                    )));
-                }
-            }
-        }
-        Ok(())
-    }
+    // pub fn verify_tx(ptr: BdkWallet, tx: BdkTransaction) -> Result<(), BdkError> {
+    //     let serialized_tx = tx.serialize()?;
+    //     let tx: Transaction = (&tx).try_into()?;
+    //     let locked_wallet = ptr.get_wallet();
+    //     // Loop through all the inputs
+    //     for (index, input) in tx.input.iter().enumerate() {
+    //         let input = input.clone();
+    //         let txid = input.previous_output.txid;
+    //         let prev_tx = match  locked_wallet.database().get_raw_tx(&txid){
+    //             Ok(prev_tx) => Ok(prev_tx),
+    //             Err(e) => Err(BdkError::VerifyTransaction(format!("The transaction {:?} being spent is not available in the wallet database: {:?} ", txid,e)))
+    //         };
+    //         if let Some(prev_tx) = prev_tx? {
+    //             let spent_output = match prev_tx.output.get(input.previous_output.vout as usize) {
+    //                 Some(output) => Ok(output),
+    //                 None => Err(BdkError::VerifyTransaction(format!(
+    //                     "Failed to verify transaction: missing output {:?} in tx {:?}",
+    //                     input.previous_output.vout, txid
+    //                 ))),
+    //             };
+    //             let spent_output = spent_output?;
+    //             return match bitcoinconsensus::verify(
+    //                 &spent_output.clone().script_pubkey.to_bytes(),
+    //                 spent_output.value,
+    //                 &serialized_tx,
+    //                 None,
+    //                 index,
+    //             ) {
+    //                 Ok(()) => Ok(()),
+    //                 Err(e) => Err(BdkError::VerifyTransaction(e.to_string())),
+    //             };
+    //         } else {
+    //             if tx.is_coin_base() {
+    //                 continue;
+    //             } else {
+    //                 return Err(BdkError::VerifyTransaction(format!(
+    //                     "Failed to verify transaction: missing previous transaction {:?}",
+    //                     txid
+    //                 )));
+    //             }
+    //         }
+    //     }
+    //     Ok(())
+    // }
     ///get the corresponding PSBT Input for a LocalUtxo
     pub fn get_psbt_input(
         &self,
