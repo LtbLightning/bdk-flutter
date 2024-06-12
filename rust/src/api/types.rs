@@ -589,19 +589,19 @@ impl BdkTransaction {
     ) -> Result<BdkTransaction, BdkError> {
         let mut inputs: Vec<bdk::bitcoin::blockdata::transaction::TxIn> = vec![];
         for e in input.iter() {
-            inputs.push(e.try_into()?)
+            inputs.push(e.try_into()?);
         }
         let output = output
             .into_iter()
             .map(|e| <&TxOut as Into<bdk::bitcoin::blockdata::transaction::TxOut>>::into(&e))
             .collect();
 
-        bdk::bitcoin::Transaction {
+        (bdk::bitcoin::Transaction {
             version,
             lock_time: lock_time.try_into()?,
             input: inputs,
             output,
-        }
+        })
         .try_into()
     }
     pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
@@ -802,7 +802,6 @@ impl TryFrom<LocalUtxo> for bdk::LocalUtxo {
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 #[derive(Debug, Clone, Default)]
 pub struct SignOptions {
-    pub multi_sig: bool,
     /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
     /// provided
     ///

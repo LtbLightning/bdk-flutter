@@ -530,8 +530,6 @@ class ScriptAmount {
 ///
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 class SignOptions {
-  final bool multiSig;
-
   /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
   /// provided
   ///
@@ -582,7 +580,6 @@ class SignOptions {
   final bool allowGrinding;
 
   const SignOptions({
-    required this.multiSig,
     required this.trustWitnessUtxo,
     this.assumeHeight,
     required this.allowAllSighashes,
@@ -594,7 +591,6 @@ class SignOptions {
 
   @override
   int get hashCode =>
-      multiSig.hashCode ^
       trustWitnessUtxo.hashCode ^
       assumeHeight.hashCode ^
       allowAllSighashes.hashCode ^
@@ -608,7 +604,6 @@ class SignOptions {
       identical(this, other) ||
       other is SignOptions &&
           runtimeType == other.runtimeType &&
-          multiSig == other.multiSig &&
           trustWitnessUtxo == other.trustWitnessUtxo &&
           assumeHeight == other.assumeHeight &&
           allowAllSighashes == other.allowAllSighashes &&
