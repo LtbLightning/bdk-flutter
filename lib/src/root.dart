@@ -1094,7 +1094,8 @@ class Wallet extends BdkWallet {
       SignOptions? signOptions,
       hint}) async {
     try {
-      final res = await BdkWallet.sign(ptr: this, psbt: psbt);
+      final res =
+          await BdkWallet.sign(ptr: this, psbt: psbt, signOptions: signOptions);
       return res;
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1121,13 +1122,13 @@ class Wallet extends BdkWallet {
   /// [Blockchain] backend, the method could fail when called with old "historical" transactions or
   /// with unconfirmed transactions that have been evicted from the backend's memory.
   /// Make sure you sync the wallet to get the optimal results.
-  Future<void> verifyTx({required Transaction tx}) async {
-    try {
-      await BdkWallet.verifyTx(ptr: this, tx: tx);
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
-    }
-  }
+  // Future<void> verifyTx({required Transaction tx}) async {
+  //   try {
+  //     await BdkWallet.verifyTx(ptr: this, tx: tx);
+  //   } on BdkError catch (e) {
+  //     throw mapBdkError(e);
+  //   }
+  // }
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address
