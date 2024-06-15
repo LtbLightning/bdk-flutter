@@ -250,7 +250,6 @@ typedef struct wire_cst_database_config {
 } wire_cst_database_config;
 
 typedef struct wire_cst_sign_options {
-  bool multi_sig;
   bool trust_witness_utxo;
   uint32_t *assume_height;
   bool allow_all_sighashes;
@@ -995,10 +994,6 @@ void frbgen_bdk_flutter_wire_bdk_wallet_sync(int64_t port_,
                                              struct wire_cst_bdk_wallet *ptr,
                                              struct wire_cst_bdk_blockchain *blockchain);
 
-void frbgen_bdk_flutter_wire_bdk_wallet_verify_tx(int64_t port_,
-                                                  struct wire_cst_bdk_wallet *ptr,
-                                                  struct wire_cst_bdk_transaction *tx);
-
 void frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder(int64_t port_,
                                                         struct wire_cst_list_prim_u_8_strict *txid,
                                                         float fee_rate,
@@ -1299,7 +1294,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_new);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_sign);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_sync);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_bdk_wallet_verify_tx);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_finish_bump_fee_tx_builder);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire_tx_builder_finish);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);

@@ -1761,28 +1761,6 @@ fn wire_bdk_wallet_sync_impl(
         },
     )
 }
-fn wire_bdk_wallet_verify_tx_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
-    tx: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_wallet_verify_tx",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_ptr = ptr.cst_decode();
-            let api_tx = tx.cst_decode();
-            move |context| {
-                transform_result_dco((move || {
-                    crate::api::wallet::BdkWallet::verify_tx(api_ptr, api_tx)
-                })())
-            }
-        },
-    )
-}
 fn wire_finish_bump_fee_tx_builder_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     txid: impl CstDecode<String>,
@@ -3309,7 +3287,6 @@ impl SseDecode for crate::api::types::ScriptAmount {
 impl SseDecode for crate::api::types::SignOptions {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_multiSig = <bool>::sse_decode(deserializer);
         let mut var_trustWitnessUtxo = <bool>::sse_decode(deserializer);
         let mut var_assumeHeight = <Option<u32>>::sse_decode(deserializer);
         let mut var_allowAllSighashes = <bool>::sse_decode(deserializer);
@@ -3318,7 +3295,6 @@ impl SseDecode for crate::api::types::SignOptions {
         let mut var_signWithTapInternalKey = <bool>::sse_decode(deserializer);
         let mut var_allowGrinding = <bool>::sse_decode(deserializer);
         return crate::api::types::SignOptions {
-            multi_sig: var_multiSig,
             trust_witness_utxo: var_trustWitnessUtxo,
             assume_height: var_assumeHeight,
             allow_all_sighashes: var_allowAllSighashes,
@@ -4482,7 +4458,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::ScriptAmount>
 impl flutter_rust_bridge::IntoDart for crate::api::types::SignOptions {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.multi_sig.into_into_dart().into_dart(),
             self.trust_witness_utxo.into_into_dart().into_dart(),
             self.assume_height.into_into_dart().into_dart(),
             self.allow_all_sighashes.into_into_dart().into_dart(),
@@ -5797,7 +5772,6 @@ impl SseEncode for crate::api::types::ScriptAmount {
 impl SseEncode for crate::api::types::SignOptions {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.multi_sig, serializer);
         <bool>::sse_encode(self.trust_witness_utxo, serializer);
         <Option<u32>>::sse_encode(self.assume_height, serializer);
         <bool>::sse_encode(self.allow_all_sighashes, serializer);

@@ -345,9 +345,6 @@ abstract class CApiApi extends BaseApi {
       required BdkBlockchain blockchain,
       dynamic hint});
 
-  Future<void> bdkWalletVerifyTx(
-      {required BdkWallet ptr, required BdkTransaction tx, dynamic hint});
-
   Future<(BdkPsbt, TransactionDetails)> finishBumpFeeTxBuilder(
       {required String txid,
       required double feeRate,
@@ -2476,31 +2473,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
       );
 
   @override
-  Future<void> bdkWalletVerifyTx(
-      {required BdkWallet ptr, required BdkTransaction tx, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
-        var arg1 = cst_encode_box_autoadd_bdk_transaction(tx);
-        return wire.wire_bdk_wallet_verify_tx(port_, arg0, arg1);
-      },
-      codec: DcoCodec(
-        decodeSuccessData: dco_decode_unit,
-        decodeErrorData: dco_decode_bdk_error,
-      ),
-      constMeta: kBdkWalletVerifyTxConstMeta,
-      argValues: [ptr, tx],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kBdkWalletVerifyTxConstMeta => const TaskConstMeta(
-        debugName: "bdk_wallet_verify_tx",
-        argNames: ["ptr", "tx"],
-      );
-
-  @override
   Future<(BdkPsbt, TransactionDetails)> finishBumpFeeTxBuilder(
       {required String txid,
       required double feeRate,
@@ -3990,17 +3962,16 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   SignOptions dco_decode_sign_options(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 8)
-      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
     return SignOptions(
-      multiSig: dco_decode_bool(arr[0]),
-      trustWitnessUtxo: dco_decode_bool(arr[1]),
-      assumeHeight: dco_decode_opt_box_autoadd_u_32(arr[2]),
-      allowAllSighashes: dco_decode_bool(arr[3]),
-      removePartialSigs: dco_decode_bool(arr[4]),
-      tryFinalize: dco_decode_bool(arr[5]),
-      signWithTapInternalKey: dco_decode_bool(arr[6]),
-      allowGrinding: dco_decode_bool(arr[7]),
+      trustWitnessUtxo: dco_decode_bool(arr[0]),
+      assumeHeight: dco_decode_opt_box_autoadd_u_32(arr[1]),
+      allowAllSighashes: dco_decode_bool(arr[2]),
+      removePartialSigs: dco_decode_bool(arr[3]),
+      tryFinalize: dco_decode_bool(arr[4]),
+      signWithTapInternalKey: dco_decode_bool(arr[5]),
+      allowGrinding: dco_decode_bool(arr[6]),
     );
   }
 
@@ -5474,7 +5445,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   @protected
   SignOptions sse_decode_sign_options(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_multiSig = sse_decode_bool(deserializer);
     var var_trustWitnessUtxo = sse_decode_bool(deserializer);
     var var_assumeHeight = sse_decode_opt_box_autoadd_u_32(deserializer);
     var var_allowAllSighashes = sse_decode_bool(deserializer);
@@ -5483,7 +5453,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
     var var_signWithTapInternalKey = sse_decode_bool(deserializer);
     var var_allowGrinding = sse_decode_bool(deserializer);
     return SignOptions(
-        multiSig: var_multiSig,
         trustWitnessUtxo: var_trustWitnessUtxo,
         assumeHeight: var_assumeHeight,
         allowAllSighashes: var_allowAllSighashes,
@@ -6991,7 +6960,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   @protected
   void sse_encode_sign_options(SignOptions self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_bool(self.multiSig, serializer);
     sse_encode_bool(self.trustWitnessUtxo, serializer);
     sse_encode_opt_box_autoadd_u_32(self.assumeHeight, serializer);
     sse_encode_bool(self.allowAllSighashes, serializer);

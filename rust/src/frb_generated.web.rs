@@ -959,19 +959,18 @@ impl CstDecode<crate::api::types::SignOptions>
             .unwrap();
         assert_eq!(
             self_.length(),
-            8,
-            "Expected 8 elements, got {}",
+            7,
+            "Expected 7 elements, got {}",
             self_.length()
         );
         crate::api::types::SignOptions {
-            multi_sig: self_.get(0).cst_decode(),
-            trust_witness_utxo: self_.get(1).cst_decode(),
-            assume_height: self_.get(2).cst_decode(),
-            allow_all_sighashes: self_.get(3).cst_decode(),
-            remove_partial_sigs: self_.get(4).cst_decode(),
-            try_finalize: self_.get(5).cst_decode(),
-            sign_with_tap_internal_key: self_.get(6).cst_decode(),
-            allow_grinding: self_.get(7).cst_decode(),
+            trust_witness_utxo: self_.get(0).cst_decode(),
+            assume_height: self_.get(1).cst_decode(),
+            allow_all_sighashes: self_.get(2).cst_decode(),
+            remove_partial_sigs: self_.get(3).cst_decode(),
+            try_finalize: self_.get(4).cst_decode(),
+            sign_with_tap_internal_key: self_.get(5).cst_decode(),
+            allow_grinding: self_.get(6).cst_decode(),
         }
     }
 }
@@ -2023,15 +2022,6 @@ pub fn wire_bdk_wallet_sync(
     blockchain: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
 ) {
     wire_bdk_wallet_sync_impl(port_, ptr, blockchain)
-}
-
-#[wasm_bindgen]
-pub fn wire_bdk_wallet_verify_tx(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
-    tx: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
-) {
-    wire_bdk_wallet_verify_tx_impl(port_, ptr, tx)
 }
 
 #[wasm_bindgen]

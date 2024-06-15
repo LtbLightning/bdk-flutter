@@ -2521,7 +2521,6 @@ abstract class CApiApiImplPlatform extends BaseApiImpl<CApiWire> {
   @protected
   void cst_api_fill_to_wire_sign_options(
       SignOptions apiObj, wire_cst_sign_options wireObj) {
-    wireObj.multi_sig = cst_encode_bool(apiObj.multiSig);
     wireObj.trust_witness_utxo = cst_encode_bool(apiObj.trustWitnessUtxo);
     wireObj.assume_height =
         cst_encode_opt_box_autoadd_u_32(apiObj.assumeHeight);
@@ -4784,28 +4783,6 @@ class CApiWire implements BaseWire {
       void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
           ffi.Pointer<wire_cst_bdk_blockchain>)>();
 
-  void wire_bdk_wallet_verify_tx(
-    int port_,
-    ffi.Pointer<wire_cst_bdk_wallet> ptr,
-    ffi.Pointer<wire_cst_bdk_transaction> tx,
-  ) {
-    return _wire_bdk_wallet_verify_tx(
-      port_,
-      ptr,
-      tx,
-    );
-  }
-
-  late final _wire_bdk_wallet_verify_txPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>,
-                  ffi.Pointer<wire_cst_bdk_transaction>)>>(
-      'frbgen_bdk_flutter_wire_bdk_wallet_verify_tx');
-  late final _wire_bdk_wallet_verify_tx =
-      _wire_bdk_wallet_verify_txPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
-              ffi.Pointer<wire_cst_bdk_transaction>)>();
-
   void wire_finish_bump_fee_tx_builder(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
@@ -6125,9 +6102,6 @@ final class wire_cst_database_config extends ffi.Struct {
 }
 
 final class wire_cst_sign_options extends ffi.Struct {
-  @ffi.Bool()
-  external bool multi_sig;
-
   @ffi.Bool()
   external bool trust_witness_utxo;
 

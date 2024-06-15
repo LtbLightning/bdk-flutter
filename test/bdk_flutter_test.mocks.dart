@@ -566,6 +566,18 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
+
+  @override
+  _i9.Future<void> verifyTx({required _i3.Transaction? tx}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyTx,
+          [],
+          {#tx: tx},
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [Transaction].
@@ -916,7 +928,7 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i6.KeysDescriptorSecretKey);
 
   @override
-  _i9.Future<_i3.DescriptorSecretKey> derive(_i8.BdkDerivationPath? path) =>
+  _i9.Future<_i3.DescriptorSecretKey> derive(_i3.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
@@ -941,7 +953,7 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i9.Future<_i3.DescriptorSecretKey>);
 
   @override
-  _i9.Future<_i3.DescriptorSecretKey> extend(_i8.BdkDerivationPath? path) =>
+  _i9.Future<_i3.DescriptorSecretKey> extend(_i3.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
@@ -1074,7 +1086,7 @@ class MockDescriptorPublicKey extends _i1.Mock
 
   @override
   _i9.Future<_i3.DescriptorPublicKey> derive({
-    required _i8.BdkDerivationPath? path,
+    required _i3.DerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -1114,7 +1126,7 @@ class MockDescriptorPublicKey extends _i1.Mock
 
   @override
   _i9.Future<_i3.DescriptorPublicKey> extend({
-    required _i8.BdkDerivationPath? path,
+    required _i3.DerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(

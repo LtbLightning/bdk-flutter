@@ -1934,7 +1934,6 @@ abstract class CApiApiImplPlatform extends BaseApiImpl<CApiWire> {
   List<dynamic> cst_encode_sign_options(SignOptions raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return [
-      cst_encode_bool(raw.multiSig),
       cst_encode_bool(raw.trustWitnessUtxo),
       cst_encode_opt_box_autoadd_u_32(raw.assumeHeight),
       cst_encode_bool(raw.allowAllSighashes),
@@ -2875,10 +2874,6 @@ class CApiWire implements BaseWire {
           NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain) =>
       wasmModule.wire_bdk_wallet_sync(port_, ptr, blockchain);
 
-  void wire_bdk_wallet_verify_tx(
-          NativePortType port_, List<dynamic> ptr, List<dynamic> tx) =>
-      wasmModule.wire_bdk_wallet_verify_tx(port_, ptr, tx);
-
   void wire_finish_bump_fee_tx_builder(
           NativePortType port_,
           String txid,
@@ -3289,9 +3284,6 @@ class CApiWasmModule implements WasmModule {
 
   external void wire_bdk_wallet_sync(
       NativePortType port_, List<dynamic> ptr, List<dynamic> blockchain);
-
-  external void wire_bdk_wallet_verify_tx(
-      NativePortType port_, List<dynamic> ptr, List<dynamic> tx);
 
   external void wire_finish_bump_fee_tx_builder(
       NativePortType port_,

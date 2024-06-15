@@ -1178,7 +1178,6 @@ impl CstDecode<crate::api::types::SignOptions> for wire_cst_sign_options {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::SignOptions {
         crate::api::types::SignOptions {
-            multi_sig: self.multi_sig.cst_decode(),
             trust_witness_utxo: self.trust_witness_utxo.cst_decode(),
             assume_height: self.assume_height.cst_decode(),
             allow_all_sighashes: self.allow_all_sighashes.cst_decode(),
@@ -1749,7 +1748,6 @@ impl Default for wire_cst_script_amount {
 impl NewWithNullPtr for wire_cst_sign_options {
     fn new_with_null_ptr() -> Self {
         Self {
-            multi_sig: Default::default(),
             trust_witness_utxo: Default::default(),
             assume_height: core::ptr::null_mut(),
             allow_all_sighashes: Default::default(),
@@ -2530,15 +2528,6 @@ pub extern "C" fn frbgen_bdk_flutter_wire_bdk_wallet_sync(
     blockchain: *mut wire_cst_bdk_blockchain,
 ) {
     wire_bdk_wallet_sync_impl(port_, ptr, blockchain)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire_bdk_wallet_verify_tx(
-    port_: i64,
-    ptr: *mut wire_cst_bdk_wallet,
-    tx: *mut wire_cst_bdk_transaction,
-) {
-    wire_bdk_wallet_verify_tx_impl(port_, ptr, tx)
 }
 
 #[no_mangle]
@@ -3955,7 +3944,6 @@ pub struct wire_cst_script_amount {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct wire_cst_sign_options {
-    multi_sig: bool,
     trust_witness_utxo: bool,
     assume_height: *mut u32,
     allow_all_sighashes: bool,
