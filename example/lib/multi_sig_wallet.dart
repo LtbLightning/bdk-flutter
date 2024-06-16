@@ -69,7 +69,6 @@ class MultiSigWallet {
       await aliceWallet.sign(
           psbt: psbt,
           signOptions: const SignOptions(
-              multiSig: true,
               trustWitnessUtxo: false,
               allowAllSighashes: true,
               removePartialSigs: true,
