@@ -35,7 +35,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   restoreWallet() async {
     final aliceMnemonic = await Mnemonic.fromString(
-        'certain sense kiss guide crumble hint transfer crime much stereo warm coral');
+        'fetch fancy royal have remember fog silly column rent gym era heavy');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
     aliceWallet = await lib.restoreWallet(aliceDescriptor);
     setState(() {
@@ -55,11 +55,11 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getNewAddress() async {
-    final res = (await lib.getAddress(aliceWallet));
-    debugPrint(await res.address.asString());
-    setState(() async {
-      displayText =
-          "Address: ${await res.address.asString()} \n Index: ${res.index}";
+    final res = (await (await lib.getAddress(aliceWallet)).address.asString());
+    debugPrint(res);
+
+    setState(() {
+      displayText = "Address: $res";
     });
   }
 
@@ -93,13 +93,13 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
         final txIn = await e.transaction!.input();
         final txOut = await e.transaction!.output();
-        print("         =============TxIn==============");
+        print("=============TxIn==============");
         for (var e in txIn) {
           print("         previousOutout Txid: ${e.previousOutput.txid}");
           print("         previousOutout vout: ${e.previousOutput.vout}");
           print("         witness: ${e.witness}");
         }
-        print("         =============TxOut==============");
+        print("=============TxOut==============");
         for (var e in txOut) {
           print("         script: ${e.scriptPubkey.bytes}");
           print("         value: ${e.value}");
@@ -160,7 +160,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   sendBit() async {
     await lib.sendBitcoin(
-        blockchain!, aliceWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+        blockchain!, aliceWallet, "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f");
   }
 
   @override
