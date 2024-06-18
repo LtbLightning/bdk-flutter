@@ -1,3 +1,5 @@
+## [0.31.2-dev.2]
+
 ## [0.31.2-dev.1]
 #### Fixed
 - Invalid `Bip49Public`, `Bip84Public` & `Bip86Public`.
