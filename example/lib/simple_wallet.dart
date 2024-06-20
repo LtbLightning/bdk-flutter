@@ -35,7 +35,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   restoreWallet() async {
     final aliceMnemonic = await Mnemonic.fromString(
-        'fetch fancy royal have remember fog silly column rent gym era heavy');
+        'give rate trigger race embrace dream wish column upon steel wrist rice');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
     aliceWallet = await lib.restoreWallet(aliceDescriptor);
     setState(() {
@@ -43,14 +43,8 @@ class _SimpleWalletState extends State<SimpleWallet> {
     });
   }
 
-  initBlockchain(bool isElectrumBlockchain) async {
-    blockchain = await lib.initializeBlockchain(isElectrumBlockchain);
-  }
-
   sync() async {
-    if (blockchain == null) {
-      await initBlockchain(false);
-    }
+    blockchain ??= await lib.initializeBlockchain();
     await lib.sync(blockchain!, aliceWallet);
   }
 
