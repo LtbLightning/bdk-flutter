@@ -566,18 +566,6 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
-
-  @override
-  _i9.Future<void> verifyTx({required _i3.Transaction? tx}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #verifyTx,
-          [],
-          {#tx: tx},
-        ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [Transaction].
