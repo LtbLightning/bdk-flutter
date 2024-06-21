@@ -1,8 +1,8 @@
 use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressIndex, Balance, BdkAddress, BdkScriptBuf, BdkTransaction, ChangeSpendPolicy,
-    DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue,
-    ScriptAmount, SignOptions, TransactionDetails,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy, DatabaseConfig, Input,
+    KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount,
+    SignOptions, TransactionDetails,
 };
 use std::ops::Deref;
 use std::str::FromStr;
@@ -12,10 +12,10 @@ use crate::api::error::BdkError;
 use crate::api::psbt::BdkPsbt;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
-use bdk::bitcoin::{Sequence, Transaction, Txid};
+use bdk::bitcoin::{Sequence, Txid};
 pub use bdk::blockchain::GetTx;
 pub use bdk::database::any::AnyDatabase;
-use bdk::database::{ConfigurableDatabase, Database};
+use bdk::database::ConfigurableDatabase;
 pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
@@ -146,6 +146,7 @@ impl BdkWallet {
             .sync(blockchain.deref(), bdk::SyncOptions::default())
             .map_err(|e| e.into())
     }
+    //TODO recreate verify_tx properly
     // pub fn verify_tx(ptr: BdkWallet, tx: BdkTransaction) -> Result<(), BdkError> {
     //     let serialized_tx = tx.serialize()?;
     //     let tx: Transaction = (&tx).try_into()?;
