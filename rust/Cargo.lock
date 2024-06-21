@@ -269,7 +269,6 @@ dependencies = [
  "bdk",
  "flutter_rust_bridge",
  "flutter_rust_bridge_codegen",
- "lazy_static",
  "rand",
  "serde",
  "serde_json",

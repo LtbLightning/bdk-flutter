@@ -2940,159 +2940,163 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
           dco_decode_box_autoadd_consensus_error(raw[1]),
         );
       case 2:
+        return BdkError_VerifyTransaction(
+          dco_decode_String(raw[1]),
+        );
+      case 3:
         return BdkError_Address(
           dco_decode_box_autoadd_address_error(raw[1]),
         );
-      case 3:
+      case 4:
         return BdkError_Descriptor(
           dco_decode_box_autoadd_descriptor_error(raw[1]),
         );
-      case 4:
+      case 5:
         return BdkError_InvalidU32Bytes(
           dco_decode_list_prim_u_8_strict(raw[1]),
         );
-      case 5:
+      case 6:
         return BdkError_Generic(
           dco_decode_String(raw[1]),
         );
-      case 6:
-        return BdkError_ScriptDoesntHaveAddressForm();
       case 7:
-        return BdkError_NoRecipients();
+        return BdkError_ScriptDoesntHaveAddressForm();
       case 8:
-        return BdkError_NoUtxosSelected();
+        return BdkError_NoRecipients();
       case 9:
+        return BdkError_NoUtxosSelected();
+      case 10:
         return BdkError_OutputBelowDustLimit(
           dco_decode_usize(raw[1]),
         );
-      case 10:
+      case 11:
         return BdkError_InsufficientFunds(
           needed: dco_decode_u_64(raw[1]),
           available: dco_decode_u_64(raw[2]),
         );
-      case 11:
-        return BdkError_BnBTotalTriesExceeded();
       case 12:
-        return BdkError_BnBNoExactMatch();
+        return BdkError_BnBTotalTriesExceeded();
       case 13:
-        return BdkError_UnknownUtxo();
+        return BdkError_BnBNoExactMatch();
       case 14:
-        return BdkError_TransactionNotFound();
+        return BdkError_UnknownUtxo();
       case 15:
-        return BdkError_TransactionConfirmed();
+        return BdkError_TransactionNotFound();
       case 16:
-        return BdkError_IrreplaceableTransaction();
+        return BdkError_TransactionConfirmed();
       case 17:
+        return BdkError_IrreplaceableTransaction();
+      case 18:
         return BdkError_FeeRateTooLow(
           needed: dco_decode_f_32(raw[1]),
         );
-      case 18:
+      case 19:
         return BdkError_FeeTooLow(
           needed: dco_decode_u_64(raw[1]),
         );
-      case 19:
-        return BdkError_FeeRateUnavailable();
       case 20:
+        return BdkError_FeeRateUnavailable();
+      case 21:
         return BdkError_MissingKeyOrigin(
           dco_decode_String(raw[1]),
         );
-      case 21:
+      case 22:
         return BdkError_Key(
           dco_decode_String(raw[1]),
         );
-      case 22:
-        return BdkError_ChecksumMismatch();
       case 23:
+        return BdkError_ChecksumMismatch();
+      case 24:
         return BdkError_SpendingPolicyRequired(
           dco_decode_keychain_kind(raw[1]),
         );
-      case 24:
+      case 25:
         return BdkError_InvalidPolicyPathError(
           dco_decode_String(raw[1]),
         );
-      case 25:
+      case 26:
         return BdkError_Signer(
           dco_decode_String(raw[1]),
         );
-      case 26:
+      case 27:
         return BdkError_InvalidNetwork(
           requested: dco_decode_network(raw[1]),
           found: dco_decode_network(raw[2]),
         );
-      case 27:
+      case 28:
         return BdkError_InvalidOutpoint(
           dco_decode_box_autoadd_out_point(raw[1]),
         );
-      case 28:
+      case 29:
         return BdkError_Encode(
           dco_decode_String(raw[1]),
         );
-      case 29:
+      case 30:
         return BdkError_Miniscript(
           dco_decode_String(raw[1]),
         );
-      case 30:
+      case 31:
         return BdkError_MiniscriptPsbt(
           dco_decode_String(raw[1]),
         );
-      case 31:
+      case 32:
         return BdkError_Bip32(
           dco_decode_String(raw[1]),
         );
-      case 32:
+      case 33:
         return BdkError_Bip39(
           dco_decode_String(raw[1]),
         );
-      case 33:
+      case 34:
         return BdkError_Secp256k1(
           dco_decode_String(raw[1]),
         );
-      case 34:
+      case 35:
         return BdkError_Json(
           dco_decode_String(raw[1]),
         );
-      case 35:
+      case 36:
         return BdkError_Psbt(
           dco_decode_String(raw[1]),
         );
-      case 36:
+      case 37:
         return BdkError_PsbtParse(
           dco_decode_String(raw[1]),
         );
-      case 37:
+      case 38:
         return BdkError_MissingCachedScripts(
           dco_decode_usize(raw[1]),
           dco_decode_usize(raw[2]),
         );
-      case 38:
+      case 39:
         return BdkError_Electrum(
           dco_decode_String(raw[1]),
         );
-      case 39:
+      case 40:
         return BdkError_Esplora(
           dco_decode_String(raw[1]),
         );
-      case 40:
+      case 41:
         return BdkError_Sled(
           dco_decode_String(raw[1]),
         );
-      case 41:
+      case 42:
         return BdkError_Rpc(
           dco_decode_String(raw[1]),
         );
-      case 42:
+      case 43:
         return BdkError_Rusqlite(
           dco_decode_String(raw[1]),
         );
-      case 43:
+      case 44:
         return BdkError_InvalidInput(
           dco_decode_String(raw[1]),
         );
-      case 44:
+      case 45:
         return BdkError_InvalidLockTime(
           dco_decode_String(raw[1]),
         );
-      case 45:
+      case 46:
         return BdkError_InvalidTransaction(
           dco_decode_String(raw[1]),
         );
@@ -3958,17 +3962,16 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   SignOptions dco_decode_sign_options(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 8)
-      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
     return SignOptions(
-      multiSig: dco_decode_bool(arr[0]),
-      trustWitnessUtxo: dco_decode_bool(arr[1]),
-      assumeHeight: dco_decode_opt_box_autoadd_u_32(arr[2]),
-      allowAllSighashes: dco_decode_bool(arr[3]),
-      removePartialSigs: dco_decode_bool(arr[4]),
-      tryFinalize: dco_decode_bool(arr[5]),
-      signWithTapInternalKey: dco_decode_bool(arr[6]),
-      allowGrinding: dco_decode_bool(arr[7]),
+      trustWitnessUtxo: dco_decode_bool(arr[0]),
+      assumeHeight: dco_decode_opt_box_autoadd_u_32(arr[1]),
+      allowAllSighashes: dco_decode_bool(arr[2]),
+      removePartialSigs: dco_decode_bool(arr[3]),
+      tryFinalize: dco_decode_bool(arr[4]),
+      signWithTapInternalKey: dco_decode_bool(arr[5]),
+      allowGrinding: dco_decode_bool(arr[6]),
     );
   }
 
@@ -4354,129 +4357,132 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
         var var_field0 = sse_decode_box_autoadd_consensus_error(deserializer);
         return BdkError_Consensus(var_field0);
       case 2:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_VerifyTransaction(var_field0);
+      case 3:
         var var_field0 = sse_decode_box_autoadd_address_error(deserializer);
         return BdkError_Address(var_field0);
-      case 3:
+      case 4:
         var var_field0 = sse_decode_box_autoadd_descriptor_error(deserializer);
         return BdkError_Descriptor(var_field0);
-      case 4:
+      case 5:
         var var_field0 = sse_decode_list_prim_u_8_strict(deserializer);
         return BdkError_InvalidU32Bytes(var_field0);
-      case 5:
+      case 6:
         var var_field0 = sse_decode_String(deserializer);
         return BdkError_Generic(var_field0);
-      case 6:
-        return BdkError_ScriptDoesntHaveAddressForm();
       case 7:
-        return BdkError_NoRecipients();
+        return BdkError_ScriptDoesntHaveAddressForm();
       case 8:
-        return BdkError_NoUtxosSelected();
+        return BdkError_NoRecipients();
       case 9:
+        return BdkError_NoUtxosSelected();
+      case 10:
         var var_field0 = sse_decode_usize(deserializer);
         return BdkError_OutputBelowDustLimit(var_field0);
-      case 10:
+      case 11:
         var var_needed = sse_decode_u_64(deserializer);
         var var_available = sse_decode_u_64(deserializer);
         return BdkError_InsufficientFunds(
             needed: var_needed, available: var_available);
-      case 11:
-        return BdkError_BnBTotalTriesExceeded();
       case 12:
-        return BdkError_BnBNoExactMatch();
+        return BdkError_BnBTotalTriesExceeded();
       case 13:
-        return BdkError_UnknownUtxo();
+        return BdkError_BnBNoExactMatch();
       case 14:
-        return BdkError_TransactionNotFound();
+        return BdkError_UnknownUtxo();
       case 15:
-        return BdkError_TransactionConfirmed();
+        return BdkError_TransactionNotFound();
       case 16:
-        return BdkError_IrreplaceableTransaction();
+        return BdkError_TransactionConfirmed();
       case 17:
+        return BdkError_IrreplaceableTransaction();
+      case 18:
         var var_needed = sse_decode_f_32(deserializer);
         return BdkError_FeeRateTooLow(needed: var_needed);
-      case 18:
+      case 19:
         var var_needed = sse_decode_u_64(deserializer);
         return BdkError_FeeTooLow(needed: var_needed);
-      case 19:
-        return BdkError_FeeRateUnavailable();
       case 20:
-        var var_field0 = sse_decode_String(deserializer);
-        return BdkError_MissingKeyOrigin(var_field0);
+        return BdkError_FeeRateUnavailable();
       case 21:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Key(var_field0);
+        return BdkError_MissingKeyOrigin(var_field0);
       case 22:
-        return BdkError_ChecksumMismatch();
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Key(var_field0);
       case 23:
+        return BdkError_ChecksumMismatch();
+      case 24:
         var var_field0 = sse_decode_keychain_kind(deserializer);
         return BdkError_SpendingPolicyRequired(var_field0);
-      case 24:
-        var var_field0 = sse_decode_String(deserializer);
-        return BdkError_InvalidPolicyPathError(var_field0);
       case 25:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Signer(var_field0);
+        return BdkError_InvalidPolicyPathError(var_field0);
       case 26:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_Signer(var_field0);
+      case 27:
         var var_requested = sse_decode_network(deserializer);
         var var_found = sse_decode_network(deserializer);
         return BdkError_InvalidNetwork(
             requested: var_requested, found: var_found);
-      case 27:
+      case 28:
         var var_field0 = sse_decode_box_autoadd_out_point(deserializer);
         return BdkError_InvalidOutpoint(var_field0);
-      case 28:
-        var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Encode(var_field0);
       case 29:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Miniscript(var_field0);
+        return BdkError_Encode(var_field0);
       case 30:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_MiniscriptPsbt(var_field0);
+        return BdkError_Miniscript(var_field0);
       case 31:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Bip32(var_field0);
+        return BdkError_MiniscriptPsbt(var_field0);
       case 32:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Bip39(var_field0);
+        return BdkError_Bip32(var_field0);
       case 33:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Secp256k1(var_field0);
+        return BdkError_Bip39(var_field0);
       case 34:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Json(var_field0);
+        return BdkError_Secp256k1(var_field0);
       case 35:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Psbt(var_field0);
+        return BdkError_Json(var_field0);
       case 36:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_PsbtParse(var_field0);
+        return BdkError_Psbt(var_field0);
       case 37:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_PsbtParse(var_field0);
+      case 38:
         var var_field0 = sse_decode_usize(deserializer);
         var var_field1 = sse_decode_usize(deserializer);
         return BdkError_MissingCachedScripts(var_field0, var_field1);
-      case 38:
-        var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Electrum(var_field0);
       case 39:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Esplora(var_field0);
+        return BdkError_Electrum(var_field0);
       case 40:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Sled(var_field0);
+        return BdkError_Esplora(var_field0);
       case 41:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Rpc(var_field0);
+        return BdkError_Sled(var_field0);
       case 42:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_Rusqlite(var_field0);
+        return BdkError_Rpc(var_field0);
       case 43:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_InvalidInput(var_field0);
+        return BdkError_Rusqlite(var_field0);
       case 44:
         var var_field0 = sse_decode_String(deserializer);
-        return BdkError_InvalidLockTime(var_field0);
+        return BdkError_InvalidInput(var_field0);
       case 45:
+        var var_field0 = sse_decode_String(deserializer);
+        return BdkError_InvalidLockTime(var_field0);
+      case 46:
         var var_field0 = sse_decode_String(deserializer);
         return BdkError_InvalidTransaction(var_field0);
       default:
@@ -5439,7 +5445,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   @protected
   SignOptions sse_decode_sign_options(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_multiSig = sse_decode_bool(deserializer);
     var var_trustWitnessUtxo = sse_decode_bool(deserializer);
     var var_assumeHeight = sse_decode_opt_box_autoadd_u_32(deserializer);
     var var_allowAllSighashes = sse_decode_bool(deserializer);
@@ -5448,7 +5453,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
     var var_signWithTapInternalKey = sse_decode_bool(deserializer);
     var var_allowGrinding = sse_decode_bool(deserializer);
     return SignOptions(
-        multiSig: var_multiSig,
         trustWitnessUtxo: var_trustWitnessUtxo,
         assumeHeight: var_assumeHeight,
         allowAllSighashes: var_allowAllSighashes,
@@ -5953,138 +5957,141 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
       case BdkError_Consensus(field0: final field0):
         sse_encode_i_32(1, serializer);
         sse_encode_box_autoadd_consensus_error(field0, serializer);
-      case BdkError_Address(field0: final field0):
+      case BdkError_VerifyTransaction(field0: final field0):
         sse_encode_i_32(2, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_Address(field0: final field0):
+        sse_encode_i_32(3, serializer);
         sse_encode_box_autoadd_address_error(field0, serializer);
       case BdkError_Descriptor(field0: final field0):
-        sse_encode_i_32(3, serializer);
+        sse_encode_i_32(4, serializer);
         sse_encode_box_autoadd_descriptor_error(field0, serializer);
       case BdkError_InvalidU32Bytes(field0: final field0):
-        sse_encode_i_32(4, serializer);
+        sse_encode_i_32(5, serializer);
         sse_encode_list_prim_u_8_strict(field0, serializer);
       case BdkError_Generic(field0: final field0):
-        sse_encode_i_32(5, serializer);
+        sse_encode_i_32(6, serializer);
         sse_encode_String(field0, serializer);
       case BdkError_ScriptDoesntHaveAddressForm():
-        sse_encode_i_32(6, serializer);
-      case BdkError_NoRecipients():
         sse_encode_i_32(7, serializer);
-      case BdkError_NoUtxosSelected():
+      case BdkError_NoRecipients():
         sse_encode_i_32(8, serializer);
-      case BdkError_OutputBelowDustLimit(field0: final field0):
+      case BdkError_NoUtxosSelected():
         sse_encode_i_32(9, serializer);
+      case BdkError_OutputBelowDustLimit(field0: final field0):
+        sse_encode_i_32(10, serializer);
         sse_encode_usize(field0, serializer);
       case BdkError_InsufficientFunds(
           needed: final needed,
           available: final available
         ):
-        sse_encode_i_32(10, serializer);
+        sse_encode_i_32(11, serializer);
         sse_encode_u_64(needed, serializer);
         sse_encode_u_64(available, serializer);
       case BdkError_BnBTotalTriesExceeded():
-        sse_encode_i_32(11, serializer);
-      case BdkError_BnBNoExactMatch():
         sse_encode_i_32(12, serializer);
-      case BdkError_UnknownUtxo():
+      case BdkError_BnBNoExactMatch():
         sse_encode_i_32(13, serializer);
-      case BdkError_TransactionNotFound():
+      case BdkError_UnknownUtxo():
         sse_encode_i_32(14, serializer);
-      case BdkError_TransactionConfirmed():
+      case BdkError_TransactionNotFound():
         sse_encode_i_32(15, serializer);
-      case BdkError_IrreplaceableTransaction():
+      case BdkError_TransactionConfirmed():
         sse_encode_i_32(16, serializer);
-      case BdkError_FeeRateTooLow(needed: final needed):
+      case BdkError_IrreplaceableTransaction():
         sse_encode_i_32(17, serializer);
+      case BdkError_FeeRateTooLow(needed: final needed):
+        sse_encode_i_32(18, serializer);
         sse_encode_f_32(needed, serializer);
       case BdkError_FeeTooLow(needed: final needed):
-        sse_encode_i_32(18, serializer);
+        sse_encode_i_32(19, serializer);
         sse_encode_u_64(needed, serializer);
       case BdkError_FeeRateUnavailable():
-        sse_encode_i_32(19, serializer);
-      case BdkError_MissingKeyOrigin(field0: final field0):
         sse_encode_i_32(20, serializer);
-        sse_encode_String(field0, serializer);
-      case BdkError_Key(field0: final field0):
+      case BdkError_MissingKeyOrigin(field0: final field0):
         sse_encode_i_32(21, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_ChecksumMismatch():
+      case BdkError_Key(field0: final field0):
         sse_encode_i_32(22, serializer);
-      case BdkError_SpendingPolicyRequired(field0: final field0):
+        sse_encode_String(field0, serializer);
+      case BdkError_ChecksumMismatch():
         sse_encode_i_32(23, serializer);
+      case BdkError_SpendingPolicyRequired(field0: final field0):
+        sse_encode_i_32(24, serializer);
         sse_encode_keychain_kind(field0, serializer);
       case BdkError_InvalidPolicyPathError(field0: final field0):
-        sse_encode_i_32(24, serializer);
+        sse_encode_i_32(25, serializer);
         sse_encode_String(field0, serializer);
       case BdkError_Signer(field0: final field0):
-        sse_encode_i_32(25, serializer);
+        sse_encode_i_32(26, serializer);
         sse_encode_String(field0, serializer);
       case BdkError_InvalidNetwork(
           requested: final requested,
           found: final found
         ):
-        sse_encode_i_32(26, serializer);
+        sse_encode_i_32(27, serializer);
         sse_encode_network(requested, serializer);
         sse_encode_network(found, serializer);
       case BdkError_InvalidOutpoint(field0: final field0):
-        sse_encode_i_32(27, serializer);
+        sse_encode_i_32(28, serializer);
         sse_encode_box_autoadd_out_point(field0, serializer);
       case BdkError_Encode(field0: final field0):
-        sse_encode_i_32(28, serializer);
-        sse_encode_String(field0, serializer);
-      case BdkError_Miniscript(field0: final field0):
         sse_encode_i_32(29, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_MiniscriptPsbt(field0: final field0):
+      case BdkError_Miniscript(field0: final field0):
         sse_encode_i_32(30, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Bip32(field0: final field0):
+      case BdkError_MiniscriptPsbt(field0: final field0):
         sse_encode_i_32(31, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Bip39(field0: final field0):
+      case BdkError_Bip32(field0: final field0):
         sse_encode_i_32(32, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Secp256k1(field0: final field0):
+      case BdkError_Bip39(field0: final field0):
         sse_encode_i_32(33, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Json(field0: final field0):
+      case BdkError_Secp256k1(field0: final field0):
         sse_encode_i_32(34, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Psbt(field0: final field0):
+      case BdkError_Json(field0: final field0):
         sse_encode_i_32(35, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_PsbtParse(field0: final field0):
+      case BdkError_Psbt(field0: final field0):
         sse_encode_i_32(36, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_PsbtParse(field0: final field0):
+        sse_encode_i_32(37, serializer);
         sse_encode_String(field0, serializer);
       case BdkError_MissingCachedScripts(
           field0: final field0,
           field1: final field1
         ):
-        sse_encode_i_32(37, serializer);
+        sse_encode_i_32(38, serializer);
         sse_encode_usize(field0, serializer);
         sse_encode_usize(field1, serializer);
       case BdkError_Electrum(field0: final field0):
-        sse_encode_i_32(38, serializer);
-        sse_encode_String(field0, serializer);
-      case BdkError_Esplora(field0: final field0):
         sse_encode_i_32(39, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Sled(field0: final field0):
+      case BdkError_Esplora(field0: final field0):
         sse_encode_i_32(40, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Rpc(field0: final field0):
+      case BdkError_Sled(field0: final field0):
         sse_encode_i_32(41, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_Rusqlite(field0: final field0):
+      case BdkError_Rpc(field0: final field0):
         sse_encode_i_32(42, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_InvalidInput(field0: final field0):
+      case BdkError_Rusqlite(field0: final field0):
         sse_encode_i_32(43, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_InvalidLockTime(field0: final field0):
+      case BdkError_InvalidInput(field0: final field0):
         sse_encode_i_32(44, serializer);
         sse_encode_String(field0, serializer);
-      case BdkError_InvalidTransaction(field0: final field0):
+      case BdkError_InvalidLockTime(field0: final field0):
         sse_encode_i_32(45, serializer);
+        sse_encode_String(field0, serializer);
+      case BdkError_InvalidTransaction(field0: final field0):
+        sse_encode_i_32(46, serializer);
         sse_encode_String(field0, serializer);
     }
   }
@@ -6953,7 +6960,6 @@ class CApiApiImpl extends CApiApiImplPlatform implements CApiApi {
   @protected
   void sse_encode_sign_options(SignOptions self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_bool(self.multiSig, serializer);
     sse_encode_bool(self.trustWitnessUtxo, serializer);
     sse_encode_opt_box_autoadd_u_32(self.assumeHeight, serializer);
     sse_encode_bool(self.allowAllSighashes, serializer);

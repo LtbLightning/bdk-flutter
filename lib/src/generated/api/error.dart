@@ -69,6 +69,9 @@ sealed class BdkError with _$BdkError implements FrbException {
   const factory BdkError.consensus(
     ConsensusError field0,
   ) = BdkError_Consensus;
+  const factory BdkError.verifyTransaction(
+    String field0,
+  ) = BdkError_VerifyTransaction;
 
   /// Address error.
   const factory BdkError.address(

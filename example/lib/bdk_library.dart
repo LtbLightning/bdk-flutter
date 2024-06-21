@@ -9,35 +9,21 @@ class BdkLibrary {
 
   Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
-      network: Network.testnet,
+      network: Network.signet,
       mnemonic: mnemonic,
     );
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
-        network: Network.testnet,
+        network: Network.signet,
         keychain: KeychainKind.externalChain);
     return descriptor;
   }
 
-  Future<Blockchain> initializeBlockchain(bool isElectrumBlockchain) async {
-    if (isElectrumBlockchain) {
-      final blockchain = await Blockchain.create(
-          config: const BlockchainConfig.esplora(
-              config: EsploraConfig(
-                  baseUrl: 'https://blockstream.info/testnet/api',
-                  stopGap: 10)));
-      return blockchain;
-    } else {
-      final blockchain = await Blockchain.create(
-          config: const BlockchainConfig.electrum(
-              config: ElectrumConfig(
-                  stopGap: 10,
-                  timeout: 5,
-                  retry: 5,
-                  url: "ssl://electrum.blockstream.info:60002",
-                  validateDomain: true)));
-      return blockchain;
-    }
+  Future<Blockchain> initializeBlockchain() async {
+    return await Blockchain.create(
+        config: const BlockchainConfig.esplora(
+            config: EsploraConfig(
+                baseUrl: 'https://mutinynet.com/api', stopGap: 10)));
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {

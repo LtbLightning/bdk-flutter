@@ -250,7 +250,6 @@ typedef struct wire_cst_database_config {
 } wire_cst_database_config;
 
 typedef struct wire_cst_sign_options {
-  bool multi_sig;
   bool trust_witness_utxo;
   uint32_t *assume_height;
   bool allow_all_sighashes;
@@ -506,6 +505,10 @@ typedef struct wire_cst_BdkError_Consensus {
   struct wire_cst_consensus_error *field0;
 } wire_cst_BdkError_Consensus;
 
+typedef struct wire_cst_BdkError_VerifyTransaction {
+  struct wire_cst_list_prim_u_8_strict *field0;
+} wire_cst_BdkError_VerifyTransaction;
+
 typedef struct wire_cst_BdkError_Address {
   struct wire_cst_address_error *field0;
 } wire_cst_BdkError_Address;
@@ -644,6 +647,7 @@ typedef struct wire_cst_BdkError_InvalidTransaction {
 typedef union BdkErrorKind {
   struct wire_cst_BdkError_Hex Hex;
   struct wire_cst_BdkError_Consensus Consensus;
+  struct wire_cst_BdkError_VerifyTransaction VerifyTransaction;
   struct wire_cst_BdkError_Address Address;
   struct wire_cst_BdkError_Descriptor Descriptor;
   struct wire_cst_BdkError_InvalidU32Bytes InvalidU32Bytes;

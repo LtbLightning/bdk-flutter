@@ -261,9 +261,9 @@ class AddressException extends BdkFfiException {
   AddressException({super.message});
 }
 
-class ConsensusError extends BdkFfiException {
-  /// Constructs the [ConsensusError]
-  ConsensusError({super.message});
+class ConsensusException extends BdkFfiException {
+  /// Constructs the [ConsensusException]
+  ConsensusException({super.message});
 }
 
 class Bip39Exception extends BdkFfiException {
@@ -286,7 +286,98 @@ class InvalidInputException extends BdkFfiException {
   InvalidInputException({super.message});
 }
 
-Exception mapToException(BdkError error) {
+class VerifyTransactionException extends BdkFfiException {
+  /// Constructs the [VerifyTransactionException]
+  VerifyTransactionException({super.message});
+}
+
+Exception mapHexError(HexError error) {
+  return error.when(
+      invalidChar: (e) => HexException(message: "Non-hexadecimal character $e"),
+      oddLengthString: (e) =>
+          HexException(message: "Purported hex string had odd length $e"),
+      invalidLength: (int expected, int found) => HexException(
+          message:
+              "Tried to parse fixed-length hash from a string with the wrong type; \n expected: $expected, found: $found."));
+}
+
+Exception mapAddressError(AddressError error) {
+  return error.when(
+      base58: (e) => AddressException(message: "Base58 encoding error: $e"),
+      bech32: (e) => AddressException(message: "Bech32 encoding error: $e"),
+      emptyBech32Payload: () =>
+          AddressException(message: "The bech32 payload was empty."),
+      invalidBech32Variant: (e, f) => AddressException(
+          message:
+              "Invalid bech32 variant: The wrong checksum algorithm was used. See BIP-0350; \n expected:$e, found: $f "),
+      invalidWitnessVersion: (e) => AddressException(
+          message:
+              "Invalid witness version script: $e, version must be 0 to 16 inclusive."),
+      unparsableWitnessVersion: (e) => AddressException(
+          message: "Unable to parse witness version from string: $e"),
+      malformedWitnessVersion: () => AddressException(
+          message:
+              "Bitcoin script opcode does not match any known witness version, the script is malformed."),
+      invalidWitnessProgramLength: (e) => AddressException(
+          message:
+              "Invalid witness program length: $e, The witness program must be between 2 and 40 bytes in length."),
+      invalidSegwitV0ProgramLength: (e) => AddressException(
+          message:
+              "Invalid segwitV0 program length: $e, A v0 witness program must be either of length 20 or 32."),
+      uncompressedPubkey: () => AddressException(
+          message: "An uncompressed pubkey was used where it is not allowed."),
+      excessiveScriptSize: () => AddressException(
+          message: "Address size more than 520 bytes is not allowed."),
+      unrecognizedScript: () => AddressException(
+          message:
+              "Unrecognized script: Script is not a p2pkh, p2sh or witness program."),
+      unknownAddressType: (e) => AddressException(
+          message: "Unknown address type: $e, Address type is either invalid or not supported in rust-bitcoin."),
+      networkValidation: (required, found, _) => AddressException(message: "Address’s network differs from required one; \n required: $required, found: $found "));
+}
+
+Exception mapDescriptorError(DescriptorError error) {
+  return error.when(
+    invalidHdKeyPath: () => DescriptorException(
+        message:
+            "Invalid HD Key path, such as having a wildcard but a length != 1"),
+    invalidDescriptorChecksum: () => DescriptorException(
+        message: "The provided descriptor doesn’t match its checksum"),
+    hardenedDerivationXpub: () => DescriptorException(
+        message: "The provided descriptor doesn’t match its checksum"),
+    multiPath: () =>
+        DescriptorException(message: "The descriptor contains multipath keys"),
+    key: (e) => KeyException(message: e),
+    policy: (e) => DescriptorException(
+        message: "Error while extracting and manipulating policies: $e"),
+    bip32: (e) => Bip32Exception(message: e),
+    base58: (e) =>
+        DescriptorException(message: "Error during base58 decoding: $e"),
+    pk: (e) => KeyException(message: e),
+    miniscript: (e) => MiniscriptException(message: e),
+    hex: (e) => HexException(message: e),
+    invalidDescriptorCharacter: (e) => DescriptorException(
+        message: "Invalid byte found in the descriptor checksum: $e"),
+  );
+}
+
+Exception mapConsensusError(ConsensusError error) {
+  return error.when(
+      io: (e) => ConsensusException(message: "I/O error: $e"),
+      oversizedVectorAllocation: (e, f) => ConsensusException(
+          message:
+              "Tried to allocate an oversized vector. The capacity requested: $e, found: $f "),
+      invalidChecksum: (e, f) => ConsensusException(
+          message:
+              "Checksum was invalid, expected: ${e.toString()}, actual:${f.toString()}"),
+      nonMinimalVarInt: () => ConsensusException(
+          message: "VarInt was encoded in a non-minimal way."),
+      parseFailed: (e) => ConsensusException(message: "Parsing error: $e"),
+      unsupportedSegwitFlag: (e) =>
+          ConsensusException(message: "Unsupported segwit flag $e"));
+}
+
+Exception mapBdkError(BdkError error) {
   return error.when(
     noUtxosSelected: () => NoUtxosSelectedException(
         message:
@@ -303,13 +394,13 @@ Exception mapToException(BdkError error) {
             'Output created is under the dust limit (546 sats). Output value: ${e.toString()}'),
     insufficientFunds: (needed, available) => InsufficientFundsException(
         message:
-            "Wallet's UTXO set is not enough to cover recipient's requested plus fee. Needed: $needed, Available: $available"),
+            "Wallet's UTXO set is not enough to cover recipient's requested plus fee; \n Needed: $needed, Available: $available"),
     bnBTotalTriesExceeded: () => BnBTotalTriesExceededException(
         message:
-            "UTXO branch and bound coin selection attempts have reached its limit"),
+            "Utxo branch and bound coin selection attempts have reached its limit"),
     bnBNoExactMatch: () => BnBNoExactMatchException(
         message:
-            "UTXO branch and bound coin selection failed to find the correct inputs for the desired outputs."),
+            "Utxo branch and bound coin selection failed to find the correct inputs for the desired outputs."),
     unknownUtxo: () => UnknownUtxoException(
         message: "Utxo not found in the internal database"),
     transactionNotFound: () => TransactionNotFoundException(),
@@ -322,7 +413,7 @@ Exception mapToException(BdkError error) {
             "The Fee rate requested is lower than required. Required: ${e.toString()}"),
     feeTooLow: (e) => FeeTooLowException(
         message:
-            "The absolute fee requested is lower than replaced tx's absolute fee. Required: ${e.toString()}"),
+            "The absolute fee requested is lower than replaced tx's absolute fee; \n Required: ${e.toString()}"),
     feeRateUnavailable: () => FeeRateUnavailableException(
         message: "Node doesn't have data to estimate a fee rate"),
     missingKeyOrigin: (e) => MissingKeyOriginException(message: e.toString()),
@@ -338,7 +429,7 @@ Exception mapToException(BdkError error) {
     invalidOutpoint: (e) => InvalidOutpointException(
         message:
             "${e.toString()} doesn’t exist in the tx (vout greater than available outputs)"),
-    descriptor: (e) => DescriptorException(message: e.toString()),
+    descriptor: (e) => mapDescriptorError(e),
     encode: (e) => EncodeException(message: e.toString()),
     miniscript: (e) => MiniscriptException(message: e.toString()),
     miniscriptPsbt: (e) => MiniscriptPsbtException(message: e.toString()),
@@ -349,7 +440,7 @@ Exception mapToException(BdkError error) {
             message:
                 'Sync attempt failed due to missing scripts in cache which are needed to satisfy stop_gap; \n MissingCount: $missingCount, LastCount: $lastCount '),
     json: (e) => JsonException(message: e.toString()),
-    hex: (e) => HexException(message: e.toString()),
+    hex: (e) => mapHexError(e),
     psbt: (e) => PsbtException(message: e.toString()),
     psbtParse: (e) => PsbtParseException(message: e.toString()),
     electrum: (e) => ElectrumException(message: e.toString()),
@@ -357,12 +448,12 @@ Exception mapToException(BdkError error) {
     sled: (e) => SledException(message: e.toString()),
     rpc: (e) => RpcException(message: e.toString()),
     rusqlite: (e) => RusqliteException(message: e.toString()),
-    //TODO; Map the following errors properly
-    consensus: (e) => ConsensusError(message: e.toString()),
-    address: (e) => AddressException(message: e.toString()),
+    consensus: (e) => mapConsensusError(e),
+    address: (e) => mapAddressError(e),
     bip39: (e) => Bip39Exception(message: e.toString()),
     invalidInput: (e) => InvalidInputException(message: e),
     invalidLockTime: (e) => InvalidLockTimeException(message: e),
     invalidTransaction: (e) => InvalidTransactionException(message: e),
+    verifyTransaction: (e) => VerifyTransactionException(message: e),
   );
 }
