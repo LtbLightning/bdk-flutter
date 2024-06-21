@@ -24,7 +24,7 @@ dev_dependencies:
   ffigen: ^9.0.1
   freezed: ^2.3.5
   build_runner: ^2.4.4
-  lints: ^3.0.0
+  lints: ^4.0.0
 
 flutter:
   plugin:
