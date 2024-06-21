@@ -1,4 +1,12 @@
 ## [0.31.2-dev.2]
+#### Fixed
+- Thread `frb_workerpool` panicked on invalid `Fingerprint`. 
+- `SignOptions` issue to accept `witness-utxo` while signing.
+
+#### Changed
+- Removed `multiSig` variable from `SignOptions`.
+- Updated example app to support `mutinynet`.
+- Mapped `Hex`, `Address`, `Descriptor` & `Consensus` exceptions. 
 
 ## [0.31.2-dev.1]
 #### Fixed
