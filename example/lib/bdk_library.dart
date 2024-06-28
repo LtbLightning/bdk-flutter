@@ -9,44 +9,18 @@ class BdkLibrary {
 
   Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
-      network: Network.testnet,
+      network: Network.signet,
       mnemonic: mnemonic,
     );
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
-        network: Network.testnet,
+        network: Network.signet,
         keychain: KeychainKind.externalChain);
     return descriptor;
   }
 
-  Future<Blockchain> initializeBlockchain({
-    bool isElectrumBlockchain = false,
-    bool useTestnetDefaults = false,
-  }) async {
-    if (useTestnetDefaults) {
-      return await Blockchain.createWithTestnetDefaults();
-    } else if (isElectrumBlockchain) {
-      return await Blockchain.create(
-        config: const BlockchainConfig.electrum(
-          config: ElectrumConfig(
-            stopGap: 10,
-            timeout: 5,
-            retry: 5,
-            url: "ssl://electrum.blockstream.info:60002",
-            validateDomain: true,
-          ),
-        ),
-      );
-    } else {
-      return await Blockchain.create(
-        config: const BlockchainConfig.esplora(
-          config: EsploraConfig(
-            baseUrl: 'https://blockstream.info/testnet/api',
-            stopGap: 10,
-          ),
-        ),
-      );
-    }
+  Future<Blockchain> initializeBlockchain() async {
+    return Blockchain.createMutinynet();
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
@@ -118,7 +92,11 @@ class BdkLibrary {
   }
 
   sendBitcoin(
-      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
+    Blockchain blockchain,
+    Wallet aliceWallet,
+    String addressStr,
+    int amountSat,
+  ) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
@@ -127,7 +105,7 @@ class BdkLibrary {
       final script = await address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
-          .addRecipient(script, 750)
+          .addRecipient(script, amountSat)
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       final isFinalized = await aliceWallet.sign(psbt: psbt);

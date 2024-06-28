@@ -146,7 +146,7 @@ impl From<PsbtSigHashType> for bdk::bitcoin::psbt::PsbtSighashType {
     }
 }
 /// Local Wallet's Balance
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct Balance {
     // All coinbase outputs not yet matured
     pub immature: u64,
@@ -472,8 +472,8 @@ impl BdkAddress {
             <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script(),
             network.into(),
         )
-            .map(|a| a.into())
-            .map_err(|e| e.into())
+        .map(|a| a.into())
+        .map_err(|e| e.into())
     }
     pub fn payload(&self) -> Payload {
         match <&BdkAddress as Into<bdk::bitcoin::Address>>::into(self).payload {
@@ -524,6 +524,7 @@ impl BdkAddress {
         self.ptr.to_string()
     }
 }
+#[derive(Debug)]
 pub enum Variant {
     Bech32,
     Bech32m,
@@ -588,20 +589,20 @@ impl BdkTransaction {
     ) -> Result<BdkTransaction, BdkError> {
         let mut inputs: Vec<bdk::bitcoin::blockdata::transaction::TxIn> = vec![];
         for e in input.iter() {
-            inputs.push(e.try_into()?)
+            inputs.push(e.try_into()?);
         }
         let output = output
             .into_iter()
             .map(|e| <&TxOut as Into<bdk::bitcoin::blockdata::transaction::TxOut>>::into(&e))
             .collect();
 
-        bdk::bitcoin::Transaction {
+        (bdk::bitcoin::Transaction {
             version,
             lock_time: lock_time.try_into()?,
             input: inputs,
             output,
-        }
-            .try_into()
+        })
+        .try_into()
     }
     pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);
@@ -801,7 +802,6 @@ impl TryFrom<LocalUtxo> for bdk::LocalUtxo {
 /// Adjust the behavior of our software signers and the way a transaction is finalized
 #[derive(Debug, Clone, Default)]
 pub struct SignOptions {
-    pub multi_sig: bool,
     /// Whether the signer should trust the `witness_utxo`, if the `non_witness_utxo` hasn't been
     /// provided
     ///

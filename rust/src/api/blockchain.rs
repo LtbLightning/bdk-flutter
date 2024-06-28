@@ -7,11 +7,12 @@ use bdk::blockchain;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 
 pub use bdk::blockchain::{
-    AnyBlockchain, AnyBlockchainConfig, ConfigurableBlockchain, ElectrumBlockchainConfig,
-    rpc, GetBlockHash, GetHeight,Blockchain
+    rpc, AnyBlockchain, AnyBlockchainConfig, Blockchain, ConfigurableBlockchain,
+    ElectrumBlockchainConfig, GetBlockHash, GetHeight,
 };
 use std::path::PathBuf;
 
+#[derive(Clone)]
 pub struct BdkBlockchain {
     pub ptr: RustOpaque<AnyBlockchain>,
 }

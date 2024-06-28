@@ -25,17 +25,18 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   generateMnemonicKeys() async {
     final res = await lib.createMnemonic();
+    final mnemonic = await res.asString();
     setState(() {
-      displayText = res.toString();
+      displayText = mnemonic;
     });
     if (kDebugMode) {
-      print(await res.asString());
+      print(mnemonic);
     }
   }
 
   restoreWallet() async {
     final aliceMnemonic = await Mnemonic.fromString(
-        'certain sense kiss guide crumble hint transfer crime much stereo warm coral');
+        'give rate trigger race embrace dream wish column upon steel wrist rice');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
     aliceWallet = await lib.restoreWallet(aliceDescriptor);
     setState(() {
@@ -43,30 +44,19 @@ class _SimpleWalletState extends State<SimpleWallet> {
     });
   }
 
-  initBlockchain({
-    bool isElectrumBlockchain = false,
-    bool useTestnetDefaults = false,
-  }) async {
-    blockchain = await lib.initializeBlockchain(
-      isElectrumBlockchain: isElectrumBlockchain,
-      useTestnetDefaults: useTestnetDefaults,
-    );
-  }
-
   sync() async {
-    if (blockchain == null) {
-      // Initialize blockchain with default testnet values and esplora server
-      await initBlockchain(useTestnetDefaults: true);
-    }
+    blockchain ??= await lib.initializeBlockchain();
     await lib.sync(blockchain!, aliceWallet);
   }
 
   getNewAddress() async {
-    final res = (await lib.getAddress(aliceWallet));
-    debugPrint(await res.address.asString());
-    final address = await res.address.asString();
+    final addressInfo = await lib.getAddress(aliceWallet);
+    final address = await addressInfo.address.asString();
+
+    debugPrint(address);
+
     setState(() {
-      displayText = "Address: $address \n Index: ${res.index}";
+      displayText = "Address: $address \n Index: ${addressInfo.index}";
     });
   }
 
@@ -100,13 +90,13 @@ class _SimpleWalletState extends State<SimpleWallet> {
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
         final txIn = await e.transaction!.input();
         final txOut = await e.transaction!.output();
-        print("         =============TxIn==============");
+        print("=============TxIn==============");
         for (var e in txIn) {
           print("         previousOutout Txid: ${e.previousOutput.txid}");
           print("         previousOutout vout: ${e.previousOutput.vout}");
           print("         witness: ${e.witness}");
         }
-        print("         =============TxOut==============");
+        print("=============TxOut==============");
         for (var e in txOut) {
           print("         script: ${e.scriptPubkey.bytes}");
           print("         value: ${e.value}");
@@ -165,9 +155,13 @@ class _SimpleWalletState extends State<SimpleWallet> {
     }
   }
 
-  sendBit() async {
+  sendBit(int amountSat) async {
     await lib.sendBitcoin(
-        blockchain!, aliceWallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB");
+      blockchain!,
+      aliceWallet,
+      "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f",
+      amountSat,
+    );
   }
 
   @override
@@ -299,9 +293,9 @@ class _SimpleWalletState extends State<SimpleWallet> {
                         fontWeight: FontWeight.w800),
                   )),
               TextButton(
-                  onPressed: () => sendBit(),
+                  onPressed: () => sendBit(100000),
                   child: const Text(
-                    'Press to send 1200 satoshi',
+                    'Press to send 100k sats',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,

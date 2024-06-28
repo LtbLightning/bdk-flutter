@@ -20,7 +20,7 @@ class Address extends BdkAddress {
       final res = await BdkAddress.fromScript(script: script, network: network);
       return Address._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -31,7 +31,7 @@ class Address extends BdkAddress {
       final res = await BdkAddress.fromString(address: s, network: network);
       return Address._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -41,7 +41,7 @@ class Address extends BdkAddress {
       final res = await BdkAddress.script(ptr: this);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -57,11 +57,11 @@ class Blockchain extends BdkBlockchain {
       final res = await BdkBlockchain.newInstance(blockchainConfig: config);
       return Blockchain._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
-  static Future<Blockchain> createWithMutinynetDefaults({
+  static Future<Blockchain> createMutinynet({
     int stopGap = 20,
   }) async {
     final config = BlockchainConfig.esplora(
@@ -73,7 +73,7 @@ class Blockchain extends BdkBlockchain {
     return create(config: config);
   }
 
-  static Future<Blockchain> createWithTestnetDefaults({
+  static Future<Blockchain> createTestnet({
     int stopGap = 20,
   }) async {
     final config = BlockchainConfig.esplora(
@@ -91,7 +91,7 @@ class Blockchain extends BdkBlockchain {
     try {
       return super.estimateFee(target: target);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -101,7 +101,7 @@ class Blockchain extends BdkBlockchain {
     try {
       return super.broadcast(transaction: transaction);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -111,7 +111,7 @@ class Blockchain extends BdkBlockchain {
     try {
       return super.getBlockHash(height: height);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -121,7 +121,7 @@ class Blockchain extends BdkBlockchain {
     try {
       return super.getHeight();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -178,7 +178,7 @@ class BumpFeeTxBuilder {
           allowShrinking: _allowShrinking);
       return (PartiallySignedTransaction._(ptr: res.$1.ptr), res.$2);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -194,7 +194,7 @@ class DerivationPath extends BdkDerivationPath {
       final res = await BdkDerivationPath.fromString(path: path);
       return DerivationPath._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -213,7 +213,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -231,7 +231,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -255,7 +255,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -273,7 +273,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -297,7 +297,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -315,7 +315,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -339,7 +339,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -357,7 +357,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -381,7 +381,7 @@ class Descriptor extends BdkDescriptor {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -391,7 +391,7 @@ class Descriptor extends BdkDescriptor {
     try {
       return super.asString();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -401,7 +401,7 @@ class Descriptor extends BdkDescriptor {
     try {
       return super.asStringPrivate();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -411,7 +411,7 @@ class Descriptor extends BdkDescriptor {
     try {
       return super.maxSatisfactionWeight();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -427,7 +427,7 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
       final res = await BdkDescriptorPublicKey.fromString(publicKey: publicKey);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -437,29 +437,29 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
     try {
       return super.asString();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
   ///Derive a public descriptor at a given path.
   Future<DescriptorPublicKey> derive(
-      {required BdkDerivationPath path, hint}) async {
+      {required DerivationPath path, hint}) async {
     try {
       final res = await BdkDescriptorPublicKey.derive(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
   ///Extend the public descriptor with a custom path.
   Future<DescriptorPublicKey> extend(
-      {required BdkDerivationPath path, hint}) async {
+      {required DerivationPath path, hint}) async {
     try {
       final res = await BdkDescriptorPublicKey.extend(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -475,7 +475,7 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
       final res = await BdkDescriptorSecretKey.fromString(secretKey: secretKey);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -490,27 +490,27 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
           network: network, mnemonic: mnemonic, password: password);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
   ///Derived the XPrv using the derivation path
-  Future<DescriptorSecretKey> derive(BdkDerivationPath path) async {
+  Future<DescriptorSecretKey> derive(DerivationPath path) async {
     try {
       final res = await BdkDescriptorSecretKey.derive(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
   ///Extends the XPrv using the derivation path
-  Future<DescriptorSecretKey> extend(BdkDerivationPath path) async {
+  Future<DescriptorSecretKey> extend(DerivationPath path) async {
     try {
       final res = await BdkDescriptorSecretKey.extend(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -520,7 +520,7 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
       final res = await BdkDescriptorSecretKey.asPublic(ptr: this);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -530,7 +530,7 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
     try {
       return super.asString();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -540,7 +540,7 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
     try {
       return super.secretBytes();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -558,7 +558,7 @@ class Mnemonic extends BdkMnemonic {
       final res = await BdkMnemonic.newInstance(wordCount: wordCount);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -572,7 +572,7 @@ class Mnemonic extends BdkMnemonic {
       final res = await BdkMnemonic.fromEntropy(entropy: entropy);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -585,7 +585,7 @@ class Mnemonic extends BdkMnemonic {
       final res = await BdkMnemonic.fromString(mnemonic: mnemonic);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -595,7 +595,7 @@ class Mnemonic extends BdkMnemonic {
     try {
       return super.asString();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -614,7 +614,7 @@ class PartiallySignedTransaction extends BdkPsbt {
       final res = await BdkPsbt.fromStr(psbtBase64: psbtBase64);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -624,7 +624,7 @@ class PartiallySignedTransaction extends BdkPsbt {
     try {
       return super.feeAmount();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -634,7 +634,7 @@ class PartiallySignedTransaction extends BdkPsbt {
     try {
       return super.feeRate();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -643,7 +643,7 @@ class PartiallySignedTransaction extends BdkPsbt {
     try {
       return super.jsonSerialize();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -653,7 +653,7 @@ class PartiallySignedTransaction extends BdkPsbt {
     try {
       return super.serialize();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -663,7 +663,7 @@ class PartiallySignedTransaction extends BdkPsbt {
       final res = await BdkPsbt.extractTx(ptr: this);
       return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -674,7 +674,7 @@ class PartiallySignedTransaction extends BdkPsbt {
       final res = await BdkPsbt.combine(ptr: this, other: other);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -684,7 +684,7 @@ class PartiallySignedTransaction extends BdkPsbt {
     try {
       return super.txid();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -701,7 +701,7 @@ class ScriptBuf extends BdkScriptBuf {
       final res = await BdkScriptBuf.empty();
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -712,7 +712,7 @@ class ScriptBuf extends BdkScriptBuf {
       final res = await BdkScriptBuf.withCapacity(capacity: capacity);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -723,7 +723,7 @@ class ScriptBuf extends BdkScriptBuf {
       final res = await BdkScriptBuf.fromHex(s: s);
       return ScriptBuf(bytes: res.bytes);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -744,7 +744,7 @@ class Transaction extends BdkTransaction {
           await BdkTransaction.fromBytes(transactionBytes: transactionBytes);
       return Transaction._(inner: res.inner);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -952,7 +952,7 @@ class TxBuilder {
 
       return (PartiallySignedTransaction._(ptr: res.$1.ptr), res.$2);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 }
@@ -985,7 +985,7 @@ class Wallet extends BdkWallet {
       );
       return Wallet._(ptr: res.ptr);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -999,7 +999,7 @@ class Wallet extends BdkWallet {
           await BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1010,7 +1010,7 @@ class Wallet extends BdkWallet {
     try {
       return super.getBalance();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1023,7 +1023,7 @@ class Wallet extends BdkWallet {
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1042,7 +1042,7 @@ class Wallet extends BdkWallet {
           ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1059,7 +1059,7 @@ class Wallet extends BdkWallet {
           onlyWitnessUtxo: onlyWitnessUtxo,
           sighashType: sighashType);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1069,7 +1069,7 @@ class Wallet extends BdkWallet {
     try {
       return super.isMine(script: script);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1080,7 +1080,7 @@ class Wallet extends BdkWallet {
     try {
       return super.listTransactions(includeRaw: includeRaw);
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1092,7 +1092,7 @@ class Wallet extends BdkWallet {
     try {
       return super.listUnspent();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1102,7 +1102,7 @@ class Wallet extends BdkWallet {
     try {
       return super.network();
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1118,10 +1118,11 @@ class Wallet extends BdkWallet {
       SignOptions? signOptions,
       hint}) async {
     try {
-      final res = await BdkWallet.sign(ptr: this, psbt: psbt);
+      final res =
+          await BdkWallet.sign(ptr: this, psbt: psbt, signOptions: signOptions);
       return res;
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
 
@@ -1132,9 +1133,26 @@ class Wallet extends BdkWallet {
       final res = await BdkWallet.sync(ptr: this, blockchain: blockchain);
       return res;
     } on BdkError catch (e) {
-      throw mapToException(e);
+      throw mapBdkError(e);
     }
   }
+
+  /// Verify a transaction against the consensus rules
+  ///
+  /// This function uses `bitcoinconsensus` to verify transactions by fetching the required data
+  ///  from the Wallet Database or using the [`Blockchain`].
+  ///
+  /// Depending on the capabilities of the
+  /// [Blockchain] backend, the method could fail when called with old "historical" transactions or
+  /// with unconfirmed transactions that have been evicted from the backend's memory.
+  /// Make sure you sync the wallet to get the optimal results.
+  // Future<void> verifyTx({required Transaction tx}) async {
+  //   try {
+  //     await BdkWallet.verifyTx(ptr: this, tx: tx);
+  //   } on BdkError catch (e) {
+  //     throw mapBdkError(e);
+  //   }
+  // }
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address

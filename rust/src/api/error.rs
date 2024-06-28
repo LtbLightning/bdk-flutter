@@ -1,11 +1,13 @@
 use crate::api::types::{KeychainKind, Network, OutPoint, Variant};
 use bdk::descriptor::error::Error as BdkDescriptorError;
 
+#[derive(Debug)]
 pub enum BdkError {
     /// Hex decoding error
     Hex(HexError),
     /// Encoding error
     Consensus(ConsensusError),
+    VerifyTransaction(String),
     /// Address error.
     Address(AddressError),
     /// Error related to the parsing and usage of descriptors
@@ -169,6 +171,7 @@ impl From<bdk::Error> for BdkError {
         }
     }
 }
+#[derive(Debug)]
 pub enum DescriptorError {
     InvalidHdKeyPath,
     InvalidDescriptorChecksum,
@@ -210,6 +213,7 @@ impl From<BdkDescriptorError> for DescriptorError {
         }
     }
 }
+#[derive(Debug)]
 pub enum HexError {
     InvalidChar(u8),
     OddLengthString(usize),
@@ -226,6 +230,7 @@ impl From<bdk::bitcoin::hashes::hex::Error> for HexError {
     }
 }
 
+#[derive(Debug)]
 pub enum ConsensusError {
     Io(String),
     OversizedVectorAllocation { requested: usize, max: usize },
@@ -263,6 +268,7 @@ impl From<bdk::bitcoin::consensus::encode::Error> for ConsensusError {
         }
     }
 }
+#[derive(Debug)]
 pub enum AddressError {
     Base58(String),
     Bech32(String),

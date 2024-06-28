@@ -2282,35 +2282,39 @@ impl SseDecode for crate::api::error::BdkError {
                 return crate::api::error::BdkError::Consensus(var_field0);
             }
             2 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::error::BdkError::VerifyTransaction(var_field0);
+            }
+            3 => {
                 let mut var_field0 = <crate::api::error::AddressError>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Address(var_field0);
             }
-            3 => {
+            4 => {
                 let mut var_field0 = <crate::api::error::DescriptorError>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Descriptor(var_field0);
             }
-            4 => {
+            5 => {
                 let mut var_field0 = <Vec<u8>>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidU32Bytes(var_field0);
             }
-            5 => {
+            6 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Generic(var_field0);
             }
-            6 => {
+            7 => {
                 return crate::api::error::BdkError::ScriptDoesntHaveAddressForm;
             }
-            7 => {
+            8 => {
                 return crate::api::error::BdkError::NoRecipients;
             }
-            8 => {
+            9 => {
                 return crate::api::error::BdkError::NoUtxosSelected;
             }
-            9 => {
+            10 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
                 return crate::api::error::BdkError::OutputBelowDustLimit(var_field0);
             }
-            10 => {
+            11 => {
                 let mut var_needed = <u64>::sse_decode(deserializer);
                 let mut var_available = <u64>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InsufficientFunds {
@@ -2318,59 +2322,59 @@ impl SseDecode for crate::api::error::BdkError {
                     available: var_available,
                 };
             }
-            11 => {
+            12 => {
                 return crate::api::error::BdkError::BnBTotalTriesExceeded;
             }
-            12 => {
+            13 => {
                 return crate::api::error::BdkError::BnBNoExactMatch;
             }
-            13 => {
+            14 => {
                 return crate::api::error::BdkError::UnknownUtxo;
             }
-            14 => {
+            15 => {
                 return crate::api::error::BdkError::TransactionNotFound;
             }
-            15 => {
+            16 => {
                 return crate::api::error::BdkError::TransactionConfirmed;
             }
-            16 => {
+            17 => {
                 return crate::api::error::BdkError::IrreplaceableTransaction;
             }
-            17 => {
+            18 => {
                 let mut var_needed = <f32>::sse_decode(deserializer);
                 return crate::api::error::BdkError::FeeRateTooLow { needed: var_needed };
             }
-            18 => {
+            19 => {
                 let mut var_needed = <u64>::sse_decode(deserializer);
                 return crate::api::error::BdkError::FeeTooLow { needed: var_needed };
             }
-            19 => {
-                return crate::api::error::BdkError::FeeRateUnavailable;
-            }
             20 => {
-                let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::api::error::BdkError::MissingKeyOrigin(var_field0);
+                return crate::api::error::BdkError::FeeRateUnavailable;
             }
             21 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
-                return crate::api::error::BdkError::Key(var_field0);
+                return crate::api::error::BdkError::MissingKeyOrigin(var_field0);
             }
             22 => {
-                return crate::api::error::BdkError::ChecksumMismatch;
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::error::BdkError::Key(var_field0);
             }
             23 => {
+                return crate::api::error::BdkError::ChecksumMismatch;
+            }
+            24 => {
                 let mut var_field0 = <crate::api::types::KeychainKind>::sse_decode(deserializer);
                 return crate::api::error::BdkError::SpendingPolicyRequired(var_field0);
             }
-            24 => {
+            25 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidPolicyPathError(var_field0);
             }
-            25 => {
+            26 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Signer(var_field0);
             }
-            26 => {
+            27 => {
                 let mut var_requested = <crate::api::types::Network>::sse_decode(deserializer);
                 let mut var_found = <crate::api::types::Network>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidNetwork {
@@ -2378,80 +2382,80 @@ impl SseDecode for crate::api::error::BdkError {
                     found: var_found,
                 };
             }
-            27 => {
+            28 => {
                 let mut var_field0 = <crate::api::types::OutPoint>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidOutpoint(var_field0);
             }
-            28 => {
+            29 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Encode(var_field0);
             }
-            29 => {
+            30 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Miniscript(var_field0);
             }
-            30 => {
+            31 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::MiniscriptPsbt(var_field0);
             }
-            31 => {
+            32 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Bip32(var_field0);
             }
-            32 => {
+            33 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Bip39(var_field0);
             }
-            33 => {
+            34 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Secp256k1(var_field0);
             }
-            34 => {
+            35 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Json(var_field0);
             }
-            35 => {
+            36 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Psbt(var_field0);
             }
-            36 => {
+            37 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::PsbtParse(var_field0);
             }
-            37 => {
+            38 => {
                 let mut var_field0 = <usize>::sse_decode(deserializer);
                 let mut var_field1 = <usize>::sse_decode(deserializer);
                 return crate::api::error::BdkError::MissingCachedScripts(var_field0, var_field1);
             }
-            38 => {
+            39 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Electrum(var_field0);
             }
-            39 => {
+            40 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Esplora(var_field0);
             }
-            40 => {
+            41 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Sled(var_field0);
             }
-            41 => {
+            42 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Rpc(var_field0);
             }
-            42 => {
+            43 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::Rusqlite(var_field0);
             }
-            43 => {
+            44 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidInput(var_field0);
             }
-            44 => {
+            45 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidLockTime(var_field0);
             }
-            45 => {
+            46 => {
                 let mut var_field0 = <String>::sse_decode(deserializer);
                 return crate::api::error::BdkError::InvalidTransaction(var_field0);
             }
@@ -3283,7 +3287,6 @@ impl SseDecode for crate::api::types::ScriptAmount {
 impl SseDecode for crate::api::types::SignOptions {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_multiSig = <bool>::sse_decode(deserializer);
         let mut var_trustWitnessUtxo = <bool>::sse_decode(deserializer);
         let mut var_assumeHeight = <Option<u32>>::sse_decode(deserializer);
         let mut var_allowAllSighashes = <bool>::sse_decode(deserializer);
@@ -3292,7 +3295,6 @@ impl SseDecode for crate::api::types::SignOptions {
         let mut var_signWithTapInternalKey = <bool>::sse_decode(deserializer);
         let mut var_allowGrinding = <bool>::sse_decode(deserializer);
         return crate::api::types::SignOptions {
-            multi_sig: var_multiSig,
             trust_witness_utxo: var_trustWitnessUtxo,
             assume_height: var_assumeHeight,
             allow_all_sighashes: var_allowAllSighashes,
@@ -3739,124 +3741,127 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::BdkError {
             crate::api::error::BdkError::Consensus(field0) => {
                 [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Address(field0) => {
+            crate::api::error::BdkError::VerifyTransaction(field0) => {
                 [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Descriptor(field0) => {
+            crate::api::error::BdkError::Address(field0) => {
                 [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::InvalidU32Bytes(field0) => {
+            crate::api::error::BdkError::Descriptor(field0) => {
                 [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Generic(field0) => {
+            crate::api::error::BdkError::InvalidU32Bytes(field0) => {
                 [5.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::ScriptDoesntHaveAddressForm => [6.into_dart()].into_dart(),
-            crate::api::error::BdkError::NoRecipients => [7.into_dart()].into_dart(),
-            crate::api::error::BdkError::NoUtxosSelected => [8.into_dart()].into_dart(),
+            crate::api::error::BdkError::Generic(field0) => {
+                [6.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::BdkError::ScriptDoesntHaveAddressForm => [7.into_dart()].into_dart(),
+            crate::api::error::BdkError::NoRecipients => [8.into_dart()].into_dart(),
+            crate::api::error::BdkError::NoUtxosSelected => [9.into_dart()].into_dart(),
             crate::api::error::BdkError::OutputBelowDustLimit(field0) => {
-                [9.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+                [10.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
             crate::api::error::BdkError::InsufficientFunds { needed, available } => [
-                10.into_dart(),
+                11.into_dart(),
                 needed.into_into_dart().into_dart(),
                 available.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::api::error::BdkError::BnBTotalTriesExceeded => [11.into_dart()].into_dart(),
-            crate::api::error::BdkError::BnBNoExactMatch => [12.into_dart()].into_dart(),
-            crate::api::error::BdkError::UnknownUtxo => [13.into_dart()].into_dart(),
-            crate::api::error::BdkError::TransactionNotFound => [14.into_dart()].into_dart(),
-            crate::api::error::BdkError::TransactionConfirmed => [15.into_dart()].into_dart(),
-            crate::api::error::BdkError::IrreplaceableTransaction => [16.into_dart()].into_dart(),
+            crate::api::error::BdkError::BnBTotalTriesExceeded => [12.into_dart()].into_dart(),
+            crate::api::error::BdkError::BnBNoExactMatch => [13.into_dart()].into_dart(),
+            crate::api::error::BdkError::UnknownUtxo => [14.into_dart()].into_dart(),
+            crate::api::error::BdkError::TransactionNotFound => [15.into_dart()].into_dart(),
+            crate::api::error::BdkError::TransactionConfirmed => [16.into_dart()].into_dart(),
+            crate::api::error::BdkError::IrreplaceableTransaction => [17.into_dart()].into_dart(),
             crate::api::error::BdkError::FeeRateTooLow { needed } => {
-                [17.into_dart(), needed.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::error::BdkError::FeeTooLow { needed } => {
                 [18.into_dart(), needed.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::FeeRateUnavailable => [19.into_dart()].into_dart(),
-            crate::api::error::BdkError::MissingKeyOrigin(field0) => {
-                [20.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            crate::api::error::BdkError::FeeTooLow { needed } => {
+                [19.into_dart(), needed.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Key(field0) => {
+            crate::api::error::BdkError::FeeRateUnavailable => [20.into_dart()].into_dart(),
+            crate::api::error::BdkError::MissingKeyOrigin(field0) => {
                 [21.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::ChecksumMismatch => [22.into_dart()].into_dart(),
-            crate::api::error::BdkError::SpendingPolicyRequired(field0) => {
-                [23.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            crate::api::error::BdkError::Key(field0) => {
+                [22.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::InvalidPolicyPathError(field0) => {
+            crate::api::error::BdkError::ChecksumMismatch => [23.into_dart()].into_dart(),
+            crate::api::error::BdkError::SpendingPolicyRequired(field0) => {
                 [24.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Signer(field0) => {
+            crate::api::error::BdkError::InvalidPolicyPathError(field0) => {
                 [25.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::error::BdkError::Signer(field0) => {
+                [26.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
             crate::api::error::BdkError::InvalidNetwork { requested, found } => [
-                26.into_dart(),
+                27.into_dart(),
                 requested.into_into_dart().into_dart(),
                 found.into_into_dart().into_dart(),
             ]
             .into_dart(),
             crate::api::error::BdkError::InvalidOutpoint(field0) => {
-                [27.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::error::BdkError::Encode(field0) => {
                 [28.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Miniscript(field0) => {
+            crate::api::error::BdkError::Encode(field0) => {
                 [29.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::MiniscriptPsbt(field0) => {
+            crate::api::error::BdkError::Miniscript(field0) => {
                 [30.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Bip32(field0) => {
+            crate::api::error::BdkError::MiniscriptPsbt(field0) => {
                 [31.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Bip39(field0) => {
+            crate::api::error::BdkError::Bip32(field0) => {
                 [32.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Secp256k1(field0) => {
+            crate::api::error::BdkError::Bip39(field0) => {
                 [33.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Json(field0) => {
+            crate::api::error::BdkError::Secp256k1(field0) => {
                 [34.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Psbt(field0) => {
+            crate::api::error::BdkError::Json(field0) => {
                 [35.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::PsbtParse(field0) => {
+            crate::api::error::BdkError::Psbt(field0) => {
                 [36.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::error::BdkError::PsbtParse(field0) => {
+                [37.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
             crate::api::error::BdkError::MissingCachedScripts(field0, field1) => [
-                37.into_dart(),
+                38.into_dart(),
                 field0.into_into_dart().into_dart(),
                 field1.into_into_dart().into_dart(),
             ]
             .into_dart(),
             crate::api::error::BdkError::Electrum(field0) => {
-                [38.into_dart(), field0.into_into_dart().into_dart()].into_dart()
-            }
-            crate::api::error::BdkError::Esplora(field0) => {
                 [39.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Sled(field0) => {
+            crate::api::error::BdkError::Esplora(field0) => {
                 [40.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Rpc(field0) => {
+            crate::api::error::BdkError::Sled(field0) => {
                 [41.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::Rusqlite(field0) => {
+            crate::api::error::BdkError::Rpc(field0) => {
                 [42.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::InvalidInput(field0) => {
+            crate::api::error::BdkError::Rusqlite(field0) => {
                 [43.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::InvalidLockTime(field0) => {
+            crate::api::error::BdkError::InvalidInput(field0) => {
                 [44.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::BdkError::InvalidTransaction(field0) => {
+            crate::api::error::BdkError::InvalidLockTime(field0) => {
                 [45.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::BdkError::InvalidTransaction(field0) => {
+                [46.into_dart(), field0.into_into_dart().into_dart()].into_dart()
             }
         }
     }
@@ -4453,7 +4458,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::ScriptAmount>
 impl flutter_rust_bridge::IntoDart for crate::api::types::SignOptions {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.multi_sig.into_into_dart().into_dart(),
             self.trust_witness_utxo.into_into_dart().into_dart(),
             self.assume_height.into_into_dart().into_dart(),
             self.allow_all_sighashes.into_into_dart().into_dart(),
@@ -4914,172 +4918,176 @@ impl SseEncode for crate::api::error::BdkError {
                 <i32>::sse_encode(1, serializer);
                 <crate::api::error::ConsensusError>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Address(field0) => {
+            crate::api::error::BdkError::VerifyTransaction(field0) => {
                 <i32>::sse_encode(2, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::BdkError::Address(field0) => {
+                <i32>::sse_encode(3, serializer);
                 <crate::api::error::AddressError>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::Descriptor(field0) => {
-                <i32>::sse_encode(3, serializer);
+                <i32>::sse_encode(4, serializer);
                 <crate::api::error::DescriptorError>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::InvalidU32Bytes(field0) => {
-                <i32>::sse_encode(4, serializer);
+                <i32>::sse_encode(5, serializer);
                 <Vec<u8>>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::Generic(field0) => {
-                <i32>::sse_encode(5, serializer);
+                <i32>::sse_encode(6, serializer);
                 <String>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::ScriptDoesntHaveAddressForm => {
-                <i32>::sse_encode(6, serializer);
-            }
-            crate::api::error::BdkError::NoRecipients => {
                 <i32>::sse_encode(7, serializer);
             }
-            crate::api::error::BdkError::NoUtxosSelected => {
+            crate::api::error::BdkError::NoRecipients => {
                 <i32>::sse_encode(8, serializer);
             }
-            crate::api::error::BdkError::OutputBelowDustLimit(field0) => {
+            crate::api::error::BdkError::NoUtxosSelected => {
                 <i32>::sse_encode(9, serializer);
+            }
+            crate::api::error::BdkError::OutputBelowDustLimit(field0) => {
+                <i32>::sse_encode(10, serializer);
                 <usize>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::InsufficientFunds { needed, available } => {
-                <i32>::sse_encode(10, serializer);
+                <i32>::sse_encode(11, serializer);
                 <u64>::sse_encode(needed, serializer);
                 <u64>::sse_encode(available, serializer);
             }
             crate::api::error::BdkError::BnBTotalTriesExceeded => {
-                <i32>::sse_encode(11, serializer);
-            }
-            crate::api::error::BdkError::BnBNoExactMatch => {
                 <i32>::sse_encode(12, serializer);
             }
-            crate::api::error::BdkError::UnknownUtxo => {
+            crate::api::error::BdkError::BnBNoExactMatch => {
                 <i32>::sse_encode(13, serializer);
             }
-            crate::api::error::BdkError::TransactionNotFound => {
+            crate::api::error::BdkError::UnknownUtxo => {
                 <i32>::sse_encode(14, serializer);
             }
-            crate::api::error::BdkError::TransactionConfirmed => {
+            crate::api::error::BdkError::TransactionNotFound => {
                 <i32>::sse_encode(15, serializer);
             }
-            crate::api::error::BdkError::IrreplaceableTransaction => {
+            crate::api::error::BdkError::TransactionConfirmed => {
                 <i32>::sse_encode(16, serializer);
             }
-            crate::api::error::BdkError::FeeRateTooLow { needed } => {
+            crate::api::error::BdkError::IrreplaceableTransaction => {
                 <i32>::sse_encode(17, serializer);
+            }
+            crate::api::error::BdkError::FeeRateTooLow { needed } => {
+                <i32>::sse_encode(18, serializer);
                 <f32>::sse_encode(needed, serializer);
             }
             crate::api::error::BdkError::FeeTooLow { needed } => {
-                <i32>::sse_encode(18, serializer);
+                <i32>::sse_encode(19, serializer);
                 <u64>::sse_encode(needed, serializer);
             }
             crate::api::error::BdkError::FeeRateUnavailable => {
-                <i32>::sse_encode(19, serializer);
+                <i32>::sse_encode(20, serializer);
             }
             crate::api::error::BdkError::MissingKeyOrigin(field0) => {
-                <i32>::sse_encode(20, serializer);
-                <String>::sse_encode(field0, serializer);
-            }
-            crate::api::error::BdkError::Key(field0) => {
                 <i32>::sse_encode(21, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::ChecksumMismatch => {
+            crate::api::error::BdkError::Key(field0) => {
                 <i32>::sse_encode(22, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::BdkError::ChecksumMismatch => {
+                <i32>::sse_encode(23, serializer);
             }
             crate::api::error::BdkError::SpendingPolicyRequired(field0) => {
-                <i32>::sse_encode(23, serializer);
+                <i32>::sse_encode(24, serializer);
                 <crate::api::types::KeychainKind>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::InvalidPolicyPathError(field0) => {
-                <i32>::sse_encode(24, serializer);
-                <String>::sse_encode(field0, serializer);
-            }
-            crate::api::error::BdkError::Signer(field0) => {
                 <i32>::sse_encode(25, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::InvalidNetwork { requested, found } => {
+            crate::api::error::BdkError::Signer(field0) => {
                 <i32>::sse_encode(26, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::BdkError::InvalidNetwork { requested, found } => {
+                <i32>::sse_encode(27, serializer);
                 <crate::api::types::Network>::sse_encode(requested, serializer);
                 <crate::api::types::Network>::sse_encode(found, serializer);
             }
             crate::api::error::BdkError::InvalidOutpoint(field0) => {
-                <i32>::sse_encode(27, serializer);
+                <i32>::sse_encode(28, serializer);
                 <crate::api::types::OutPoint>::sse_encode(field0, serializer);
             }
             crate::api::error::BdkError::Encode(field0) => {
-                <i32>::sse_encode(28, serializer);
-                <String>::sse_encode(field0, serializer);
-            }
-            crate::api::error::BdkError::Miniscript(field0) => {
                 <i32>::sse_encode(29, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::MiniscriptPsbt(field0) => {
+            crate::api::error::BdkError::Miniscript(field0) => {
                 <i32>::sse_encode(30, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Bip32(field0) => {
+            crate::api::error::BdkError::MiniscriptPsbt(field0) => {
                 <i32>::sse_encode(31, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Bip39(field0) => {
+            crate::api::error::BdkError::Bip32(field0) => {
                 <i32>::sse_encode(32, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Secp256k1(field0) => {
+            crate::api::error::BdkError::Bip39(field0) => {
                 <i32>::sse_encode(33, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Json(field0) => {
+            crate::api::error::BdkError::Secp256k1(field0) => {
                 <i32>::sse_encode(34, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Psbt(field0) => {
+            crate::api::error::BdkError::Json(field0) => {
                 <i32>::sse_encode(35, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::PsbtParse(field0) => {
+            crate::api::error::BdkError::Psbt(field0) => {
                 <i32>::sse_encode(36, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::MissingCachedScripts(field0, field1) => {
+            crate::api::error::BdkError::PsbtParse(field0) => {
                 <i32>::sse_encode(37, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::BdkError::MissingCachedScripts(field0, field1) => {
+                <i32>::sse_encode(38, serializer);
                 <usize>::sse_encode(field0, serializer);
                 <usize>::sse_encode(field1, serializer);
             }
             crate::api::error::BdkError::Electrum(field0) => {
-                <i32>::sse_encode(38, serializer);
-                <String>::sse_encode(field0, serializer);
-            }
-            crate::api::error::BdkError::Esplora(field0) => {
                 <i32>::sse_encode(39, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Sled(field0) => {
+            crate::api::error::BdkError::Esplora(field0) => {
                 <i32>::sse_encode(40, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Rpc(field0) => {
+            crate::api::error::BdkError::Sled(field0) => {
                 <i32>::sse_encode(41, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::Rusqlite(field0) => {
+            crate::api::error::BdkError::Rpc(field0) => {
                 <i32>::sse_encode(42, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::InvalidInput(field0) => {
+            crate::api::error::BdkError::Rusqlite(field0) => {
                 <i32>::sse_encode(43, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::InvalidLockTime(field0) => {
+            crate::api::error::BdkError::InvalidInput(field0) => {
                 <i32>::sse_encode(44, serializer);
                 <String>::sse_encode(field0, serializer);
             }
-            crate::api::error::BdkError::InvalidTransaction(field0) => {
+            crate::api::error::BdkError::InvalidLockTime(field0) => {
                 <i32>::sse_encode(45, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::error::BdkError::InvalidTransaction(field0) => {
+                <i32>::sse_encode(46, serializer);
                 <String>::sse_encode(field0, serializer);
             }
         }
@@ -5764,7 +5772,6 @@ impl SseEncode for crate::api::types::ScriptAmount {
 impl SseEncode for crate::api::types::SignOptions {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.multi_sig, serializer);
         <bool>::sse_encode(self.trust_witness_utxo, serializer);
         <Option<u32>>::sse_encode(self.assume_height, serializer);
         <bool>::sse_encode(self.allow_all_sighashes, serializer);
