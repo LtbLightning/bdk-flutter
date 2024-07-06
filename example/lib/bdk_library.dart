@@ -20,7 +20,10 @@ class BdkLibrary {
   }
 
   Future<Blockchain> initializeBlockchain() async {
-    return Blockchain.createMutinynet();
+    return await Blockchain.create(
+        config: const BlockchainConfig.esplora(
+            config: EsploraConfig(
+                baseUrl: 'https://mutinynet.com/api', stopGap: 10)));
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
@@ -92,11 +95,7 @@ class BdkLibrary {
   }
 
   sendBitcoin(
-    Blockchain blockchain,
-    Wallet aliceWallet,
-    String addressStr,
-    int amountSat,
-  ) async {
+      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
@@ -105,7 +104,7 @@ class BdkLibrary {
       final script = await address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
-          .addRecipient(script, amountSat)
+          .addRecipient(script, 750)
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       final isFinalized = await aliceWallet.sign(psbt: psbt);
