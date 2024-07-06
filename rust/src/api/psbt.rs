@@ -1,34 +1,41 @@
 use crate::api::error::BdkError;
 use crate::api::types::{BdkTransaction, FeeRate};
 use crate::frb_generated::RustOpaque;
-pub use bdk::bitcoin::psbt::PartiallySignedTransaction;
+
 use bdk::psbt::PsbtUtils;
 use std::ops::Deref;
 use std::str::FromStr;
-use std::sync::Mutex;
 
-#[derive(Debug, Clone)]
+use flutter_rust_bridge::frb;
+
+#[derive(Debug)]
 pub struct BdkPsbt {
-    pub ptr: RustOpaque<Mutex<PartiallySignedTransaction>>,
+    pub ptr: RustOpaque<std::sync::Mutex<bdk::bitcoin::psbt::PartiallySignedTransaction>>,
 }
 
-impl From<PartiallySignedTransaction> for BdkPsbt {
-    fn from(value: PartiallySignedTransaction) -> Self {
+impl From<bdk::bitcoin::psbt::PartiallySignedTransaction> for BdkPsbt {
+    fn from(value: bdk::bitcoin::psbt::PartiallySignedTransaction) -> Self {
         Self {
-            ptr: RustOpaque::new(Mutex::new(value)),
+            ptr: RustOpaque::new(std::sync::Mutex::new(value)),
         }
     }
 }
 impl BdkPsbt {
     pub fn from_str(psbt_base64: String) -> Result<BdkPsbt, BdkError> {
-        let psbt: PartiallySignedTransaction = PartiallySignedTransaction::from_str(&psbt_base64)?;
+        let psbt: bdk::bitcoin::psbt::PartiallySignedTransaction =
+            bdk::bitcoin::psbt::PartiallySignedTransaction::from_str(&psbt_base64)?;
         Ok(psbt.into())
     }
-    pub fn serialize(&self) -> String {
+
+    #[frb(sync)]
+    pub fn as_string(&self) -> String {
         let psbt = self.ptr.lock().unwrap().clone();
         psbt.to_string()
     }
 
+    ///Computes the `Txid`.
+    /// Hashes the transaction excluding the segwit data (i. e. the marker, flag bytes, and the witness fields themselves).
+    /// For non-segwit transactions which do not have any segwit data, this will be equal to transaction.wtxid().
     pub fn txid(&self) -> String {
         let tx = self.ptr.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
@@ -65,6 +72,11 @@ impl BdkPsbt {
         self.ptr.lock().unwrap().fee_rate().map(|e| e.into())
     }
 
+    ///Serialize as raw binary data
+    pub fn serialize(&self) -> Vec<u8> {
+        let psbt = self.ptr.lock().unwrap().clone();
+        psbt.serialize()
+    }
     /// Serialize the PSBT data structure as a String of JSON.
     pub fn json_serialize(&self) -> String {
         let psbt = self.ptr.lock().unwrap();
