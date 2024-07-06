@@ -3,6 +3,7 @@ use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::consensus::{serialize, Decodable};
 use bdk::bitcoin::hashes::hex::Error;
 use bdk::database::AnyDatabaseConfig;
+use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
 use std::io::Cursor;
 use std::str::FromStr;
@@ -135,6 +136,11 @@ impl BdkScriptBuf {
                 Error::OddLengthString(e) => BdkError::Hex(HexError::OddLengthString(e)),
                 Error::InvalidLength(e, f) => BdkError::Hex(HexError::InvalidLength(e, f)),
             })
+    }
+    #[frb(sync)]
+    pub fn as_string(&self) -> String {
+        let script: bdk::bitcoin::ScriptBuf = self.to_owned().into();
+        script.to_string()
     }
 }
 pub struct PsbtSigHashType {
@@ -491,16 +497,11 @@ impl BdkAddress {
         }
     }
 
-    ///Creates a URI string bitcoin:address optimized to be encoded in QR codes.
-    // If the address is bech32, both the schema and the address become uppercase. If the address is base58, the schema is lowercase and the address is left mixed case.
-    // Quoting BIP 173 "inside QR codes uppercase SHOULD be used, as those permit the use of alphanumeric mode, which is 45% more compact than the normal byte mode."
-    // Note however that despite BIP21 explicitly stating that the bitcoin: prefix should be parsed as case-insensitive many wallets got this wrong and don't parse correctly. See compatibility table.
-    // If you want to avoid allocation you can use alternate display instead:
-    // write!(writer, "{:#}", address)?;
+    #[frb(sync)]
     pub fn to_qr_uri(&self) -> String {
         self.ptr.to_qr_uri()
     }
-    ///The network on which this address is usable.
+
     pub fn network(&self) -> Network {
         self.ptr.network.into()
     }
@@ -510,8 +511,9 @@ impl BdkAddress {
     }
 
     pub fn is_valid_for_network(&self, network: Network) -> bool {
-        let address_str = self.ptr.to_string();
-        if let Ok(unchecked_address) = address_str
+        if let Ok(unchecked_address) = self
+            .ptr
+            .to_string()
             .parse::<bdk::bitcoin::address::Address<bdk::bitcoin::address::NetworkUnchecked>>()
         {
             unchecked_address.is_valid_for_network(network.into())
@@ -519,7 +521,7 @@ impl BdkAddress {
             false
         }
     }
-
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()
     }
@@ -578,7 +580,7 @@ impl From<bdk::bitcoin::blockdata::locktime::absolute::LockTime> for LockTime {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BdkTransaction {
-    pub inner: String,
+    pub s: String,
 }
 impl BdkTransaction {
     pub fn new(
@@ -680,7 +682,7 @@ impl TryFrom<bdk::bitcoin::Transaction> for BdkTransaction {
     type Error = BdkError;
     fn try_from(tx: bdk::bitcoin::Transaction) -> Result<Self, Self::Error> {
         Ok(BdkTransaction {
-            inner: serde_json::to_string(&tx)
+            s: serde_json::to_string(&tx)
                 .map_err(|e| BdkError::InvalidTransaction(e.to_string()))?,
         })
     }
@@ -688,7 +690,7 @@ impl TryFrom<bdk::bitcoin::Transaction> for BdkTransaction {
 impl TryFrom<&BdkTransaction> for bdk::bitcoin::Transaction {
     type Error = BdkError;
     fn try_from(tx: &BdkTransaction) -> Result<Self, Self::Error> {
-        serde_json::from_str(&tx.inner).map_err(|e| BdkError::InvalidTransaction(e.to_string()))
+        serde_json::from_str(&tx.s).map_err(|e| BdkError::InvalidTransaction(e.to_string()))
     }
 }
 ///Configuration type for a SqliteDatabase database
