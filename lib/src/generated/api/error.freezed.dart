@@ -26,8 +26,8 @@ mixin _$AddressError {
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -46,8 +46,8 @@ mixin _$AddressError {
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -66,8 +66,8 @@ mixin _$AddressError {
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -256,8 +256,8 @@ class _$AddressError_Base58Impl extends AddressError_Base58 {
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -279,8 +279,8 @@ class _$AddressError_Base58Impl extends AddressError_Base58 {
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -302,8 +302,8 @@ class _$AddressError_Base58Impl extends AddressError_Base58 {
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -501,8 +501,8 @@ class _$AddressError_Bech32Impl extends AddressError_Bech32 {
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -524,8 +524,8 @@ class _$AddressError_Bech32Impl extends AddressError_Bech32 {
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -547,8 +547,8 @@ class _$AddressError_Bech32Impl extends AddressError_Bech32 {
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -724,8 +724,8 @@ class _$AddressError_EmptyBech32PayloadImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -747,8 +747,8 @@ class _$AddressError_EmptyBech32PayloadImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -770,8 +770,8 @@ class _$AddressError_EmptyBech32PayloadImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -980,8 +980,8 @@ class _$AddressError_InvalidBech32VariantImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -1003,8 +1003,8 @@ class _$AddressError_InvalidBech32VariantImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -1026,8 +1026,8 @@ class _$AddressError_InvalidBech32VariantImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -1233,8 +1233,8 @@ class _$AddressError_InvalidWitnessVersionImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -1256,8 +1256,8 @@ class _$AddressError_InvalidWitnessVersionImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -1279,8 +1279,8 @@ class _$AddressError_InvalidWitnessVersionImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -1484,8 +1484,8 @@ class _$AddressError_UnparsableWitnessVersionImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -1507,8 +1507,8 @@ class _$AddressError_UnparsableWitnessVersionImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -1530,8 +1530,8 @@ class _$AddressError_UnparsableWitnessVersionImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -1708,8 +1708,8 @@ class _$AddressError_MalformedWitnessVersionImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -1731,8 +1731,8 @@ class _$AddressError_MalformedWitnessVersionImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -1754,8 +1754,8 @@ class _$AddressError_MalformedWitnessVersionImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -1882,7 +1882,7 @@ abstract class _$$AddressError_InvalidWitnessProgramLengthImplCopyWith<$Res> {
           $Res Function(_$AddressError_InvalidWitnessProgramLengthImpl) then) =
       __$$AddressError_InvalidWitnessProgramLengthImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int field0});
+  $Res call({BigInt field0});
 }
 
 /// @nodoc
@@ -1904,7 +1904,7 @@ class __$$AddressError_InvalidWitnessProgramLengthImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -1916,7 +1916,7 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
   const _$AddressError_InvalidWitnessProgramLengthImpl(this.field0) : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
 
   @override
   String toString() {
@@ -1954,8 +1954,8 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -1977,8 +1977,8 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -2000,8 +2000,8 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -2116,11 +2116,11 @@ class _$AddressError_InvalidWitnessProgramLengthImpl
 }
 
 abstract class AddressError_InvalidWitnessProgramLength extends AddressError {
-  const factory AddressError_InvalidWitnessProgramLength(final int field0) =
+  const factory AddressError_InvalidWitnessProgramLength(final BigInt field0) =
       _$AddressError_InvalidWitnessProgramLengthImpl;
   const AddressError_InvalidWitnessProgramLength._() : super._();
 
-  int get field0;
+  BigInt get field0;
   @JsonKey(ignore: true)
   _$$AddressError_InvalidWitnessProgramLengthImplCopyWith<
           _$AddressError_InvalidWitnessProgramLengthImpl>
@@ -2134,7 +2134,7 @@ abstract class _$$AddressError_InvalidSegwitV0ProgramLengthImplCopyWith<$Res> {
           $Res Function(_$AddressError_InvalidSegwitV0ProgramLengthImpl) then) =
       __$$AddressError_InvalidSegwitV0ProgramLengthImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int field0});
+  $Res call({BigInt field0});
 }
 
 /// @nodoc
@@ -2156,7 +2156,7 @@ class __$$AddressError_InvalidSegwitV0ProgramLengthImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -2169,7 +2169,7 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
       : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
 
   @override
   String toString() {
@@ -2208,8 +2208,8 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -2231,8 +2231,8 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -2254,8 +2254,8 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -2370,11 +2370,11 @@ class _$AddressError_InvalidSegwitV0ProgramLengthImpl
 }
 
 abstract class AddressError_InvalidSegwitV0ProgramLength extends AddressError {
-  const factory AddressError_InvalidSegwitV0ProgramLength(final int field0) =
+  const factory AddressError_InvalidSegwitV0ProgramLength(final BigInt field0) =
       _$AddressError_InvalidSegwitV0ProgramLengthImpl;
   const AddressError_InvalidSegwitV0ProgramLength._() : super._();
 
-  int get field0;
+  BigInt get field0;
   @JsonKey(ignore: true)
   _$$AddressError_InvalidSegwitV0ProgramLengthImplCopyWith<
           _$AddressError_InvalidSegwitV0ProgramLengthImpl>
@@ -2432,8 +2432,8 @@ class _$AddressError_UncompressedPubkeyImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -2455,8 +2455,8 @@ class _$AddressError_UncompressedPubkeyImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -2478,8 +2478,8 @@ class _$AddressError_UncompressedPubkeyImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -2650,8 +2650,8 @@ class _$AddressError_ExcessiveScriptSizeImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -2673,8 +2673,8 @@ class _$AddressError_ExcessiveScriptSizeImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -2696,8 +2696,8 @@ class _$AddressError_ExcessiveScriptSizeImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -2868,8 +2868,8 @@ class _$AddressError_UnrecognizedScriptImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -2891,8 +2891,8 @@ class _$AddressError_UnrecognizedScriptImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -2914,8 +2914,8 @@ class _$AddressError_UnrecognizedScriptImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -3113,8 +3113,8 @@ class _$AddressError_UnknownAddressTypeImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -3136,8 +3136,8 @@ class _$AddressError_UnknownAddressTypeImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -3159,8 +3159,8 @@ class _$AddressError_UnknownAddressTypeImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -3387,8 +3387,8 @@ class _$AddressError_NetworkValidationImpl
     required TResult Function(int field0) invalidWitnessVersion,
     required TResult Function(String field0) unparsableWitnessVersion,
     required TResult Function() malformedWitnessVersion,
-    required TResult Function(int field0) invalidWitnessProgramLength,
-    required TResult Function(int field0) invalidSegwitV0ProgramLength,
+    required TResult Function(BigInt field0) invalidWitnessProgramLength,
+    required TResult Function(BigInt field0) invalidSegwitV0ProgramLength,
     required TResult Function() uncompressedPubkey,
     required TResult Function() excessiveScriptSize,
     required TResult Function() unrecognizedScript,
@@ -3410,8 +3410,8 @@ class _$AddressError_NetworkValidationImpl
     TResult? Function(int field0)? invalidWitnessVersion,
     TResult? Function(String field0)? unparsableWitnessVersion,
     TResult? Function()? malformedWitnessVersion,
-    TResult? Function(int field0)? invalidWitnessProgramLength,
-    TResult? Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult? Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult? Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult? Function()? uncompressedPubkey,
     TResult? Function()? excessiveScriptSize,
     TResult? Function()? unrecognizedScript,
@@ -3433,8 +3433,8 @@ class _$AddressError_NetworkValidationImpl
     TResult Function(int field0)? invalidWitnessVersion,
     TResult Function(String field0)? unparsableWitnessVersion,
     TResult Function()? malformedWitnessVersion,
-    TResult Function(int field0)? invalidWitnessProgramLength,
-    TResult Function(int field0)? invalidSegwitV0ProgramLength,
+    TResult Function(BigInt field0)? invalidWitnessProgramLength,
+    TResult Function(BigInt field0)? invalidSegwitV0ProgramLength,
     TResult Function()? uncompressedPubkey,
     TResult Function()? excessiveScriptSize,
     TResult Function()? unrecognizedScript,
@@ -3578,8 +3578,9 @@ mixin _$BdkError {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -3587,7 +3588,7 @@ mixin _$BdkError {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -3606,7 +3607,8 @@ mixin _$BdkError {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -3629,8 +3631,8 @@ mixin _$BdkError {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -3638,7 +3640,7 @@ mixin _$BdkError {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -3657,7 +3659,7 @@ mixin _$BdkError {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -3680,8 +3682,8 @@ mixin _$BdkError {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -3689,7 +3691,7 @@ mixin _$BdkError {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -3708,7 +3710,7 @@ mixin _$BdkError {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -4003,8 +4005,9 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -4012,7 +4015,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -4031,7 +4034,8 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -4057,8 +4061,8 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -4066,7 +4070,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -4085,7 +4089,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -4111,8 +4115,8 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -4120,7 +4124,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -4139,7 +4143,7 @@ class _$BdkError_HexImpl extends BdkError_Hex {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -4444,8 +4448,9 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -4453,7 +4458,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -4472,7 +4477,8 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -4498,8 +4504,8 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -4507,7 +4513,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -4526,7 +4532,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -4552,8 +4558,8 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -4561,7 +4567,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -4580,7 +4586,7 @@ class _$BdkError_ConsensusImpl extends BdkError_Consensus {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -4878,8 +4884,9 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -4887,7 +4894,7 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -4906,7 +4913,8 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -4932,8 +4940,8 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -4941,7 +4949,7 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -4960,7 +4968,7 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -4986,8 +4994,8 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -4995,7 +5003,7 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -5014,7 +5022,7 @@ class _$BdkError_VerifyTransactionImpl extends BdkError_VerifyTransaction {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -5320,8 +5328,9 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -5329,7 +5338,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -5348,7 +5357,8 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -5374,8 +5384,8 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -5383,7 +5393,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -5402,7 +5412,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -5428,8 +5438,8 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -5437,7 +5447,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -5456,7 +5466,7 @@ class _$BdkError_AddressImpl extends BdkError_Address {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -5762,8 +5772,9 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -5771,7 +5782,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -5790,7 +5801,8 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -5816,8 +5828,8 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -5825,7 +5837,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -5844,7 +5856,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -5870,8 +5882,8 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -5879,7 +5891,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -5898,7 +5910,7 @@ class _$BdkError_DescriptorImpl extends BdkError_Descriptor {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -6197,8 +6209,9 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -6206,7 +6219,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -6225,7 +6238,8 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -6251,8 +6265,8 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -6260,7 +6274,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -6279,7 +6293,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -6305,8 +6319,8 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -6314,7 +6328,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -6333,7 +6347,7 @@ class _$BdkError_InvalidU32BytesImpl extends BdkError_InvalidU32Bytes {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -6629,8 +6643,9 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -6638,7 +6653,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -6657,7 +6672,8 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -6683,8 +6699,8 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -6692,7 +6708,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -6711,7 +6727,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -6737,8 +6753,8 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -6746,7 +6762,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -6765,7 +6781,7 @@ class _$BdkError_GenericImpl extends BdkError_Generic {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -7038,8 +7054,9 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -7047,7 +7064,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -7066,7 +7083,8 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -7092,8 +7110,8 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -7101,7 +7119,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -7120,7 +7138,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -7146,8 +7164,8 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -7155,7 +7173,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -7174,7 +7192,7 @@ class _$BdkError_ScriptDoesntHaveAddressFormImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -7440,8 +7458,9 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -7449,7 +7468,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -7468,7 +7487,8 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -7494,8 +7514,8 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -7503,7 +7523,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -7522,7 +7542,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -7548,8 +7568,8 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -7557,7 +7577,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -7576,7 +7596,7 @@ class _$BdkError_NoRecipientsImpl extends BdkError_NoRecipients {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -7842,8 +7862,9 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -7851,7 +7872,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -7870,7 +7891,8 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -7896,8 +7918,8 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -7905,7 +7927,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -7924,7 +7946,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -7950,8 +7972,8 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -7959,7 +7981,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -7978,7 +8000,7 @@ class _$BdkError_NoUtxosSelectedImpl extends BdkError_NoUtxosSelected {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -8200,7 +8222,7 @@ abstract class _$$BdkError_OutputBelowDustLimitImplCopyWith<$Res> {
           $Res Function(_$BdkError_OutputBelowDustLimitImpl) then) =
       __$$BdkError_OutputBelowDustLimitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int field0});
+  $Res call({BigInt field0});
 }
 
 /// @nodoc
@@ -8221,7 +8243,7 @@ class __$$BdkError_OutputBelowDustLimitImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -8233,7 +8255,7 @@ class _$BdkError_OutputBelowDustLimitImpl
   const _$BdkError_OutputBelowDustLimitImpl(this.field0) : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
 
   @override
   String toString() {
@@ -8272,8 +8294,9 @@ class _$BdkError_OutputBelowDustLimitImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -8281,7 +8304,7 @@ class _$BdkError_OutputBelowDustLimitImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -8300,7 +8323,8 @@ class _$BdkError_OutputBelowDustLimitImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -8326,8 +8350,8 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -8335,7 +8359,7 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -8354,7 +8378,7 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -8380,8 +8404,8 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -8389,7 +8413,7 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -8408,7 +8432,7 @@ class _$BdkError_OutputBelowDustLimitImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -8619,11 +8643,11 @@ class _$BdkError_OutputBelowDustLimitImpl
 }
 
 abstract class BdkError_OutputBelowDustLimit extends BdkError {
-  const factory BdkError_OutputBelowDustLimit(final int field0) =
+  const factory BdkError_OutputBelowDustLimit(final BigInt field0) =
       _$BdkError_OutputBelowDustLimitImpl;
   const BdkError_OutputBelowDustLimit._() : super._();
 
-  int get field0;
+  BigInt get field0;
   @JsonKey(ignore: true)
   _$$BdkError_OutputBelowDustLimitImplCopyWith<
           _$BdkError_OutputBelowDustLimitImpl>
@@ -8637,7 +8661,7 @@ abstract class _$$BdkError_InsufficientFundsImplCopyWith<$Res> {
           $Res Function(_$BdkError_InsufficientFundsImpl) then) =
       __$$BdkError_InsufficientFundsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int needed, int available});
+  $Res call({BigInt needed, BigInt available});
 }
 
 /// @nodoc
@@ -8659,11 +8683,11 @@ class __$$BdkError_InsufficientFundsImplCopyWithImpl<$Res>
       needed: null == needed
           ? _value.needed
           : needed // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
       available: null == available
           ? _value.available
           : available // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -8677,11 +8701,11 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
 
   /// Sats needed for some transaction
   @override
-  final int needed;
+  final BigInt needed;
 
   /// Sats available for spending
   @override
-  final int available;
+  final BigInt available;
 
   @override
   String toString() {
@@ -8721,8 +8745,9 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -8730,7 +8755,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -8749,7 +8774,8 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -8775,8 +8801,8 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -8784,7 +8810,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -8803,7 +8829,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -8829,8 +8855,8 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -8838,7 +8864,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -8857,7 +8883,7 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -9069,15 +9095,15 @@ class _$BdkError_InsufficientFundsImpl extends BdkError_InsufficientFunds {
 
 abstract class BdkError_InsufficientFunds extends BdkError {
   const factory BdkError_InsufficientFunds(
-      {required final int needed,
-      required final int available}) = _$BdkError_InsufficientFundsImpl;
+      {required final BigInt needed,
+      required final BigInt available}) = _$BdkError_InsufficientFundsImpl;
   const BdkError_InsufficientFunds._() : super._();
 
   /// Sats needed for some transaction
-  int get needed;
+  BigInt get needed;
 
   /// Sats available for spending
-  int get available;
+  BigInt get available;
   @JsonKey(ignore: true)
   _$$BdkError_InsufficientFundsImplCopyWith<_$BdkError_InsufficientFundsImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -9135,8 +9161,9 @@ class _$BdkError_BnBTotalTriesExceededImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -9144,7 +9171,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -9163,7 +9190,8 @@ class _$BdkError_BnBTotalTriesExceededImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -9189,8 +9217,8 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -9198,7 +9226,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -9217,7 +9245,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -9243,8 +9271,8 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -9252,7 +9280,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -9271,7 +9299,7 @@ class _$BdkError_BnBTotalTriesExceededImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -9538,8 +9566,9 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -9547,7 +9576,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -9566,7 +9595,8 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -9592,8 +9622,8 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -9601,7 +9631,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -9620,7 +9650,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -9646,8 +9676,8 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -9655,7 +9685,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -9674,7 +9704,7 @@ class _$BdkError_BnBNoExactMatchImpl extends BdkError_BnBNoExactMatch {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -9938,8 +9968,9 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -9947,7 +9978,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -9966,7 +9997,8 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -9992,8 +10024,8 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -10001,7 +10033,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -10020,7 +10052,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -10046,8 +10078,8 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -10055,7 +10087,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -10074,7 +10106,7 @@ class _$BdkError_UnknownUtxoImpl extends BdkError_UnknownUtxo {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -10340,8 +10372,9 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -10349,7 +10382,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -10368,7 +10401,8 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -10394,8 +10428,8 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -10403,7 +10437,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -10422,7 +10456,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -10448,8 +10482,8 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -10457,7 +10491,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -10476,7 +10510,7 @@ class _$BdkError_TransactionNotFoundImpl extends BdkError_TransactionNotFound {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -10744,8 +10778,9 @@ class _$BdkError_TransactionConfirmedImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -10753,7 +10788,7 @@ class _$BdkError_TransactionConfirmedImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -10772,7 +10807,8 @@ class _$BdkError_TransactionConfirmedImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -10798,8 +10834,8 @@ class _$BdkError_TransactionConfirmedImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -10807,7 +10843,7 @@ class _$BdkError_TransactionConfirmedImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -10826,7 +10862,7 @@ class _$BdkError_TransactionConfirmedImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -10852,8 +10888,8 @@ class _$BdkError_TransactionConfirmedImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -10861,7 +10897,7 @@ class _$BdkError_TransactionConfirmedImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -10880,7 +10916,7 @@ class _$BdkError_TransactionConfirmedImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -11149,8 +11185,9 @@ class _$BdkError_IrreplaceableTransactionImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -11158,7 +11195,7 @@ class _$BdkError_IrreplaceableTransactionImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -11177,7 +11214,8 @@ class _$BdkError_IrreplaceableTransactionImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -11203,8 +11241,8 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -11212,7 +11250,7 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -11231,7 +11269,7 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -11257,8 +11295,8 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -11266,7 +11304,7 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -11285,7 +11323,7 @@ class _$BdkError_IrreplaceableTransactionImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -11579,8 +11617,9 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -11588,7 +11627,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -11607,7 +11646,8 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -11633,8 +11673,8 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -11642,7 +11682,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -11661,7 +11701,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -11687,8 +11727,8 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -11696,7 +11736,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -11715,7 +11755,7 @@ class _$BdkError_FeeRateTooLowImpl extends BdkError_FeeRateTooLow {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -11943,7 +11983,7 @@ abstract class _$$BdkError_FeeTooLowImplCopyWith<$Res> {
           $Res Function(_$BdkError_FeeTooLowImpl) then) =
       __$$BdkError_FeeTooLowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int needed});
+  $Res call({BigInt needed});
 }
 
 /// @nodoc
@@ -11963,7 +12003,7 @@ class __$$BdkError_FeeTooLowImplCopyWithImpl<$Res>
       needed: null == needed
           ? _value.needed
           : needed // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -11975,7 +12015,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
 
   /// Required fee absolute value (satoshi)
   @override
-  final int needed;
+  final BigInt needed;
 
   @override
   String toString() {
@@ -12013,8 +12053,9 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -12022,7 +12063,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -12041,7 +12082,8 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -12067,8 +12109,8 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -12076,7 +12118,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -12095,7 +12137,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -12121,8 +12163,8 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -12130,7 +12172,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -12149,7 +12191,7 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -12360,12 +12402,12 @@ class _$BdkError_FeeTooLowImpl extends BdkError_FeeTooLow {
 }
 
 abstract class BdkError_FeeTooLow extends BdkError {
-  const factory BdkError_FeeTooLow({required final int needed}) =
+  const factory BdkError_FeeTooLow({required final BigInt needed}) =
       _$BdkError_FeeTooLowImpl;
   const BdkError_FeeTooLow._() : super._();
 
   /// Required fee absolute value (satoshi)
-  int get needed;
+  BigInt get needed;
   @JsonKey(ignore: true)
   _$$BdkError_FeeTooLowImplCopyWith<_$BdkError_FeeTooLowImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -12422,8 +12464,9 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -12431,7 +12474,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -12450,7 +12493,8 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -12476,8 +12520,8 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -12485,7 +12529,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -12504,7 +12548,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -12530,8 +12574,8 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -12539,7 +12583,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -12558,7 +12602,7 @@ class _$BdkError_FeeRateUnavailableImpl extends BdkError_FeeRateUnavailable {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -12851,8 +12895,9 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -12860,7 +12905,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -12879,7 +12924,8 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -12905,8 +12951,8 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -12914,7 +12960,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -12933,7 +12979,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -12959,8 +13005,8 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -12968,7 +13014,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -12987,7 +13033,7 @@ class _$BdkError_MissingKeyOriginImpl extends BdkError_MissingKeyOrigin {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -13282,8 +13328,9 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -13291,7 +13338,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -13310,7 +13357,8 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -13336,8 +13384,8 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -13345,7 +13393,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -13364,7 +13412,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -13390,8 +13438,8 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -13399,7 +13447,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -13418,7 +13466,7 @@ class _$BdkError_KeyImpl extends BdkError_Key {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -13689,8 +13737,9 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -13698,7 +13747,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -13717,7 +13766,8 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -13743,8 +13793,8 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -13752,7 +13802,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -13771,7 +13821,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -13797,8 +13847,8 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -13806,7 +13856,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -13825,7 +13875,7 @@ class _$BdkError_ChecksumMismatchImpl extends BdkError_ChecksumMismatch {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -14119,8 +14169,9 @@ class _$BdkError_SpendingPolicyRequiredImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -14128,7 +14179,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -14147,7 +14198,8 @@ class _$BdkError_SpendingPolicyRequiredImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -14173,8 +14225,8 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -14182,7 +14234,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -14201,7 +14253,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -14227,8 +14279,8 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -14236,7 +14288,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -14255,7 +14307,7 @@ class _$BdkError_SpendingPolicyRequiredImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -14556,8 +14608,9 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -14565,7 +14618,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -14584,7 +14637,8 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -14610,8 +14664,8 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -14619,7 +14673,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -14638,7 +14692,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -14664,8 +14718,8 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -14673,7 +14727,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -14692,7 +14746,7 @@ class _$BdkError_InvalidPolicyPathErrorImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -14989,8 +15043,9 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -14998,7 +15053,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -15017,7 +15072,8 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -15043,8 +15099,8 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -15052,7 +15108,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -15071,7 +15127,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -15097,8 +15153,8 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -15106,7 +15162,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -15125,7 +15181,7 @@ class _$BdkError_SignerImpl extends BdkError_Signer {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -15436,8 +15492,9 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -15445,7 +15502,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -15464,7 +15521,8 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -15490,8 +15548,8 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -15499,7 +15557,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -15518,7 +15576,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -15544,8 +15602,8 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -15553,7 +15611,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -15572,7 +15630,7 @@ class _$BdkError_InvalidNetworkImpl extends BdkError_InvalidNetwork {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -15875,8 +15933,9 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -15884,7 +15943,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -15903,7 +15962,8 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -15929,8 +15989,8 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -15938,7 +15998,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -15957,7 +16017,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -15983,8 +16043,8 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -15992,7 +16052,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -16011,7 +16071,7 @@ class _$BdkError_InvalidOutpointImpl extends BdkError_InvalidOutpoint {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -16307,8 +16367,9 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -16316,7 +16377,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -16335,7 +16396,8 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -16361,8 +16423,8 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -16370,7 +16432,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -16389,7 +16451,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -16415,8 +16477,8 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -16424,7 +16486,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -16443,7 +16505,7 @@ class _$BdkError_EncodeImpl extends BdkError_Encode {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -16738,8 +16800,9 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -16747,7 +16810,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -16766,7 +16829,8 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -16792,8 +16856,8 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -16801,7 +16865,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -16820,7 +16884,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -16846,8 +16910,8 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -16855,7 +16919,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -16874,7 +16938,7 @@ class _$BdkError_MiniscriptImpl extends BdkError_Miniscript {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -17172,8 +17236,9 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -17181,7 +17246,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -17200,7 +17265,8 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -17226,8 +17292,8 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -17235,7 +17301,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -17254,7 +17320,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -17280,8 +17346,8 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -17289,7 +17355,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -17308,7 +17374,7 @@ class _$BdkError_MiniscriptPsbtImpl extends BdkError_MiniscriptPsbt {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -17604,8 +17670,9 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -17613,7 +17680,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -17632,7 +17699,8 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -17658,8 +17726,8 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -17667,7 +17735,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -17686,7 +17754,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -17712,8 +17780,8 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -17721,7 +17789,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -17740,7 +17808,7 @@ class _$BdkError_Bip32Impl extends BdkError_Bip32 {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -18035,8 +18103,9 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -18044,7 +18113,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -18063,7 +18132,8 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -18089,8 +18159,8 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -18098,7 +18168,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -18117,7 +18187,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -18143,8 +18213,8 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -18152,7 +18222,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -18171,7 +18241,7 @@ class _$BdkError_Bip39Impl extends BdkError_Bip39 {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -18466,8 +18536,9 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -18475,7 +18546,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -18494,7 +18565,8 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -18520,8 +18592,8 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -18529,7 +18601,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -18548,7 +18620,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -18574,8 +18646,8 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -18583,7 +18655,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -18602,7 +18674,7 @@ class _$BdkError_Secp256k1Impl extends BdkError_Secp256k1 {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -18897,8 +18969,9 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -18906,7 +18979,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -18925,7 +18998,8 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -18951,8 +19025,8 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -18960,7 +19034,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -18979,7 +19053,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -19005,8 +19079,8 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -19014,7 +19088,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -19033,7 +19107,7 @@ class _$BdkError_JsonImpl extends BdkError_Json {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -19327,8 +19401,9 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -19336,7 +19411,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -19355,7 +19430,8 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -19381,8 +19457,8 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -19390,7 +19466,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -19409,7 +19485,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -19435,8 +19511,8 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -19444,7 +19520,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -19463,7 +19539,7 @@ class _$BdkError_PsbtImpl extends BdkError_Psbt {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -19758,8 +19834,9 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -19767,7 +19844,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -19786,7 +19863,8 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -19812,8 +19890,8 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -19821,7 +19899,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -19840,7 +19918,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -19866,8 +19944,8 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -19875,7 +19953,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -19894,7 +19972,7 @@ class _$BdkError_PsbtParseImpl extends BdkError_PsbtParse {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -20122,7 +20200,7 @@ abstract class _$$BdkError_MissingCachedScriptsImplCopyWith<$Res> {
           $Res Function(_$BdkError_MissingCachedScriptsImpl) then) =
       __$$BdkError_MissingCachedScriptsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int field0, int field1});
+  $Res call({BigInt field0, BigInt field1});
 }
 
 /// @nodoc
@@ -20144,11 +20222,11 @@ class __$$BdkError_MissingCachedScriptsImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
       null == field1
           ? _value.field1
           : field1 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -20161,9 +20239,9 @@ class _$BdkError_MissingCachedScriptsImpl
       : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
   @override
-  final int field1;
+  final BigInt field1;
 
   @override
   String toString() {
@@ -20203,8 +20281,9 @@ class _$BdkError_MissingCachedScriptsImpl
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -20212,7 +20291,7 @@ class _$BdkError_MissingCachedScriptsImpl
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -20231,7 +20310,8 @@ class _$BdkError_MissingCachedScriptsImpl
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -20257,8 +20337,8 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -20266,7 +20346,7 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -20285,7 +20365,7 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -20311,8 +20391,8 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -20320,7 +20400,7 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -20339,7 +20419,7 @@ class _$BdkError_MissingCachedScriptsImpl
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -20551,11 +20631,12 @@ class _$BdkError_MissingCachedScriptsImpl
 
 abstract class BdkError_MissingCachedScripts extends BdkError {
   const factory BdkError_MissingCachedScripts(
-      final int field0, final int field1) = _$BdkError_MissingCachedScriptsImpl;
+          final BigInt field0, final BigInt field1) =
+      _$BdkError_MissingCachedScriptsImpl;
   const BdkError_MissingCachedScripts._() : super._();
 
-  int get field0;
-  int get field1;
+  BigInt get field0;
+  BigInt get field1;
   @JsonKey(ignore: true)
   _$$BdkError_MissingCachedScriptsImplCopyWith<
           _$BdkError_MissingCachedScriptsImpl>
@@ -20637,8 +20718,9 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -20646,7 +20728,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -20665,7 +20747,8 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -20691,8 +20774,8 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -20700,7 +20783,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -20719,7 +20802,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -20745,8 +20828,8 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -20754,7 +20837,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -20773,7 +20856,7 @@ class _$BdkError_ElectrumImpl extends BdkError_Electrum {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -21069,8 +21152,9 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -21078,7 +21162,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -21097,7 +21181,8 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -21123,8 +21208,8 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -21132,7 +21217,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -21151,7 +21236,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -21177,8 +21262,8 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -21186,7 +21271,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -21205,7 +21290,7 @@ class _$BdkError_EsploraImpl extends BdkError_Esplora {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -21499,8 +21584,9 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -21508,7 +21594,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -21527,7 +21613,8 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -21553,8 +21640,8 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -21562,7 +21649,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -21581,7 +21668,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -21607,8 +21694,8 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -21616,7 +21703,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -21635,7 +21722,7 @@ class _$BdkError_SledImpl extends BdkError_Sled {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -21929,8 +22016,9 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -21938,7 +22026,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -21957,7 +22045,8 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -21983,8 +22072,8 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -21992,7 +22081,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -22011,7 +22100,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -22037,8 +22126,8 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -22046,7 +22135,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -22065,7 +22154,7 @@ class _$BdkError_RpcImpl extends BdkError_Rpc {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -22360,8 +22449,9 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -22369,7 +22459,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -22388,7 +22478,8 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -22414,8 +22505,8 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -22423,7 +22514,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -22442,7 +22533,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -22468,8 +22559,8 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -22477,7 +22568,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -22496,7 +22587,7 @@ class _$BdkError_RusqliteImpl extends BdkError_Rusqlite {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -22793,8 +22884,9 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -22802,7 +22894,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -22821,7 +22913,8 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -22847,8 +22940,8 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -22856,7 +22949,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -22875,7 +22968,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -22901,8 +22994,8 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -22910,7 +23003,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -22929,7 +23022,7 @@ class _$BdkError_InvalidInputImpl extends BdkError_InvalidInput {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -23227,8 +23320,9 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -23236,7 +23330,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -23255,7 +23349,8 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -23281,8 +23376,8 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -23290,7 +23385,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -23309,7 +23404,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -23335,8 +23430,8 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -23344,7 +23439,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -23363,7 +23458,7 @@ class _$BdkError_InvalidLockTimeImpl extends BdkError_InvalidLockTime {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -23661,8 +23756,9 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     required TResult Function() scriptDoesntHaveAddressForm,
     required TResult Function() noRecipients,
     required TResult Function() noUtxosSelected,
-    required TResult Function(int field0) outputBelowDustLimit,
-    required TResult Function(int needed, int available) insufficientFunds,
+    required TResult Function(BigInt field0) outputBelowDustLimit,
+    required TResult Function(BigInt needed, BigInt available)
+        insufficientFunds,
     required TResult Function() bnBTotalTriesExceeded,
     required TResult Function() bnBNoExactMatch,
     required TResult Function() unknownUtxo,
@@ -23670,7 +23766,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     required TResult Function() transactionConfirmed,
     required TResult Function() irreplaceableTransaction,
     required TResult Function(double needed) feeRateTooLow,
-    required TResult Function(int needed) feeTooLow,
+    required TResult Function(BigInt needed) feeTooLow,
     required TResult Function() feeRateUnavailable,
     required TResult Function(String field0) missingKeyOrigin,
     required TResult Function(String field0) key,
@@ -23689,7 +23785,8 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     required TResult Function(String field0) json,
     required TResult Function(String field0) psbt,
     required TResult Function(String field0) psbtParse,
-    required TResult Function(int field0, int field1) missingCachedScripts,
+    required TResult Function(BigInt field0, BigInt field1)
+        missingCachedScripts,
     required TResult Function(String field0) electrum,
     required TResult Function(String field0) esplora,
     required TResult Function(String field0) sled,
@@ -23715,8 +23812,8 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult? Function()? scriptDoesntHaveAddressForm,
     TResult? Function()? noRecipients,
     TResult? Function()? noUtxosSelected,
-    TResult? Function(int field0)? outputBelowDustLimit,
-    TResult? Function(int needed, int available)? insufficientFunds,
+    TResult? Function(BigInt field0)? outputBelowDustLimit,
+    TResult? Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult? Function()? bnBTotalTriesExceeded,
     TResult? Function()? bnBNoExactMatch,
     TResult? Function()? unknownUtxo,
@@ -23724,7 +23821,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult? Function()? transactionConfirmed,
     TResult? Function()? irreplaceableTransaction,
     TResult? Function(double needed)? feeRateTooLow,
-    TResult? Function(int needed)? feeTooLow,
+    TResult? Function(BigInt needed)? feeTooLow,
     TResult? Function()? feeRateUnavailable,
     TResult? Function(String field0)? missingKeyOrigin,
     TResult? Function(String field0)? key,
@@ -23743,7 +23840,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult? Function(String field0)? json,
     TResult? Function(String field0)? psbt,
     TResult? Function(String field0)? psbtParse,
-    TResult? Function(int field0, int field1)? missingCachedScripts,
+    TResult? Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult? Function(String field0)? electrum,
     TResult? Function(String field0)? esplora,
     TResult? Function(String field0)? sled,
@@ -23769,8 +23866,8 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult Function()? scriptDoesntHaveAddressForm,
     TResult Function()? noRecipients,
     TResult Function()? noUtxosSelected,
-    TResult Function(int field0)? outputBelowDustLimit,
-    TResult Function(int needed, int available)? insufficientFunds,
+    TResult Function(BigInt field0)? outputBelowDustLimit,
+    TResult Function(BigInt needed, BigInt available)? insufficientFunds,
     TResult Function()? bnBTotalTriesExceeded,
     TResult Function()? bnBNoExactMatch,
     TResult Function()? unknownUtxo,
@@ -23778,7 +23875,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult Function()? transactionConfirmed,
     TResult Function()? irreplaceableTransaction,
     TResult Function(double needed)? feeRateTooLow,
-    TResult Function(int needed)? feeTooLow,
+    TResult Function(BigInt needed)? feeTooLow,
     TResult Function()? feeRateUnavailable,
     TResult Function(String field0)? missingKeyOrigin,
     TResult Function(String field0)? key,
@@ -23797,7 +23894,7 @@ class _$BdkError_InvalidTransactionImpl extends BdkError_InvalidTransaction {
     TResult Function(String field0)? json,
     TResult Function(String field0)? psbt,
     TResult Function(String field0)? psbtParse,
-    TResult Function(int field0, int field1)? missingCachedScripts,
+    TResult Function(BigInt field0, BigInt field1)? missingCachedScripts,
     TResult Function(String field0)? electrum,
     TResult Function(String field0)? esplora,
     TResult Function(String field0)? sled,
@@ -24023,7 +24120,8 @@ mixin _$ConsensusError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24034,7 +24132,7 @@ mixin _$ConsensusError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24044,7 +24142,7 @@ mixin _$ConsensusError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -24177,7 +24275,8 @@ class _$ConsensusError_IoImpl extends ConsensusError_Io {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24191,7 +24290,7 @@ class _$ConsensusError_IoImpl extends ConsensusError_Io {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24204,7 +24303,7 @@ class _$ConsensusError_IoImpl extends ConsensusError_Io {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -24287,7 +24386,7 @@ abstract class _$$ConsensusError_OversizedVectorAllocationImplCopyWith<$Res> {
           $Res Function(_$ConsensusError_OversizedVectorAllocationImpl) then) =
       __$$ConsensusError_OversizedVectorAllocationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int requested, int max});
+  $Res call({BigInt requested, BigInt max});
 }
 
 /// @nodoc
@@ -24310,11 +24409,11 @@ class __$$ConsensusError_OversizedVectorAllocationImplCopyWithImpl<$Res>
       requested: null == requested
           ? _value.requested
           : requested // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
       max: null == max
           ? _value.max
           : max // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -24328,9 +24427,9 @@ class _$ConsensusError_OversizedVectorAllocationImpl
       : super._();
 
   @override
-  final int requested;
+  final BigInt requested;
   @override
-  final int max;
+  final BigInt max;
 
   @override
   String toString() {
@@ -24363,7 +24462,8 @@ class _$ConsensusError_OversizedVectorAllocationImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24377,7 +24477,7 @@ class _$ConsensusError_OversizedVectorAllocationImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24390,7 +24490,7 @@ class _$ConsensusError_OversizedVectorAllocationImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -24457,12 +24557,12 @@ class _$ConsensusError_OversizedVectorAllocationImpl
 
 abstract class ConsensusError_OversizedVectorAllocation extends ConsensusError {
   const factory ConsensusError_OversizedVectorAllocation(
-      {required final int requested,
-      required final int max}) = _$ConsensusError_OversizedVectorAllocationImpl;
+          {required final BigInt requested, required final BigInt max}) =
+      _$ConsensusError_OversizedVectorAllocationImpl;
   const ConsensusError_OversizedVectorAllocation._() : super._();
 
-  int get requested;
-  int get max;
+  BigInt get requested;
+  BigInt get max;
   @JsonKey(ignore: true)
   _$$ConsensusError_OversizedVectorAllocationImplCopyWith<
           _$ConsensusError_OversizedVectorAllocationImpl>
@@ -24553,7 +24653,8 @@ class _$ConsensusError_InvalidChecksumImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24567,7 +24668,7 @@ class _$ConsensusError_InvalidChecksumImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24580,7 +24681,7 @@ class _$ConsensusError_InvalidChecksumImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -24703,7 +24804,8 @@ class _$ConsensusError_NonMinimalVarIntImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24717,7 +24819,7 @@ class _$ConsensusError_NonMinimalVarIntImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24730,7 +24832,7 @@ class _$ConsensusError_NonMinimalVarIntImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -24869,7 +24971,8 @@ class _$ConsensusError_ParseFailedImpl extends ConsensusError_ParseFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -24883,7 +24986,7 @@ class _$ConsensusError_ParseFailedImpl extends ConsensusError_ParseFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -24896,7 +24999,7 @@ class _$ConsensusError_ParseFailedImpl extends ConsensusError_ParseFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -25043,7 +25146,8 @@ class _$ConsensusError_UnsupportedSegwitFlagImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String field0) io,
-    required TResult Function(int requested, int max) oversizedVectorAllocation,
+    required TResult Function(BigInt requested, BigInt max)
+        oversizedVectorAllocation,
     required TResult Function(U8Array4 expected, U8Array4 actual)
         invalidChecksum,
     required TResult Function() nonMinimalVarInt,
@@ -25057,7 +25161,7 @@ class _$ConsensusError_UnsupportedSegwitFlagImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String field0)? io,
-    TResult? Function(int requested, int max)? oversizedVectorAllocation,
+    TResult? Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult? Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult? Function()? nonMinimalVarInt,
     TResult? Function(String field0)? parseFailed,
@@ -25070,7 +25174,7 @@ class _$ConsensusError_UnsupportedSegwitFlagImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String field0)? io,
-    TResult Function(int requested, int max)? oversizedVectorAllocation,
+    TResult Function(BigInt requested, BigInt max)? oversizedVectorAllocation,
     TResult Function(U8Array4 expected, U8Array4 actual)? invalidChecksum,
     TResult Function()? nonMinimalVarInt,
     TResult Function(String field0)? parseFailed,
@@ -27660,26 +27764,26 @@ abstract class DescriptorError_Hex extends DescriptorError {
 
 /// @nodoc
 mixin _$HexError {
-  int get field0 => throw _privateConstructorUsedError;
+  Object get field0 => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int field0) invalidChar,
-    required TResult Function(int field0) oddLengthString,
-    required TResult Function(int field0, int field1) invalidLength,
+    required TResult Function(BigInt field0) oddLengthString,
+    required TResult Function(BigInt field0, BigInt field1) invalidLength,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int field0)? invalidChar,
-    TResult? Function(int field0)? oddLengthString,
-    TResult? Function(int field0, int field1)? invalidLength,
+    TResult? Function(BigInt field0)? oddLengthString,
+    TResult? Function(BigInt field0, BigInt field1)? invalidLength,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int field0)? invalidChar,
-    TResult Function(int field0)? oddLengthString,
-    TResult Function(int field0, int field1)? invalidLength,
+    TResult Function(BigInt field0)? oddLengthString,
+    TResult Function(BigInt field0, BigInt field1)? invalidLength,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -27705,18 +27809,12 @@ mixin _$HexError {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $HexErrorCopyWith<HexError> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HexErrorCopyWith<$Res> {
   factory $HexErrorCopyWith(HexError value, $Res Function(HexError) then) =
       _$HexErrorCopyWithImpl<$Res, HexError>;
-  @useResult
-  $Res call({int field0});
 }
 
 /// @nodoc
@@ -27728,28 +27826,13 @@ class _$HexErrorCopyWithImpl<$Res, $Val extends HexError>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? field0 = null,
-  }) {
-    return _then(_value.copyWith(
-      field0: null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$HexError_InvalidCharImplCopyWith<$Res>
-    implements $HexErrorCopyWith<$Res> {
+abstract class _$$HexError_InvalidCharImplCopyWith<$Res> {
   factory _$$HexError_InvalidCharImplCopyWith(_$HexError_InvalidCharImpl value,
           $Res Function(_$HexError_InvalidCharImpl) then) =
       __$$HexError_InvalidCharImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int field0});
 }
@@ -27812,8 +27895,8 @@ class _$HexError_InvalidCharImpl extends HexError_InvalidChar {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int field0) invalidChar,
-    required TResult Function(int field0) oddLengthString,
-    required TResult Function(int field0, int field1) invalidLength,
+    required TResult Function(BigInt field0) oddLengthString,
+    required TResult Function(BigInt field0, BigInt field1) invalidLength,
   }) {
     return invalidChar(field0);
   }
@@ -27822,8 +27905,8 @@ class _$HexError_InvalidCharImpl extends HexError_InvalidChar {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int field0)? invalidChar,
-    TResult? Function(int field0)? oddLengthString,
-    TResult? Function(int field0, int field1)? invalidLength,
+    TResult? Function(BigInt field0)? oddLengthString,
+    TResult? Function(BigInt field0, BigInt field1)? invalidLength,
   }) {
     return invalidChar?.call(field0);
   }
@@ -27832,8 +27915,8 @@ class _$HexError_InvalidCharImpl extends HexError_InvalidChar {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int field0)? invalidChar,
-    TResult Function(int field0)? oddLengthString,
-    TResult Function(int field0, int field1)? invalidLength,
+    TResult Function(BigInt field0)? oddLengthString,
+    TResult Function(BigInt field0, BigInt field1)? invalidLength,
     required TResult orElse(),
   }) {
     if (invalidChar != null) {
@@ -27884,22 +27967,19 @@ abstract class HexError_InvalidChar extends HexError {
 
   @override
   int get field0;
-  @override
   @JsonKey(ignore: true)
   _$$HexError_InvalidCharImplCopyWith<_$HexError_InvalidCharImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$HexError_OddLengthStringImplCopyWith<$Res>
-    implements $HexErrorCopyWith<$Res> {
+abstract class _$$HexError_OddLengthStringImplCopyWith<$Res> {
   factory _$$HexError_OddLengthStringImplCopyWith(
           _$HexError_OddLengthStringImpl value,
           $Res Function(_$HexError_OddLengthStringImpl) then) =
       __$$HexError_OddLengthStringImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({int field0});
+  $Res call({BigInt field0});
 }
 
 /// @nodoc
@@ -27920,7 +28000,7 @@ class __$$HexError_OddLengthStringImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -27931,7 +28011,7 @@ class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
   const _$HexError_OddLengthStringImpl(this.field0) : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
 
   @override
   String toString() {
@@ -27960,8 +28040,8 @@ class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int field0) invalidChar,
-    required TResult Function(int field0) oddLengthString,
-    required TResult Function(int field0, int field1) invalidLength,
+    required TResult Function(BigInt field0) oddLengthString,
+    required TResult Function(BigInt field0, BigInt field1) invalidLength,
   }) {
     return oddLengthString(field0);
   }
@@ -27970,8 +28050,8 @@ class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int field0)? invalidChar,
-    TResult? Function(int field0)? oddLengthString,
-    TResult? Function(int field0, int field1)? invalidLength,
+    TResult? Function(BigInt field0)? oddLengthString,
+    TResult? Function(BigInt field0, BigInt field1)? invalidLength,
   }) {
     return oddLengthString?.call(field0);
   }
@@ -27980,8 +28060,8 @@ class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int field0)? invalidChar,
-    TResult Function(int field0)? oddLengthString,
-    TResult Function(int field0, int field1)? invalidLength,
+    TResult Function(BigInt field0)? oddLengthString,
+    TResult Function(BigInt field0, BigInt field1)? invalidLength,
     required TResult orElse(),
   }) {
     if (oddLengthString != null) {
@@ -28026,28 +28106,25 @@ class _$HexError_OddLengthStringImpl extends HexError_OddLengthString {
 }
 
 abstract class HexError_OddLengthString extends HexError {
-  const factory HexError_OddLengthString(final int field0) =
+  const factory HexError_OddLengthString(final BigInt field0) =
       _$HexError_OddLengthStringImpl;
   const HexError_OddLengthString._() : super._();
 
   @override
-  int get field0;
-  @override
+  BigInt get field0;
   @JsonKey(ignore: true)
   _$$HexError_OddLengthStringImplCopyWith<_$HexError_OddLengthStringImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$HexError_InvalidLengthImplCopyWith<$Res>
-    implements $HexErrorCopyWith<$Res> {
+abstract class _$$HexError_InvalidLengthImplCopyWith<$Res> {
   factory _$$HexError_InvalidLengthImplCopyWith(
           _$HexError_InvalidLengthImpl value,
           $Res Function(_$HexError_InvalidLengthImpl) then) =
       __$$HexError_InvalidLengthImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({int field0, int field1});
+  $Res call({BigInt field0, BigInt field1});
 }
 
 /// @nodoc
@@ -28069,11 +28146,11 @@ class __$$HexError_InvalidLengthImplCopyWithImpl<$Res>
       null == field0
           ? _value.field0
           : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
       null == field1
           ? _value.field1
           : field1 // ignore: cast_nullable_to_non_nullable
-              as int,
+              as BigInt,
     ));
   }
 }
@@ -28084,9 +28161,9 @@ class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
   const _$HexError_InvalidLengthImpl(this.field0, this.field1) : super._();
 
   @override
-  final int field0;
+  final BigInt field0;
   @override
-  final int field1;
+  final BigInt field1;
 
   @override
   String toString() {
@@ -28116,8 +28193,8 @@ class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int field0) invalidChar,
-    required TResult Function(int field0) oddLengthString,
-    required TResult Function(int field0, int field1) invalidLength,
+    required TResult Function(BigInt field0) oddLengthString,
+    required TResult Function(BigInt field0, BigInt field1) invalidLength,
   }) {
     return invalidLength(field0, field1);
   }
@@ -28126,8 +28203,8 @@ class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int field0)? invalidChar,
-    TResult? Function(int field0)? oddLengthString,
-    TResult? Function(int field0, int field1)? invalidLength,
+    TResult? Function(BigInt field0)? oddLengthString,
+    TResult? Function(BigInt field0, BigInt field1)? invalidLength,
   }) {
     return invalidLength?.call(field0, field1);
   }
@@ -28136,8 +28213,8 @@ class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int field0)? invalidChar,
-    TResult Function(int field0)? oddLengthString,
-    TResult Function(int field0, int field1)? invalidLength,
+    TResult Function(BigInt field0)? oddLengthString,
+    TResult Function(BigInt field0, BigInt field1)? invalidLength,
     required TResult orElse(),
   }) {
     if (invalidLength != null) {
@@ -28182,14 +28259,13 @@ class _$HexError_InvalidLengthImpl extends HexError_InvalidLength {
 }
 
 abstract class HexError_InvalidLength extends HexError {
-  const factory HexError_InvalidLength(final int field0, final int field1) =
-      _$HexError_InvalidLengthImpl;
+  const factory HexError_InvalidLength(
+      final BigInt field0, final BigInt field1) = _$HexError_InvalidLengthImpl;
   const HexError_InvalidLength._() : super._();
 
   @override
-  int get field0;
-  int get field1;
-  @override
+  BigInt get field0;
+  BigInt get field1;
   @JsonKey(ignore: true)
   _$$HexError_InvalidLengthImplCopyWith<_$HexError_InvalidLengthImpl>
       get copyWith => throw _privateConstructorUsedError;
