@@ -8,10 +8,11 @@ use bdk::keys::bip39::Language;
 use bdk::keys::{DerivableKey, GeneratableKey};
 use bdk::miniscript::descriptor::{DescriptorXKey, Wildcard};
 use bdk::miniscript::BareCtx;
+use flutter_rust_bridge::frb;
 use std::str::FromStr;
 
 pub struct BdkMnemonic {
-    pub ptr: RustOpaque<keys::bip39::Mnemonic>,
+    pub ptr: RustOpaque<bdk::keys::bip39::Mnemonic>,
 }
 impl From<keys::bip39::Mnemonic> for BdkMnemonic {
     fn from(value: keys::bip39::Mnemonic) -> Self {
@@ -45,13 +46,14 @@ impl BdkMnemonic {
             .map_err(|e| BdkError::Bip39(e.to_string()))
     }
 
-    /// Returns Mnemonic as string
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()
     }
 }
+
 pub struct BdkDerivationPath {
-    pub ptr: RustOpaque<bitcoin::bip32::DerivationPath>,
+    pub ptr: RustOpaque<bdk::bitcoin::bip32::DerivationPath>,
 }
 impl From<bitcoin::bip32::DerivationPath> for BdkDerivationPath {
     fn from(value: bitcoin::bip32::DerivationPath) -> Self {
@@ -67,11 +69,15 @@ impl BdkDerivationPath {
             .map(|e| e.into())
             .map_err(|e| BdkError::Generic(e.to_string()))
     }
+    #[frb(sync)]
+    pub fn as_string(&self) -> String {
+        self.ptr.to_string()
+    }
 }
 
 #[derive(Debug)]
 pub struct BdkDescriptorSecretKey {
-    pub ptr: RustOpaque<keys::DescriptorSecretKey>,
+    pub ptr: RustOpaque<bdk::keys::DescriptorSecretKey>,
 }
 impl From<keys::DescriptorSecretKey> for BdkDescriptorSecretKey {
     fn from(value: keys::DescriptorSecretKey) -> Self {
@@ -161,7 +167,7 @@ impl BdkDescriptorSecretKey {
     }
     /// Get the private key as bytes.
     pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
-        let descriptor_secret_key = &(*self.ptr);
+        let descriptor_secret_key = &*self.ptr;
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 Ok(descriptor_x_key.xkey.private_key.secret_bytes().to_vec())
@@ -179,13 +185,14 @@ impl BdkDescriptorSecretKey {
         let key = keys::DescriptorSecretKey::from_str(&*secret_key).unwrap();
         Ok(key.into())
     }
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()
     }
 }
 #[derive(Debug)]
 pub struct BdkDescriptorPublicKey {
-    pub ptr: RustOpaque<keys::DescriptorPublicKey>,
+    pub ptr: RustOpaque<bdk::keys::DescriptorPublicKey>,
 }
 impl From<keys::DescriptorPublicKey> for BdkDescriptorPublicKey {
     fn from(value: keys::DescriptorPublicKey) -> Self {
@@ -263,6 +270,7 @@ impl BdkDescriptorPublicKey {
         }
     }
 
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()
     }
