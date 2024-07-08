@@ -296,9 +296,9 @@ Exception mapHexError(HexError error) {
       invalidChar: (e) => HexException(message: "Non-hexadecimal character $e"),
       oddLengthString: (e) =>
           HexException(message: "Purported hex string had odd length $e"),
-      invalidLength: (int expected, int found) => HexException(
+      invalidLength: (BigInt expected, BigInt found) => HexException(
           message:
-              "Tried to parse fixed-length hash from a string with the wrong type; \n expected: $expected, found: $found."));
+              "Tried to parse fixed-length hash from a string with the wrong type; \n expected: ${expected.toString()}, found: ${found.toString()}."));
 }
 
 Exception mapAddressError(AddressError error) {
