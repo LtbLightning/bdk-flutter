@@ -228,15 +228,15 @@ void main() {
           .thenAnswer((_) async => Future.value(mockScript));
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.addForeignUtxo(input, outPoint, 0))
+      when(mockTxBuilder.addForeignUtxo(input, outPoint, BigInt.zero))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer((_) async =>
           Future.value(
               (MockPartiallySignedTransaction(), MockTransactionDetails())));
       final script = await mockAddress.scriptPubkey();
       final txBuilder = mockTxBuilder
-          .addRecipient(script, 1200)
-          .addForeignUtxo(input, outPoint, 0);
+          .addRecipient(script, BigInt.from(1200))
+          .addForeignUtxo(input, outPoint, BigInt.zero);
       final res = await txBuilder.finish(mockWallet);
       expect(res, isA<(PartiallySignedTransaction, TransactionDetails)>());
     });
@@ -257,7 +257,7 @@ void main() {
       when(mockTxBuilder.finish(mockWallet)).thenAnswer(
           (_) async => Future.value((psbt, MockTransactionDetails())));
       final script = await mockAddress.scriptPubkey();
-      final txBuilder = mockTxBuilder.addRecipient(script, 1200);
+      final txBuilder = mockTxBuilder.addRecipient(script, BigInt.from(1200));
       final res = await txBuilder.finish(mockWallet);
       expect(res.$1, psbt);
     });
