@@ -688,7 +688,7 @@ class PartiallySignedTransaction extends BdkPsbt {
   Future<Transaction> extractTx() async {
     try {
       final res = await BdkPsbt.extractTx(ptr: this);
-      return Transaction._(inner: res.s);
+      return Transaction._(s: res.s);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
