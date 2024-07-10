@@ -61,9 +61,9 @@ class MultiSigWallet {
       final address = await Address.fromString(
           s: addressStr, network: (await aliceWallet.network()));
       final script = await address.scriptPubkey();
-      final feeRate = await blockchain.estimateFee(target: 25);
+      final feeRate = await blockchain.estimateFee(target: BigInt.from(25));
       final (psbt, _) = await txBuilder
-          .addRecipient(script, 1000)
+          .addRecipient(script, BigInt.from(1200))
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       await aliceWallet.sign(

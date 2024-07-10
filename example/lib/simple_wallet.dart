@@ -13,7 +13,7 @@ class SimpleWallet extends StatefulWidget {
 
 class _SimpleWalletState extends State<SimpleWallet> {
   String displayText = "";
-  int balance = 0;
+  BigInt balance = BigInt.zero;
   late Wallet aliceWallet;
   Blockchain? blockchain;
   BdkLibrary lib = BdkLibrary();
@@ -29,7 +29,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
       displayText = res.toString();
     });
     if (kDebugMode) {
-      print(await res.asString());
+      print(res.toString());
     }
   }
 
@@ -49,7 +49,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getNewAddress() async {
-    final res = (await (await lib.getAddress(aliceWallet)).address.asString());
+    final res = (await lib.getAddress(aliceWallet)).address.toString();
     debugPrint(res);
 
     setState(() {

@@ -21,9 +21,10 @@ class BdkLibrary {
 
   Future<Blockchain> initializeBlockchain() async {
     return await Blockchain.create(
-        config: const BlockchainConfig.esplora(
+        config: BlockchainConfig.esplora(
             config: EsploraConfig(
-                baseUrl: 'https://mutinynet.com/api', stopGap: 10)));
+                baseUrl: 'https://mutinynet.com/api',
+                stopGap: BigInt.from(10))));
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
@@ -90,7 +91,7 @@ class BdkLibrary {
     int blocks,
     Blockchain blockchain,
   ) async {
-    final feeRate = await blockchain.estimateFee(target: blocks);
+    final feeRate = await blockchain.estimateFee(target: BigInt.from(blocks));
     return feeRate;
   }
 
@@ -104,7 +105,7 @@ class BdkLibrary {
       final script = await address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
-          .addRecipient(script, 750)
+          .addRecipient(script, BigInt.from(750))
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       final isFinalized = await aliceWallet.sign(psbt: psbt);
