@@ -1,3 +1,5 @@
+## [0.31.2]
+
 ## [0.31.2-dev.2]
 #### Fixed
 - Thread `frb_workerpool` panicked on invalid `Fingerprint`. 
