@@ -423,7 +423,6 @@ class Descriptor extends BdkDescriptor {
   }
 
   ///Return the public version of the output descriptor.
-
   @override
   String toString() {
     return super.asString();
