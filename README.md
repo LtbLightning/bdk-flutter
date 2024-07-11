@@ -86,8 +86,7 @@ final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.t
 final externalDescriptor = await Descriptor.newBip44( secretKey: descriptorSecretKey,
                                                       network: Network.testnet,
                                                       keychain: KeychainKind.externalChain  );
-final externalPublicDescriptorStr = await externalDescriptor.asString();
-final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
+final externalPublicDescriptor = await Descriptor.create( descriptor: externalDescriptor.toString(),
                                                     network: Network.testnet);
 ```
 
