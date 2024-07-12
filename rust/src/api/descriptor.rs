@@ -4,18 +4,19 @@ use crate::api::types::{KeychainKind, Network};
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::bip32::Fingerprint;
 use bdk::bitcoin::key::Secp256k1;
-pub use bdk::descriptor::{ExtendedDescriptor, IntoWalletDescriptor};
+pub use bdk::descriptor::IntoWalletDescriptor;
 pub use bdk::keys;
 use bdk::template::{
     Bip44, Bip44Public, Bip49, Bip49Public, Bip84, Bip84Public, Bip86, Bip86Public,
     DescriptorTemplate,
 };
+use flutter_rust_bridge::frb;
 use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct BdkDescriptor {
-    pub extended_descriptor: RustOpaque<ExtendedDescriptor>,
-    pub key_map: RustOpaque<keys::KeyMap>,
+    pub extended_descriptor: RustOpaque<bdk::descriptor::ExtendedDescriptor>,
+    pub key_map: RustOpaque<bdk::keys::KeyMap>,
 }
 
 impl BdkDescriptor {
@@ -34,7 +35,7 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let derivable_key = &(*secret_key.ptr);
+        let derivable_key = &*secret_key.ptr;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -62,7 +63,7 @@ impl BdkDescriptor {
     ) -> Result<Self, BdkError> {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let derivable_key = &(*public_key.ptr);
+        let derivable_key = &*public_key.ptr;
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -89,7 +90,7 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let derivable_key = &(*secret_key.ptr);
+        let derivable_key = &*secret_key.ptr;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -117,7 +118,7 @@ impl BdkDescriptor {
     ) -> Result<Self, BdkError> {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let derivable_key = &(*public_key.ptr);
+        let derivable_key = &*public_key.ptr;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -145,7 +146,7 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let derivable_key = &(*secret_key.ptr);
+        let derivable_key = &*secret_key.ptr;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -173,7 +174,7 @@ impl BdkDescriptor {
     ) -> Result<Self, BdkError> {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let derivable_key = &(*public_key.ptr);
+        let derivable_key = &*public_key.ptr;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -201,7 +202,7 @@ impl BdkDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, BdkError> {
-        let derivable_key = &(*secret_key.ptr);
+        let derivable_key = &*secret_key.ptr;
 
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
@@ -230,7 +231,7 @@ impl BdkDescriptor {
     ) -> Result<Self, BdkError> {
         let fingerprint = Fingerprint::from_str(fingerprint.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))?;
-        let derivable_key = &(*public_key.ptr);
+        let derivable_key = &*public_key.ptr;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -253,15 +254,18 @@ impl BdkDescriptor {
         }
     }
 
-    pub fn as_string_private(&self) -> String {
+    #[frb(sync)]
+    pub fn to_string_private(&self) -> String {
         let descriptor = &self.extended_descriptor;
-        let key_map = &(*self.key_map);
+        let key_map = &*self.key_map;
         descriptor.to_string_with_secret(key_map)
     }
 
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.extended_descriptor.to_string()
     }
+    #[frb(sync)]
     pub fn max_satisfaction_weight(&self) -> Result<usize, BdkError> {
         self.extended_descriptor
             .max_weight_to_satisfy()

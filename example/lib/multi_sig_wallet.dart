@@ -7,7 +7,7 @@ class MultiSigWallet {
     for (var e in mnemonics) {
       final secret = await DescriptorSecretKey.create(
           network: Network.testnet, mnemonic: e);
-      final public = await secret.asPublic();
+      final public = secret.toPublic();
       descriptorInfos.add(DescriptorKeyInfo(secret, public));
     }
     final alice =
@@ -61,9 +61,9 @@ class MultiSigWallet {
       final address = await Address.fromString(
           s: addressStr, network: (await aliceWallet.network()));
       final script = await address.scriptPubkey();
-      final feeRate = await blockchain.estimateFee(target: 25);
+      final feeRate = await blockchain.estimateFee(target: BigInt.from(25));
       final (psbt, _) = await txBuilder
-          .addRecipient(script, 1000)
+          .addRecipient(script, BigInt.from(1200))
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       await aliceWallet.sign(

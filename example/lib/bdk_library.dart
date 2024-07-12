@@ -12,6 +12,9 @@ class BdkLibrary {
       network: Network.signet,
       mnemonic: mnemonic,
     );
+    print(descriptorSecretKey.toPublic());
+    print(descriptorSecretKey.secretBytes());
+    print(descriptorSecretKey);
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
         network: Network.signet,
@@ -20,7 +23,11 @@ class BdkLibrary {
   }
 
   Future<Blockchain> initializeBlockchain() async {
-    return Blockchain.createMutinynet();
+    return await Blockchain.create(
+        config: BlockchainConfig.esplora(
+            config: EsploraConfig(
+                baseUrl: 'https://mutinynet.com/api',
+                stopGap: BigInt.from(10))));
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
@@ -87,16 +94,12 @@ class BdkLibrary {
     int blocks,
     Blockchain blockchain,
   ) async {
-    final feeRate = await blockchain.estimateFee(target: blocks);
+    final feeRate = await blockchain.estimateFee(target: BigInt.from(blocks));
     return feeRate;
   }
 
   sendBitcoin(
-    Blockchain blockchain,
-    Wallet aliceWallet,
-    String addressStr,
-    int amountSat,
-  ) async {
+      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
@@ -105,12 +108,12 @@ class BdkLibrary {
       final script = await address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
-          .addRecipient(script, amountSat)
+          .addRecipient(script, BigInt.from(750))
           .feeRate(feeRate.satPerVb)
           .finish(aliceWallet);
       final isFinalized = await aliceWallet.sign(psbt: psbt);
       if (isFinalized) {
-        final tx = await psbt.extractTx();
+        final tx = psbt.extractTx();
         final res = await blockchain.broadcast(transaction: tx);
         debugPrint(res);
       } else {

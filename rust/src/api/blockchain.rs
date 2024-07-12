@@ -3,29 +3,29 @@ use crate::api::types::{BdkTransaction, FeeRate, Network};
 use crate::api::error::BdkError;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::Transaction;
-use bdk::blockchain;
+
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 
 pub use bdk::blockchain::{
-    rpc, AnyBlockchain, AnyBlockchainConfig, Blockchain, ConfigurableBlockchain,
-    ElectrumBlockchainConfig, GetBlockHash, GetHeight,
+    AnyBlockchainConfig, Blockchain, ConfigurableBlockchain, ElectrumBlockchainConfig,
+    GetBlockHash, GetHeight,
 };
+
 use std::path::PathBuf;
 
-#[derive(Clone)]
 pub struct BdkBlockchain {
-    pub ptr: RustOpaque<AnyBlockchain>,
+    pub ptr: RustOpaque<bdk::blockchain::AnyBlockchain>,
 }
 
-impl From<AnyBlockchain> for BdkBlockchain {
-    fn from(value: AnyBlockchain) -> Self {
+impl From<bdk::blockchain::AnyBlockchain> for BdkBlockchain {
+    fn from(value: bdk::blockchain::AnyBlockchain) -> Self {
         Self {
             ptr: RustOpaque::new(value),
         }
     }
 }
 impl BdkBlockchain {
-    pub fn new(blockchain_config: BlockchainConfig) -> Result<BdkBlockchain, BdkError> {
+    pub fn create(blockchain_config: BlockchainConfig) -> Result<BdkBlockchain, BdkError> {
         let any_blockchain_config = match blockchain_config {
             BlockchainConfig::Electrum { config } => {
                 AnyBlockchainConfig::Electrum(ElectrumBlockchainConfig {
@@ -47,7 +47,7 @@ impl BdkBlockchain {
                 })
             }
             BlockchainConfig::Rpc { config } => {
-                AnyBlockchainConfig::Rpc(blockchain::rpc::RpcConfig {
+                AnyBlockchainConfig::Rpc(bdk::blockchain::rpc::RpcConfig {
                     url: config.url,
                     auth: config.auth.into(),
                     network: config.network.into(),
@@ -56,15 +56,14 @@ impl BdkBlockchain {
                 })
             }
         };
-        let blockchain = AnyBlockchain::from_config(&any_blockchain_config)?;
+        let blockchain = bdk::blockchain::AnyBlockchain::from_config(&any_blockchain_config)?;
         Ok(blockchain.into())
     }
-    pub(crate) fn get_blockchain(&self) -> RustOpaque<AnyBlockchain> {
+    pub(crate) fn get_blockchain(&self) -> RustOpaque<bdk::blockchain::AnyBlockchain> {
         self.ptr.clone()
     }
-
-    pub fn broadcast(&self, transaction: BdkTransaction) -> Result<String, BdkError> {
-        let tx: Transaction = (&transaction).try_into()?;
+    pub fn broadcast(&self, transaction: &BdkTransaction) -> Result<String, BdkError> {
+        let tx: Transaction = transaction.try_into()?;
         self.get_blockchain().broadcast(&tx)?;
         Ok(tx.txid().to_string())
     }
@@ -142,14 +141,14 @@ pub enum Auth {
     },
 }
 
-impl From<Auth> for rpc::Auth {
+impl From<Auth> for bdk::blockchain::rpc::Auth {
     fn from(auth: Auth) -> Self {
         match auth {
-            Auth::None => blockchain::rpc::Auth::None,
+            Auth::None => bdk::blockchain::rpc::Auth::None,
             Auth::UserPass { username, password } => {
-                blockchain::rpc::Auth::UserPass { username, password }
+                bdk::blockchain::rpc::Auth::UserPass { username, password }
             }
-            Auth::Cookie { file } => blockchain::rpc::Auth::Cookie {
+            Auth::Cookie { file } => bdk::blockchain::rpc::Auth::Cookie {
                 file: PathBuf::from(file),
             },
         }
@@ -172,9 +171,9 @@ pub struct RpcSyncParams {
     pub poll_rate_sec: u64,
 }
 
-impl From<RpcSyncParams> for blockchain::rpc::RpcSyncParams {
+impl From<RpcSyncParams> for bdk::blockchain::rpc::RpcSyncParams {
     fn from(params: RpcSyncParams) -> Self {
-        blockchain::rpc::RpcSyncParams {
+        bdk::blockchain::rpc::RpcSyncParams {
             start_script_count: params.start_script_count as usize,
             start_time: params.start_time,
             force_start_time: params.force_start_time,

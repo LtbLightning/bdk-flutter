@@ -14,14 +14,13 @@ use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
 use bdk::bitcoin::{Sequence, Txid};
 pub use bdk::blockchain::GetTx;
-pub use bdk::database::any::AnyDatabase;
+
 use bdk::database::ConfigurableDatabase;
-pub use std::sync::Mutex;
 use std::sync::MutexGuard;
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct BdkWallet {
-    pub ptr: RustOpaque<Mutex<bdk::Wallet<AnyDatabase>>>,
+    pub ptr: RustOpaque<std::sync::Mutex<bdk::Wallet<bdk::database::AnyDatabase>>>,
 }
 impl BdkWallet {
     pub fn new(
@@ -30,9 +29,9 @@ impl BdkWallet {
         network: Network,
         database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
-        let database = AnyDatabase::from_config(&database_config.into())?;
-        let descriptor: String = descriptor.as_string_private();
-        let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
+        let database = bdk::database::AnyDatabase::from_config(&database_config.into())?;
+        let descriptor: String = descriptor.to_string_private();
+        let change_descriptor: Option<String> = change_descriptor.map(|d| d.to_string_private());
 
         let wallet = bdk::Wallet::new(
             &descriptor,
@@ -41,10 +40,10 @@ impl BdkWallet {
             database,
         )?;
         Ok(BdkWallet {
-            ptr: RustOpaque::new(Mutex::new(wallet)),
+            ptr: RustOpaque::new(std::sync::Mutex::new(wallet)),
         })
     }
-    pub(crate) fn get_wallet(&self) -> MutexGuard<bdk::Wallet<AnyDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<bdk::Wallet<bdk::database::AnyDatabase>> {
         self.ptr.lock().expect("")
     }
 
@@ -140,7 +139,7 @@ impl BdkWallet {
             .map_err(|e| e.into())
     }
     /// Sync the internal database with the blockchain.
-    pub fn sync(ptr: BdkWallet, blockchain: BdkBlockchain) -> Result<(), BdkError> {
+    pub fn sync(ptr: BdkWallet, blockchain: &BdkBlockchain) -> Result<(), BdkError> {
         let blockchain = blockchain.get_blockchain();
         ptr.get_wallet()
             .sync(blockchain.deref(), bdk::SyncOptions::default())
