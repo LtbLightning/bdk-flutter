@@ -1,5 +1,5 @@
 import 'package:bdk_flutter/bdk_flutter.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class BdkLibrary {
   Future<Mnemonic> createMnemonic() async {
@@ -12,9 +12,12 @@ class BdkLibrary {
       network: Network.signet,
       mnemonic: mnemonic,
     );
-    print(descriptorSecretKey.toPublic());
-    print(descriptorSecretKey.secretBytes());
-    print(descriptorSecretKey);
+    if (kDebugMode) {
+      print(descriptorSecretKey.toPublic());
+      print(descriptorSecretKey.secretBytes());
+      print(descriptorSecretKey);
+    }
+
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
         network: Network.signet,
@@ -105,7 +108,7 @@ class BdkLibrary {
       final address = await Address.fromString(
           s: addressStr, network: (await aliceWallet.network()));
 
-      final script = await address.scriptPubkey();
+      final script = address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
           .addRecipient(script, BigInt.from(750))
