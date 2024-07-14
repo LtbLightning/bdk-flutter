@@ -69,20 +69,19 @@ class BdkWallet {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  static Future<(BdkAddress, int)> getAddress(
+  static (BdkAddress, int) getAddress(
           {required BdkWallet ptr, required AddressIndex addressIndex}) =>
       core.instance.api.crateApiWalletBdkWalletGetAddress(
           ptr: ptr, addressIndex: addressIndex);
 
   /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
   /// on the internal database, which first needs to be Wallet.sync manually.
-  Future<Balance> getBalance() =>
-      core.instance.api.crateApiWalletBdkWalletGetBalance(
+  Balance getBalance() => core.instance.api.crateApiWalletBdkWalletGetBalance(
         that: this,
       );
 
   ///Returns the descriptor used to create addresses for a particular keychain.
-  static Future<BdkDescriptor> getDescriptorForKeychain(
+  static BdkDescriptor getDescriptorForKeychain(
           {required BdkWallet ptr, required KeychainKind keychain}) =>
       core.instance.api.crateApiWalletBdkWalletGetDescriptorForKeychain(
           ptr: ptr, keychain: keychain);
@@ -94,7 +93,7 @@ class BdkWallet {
   /// see [AddressIndex] for available address index selection strategies. If none of the keys
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
-  static Future<(BdkAddress, int)> getInternalAddress(
+  static (BdkAddress, int) getInternalAddress(
           {required BdkWallet ptr, required AddressIndex addressIndex}) =>
       core.instance.api.crateApiWalletBdkWalletGetInternalAddress(
           ptr: ptr, addressIndex: addressIndex);
@@ -111,24 +110,23 @@ class BdkWallet {
           sighashType: sighashType);
 
   /// Return whether or not a script is part of this wallet (either internal or external).
-  Future<bool> isMine({required BdkScriptBuf script}) => core.instance.api
+  bool isMine({required BdkScriptBuf script}) => core.instance.api
       .crateApiWalletBdkWalletIsMine(that: this, script: script);
 
   /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
-  Future<List<TransactionDetails>> listTransactions(
-          {required bool includeRaw}) =>
+  List<TransactionDetails> listTransactions({required bool includeRaw}) =>
       core.instance.api.crateApiWalletBdkWalletListTransactions(
           that: this, includeRaw: includeRaw);
 
   /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
   /// which first needs to be Wallet.sync manually.
-  Future<List<LocalUtxo>> listUnspent() =>
+  List<LocalUtxo> listUnspent() =>
       core.instance.api.crateApiWalletBdkWalletListUnspent(
         that: this,
       );
 
   /// Get the Bitcoin network the wallet is using.
-  Future<Network> network() => core.instance.api.crateApiWalletBdkWalletNetwork(
+  Network network() => core.instance.api.crateApiWalletBdkWalletNetwork(
         that: this,
       );
 
