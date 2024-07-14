@@ -4616,13 +4616,11 @@ class coreWire implements BaseWire {
       _wire__crate__api__types__bdk_transaction_weightPtr.asFunction<
           void Function(int, ffi.Pointer<wire_cst_bdk_transaction>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_get_address(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_get_address(
     ffi.Pointer<wire_cst_bdk_wallet> ptr,
     ffi.Pointer<wire_cst_address_index> address_index,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_get_address(
-      port_,
       ptr,
       address_index,
     );
@@ -4630,39 +4628,36 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__wallet__bdk_wallet_get_addressPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>,
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>,
                   ffi.Pointer<wire_cst_address_index>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_address');
   late final _wire__crate__api__wallet__bdk_wallet_get_address =
       _wire__crate__api__wallet__bdk_wallet_get_addressPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>,
               ffi.Pointer<wire_cst_address_index>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_get_balance(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_get_balance(
     ffi.Pointer<wire_cst_bdk_wallet> that,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_get_balance(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__wallet__bdk_wallet_get_balancePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>)>>(
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_balance');
   late final _wire__crate__api__wallet__bdk_wallet_get_balance =
-      _wire__crate__api__wallet__bdk_wallet_get_balancePtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_bdk_wallet>)>();
+      _wire__crate__api__wallet__bdk_wallet_get_balancePtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(
-    int port_,
+  WireSyncRust2DartDco
+      wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(
     ffi.Pointer<wire_cst_bdk_wallet> ptr,
     int keychain,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(
-      port_,
       ptr,
       keychain,
     );
@@ -4671,21 +4666,21 @@ class coreWire implements BaseWire {
   late final _wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychainPtr =
       _lookup<
               ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>, ffi.Int32)>>(
+                  WireSyncRust2DartDco Function(
+                      ffi.Pointer<wire_cst_bdk_wallet>, ffi.Int32)>>(
           'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain');
   late final _wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain =
       _wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychainPtr
           .asFunction<
-              void Function(int, ffi.Pointer<wire_cst_bdk_wallet>, int)>();
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_bdk_wallet>, int)>();
 
-  void wire__crate__api__wallet__bdk_wallet_get_internal_address(
-    int port_,
+  WireSyncRust2DartDco
+      wire__crate__api__wallet__bdk_wallet_get_internal_address(
     ffi.Pointer<wire_cst_bdk_wallet> ptr,
     ffi.Pointer<wire_cst_address_index> address_index,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_get_internal_address(
-      port_,
       ptr,
       address_index,
     );
@@ -4694,12 +4689,13 @@ class coreWire implements BaseWire {
   late final _wire__crate__api__wallet__bdk_wallet_get_internal_addressPtr =
       _lookup<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>,
+                  WireSyncRust2DartDco Function(
+                      ffi.Pointer<wire_cst_bdk_wallet>,
                       ffi.Pointer<wire_cst_address_index>)>>(
           'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_internal_address');
   late final _wire__crate__api__wallet__bdk_wallet_get_internal_address =
       _wire__crate__api__wallet__bdk_wallet_get_internal_addressPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>,
               ffi.Pointer<wire_cst_address_index>)>();
 
   void wire__crate__api__wallet__bdk_wallet_get_psbt_input(
@@ -4736,13 +4732,11 @@ class coreWire implements BaseWire {
               bool,
               ffi.Pointer<wire_cst_psbt_sig_hash_type>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_is_mine(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_is_mine(
     ffi.Pointer<wire_cst_bdk_wallet> that,
     ffi.Pointer<wire_cst_bdk_script_buf> script,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_is_mine(
-      port_,
       that,
       script,
     );
@@ -4750,21 +4744,19 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__wallet__bdk_wallet_is_minePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>,
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>,
                   ffi.Pointer<wire_cst_bdk_script_buf>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine');
   late final _wire__crate__api__wallet__bdk_wallet_is_mine =
       _wire__crate__api__wallet__bdk_wallet_is_minePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>,
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>,
               ffi.Pointer<wire_cst_bdk_script_buf>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_list_transactions(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_list_transactions(
     ffi.Pointer<wire_cst_bdk_wallet> that,
     bool include_raw,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_list_transactions(
-      port_,
       that,
       include_raw,
     );
@@ -4772,48 +4764,45 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__wallet__bdk_wallet_list_transactionsPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>, ffi.Bool)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_bdk_wallet>, ffi.Bool)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_transactions');
   late final _wire__crate__api__wallet__bdk_wallet_list_transactions =
       _wire__crate__api__wallet__bdk_wallet_list_transactionsPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_bdk_wallet>, bool)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_bdk_wallet>, bool)>();
 
-  void wire__crate__api__wallet__bdk_wallet_list_unspent(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_list_unspent(
     ffi.Pointer<wire_cst_bdk_wallet> that,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_list_unspent(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__wallet__bdk_wallet_list_unspentPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>)>>(
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_unspent');
   late final _wire__crate__api__wallet__bdk_wallet_list_unspent =
-      _wire__crate__api__wallet__bdk_wallet_list_unspentPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_bdk_wallet>)>();
+      _wire__crate__api__wallet__bdk_wallet_list_unspentPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>();
 
-  void wire__crate__api__wallet__bdk_wallet_network(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_network(
     ffi.Pointer<wire_cst_bdk_wallet> that,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_network(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__wallet__bdk_wallet_networkPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_bdk_wallet>)>>(
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_network');
   late final _wire__crate__api__wallet__bdk_wallet_network =
-      _wire__crate__api__wallet__bdk_wallet_networkPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_bdk_wallet>)>();
+      _wire__crate__api__wallet__bdk_wallet_networkPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_wallet>)>();
 
   void wire__crate__api__wallet__bdk_wallet_new(
     int port_,

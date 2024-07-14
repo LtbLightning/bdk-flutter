@@ -2445,37 +2445,33 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_we
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_address(
-    port_: i64,
     ptr: *mut wire_cst_bdk_wallet,
     address_index: *mut wire_cst_address_index,
-) {
-    wire__crate__api__wallet__bdk_wallet_get_address_impl(port_, ptr, address_index)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_get_address_impl(ptr, address_index)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_balance(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
-) {
-    wire__crate__api__wallet__bdk_wallet_get_balance_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_get_balance_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(
-    port_: i64,
     ptr: *mut wire_cst_bdk_wallet,
     keychain: i32,
-) {
-    wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain_impl(port_, ptr, keychain)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain_impl(ptr, keychain)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_internal_address(
-    port_: i64,
     ptr: *mut wire_cst_bdk_wallet,
     address_index: *mut wire_cst_address_index,
-) {
-    wire__crate__api__wallet__bdk_wallet_get_internal_address_impl(port_, ptr, address_index)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_get_internal_address_impl(ptr, address_index)
 }
 
 #[no_mangle]
@@ -2497,36 +2493,32 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_ps
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
     script: *mut wire_cst_bdk_script_buf,
-) {
-    wire__crate__api__wallet__bdk_wallet_is_mine_impl(port_, that, script)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_is_mine_impl(that, script)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_transactions(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
     include_raw: bool,
-) {
-    wire__crate__api__wallet__bdk_wallet_list_transactions_impl(port_, that, include_raw)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_list_transactions_impl(that, include_raw)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_unspent(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
-) {
-    wire__crate__api__wallet__bdk_wallet_list_unspent_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_list_unspent_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_network(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
-) {
-    wire__crate__api__wallet__bdk_wallet_network_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_network_impl(that)
 }
 
 #[no_mangle]

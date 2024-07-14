@@ -1586,99 +1586,87 @@ fn wire__crate__api__types__bdk_transaction_weight_impl(
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_get_address_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     address_index: impl CstDecode<crate::api::types::AddressIndex>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_get_address",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_address_index = address_index.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::wallet::BdkWallet::get_address(api_ptr, api_address_index)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::wallet::BdkWallet::get_address(api_ptr, api_address_index)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_get_balance_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_get_balance",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::get_balance(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::get_balance(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     keychain: impl CstDecode<crate::api::types::KeychainKind>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_get_descriptor_for_keychain",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_keychain = keychain.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::get_descriptor_for_keychain(
-                        api_ptr,
-                        api_keychain,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::get_descriptor_for_keychain(
+                    api_ptr,
+                    api_keychain,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_get_internal_address_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     address_index: impl CstDecode<crate::api::types::AddressIndex>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_get_internal_address",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_address_index = address_index.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::get_internal_address(
-                        api_ptr,
-                        api_address_index,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::get_internal_address(
+                    api_ptr,
+                    api_address_index,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -1715,94 +1703,80 @@ fn wire__crate__api__wallet__bdk_wallet_get_psbt_input_impl(
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_is_mine_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
     script: impl CstDecode<crate::api::types::BdkScriptBuf>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_is_mine",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
             let api_script = script.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::is_mine(&api_that, api_script)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::is_mine(&api_that, api_script)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_list_transactions_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
     include_raw: impl CstDecode<bool>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_list_transactions",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
             let api_include_raw = include_raw.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::list_transactions(
-                        &api_that,
-                        api_include_raw,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::wallet::BdkWallet::list_transactions(&api_that, api_include_raw)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_list_unspent_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_list_unspent",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::list_unspent(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::list_unspent(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_network_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_network",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok =
-                        Result::<_, ()>::Ok(crate::api::wallet::BdkWallet::network(&api_that))?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::wallet::BdkWallet::network(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }

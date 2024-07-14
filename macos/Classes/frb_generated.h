@@ -941,20 +941,16 @@ void frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_vsize(int64_t p
 void frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_weight(int64_t port_,
                                                                         struct wire_cst_bdk_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_address(int64_t port_,
-                                                                         struct wire_cst_bdk_wallet *ptr,
-                                                                         struct wire_cst_address_index *address_index);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_address(struct wire_cst_bdk_wallet *ptr,
+                                                                                         struct wire_cst_address_index *address_index);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_balance(int64_t port_,
-                                                                         struct wire_cst_bdk_wallet *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_balance(struct wire_cst_bdk_wallet *that);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(int64_t port_,
-                                                                                         struct wire_cst_bdk_wallet *ptr,
-                                                                                         int32_t keychain);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(struct wire_cst_bdk_wallet *ptr,
+                                                                                                         int32_t keychain);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_internal_address(int64_t port_,
-                                                                                  struct wire_cst_bdk_wallet *ptr,
-                                                                                  struct wire_cst_address_index *address_index);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_internal_address(struct wire_cst_bdk_wallet *ptr,
+                                                                                                  struct wire_cst_address_index *address_index);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_psbt_input(int64_t port_,
                                                                             struct wire_cst_bdk_wallet *that,
@@ -962,19 +958,15 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_psbt_input(int6
                                                                             bool only_witness_utxo,
                                                                             struct wire_cst_psbt_sig_hash_type *sighash_type);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(int64_t port_,
-                                                                     struct wire_cst_bdk_wallet *that,
-                                                                     struct wire_cst_bdk_script_buf *script);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(struct wire_cst_bdk_wallet *that,
+                                                                                     struct wire_cst_bdk_script_buf *script);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_transactions(int64_t port_,
-                                                                               struct wire_cst_bdk_wallet *that,
-                                                                               bool include_raw);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_transactions(struct wire_cst_bdk_wallet *that,
+                                                                                               bool include_raw);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_unspent(int64_t port_,
-                                                                          struct wire_cst_bdk_wallet *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_unspent(struct wire_cst_bdk_wallet *that);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_network(int64_t port_,
-                                                                     struct wire_cst_bdk_wallet *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_network(struct wire_cst_bdk_wallet *that);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_new(int64_t port_,
                                                                  struct wire_cst_bdk_descriptor *descriptor,
