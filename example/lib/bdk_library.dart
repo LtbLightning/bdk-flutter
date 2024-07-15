@@ -26,11 +26,7 @@ class BdkLibrary {
   }
 
   Future<Blockchain> initializeBlockchain() async {
-    return await Blockchain.create(
-        config: BlockchainConfig.esplora(
-            config: EsploraConfig(
-                baseUrl: 'https://mutinynet.com/api',
-                stopGap: BigInt.from(10))));
+    return Blockchain.createMutinynet();
   }
 
   Future<Wallet> restoreWallet(Descriptor descriptor) async {
@@ -41,41 +37,37 @@ class BdkLibrary {
     return wallet;
   }
 
-  Future<void> sync(Blockchain blockchain, Wallet aliceWallet) async {
+  Future<void> sync(Blockchain blockchain, Wallet wallet) async {
     try {
-      await aliceWallet.sync(blockchain: blockchain);
+      await wallet.sync(blockchain: blockchain);
     } on FormatException catch (e) {
       debugPrint(e.message);
     }
   }
 
-  Future<AddressInfo> getAddress(Wallet aliceWallet) async {
-    final address = await aliceWallet.getAddress(
-        addressIndex: const AddressIndex.increase());
-    return address;
+  AddressInfo getAddressInfo(Wallet wallet) {
+    return wallet.getAddress(addressIndex: const AddressIndex.increase());
   }
 
   Future<Input> getPsbtInput(
-      Wallet aliceWallet, LocalUtxo utxo, bool onlyWitnessUtxo) async {
-    final input = await aliceWallet.getPsbtInput(
-        utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+      Wallet wallet, LocalUtxo utxo, bool onlyWitnessUtxo) async {
+    final input =
+        await wallet.getPsbtInput(utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
     return input;
   }
 
-  Future<List<TransactionDetails>> getUnConfirmedTransactions(
-      Wallet aliceWallet) async {
+  List<TransactionDetails> getUnConfirmedTransactions(Wallet wallet) {
     List<TransactionDetails> unConfirmed = [];
-    final res = await aliceWallet.listTransactions(includeRaw: true);
+    final res = wallet.listTransactions(includeRaw: true);
     for (var e in res) {
       if (e.confirmationTime == null) unConfirmed.add(e);
     }
     return unConfirmed;
   }
 
-  Future<List<TransactionDetails>> getConfirmedTransactions(
-      Wallet aliceWallet) async {
+  List<TransactionDetails> getConfirmedTransactions(Wallet wallet) {
     List<TransactionDetails> confirmed = [];
-    final res = await aliceWallet.listTransactions(includeRaw: true);
+    final res = wallet.listTransactions(includeRaw: true);
 
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
@@ -83,14 +75,12 @@ class BdkLibrary {
     return confirmed;
   }
 
-  Future<Balance> getBalance(Wallet aliceWallet) async {
-    final res = await aliceWallet.getBalance();
-    return res;
+  Future<Balance> getBalance(Wallet wallet) async {
+    return wallet.getBalance();
   }
 
-  Future<List<LocalUtxo>> listUnspend(Wallet aliceWallet) async {
-    final res = await aliceWallet.listUnspent();
-    return res;
+  List<LocalUtxo> listUnspend(Wallet wallet) {
+    return wallet.listUnspent();
   }
 
   Future<FeeRate> estimateFeeRate(
@@ -101,20 +91,19 @@ class BdkLibrary {
     return feeRate;
   }
 
-  sendBitcoin(
-      Blockchain blockchain, Wallet aliceWallet, String addressStr) async {
+  sendBitcoin(Blockchain blockchain, Wallet wallet, String receiverAddress,
+      int amountSat) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
-          s: addressStr, network: (await aliceWallet.network()));
-
+          s: receiverAddress, network: wallet.network());
       final script = address.scriptPubkey();
       final feeRate = await estimateFeeRate(25, blockchain);
       final (psbt, _) = await txBuilder
-          .addRecipient(script, BigInt.from(750))
+          .addRecipient(script, BigInt.from(amountSat))
           .feeRate(feeRate.satPerVb)
-          .finish(aliceWallet);
-      final isFinalized = await aliceWallet.sign(psbt: psbt);
+          .finish(wallet);
+      final isFinalized = await wallet.sign(psbt: psbt);
       if (isFinalized) {
         final tx = psbt.extractTx();
         final res = await blockchain.broadcast(transaction: tx);
