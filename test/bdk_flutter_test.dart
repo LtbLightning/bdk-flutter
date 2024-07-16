@@ -57,21 +57,20 @@ void main() {
   });
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
-      final res =
-          await mockWallet.getAddress(addressIndex: AddressIndex.increase());
+      final res = mockWallet.getAddress(addressIndex: AddressIndex.increase());
       expect(res, isA<AddressInfo>());
     });
 
     test('Should return valid Balance object', () async {
-      final res = await mockWallet.getBalance();
+      final res = mockWallet.getBalance();
       expect(res, isA<Balance>());
     });
     test('Should return Network enum', () async {
-      final res = await mockWallet.network();
+      final res = mockWallet.network();
       expect(res, isA<Network>());
     });
     test('Should return list of LocalUtxo object', () async {
-      final res = await mockWallet.listUnspent();
+      final res = mockWallet.listUnspent();
       expect(res, isA<List<LocalUtxo>>());
     });
     test('Should return a Input object', () async {
@@ -86,17 +85,17 @@ void main() {
     });
     test('Should return an empty list of TransactionDetails', () async {
       when(mockWallet.listTransactions(includeRaw: any))
-          .thenAnswer((e) async => List.empty());
-      final res = await mockWallet.listTransactions(includeRaw: true);
+          .thenAnswer((e) => List.empty());
+      final res = mockWallet.listTransactions(includeRaw: true);
       expect(res, isA<List<TransactionDetails>>());
       expect(res, List.empty());
     });
     test('verify function call order', () async {
       await mockWallet.sync(blockchain: mockBlockchain);
-      await mockWallet.listTransactions(includeRaw: true);
+      mockWallet.listTransactions(includeRaw: true);
       verifyInOrder([
         await mockWallet.sync(blockchain: mockBlockchain),
-        await mockWallet.listTransactions(includeRaw: true)
+        mockWallet.listTransactions(includeRaw: true)
       ]);
     });
   });

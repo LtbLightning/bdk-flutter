@@ -1021,11 +1021,9 @@ class Wallet extends BdkWallet {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  Future<AddressInfo> getAddress(
-      {required AddressIndex addressIndex, hint}) async {
+  AddressInfo getAddress({required AddressIndex addressIndex, hint}) {
     try {
-      final res =
-          await BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
+      final res = BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1035,7 +1033,7 @@ class Wallet extends BdkWallet {
   /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
   /// on the internal database, which first needs to be Wallet.sync manually.
   @override
-  Future<Balance> getBalance({hint}) {
+  Balance getBalance({hint}) {
     try {
       return super.getBalance();
     } on BdkError catch (e) {
@@ -1047,8 +1045,8 @@ class Wallet extends BdkWallet {
   Future<Descriptor> getDescriptorForKeychain(
       {required KeychainKind keychain, hint}) async {
     try {
-      final res = await BdkWallet.getDescriptorForKeychain(
-          ptr: this, keychain: keychain);
+      final res =
+          BdkWallet.getDescriptorForKeychain(ptr: this, keychain: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
@@ -1064,11 +1062,10 @@ class Wallet extends BdkWallet {
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
 
-  Future<AddressInfo> getInternalAddress(
-      {required AddressIndex addressIndex, hint}) async {
+  AddressInfo getInternalAddress({required AddressIndex addressIndex, hint}) {
     try {
-      final res = await BdkWallet.getInternalAddress(
-          ptr: this, addressIndex: addressIndex);
+      final res =
+          BdkWallet.getInternalAddress(ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1094,7 +1091,7 @@ class Wallet extends BdkWallet {
 
   /// Return whether or not a script is part of this wallet (either internal or external).
   @override
-  Future<bool> isMine({required BdkScriptBuf script, hint}) async {
+  bool isMine({required BdkScriptBuf script, hint}) {
     try {
       return super.isMine(script: script);
     } on BdkError catch (e) {
@@ -1104,8 +1101,7 @@ class Wallet extends BdkWallet {
 
   /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
   @override
-  Future<List<TransactionDetails>> listTransactions(
-      {required bool includeRaw, hint}) async {
+  List<TransactionDetails> listTransactions({required bool includeRaw, hint}) {
     try {
       return super.listTransactions(includeRaw: includeRaw);
     } on BdkError catch (e) {
@@ -1117,7 +1113,7 @@ class Wallet extends BdkWallet {
   /// which first needs to be Wallet.sync manually.
   /// TODO; Update; create custom LocalUtxo
   @override
-  Future<List<LocalUtxo>> listUnspent({hint}) async {
+  List<LocalUtxo> listUnspent({hint}) {
     try {
       return super.listUnspent();
     } on BdkError catch (e) {
@@ -1127,7 +1123,7 @@ class Wallet extends BdkWallet {
 
   /// Get the Bitcoin network the wallet is using.
   @override
-  Future<Network> network({hint}) async {
+  Network network({hint}) {
     try {
       return super.network();
     } on BdkError catch (e) {

@@ -273,7 +273,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
       ) as _i2.MutexWalletAnyDatabase);
 
   @override
-  _i4.Future<_i3.AddressInfo> getAddress({
+  _i3.AddressInfo getAddress({
     required _i3.AddressIndex? addressIndex,
     dynamic hint,
   }) =>
@@ -286,7 +286,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             #hint: hint,
           },
         ),
-        returnValue: _i4.Future<_i3.AddressInfo>.value(_FakeAddressInfo_1(
+        returnValue: _FakeAddressInfo_1(
           this,
           Invocation.method(
             #getAddress,
@@ -296,9 +296,8 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
               #hint: hint,
             },
           ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i3.AddressInfo>.value(_FakeAddressInfo_1(
+        ),
+        returnValueForMissingStub: _FakeAddressInfo_1(
           this,
           Invocation.method(
             #getAddress,
@@ -308,33 +307,33 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
               #hint: hint,
             },
           ),
-        )),
-      ) as _i4.Future<_i3.AddressInfo>);
+        ),
+      ) as _i3.AddressInfo);
 
   @override
-  _i4.Future<_i3.Balance> getBalance({dynamic hint}) => (super.noSuchMethod(
+  _i3.Balance getBalance({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #getBalance,
           [],
           {#hint: hint},
         ),
-        returnValue: _i4.Future<_i3.Balance>.value(_FakeBalance_2(
+        returnValue: _FakeBalance_2(
           this,
           Invocation.method(
             #getBalance,
             [],
             {#hint: hint},
           ),
-        )),
-        returnValueForMissingStub: _i4.Future<_i3.Balance>.value(_FakeBalance_2(
+        ),
+        returnValueForMissingStub: _FakeBalance_2(
           this,
           Invocation.method(
             #getBalance,
             [],
             {#hint: hint},
           ),
-        )),
-      ) as _i4.Future<_i3.Balance>);
+        ),
+      ) as _i3.Balance);
 
   @override
   _i4.Future<_i3.Descriptor> getDescriptorForKeychain({
@@ -376,7 +375,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
       ) as _i4.Future<_i3.Descriptor>);
 
   @override
-  _i4.Future<_i3.AddressInfo> getInternalAddress({
+  _i3.AddressInfo getInternalAddress({
     required _i3.AddressIndex? addressIndex,
     dynamic hint,
   }) =>
@@ -389,7 +388,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             #hint: hint,
           },
         ),
-        returnValue: _i4.Future<_i3.AddressInfo>.value(_FakeAddressInfo_1(
+        returnValue: _FakeAddressInfo_1(
           this,
           Invocation.method(
             #getInternalAddress,
@@ -399,9 +398,8 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
               #hint: hint,
             },
           ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i3.AddressInfo>.value(_FakeAddressInfo_1(
+        ),
+        returnValueForMissingStub: _FakeAddressInfo_1(
           this,
           Invocation.method(
             #getInternalAddress,
@@ -411,8 +409,8 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
               #hint: hint,
             },
           ),
-        )),
-      ) as _i4.Future<_i3.AddressInfo>);
+        ),
+      ) as _i3.AddressInfo);
 
   @override
   _i4.Future<_i3.Input> getPsbtInput({
@@ -461,7 +459,7 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
       ) as _i4.Future<_i3.Input>);
 
   @override
-  _i4.Future<bool> isMine({
+  bool isMine({
     required _i5.BdkScriptBuf? script,
     dynamic hint,
   }) =>
@@ -474,12 +472,12 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             #hint: hint,
           },
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
-  _i4.Future<List<_i3.TransactionDetails>> listTransactions({
+  List<_i3.TransactionDetails> listTransactions({
     required bool? includeRaw,
     dynamic hint,
   }) =>
@@ -492,37 +490,31 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
             #hint: hint,
           },
         ),
-        returnValue: _i4.Future<List<_i3.TransactionDetails>>.value(
-            <_i3.TransactionDetails>[]),
-        returnValueForMissingStub:
-            _i4.Future<List<_i3.TransactionDetails>>.value(
-                <_i3.TransactionDetails>[]),
-      ) as _i4.Future<List<_i3.TransactionDetails>>);
+        returnValue: <_i3.TransactionDetails>[],
+        returnValueForMissingStub: <_i3.TransactionDetails>[],
+      ) as List<_i3.TransactionDetails>);
 
   @override
-  _i4.Future<List<_i3.LocalUtxo>> listUnspent({dynamic hint}) =>
-      (super.noSuchMethod(
+  List<_i3.LocalUtxo> listUnspent({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #listUnspent,
           [],
           {#hint: hint},
         ),
-        returnValue: _i4.Future<List<_i3.LocalUtxo>>.value(<_i3.LocalUtxo>[]),
-        returnValueForMissingStub:
-            _i4.Future<List<_i3.LocalUtxo>>.value(<_i3.LocalUtxo>[]),
-      ) as _i4.Future<List<_i3.LocalUtxo>>);
+        returnValue: <_i3.LocalUtxo>[],
+        returnValueForMissingStub: <_i3.LocalUtxo>[],
+      ) as List<_i3.LocalUtxo>);
 
   @override
-  _i4.Future<_i3.Network> network({dynamic hint}) => (super.noSuchMethod(
+  _i3.Network network({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #network,
           [],
           {#hint: hint},
         ),
-        returnValue: _i4.Future<_i3.Network>.value(_i3.Network.testnet),
-        returnValueForMissingStub:
-            _i4.Future<_i3.Network>.value(_i3.Network.testnet),
-      ) as _i4.Future<_i3.Network>);
+        returnValue: _i3.Network.testnet,
+        returnValueForMissingStub: _i3.Network.testnet,
+      ) as _i3.Network);
 
   @override
   _i4.Future<bool> sign({
@@ -986,20 +978,20 @@ class MockDescriptorSecretKey extends _i1.Mock
   @override
   _i3.DescriptorPublicKey toPublic() => (super.noSuchMethod(
         Invocation.method(
-          #asPublic,
+          #toPublic,
           [],
         ),
         returnValue: _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
-            #asPublic,
+            #toPublic,
             [],
           ),
         ),
         returnValueForMissingStub: _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
-            #asPublic,
+            #toPublic,
             [],
           ),
         ),
