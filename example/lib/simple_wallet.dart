@@ -25,11 +25,12 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   generateMnemonicKeys() async {
     final res = await lib.createMnemonic();
+    final mnemonic = await res.asString();
     setState(() {
-      displayText = res.toString();
+      displayText = mnemonic;
     });
     if (kDebugMode) {
-      print(await res.asString());
+      print(mnemonic);
     }
   }
 
@@ -49,11 +50,13 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getNewAddress() async {
-    final res = (await (await lib.getAddress(aliceWallet)).address.asString());
-    debugPrint(res);
+    final addressInfo = await lib.getAddress(aliceWallet);
+    final address = await addressInfo.address.asString();
+
+    debugPrint(address);
 
     setState(() {
-      displayText = "Address: $res";
+      displayText = "Address: $address \n Index: ${addressInfo.index}";
     });
   }
 
@@ -152,9 +155,13 @@ class _SimpleWalletState extends State<SimpleWallet> {
     }
   }
 
-  sendBit() async {
+  sendBit(int amountSat) async {
     await lib.sendBitcoin(
-        blockchain!, aliceWallet, "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f");
+      blockchain!,
+      aliceWallet,
+      "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f",
+      amountSat,
+    );
   }
 
   @override
@@ -286,9 +293,9 @@ class _SimpleWalletState extends State<SimpleWallet> {
                         fontWeight: FontWeight.w800),
                   )),
               TextButton(
-                  onPressed: () => sendBit(),
+                  onPressed: () => sendBit(100000),
                   child: const Text(
-                    'Press to send 1200 satoshi',
+                    'Press to send 100k sats',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
