@@ -79,7 +79,7 @@ class BdkLibrary {
     return wallet.getBalance();
   }
 
-  List<LocalUtxo> listUnspend(Wallet wallet) {
+  List<LocalUtxo> listUnspent(Wallet wallet) {
     return wallet.listUnspent();
   }
 

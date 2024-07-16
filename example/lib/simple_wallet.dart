@@ -114,7 +114,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   listUnspent() async {
-    final res = lib.listUnspend(wallet);
+    final res = lib.listUnspent(wallet);
     for (var e in res) {
       setState(() {
         displayText =
