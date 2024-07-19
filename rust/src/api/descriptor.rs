@@ -265,6 +265,7 @@ impl BdkDescriptor {
     pub fn as_string(&self) -> String {
         self.extended_descriptor.to_string()
     }
+    #[frb(sync)]
     pub fn max_satisfaction_weight(&self) -> Result<usize, BdkError> {
         self.extended_descriptor
             .max_weight_to_satisfy()

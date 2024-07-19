@@ -90,7 +90,7 @@ abstract class coreApi extends BaseApi {
 
   String crateApiDescriptorBdkDescriptorAsString({required BdkDescriptor that});
 
-  Future<BigInt> crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
+  BigInt crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
       {required BdkDescriptor that});
 
   Future<BdkDescriptor> crateApiDescriptorBdkDescriptorNew(
@@ -161,7 +161,7 @@ abstract class coreApi extends BaseApi {
   Future<BdkDescriptorPublicKey> crateApiKeyBdkDescriptorPublicKeyFromString(
       {required String publicKey});
 
-  Future<BdkDescriptorPublicKey> crateApiKeyBdkDescriptorSecretKeyAsPublic(
+  BdkDescriptorPublicKey crateApiKeyBdkDescriptorSecretKeyAsPublic(
       {required BdkDescriptorSecretKey ptr});
 
   String crateApiKeyBdkDescriptorSecretKeyAsString(
@@ -181,7 +181,7 @@ abstract class coreApi extends BaseApi {
   Future<BdkDescriptorSecretKey> crateApiKeyBdkDescriptorSecretKeyFromString(
       {required String secretKey});
 
-  Future<Uint8List> crateApiKeyBdkDescriptorSecretKeySecretBytes(
+  Uint8List crateApiKeyBdkDescriptorSecretKeySecretBytes(
       {required BdkDescriptorSecretKey that});
 
   String crateApiKeyBdkMnemonicAsString({required BdkMnemonic that});
@@ -199,19 +199,19 @@ abstract class coreApi extends BaseApi {
   Future<BdkPsbt> crateApiPsbtBdkPsbtCombine(
       {required BdkPsbt ptr, required BdkPsbt other});
 
-  Future<BdkTransaction> crateApiPsbtBdkPsbtExtractTx({required BdkPsbt ptr});
+  BdkTransaction crateApiPsbtBdkPsbtExtractTx({required BdkPsbt ptr});
 
-  Future<BigInt?> crateApiPsbtBdkPsbtFeeAmount({required BdkPsbt that});
+  BigInt? crateApiPsbtBdkPsbtFeeAmount({required BdkPsbt that});
 
-  Future<FeeRate?> crateApiPsbtBdkPsbtFeeRate({required BdkPsbt that});
+  FeeRate? crateApiPsbtBdkPsbtFeeRate({required BdkPsbt that});
 
   Future<BdkPsbt> crateApiPsbtBdkPsbtFromStr({required String psbtBase64});
 
-  Future<String> crateApiPsbtBdkPsbtJsonSerialize({required BdkPsbt that});
+  String crateApiPsbtBdkPsbtJsonSerialize({required BdkPsbt that});
 
-  Future<Uint8List> crateApiPsbtBdkPsbtSerialize({required BdkPsbt that});
+  Uint8List crateApiPsbtBdkPsbtSerialize({required BdkPsbt that});
 
-  Future<String> crateApiPsbtBdkPsbtTxid({required BdkPsbt that});
+  String crateApiPsbtBdkPsbtTxid({required BdkPsbt that});
 
   String crateApiTypesBdkAddressAsString({required BdkAddress that});
 
@@ -221,20 +221,20 @@ abstract class coreApi extends BaseApi {
   Future<BdkAddress> crateApiTypesBdkAddressFromString(
       {required String address, required Network network});
 
-  Future<bool> crateApiTypesBdkAddressIsValidForNetwork(
+  bool crateApiTypesBdkAddressIsValidForNetwork(
       {required BdkAddress that, required Network network});
 
-  Future<Network> crateApiTypesBdkAddressNetwork({required BdkAddress that});
+  Network crateApiTypesBdkAddressNetwork({required BdkAddress that});
 
-  Future<Payload> crateApiTypesBdkAddressPayload({required BdkAddress that});
+  Payload crateApiTypesBdkAddressPayload({required BdkAddress that});
 
-  Future<BdkScriptBuf> crateApiTypesBdkAddressScript({required BdkAddress ptr});
+  BdkScriptBuf crateApiTypesBdkAddressScript({required BdkAddress ptr});
 
   String crateApiTypesBdkAddressToQrUri({required BdkAddress that});
 
   String crateApiTypesBdkScriptBufAsString({required BdkScriptBuf that});
 
-  Future<BdkScriptBuf> crateApiTypesBdkScriptBufEmpty();
+  BdkScriptBuf crateApiTypesBdkScriptBufEmpty();
 
   Future<BdkScriptBuf> crateApiTypesBdkScriptBufFromHex({required String s});
 
@@ -286,15 +286,15 @@ abstract class coreApi extends BaseApi {
   Future<BigInt> crateApiTypesBdkTransactionWeight(
       {required BdkTransaction that});
 
-  Future<(BdkAddress, int)> crateApiWalletBdkWalletGetAddress(
+  (BdkAddress, int) crateApiWalletBdkWalletGetAddress(
       {required BdkWallet ptr, required AddressIndex addressIndex});
 
-  Future<Balance> crateApiWalletBdkWalletGetBalance({required BdkWallet that});
+  Balance crateApiWalletBdkWalletGetBalance({required BdkWallet that});
 
-  Future<BdkDescriptor> crateApiWalletBdkWalletGetDescriptorForKeychain(
+  BdkDescriptor crateApiWalletBdkWalletGetDescriptorForKeychain(
       {required BdkWallet ptr, required KeychainKind keychain});
 
-  Future<(BdkAddress, int)> crateApiWalletBdkWalletGetInternalAddress(
+  (BdkAddress, int) crateApiWalletBdkWalletGetInternalAddress(
       {required BdkWallet ptr, required AddressIndex addressIndex});
 
   Future<Input> crateApiWalletBdkWalletGetPsbtInput(
@@ -303,16 +303,15 @@ abstract class coreApi extends BaseApi {
       required bool onlyWitnessUtxo,
       PsbtSigHashType? sighashType});
 
-  Future<bool> crateApiWalletBdkWalletIsMine(
+  bool crateApiWalletBdkWalletIsMine(
       {required BdkWallet that, required BdkScriptBuf script});
 
-  Future<List<TransactionDetails>> crateApiWalletBdkWalletListTransactions(
+  List<TransactionDetails> crateApiWalletBdkWalletListTransactions(
       {required BdkWallet that, required bool includeRaw});
 
-  Future<List<LocalUtxo>> crateApiWalletBdkWalletListUnspent(
-      {required BdkWallet that});
+  List<LocalUtxo> crateApiWalletBdkWalletListUnspent({required BdkWallet that});
 
-  Future<Network> crateApiWalletBdkWalletNetwork({required BdkWallet that});
+  Network crateApiWalletBdkWalletNetwork({required BdkWallet that});
 
   Future<BdkWallet> crateApiWalletBdkWalletNew(
       {required BdkDescriptor descriptor,
@@ -597,14 +596,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BigInt> crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
+  BigInt crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
       {required BdkDescriptor that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_descriptor(that);
         return wire
             .wire__crate__api__descriptor__bdk_descriptor_max_satisfaction_weight(
-                port_, arg0);
+                arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_usize,
@@ -1072,13 +1071,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BdkDescriptorPublicKey> crateApiKeyBdkDescriptorSecretKeyAsPublic(
+  BdkDescriptorPublicKey crateApiKeyBdkDescriptorSecretKeyAsPublic(
       {required BdkDescriptorSecretKey ptr}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_descriptor_secret_key(ptr);
-        return wire.wire__crate__api__key__bdk_descriptor_secret_key_as_public(
-            port_, arg0);
+        return wire
+            .wire__crate__api__key__bdk_descriptor_secret_key_as_public(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bdk_descriptor_public_key,
@@ -1229,14 +1228,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Uint8List> crateApiKeyBdkDescriptorSecretKeySecretBytes(
+  Uint8List crateApiKeyBdkDescriptorSecretKeySecretBytes(
       {required BdkDescriptorSecretKey that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_descriptor_secret_key(that);
         return wire
             .wire__crate__api__key__bdk_descriptor_secret_key_secret_bytes(
-                port_, arg0);
+                arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_prim_u_8_strict,
@@ -1398,11 +1397,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BdkTransaction> crateApiPsbtBdkPsbtExtractTx({required BdkPsbt ptr}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  BdkTransaction crateApiPsbtBdkPsbtExtractTx({required BdkPsbt ptr}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(ptr);
-        return wire.wire__crate__api__psbt__bdk_psbt_extract_tx(port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_extract_tx(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bdk_transaction,
@@ -1421,11 +1420,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BigInt?> crateApiPsbtBdkPsbtFeeAmount({required BdkPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  BigInt? crateApiPsbtBdkPsbtFeeAmount({required BdkPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(that);
-        return wire.wire__crate__api__psbt__bdk_psbt_fee_amount(port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_fee_amount(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
@@ -1444,11 +1443,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<FeeRate?> crateApiPsbtBdkPsbtFeeRate({required BdkPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  FeeRate? crateApiPsbtBdkPsbtFeeRate({required BdkPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(that);
-        return wire.wire__crate__api__psbt__bdk_psbt_fee_rate(port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_fee_rate(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_opt_box_autoadd_fee_rate,
@@ -1488,12 +1487,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<String> crateApiPsbtBdkPsbtJsonSerialize({required BdkPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  String crateApiPsbtBdkPsbtJsonSerialize({required BdkPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(that);
-        return wire.wire__crate__api__psbt__bdk_psbt_json_serialize(
-            port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_json_serialize(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
@@ -1512,11 +1510,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Uint8List> crateApiPsbtBdkPsbtSerialize({required BdkPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  Uint8List crateApiPsbtBdkPsbtSerialize({required BdkPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(that);
-        return wire.wire__crate__api__psbt__bdk_psbt_serialize(port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_serialize(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_prim_u_8_strict,
@@ -1535,11 +1533,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<String> crateApiPsbtBdkPsbtTxid({required BdkPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  String crateApiPsbtBdkPsbtTxid({required BdkPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_psbt(that);
-        return wire.wire__crate__api__psbt__bdk_psbt_txid(port_, arg0);
+        return wire.wire__crate__api__psbt__bdk_psbt_txid(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
@@ -1632,14 +1630,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<bool> crateApiTypesBdkAddressIsValidForNetwork(
+  bool crateApiTypesBdkAddressIsValidForNetwork(
       {required BdkAddress that, required Network network}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_address(that);
         var arg1 = cst_encode_network(network);
         return wire.wire__crate__api__types__bdk_address_is_valid_for_network(
-            port_, arg0, arg1);
+            arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bool,
@@ -1658,11 +1656,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Network> crateApiTypesBdkAddressNetwork({required BdkAddress that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  Network crateApiTypesBdkAddressNetwork({required BdkAddress that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_address(that);
-        return wire.wire__crate__api__types__bdk_address_network(port_, arg0);
+        return wire.wire__crate__api__types__bdk_address_network(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_network,
@@ -1681,11 +1679,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Payload> crateApiTypesBdkAddressPayload({required BdkAddress that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  Payload crateApiTypesBdkAddressPayload({required BdkAddress that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_address(that);
-        return wire.wire__crate__api__types__bdk_address_payload(port_, arg0);
+        return wire.wire__crate__api__types__bdk_address_payload(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_payload,
@@ -1704,12 +1702,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BdkScriptBuf> crateApiTypesBdkAddressScript(
-      {required BdkAddress ptr}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  BdkScriptBuf crateApiTypesBdkAddressScript({required BdkAddress ptr}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_address(ptr);
-        return wire.wire__crate__api__types__bdk_address_script(port_, arg0);
+        return wire.wire__crate__api__types__bdk_address_script(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bdk_script_buf,
@@ -1774,10 +1771,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BdkScriptBuf> crateApiTypesBdkScriptBufEmpty() {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        return wire.wire__crate__api__types__bdk_script_buf_empty(port_);
+  BdkScriptBuf crateApiTypesBdkScriptBufEmpty() {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        return wire.wire__crate__api__types__bdk_script_buf_empty();
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bdk_script_buf,
@@ -2198,14 +2195,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<(BdkAddress, int)> crateApiWalletBdkWalletGetAddress(
+  (BdkAddress, int) crateApiWalletBdkWalletGetAddress(
       {required BdkWallet ptr, required AddressIndex addressIndex}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_box_autoadd_address_index(addressIndex);
         return wire.wire__crate__api__wallet__bdk_wallet_get_address(
-            port_, arg0, arg1);
+            arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_record_bdk_address_u_32,
@@ -2224,12 +2221,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Balance> crateApiWalletBdkWalletGetBalance({required BdkWallet that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  Balance crateApiWalletBdkWalletGetBalance({required BdkWallet that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
-        return wire.wire__crate__api__wallet__bdk_wallet_get_balance(
-            port_, arg0);
+        return wire.wire__crate__api__wallet__bdk_wallet_get_balance(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_balance,
@@ -2248,15 +2244,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BdkDescriptor> crateApiWalletBdkWalletGetDescriptorForKeychain(
+  BdkDescriptor crateApiWalletBdkWalletGetDescriptorForKeychain(
       {required BdkWallet ptr, required KeychainKind keychain}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_keychain_kind(keychain);
         return wire
             .wire__crate__api__wallet__bdk_wallet_get_descriptor_for_keychain(
-                port_, arg0, arg1);
+                arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bdk_descriptor,
@@ -2275,14 +2271,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<(BdkAddress, int)> crateApiWalletBdkWalletGetInternalAddress(
+  (BdkAddress, int) crateApiWalletBdkWalletGetInternalAddress(
       {required BdkWallet ptr, required AddressIndex addressIndex}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_box_autoadd_address_index(addressIndex);
         return wire.wire__crate__api__wallet__bdk_wallet_get_internal_address(
-            port_, arg0, arg1);
+            arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_record_bdk_address_u_32,
@@ -2332,14 +2328,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<bool> crateApiWalletBdkWalletIsMine(
+  bool crateApiWalletBdkWalletIsMine(
       {required BdkWallet that, required BdkScriptBuf script}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
         var arg1 = cst_encode_box_autoadd_bdk_script_buf(script);
-        return wire.wire__crate__api__wallet__bdk_wallet_is_mine(
-            port_, arg0, arg1);
+        return wire.wire__crate__api__wallet__bdk_wallet_is_mine(arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bool,
@@ -2358,14 +2353,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<List<TransactionDetails>> crateApiWalletBdkWalletListTransactions(
+  List<TransactionDetails> crateApiWalletBdkWalletListTransactions(
       {required BdkWallet that, required bool includeRaw}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
         var arg1 = cst_encode_bool(includeRaw);
         return wire.wire__crate__api__wallet__bdk_wallet_list_transactions(
-            port_, arg0, arg1);
+            arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_transaction_details,
@@ -2384,13 +2379,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<List<LocalUtxo>> crateApiWalletBdkWalletListUnspent(
+  List<LocalUtxo> crateApiWalletBdkWalletListUnspent(
       {required BdkWallet that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
-        return wire.wire__crate__api__wallet__bdk_wallet_list_unspent(
-            port_, arg0);
+        return wire.wire__crate__api__wallet__bdk_wallet_list_unspent(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_local_utxo,
@@ -2409,11 +2403,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Network> crateApiWalletBdkWalletNetwork({required BdkWallet that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  Network crateApiWalletBdkWalletNetwork({required BdkWallet that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
-        return wire.wire__crate__api__wallet__bdk_wallet_network(port_, arg0);
+        return wire.wire__crate__api__wallet__bdk_wallet_network(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_network,

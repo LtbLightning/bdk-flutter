@@ -160,11 +160,13 @@ impl BdkDescriptorSecretKey {
             )),
         }
     }
+    #[frb(sync)]
     pub fn as_public(ptr: BdkDescriptorSecretKey) -> Result<BdkDescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = ptr.ptr.to_public(&secp).unwrap();
         Ok(descriptor_public_key.into())
     }
+    #[frb(sync)]
     /// Get the private key as bytes.
     pub fn secret_bytes(&self) -> Result<Vec<u8>, BdkError> {
         let descriptor_secret_key = &*self.ptr;

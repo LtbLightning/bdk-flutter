@@ -119,6 +119,7 @@ impl From<BdkScriptBuf> for bdk::bitcoin::ScriptBuf {
     }
 }
 impl BdkScriptBuf {
+    #[frb(sync)]
     ///Creates a new empty script.
     pub fn empty() -> BdkScriptBuf {
         bdk::bitcoin::ScriptBuf::new().into()
@@ -481,6 +482,7 @@ impl BdkAddress {
         .map(|a| a.into())
         .map_err(|e| e.into())
     }
+    #[frb(sync)]
     pub fn payload(&self) -> Payload {
         match <&BdkAddress as Into<bdk::bitcoin::Address>>::into(self).payload {
             bdk::bitcoin::address::Payload::PubkeyHash(pubkey_hash) => Payload::PubkeyHash {
@@ -502,14 +504,16 @@ impl BdkAddress {
         self.ptr.to_qr_uri()
     }
 
+    #[frb(sync)]
     pub fn network(&self) -> Network {
         self.ptr.network.into()
     }
-
+    #[frb(sync)]
     pub fn script(ptr: BdkAddress) -> BdkScriptBuf {
         ptr.ptr.script_pubkey().into()
     }
 
+    #[frb(sync)]
     pub fn is_valid_for_network(&self, network: Network) -> bool {
         if let Ok(unchecked_address) = self
             .ptr

@@ -36,6 +36,7 @@ impl BdkPsbt {
     ///Computes the `Txid`.
     /// Hashes the transaction excluding the segwit data (i. e. the marker, flag bytes, and the witness fields themselves).
     /// For non-segwit transactions which do not have any segwit data, this will be equal to transaction.wtxid().
+    #[frb(sync)]
     pub fn txid(&self) -> String {
         let tx = self.ptr.lock().unwrap().clone().extract_tx();
         let txid = tx.txid();
@@ -43,6 +44,7 @@ impl BdkPsbt {
     }
 
     /// Return the transaction.
+    #[frb(sync)]
     pub fn extract_tx(ptr: BdkPsbt) -> Result<BdkTransaction, BdkError> {
         let tx = ptr.ptr.lock().unwrap().clone().extract_tx();
         tx.try_into()
@@ -60,6 +62,7 @@ impl BdkPsbt {
 
     /// The total transaction fee amount, sum of input amounts minus sum of output amounts, in Sats.
     /// If the PSBT is missing a TxOut for an input returns None.
+    #[frb(sync)]
     pub fn fee_amount(&self) -> Option<u64> {
         self.ptr.lock().unwrap().fee_amount()
     }
@@ -68,16 +71,19 @@ impl BdkPsbt {
     /// `PartiallySignedTransaction` is finalized and all witness/signature data is added to the
     /// transaction.
     /// If the PSBT is missing a TxOut for an input returns None.
+    #[frb(sync)]
     pub fn fee_rate(&self) -> Option<FeeRate> {
         self.ptr.lock().unwrap().fee_rate().map(|e| e.into())
     }
 
     ///Serialize as raw binary data
+    #[frb(sync)]
     pub fn serialize(&self) -> Vec<u8> {
         let psbt = self.ptr.lock().unwrap().clone();
         psbt.serialize()
     }
     /// Serialize the PSBT data structure as a String of JSON.
+    #[frb(sync)]
     pub fn json_serialize(&self) -> String {
         let psbt = self.ptr.lock().unwrap();
         serde_json::to_string(psbt.deref()).unwrap()

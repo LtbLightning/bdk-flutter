@@ -26,7 +26,7 @@ class BdkDescriptor {
         that: this,
       );
 
-  Future<BigInt> maxSatisfactionWeight() =>
+  BigInt maxSatisfactionWeight() =>
       core.instance.api.crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
         that: this,
       );

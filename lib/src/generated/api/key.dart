@@ -83,7 +83,7 @@ class BdkDescriptorSecretKey {
     required this.ptr,
   });
 
-  static Future<BdkDescriptorPublicKey> asPublic(
+  static BdkDescriptorPublicKey asPublic(
           {required BdkDescriptorSecretKey ptr}) =>
       core.instance.api.crateApiKeyBdkDescriptorSecretKeyAsPublic(ptr: ptr);
 
@@ -117,7 +117,7 @@ class BdkDescriptorSecretKey {
           .crateApiKeyBdkDescriptorSecretKeyFromString(secretKey: secretKey);
 
   /// Get the private key as bytes.
-  Future<Uint8List> secretBytes() =>
+  Uint8List secretBytes() =>
       core.instance.api.crateApiKeyBdkDescriptorSecretKeySecretBytes(
         that: this,
       );

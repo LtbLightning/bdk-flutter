@@ -30,12 +30,12 @@ class BdkPsbt {
       core.instance.api.crateApiPsbtBdkPsbtCombine(ptr: ptr, other: other);
 
   /// Return the transaction.
-  static Future<BdkTransaction> extractTx({required BdkPsbt ptr}) =>
+  static BdkTransaction extractTx({required BdkPsbt ptr}) =>
       core.instance.api.crateApiPsbtBdkPsbtExtractTx(ptr: ptr);
 
   /// The total transaction fee amount, sum of input amounts minus sum of output amounts, in Sats.
   /// If the PSBT is missing a TxOut for an input returns None.
-  Future<BigInt?> feeAmount() => core.instance.api.crateApiPsbtBdkPsbtFeeAmount(
+  BigInt? feeAmount() => core.instance.api.crateApiPsbtBdkPsbtFeeAmount(
         that: this,
       );
 
@@ -43,7 +43,7 @@ class BdkPsbt {
   /// `PartiallySignedTransaction` is finalized and all witness/signature data is added to the
   /// transaction.
   /// If the PSBT is missing a TxOut for an input returns None.
-  Future<FeeRate?> feeRate() => core.instance.api.crateApiPsbtBdkPsbtFeeRate(
+  FeeRate? feeRate() => core.instance.api.crateApiPsbtBdkPsbtFeeRate(
         that: this,
       );
 
@@ -51,21 +51,19 @@ class BdkPsbt {
       core.instance.api.crateApiPsbtBdkPsbtFromStr(psbtBase64: psbtBase64);
 
   /// Serialize the PSBT data structure as a String of JSON.
-  Future<String> jsonSerialize() =>
-      core.instance.api.crateApiPsbtBdkPsbtJsonSerialize(
+  String jsonSerialize() => core.instance.api.crateApiPsbtBdkPsbtJsonSerialize(
         that: this,
       );
 
   ///Serialize as raw binary data
-  Future<Uint8List> serialize() =>
-      core.instance.api.crateApiPsbtBdkPsbtSerialize(
+  Uint8List serialize() => core.instance.api.crateApiPsbtBdkPsbtSerialize(
         that: this,
       );
 
   ///Computes the `Txid`.
   /// Hashes the transaction excluding the segwit data (i. e. the marker, flag bytes, and the witness fields themselves).
   /// For non-segwit transactions which do not have any segwit data, this will be equal to transaction.wtxid().
-  Future<String> txid() => core.instance.api.crateApiPsbtBdkPsbtTxid(
+  String txid() => core.instance.api.crateApiPsbtBdkPsbtTxid(
         that: this,
       );
 

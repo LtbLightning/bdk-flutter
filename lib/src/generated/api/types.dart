@@ -114,19 +114,18 @@ class BdkAddress {
       core.instance.api.crateApiTypesBdkAddressFromString(
           address: address, network: network);
 
-  Future<bool> isValidForNetwork({required Network network}) => core
-      .instance.api
+  bool isValidForNetwork({required Network network}) => core.instance.api
       .crateApiTypesBdkAddressIsValidForNetwork(that: this, network: network);
 
-  Future<Network> network() => core.instance.api.crateApiTypesBdkAddressNetwork(
+  Network network() => core.instance.api.crateApiTypesBdkAddressNetwork(
         that: this,
       );
 
-  Future<Payload> payload() => core.instance.api.crateApiTypesBdkAddressPayload(
+  Payload payload() => core.instance.api.crateApiTypesBdkAddressPayload(
         that: this,
       );
 
-  static Future<BdkScriptBuf> script({required BdkAddress ptr}) =>
+  static BdkScriptBuf script({required BdkAddress ptr}) =>
       core.instance.api.crateApiTypesBdkAddressScript(ptr: ptr);
 
   String toQrUri() => core.instance.api.crateApiTypesBdkAddressToQrUri(
@@ -156,7 +155,7 @@ class BdkScriptBuf {
       );
 
   ///Creates a new empty script.
-  static Future<BdkScriptBuf> empty() =>
+  static BdkScriptBuf empty() =>
       core.instance.api.crateApiTypesBdkScriptBufEmpty();
 
   static Future<BdkScriptBuf> fromHex({required String s}) =>
