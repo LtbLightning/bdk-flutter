@@ -54,19 +54,19 @@ class MultiSigWallet {
     return [alice, bob, dave];
   }
 
-  sendBitcoin(Blockchain blockchain, Wallet aliceWallet, Wallet bobWallet,
+  sendBitcoin(Blockchain blockchain, Wallet wallet, Wallet bobWallet,
       String addressStr) async {
     try {
       final txBuilder = TxBuilder();
-      final address = await Address.fromString(
-          s: addressStr, network: (await aliceWallet.network()));
-      final script = await address.scriptPubkey();
+      final address =
+          await Address.fromString(s: addressStr, network: wallet.network());
+      final script = address.scriptPubkey();
       final feeRate = await blockchain.estimateFee(target: BigInt.from(25));
       final (psbt, _) = await txBuilder
           .addRecipient(script, BigInt.from(1200))
           .feeRate(feeRate.satPerVb)
-          .finish(aliceWallet);
-      await aliceWallet.sign(
+          .finish(wallet);
+      await wallet.sign(
           psbt: psbt,
           signOptions: const SignOptions(
               trustWitnessUtxo: false,
@@ -77,7 +77,7 @@ class MultiSigWallet {
               allowGrinding: true));
       final isFinalized = await bobWallet.sign(psbt: psbt);
       if (isFinalized) {
-        final tx = await psbt.extractTx();
+        final tx = psbt.extractTx();
         await blockchain.broadcast(transaction: tx);
       } else {
         debugPrint("Psbt not finalized!");
