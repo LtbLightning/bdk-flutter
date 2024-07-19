@@ -3,4 +3,5 @@ cargo:
     toolchain: stable
 precompiled_binaries:
   url_prefix: https://github.com/LtbLightning/bdk-flutter/releases/download/precompiled_
-  public_key: b8771896f9326bba8c9b1170094a205776d675d6464e9938d3e71e43ac47e73e
+  public_key: 0e43d5e8452d00db7f3000c18fb1ba796babfcb5dc6306bb0629eff24f8be85b
+  
