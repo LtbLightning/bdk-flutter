@@ -13,8 +13,8 @@ class SimpleWallet extends StatefulWidget {
 
 class _SimpleWalletState extends State<SimpleWallet> {
   String displayText = "";
-  int balance = 0;
-  late Wallet aliceWallet;
+  BigInt balance = BigInt.zero;
+  late Wallet wallet;
   Blockchain? blockchain;
   BdkLibrary lib = BdkLibrary();
   @override
@@ -25,12 +25,11 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   generateMnemonicKeys() async {
     final res = await lib.createMnemonic();
-    final mnemonic = await res.asString();
     setState(() {
-      displayText = mnemonic;
+      displayText = res.toString();
     });
     if (kDebugMode) {
-      print(mnemonic);
+      print(res.toString());
     }
   }
 
@@ -38,7 +37,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
     final aliceMnemonic = await Mnemonic.fromString(
         'give rate trigger race embrace dream wish column upon steel wrist rice');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
-    aliceWallet = await lib.restoreWallet(aliceDescriptor);
+    wallet = await lib.restoreWallet(aliceDescriptor);
     setState(() {
       displayText = "Wallets restored";
     });
@@ -46,22 +45,21 @@ class _SimpleWalletState extends State<SimpleWallet> {
 
   sync() async {
     blockchain ??= await lib.initializeBlockchain();
-    await lib.sync(blockchain!, aliceWallet);
+    await lib.sync(blockchain!, wallet);
   }
 
   getNewAddress() async {
-    final addressInfo = await lib.getAddress(aliceWallet);
-    final address = await addressInfo.address.asString();
-
-    debugPrint(address);
+    final addressInfo = lib.getAddressInfo(wallet);
+    debugPrint(addressInfo.address.toString());
 
     setState(() {
-      displayText = "Address: $address \n Index: ${addressInfo.index}";
+      displayText =
+          "Address: ${addressInfo.address.toString()} \n Index: ${addressInfo.index}";
     });
   }
 
   getUnConfirmedTransactions() async {
-    final unConfirmed = await lib.getUnConfirmedTransactions(aliceWallet);
+    final unConfirmed = lib.getUnConfirmedTransactions(wallet);
     setState(() {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
@@ -79,7 +77,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getConfirmedTransactions() async {
-    final confirmed = await lib.getConfirmedTransactions(aliceWallet);
+    final confirmed = lib.getConfirmedTransactions(wallet);
     setState(() {
       displayText = "You have ${confirmed.length} confirmed transactions";
     });
@@ -107,7 +105,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   getBalance() async {
-    final alice = await lib.getBalance(aliceWallet);
+    final alice = await lib.getBalance(wallet);
     setState(() {
       balance = alice.total;
       displayText =
@@ -116,7 +114,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   listUnspent() async {
-    final res = await lib.listUnspend(aliceWallet);
+    final res = lib.listUnspent(wallet);
     for (var e in res) {
       setState(() {
         displayText =
@@ -156,12 +154,8 @@ class _SimpleWalletState extends State<SimpleWallet> {
   }
 
   sendBit(int amountSat) async {
-    await lib.sendBitcoin(
-      blockchain!,
-      aliceWallet,
-      "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f",
-      amountSat,
-    );
+    await lib.sendBitcoin(blockchain!, wallet,
+        "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f", amountSat);
   }
 
   @override
@@ -295,7 +289,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
               TextButton(
                   onPressed: () => sendBit(100000),
                   child: const Text(
-                    'Press to send 100k sats',
+                    'Press to send 1200 satoshi',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,

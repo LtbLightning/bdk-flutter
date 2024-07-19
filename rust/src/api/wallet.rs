@@ -14,14 +14,14 @@ use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
 use bdk::bitcoin::{Sequence, Txid};
 pub use bdk::blockchain::GetTx;
-pub use bdk::database::any::AnyDatabase;
-use bdk::database::ConfigurableDatabase;
-pub use std::sync::Mutex;
-use std::sync::MutexGuard;
 
-#[derive(Debug, Clone)]
+use bdk::database::ConfigurableDatabase;
+use std::sync::MutexGuard;
+use flutter_rust_bridge::frb;
+
+#[derive(Debug)]
 pub struct BdkWallet {
-    pub ptr: RustOpaque<Mutex<bdk::Wallet<AnyDatabase>>>,
+    pub ptr: RustOpaque<std::sync::Mutex<bdk::Wallet<bdk::database::AnyDatabase>>>,
 }
 impl BdkWallet {
     pub fn new(
@@ -30,9 +30,9 @@ impl BdkWallet {
         network: Network,
         database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
-        let database = AnyDatabase::from_config(&database_config.into())?;
-        let descriptor: String = descriptor.as_string_private();
-        let change_descriptor: Option<String> = change_descriptor.map(|d| d.as_string_private());
+        let database = bdk::database::AnyDatabase::from_config(&database_config.into())?;
+        let descriptor: String = descriptor.to_string_private();
+        let change_descriptor: Option<String> = change_descriptor.map(|d| d.to_string_private());
 
         let wallet = bdk::Wallet::new(
             &descriptor,
@@ -41,18 +41,20 @@ impl BdkWallet {
             database,
         )?;
         Ok(BdkWallet {
-            ptr: RustOpaque::new(Mutex::new(wallet)),
+            ptr: RustOpaque::new(std::sync::Mutex::new(wallet)),
         })
     }
-    pub(crate) fn get_wallet(&self) -> MutexGuard<bdk::Wallet<AnyDatabase>> {
+    pub(crate) fn get_wallet(&self) -> MutexGuard<bdk::Wallet<bdk::database::AnyDatabase>> {
         self.ptr.lock().expect("")
     }
 
     /// Get the Bitcoin network the wallet is using.
+   #[frb(sync)]
     pub fn network(&self) -> Network {
         self.get_wallet().network().into()
     }
     /// Return whether or not a script is part of this wallet (either internal or external).
+    #[frb(sync)]
     pub fn is_mine(&self, script: BdkScriptBuf) -> Result<bool, BdkError> {
         self.get_wallet()
             .is_mine(<BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script())
@@ -61,6 +63,7 @@ impl BdkWallet {
     /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
     /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
     /// then the same address will always be returned for any AddressIndex.
+    #[frb(sync)]
     pub fn get_address(
         ptr: BdkWallet,
         address_index: AddressIndex,
@@ -78,6 +81,7 @@ impl BdkWallet {
     /// see [AddressIndex] for available address index selection strategies. If none of the keys
     /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
     /// be returned for any [AddressIndex].
+    #[frb(sync)]
     pub fn get_internal_address(
         ptr: BdkWallet,
         address_index: AddressIndex,
@@ -90,6 +94,7 @@ impl BdkWallet {
 
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
     /// on the internal database, which first needs to be Wallet.sync manually.
+    #[frb(sync)]
     pub fn get_balance(&self) -> Result<Balance, BdkError> {
         self.get_wallet()
             .get_balance()
@@ -97,6 +102,7 @@ impl BdkWallet {
             .map_err(|e| e.into())
     }
     /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
+    #[frb(sync)]
     pub fn list_transactions(
         &self,
         include_raw: bool,
@@ -114,6 +120,7 @@ impl BdkWallet {
 
     /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
     /// which first needs to be Wallet.sync manually.
+    #[frb(sync)]
     pub fn list_unspent(&self) -> Result<Vec<LocalUtxo>, BdkError> {
         let unspent: Vec<bdk::LocalUtxo> = self.get_wallet().list_unspent()?;
         Ok(unspent.into_iter().map(LocalUtxo::from).collect())
@@ -140,7 +147,7 @@ impl BdkWallet {
             .map_err(|e| e.into())
     }
     /// Sync the internal database with the blockchain.
-    pub fn sync(ptr: BdkWallet, blockchain: BdkBlockchain) -> Result<(), BdkError> {
+    pub fn sync(ptr: BdkWallet, blockchain: &BdkBlockchain) -> Result<(), BdkError> {
         let blockchain = blockchain.get_blockchain();
         ptr.get_wallet()
             .sync(blockchain.deref(), bdk::SyncOptions::default())
@@ -206,6 +213,7 @@ impl BdkWallet {
         input.try_into()
     }
     ///Returns the descriptor used to create addresses for a particular keychain.
+    #[frb(sync)]
     pub fn get_descriptor_for_keychain(
         ptr: BdkWallet,
         keychain: KeychainKind,

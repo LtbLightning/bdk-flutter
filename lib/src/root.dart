@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/utils/utils.dart';
 
 import 'generated/api/blockchain.dart';
@@ -13,6 +14,8 @@ import 'generated/api/wallet.dart';
 ///A Bitcoin address.
 class Address extends BdkAddress {
   Address._({required super.ptr});
+
+  ///  [Address] constructor
   static Future<Address> fromScript(
       {required ScriptBuf script, required Network network}) async {
     try {
@@ -24,6 +27,7 @@ class Address extends BdkAddress {
     }
   }
 
+  ///  [Address] constructor
   static Future<Address> fromString(
       {required String s, required Network network}) async {
     try {
@@ -36,13 +40,63 @@ class Address extends BdkAddress {
   }
 
   ///Generates a script pubkey spending to this address
-  Future<ScriptBuf> scriptPubkey() async {
+  ScriptBuf scriptPubkey() {
     try {
-      final res = await BdkAddress.script(ptr: this);
-      return ScriptBuf(bytes: res.bytes);
+      return ScriptBuf(bytes: BdkAddress.script(ptr: this).bytes);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
+  }
+
+  //Creates a URI string bitcoin:address optimized to be encoded in QR codes.
+  /// If the address is bech32, both the schema and the address become uppercase. If the address is base58, the schema is lowercase and the address is left mixed case.
+  /// Quoting BIP 173 "inside QR codes uppercase SHOULD be used, as those permit the use of alphanumeric mode, which is 45% more compact than the normal byte mode."
+  /// Note however that despite BIP21 explicitly stating that the bitcoin: prefix should be parsed as case-insensitive many wallets got this wrong and don't parse correctly. See compatibility table.
+  /// If you want to avoid allocation you can use alternate display instead:
+  @override
+  String toQrUri() {
+    try {
+      return super.toQrUri();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///Parsed addresses do not always have one network. The problem is that legacy testnet, regtest and signet addresses use the same prefix instead of multiple different ones.
+  ///When parsing, such addresses are always assumed to be testnet addresses (the same is true for bech32 signet addresses).
+  ///So if one wants to check if an address belongs to a certain network a simple comparison is not enough anymore. Instead this function can be used.
+  @override
+  bool isValidForNetwork({required Network network}) {
+    try {
+      return super.isValidForNetwork(network: network);
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///The network on which this address is usable.
+  @override
+  Network network() {
+    try {
+      return super.network();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///The type of the address.
+  @override
+  Payload payload() {
+    try {
+      return super.payload();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  @override
+  String toString() {
+    return super.asString();
   }
 }
 
@@ -51,35 +105,40 @@ class Blockchain extends BdkBlockchain {
   Blockchain._({required super.ptr});
 
   ///  [Blockchain] constructor
+
   static Future<Blockchain> create({required BlockchainConfig config}) async {
     try {
       await Api.initialize();
-      final res = await BdkBlockchain.newInstance(blockchainConfig: config);
+      final res = await BdkBlockchain.create(blockchainConfig: config);
       return Blockchain._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
   }
 
+  ///  [Blockchain] constructor for creating `Esplora` blockchain in `Mutinynet`
+  ///  Esplora url: https://mutinynet.ltbl.io/api
   static Future<Blockchain> createMutinynet({
     int stopGap = 20,
   }) async {
     final config = BlockchainConfig.esplora(
       config: EsploraConfig(
         baseUrl: 'https://mutinynet.ltbl.io/api',
-        stopGap: stopGap,
+        stopGap: BigInt.from(stopGap),
       ),
     );
     return create(config: config);
   }
 
+  ///  [Blockchain] constructor for creating `Esplora` blockchain in `Testnet`
+  ///  Esplora url: https://testnet.ltbl.io/api
   static Future<Blockchain> createTestnet({
     int stopGap = 20,
   }) async {
     final config = BlockchainConfig.esplora(
       config: EsploraConfig(
         baseUrl: 'https://testnet.ltbl.io/api',
-        stopGap: stopGap,
+        stopGap: BigInt.from(stopGap),
       ),
     );
     return create(config: config);
@@ -87,7 +146,7 @@ class Blockchain extends BdkBlockchain {
 
   ///Estimate the fee rate required to confirm a transaction in a given target of blocks
   @override
-  Future<FeeRate> estimateFee({required int target, hint}) async {
+  Future<FeeRate> estimateFee({required BigInt target, hint}) async {
     try {
       return super.estimateFee(target: target);
     } on BdkError catch (e) {
@@ -196,6 +255,11 @@ class DerivationPath extends BdkDerivationPath {
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
+  }
+
+  @override
+  String toString() {
+    return super.asString();
   }
 }
 
@@ -387,19 +451,15 @@ class Descriptor extends BdkDescriptor {
 
   ///Return the public version of the output descriptor.
   @override
-  Future<String> asString({hint}) async {
-    try {
-      return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
-    }
+  String toString() {
+    return super.asString();
   }
 
   ///Return the private version of the output descriptor if available, otherwise return the public version.
   @override
-  Future<String> asStringPrivate({hint}) async {
+  String toStringPrivate({hint}) {
     try {
-      return super.asStringPrivate();
+      return super.toStringPrivate();
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -407,7 +467,7 @@ class Descriptor extends BdkDescriptor {
 
   ///Computes an upper bound on the difference between a non-satisfied TxIn's segwit_weight and a satisfied TxIn's segwit_weight
   @override
-  Future<int> maxSatisfactionWeight({hint}) async {
+  BigInt maxSatisfactionWeight({hint}) {
     try {
       return super.maxSatisfactionWeight();
     } on BdkError catch (e) {
@@ -433,12 +493,8 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
 
   ///Get the public key as string.
   @override
-  Future<String> asString({hint}) async {
-    try {
-      return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
-    }
+  String toString() {
+    return super.asString();
   }
 
   ///Derive a public descriptor at a given path.
@@ -515,9 +571,9 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
   }
 
   ///Returns the public version of this key.
-  Future<DescriptorPublicKey> asPublic() async {
+  DescriptorPublicKey toPublic() {
     try {
-      final res = await BdkDescriptorSecretKey.asPublic(ptr: this);
+      final res = BdkDescriptorSecretKey.asPublic(ptr: this);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -526,17 +582,13 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
 
   ///Get the private key as string.
   @override
-  Future<String> asString({hint}) {
-    try {
-      return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
-    }
+  String toString() {
+    return super.asString();
   }
 
   ///Get the private key as bytes.
   @override
-  Future<Uint8List> secretBytes({hint}) async {
+  Uint8List secretBytes({hint}) {
     try {
       return super.secretBytes();
     } on BdkError catch (e) {
@@ -591,12 +643,8 @@ class Mnemonic extends BdkMnemonic {
 
   ///Returns Mnemonic as string
   @override
-  Future<String> asString({hint}) async {
-    try {
-      return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
-    }
+  String toString() {
+    return super.asString();
   }
 }
 
@@ -620,7 +668,7 @@ class PartiallySignedTransaction extends BdkPsbt {
 
   ///Return fee amount
   @override
-  Future<int?> feeAmount({hint}) {
+  BigInt? feeAmount({hint}) {
     try {
       return super.feeAmount();
     } on BdkError catch (e) {
@@ -630,7 +678,7 @@ class PartiallySignedTransaction extends BdkPsbt {
 
   ///Return fee rate
   @override
-  Future<FeeRate?> feeRate({hint}) {
+  FeeRate? feeRate({hint}) {
     try {
       return super.feeRate();
     } on BdkError catch (e) {
@@ -639,7 +687,7 @@ class PartiallySignedTransaction extends BdkPsbt {
   }
 
   @override
-  Future<String> jsonSerialize({hint}) {
+  String jsonSerialize({hint}) {
     try {
       return super.jsonSerialize();
     } on BdkError catch (e) {
@@ -647,9 +695,14 @@ class PartiallySignedTransaction extends BdkPsbt {
     }
   }
 
-  ///Return psbt as string
   @override
-  Future<String> serialize({hint}) {
+  String toString() {
+    return super.asString();
+  }
+
+  ///Serialize as raw binary data
+  @override
+  Uint8List serialize({hint}) {
     try {
       return super.serialize();
     } on BdkError catch (e) {
@@ -658,10 +711,10 @@ class PartiallySignedTransaction extends BdkPsbt {
   }
 
   ///Return the transaction as bytes.
-  Future<Transaction> extractTx() async {
+  Transaction extractTx() {
     try {
-      final res = await BdkPsbt.extractTx(ptr: this);
-      return Transaction._(inner: res.inner);
+      final res = BdkPsbt.extractTx(ptr: this);
+      return Transaction._(s: res.s);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -680,7 +733,7 @@ class PartiallySignedTransaction extends BdkPsbt {
 
   ///Returns the [PartiallySignedTransaction]'s transaction id
   @override
-  Future<String> txid({hint}) {
+  String txid({hint}) {
     try {
       return super.txid();
     } on BdkError catch (e) {
@@ -698,15 +751,14 @@ class ScriptBuf extends BdkScriptBuf {
   static Future<ScriptBuf> empty() async {
     try {
       await Api.initialize();
-      final res = await BdkScriptBuf.empty();
-      return ScriptBuf(bytes: res.bytes);
+      return ScriptBuf(bytes: BdkScriptBuf.empty().bytes);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
   }
 
   ///Creates a new empty script with pre-allocated capacity.
-  static Future<ScriptBuf> withCapacity(int capacity) async {
+  static Future<ScriptBuf> withCapacity(BigInt capacity) async {
     try {
       await Api.initialize();
       final res = await BdkScriptBuf.withCapacity(capacity: capacity);
@@ -726,11 +778,16 @@ class ScriptBuf extends BdkScriptBuf {
       throw mapBdkError(e);
     }
   }
+
+  @override
+  String toString() {
+    return super.asString();
+  }
 }
 
 ///A bitcoin transaction.
 class Transaction extends BdkTransaction {
-  Transaction._({required super.inner});
+  Transaction._({required super.s});
 
   ///  [Transaction] constructor
   ///  Decode an object with a well-defined format.
@@ -742,7 +799,7 @@ class Transaction extends BdkTransaction {
       await Api.initialize();
       final res =
           await BdkTransaction.fromBytes(transactionBytes: transactionBytes);
-      return Transaction._(inner: res.inner);
+      return Transaction._(s: res.s);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -750,7 +807,7 @@ class Transaction extends BdkTransaction {
 
   @override
   String toString() {
-    return inner;
+    return s;
   }
 }
 
@@ -762,11 +819,11 @@ class TxBuilder {
   final List<ScriptAmount> _recipients = [];
   final List<OutPoint> _utxos = [];
   final List<OutPoint> _unSpendable = [];
-  (OutPoint, Input, int)? _foreignUtxo;
+  (OutPoint, Input, BigInt)? _foreignUtxo;
   bool _manuallySelectedOnly = false;
   double? _feeRate;
   ChangeSpendPolicy _changeSpendPolicy = ChangeSpendPolicy.changeAllowed;
-  int? _feeAbsolute;
+  BigInt? _feeAbsolute;
   bool _drainWallet = false;
   ScriptBuf? _drainTo;
   RbfValue? _rbfValue;
@@ -779,7 +836,7 @@ class TxBuilder {
   }
 
   ///Add a recipient to the internal list
-  TxBuilder addRecipient(ScriptBuf script, int amount) {
+  TxBuilder addRecipient(ScriptBuf script, BigInt amount) {
     _recipients.add(ScriptAmount(script: script, amount: amount));
     return this;
   }
@@ -828,7 +885,7 @@ class TxBuilder {
   /// you into putting a value that is too high causing you to pay a fee that is too high. The party who is broadcasting the transaction can of course check the
   /// real input weight matches the expected weight prior to broadcasting.
   TxBuilder addForeignUtxo(
-      Input psbtInput, OutPoint outPoint, int satisfactionWeight) {
+      Input psbtInput, OutPoint outPoint, BigInt satisfactionWeight) {
     _foreignUtxo = (outPoint, psbtInput, satisfactionWeight);
     return this;
   }
@@ -881,7 +938,7 @@ class TxBuilder {
   }
 
   ///Set an absolute fee
-  TxBuilder feeAbsolute(int feeAmount) {
+  TxBuilder feeAbsolute(BigInt feeAmount) {
     _feeAbsolute = feeAmount;
     return this;
   }
@@ -992,11 +1049,9 @@ class Wallet extends BdkWallet {
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
-  Future<AddressInfo> getAddress(
-      {required AddressIndex addressIndex, hint}) async {
+  AddressInfo getAddress({required AddressIndex addressIndex, hint}) {
     try {
-      final res =
-          await BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
+      final res = BdkWallet.getAddress(ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1006,7 +1061,7 @@ class Wallet extends BdkWallet {
   /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
   /// on the internal database, which first needs to be Wallet.sync manually.
   @override
-  Future<Balance> getBalance({hint}) {
+  Balance getBalance({hint}) {
     try {
       return super.getBalance();
     } on BdkError catch (e) {
@@ -1018,8 +1073,8 @@ class Wallet extends BdkWallet {
   Future<Descriptor> getDescriptorForKeychain(
       {required KeychainKind keychain, hint}) async {
     try {
-      final res = await BdkWallet.getDescriptorForKeychain(
-          ptr: this, keychain: keychain);
+      final res =
+          BdkWallet.getDescriptorForKeychain(ptr: this, keychain: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
@@ -1035,11 +1090,10 @@ class Wallet extends BdkWallet {
   /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
   /// be returned for any [AddressIndex].
 
-  Future<AddressInfo> getInternalAddress(
-      {required AddressIndex addressIndex, hint}) async {
+  AddressInfo getInternalAddress({required AddressIndex addressIndex, hint}) {
     try {
-      final res = await BdkWallet.getInternalAddress(
-          ptr: this, addressIndex: addressIndex);
+      final res =
+          BdkWallet.getInternalAddress(ptr: this, addressIndex: addressIndex);
       return AddressInfo(res.$2, Address._(ptr: res.$1.ptr));
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1065,7 +1119,7 @@ class Wallet extends BdkWallet {
 
   /// Return whether or not a script is part of this wallet (either internal or external).
   @override
-  Future<bool> isMine({required BdkScriptBuf script, hint}) async {
+  bool isMine({required BdkScriptBuf script, hint}) {
     try {
       return super.isMine(script: script);
     } on BdkError catch (e) {
@@ -1075,8 +1129,7 @@ class Wallet extends BdkWallet {
 
   /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
   @override
-  Future<List<TransactionDetails>> listTransactions(
-      {required bool includeRaw, hint}) async {
+  List<TransactionDetails> listTransactions({required bool includeRaw, hint}) {
     try {
       return super.listTransactions(includeRaw: includeRaw);
     } on BdkError catch (e) {
@@ -1088,7 +1141,7 @@ class Wallet extends BdkWallet {
   /// which first needs to be Wallet.sync manually.
   /// TODO; Update; create custom LocalUtxo
   @override
-  Future<List<LocalUtxo>> listUnspent({hint}) async {
+  List<LocalUtxo> listUnspent({hint}) {
     try {
       return super.listUnspent();
     } on BdkError catch (e) {
@@ -1098,7 +1151,7 @@ class Wallet extends BdkWallet {
 
   /// Get the Bitcoin network the wallet is using.
   @override
-  Future<Network> network({hint}) async {
+  Network network({hint}) {
     try {
       return super.network();
     } on BdkError catch (e) {

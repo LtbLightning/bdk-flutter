@@ -57,21 +57,20 @@ void main() {
   });
   group('Wallet', () {
     test('Should return valid AddressInfo Object', () async {
-      final res =
-          await mockWallet.getAddress(addressIndex: AddressIndex.increase());
+      final res = mockWallet.getAddress(addressIndex: AddressIndex.increase());
       expect(res, isA<AddressInfo>());
     });
 
     test('Should return valid Balance object', () async {
-      final res = await mockWallet.getBalance();
+      final res = mockWallet.getBalance();
       expect(res, isA<Balance>());
     });
     test('Should return Network enum', () async {
-      final res = await mockWallet.network();
+      final res = mockWallet.network();
       expect(res, isA<Network>());
     });
     test('Should return list of LocalUtxo object', () async {
-      final res = await mockWallet.listUnspent();
+      final res = mockWallet.listUnspent();
       expect(res, isA<List<LocalUtxo>>());
     });
     test('Should return a Input object', () async {
@@ -86,17 +85,17 @@ void main() {
     });
     test('Should return an empty list of TransactionDetails', () async {
       when(mockWallet.listTransactions(includeRaw: any))
-          .thenAnswer((e) async => List.empty());
-      final res = await mockWallet.listTransactions(includeRaw: true);
+          .thenAnswer((e) => List.empty());
+      final res = mockWallet.listTransactions(includeRaw: true);
       expect(res, isA<List<TransactionDetails>>());
       expect(res, List.empty());
     });
     test('verify function call order', () async {
       await mockWallet.sync(blockchain: mockBlockchain);
-      await mockWallet.listTransactions(includeRaw: true);
+      mockWallet.listTransactions(includeRaw: true);
       verifyInOrder([
         await mockWallet.sync(blockchain: mockBlockchain),
-        await mockWallet.listTransactions(includeRaw: true)
+        mockWallet.listTransactions(includeRaw: true)
       ]);
     });
   });
@@ -104,7 +103,7 @@ void main() {
     final mockSDescriptorSecret = MockDescriptorSecretKey();
 
     test('verify asPublic()', () async {
-      final res = await mockSDescriptorSecret.asPublic();
+      final res = mockSDescriptorSecret.toPublic();
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify asString', () async {
@@ -224,19 +223,18 @@ void main() {
           txid:
               'b3b72ce9c7aa09b9c868c214e88c002a28aac9a62fd3971eff6de83c418f4db3',
           vout: 0);
-      when(mockAddress.scriptPubkey())
-          .thenAnswer((_) async => Future.value(mockScript));
+      when(mockAddress.scriptPubkey()).thenAnswer((_) => mockScript);
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.addForeignUtxo(input, outPoint, 0))
+      when(mockTxBuilder.addForeignUtxo(input, outPoint, BigInt.zero))
           .thenReturn(mockTxBuilder);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer((_) async =>
           Future.value(
               (MockPartiallySignedTransaction(), MockTransactionDetails())));
-      final script = await mockAddress.scriptPubkey();
+      final script = mockAddress.scriptPubkey();
       final txBuilder = mockTxBuilder
-          .addRecipient(script, 1200)
-          .addForeignUtxo(input, outPoint, 0);
+          .addRecipient(script, BigInt.from(1200))
+          .addForeignUtxo(input, outPoint, BigInt.zero);
       final res = await txBuilder.finish(mockWallet);
       expect(res, isA<(PartiallySignedTransaction, TransactionDetails)>());
     });
@@ -248,16 +246,15 @@ void main() {
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
       final psbt = await PartiallySignedTransaction.fromString(psbtBase64);
-      when(mockAddress.scriptPubkey()).thenAnswer((_) async => MockScriptBuf());
+      when(mockAddress.scriptPubkey()).thenAnswer((_) => MockScriptBuf());
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);
 
-      when(mockAddress.scriptPubkey())
-          .thenAnswer((_) async => Future.value(mockScript));
+      when(mockAddress.scriptPubkey()).thenAnswer((_) => mockScript);
       when(mockTxBuilder.finish(mockWallet)).thenAnswer(
           (_) async => Future.value((psbt, MockTransactionDetails())));
-      final script = await mockAddress.scriptPubkey();
-      final txBuilder = mockTxBuilder.addRecipient(script, 1200);
+      final script = mockAddress.scriptPubkey();
+      final txBuilder = mockTxBuilder.addRecipient(script, BigInt.from(1200));
       final res = await txBuilder.finish(mockWallet);
       expect(res.$1, psbt);
     });
@@ -275,21 +272,21 @@ void main() {
     });
   });
   group('Address', () {
-    test('verify network()', () async {
-      final res = await mockAddress.network();
+    test('verify network()', () {
+      final res = mockAddress.network();
       expect(res, isA<Network>());
     });
-    test('verify payload()', () async {
-      final res = await mockAddress.network();
+    test('verify payload()', () {
+      final res = mockAddress.network();
       expect(res, isA<Network>());
     });
-    test('verify scriptPubKey()', () async {
-      final res = await mockAddress.scriptPubkey();
+    test('verify scriptPubKey()', () {
+      final res = mockAddress.scriptPubkey();
       expect(res, isA<ScriptBuf>());
     });
   });
   group('Script', () {
-    test('verify create', () async {
+    test('verify create', () {
       final res = mockScript;
       expect(res, isA<MockScriptBuf>());
     });

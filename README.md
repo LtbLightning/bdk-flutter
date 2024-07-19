@@ -39,7 +39,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.31.2-dev.2
+  bdk_flutter: ^0.31.2
 ```
 
 ### Examples
@@ -86,8 +86,7 @@ final descriptorSecretKey = await DescriptorSecretKey.create( network: Network.t
 final externalDescriptor = await Descriptor.newBip44( secretKey: descriptorSecretKey,
                                                       network: Network.testnet,
                                                       keychain: KeychainKind.externalChain  );
-final externalPublicDescriptorStr = await externalDescriptor.asString();
-final externalPublicDescriptor = await Descriptor.( descriptor: externalPublicDescriptorStr,
+final externalPublicDescriptor = await Descriptor.create( descriptor: externalDescriptor.toString(),
                                                     network: Network.testnet);
 ```
 

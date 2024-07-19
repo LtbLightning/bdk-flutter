@@ -1,3 +1,12 @@
+## [0.31.2]
+Updated `flutter_rust_bridge` to `2.0.0`.
+#### APIs added
+- Exposed `createTestnet` & `createMutinynet` to `Blockchain`.
+- Overrode `toString()` for `Address`, `DerivationPath`, `Descriptor`, `DescriptorPublicKey` , `DescriptorSecretKey`, `Mnemonic`,
+- `PartiallySignedTransaction`, `ScriptBuf` & `Transaction`. 
+#### Changed
+- `partiallySignedTransaction.serialize()` serialize the data as raw binary.
+
 ## [0.31.2-dev.2]
 #### Fixed
 - Thread `frb_workerpool` panicked on invalid `Fingerprint`. 
