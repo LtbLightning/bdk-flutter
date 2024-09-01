@@ -32,6 +32,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Set up Android SDK
+        if: (matrix.os == 'ubuntu-20.04')
+        uses: android-actions/setup-android@v2 
+      - name: Install Specific NDK
+        if: (matrix.os == 'ubuntu-20.04')
+        run: sdkmanager --install "ndk;24.0.8215888"  
       - name: Precompile (with iOS)
         if: (matrix.os == 'macOS-latest')
         run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter

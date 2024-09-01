@@ -26,7 +26,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 31
-    namespace "io.bdk.f.bdk_flutter"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
