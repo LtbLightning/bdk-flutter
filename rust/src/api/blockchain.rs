@@ -33,7 +33,7 @@ impl BdkBlockchain {
                     socks5: config.socks5,
                     timeout: config.timeout,
                     url: config.url,
-                    stop_gap: config.stop_gap as usize,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
                     validate_domain: config.validate_domain,
                 })
             }
@@ -42,7 +42,7 @@ impl BdkBlockchain {
                     base_url: config.base_url,
                     proxy: config.proxy,
                     concurrency: config.concurrency,
-                    stop_gap: config.stop_gap as usize,
+                    stop_gap: usize::try_from(config.stop_gap).unwrap(),
                     timeout: config.timeout,
                 })
             }
