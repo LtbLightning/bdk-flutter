@@ -25,7 +25,12 @@ impl BdkMnemonic {
     /// Generates Mnemonic with a random entropy
     pub fn new(word_count: WordCount) -> Result<Self, BdkError> {
         let generated_key: keys::GeneratedKey<_, BareCtx> =
-            keys::bip39::Mnemonic::generate((word_count.into(), Language::English)).unwrap();
+            (match keys::bip39::Mnemonic::generate((word_count.into(), Language::English)) {
+                Ok(value) => Ok(value),
+                Err(Some(err)) => Err(BdkError::Bip39(err.to_string())),
+                Err(None) => Err(BdkError::Generic("".to_string())), // If
+            })?;
+
         keys::bip39::Mnemonic::parse_in(Language::English, generated_key.to_string())
             .map(|e| e.into())
             .map_err(|e| BdkError::Bip39(e.to_string()))
@@ -93,10 +98,19 @@ impl BdkDescriptorSecretKey {
         password: Option<String>,
     ) -> Result<Self, BdkError> {
         let mnemonic = (*mnemonic.ptr).clone();
-        let xkey: keys::ExtendedKey = (mnemonic, password).into_extended_key().unwrap();
+        let xkey: keys::ExtendedKey = (mnemonic, password)
+            .into_extended_key()
+            .map_err(|e| BdkError::Key(e.to_string()))?;
+        let xpriv = if let Some(e) = xkey.into_xprv(network.into()) {
+            Ok(e)
+        } else {
+            Err(BdkError::Generic(
+                "private data not found in the key!".to_string(),
+            ))
+        };
         let descriptor_secret_key = keys::DescriptorSecretKey::XPrv(DescriptorXKey {
             origin: None,
-            xkey: xkey.into_xprv(network.into()).unwrap(),
+            xkey: xpriv?,
             derivation_path: bitcoin::bip32::DerivationPath::master(),
             wildcard: Wildcard::Unhardened,
         });
@@ -163,7 +177,10 @@ impl BdkDescriptorSecretKey {
     #[frb(sync)]
     pub fn as_public(ptr: BdkDescriptorSecretKey) -> Result<BdkDescriptorPublicKey, BdkError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = ptr.ptr.to_public(&secp).unwrap();
+        let descriptor_public_key = ptr
+            .ptr
+            .to_public(&secp)
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         Ok(descriptor_public_key.into())
     }
     #[frb(sync)]
@@ -184,7 +201,8 @@ impl BdkDescriptorSecretKey {
     }
 
     pub fn from_string(secret_key: String) -> Result<Self, BdkError> {
-        let key = keys::DescriptorSecretKey::from_str(&*secret_key).unwrap();
+        let key = keys::DescriptorSecretKey::from_str(&*secret_key)
+            .map_err(|e| BdkError::Generic(e.to_string()))?;
         Ok(key.into())
     }
     #[frb(sync)]
