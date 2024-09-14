@@ -1358,7 +1358,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtAsStringConstMeta,
       argValues: [that],
@@ -1428,7 +1428,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtFeeAmountConstMeta,
       argValues: [that],
@@ -1451,7 +1451,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_opt_box_autoadd_fee_rate,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtFeeRateConstMeta,
       argValues: [that],
@@ -1495,7 +1495,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtJsonSerializeConstMeta,
       argValues: [that],
@@ -1518,7 +1518,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_prim_u_8_strict,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtSerializeConstMeta,
       argValues: [that],
@@ -1541,7 +1541,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiPsbtBdkPsbtTxidConstMeta,
       argValues: [that],
@@ -2411,7 +2411,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_network,
-        decodeErrorData: null,
+        decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiWalletBdkWalletNetworkConstMeta,
       argValues: [that],
