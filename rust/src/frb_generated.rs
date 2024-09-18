@@ -869,9 +869,8 @@ fn wire__crate__api__psbt__bdk_psbt_as_string_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::as_string(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::as_string(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -929,9 +928,8 @@ fn wire__crate__api__psbt__bdk_psbt_fee_amount_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::fee_amount(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::fee_amount(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -948,9 +946,8 @@ fn wire__crate__api__psbt__bdk_psbt_fee_rate_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::fee_rate(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::fee_rate(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -988,9 +985,8 @@ fn wire__crate__api__psbt__bdk_psbt_json_serialize_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::json_serialize(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::json_serialize(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -1007,9 +1003,8 @@ fn wire__crate__api__psbt__bdk_psbt_serialize_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::serialize(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::serialize(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -1026,8 +1021,8 @@ fn wire__crate__api__psbt__bdk_psbt_txid_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok = Result::<_, ()>::Ok(crate::api::psbt::BdkPsbt::txid(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::txid(&api_that)?;
                 Ok(output_ok)
             })())
         },
@@ -1772,9 +1767,8 @@ fn wire__crate__api__wallet__bdk_wallet_network_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, ()>((move || {
-                let output_ok =
-                    Result::<_, ()>::Ok(crate::api::wallet::BdkWallet::network(&api_that))?;
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::network(&api_that)?;
                 Ok(output_ok)
             })())
         },
