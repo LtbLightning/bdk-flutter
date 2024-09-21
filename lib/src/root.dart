@@ -117,13 +117,13 @@ class Blockchain extends BdkBlockchain {
   }
 
   ///  [Blockchain] constructor for creating `Esplora` blockchain in `Mutinynet`
-  ///  Esplora url: https://mutinynet.ltbl.io/api
+  ///  Esplora url: https://mutinynet.com/api/
   static Future<Blockchain> createMutinynet({
     int stopGap = 20,
   }) async {
     final config = BlockchainConfig.esplora(
       config: EsploraConfig(
-        baseUrl: 'https://mutinynet.ltbl.io/api',
+        baseUrl: 'https://mutinynet.com/api/',
         stopGap: BigInt.from(stopGap),
       ),
     );
