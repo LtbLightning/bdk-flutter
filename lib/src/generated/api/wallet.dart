@@ -12,6 +12,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'psbt.dart';
 import 'types.dart';
 
+// These functions are ignored because they are not marked as `pub`: `get_wallet`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`
 
 Future<(BdkPsbt, TransactionDetails)> finishBumpFeeTxBuilder(
@@ -108,6 +109,7 @@ class BdkWallet {
           onlyWitnessUtxo: onlyWitnessUtxo,
           sighashType: sighashType);
 
+  /// Return whether or not a script is part of this wallet (either internal or external).
   bool isMine({required BdkScriptBuf script}) => core.instance.api
       .crateApiWalletBdkWalletIsMine(that: this, script: script);
 

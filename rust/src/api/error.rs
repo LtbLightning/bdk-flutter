@@ -361,8 +361,3 @@ impl From<bdk::bitcoin::psbt::PsbtParseError> for BdkError {
         BdkError::PsbtParse(value.to_string())
     }
 }
-impl From<bdk::keys::bip39::Error> for BdkError {
-    fn from(value: bdk::keys::bip39::Error) -> Self {
-        BdkError::Bip39(value.to_string())
-    }
-}
