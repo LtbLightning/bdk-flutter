@@ -124,7 +124,7 @@ version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c8d66485a3a2ea485c1913c4572ce0256067a5377ac8c75c4960e1cda98605f"
 dependencies = [
- "bitcoin-internals 0.3.0",
+ "bitcoin-internals",
  "bitcoin_hashes 0.14.0",
 ]
 
@@ -152,7 +152,7 @@ version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5baa4cee070856947029bcaec4a5c070d1b34825909b364cfdb124f4ed3b7e40"
 dependencies = [
- "bdk_core 0.2.0",
+ "bdk_core",
  "bitcoin",
  "bitcoincore-rpc",
 ]
@@ -163,21 +163,12 @@ version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4e553c45ffed860aa7e0c6998c3a827fcdc039a2df76307563208ecfcae2f750"
 dependencies = [
- "bdk_core 0.2.0",
+ "bdk_core",
  "bitcoin",
  "miniscript",
  "rusqlite",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "bdk_core"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "78dd27e151907dadd43f2d17d14ff613331ffd6c3eb8838d0b38976c8588b2fa"
-dependencies = [
- "bitcoin",
 ]
 
 [[package]]
@@ -197,7 +188,7 @@ version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d371f3684d55ab4fd741ac95840a9ba6e53a2654ad9edfbdb3c22f29fd48546f"
 dependencies = [
- "bdk_core 0.2.0",
+ "bdk_core",
  "electrum-client",
 ]
 
@@ -207,7 +198,7 @@ version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3cc9b320b2042e9729739eed66c6fc47b208554c8c6e393785cd56d257045e9f"
 dependencies = [
- "bdk_core 0.2.0",
+ "bdk_core",
  "esplora-client",
  "miniscript",
 ]
@@ -219,11 +210,10 @@ dependencies = [
  "anyhow",
  "assert_matches",
  "bdk_bitcoind_rpc",
- "bdk_core 0.1.0",
+ "bdk_core",
  "bdk_electrum",
  "bdk_esplora",
  "bdk_wallet",
- "bitcoin-internals 0.2.0",
  "flutter_rust_bridge",
  "lazy_static",
  "serde",
@@ -273,7 +263,7 @@ dependencies = [
  "base58ck",
  "base64 0.21.7",
  "bech32",
- "bitcoin-internals 0.3.0",
+ "bitcoin-internals",
  "bitcoin-io",
  "bitcoin-units",
  "bitcoin_hashes 0.14.0",
@@ -282,12 +272,6 @@ dependencies = [
  "secp256k1",
  "serde",
 ]
-
-[[package]]
-name = "bitcoin-internals"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9425c3bf7089c983facbae04de54513cce73b41c7f9ff8c845b54e7bc64ebbfb"
 
 [[package]]
 name = "bitcoin-internals"
@@ -310,7 +294,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5285c8bcaa25876d07f37e3d30c303f2609179716e11d688f51e8f1fe70063e2"
 dependencies = [
- "bitcoin-internals 0.3.0",
+ "bitcoin-internals",
  "serde",
 ]
 
@@ -520,9 +504,9 @@ checksum = "7360491ce676a36bf9bb3c56c1aa791658183a54d2744120f27285738d90465a"
 
 [[package]]
 name = "flutter_rust_bridge"
-version = "2.0.0"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "033e831e28f1077ceae3490fb6d093dfdefefd09c5c6e8544c6579effe7e814f"
+checksum = "6ff967a5893be60d849e4362910762acdc275febe44333153a11dcec1bca2cd2"
 dependencies = [
  "allo-isolate",
  "android_logger",
@@ -537,6 +521,7 @@ dependencies = [
  "futures",
  "js-sys",
  "lazy_static",
+ "log",
  "oslog",
  "threadpool",
  "tokio",
@@ -547,9 +532,9 @@ dependencies = [
 
 [[package]]
 name = "flutter_rust_bridge_macros"
-version = "2.0.0"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0217fc4b7131b52578be60bbe38c76b3edfc2f9fecab46d9f930510f40ef9023"
+checksum = "d48b4d3fae9d29377b19134a38386d8792bde70b9448cde49e96391bcfc8fed1"
 dependencies = [
  "hex",
  "md-5",
