@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_rust_bridge: ">=2.0.0 < 2.1.0"
+  flutter_rust_bridge: 2.4.0
   ffi: ^2.0.1
   freezed_annotation: ^2.2.0
   mockito: ^5.4.0
