@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use crate::frb_generated::RustOpaque;
 
 use bdk_core::spk_client::SyncItem;
@@ -10,6 +12,8 @@ use super::{
         FfiAddress,
         FfiScriptBuf,
         FfiTransaction,
+        OutPoint,
+        TxOut,
         // OutPoint, TxOut
     },
     error::RequestBuilderError,
@@ -133,19 +137,19 @@ impl
     From<
         bdk_wallet::chain::tx_graph::CanonicalTx<
             '_,
-            bdk_core::bitcoin::transaction::Transaction,
+            Arc<bdk_core::bitcoin::transaction::Transaction>,
             bdk_wallet::chain::ConfirmationBlockTime,
         >,
     > for CanonicalTx
 {
     fn from(
-        tx: bdk_wallet::chain::tx_graph::CanonicalTx<
+        value: bdk_wallet::chain::tx_graph::CanonicalTx<
             '_,
-            bdk_core::bitcoin::transaction::Transaction,
+            Arc<bdk_core::bitcoin::transaction::Transaction>,
             bdk_wallet::chain::ConfirmationBlockTime,
         >,
     ) -> Self {
-        let chain_position = match tx.chain_position {
+        let chain_position = match value.chain_position {
             bdk_wallet::chain::ChainPosition::Confirmed(anchor) => {
                 let block_id = BlockId {
                     height: anchor.block_id.height,
@@ -164,7 +168,7 @@ impl
         };
 
         CanonicalTx {
-            transaction: tx.tx_node.tx.try_into().unwrap(),
+            transaction: (*value.tx_node.tx).clone().try_into().unwrap(),
             chain_position,
         }
     }
@@ -438,8 +442,14 @@ impl FfiSyncRequestBuilder {
         ))))
     }
 }
-pub struct FfiUpdate(pub RustOpaque<bdk_wallet::Update>);
 
+//Todo; remove cloning the update
+pub struct FfiUpdate(pub RustOpaque<bdk_wallet::Update>);
+impl From<FfiUpdate> for bdk_wallet::Update {
+    fn from(value: FfiUpdate) -> Self {
+        (*value.0).clone()
+    }
+}
 pub struct SentAndReceivedValues {
     pub sent: u64,
     pub received: u64,
@@ -456,3 +466,49 @@ pub struct FfiSyncRequest(
         >,
     >,
 );
+/// Policy regarding the use of change outputs when creating a transaction
+#[derive(Default, Debug, Ord, PartialOrd, Eq, PartialEq, Hash, Clone, Copy)]
+pub enum ChangeSpendPolicy {
+    /// Use both change and non-change outputs (default)
+    #[default]
+    ChangeAllowed,
+    /// Only use change outputs (see [`TxBuilder::only_spend_change`])
+    OnlyChange,
+    /// Only use non-change outputs (see [`TxBuilder::do_not_spend_change`])
+    ChangeForbidden,
+}
+impl From<ChangeSpendPolicy> for bdk_wallet::ChangeSpendPolicy {
+    fn from(value: ChangeSpendPolicy) -> Self {
+        match value {
+            ChangeSpendPolicy::ChangeAllowed => bdk_wallet::ChangeSpendPolicy::ChangeAllowed,
+            ChangeSpendPolicy::OnlyChange => bdk_wallet::ChangeSpendPolicy::OnlyChange,
+            ChangeSpendPolicy::ChangeForbidden => bdk_wallet::ChangeSpendPolicy::ChangeForbidden,
+        }
+    }
+}
+
+pub struct LocalOutput {
+    pub outpoint: OutPoint,
+    pub txout: TxOut,
+    pub keychain: KeychainKind,
+    pub is_spent: bool,
+}
+
+impl From<bdk_wallet::LocalOutput> for LocalOutput {
+    fn from(local_utxo: bdk_wallet::LocalOutput) -> Self {
+        LocalOutput {
+            outpoint: OutPoint {
+                txid: local_utxo.outpoint.txid.to_string(),
+                vout: local_utxo.outpoint.vout,
+            },
+            txout: TxOut {
+                value: local_utxo.txout.value.to_sat(),
+                script_pubkey: FfiScriptBuf {
+                    bytes: local_utxo.txout.script_pubkey.to_bytes(),
+                },
+            },
+            keychain: local_utxo.keychain.into(),
+            is_spent: local_utxo.is_spent,
+        }
+    }
+}
