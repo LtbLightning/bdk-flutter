@@ -120,6 +120,8 @@ pub enum Bip39Error {
 
 #[derive(Debug, thiserror::Error)]
 pub enum CalculateFeeError {
+    #[error("generic error: {error_message}")]
+    Generic { error_message: String },
     #[error("missing transaction output: {out_points:?}")]
     MissingTxOut { out_points: Vec<OutPoint> },
 
@@ -135,6 +137,8 @@ pub enum CannotConnectError {
 
 #[derive(Debug, thiserror::Error)]
 pub enum CreateTxError {
+    #[error("generic error: {error_message}")]
+    Generic { error_message: String },
     #[error("descriptor error: {error_message}")]
     Descriptor { error_message: String },
 
@@ -630,7 +634,11 @@ pub enum TxidParseError {
     #[error("invalid txid: {txid}")]
     InvalidTxid { txid: String },
 }
-
+#[derive(Debug, thiserror::Error)]
+pub enum LockError {
+    #[error("error: {error_message}")]
+    Generic { error_message: String },
+}
 // ------------------------------------------------------------------------
 // error conversions
 // ------------------------------------------------------------------------
