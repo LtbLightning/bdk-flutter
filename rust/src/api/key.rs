@@ -13,12 +13,12 @@ use std::str::FromStr;
 use super::error::{Bip32Error, Bip39Error, DescriptorError, DescriptorKeyError};
 
 pub struct FfiMnemonic {
-    pub ptr: RustOpaque<bdk_wallet::keys::bip39::Mnemonic>,
+    pub opaque: RustOpaque<bdk_wallet::keys::bip39::Mnemonic>,
 }
 impl From<keys::bip39::Mnemonic> for FfiMnemonic {
     fn from(value: keys::bip39::Mnemonic) -> Self {
         Self {
-            ptr: RustOpaque::new(value),
+            opaque: RustOpaque::new(value),
         }
     }
 }
@@ -50,7 +50,7 @@ impl FfiMnemonic {
 
     #[frb(sync)]
     pub fn as_string(&self) -> String {
-        self.ptr.to_string()
+        self.opaque.to_string()
     }
 }
 
@@ -94,7 +94,7 @@ impl FfiDescriptorSecretKey {
         mnemonic: FfiMnemonic,
         password: Option<String>,
     ) -> Result<Self, DescriptorError> {
-        let mnemonic = (*mnemonic.ptr).clone();
+        let mnemonic = (*mnemonic.opaque).clone();
         let xkey: keys::ExtendedKey = (mnemonic, password).into_extended_key()?;
         let xpriv = match xkey.into_xprv(network.into()) {
             Some(e) => Ok(e),
