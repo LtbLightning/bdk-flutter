@@ -98,6 +98,11 @@ class FfiWallet {
       core.instance.api.crateApiWalletFfiWalletRevealNextAddress(
           that: this, keychainKind: keychainKind);
 
+  Future<bool> sign(
+          {required FfiPsbt psbt, required SignOptions signOptions}) =>
+      core.instance.api.crateApiWalletFfiWalletSign(
+          that: this, psbt: psbt, signOptions: signOptions);
+
   Future<FfiFullScanRequestBuilder> startFullScan() =>
       core.instance.api.crateApiWalletFfiWalletStartFullScan(
         that: this,

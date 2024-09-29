@@ -9,7 +9,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'error.freezed.dart';
 
-// These types are ignored because they are not used by any `pub` functions: `LockError`, `PersistenceError`, `SignerError`
+// These types are ignored because they are not used by any `pub` functions: `LockError`, `PersistenceError`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`
 
 @freezed
@@ -485,6 +485,47 @@ sealed class PsbtParseError with _$PsbtParseError implements FrbException {
 enum RequestBuilderError {
   requestAlreadyConsumed,
   ;
+}
+
+@freezed
+sealed class SignerError with _$SignerError implements FrbException {
+  const SignerError._();
+
+  const factory SignerError.missingKey() = SignerError_MissingKey;
+  const factory SignerError.invalidKey() = SignerError_InvalidKey;
+  const factory SignerError.userCanceled() = SignerError_UserCanceled;
+  const factory SignerError.inputIndexOutOfRange() =
+      SignerError_InputIndexOutOfRange;
+  const factory SignerError.missingNonWitnessUtxo() =
+      SignerError_MissingNonWitnessUtxo;
+  const factory SignerError.invalidNonWitnessUtxo() =
+      SignerError_InvalidNonWitnessUtxo;
+  const factory SignerError.missingWitnessUtxo() =
+      SignerError_MissingWitnessUtxo;
+  const factory SignerError.missingWitnessScript() =
+      SignerError_MissingWitnessScript;
+  const factory SignerError.missingHdKeypath() = SignerError_MissingHdKeypath;
+  const factory SignerError.nonStandardSighash() =
+      SignerError_NonStandardSighash;
+  const factory SignerError.invalidSighash() = SignerError_InvalidSighash;
+  const factory SignerError.sighashP2Wpkh({
+    required String errorMessage,
+  }) = SignerError_SighashP2wpkh;
+  const factory SignerError.sighashTaproot({
+    required String errorMessage,
+  }) = SignerError_SighashTaproot;
+  const factory SignerError.txInputsIndexError({
+    required String errorMessage,
+  }) = SignerError_TxInputsIndexError;
+  const factory SignerError.miniscriptPsbt({
+    required String errorMessage,
+  }) = SignerError_MiniscriptPsbt;
+  const factory SignerError.external_({
+    required String errorMessage,
+  }) = SignerError_External;
+  const factory SignerError.psbt({
+    required String errorMessage,
+  }) = SignerError_Psbt;
 }
 
 @freezed

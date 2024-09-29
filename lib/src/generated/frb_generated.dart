@@ -75,7 +75,7 @@ class core extends BaseEntrypoint<coreApi, coreApiImpl, coreWire> {
   String get codegenVersion => '2.4.0';
 
   @override
-  int get rustContentHash => -512445844;
+  int get rustContentHash => -1125178077;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -395,6 +395,11 @@ abstract class coreApi extends BaseApi {
 
   AddressInfo crateApiWalletFfiWalletRevealNextAddress(
       {required FfiWallet that, required KeychainKind keychainKind});
+
+  Future<bool> crateApiWalletFfiWalletSign(
+      {required FfiWallet that,
+      required FfiPsbt psbt,
+      required SignOptions signOptions});
 
   Future<FfiFullScanRequestBuilder> crateApiWalletFfiWalletStartFullScan(
       {required FfiWallet that});
@@ -2961,6 +2966,35 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
+  Future<bool> crateApiWalletFfiWalletSign(
+      {required FfiWallet that,
+      required FfiPsbt psbt,
+      required SignOptions signOptions}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg1 = cst_encode_box_autoadd_ffi_psbt(psbt);
+        var arg2 = cst_encode_box_autoadd_sign_options(signOptions);
+        return wire.wire__crate__api__wallet__ffi_wallet_sign(
+            port_, arg0, arg1, arg2);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_bool,
+        decodeErrorData: dco_decode_signer_error,
+      ),
+      constMeta: kCrateApiWalletFfiWalletSignConstMeta,
+      argValues: [that, psbt, signOptions],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWalletFfiWalletSignConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_wallet_sign",
+        argNames: ["that", "psbt", "signOptions"],
+      );
+
+  @override
   Future<FfiFullScanRequestBuilder> crateApiWalletFfiWalletStartFullScan(
       {required FfiWallet that}) {
     return handler.executeNormal(NormalTask(
@@ -3714,6 +3748,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_rbf_value(raw);
+  }
+
+  @protected
+  SignOptions dco_decode_box_autoadd_sign_options(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sign_options(raw);
   }
 
   @protected
@@ -4733,6 +4773,61 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  SignerError dco_decode_signer_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return SignerError_MissingKey();
+      case 1:
+        return SignerError_InvalidKey();
+      case 2:
+        return SignerError_UserCanceled();
+      case 3:
+        return SignerError_InputIndexOutOfRange();
+      case 4:
+        return SignerError_MissingNonWitnessUtxo();
+      case 5:
+        return SignerError_InvalidNonWitnessUtxo();
+      case 6:
+        return SignerError_MissingWitnessUtxo();
+      case 7:
+        return SignerError_MissingWitnessScript();
+      case 8:
+        return SignerError_MissingHdKeypath();
+      case 9:
+        return SignerError_NonStandardSighash();
+      case 10:
+        return SignerError_InvalidSighash();
+      case 11:
+        return SignerError_SighashP2wpkh(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      case 12:
+        return SignerError_SighashTaproot(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      case 13:
+        return SignerError_TxInputsIndexError(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      case 14:
+        return SignerError_MiniscriptPsbt(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      case 15:
+        return SignerError_External(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      case 16:
+        return SignerError_Psbt(
+          errorMessage: dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
   SqliteError dco_decode_sqlite_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
@@ -5323,6 +5418,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_rbf_value(deserializer));
+  }
+
+  @protected
+  SignOptions sse_decode_box_autoadd_sign_options(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sign_options(deserializer));
   }
 
   @protected
@@ -6326,6 +6428,57 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  SignerError sse_decode_signer_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return SignerError_MissingKey();
+      case 1:
+        return SignerError_InvalidKey();
+      case 2:
+        return SignerError_UserCanceled();
+      case 3:
+        return SignerError_InputIndexOutOfRange();
+      case 4:
+        return SignerError_MissingNonWitnessUtxo();
+      case 5:
+        return SignerError_InvalidNonWitnessUtxo();
+      case 6:
+        return SignerError_MissingWitnessUtxo();
+      case 7:
+        return SignerError_MissingWitnessScript();
+      case 8:
+        return SignerError_MissingHdKeypath();
+      case 9:
+        return SignerError_NonStandardSighash();
+      case 10:
+        return SignerError_InvalidSighash();
+      case 11:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_SighashP2wpkh(errorMessage: var_errorMessage);
+      case 12:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_SighashTaproot(errorMessage: var_errorMessage);
+      case 13:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_TxInputsIndexError(errorMessage: var_errorMessage);
+      case 14:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_MiniscriptPsbt(errorMessage: var_errorMessage);
+      case 15:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_External(errorMessage: var_errorMessage);
+      case 16:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return SignerError_Psbt(errorMessage: var_errorMessage);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   SqliteError sse_decode_sqlite_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -7180,6 +7333,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       RbfValue self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_rbf_value(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_sign_options(
+      SignOptions self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sign_options(self, serializer);
   }
 
   @protected
@@ -8090,6 +8250,55 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self.tryFinalize, serializer);
     sse_encode_bool(self.signWithTapInternalKey, serializer);
     sse_encode_bool(self.allowGrinding, serializer);
+  }
+
+  @protected
+  void sse_encode_signer_error(SignerError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case SignerError_MissingKey():
+        sse_encode_i_32(0, serializer);
+      case SignerError_InvalidKey():
+        sse_encode_i_32(1, serializer);
+      case SignerError_UserCanceled():
+        sse_encode_i_32(2, serializer);
+      case SignerError_InputIndexOutOfRange():
+        sse_encode_i_32(3, serializer);
+      case SignerError_MissingNonWitnessUtxo():
+        sse_encode_i_32(4, serializer);
+      case SignerError_InvalidNonWitnessUtxo():
+        sse_encode_i_32(5, serializer);
+      case SignerError_MissingWitnessUtxo():
+        sse_encode_i_32(6, serializer);
+      case SignerError_MissingWitnessScript():
+        sse_encode_i_32(7, serializer);
+      case SignerError_MissingHdKeypath():
+        sse_encode_i_32(8, serializer);
+      case SignerError_NonStandardSighash():
+        sse_encode_i_32(9, serializer);
+      case SignerError_InvalidSighash():
+        sse_encode_i_32(10, serializer);
+      case SignerError_SighashP2wpkh(errorMessage: final errorMessage):
+        sse_encode_i_32(11, serializer);
+        sse_encode_String(errorMessage, serializer);
+      case SignerError_SighashTaproot(errorMessage: final errorMessage):
+        sse_encode_i_32(12, serializer);
+        sse_encode_String(errorMessage, serializer);
+      case SignerError_TxInputsIndexError(errorMessage: final errorMessage):
+        sse_encode_i_32(13, serializer);
+        sse_encode_String(errorMessage, serializer);
+      case SignerError_MiniscriptPsbt(errorMessage: final errorMessage):
+        sse_encode_i_32(14, serializer);
+        sse_encode_String(errorMessage, serializer);
+      case SignerError_External(errorMessage: final errorMessage):
+        sse_encode_i_32(15, serializer);
+        sse_encode_String(errorMessage, serializer);
+      case SignerError_Psbt(errorMessage: final errorMessage):
+        sse_encode_i_32(16, serializer);
+        sse_encode_String(errorMessage, serializer);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected

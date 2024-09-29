@@ -284,6 +284,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw);
 
   @protected
+  SignOptions dco_decode_box_autoadd_sign_options(dynamic raw);
+
+  @protected
   int dco_decode_box_autoadd_u_32(dynamic raw);
 
   @protected
@@ -479,6 +482,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   SignOptions dco_decode_sign_options(dynamic raw);
+
+  @protected
+  SignerError dco_decode_signer_error(dynamic raw);
 
   @protected
   SqliteError dco_decode_sqlite_error(dynamic raw);
@@ -711,6 +717,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer);
 
   @protected
+  SignOptions sse_decode_box_autoadd_sign_options(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
 
   @protected
@@ -924,6 +933,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   SignOptions sse_decode_sign_options(SseDeserializer deserializer);
+
+  @protected
+  SignerError sse_decode_signer_error(SseDeserializer deserializer);
 
   @protected
   SqliteError sse_decode_sqlite_error(SseDeserializer deserializer);
@@ -1181,6 +1193,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_rbf_value();
     cst_api_fill_to_wire_rbf_value(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_sign_options> cst_encode_box_autoadd_sign_options(
+      SignOptions raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_sign_options();
+    cst_api_fill_to_wire_sign_options(raw, ptr.ref);
     return ptr;
   }
 
@@ -1674,6 +1695,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_box_autoadd_rbf_value(
       RbfValue apiObj, ffi.Pointer<wire_cst_rbf_value> wireObj) {
     cst_api_fill_to_wire_rbf_value(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_sign_options(
+      SignOptions apiObj, ffi.Pointer<wire_cst_sign_options> wireObj) {
+    cst_api_fill_to_wire_sign_options(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2639,6 +2666,91 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_signer_error(
+      SignerError apiObj, wire_cst_signer_error wireObj) {
+    if (apiObj is SignerError_MissingKey) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is SignerError_InvalidKey) {
+      wireObj.tag = 1;
+      return;
+    }
+    if (apiObj is SignerError_UserCanceled) {
+      wireObj.tag = 2;
+      return;
+    }
+    if (apiObj is SignerError_InputIndexOutOfRange) {
+      wireObj.tag = 3;
+      return;
+    }
+    if (apiObj is SignerError_MissingNonWitnessUtxo) {
+      wireObj.tag = 4;
+      return;
+    }
+    if (apiObj is SignerError_InvalidNonWitnessUtxo) {
+      wireObj.tag = 5;
+      return;
+    }
+    if (apiObj is SignerError_MissingWitnessUtxo) {
+      wireObj.tag = 6;
+      return;
+    }
+    if (apiObj is SignerError_MissingWitnessScript) {
+      wireObj.tag = 7;
+      return;
+    }
+    if (apiObj is SignerError_MissingHdKeypath) {
+      wireObj.tag = 8;
+      return;
+    }
+    if (apiObj is SignerError_NonStandardSighash) {
+      wireObj.tag = 9;
+      return;
+    }
+    if (apiObj is SignerError_InvalidSighash) {
+      wireObj.tag = 10;
+      return;
+    }
+    if (apiObj is SignerError_SighashP2wpkh) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 11;
+      wireObj.kind.SighashP2wpkh.error_message = pre_error_message;
+      return;
+    }
+    if (apiObj is SignerError_SighashTaproot) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 12;
+      wireObj.kind.SighashTaproot.error_message = pre_error_message;
+      return;
+    }
+    if (apiObj is SignerError_TxInputsIndexError) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 13;
+      wireObj.kind.TxInputsIndexError.error_message = pre_error_message;
+      return;
+    }
+    if (apiObj is SignerError_MiniscriptPsbt) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 14;
+      wireObj.kind.MiniscriptPsbt.error_message = pre_error_message;
+      return;
+    }
+    if (apiObj is SignerError_External) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 15;
+      wireObj.kind.External.error_message = pre_error_message;
+      return;
+    }
+    if (apiObj is SignerError_Psbt) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 16;
+      wireObj.kind.Psbt.error_message = pre_error_message;
+      return;
+    }
+  }
+
+  @protected
   void cst_api_fill_to_wire_sqlite_error(
       SqliteError apiObj, wire_cst_sqlite_error wireObj) {
     if (apiObj is SqliteError_Sqlite) {
@@ -3042,6 +3154,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       RbfValue self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_sign_options(
+      SignOptions self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
 
   @protected
@@ -3267,6 +3383,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   void sse_encode_sign_options(SignOptions self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_signer_error(SignerError self, SseSerializer serializer);
 
   @protected
   void sse_encode_sqlite_error(SqliteError self, SseSerializer serializer);
@@ -5355,6 +5474,36 @@ class coreWire implements BaseWire {
           WireSyncRust2DartDco Function(
               ffi.Pointer<wire_cst_ffi_wallet>, int)>();
 
+  void wire__crate__api__wallet__ffi_wallet_sign(
+    int port_,
+    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_psbt> psbt,
+    ffi.Pointer<wire_cst_sign_options> sign_options,
+  ) {
+    return _wire__crate__api__wallet__ffi_wallet_sign(
+      port_,
+      that,
+      psbt,
+      sign_options,
+    );
+  }
+
+  late final _wire__crate__api__wallet__ffi_wallet_signPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_ffi_wallet>,
+                  ffi.Pointer<wire_cst_ffi_psbt>,
+                  ffi.Pointer<wire_cst_sign_options>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign');
+  late final _wire__crate__api__wallet__ffi_wallet_sign =
+      _wire__crate__api__wallet__ffi_wallet_signPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_ffi_wallet>,
+              ffi.Pointer<wire_cst_ffi_psbt>,
+              ffi.Pointer<wire_cst_sign_options>)>();
+
   void wire__crate__api__wallet__ffi_wallet_start_full_scan(
     int port_,
     ffi.Pointer<wire_cst_ffi_wallet> that,
@@ -6244,6 +6393,17 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_rbf_value = _cst_new_box_autoadd_rbf_valuePtr
       .asFunction<ffi.Pointer<wire_cst_rbf_value> Function()>();
 
+  ffi.Pointer<wire_cst_sign_options> cst_new_box_autoadd_sign_options() {
+    return _cst_new_box_autoadd_sign_options();
+  }
+
+  late final _cst_new_box_autoadd_sign_optionsPtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_cst_sign_options> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_sign_options');
+  late final _cst_new_box_autoadd_sign_options =
+      _cst_new_box_autoadd_sign_optionsPtr
+          .asFunction<ffi.Pointer<wire_cst_sign_options> Function()>();
+
   ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(
     int value,
   ) {
@@ -6649,6 +6809,28 @@ final class wire_cst_ffi_update extends ffi.Struct {
 final class wire_cst_ffi_connection extends ffi.Struct {
   @ffi.UintPtr()
   external int field0;
+}
+
+final class wire_cst_sign_options extends ffi.Struct {
+  @ffi.Bool()
+  external bool trust_witness_utxo;
+
+  external ffi.Pointer<ffi.Uint32> assume_height;
+
+  @ffi.Bool()
+  external bool allow_all_sighashes;
+
+  @ffi.Bool()
+  external bool remove_partial_sigs;
+
+  @ffi.Bool()
+  external bool try_finalize;
+
+  @ffi.Bool()
+  external bool sign_with_tap_internal_key;
+
+  @ffi.Bool()
+  external bool allow_grinding;
 }
 
 final class wire_cst_block_id extends ffi.Struct {
@@ -7445,26 +7627,49 @@ final class wire_cst_psbt_parse_error extends ffi.Struct {
   external PsbtParseErrorKind kind;
 }
 
-final class wire_cst_sign_options extends ffi.Struct {
-  @ffi.Bool()
-  external bool trust_witness_utxo;
+final class wire_cst_SignerError_SighashP2wpkh extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  external ffi.Pointer<ffi.Uint32> assume_height;
+final class wire_cst_SignerError_SighashTaproot extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  @ffi.Bool()
-  external bool allow_all_sighashes;
+final class wire_cst_SignerError_TxInputsIndexError extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  @ffi.Bool()
-  external bool remove_partial_sigs;
+final class wire_cst_SignerError_MiniscriptPsbt extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  @ffi.Bool()
-  external bool try_finalize;
+final class wire_cst_SignerError_External extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  @ffi.Bool()
-  external bool sign_with_tap_internal_key;
+final class wire_cst_SignerError_Psbt extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
 
-  @ffi.Bool()
-  external bool allow_grinding;
+final class SignerErrorKind extends ffi.Union {
+  external wire_cst_SignerError_SighashP2wpkh SighashP2wpkh;
+
+  external wire_cst_SignerError_SighashTaproot SighashTaproot;
+
+  external wire_cst_SignerError_TxInputsIndexError TxInputsIndexError;
+
+  external wire_cst_SignerError_MiniscriptPsbt MiniscriptPsbt;
+
+  external wire_cst_SignerError_External External;
+
+  external wire_cst_SignerError_Psbt Psbt;
+}
+
+final class wire_cst_signer_error extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SignerErrorKind kind;
 }
 
 final class wire_cst_SqliteError_Sqlite extends ffi.Struct {
