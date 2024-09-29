@@ -42,7 +42,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.4.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -512445844;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1125178077;
 
 // Section: executor
 
@@ -2204,6 +2204,32 @@ fn wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(
         },
     )
 }
+fn wire__crate__api__wallet__ffi_wallet_sign_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    psbt: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
+    sign_options: impl CstDecode<crate::api::types::SignOptions>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "ffi_wallet_sign",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_psbt = psbt.cst_decode();
+            let api_sign_options = sign_options.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, crate::api::error::SignerError>((move || {
+                    let output_ok =
+                        crate::api::wallet::FfiWallet::sign(&api_that, api_psbt, api_sign_options)?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__crate__api__wallet__ffi_wallet_start_full_scan_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::FfiWallet>,
@@ -4182,6 +4208,87 @@ impl SseDecode for crate::api::types::SignOptions {
     }
 }
 
+impl SseDecode for crate::api::error::SignerError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::error::SignerError::MissingKey;
+            }
+            1 => {
+                return crate::api::error::SignerError::InvalidKey;
+            }
+            2 => {
+                return crate::api::error::SignerError::UserCanceled;
+            }
+            3 => {
+                return crate::api::error::SignerError::InputIndexOutOfRange;
+            }
+            4 => {
+                return crate::api::error::SignerError::MissingNonWitnessUtxo;
+            }
+            5 => {
+                return crate::api::error::SignerError::InvalidNonWitnessUtxo;
+            }
+            6 => {
+                return crate::api::error::SignerError::MissingWitnessUtxo;
+            }
+            7 => {
+                return crate::api::error::SignerError::MissingWitnessScript;
+            }
+            8 => {
+                return crate::api::error::SignerError::MissingHdKeypath;
+            }
+            9 => {
+                return crate::api::error::SignerError::NonStandardSighash;
+            }
+            10 => {
+                return crate::api::error::SignerError::InvalidSighash;
+            }
+            11 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::SighashP2wpkh {
+                    error_message: var_errorMessage,
+                };
+            }
+            12 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::SighashTaproot {
+                    error_message: var_errorMessage,
+                };
+            }
+            13 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::TxInputsIndexError {
+                    error_message: var_errorMessage,
+                };
+            }
+            14 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::MiniscriptPsbt {
+                    error_message: var_errorMessage,
+                };
+            }
+            15 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::External {
+                    error_message: var_errorMessage,
+                };
+            }
+            16 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::SignerError::Psbt {
+                    error_message: var_errorMessage,
+                };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseDecode for crate::api::error::SqliteError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5693,6 +5800,56 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SignOptions>
     for crate::api::types::SignOptions
 {
     fn into_into_dart(self) -> crate::api::types::SignOptions {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::error::SignerError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::error::SignerError::MissingKey => [0.into_dart()].into_dart(),
+            crate::api::error::SignerError::InvalidKey => [1.into_dart()].into_dart(),
+            crate::api::error::SignerError::UserCanceled => [2.into_dart()].into_dart(),
+            crate::api::error::SignerError::InputIndexOutOfRange => [3.into_dart()].into_dart(),
+            crate::api::error::SignerError::MissingNonWitnessUtxo => [4.into_dart()].into_dart(),
+            crate::api::error::SignerError::InvalidNonWitnessUtxo => [5.into_dart()].into_dart(),
+            crate::api::error::SignerError::MissingWitnessUtxo => [6.into_dart()].into_dart(),
+            crate::api::error::SignerError::MissingWitnessScript => [7.into_dart()].into_dart(),
+            crate::api::error::SignerError::MissingHdKeypath => [8.into_dart()].into_dart(),
+            crate::api::error::SignerError::NonStandardSighash => [9.into_dart()].into_dart(),
+            crate::api::error::SignerError::InvalidSighash => [10.into_dart()].into_dart(),
+            crate::api::error::SignerError::SighashP2wpkh { error_message } => {
+                [11.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::SignerError::SighashTaproot { error_message } => {
+                [12.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::SignerError::TxInputsIndexError { error_message } => {
+                [13.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::SignerError::MiniscriptPsbt { error_message } => {
+                [14.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::SignerError::External { error_message } => {
+                [15.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::error::SignerError::Psbt { error_message } => {
+                [16.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::error::SignerError
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::error::SignerError>
+    for crate::api::error::SignerError
+{
+    fn into_into_dart(self) -> crate::api::error::SignerError {
         self
     }
 }
@@ -7316,6 +7473,74 @@ impl SseEncode for crate::api::types::SignOptions {
     }
 }
 
+impl SseEncode for crate::api::error::SignerError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::error::SignerError::MissingKey => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::error::SignerError::InvalidKey => {
+                <i32>::sse_encode(1, serializer);
+            }
+            crate::api::error::SignerError::UserCanceled => {
+                <i32>::sse_encode(2, serializer);
+            }
+            crate::api::error::SignerError::InputIndexOutOfRange => {
+                <i32>::sse_encode(3, serializer);
+            }
+            crate::api::error::SignerError::MissingNonWitnessUtxo => {
+                <i32>::sse_encode(4, serializer);
+            }
+            crate::api::error::SignerError::InvalidNonWitnessUtxo => {
+                <i32>::sse_encode(5, serializer);
+            }
+            crate::api::error::SignerError::MissingWitnessUtxo => {
+                <i32>::sse_encode(6, serializer);
+            }
+            crate::api::error::SignerError::MissingWitnessScript => {
+                <i32>::sse_encode(7, serializer);
+            }
+            crate::api::error::SignerError::MissingHdKeypath => {
+                <i32>::sse_encode(8, serializer);
+            }
+            crate::api::error::SignerError::NonStandardSighash => {
+                <i32>::sse_encode(9, serializer);
+            }
+            crate::api::error::SignerError::InvalidSighash => {
+                <i32>::sse_encode(10, serializer);
+            }
+            crate::api::error::SignerError::SighashP2wpkh { error_message } => {
+                <i32>::sse_encode(11, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            crate::api::error::SignerError::SighashTaproot { error_message } => {
+                <i32>::sse_encode(12, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            crate::api::error::SignerError::TxInputsIndexError { error_message } => {
+                <i32>::sse_encode(13, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            crate::api::error::SignerError::MiniscriptPsbt { error_message } => {
+                <i32>::sse_encode(14, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            crate::api::error::SignerError::External { error_message } => {
+                <i32>::sse_encode(15, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            crate::api::error::SignerError::Psbt { error_message } => {
+                <i32>::sse_encode(16, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseEncode for crate::api::error::SqliteError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -8007,6 +8232,13 @@ mod io {
         fn cst_decode(self) -> crate::api::types::RbfValue {
             let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
             CstDecode::<crate::api::types::RbfValue>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::types::SignOptions> for *mut wire_cst_sign_options {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::types::SignOptions {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::types::SignOptions>::cst_decode(*wrap).into()
         }
     }
     impl CstDecode<u32> for *mut u32 {
@@ -8955,6 +9187,61 @@ mod io {
             }
         }
     }
+    impl CstDecode<crate::api::error::SignerError> for wire_cst_signer_error {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::error::SignerError {
+            match self.tag {
+                0 => crate::api::error::SignerError::MissingKey,
+                1 => crate::api::error::SignerError::InvalidKey,
+                2 => crate::api::error::SignerError::UserCanceled,
+                3 => crate::api::error::SignerError::InputIndexOutOfRange,
+                4 => crate::api::error::SignerError::MissingNonWitnessUtxo,
+                5 => crate::api::error::SignerError::InvalidNonWitnessUtxo,
+                6 => crate::api::error::SignerError::MissingWitnessUtxo,
+                7 => crate::api::error::SignerError::MissingWitnessScript,
+                8 => crate::api::error::SignerError::MissingHdKeypath,
+                9 => crate::api::error::SignerError::NonStandardSighash,
+                10 => crate::api::error::SignerError::InvalidSighash,
+                11 => {
+                    let ans = unsafe { self.kind.SighashP2wpkh };
+                    crate::api::error::SignerError::SighashP2wpkh {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                12 => {
+                    let ans = unsafe { self.kind.SighashTaproot };
+                    crate::api::error::SignerError::SighashTaproot {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                13 => {
+                    let ans = unsafe { self.kind.TxInputsIndexError };
+                    crate::api::error::SignerError::TxInputsIndexError {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                14 => {
+                    let ans = unsafe { self.kind.MiniscriptPsbt };
+                    crate::api::error::SignerError::MiniscriptPsbt {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                15 => {
+                    let ans = unsafe { self.kind.External };
+                    crate::api::error::SignerError::External {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                16 => {
+                    let ans = unsafe { self.kind.Psbt };
+                    crate::api::error::SignerError::Psbt {
+                        error_message: ans.error_message.cst_decode(),
+                    }
+                }
+                _ => unreachable!(),
+            }
+        }
+    }
     impl CstDecode<crate::api::error::SqliteError> for wire_cst_sqlite_error {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::error::SqliteError {
@@ -9630,6 +9917,19 @@ mod io {
         }
     }
     impl Default for wire_cst_sign_options {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_signer_error {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                tag: -1,
+                kind: SignerErrorKind { nil__: () },
+            }
+        }
+    }
+    impl Default for wire_cst_signer_error {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -10568,6 +10868,16 @@ mod io {
     }
 
     #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(
+        port_: i64,
+        that: *mut wire_cst_ffi_wallet,
+        psbt: *mut wire_cst_ffi_psbt,
+        sign_options: *mut wire_cst_sign_options,
+    ) {
+        wire__crate__api__wallet__ffi_wallet_sign_impl(port_, that, psbt, sign_options)
+    }
+
+    #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_full_scan(
         port_: i64,
         that: *mut wire_cst_ffi_wallet,
@@ -11130,6 +11440,14 @@ mod io {
     pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value() -> *mut wire_cst_rbf_value
     {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_rbf_value::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_sign_options(
+    ) -> *mut wire_cst_sign_options {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_sign_options::new_with_null_ptr(),
+        )
     }
 
     #[no_mangle]
@@ -12240,6 +12558,53 @@ mod io {
         try_finalize: bool,
         sign_with_tap_internal_key: bool,
         allow_grinding: bool,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_signer_error {
+        tag: i32,
+        kind: SignerErrorKind,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub union SignerErrorKind {
+        SighashP2wpkh: wire_cst_SignerError_SighashP2wpkh,
+        SighashTaproot: wire_cst_SignerError_SighashTaproot,
+        TxInputsIndexError: wire_cst_SignerError_TxInputsIndexError,
+        MiniscriptPsbt: wire_cst_SignerError_MiniscriptPsbt,
+        External: wire_cst_SignerError_External,
+        Psbt: wire_cst_SignerError_Psbt,
+        nil__: (),
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_SighashP2wpkh {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_SighashTaproot {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_TxInputsIndexError {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_MiniscriptPsbt {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_External {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SignerError_Psbt {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
