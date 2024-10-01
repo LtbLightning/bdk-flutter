@@ -97,16 +97,16 @@ abstract class coreApi extends BaseApi {
   bool crateApiBitcoinFfiAddressIsValidForNetwork(
       {required FfiAddress that, required Network network});
 
-  FfiScriptBuf crateApiBitcoinFfiAddressScript({required FfiAddress ptr});
+  FfiScriptBuf crateApiBitcoinFfiAddressScript({required FfiAddress opaque});
 
   String crateApiBitcoinFfiAddressToQrUri({required FfiAddress that});
 
-  Future<String> crateApiBitcoinFfiPsbtAsString({required FfiPsbt that});
+  String crateApiBitcoinFfiPsbtAsString({required FfiPsbt that});
 
   Future<FfiPsbt> crateApiBitcoinFfiPsbtCombine(
-      {required FfiPsbt ptr, required FfiPsbt other});
+      {required FfiPsbt opaque, required FfiPsbt other});
 
-  FfiTransaction crateApiBitcoinFfiPsbtExtractTx({required FfiPsbt ptr});
+  FfiTransaction crateApiBitcoinFfiPsbtExtractTx({required FfiPsbt opaque});
 
   BigInt? crateApiBitcoinFfiPsbtFeeAmount({required FfiPsbt that});
 
@@ -266,16 +266,18 @@ abstract class coreApi extends BaseApi {
       {required FfiDescriptorPublicKey that});
 
   Future<FfiDescriptorPublicKey> crateApiKeyFfiDescriptorPublicKeyDerive(
-      {required FfiDescriptorPublicKey ptr, required FfiDerivationPath path});
+      {required FfiDescriptorPublicKey opaque,
+      required FfiDerivationPath path});
 
   Future<FfiDescriptorPublicKey> crateApiKeyFfiDescriptorPublicKeyExtend(
-      {required FfiDescriptorPublicKey ptr, required FfiDerivationPath path});
+      {required FfiDescriptorPublicKey opaque,
+      required FfiDerivationPath path});
 
   Future<FfiDescriptorPublicKey> crateApiKeyFfiDescriptorPublicKeyFromString(
       {required String publicKey});
 
   FfiDescriptorPublicKey crateApiKeyFfiDescriptorSecretKeyAsPublic(
-      {required FfiDescriptorSecretKey ptr});
+      {required FfiDescriptorSecretKey opaque});
 
   String crateApiKeyFfiDescriptorSecretKeyAsString(
       {required FfiDescriptorSecretKey that});
@@ -286,10 +288,12 @@ abstract class coreApi extends BaseApi {
       String? password});
 
   Future<FfiDescriptorSecretKey> crateApiKeyFfiDescriptorSecretKeyDerive(
-      {required FfiDescriptorSecretKey ptr, required FfiDerivationPath path});
+      {required FfiDescriptorSecretKey opaque,
+      required FfiDerivationPath path});
 
   Future<FfiDescriptorSecretKey> crateApiKeyFfiDescriptorSecretKeyExtend(
-      {required FfiDescriptorSecretKey ptr, required FfiDerivationPath path});
+      {required FfiDescriptorSecretKey opaque,
+      required FfiDerivationPath path});
 
   Future<FfiDescriptorSecretKey> crateApiKeyFfiDescriptorSecretKeyFromString(
       {required String secretKey});
@@ -365,7 +369,7 @@ abstract class coreApi extends BaseApi {
 
   Balance crateApiWalletFfiWalletGetBalance({required FfiWallet that});
 
-  Future<CanonicalTx?> crateApiWalletFfiWalletGetTx(
+  Future<FfiCanonicalTx?> crateApiWalletFfiWalletGetTx(
       {required FfiWallet that, required String txid});
 
   bool crateApiWalletFfiWalletIsMine(
@@ -394,7 +398,7 @@ abstract class coreApi extends BaseApi {
       {required FfiWallet that, required FfiConnection connection});
 
   AddressInfo crateApiWalletFfiWalletRevealNextAddress(
-      {required FfiWallet that, required KeychainKind keychainKind});
+      {required FfiWallet opaque, required KeychainKind keychainKind});
 
   Future<bool> crateApiWalletFfiWalletSign(
       {required FfiWallet that,
@@ -408,7 +412,7 @@ abstract class coreApi extends BaseApi {
       crateApiWalletFfiWalletStartSyncWithRevealedSpks(
           {required FfiWallet that});
 
-  List<CanonicalTx> crateApiWalletFfiWalletTransactions(
+  List<FfiCanonicalTx> crateApiWalletFfiWalletTransactions(
       {required FfiWallet that});
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Address;
@@ -672,10 +676,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  FfiScriptBuf crateApiBitcoinFfiAddressScript({required FfiAddress ptr}) {
+  FfiScriptBuf crateApiBitcoinFfiAddressScript({required FfiAddress opaque}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        var arg0 = cst_encode_box_autoadd_ffi_address(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_address(opaque);
         return wire.wire__crate__api__bitcoin__ffi_address_script(arg0);
       },
       codec: DcoCodec(
@@ -683,7 +687,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: null,
       ),
       constMeta: kCrateApiBitcoinFfiAddressScriptConstMeta,
-      argValues: [ptr],
+      argValues: [opaque],
       apiImpl: this,
     ));
   }
@@ -691,7 +695,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiBitcoinFfiAddressScriptConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_address_script",
-        argNames: ["ptr"],
+        argNames: ["opaque"],
       );
 
   @override
@@ -718,11 +722,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<String> crateApiBitcoinFfiPsbtAsString({required FfiPsbt that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  String crateApiBitcoinFfiPsbtAsString({required FfiPsbt that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_psbt(that);
-        return wire.wire__crate__api__bitcoin__ffi_psbt_as_string(port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_psbt_as_string(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
@@ -742,10 +746,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<FfiPsbt> crateApiBitcoinFfiPsbtCombine(
-      {required FfiPsbt ptr, required FfiPsbt other}) {
+      {required FfiPsbt opaque, required FfiPsbt other}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_psbt(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_psbt(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_psbt(other);
         return wire.wire__crate__api__bitcoin__ffi_psbt_combine(
             port_, arg0, arg1);
@@ -755,7 +759,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_psbt_error,
       ),
       constMeta: kCrateApiBitcoinFfiPsbtCombineConstMeta,
-      argValues: [ptr, other],
+      argValues: [opaque, other],
       apiImpl: this,
     ));
   }
@@ -763,14 +767,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiBitcoinFfiPsbtCombineConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_psbt_combine",
-        argNames: ["ptr", "other"],
+        argNames: ["opaque", "other"],
       );
 
   @override
-  FfiTransaction crateApiBitcoinFfiPsbtExtractTx({required FfiPsbt ptr}) {
+  FfiTransaction crateApiBitcoinFfiPsbtExtractTx({required FfiPsbt opaque}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        var arg0 = cst_encode_box_autoadd_ffi_psbt(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_psbt(opaque);
         return wire.wire__crate__api__bitcoin__ffi_psbt_extract_tx(arg0);
       },
       codec: DcoCodec(
@@ -778,7 +782,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_extract_tx_error,
       ),
       constMeta: kCrateApiBitcoinFfiPsbtExtractTxConstMeta,
-      argValues: [ptr],
+      argValues: [opaque],
       apiImpl: this,
     ));
   }
@@ -786,7 +790,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiBitcoinFfiPsbtExtractTxConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_psbt_extract_tx",
-        argNames: ["ptr"],
+        argNames: ["opaque"],
       );
 
   @override
@@ -1941,10 +1945,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<FfiDescriptorPublicKey> crateApiKeyFfiDescriptorPublicKeyDerive(
-      {required FfiDescriptorPublicKey ptr, required FfiDerivationPath path}) {
+      {required FfiDescriptorPublicKey opaque,
+      required FfiDerivationPath path}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_descriptor_public_key(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_descriptor_public_key(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_derivation_path(path);
         return wire.wire__crate__api__key__ffi_descriptor_public_key_derive(
             port_, arg0, arg1);
@@ -1954,7 +1959,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_descriptor_key_error,
       ),
       constMeta: kCrateApiKeyFfiDescriptorPublicKeyDeriveConstMeta,
-      argValues: [ptr, path],
+      argValues: [opaque, path],
       apiImpl: this,
     ));
   }
@@ -1962,15 +1967,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiKeyFfiDescriptorPublicKeyDeriveConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_descriptor_public_key_derive",
-        argNames: ["ptr", "path"],
+        argNames: ["opaque", "path"],
       );
 
   @override
   Future<FfiDescriptorPublicKey> crateApiKeyFfiDescriptorPublicKeyExtend(
-      {required FfiDescriptorPublicKey ptr, required FfiDerivationPath path}) {
+      {required FfiDescriptorPublicKey opaque,
+      required FfiDerivationPath path}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_descriptor_public_key(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_descriptor_public_key(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_derivation_path(path);
         return wire.wire__crate__api__key__ffi_descriptor_public_key_extend(
             port_, arg0, arg1);
@@ -1980,7 +1986,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_descriptor_key_error,
       ),
       constMeta: kCrateApiKeyFfiDescriptorPublicKeyExtendConstMeta,
-      argValues: [ptr, path],
+      argValues: [opaque, path],
       apiImpl: this,
     ));
   }
@@ -1988,7 +1994,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiKeyFfiDescriptorPublicKeyExtendConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_descriptor_public_key_extend",
-        argNames: ["ptr", "path"],
+        argNames: ["opaque", "path"],
       );
 
   @override
@@ -2019,10 +2025,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   FfiDescriptorPublicKey crateApiKeyFfiDescriptorSecretKeyAsPublic(
-      {required FfiDescriptorSecretKey ptr}) {
+      {required FfiDescriptorSecretKey opaque}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(opaque);
         return wire
             .wire__crate__api__key__ffi_descriptor_secret_key_as_public(arg0);
       },
@@ -2031,7 +2037,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_descriptor_key_error,
       ),
       constMeta: kCrateApiKeyFfiDescriptorSecretKeyAsPublicConstMeta,
-      argValues: [ptr],
+      argValues: [opaque],
       apiImpl: this,
     ));
   }
@@ -2039,7 +2045,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiKeyFfiDescriptorSecretKeyAsPublicConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_descriptor_secret_key_as_public",
-        argNames: ["ptr"],
+        argNames: ["opaque"],
       );
 
   @override
@@ -2098,10 +2104,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<FfiDescriptorSecretKey> crateApiKeyFfiDescriptorSecretKeyDerive(
-      {required FfiDescriptorSecretKey ptr, required FfiDerivationPath path}) {
+      {required FfiDescriptorSecretKey opaque,
+      required FfiDerivationPath path}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_derivation_path(path);
         return wire.wire__crate__api__key__ffi_descriptor_secret_key_derive(
             port_, arg0, arg1);
@@ -2111,7 +2118,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_descriptor_key_error,
       ),
       constMeta: kCrateApiKeyFfiDescriptorSecretKeyDeriveConstMeta,
-      argValues: [ptr, path],
+      argValues: [opaque, path],
       apiImpl: this,
     ));
   }
@@ -2119,15 +2126,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiKeyFfiDescriptorSecretKeyDeriveConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_descriptor_secret_key_derive",
-        argNames: ["ptr", "path"],
+        argNames: ["opaque", "path"],
       );
 
   @override
   Future<FfiDescriptorSecretKey> crateApiKeyFfiDescriptorSecretKeyExtend(
-      {required FfiDescriptorSecretKey ptr, required FfiDerivationPath path}) {
+      {required FfiDescriptorSecretKey opaque,
+      required FfiDerivationPath path}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(ptr);
+        var arg0 = cst_encode_box_autoadd_ffi_descriptor_secret_key(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_derivation_path(path);
         return wire.wire__crate__api__key__ffi_descriptor_secret_key_extend(
             port_, arg0, arg1);
@@ -2137,7 +2145,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_descriptor_key_error,
       ),
       constMeta: kCrateApiKeyFfiDescriptorSecretKeyExtendConstMeta,
-      argValues: [ptr, path],
+      argValues: [opaque, path],
       apiImpl: this,
     ));
   }
@@ -2145,7 +2153,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiKeyFfiDescriptorSecretKeyExtendConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_descriptor_secret_key_extend",
-        argNames: ["ptr", "path"],
+        argNames: ["opaque", "path"],
       );
 
   @override
@@ -2732,7 +2740,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<CanonicalTx?> crateApiWalletFfiWalletGetTx(
+  Future<FfiCanonicalTx?> crateApiWalletFfiWalletGetTx(
       {required FfiWallet that, required String txid}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -2742,7 +2750,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
             port_, arg0, arg1);
       },
       codec: DcoCodec(
-        decodeSuccessData: dco_decode_opt_box_autoadd_canonical_tx,
+        decodeSuccessData: dco_decode_opt_box_autoadd_ffi_canonical_tx,
         decodeErrorData: dco_decode_txid_parse_error,
       ),
       constMeta: kCrateApiWalletFfiWalletGetTxConstMeta,
@@ -2941,10 +2949,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   AddressInfo crateApiWalletFfiWalletRevealNextAddress(
-      {required FfiWallet that, required KeychainKind keychainKind}) {
+      {required FfiWallet opaque, required KeychainKind keychainKind}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
         var arg1 = cst_encode_keychain_kind(keychainKind);
         return wire.wire__crate__api__wallet__ffi_wallet_reveal_next_address(
             arg0, arg1);
@@ -2954,7 +2962,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: null,
       ),
       constMeta: kCrateApiWalletFfiWalletRevealNextAddressConstMeta,
-      argValues: [that, keychainKind],
+      argValues: [opaque, keychainKind],
       apiImpl: this,
     ));
   }
@@ -2962,7 +2970,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletFfiWalletRevealNextAddressConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_wallet_reveal_next_address",
-        argNames: ["that", "keychainKind"],
+        argNames: ["opaque", "keychainKind"],
       );
 
   @override
@@ -3048,7 +3056,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           );
 
   @override
-  List<CanonicalTx> crateApiWalletFfiWalletTransactions(
+  List<FfiCanonicalTx> crateApiWalletFfiWalletTransactions(
       {required FfiWallet that}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
@@ -3056,7 +3064,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         return wire.wire__crate__api__wallet__ffi_wallet_transactions(arg0);
       },
       codec: DcoCodec(
-        decodeSuccessData: dco_decode_list_canonical_tx,
+        decodeSuccessData: dco_decode_list_ffi_canonical_tx,
         decodeErrorData: null,
       ),
       constMeta: kCrateApiWalletFfiWalletTransactionsConstMeta,
@@ -3608,12 +3616,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  CanonicalTx dco_decode_box_autoadd_canonical_tx(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_canonical_tx(raw);
-  }
-
-  @protected
   ConfirmationBlockTime dco_decode_box_autoadd_confirmation_block_time(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -3630,6 +3632,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiAddress dco_decode_box_autoadd_ffi_address(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_ffi_address(raw);
+  }
+
+  @protected
+  FfiCanonicalTx dco_decode_box_autoadd_ffi_canonical_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_ffi_canonical_tx(raw);
   }
 
   @protected
@@ -3800,18 +3808,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       default:
         throw Exception("unreachable");
     }
-  }
-
-  @protected
-  CanonicalTx dco_decode_canonical_tx(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2)
-      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return CanonicalTx(
-      transaction: dco_decode_ffi_transaction(arr[0]),
-      chainPosition: dco_decode_chain_position(arr[1]),
-    );
   }
 
   @protected
@@ -4194,6 +4190,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  FfiCanonicalTx dco_decode_ffi_canonical_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return FfiCanonicalTx(
+      transaction: dco_decode_ffi_transaction(arr[0]),
+      chainPosition: dco_decode_chain_position(arr[1]),
+    );
+  }
+
+  @protected
   FfiConnection dco_decode_ffi_connection(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -4212,7 +4220,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return FfiDerivationPath(
-      ptr: dco_decode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(arr[0]),
+      opaque:
+          dco_decode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(arr[0]),
     );
   }
 
@@ -4236,7 +4245,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return FfiDescriptorPublicKey(
-      ptr: dco_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(arr[0]),
+      opaque: dco_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(arr[0]),
     );
   }
 
@@ -4247,7 +4256,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return FfiDescriptorSecretKey(
-      ptr: dco_decode_RustOpaque_bdk_walletkeysDescriptorSecretKey(arr[0]),
+      opaque: dco_decode_RustOpaque_bdk_walletkeysDescriptorSecretKey(arr[0]),
     );
   }
 
@@ -4437,9 +4446,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  List<CanonicalTx> dco_decode_list_canonical_tx(dynamic raw) {
+  List<FfiCanonicalTx> dco_decode_list_ffi_canonical_tx(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>).map(dco_decode_canonical_tx).toList();
+    return (raw as List<dynamic>).map(dco_decode_ffi_canonical_tx).toList();
   }
 
   @protected
@@ -4556,15 +4565,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  CanonicalTx? dco_decode_opt_box_autoadd_canonical_tx(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_canonical_tx(raw);
-  }
-
-  @protected
   FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  FfiCanonicalTx? dco_decode_opt_box_autoadd_ffi_canonical_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_ffi_canonical_tx(raw);
   }
 
   @protected
@@ -5266,13 +5275,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  CanonicalTx sse_decode_box_autoadd_canonical_tx(
-      SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_canonical_tx(deserializer));
-  }
-
-  @protected
   ConfirmationBlockTime sse_decode_box_autoadd_confirmation_block_time(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5289,6 +5291,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiAddress sse_decode_box_autoadd_ffi_address(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_ffi_address(deserializer));
+  }
+
+  @protected
+  FfiCanonicalTx sse_decode_box_autoadd_ffi_canonical_tx(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_ffi_canonical_tx(deserializer));
   }
 
   @protected
@@ -5473,15 +5482,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       default:
         throw UnimplementedError('');
     }
-  }
-
-  @protected
-  CanonicalTx sse_decode_canonical_tx(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_transaction = sse_decode_ffi_transaction(deserializer);
-    var var_chainPosition = sse_decode_chain_position(deserializer);
-    return CanonicalTx(
-        transaction: var_transaction, chainPosition: var_chainPosition);
   }
 
   @protected
@@ -5828,6 +5828,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  FfiCanonicalTx sse_decode_ffi_canonical_tx(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_transaction = sse_decode_ffi_transaction(deserializer);
+    var var_chainPosition = sse_decode_chain_position(deserializer);
+    return FfiCanonicalTx(
+        transaction: var_transaction, chainPosition: var_chainPosition);
+  }
+
+  @protected
   FfiConnection sse_decode_ffi_connection(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_field0 =
@@ -5840,9 +5849,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiDerivationPath sse_decode_ffi_derivation_path(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_ptr = sse_decode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(
+    var var_opaque = sse_decode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(
         deserializer);
-    return FfiDerivationPath(ptr: var_ptr);
+    return FfiDerivationPath(opaque: var_opaque);
   }
 
   @protected
@@ -5860,18 +5869,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiDescriptorPublicKey sse_decode_ffi_descriptor_public_key(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_ptr =
+    var var_opaque =
         sse_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(deserializer);
-    return FfiDescriptorPublicKey(ptr: var_ptr);
+    return FfiDescriptorPublicKey(opaque: var_opaque);
   }
 
   @protected
   FfiDescriptorSecretKey sse_decode_ffi_descriptor_secret_key(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_ptr =
+    var var_opaque =
         sse_decode_RustOpaque_bdk_walletkeysDescriptorSecretKey(deserializer);
-    return FfiDescriptorSecretKey(ptr: var_ptr);
+    return FfiDescriptorSecretKey(opaque: var_opaque);
   }
 
   @protected
@@ -6020,13 +6029,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  List<CanonicalTx> sse_decode_list_canonical_tx(SseDeserializer deserializer) {
+  List<FfiCanonicalTx> sse_decode_list_ffi_canonical_tx(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <CanonicalTx>[];
+    var ans_ = <FfiCanonicalTx>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_canonical_tx(deserializer));
+      ans_.add(sse_decode_ffi_canonical_tx(deserializer));
     }
     return ans_;
   }
@@ -6190,23 +6200,23 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  CanonicalTx? sse_decode_opt_box_autoadd_canonical_tx(
-      SseDeserializer deserializer) {
+  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_canonical_tx(deserializer));
+      return (sse_decode_box_autoadd_fee_rate(deserializer));
     } else {
       return null;
     }
   }
 
   @protected
-  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer) {
+  FfiCanonicalTx? sse_decode_opt_box_autoadd_ffi_canonical_tx(
+      SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_fee_rate(deserializer));
+      return (sse_decode_box_autoadd_ffi_canonical_tx(deserializer));
     } else {
       return null;
     }
@@ -7177,13 +7187,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_canonical_tx(
-      CanonicalTx self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_canonical_tx(self, serializer);
-  }
-
-  @protected
   void sse_encode_box_autoadd_confirmation_block_time(
       ConfirmationBlockTime self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -7201,6 +7204,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FfiAddress self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_ffi_address(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_ffi_canonical_tx(
+      FfiCanonicalTx self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_ffi_canonical_tx(self, serializer);
   }
 
   @protected
@@ -7384,13 +7394,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       default:
         throw UnimplementedError('');
     }
-  }
-
-  @protected
-  void sse_encode_canonical_tx(CanonicalTx self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_ffi_transaction(self.transaction, serializer);
-    sse_encode_chain_position(self.chainPosition, serializer);
   }
 
   @protected
@@ -7726,6 +7729,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_ffi_canonical_tx(
+      FfiCanonicalTx self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_ffi_transaction(self.transaction, serializer);
+    sse_encode_chain_position(self.chainPosition, serializer);
+  }
+
+  @protected
   void sse_encode_ffi_connection(FfiConnection self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_stdsyncMutexbdk_walletrusqliteConnection(
@@ -7737,7 +7748,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FfiDerivationPath self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(
-        self.ptr, serializer);
+        self.opaque, serializer);
   }
 
   @protected
@@ -7753,7 +7764,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FfiDescriptorPublicKey self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
-        self.ptr, serializer);
+        self.opaque, serializer);
   }
 
   @protected
@@ -7761,7 +7772,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FfiDescriptorSecretKey self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_bdk_walletkeysDescriptorSecretKey(
-        self.ptr, serializer);
+        self.opaque, serializer);
   }
 
   @protected
@@ -7890,12 +7901,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_list_canonical_tx(
-      List<CanonicalTx> self, SseSerializer serializer) {
+  void sse_encode_list_ffi_canonical_tx(
+      List<FfiCanonicalTx> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
-      sse_encode_canonical_tx(item, serializer);
+      sse_encode_ffi_canonical_tx(item, serializer);
     }
   }
 
@@ -8035,17 +8046,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_opt_box_autoadd_canonical_tx(
-      CanonicalTx? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_canonical_tx(self, serializer);
-    }
-  }
-
-  @protected
   void sse_encode_opt_box_autoadd_fee_rate(
       FeeRate? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -8053,6 +8053,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_fee_rate(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_ffi_canonical_tx(
+      FfiCanonicalTx? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_ffi_canonical_tx(self, serializer);
     }
   }
 

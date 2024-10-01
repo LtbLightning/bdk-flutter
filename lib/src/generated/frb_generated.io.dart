@@ -210,9 +210,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   bool dco_decode_bool(dynamic raw);
 
   @protected
-  CanonicalTx dco_decode_box_autoadd_canonical_tx(dynamic raw);
-
-  @protected
   ConfirmationBlockTime dco_decode_box_autoadd_confirmation_block_time(
       dynamic raw);
 
@@ -221,6 +218,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiAddress dco_decode_box_autoadd_ffi_address(dynamic raw);
+
+  @protected
+  FfiCanonicalTx dco_decode_box_autoadd_ffi_canonical_tx(dynamic raw);
 
   @protected
   FfiConnection dco_decode_box_autoadd_ffi_connection(dynamic raw);
@@ -299,9 +299,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   CannotConnectError dco_decode_cannot_connect_error(dynamic raw);
 
   @protected
-  CanonicalTx dco_decode_canonical_tx(dynamic raw);
-
-  @protected
   ChainPosition dco_decode_chain_position(dynamic raw);
 
   @protected
@@ -336,6 +333,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiAddress dco_decode_ffi_address(dynamic raw);
+
+  @protected
+  FfiCanonicalTx dco_decode_ffi_canonical_tx(dynamic raw);
 
   @protected
   FfiConnection dco_decode_ffi_connection(dynamic raw);
@@ -402,7 +402,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   KeychainKind dco_decode_keychain_kind(dynamic raw);
 
   @protected
-  List<CanonicalTx> dco_decode_list_canonical_tx(dynamic raw);
+  List<FfiCanonicalTx> dco_decode_list_ffi_canonical_tx(dynamic raw);
 
   @protected
   List<Uint8List> dco_decode_list_list_prim_u_8_strict(dynamic raw);
@@ -445,10 +445,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
-  CanonicalTx? dco_decode_opt_box_autoadd_canonical_tx(dynamic raw);
+  FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw);
 
   @protected
-  FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw);
+  FfiCanonicalTx? dco_decode_opt_box_autoadd_ffi_canonical_tx(dynamic raw);
 
   @protected
   FfiScriptBuf? dco_decode_opt_box_autoadd_ffi_script_buf(dynamic raw);
@@ -633,9 +633,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
-  CanonicalTx sse_decode_box_autoadd_canonical_tx(SseDeserializer deserializer);
-
-  @protected
   ConfirmationBlockTime sse_decode_box_autoadd_confirmation_block_time(
       SseDeserializer deserializer);
 
@@ -644,6 +641,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiAddress sse_decode_box_autoadd_ffi_address(SseDeserializer deserializer);
+
+  @protected
+  FfiCanonicalTx sse_decode_box_autoadd_ffi_canonical_tx(
+      SseDeserializer deserializer);
 
   @protected
   FfiConnection sse_decode_box_autoadd_ffi_connection(
@@ -734,9 +735,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SseDeserializer deserializer);
 
   @protected
-  CanonicalTx sse_decode_canonical_tx(SseDeserializer deserializer);
-
-  @protected
   ChainPosition sse_decode_chain_position(SseDeserializer deserializer);
 
   @protected
@@ -775,6 +773,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiAddress sse_decode_ffi_address(SseDeserializer deserializer);
+
+  @protected
+  FfiCanonicalTx sse_decode_ffi_canonical_tx(SseDeserializer deserializer);
 
   @protected
   FfiConnection sse_decode_ffi_connection(SseDeserializer deserializer);
@@ -847,7 +848,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   KeychainKind sse_decode_keychain_kind(SseDeserializer deserializer);
 
   @protected
-  List<CanonicalTx> sse_decode_list_canonical_tx(SseDeserializer deserializer);
+  List<FfiCanonicalTx> sse_decode_list_ffi_canonical_tx(
+      SseDeserializer deserializer);
 
   @protected
   List<Uint8List> sse_decode_list_list_prim_u_8_strict(
@@ -892,11 +894,11 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
-  CanonicalTx? sse_decode_opt_box_autoadd_canonical_tx(
-      SseDeserializer deserializer);
+  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer);
 
   @protected
-  FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer);
+  FfiCanonicalTx? sse_decode_opt_box_autoadd_ffi_canonical_tx(
+      SseDeserializer deserializer);
 
   @protected
   FfiScriptBuf? sse_decode_opt_box_autoadd_ffi_script_buf(
@@ -987,15 +989,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_canonical_tx> cst_encode_box_autoadd_canonical_tx(
-      CanonicalTx raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    final ptr = wire.cst_new_box_autoadd_canonical_tx();
-    cst_api_fill_to_wire_canonical_tx(raw, ptr.ref);
-    return ptr;
-  }
-
-  @protected
   ffi.Pointer<wire_cst_confirmation_block_time>
       cst_encode_box_autoadd_confirmation_block_time(
           ConfirmationBlockTime raw) {
@@ -1019,6 +1012,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_ffi_address();
     cst_api_fill_to_wire_ffi_address(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_ffi_canonical_tx>
+      cst_encode_box_autoadd_ffi_canonical_tx(FfiCanonicalTx raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_ffi_canonical_tx();
+    cst_api_fill_to_wire_ffi_canonical_tx(raw, ptr.ref);
     return ptr;
   }
 
@@ -1224,12 +1226,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_list_canonical_tx> cst_encode_list_canonical_tx(
-      List<CanonicalTx> raw) {
+  ffi.Pointer<wire_cst_list_ffi_canonical_tx> cst_encode_list_ffi_canonical_tx(
+      List<FfiCanonicalTx> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    final ans = wire.cst_new_list_canonical_tx(raw.length);
+    final ans = wire.cst_new_list_ffi_canonical_tx(raw.length);
     for (var i = 0; i < raw.length; ++i) {
-      cst_api_fill_to_wire_canonical_tx(raw[i], ans.ref.ptr[i]);
+      cst_api_fill_to_wire_ffi_canonical_tx(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -1325,17 +1327,19 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_canonical_tx> cst_encode_opt_box_autoadd_canonical_tx(
-      CanonicalTx? raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_canonical_tx(raw);
-  }
-
-  @protected
   ffi.Pointer<wire_cst_fee_rate> cst_encode_opt_box_autoadd_fee_rate(
       FeeRate? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_ffi_canonical_tx>
+      cst_encode_opt_box_autoadd_ffi_canonical_tx(FfiCanonicalTx? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_ffi_canonical_tx(raw);
   }
 
   @protected
@@ -1551,12 +1555,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  void cst_api_fill_to_wire_box_autoadd_canonical_tx(
-      CanonicalTx apiObj, ffi.Pointer<wire_cst_canonical_tx> wireObj) {
-    cst_api_fill_to_wire_canonical_tx(apiObj, wireObj.ref);
-  }
-
-  @protected
   void cst_api_fill_to_wire_box_autoadd_confirmation_block_time(
       ConfirmationBlockTime apiObj,
       ffi.Pointer<wire_cst_confirmation_block_time> wireObj) {
@@ -1573,6 +1571,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_box_autoadd_ffi_address(
       FfiAddress apiObj, ffi.Pointer<wire_cst_ffi_address> wireObj) {
     cst_api_fill_to_wire_ffi_address(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_ffi_canonical_tx(
+      FfiCanonicalTx apiObj, ffi.Pointer<wire_cst_ffi_canonical_tx> wireObj) {
+    cst_api_fill_to_wire_ffi_canonical_tx(apiObj, wireObj.ref);
   }
 
   @protected
@@ -1735,15 +1739,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       wireObj.kind.Include.height = pre_height;
       return;
     }
-  }
-
-  @protected
-  void cst_api_fill_to_wire_canonical_tx(
-      CanonicalTx apiObj, wire_cst_canonical_tx wireObj) {
-    cst_api_fill_to_wire_ffi_transaction(
-        apiObj.transaction, wireObj.transaction);
-    cst_api_fill_to_wire_chain_position(
-        apiObj.chainPosition, wireObj.chain_position);
   }
 
   @protected
@@ -2239,6 +2234,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_ffi_canonical_tx(
+      FfiCanonicalTx apiObj, wire_cst_ffi_canonical_tx wireObj) {
+    cst_api_fill_to_wire_ffi_transaction(
+        apiObj.transaction, wireObj.transaction);
+    cst_api_fill_to_wire_chain_position(
+        apiObj.chainPosition, wireObj.chain_position);
+  }
+
+  @protected
   void cst_api_fill_to_wire_ffi_connection(
       FfiConnection apiObj, wire_cst_ffi_connection wireObj) {
     wireObj.field0 =
@@ -2249,8 +2253,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void cst_api_fill_to_wire_ffi_derivation_path(
       FfiDerivationPath apiObj, wire_cst_ffi_derivation_path wireObj) {
-    wireObj.ptr =
-        cst_encode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(apiObj.ptr);
+    wireObj.opaque = cst_encode_RustOpaque_bdk_walletbitcoinbip32DerivationPath(
+        apiObj.opaque);
   }
 
   @protected
@@ -2266,16 +2270,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_ffi_descriptor_public_key(
       FfiDescriptorPublicKey apiObj,
       wire_cst_ffi_descriptor_public_key wireObj) {
-    wireObj.ptr =
-        cst_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(apiObj.ptr);
+    wireObj.opaque =
+        cst_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(apiObj.opaque);
   }
 
   @protected
   void cst_api_fill_to_wire_ffi_descriptor_secret_key(
       FfiDescriptorSecretKey apiObj,
       wire_cst_ffi_descriptor_secret_key wireObj) {
-    wireObj.ptr =
-        cst_encode_RustOpaque_bdk_walletkeysDescriptorSecretKey(apiObj.ptr);
+    wireObj.opaque =
+        cst_encode_RustOpaque_bdk_walletkeysDescriptorSecretKey(apiObj.opaque);
   }
 
   @protected
@@ -3064,10 +3068,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_bool(bool self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_canonical_tx(
-      CanonicalTx self, SseSerializer serializer);
-
-  @protected
   void sse_encode_box_autoadd_confirmation_block_time(
       ConfirmationBlockTime self, SseSerializer serializer);
 
@@ -3077,6 +3077,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_box_autoadd_ffi_address(
       FfiAddress self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_ffi_canonical_tx(
+      FfiCanonicalTx self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_ffi_connection(
@@ -3172,9 +3176,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       CannotConnectError self, SseSerializer serializer);
 
   @protected
-  void sse_encode_canonical_tx(CanonicalTx self, SseSerializer serializer);
-
-  @protected
   void sse_encode_chain_position(ChainPosition self, SseSerializer serializer);
 
   @protected
@@ -3215,6 +3216,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   void sse_encode_ffi_address(FfiAddress self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_ffi_canonical_tx(
+      FfiCanonicalTx self, SseSerializer serializer);
 
   @protected
   void sse_encode_ffi_connection(FfiConnection self, SseSerializer serializer);
@@ -3291,8 +3296,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_keychain_kind(KeychainKind self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_canonical_tx(
-      List<CanonicalTx> self, SseSerializer serializer);
+  void sse_encode_list_ffi_canonical_tx(
+      List<FfiCanonicalTx> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_list_prim_u_8_strict(
@@ -3339,12 +3344,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
-  void sse_encode_opt_box_autoadd_canonical_tx(
-      CanonicalTx? self, SseSerializer serializer);
-
-  @protected
   void sse_encode_opt_box_autoadd_fee_rate(
       FeeRate? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_ffi_canonical_tx(
+      FfiCanonicalTx? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_ffi_script_buf(
@@ -3550,10 +3555,10 @@ class coreWire implements BaseWire {
                   ffi.Pointer<wire_cst_ffi_address>, int)>();
 
   WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_address_script(
-    ffi.Pointer<wire_cst_ffi_address> ptr,
+    ffi.Pointer<wire_cst_ffi_address> opaque,
   ) {
     return _wire__crate__api__bitcoin__ffi_address_script(
-      ptr,
+      opaque,
     );
   }
 
@@ -3583,32 +3588,30 @@ class coreWire implements BaseWire {
       _wire__crate__api__bitcoin__ffi_address_to_qr_uriPtr.asFunction<
           WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_address>)>();
 
-  void wire__crate__api__bitcoin__ffi_psbt_as_string(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_psbt_as_string(
     ffi.Pointer<wire_cst_ffi_psbt> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_psbt_as_string(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_psbt_as_stringPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_ffi_psbt>)>>(
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_psbt>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_as_string');
   late final _wire__crate__api__bitcoin__ffi_psbt_as_string =
-      _wire__crate__api__bitcoin__ffi_psbt_as_stringPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_ffi_psbt>)>();
+      _wire__crate__api__bitcoin__ffi_psbt_as_stringPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_psbt>)>();
 
   void wire__crate__api__bitcoin__ffi_psbt_combine(
     int port_,
-    ffi.Pointer<wire_cst_ffi_psbt> ptr,
+    ffi.Pointer<wire_cst_ffi_psbt> opaque,
     ffi.Pointer<wire_cst_ffi_psbt> other,
   ) {
     return _wire__crate__api__bitcoin__ffi_psbt_combine(
       port_,
-      ptr,
+      opaque,
       other,
     );
   }
@@ -3624,10 +3627,10 @@ class coreWire implements BaseWire {
               ffi.Pointer<wire_cst_ffi_psbt>)>();
 
   WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_psbt_extract_tx(
-    ffi.Pointer<wire_cst_ffi_psbt> ptr,
+    ffi.Pointer<wire_cst_ffi_psbt> opaque,
   ) {
     return _wire__crate__api__bitcoin__ffi_psbt_extract_tx(
-      ptr,
+      opaque,
     );
   }
 
@@ -4619,12 +4622,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__key__ffi_descriptor_public_key_derive(
     int port_,
-    ffi.Pointer<wire_cst_ffi_descriptor_public_key> ptr,
+    ffi.Pointer<wire_cst_ffi_descriptor_public_key> opaque,
     ffi.Pointer<wire_cst_ffi_derivation_path> path,
   ) {
     return _wire__crate__api__key__ffi_descriptor_public_key_derive(
       port_,
-      ptr,
+      opaque,
       path,
     );
   }
@@ -4643,12 +4646,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__key__ffi_descriptor_public_key_extend(
     int port_,
-    ffi.Pointer<wire_cst_ffi_descriptor_public_key> ptr,
+    ffi.Pointer<wire_cst_ffi_descriptor_public_key> opaque,
     ffi.Pointer<wire_cst_ffi_derivation_path> path,
   ) {
     return _wire__crate__api__key__ffi_descriptor_public_key_extend(
       port_,
-      ptr,
+      opaque,
       path,
     );
   }
@@ -4688,10 +4691,10 @@ class coreWire implements BaseWire {
 
   WireSyncRust2DartDco
       wire__crate__api__key__ffi_descriptor_secret_key_as_public(
-    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> ptr,
+    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> opaque,
   ) {
     return _wire__crate__api__key__ffi_descriptor_secret_key_as_public(
-      ptr,
+      opaque,
     );
   }
 
@@ -4755,12 +4758,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__key__ffi_descriptor_secret_key_derive(
     int port_,
-    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> ptr,
+    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> opaque,
     ffi.Pointer<wire_cst_ffi_derivation_path> path,
   ) {
     return _wire__crate__api__key__ffi_descriptor_secret_key_derive(
       port_,
-      ptr,
+      opaque,
       path,
     );
   }
@@ -4779,12 +4782,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__key__ffi_descriptor_secret_key_extend(
     int port_,
-    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> ptr,
+    ffi.Pointer<wire_cst_ffi_descriptor_secret_key> opaque,
     ffi.Pointer<wire_cst_ffi_derivation_path> path,
   ) {
     return _wire__crate__api__key__ffi_descriptor_secret_key_extend(
       port_,
-      ptr,
+      opaque,
       path,
     );
   }
@@ -5455,11 +5458,11 @@ class coreWire implements BaseWire {
               ffi.Pointer<wire_cst_ffi_connection>)>();
 
   WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_reveal_next_address(
-    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
     int keychain_kind,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_reveal_next_address(
-      that,
+      opaque,
       keychain_kind,
     );
   }
@@ -6124,17 +6127,6 @@ class coreWire implements BaseWire {
       _rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdk_walletrusqliteConnectionPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  ffi.Pointer<wire_cst_canonical_tx> cst_new_box_autoadd_canonical_tx() {
-    return _cst_new_box_autoadd_canonical_tx();
-  }
-
-  late final _cst_new_box_autoadd_canonical_txPtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<wire_cst_canonical_tx> Function()>>(
-      'frbgen_bdk_flutter_cst_new_box_autoadd_canonical_tx');
-  late final _cst_new_box_autoadd_canonical_tx =
-      _cst_new_box_autoadd_canonical_txPtr
-          .asFunction<ffi.Pointer<wire_cst_canonical_tx> Function()>();
-
   ffi.Pointer<wire_cst_confirmation_block_time>
       cst_new_box_autoadd_confirmation_block_time() {
     return _cst_new_box_autoadd_confirmation_block_time();
@@ -6168,6 +6160,19 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_ffi_address =
       _cst_new_box_autoadd_ffi_addressPtr
           .asFunction<ffi.Pointer<wire_cst_ffi_address> Function()>();
+
+  ffi.Pointer<wire_cst_ffi_canonical_tx>
+      cst_new_box_autoadd_ffi_canonical_tx() {
+    return _cst_new_box_autoadd_ffi_canonical_tx();
+  }
+
+  late final _cst_new_box_autoadd_ffi_canonical_txPtr = _lookup<
+          ffi
+          .NativeFunction<ffi.Pointer<wire_cst_ffi_canonical_tx> Function()>>(
+      'frbgen_bdk_flutter_cst_new_box_autoadd_ffi_canonical_tx');
+  late final _cst_new_box_autoadd_ffi_canonical_tx =
+      _cst_new_box_autoadd_ffi_canonical_txPtr
+          .asFunction<ffi.Pointer<wire_cst_ffi_canonical_tx> Function()>();
 
   ffi.Pointer<wire_cst_ffi_connection> cst_new_box_autoadd_ffi_connection() {
     return _cst_new_box_autoadd_ffi_connection();
@@ -6432,20 +6437,20 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_u_64 = _cst_new_box_autoadd_u_64Ptr
       .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_canonical_tx> cst_new_list_canonical_tx(
+  ffi.Pointer<wire_cst_list_ffi_canonical_tx> cst_new_list_ffi_canonical_tx(
     int len,
   ) {
-    return _cst_new_list_canonical_tx(
+    return _cst_new_list_ffi_canonical_tx(
       len,
     );
   }
 
-  late final _cst_new_list_canonical_txPtr = _lookup<
+  late final _cst_new_list_ffi_canonical_txPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<wire_cst_list_canonical_tx> Function(
-              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_canonical_tx');
-  late final _cst_new_list_canonical_tx = _cst_new_list_canonical_txPtr
-      .asFunction<ffi.Pointer<wire_cst_list_canonical_tx> Function(int)>();
+          ffi.Pointer<wire_cst_list_ffi_canonical_tx> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_ffi_canonical_tx');
+  late final _cst_new_list_ffi_canonical_tx = _cst_new_list_ffi_canonical_txPtr
+      .asFunction<ffi.Pointer<wire_cst_list_ffi_canonical_tx> Function(int)>();
 
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_new_list_list_prim_u_8_strict(
@@ -6706,12 +6711,12 @@ final class wire_cst_ffi_descriptor extends ffi.Struct {
 
 final class wire_cst_ffi_descriptor_secret_key extends ffi.Struct {
   @ffi.UintPtr()
-  external int ptr;
+  external int opaque;
 }
 
 final class wire_cst_ffi_descriptor_public_key extends ffi.Struct {
   @ffi.UintPtr()
-  external int ptr;
+  external int opaque;
 }
 
 final class wire_cst_ffi_electrum_client extends ffi.Struct {
@@ -6736,7 +6741,7 @@ final class wire_cst_ffi_esplora_client extends ffi.Struct {
 
 final class wire_cst_ffi_derivation_path extends ffi.Struct {
   @ffi.UintPtr()
-  external int ptr;
+  external int opaque;
 }
 
 final class wire_cst_ffi_mnemonic extends ffi.Struct {
@@ -6870,14 +6875,14 @@ final class wire_cst_chain_position extends ffi.Struct {
   external ChainPositionKind kind;
 }
 
-final class wire_cst_canonical_tx extends ffi.Struct {
+final class wire_cst_ffi_canonical_tx extends ffi.Struct {
   external wire_cst_ffi_transaction transaction;
 
   external wire_cst_chain_position chain_position;
 }
 
-final class wire_cst_list_canonical_tx extends ffi.Struct {
-  external ffi.Pointer<wire_cst_canonical_tx> ptr;
+final class wire_cst_list_ffi_canonical_tx extends ffi.Struct {
+  external ffi.Pointer<wire_cst_ffi_canonical_tx> ptr;
 
   @ffi.Int32()
   external int len;

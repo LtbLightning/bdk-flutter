@@ -56,8 +56,8 @@ impl FfiAddress {
     }
 
     #[frb(sync)]
-    pub fn script(ptr: FfiAddress) -> FfiScriptBuf {
-        ptr.0.script_pubkey().into()
+    pub fn script(opaque: FfiAddress) -> FfiScriptBuf {
+        opaque.0.script_pubkey().into()
     }
 
     #[frb(sync)]
@@ -270,23 +270,24 @@ impl FfiPsbt {
         Ok(psbt.into())
     }
 
+    #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.opaque.lock().unwrap().to_string()
     }
 
     /// Return the transaction.
     #[frb(sync)]
-    pub fn extract_tx(ptr: FfiPsbt) -> Result<FfiTransaction, ExtractTxError> {
-        let tx = ptr.opaque.lock().unwrap().clone().extract_tx()?;
+    pub fn extract_tx(opaque: FfiPsbt) -> Result<FfiTransaction, ExtractTxError> {
+        let tx = opaque.opaque.lock().unwrap().clone().extract_tx()?;
         Ok(tx.into())
     }
 
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-    pub fn combine(ptr: FfiPsbt, other: FfiPsbt) -> Result<FfiPsbt, PsbtError> {
+    pub fn combine(opaque: FfiPsbt, other: FfiPsbt) -> Result<FfiPsbt, PsbtError> {
         let other_psbt = other.opaque.lock().unwrap().clone();
-        let mut original_psbt = ptr.opaque.lock().unwrap().clone();
+        let mut original_psbt = opaque.opaque.lock().unwrap().clone();
         original_psbt.combine(other_psbt)?;
         Ok(original_psbt.into())
     }
@@ -304,6 +305,7 @@ impl FfiPsbt {
         let psbt = self.opaque.lock().unwrap().clone();
         psbt.serialize()
     }
+
     /// Serialize the PSBT data structure as a String of JSON.
     #[frb(sync)]
     pub fn json_serialize(&self) -> Result<String, PsbtError> {

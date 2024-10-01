@@ -36,7 +36,7 @@ impl FfiDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, DescriptorError> {
-        let derivable_key = &*secret_key.ptr;
+        let derivable_key = &*secret_key.opaque;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -66,7 +66,7 @@ impl FfiDescriptor {
             Fingerprint::from_str(fingerprint.as_str()).map_err(|e| DescriptorError::Generic {
                 error_message: e.to_string(),
             })?;
-        let derivable_key = &*public_key.ptr;
+        let derivable_key = &*public_key.opaque;
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -93,7 +93,7 @@ impl FfiDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, DescriptorError> {
-        let derivable_key = &*secret_key.ptr;
+        let derivable_key = &*secret_key.opaque;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -123,7 +123,7 @@ impl FfiDescriptor {
             Fingerprint::from_str(fingerprint.as_str()).map_err(|e| DescriptorError::Generic {
                 error_message: e.to_string(),
             })?;
-        let derivable_key = &*public_key.ptr;
+        let derivable_key = &*public_key.opaque;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -151,7 +151,7 @@ impl FfiDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, DescriptorError> {
-        let derivable_key = &*secret_key.ptr;
+        let derivable_key = &*secret_key.opaque;
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derivable_key = descriptor_x_key.xkey;
@@ -181,7 +181,7 @@ impl FfiDescriptor {
             Fingerprint::from_str(fingerprint.as_str()).map_err(|e| DescriptorError::Generic {
                 error_message: e.to_string(),
             })?;
-        let derivable_key = &*public_key.ptr;
+        let derivable_key = &*public_key.opaque;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
@@ -209,7 +209,7 @@ impl FfiDescriptor {
         keychain_kind: KeychainKind,
         network: Network,
     ) -> Result<Self, DescriptorError> {
-        let derivable_key = &*secret_key.ptr;
+        let derivable_key = &*secret_key.opaque;
 
         match derivable_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
@@ -240,7 +240,7 @@ impl FfiDescriptor {
             Fingerprint::from_str(fingerprint.as_str()).map_err(|e| DescriptorError::Generic {
                 error_message: e.to_string(),
             })?;
-        let derivable_key = &*public_key.ptr;
+        let derivable_key = &*public_key.opaque;
 
         match derivable_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {

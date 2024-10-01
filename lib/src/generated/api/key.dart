@@ -12,10 +12,10 @@ import 'types.dart';
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`, `fmt`, `from`, `from`, `from`, `from`
 
 class FfiDerivationPath {
-  final DerivationPath ptr;
+  final DerivationPath opaque;
 
   const FfiDerivationPath({
-    required this.ptr,
+    required this.opaque,
   });
 
   String asString() => core.instance.api.crateApiKeyFfiDerivationPathAsString(
@@ -26,21 +26,21 @@ class FfiDerivationPath {
       core.instance.api.crateApiKeyFfiDerivationPathFromString(path: path);
 
   @override
-  int get hashCode => ptr.hashCode;
+  int get hashCode => opaque.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FfiDerivationPath &&
           runtimeType == other.runtimeType &&
-          ptr == other.ptr;
+          opaque == other.opaque;
 }
 
 class FfiDescriptorPublicKey {
-  final DescriptorPublicKey ptr;
+  final DescriptorPublicKey opaque;
 
   const FfiDescriptorPublicKey({
-    required this.ptr,
+    required this.opaque,
   });
 
   String asString() =>
@@ -49,16 +49,16 @@ class FfiDescriptorPublicKey {
       );
 
   static Future<FfiDescriptorPublicKey> derive(
-          {required FfiDescriptorPublicKey ptr,
+          {required FfiDescriptorPublicKey opaque,
           required FfiDerivationPath path}) =>
       core.instance.api
-          .crateApiKeyFfiDescriptorPublicKeyDerive(ptr: ptr, path: path);
+          .crateApiKeyFfiDescriptorPublicKeyDerive(opaque: opaque, path: path);
 
   static Future<FfiDescriptorPublicKey> extend(
-          {required FfiDescriptorPublicKey ptr,
+          {required FfiDescriptorPublicKey opaque,
           required FfiDerivationPath path}) =>
       core.instance.api
-          .crateApiKeyFfiDescriptorPublicKeyExtend(ptr: ptr, path: path);
+          .crateApiKeyFfiDescriptorPublicKeyExtend(opaque: opaque, path: path);
 
   static Future<FfiDescriptorPublicKey> fromString(
           {required String publicKey}) =>
@@ -66,26 +66,27 @@ class FfiDescriptorPublicKey {
           .crateApiKeyFfiDescriptorPublicKeyFromString(publicKey: publicKey);
 
   @override
-  int get hashCode => ptr.hashCode;
+  int get hashCode => opaque.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FfiDescriptorPublicKey &&
           runtimeType == other.runtimeType &&
-          ptr == other.ptr;
+          opaque == other.opaque;
 }
 
 class FfiDescriptorSecretKey {
-  final DescriptorSecretKey ptr;
+  final DescriptorSecretKey opaque;
 
   const FfiDescriptorSecretKey({
-    required this.ptr,
+    required this.opaque,
   });
 
   static FfiDescriptorPublicKey asPublic(
-          {required FfiDescriptorSecretKey ptr}) =>
-      core.instance.api.crateApiKeyFfiDescriptorSecretKeyAsPublic(ptr: ptr);
+          {required FfiDescriptorSecretKey opaque}) =>
+      core.instance.api
+          .crateApiKeyFfiDescriptorSecretKeyAsPublic(opaque: opaque);
 
   String asString() =>
       core.instance.api.crateApiKeyFfiDescriptorSecretKeyAsString(
@@ -100,16 +101,16 @@ class FfiDescriptorSecretKey {
           network: network, mnemonic: mnemonic, password: password);
 
   static Future<FfiDescriptorSecretKey> derive(
-          {required FfiDescriptorSecretKey ptr,
+          {required FfiDescriptorSecretKey opaque,
           required FfiDerivationPath path}) =>
       core.instance.api
-          .crateApiKeyFfiDescriptorSecretKeyDerive(ptr: ptr, path: path);
+          .crateApiKeyFfiDescriptorSecretKeyDerive(opaque: opaque, path: path);
 
   static Future<FfiDescriptorSecretKey> extend(
-          {required FfiDescriptorSecretKey ptr,
+          {required FfiDescriptorSecretKey opaque,
           required FfiDerivationPath path}) =>
       core.instance.api
-          .crateApiKeyFfiDescriptorSecretKeyExtend(ptr: ptr, path: path);
+          .crateApiKeyFfiDescriptorSecretKeyExtend(opaque: opaque, path: path);
 
   static Future<FfiDescriptorSecretKey> fromString(
           {required String secretKey}) =>
@@ -123,14 +124,14 @@ class FfiDescriptorSecretKey {
       );
 
   @override
-  int get hashCode => ptr.hashCode;
+  int get hashCode => opaque.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FfiDescriptorSecretKey &&
           runtimeType == other.runtimeType &&
-          ptr == other.ptr;
+          opaque == other.opaque;
 }
 
 class FfiMnemonic {
