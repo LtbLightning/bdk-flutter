@@ -1,4 +1,10 @@
-use bdk_core::bitcoin::{address::FromScriptError, consensus::Decodable, io::Cursor};
+use bdk_core::bitcoin::{
+    absolute::{Height, Time},
+    address::FromScriptError,
+    consensus::Decodable,
+    io::Cursor,
+    transaction::Version,
+};
 use bdk_wallet::psbt::PsbtUtils;
 use flutter_rust_bridge::frb;
 use std::{ops::Deref, str::FromStr};
@@ -119,125 +125,141 @@ impl FfiScriptBuf {
 }
 
 pub struct FfiTransaction {
-    pub s: String,
+    pub opaque: RustOpaque<bdk_core::bitcoin::Transaction>,
+}
+impl From<&FfiTransaction> for bdk_core::bitcoin::Transaction {
+    fn from(value: &FfiTransaction) -> Self {
+        (*value.opaque).clone()
+    }
+}
+impl From<bdk_core::bitcoin::Transaction> for FfiTransaction {
+    fn from(value: bdk_core::bitcoin::Transaction) -> Self {
+        FfiTransaction {
+            opaque: RustOpaque::new(value),
+        }
+    }
 }
 impl FfiTransaction {
-    // pub fn new(
-    //     version: i32,
-    //     lock_time: LockTime,
-    //     input: Vec<TxIn>,
-    //     output: Vec<TxOut>
-    // ) -> Result<FfiTransaction, TransactionError> {
-    //     let mut inputs: Vec<bdk_core::bitcoin::blockdata::transaction::TxIn> = vec![];
-    //     for e in input.iter() {
-    //         inputs.push(e.try_into()?);
-    //     }
-    //     let output = output
-    //         .into_iter()
-    //         .map(|e| <&TxOut as Into<bdk_core::bitcoin::blockdata::transaction::TxOut>>::into(&e))
-    //         .collect();
-    //     (bdk_core::bitcoin::Transaction {
-    //         version,
-    //         lock_time: lock_time.try_into()?,
-    //         input: inputs,
-    //         output,
-    //     }).try_into()
-    // }
+    pub fn new(
+        version: i32,
+        lock_time: LockTime,
+        input: Vec<TxIn>,
+        output: Vec<TxOut>,
+    ) -> Result<FfiTransaction, TransactionError> {
+        let mut inputs: Vec<bdk_core::bitcoin::blockdata::transaction::TxIn> = vec![];
+        for e in input.iter() {
+            inputs.push(
+                e.try_into()
+                    .map_err(|_| TransactionError::OtherTransactionErr)?,
+            );
+        }
+        let output = output
+            .into_iter()
+            .map(|e| <&TxOut as Into<bdk_core::bitcoin::blockdata::transaction::TxOut>>::into(&e))
+            .collect();
+        let lock_time = match lock_time {
+            LockTime::Blocks(height) => bdk_core::bitcoin::absolute::LockTime::Blocks(
+                Height::from_consensus(height)
+                    .map_err(|_| TransactionError::OtherTransactionErr)?,
+            ),
+            LockTime::Seconds(time) => bdk_core::bitcoin::absolute::LockTime::Seconds(
+                Time::from_consensus(time).map_err(|_| TransactionError::OtherTransactionErr)?,
+            ),
+        };
+        Ok((bdk_core::bitcoin::Transaction {
+            version: Version::non_standard(version),
+            lock_time: lock_time,
+            input: inputs,
+            output,
+        })
+        .into())
+    }
 
     pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, TransactionError> {
         let mut decoder = Cursor::new(transaction_bytes);
         let tx: bdk_core::bitcoin::transaction::Transaction =
             bdk_core::bitcoin::transaction::Transaction::consensus_decode(&mut decoder)?;
-        tx.try_into()
+        Ok(tx.into())
     }
     /// Computes the [`Txid`].
     ///
     /// Hashes the transaction **excluding** the segwit data (i.e. the marker, flag bytes, and the
     /// witness fields themselves). For non-segwit transactions which do not have any segwit data,
-    pub fn compute_txid(&self) -> Result<String, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.compute_txid().to_string())
+    pub fn compute_txid(&self) -> String {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .compute_txid()
+            .to_string()
     }
     ///Returns the regular byte-wise consensus-serialized size of this transaction.
-    pub fn weight(&self) -> Result<u64, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.weight().to_wu())
+    pub fn weight(&self) -> u64 {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .weight()
+            .to_wu()
     }
     ///Returns the “virtual size” (vsize) of this transaction.
     ///
     // Will be ceil(weight / 4.0). Note this implements the virtual size as per BIP141, which is different to what is implemented in Bitcoin Core.
     // The computation should be the same for any remotely sane transaction, and a standardness-rule-correct version is available in the policy module.
-    pub fn vsize(&self) -> Result<u64, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.vsize() as u64)
+    pub fn vsize(&self) -> u64 {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).vsize() as u64
     }
     ///Encodes an object into a vector.
-    pub fn serialize(&self) -> Result<Vec<u8>, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| bdk_core::bitcoin::consensus::serialize(&e))
+    pub fn serialize(&self) -> Vec<u8> {
+        let tx = <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self);
+        bdk_core::bitcoin::consensus::serialize(&tx)
     }
     ///Is this a coin base transaction?
-    pub fn is_coinbase(&self) -> Result<bool, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.is_coinbase())
+    pub fn is_coinbase(&self) -> bool {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_coinbase()
     }
     ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
     /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
-    pub fn is_explicitly_rbf(&self) -> Result<bool, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.is_explicitly_rbf())
+    pub fn is_explicitly_rbf(&self) -> bool {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_explicitly_rbf()
     }
     ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
-    pub fn is_lock_time_enabled(&self) -> Result<bool, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.is_lock_time_enabled())
+    pub fn is_lock_time_enabled(&self) -> bool {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_lock_time_enabled()
     }
     ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
-    pub fn version(&self) -> Result<i32, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.version.0)
+    pub fn version(&self) -> i32 {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .version
+            .0
     }
     ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
-    pub fn lock_time(&self) -> Result<LockTime, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.lock_time.into())
+    pub fn lock_time(&self) -> LockTime {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .lock_time
+            .into()
     }
     ///List of transaction inputs.
-    pub fn input(&self) -> Result<Vec<TxIn>, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.input.iter().map(|x| x.into()).collect())
+    pub fn input(&self) -> Vec<TxIn> {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .input
+            .iter()
+            .map(|x| x.into())
+            .collect()
     }
     ///List of transaction outputs.
-    pub fn output(&self) -> Result<Vec<TxOut>, TransactionError> {
-        self.try_into()
-            .map(|e: bdk_core::bitcoin::Transaction| e.output.iter().map(|x| x.into()).collect())
-    }
-}
-impl TryFrom<bdk_core::bitcoin::Transaction> for FfiTransaction {
-    type Error = TransactionError;
-    fn try_from(tx: bdk_core::bitcoin::Transaction) -> Result<Self, Self::Error> {
-        Ok(FfiTransaction {
-            s: serde_json::to_string(&tx).map_err(|_| TransactionError::ParseFailed)?,
-        })
-    }
-}
-
-impl TryFrom<&FfiTransaction> for bdk_core::bitcoin::Transaction {
-    type Error = TransactionError;
-    fn try_from(tx: &FfiTransaction) -> Result<Self, Self::Error> {
-        serde_json::from_str(&tx.s).map_err(|_| TransactionError::ParseFailed)
+    pub fn output(&self) -> Vec<TxOut> {
+        <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
+            .output
+            .iter()
+            .map(|x| x.into())
+            .collect()
     }
 }
 
 #[derive(Debug)]
 pub struct FfiPsbt {
-    pub ptr: RustOpaque<std::sync::Mutex<bdk_core::bitcoin::psbt::Psbt>>,
+    pub opaque: RustOpaque<std::sync::Mutex<bdk_core::bitcoin::psbt::Psbt>>,
 }
 
 impl From<bdk_core::bitcoin::psbt::Psbt> for FfiPsbt {
     fn from(value: bdk_core::bitcoin::psbt::Psbt) -> Self {
         Self {
-            ptr: RustOpaque::new(std::sync::Mutex::new(value)),
+            opaque: RustOpaque::new(std::sync::Mutex::new(value)),
         }
     }
 }
@@ -249,23 +271,22 @@ impl FfiPsbt {
     }
 
     pub fn as_string(&self) -> String {
-        self.ptr.lock().unwrap().to_string()
+        self.opaque.lock().unwrap().to_string()
     }
 
     /// Return the transaction.
     #[frb(sync)]
     pub fn extract_tx(ptr: FfiPsbt) -> Result<FfiTransaction, ExtractTxError> {
-        let tx = ptr.ptr.lock().unwrap().clone().extract_tx()?;
-        //todo; create a proper otherTransaction error
-        tx.try_into().map_err(|_| ExtractTxError::OtherExtractTxErr)
+        let tx = ptr.opaque.lock().unwrap().clone().extract_tx()?;
+        Ok(tx.into())
     }
 
     /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
     ///
     /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
     pub fn combine(ptr: FfiPsbt, other: FfiPsbt) -> Result<FfiPsbt, PsbtError> {
-        let other_psbt = other.ptr.lock().unwrap().clone();
-        let mut original_psbt = ptr.ptr.lock().unwrap().clone();
+        let other_psbt = other.opaque.lock().unwrap().clone();
+        let mut original_psbt = ptr.opaque.lock().unwrap().clone();
         original_psbt.combine(other_psbt)?;
         Ok(original_psbt.into())
     }
@@ -274,19 +295,19 @@ impl FfiPsbt {
     /// If the PSBT is missing a TxOut for an input returns None.
     #[frb(sync)]
     pub fn fee_amount(&self) -> Option<u64> {
-        self.ptr.lock().unwrap().fee_amount().map(|e| e.to_sat())
+        self.opaque.lock().unwrap().fee_amount().map(|e| e.to_sat())
     }
 
     ///Serialize as raw binary data
     #[frb(sync)]
     pub fn serialize(&self) -> Vec<u8> {
-        let psbt = self.ptr.lock().unwrap().clone();
+        let psbt = self.opaque.lock().unwrap().clone();
         psbt.serialize()
     }
     /// Serialize the PSBT data structure as a String of JSON.
     #[frb(sync)]
     pub fn json_serialize(&self) -> Result<String, PsbtError> {
-        let psbt = self.ptr.lock().unwrap();
+        let psbt = self.opaque.lock().unwrap();
         serde_json::to_string(psbt.deref()).map_err(|_| PsbtError::OtherPsbtErr)
     }
 }
@@ -295,9 +316,9 @@ impl FfiPsbt {
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct OutPoint {
     /// The referenced transaction's txid.
-    pub(crate) txid: String,
+    pub txid: String,
     /// The index of the referenced output in its transaction's vout.
-    pub(crate) vout: u32,
+    pub vout: u32,
 }
 impl TryFrom<&OutPoint> for bdk_core::bitcoin::OutPoint {
     type Error = TxidParseError;
@@ -313,6 +334,7 @@ impl TryFrom<&OutPoint> for bdk_core::bitcoin::OutPoint {
         })
     }
 }
+
 impl From<bdk_core::bitcoin::OutPoint> for OutPoint {
     fn from(x: bdk_core::bitcoin::OutPoint) -> OutPoint {
         OutPoint {
@@ -472,3 +494,334 @@ impl From<bdk_core::bitcoin::FeeRate> for FeeRate {
 //             .map_err(|e| e.into())
 //     }
 // }
+#[cfg(test)]
+mod tests {
+    use crate::api::{bitcoin::FfiAddress, types::Network};
+
+    #[test]
+    fn test_is_valid_for_network() {
+        // ====Docs tests====
+        // https://docs.rs/bitcoin/0.29.2/src/bitcoin/util/address.rs.html#798-802
+
+        let docs_address_testnet_str = "2N83imGV3gPwBzKJQvWJ7cRUY2SpUyU6A5e";
+        let docs_address_testnet =
+            FfiAddress::from_string(docs_address_testnet_str.to_string(), Network::Testnet)
+                .unwrap();
+        assert!(
+            docs_address_testnet.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            docs_address_testnet.is_valid_for_network(Network::Signet),
+            "Address should be valid for Signet"
+        );
+        assert!(
+            docs_address_testnet.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+
+        let docs_address_mainnet_str = "32iVBEu4dxkUQk9dJbZUiBiQdmypcEyJRf";
+        let docs_address_mainnet =
+            FfiAddress::from_string(docs_address_mainnet_str.to_string(), Network::Bitcoin)
+                .unwrap();
+        assert!(
+            docs_address_mainnet.is_valid_for_network(Network::Bitcoin),
+            "Address should be valid for Bitcoin"
+        );
+
+        // ====Bech32====
+
+        //     | Network         | Prefix  | Address Type |
+        //     |-----------------|---------|--------------|
+        //     | Bitcoin Mainnet | `bc1`   | Bech32       |
+        //     | Bitcoin Testnet | `tb1`   | Bech32       |
+        //     | Bitcoin Signet  | `tb1`   | Bech32       |
+        //     | Bitcoin Regtest | `bcrt1` | Bech32       |
+
+        // Bech32 - Bitcoin
+        // Valid for:
+        // - Bitcoin
+        // Not valid for:
+        // - Testnet
+        // - Signet
+        // - Regtest
+        let bitcoin_mainnet_bech32_address_str = "bc1qxhmdufsvnuaaaer4ynz88fspdsxq2h9e9cetdj";
+        let bitcoin_mainnet_bech32_address = FfiAddress::from_string(
+            bitcoin_mainnet_bech32_address_str.to_string(),
+            Network::Bitcoin,
+        )
+        .unwrap();
+        assert!(
+            bitcoin_mainnet_bech32_address.is_valid_for_network(Network::Bitcoin),
+            "Address should be valid for Bitcoin"
+        );
+        assert!(
+            !bitcoin_mainnet_bech32_address.is_valid_for_network(Network::Testnet),
+            "Address should not be valid for Testnet"
+        );
+        assert!(
+            !bitcoin_mainnet_bech32_address.is_valid_for_network(Network::Signet),
+            "Address should not be valid for Signet"
+        );
+        assert!(
+            !bitcoin_mainnet_bech32_address.is_valid_for_network(Network::Regtest),
+            "Address should not be valid for Regtest"
+        );
+
+        // Bech32 - Testnet
+        // Valid for:
+        // - Testnet
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        // - Regtest
+        let bitcoin_testnet_bech32_address_str =
+            "tb1p4nel7wkc34raczk8c4jwk5cf9d47u2284rxn98rsjrs4w3p2sheqvjmfdh";
+        let bitcoin_testnet_bech32_address = FfiAddress::from_string(
+            bitcoin_testnet_bech32_address_str.to_string(),
+            Network::Testnet,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_testnet_bech32_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_testnet_bech32_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_testnet_bech32_address.is_valid_for_network(Network::Signet),
+            "Address should be valid for Signet"
+        );
+        assert!(
+            !bitcoin_testnet_bech32_address.is_valid_for_network(Network::Regtest),
+            "Address should not not be valid for Regtest"
+        );
+
+        // Bech32 - Signet
+        // Valid for:
+        // - Signet
+        // - Testnet
+        // Not valid for:
+        // - Bitcoin
+        // - Regtest
+        let bitcoin_signet_bech32_address_str =
+            "tb1pwzv7fv35yl7ypwj8w7al2t8apd6yf4568cs772qjwper74xqc99sk8x7tk";
+        let bitcoin_signet_bech32_address = FfiAddress::from_string(
+            bitcoin_signet_bech32_address_str.to_string(),
+            Network::Signet,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_signet_bech32_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_signet_bech32_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_signet_bech32_address.is_valid_for_network(Network::Signet),
+            "Address should be valid for Signet"
+        );
+        assert!(
+            !bitcoin_signet_bech32_address.is_valid_for_network(Network::Regtest),
+            "Address should not not be valid for Regtest"
+        );
+
+        // Bech32 - Regtest
+        // Valid for:
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        // - Testnet
+        // - Signet
+        let bitcoin_regtest_bech32_address_str = "bcrt1q39c0vrwpgfjkhasu5mfke9wnym45nydfwaeems";
+        let bitcoin_regtest_bech32_address = FfiAddress::from_string(
+            bitcoin_regtest_bech32_address_str.to_string(),
+            Network::Regtest,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_regtest_bech32_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            !bitcoin_regtest_bech32_address.is_valid_for_network(Network::Testnet),
+            "Address should not be valid for Testnet"
+        );
+        assert!(
+            !bitcoin_regtest_bech32_address.is_valid_for_network(Network::Signet),
+            "Address should not be valid for Signet"
+        );
+        assert!(
+            bitcoin_regtest_bech32_address.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+
+        // ====P2PKH====
+
+        //     | Network                            | Prefix for P2PKH | Prefix for P2SH |
+        //     |------------------------------------|------------------|-----------------|
+        //     | Bitcoin Mainnet                    | `1`              | `3`             |
+        //     | Bitcoin Testnet, Regtest, Signet   | `m` or `n`       | `2`             |
+
+        // P2PKH - Bitcoin
+        // Valid for:
+        // - Bitcoin
+        // Not valid for:
+        // - Testnet
+        // - Regtest
+        let bitcoin_mainnet_p2pkh_address_str = "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH";
+        let bitcoin_mainnet_p2pkh_address = FfiAddress::from_string(
+            bitcoin_mainnet_p2pkh_address_str.to_string(),
+            Network::Bitcoin,
+        )
+        .unwrap();
+        assert!(
+            bitcoin_mainnet_p2pkh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should be valid for Bitcoin"
+        );
+        assert!(
+            !bitcoin_mainnet_p2pkh_address.is_valid_for_network(Network::Testnet),
+            "Address should not be valid for Testnet"
+        );
+        assert!(
+            !bitcoin_mainnet_p2pkh_address.is_valid_for_network(Network::Regtest),
+            "Address should not be valid for Regtest"
+        );
+
+        // P2PKH - Testnet
+        // Valid for:
+        // - Testnet
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        let bitcoin_testnet_p2pkh_address_str = "mucFNhKMYoBQYUAEsrFVscQ1YaFQPekBpg";
+        let bitcoin_testnet_p2pkh_address = FfiAddress::from_string(
+            bitcoin_testnet_p2pkh_address_str.to_string(),
+            Network::Testnet,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_testnet_p2pkh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_testnet_p2pkh_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_testnet_p2pkh_address.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+
+        // P2PKH - Regtest
+        // Valid for:
+        // - Testnet
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        let bitcoin_regtest_p2pkh_address_str = "msiGFK1PjCk8E6FXeoGkQPTscmcpyBdkgS";
+        let bitcoin_regtest_p2pkh_address = FfiAddress::from_string(
+            bitcoin_regtest_p2pkh_address_str.to_string(),
+            Network::Regtest,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_regtest_p2pkh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_regtest_p2pkh_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_regtest_p2pkh_address.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+
+        // ====P2SH====
+
+        //     | Network                            | Prefix for P2PKH | Prefix for P2SH |
+        //     |------------------------------------|------------------|-----------------|
+        //     | Bitcoin Mainnet                    | `1`              | `3`             |
+        //     | Bitcoin Testnet, Regtest, Signet   | `m` or `n`       | `2`             |
+
+        // P2SH - Bitcoin
+        // Valid for:
+        // - Bitcoin
+        // Not valid for:
+        // - Testnet
+        // - Regtest
+        let bitcoin_mainnet_p2sh_address_str = "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy";
+        let bitcoin_mainnet_p2sh_address = FfiAddress::from_string(
+            bitcoin_mainnet_p2sh_address_str.to_string(),
+            Network::Bitcoin,
+        )
+        .unwrap();
+        assert!(
+            bitcoin_mainnet_p2sh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should be valid for Bitcoin"
+        );
+        assert!(
+            !bitcoin_mainnet_p2sh_address.is_valid_for_network(Network::Testnet),
+            "Address should not be valid for Testnet"
+        );
+        assert!(
+            !bitcoin_mainnet_p2sh_address.is_valid_for_network(Network::Regtest),
+            "Address should not be valid for Regtest"
+        );
+
+        // P2SH - Testnet
+        // Valid for:
+        // - Testnet
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        let bitcoin_testnet_p2sh_address_str = "2NFUBBRcTJbYc1D4HSCbJhKZp6YCV4PQFpQ";
+        let bitcoin_testnet_p2sh_address = FfiAddress::from_string(
+            bitcoin_testnet_p2sh_address_str.to_string(),
+            Network::Testnet,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_testnet_p2sh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_testnet_p2sh_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_testnet_p2sh_address.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+
+        // P2SH - Regtest
+        // Valid for:
+        // - Testnet
+        // - Regtest
+        // Not valid for:
+        // - Bitcoin
+        let bitcoin_regtest_p2sh_address_str = "2NEb8N5B9jhPUCBchz16BB7bkJk8VCZQjf3";
+        let bitcoin_regtest_p2sh_address = FfiAddress::from_string(
+            bitcoin_regtest_p2sh_address_str.to_string(),
+            Network::Regtest,
+        )
+        .unwrap();
+        assert!(
+            !bitcoin_regtest_p2sh_address.is_valid_for_network(Network::Bitcoin),
+            "Address should not be valid for Bitcoin"
+        );
+        assert!(
+            bitcoin_regtest_p2sh_address.is_valid_for_network(Network::Testnet),
+            "Address should be valid for Testnet"
+        );
+        assert!(
+            bitcoin_regtest_p2sh_address.is_valid_for_network(Network::Regtest),
+            "Address should be valid for Regtest"
+        );
+    }
+}
