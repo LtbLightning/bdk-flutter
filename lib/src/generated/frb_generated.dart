@@ -362,10 +362,10 @@ abstract class coreApi extends BaseApi {
       {required FfiWallet that, required FfiUpdate update});
 
   Future<BigInt> crateApiWalletFfiWalletCalculateFee(
-      {required FfiWallet that, required FfiTransaction tx});
+      {required FfiWallet opaque, required FfiTransaction tx});
 
   Future<FeeRate> crateApiWalletFfiWalletCalculateFeeRate(
-      {required FfiWallet that, required FfiTransaction tx});
+      {required FfiWallet opaque, required FfiTransaction tx});
 
   Balance crateApiWalletFfiWalletGetBalance({required FfiWallet that});
 
@@ -395,13 +395,13 @@ abstract class coreApi extends BaseApi {
       required FfiConnection connection});
 
   Future<bool> crateApiWalletFfiWalletPersist(
-      {required FfiWallet that, required FfiConnection connection});
+      {required FfiWallet opaque, required FfiConnection connection});
 
   AddressInfo crateApiWalletFfiWalletRevealNextAddress(
       {required FfiWallet opaque, required KeychainKind keychainKind});
 
   Future<bool> crateApiWalletFfiWalletSign(
-      {required FfiWallet that,
+      {required FfiWallet opaque,
       required FfiPsbt psbt,
       required SignOptions signOptions});
 
@@ -2666,10 +2666,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<BigInt> crateApiWalletFfiWalletCalculateFee(
-      {required FfiWallet that, required FfiTransaction tx}) {
+      {required FfiWallet opaque, required FfiTransaction tx}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_transaction(tx);
         return wire.wire__crate__api__wallet__ffi_wallet_calculate_fee(
             port_, arg0, arg1);
@@ -2679,7 +2679,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_calculate_fee_error,
       ),
       constMeta: kCrateApiWalletFfiWalletCalculateFeeConstMeta,
-      argValues: [that, tx],
+      argValues: [opaque, tx],
       apiImpl: this,
     ));
   }
@@ -2687,15 +2687,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletFfiWalletCalculateFeeConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_wallet_calculate_fee",
-        argNames: ["that", "tx"],
+        argNames: ["opaque", "tx"],
       );
 
   @override
   Future<FeeRate> crateApiWalletFfiWalletCalculateFeeRate(
-      {required FfiWallet that, required FfiTransaction tx}) {
+      {required FfiWallet opaque, required FfiTransaction tx}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_transaction(tx);
         return wire.wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(
             port_, arg0, arg1);
@@ -2705,7 +2705,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_calculate_fee_error,
       ),
       constMeta: kCrateApiWalletFfiWalletCalculateFeeRateConstMeta,
-      argValues: [that, tx],
+      argValues: [opaque, tx],
       apiImpl: this,
     ));
   }
@@ -2713,7 +2713,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletFfiWalletCalculateFeeRateConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_wallet_calculate_fee_rate",
-        argNames: ["that", "tx"],
+        argNames: ["opaque", "tx"],
       );
 
   @override
@@ -2923,10 +2923,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<bool> crateApiWalletFfiWalletPersist(
-      {required FfiWallet that, required FfiConnection connection}) {
+      {required FfiWallet opaque, required FfiConnection connection}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_connection(connection);
         return wire.wire__crate__api__wallet__ffi_wallet_persist(
             port_, arg0, arg1);
@@ -2936,7 +2936,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_sqlite_error,
       ),
       constMeta: kCrateApiWalletFfiWalletPersistConstMeta,
-      argValues: [that, connection],
+      argValues: [opaque, connection],
       apiImpl: this,
     ));
   }
@@ -2944,7 +2944,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletFfiWalletPersistConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_wallet_persist",
-        argNames: ["that", "connection"],
+        argNames: ["opaque", "connection"],
       );
 
   @override
@@ -2975,12 +2975,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<bool> crateApiWalletFfiWalletSign(
-      {required FfiWallet that,
+      {required FfiWallet opaque,
       required FfiPsbt psbt,
       required SignOptions signOptions}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_psbt(psbt);
         var arg2 = cst_encode_box_autoadd_sign_options(signOptions);
         return wire.wire__crate__api__wallet__ffi_wallet_sign(
@@ -2991,7 +2991,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_signer_error,
       ),
       constMeta: kCrateApiWalletFfiWalletSignConstMeta,
-      argValues: [that, psbt, signOptions],
+      argValues: [opaque, psbt, signOptions],
       apiImpl: this,
     ));
   }
@@ -2999,7 +2999,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletFfiWalletSignConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_wallet_sign",
-        argNames: ["that", "psbt", "signOptions"],
+        argNames: ["opaque", "psbt", "signOptions"],
       );
 
   @override
