@@ -21,16 +21,19 @@ class FfiEsploraClient {
     required this.opaque,
   });
 
-  Future<void> broadcast({required FfiTransaction transaction}) =>
+  static Future<void> broadcast(
+          {required FfiEsploraClient opaque,
+          required FfiTransaction transaction}) =>
       core.instance.api.crateApiEsploraFfiEsploraClientBroadcast(
-          that: this, transaction: transaction);
+          opaque: opaque, transaction: transaction);
 
-  Future<FfiUpdate> fullScan(
-          {required FfiFullScanRequest request,
+  static Future<FfiUpdate> fullScan(
+          {required FfiEsploraClient opaque,
+          required FfiFullScanRequest request,
           required BigInt stopGap,
           required BigInt parallelRequests}) =>
       core.instance.api.crateApiEsploraFfiEsploraClientFullScan(
-          that: this,
+          opaque: opaque,
           request: request,
           stopGap: stopGap,
           parallelRequests: parallelRequests);
@@ -39,11 +42,12 @@ class FfiEsploraClient {
   static Future<FfiEsploraClient> newInstance({required String url}) =>
       core.instance.api.crateApiEsploraFfiEsploraClientNew(url: url);
 
-  Future<FfiUpdate> sync_(
-          {required FfiSyncRequest request,
+  static Future<FfiUpdate> sync_(
+          {required FfiEsploraClient opaque,
+          required FfiSyncRequest request,
           required BigInt parallelRequests}) =>
       core.instance.api.crateApiEsploraFfiEsploraClientSync(
-          that: this, request: request, parallelRequests: parallelRequests);
+          opaque: opaque, request: request, parallelRequests: parallelRequests);
 
   @override
   int get hashCode => opaque.hashCode;

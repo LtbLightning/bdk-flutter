@@ -1020,7 +1020,7 @@ fn wire__crate__api__descriptor__ffi_descriptor_to_string_with_secret_impl(
 }
 fn wire__crate__api__electrum__ffi_electrum_client_broadcast_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
+    opaque: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
     transaction: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1030,12 +1030,12 @@ fn wire__crate__api__electrum__ffi_electrum_client_broadcast_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_transaction = transaction.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::ElectrumError>((move || {
                     let output_ok = crate::api::electrum::FfiElectrumClient::broadcast(
-                        &api_that,
+                        api_opaque,
                         &api_transaction,
                     )?;
                     Ok(output_ok)
@@ -1046,7 +1046,7 @@ fn wire__crate__api__electrum__ffi_electrum_client_broadcast_impl(
 }
 fn wire__crate__api__electrum__ffi_electrum_client_full_scan_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
+    opaque: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
     request: impl CstDecode<crate::api::types::FfiFullScanRequest>,
     stop_gap: impl CstDecode<u64>,
     batch_size: impl CstDecode<u64>,
@@ -1059,7 +1059,7 @@ fn wire__crate__api__electrum__ffi_electrum_client_full_scan_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_request = request.cst_decode();
             let api_stop_gap = stop_gap.cst_decode();
             let api_batch_size = batch_size.cst_decode();
@@ -1067,7 +1067,7 @@ fn wire__crate__api__electrum__ffi_electrum_client_full_scan_impl(
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::ElectrumError>((move || {
                     let output_ok = crate::api::electrum::FfiElectrumClient::full_scan(
-                        &api_that,
+                        api_opaque,
                         api_request,
                         api_stop_gap,
                         api_batch_size,
@@ -1102,7 +1102,7 @@ fn wire__crate__api__electrum__ffi_electrum_client_new_impl(
 }
 fn wire__crate__api__electrum__ffi_electrum_client_sync_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
+    opaque: impl CstDecode<crate::api::electrum::FfiElectrumClient>,
     request: impl CstDecode<crate::api::types::FfiSyncRequest>,
     batch_size: impl CstDecode<u64>,
     fetch_prev_txouts: impl CstDecode<bool>,
@@ -1114,14 +1114,14 @@ fn wire__crate__api__electrum__ffi_electrum_client_sync_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_request = request.cst_decode();
             let api_batch_size = batch_size.cst_decode();
             let api_fetch_prev_txouts = fetch_prev_txouts.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::ElectrumError>((move || {
                     let output_ok = crate::api::electrum::FfiElectrumClient::sync(
-                        &api_that,
+                        api_opaque,
                         api_request,
                         api_batch_size,
                         api_fetch_prev_txouts,
@@ -1134,7 +1134,7 @@ fn wire__crate__api__electrum__ffi_electrum_client_sync_impl(
 }
 fn wire__crate__api__esplora__ffi_esplora_client_broadcast_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
+    opaque: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
     transaction: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1144,12 +1144,12 @@ fn wire__crate__api__esplora__ffi_esplora_client_broadcast_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_transaction = transaction.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::EsploraError>((move || {
                     let output_ok = crate::api::esplora::FfiEsploraClient::broadcast(
-                        &api_that,
+                        api_opaque,
                         &api_transaction,
                     )?;
                     Ok(output_ok)
@@ -1160,7 +1160,7 @@ fn wire__crate__api__esplora__ffi_esplora_client_broadcast_impl(
 }
 fn wire__crate__api__esplora__ffi_esplora_client_full_scan_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
+    opaque: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
     request: impl CstDecode<crate::api::types::FfiFullScanRequest>,
     stop_gap: impl CstDecode<u64>,
     parallel_requests: impl CstDecode<u64>,
@@ -1172,14 +1172,14 @@ fn wire__crate__api__esplora__ffi_esplora_client_full_scan_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_request = request.cst_decode();
             let api_stop_gap = stop_gap.cst_decode();
             let api_parallel_requests = parallel_requests.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::EsploraError>((move || {
                     let output_ok = crate::api::esplora::FfiEsploraClient::full_scan(
-                        &api_that,
+                        api_opaque,
                         api_request,
                         api_stop_gap,
                         api_parallel_requests,
@@ -1214,7 +1214,7 @@ fn wire__crate__api__esplora__ffi_esplora_client_new_impl(
 }
 fn wire__crate__api__esplora__ffi_esplora_client_sync_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
+    opaque: impl CstDecode<crate::api::esplora::FfiEsploraClient>,
     request: impl CstDecode<crate::api::types::FfiSyncRequest>,
     parallel_requests: impl CstDecode<u64>,
 ) {
@@ -1225,13 +1225,13 @@ fn wire__crate__api__esplora__ffi_esplora_client_sync_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_request = request.cst_decode();
             let api_parallel_requests = parallel_requests.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::EsploraError>((move || {
                     let output_ok = crate::api::esplora::FfiEsploraClient::sync(
-                        &api_that,
+                        api_opaque,
                         api_request,
                         api_parallel_requests,
                     )?;
@@ -10397,16 +10397,16 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_broadcast(
         port_: i64,
-        that: *mut wire_cst_ffi_electrum_client,
+        opaque: *mut wire_cst_ffi_electrum_client,
         transaction: *mut wire_cst_ffi_transaction,
     ) {
-        wire__crate__api__electrum__ffi_electrum_client_broadcast_impl(port_, that, transaction)
+        wire__crate__api__electrum__ffi_electrum_client_broadcast_impl(port_, opaque, transaction)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_full_scan(
         port_: i64,
-        that: *mut wire_cst_ffi_electrum_client,
+        opaque: *mut wire_cst_ffi_electrum_client,
         request: *mut wire_cst_ffi_full_scan_request,
         stop_gap: u64,
         batch_size: u64,
@@ -10414,7 +10414,7 @@ mod io {
     ) {
         wire__crate__api__electrum__ffi_electrum_client_full_scan_impl(
             port_,
-            that,
+            opaque,
             request,
             stop_gap,
             batch_size,
@@ -10433,14 +10433,14 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_sync(
         port_: i64,
-        that: *mut wire_cst_ffi_electrum_client,
+        opaque: *mut wire_cst_ffi_electrum_client,
         request: *mut wire_cst_ffi_sync_request,
         batch_size: u64,
         fetch_prev_txouts: bool,
     ) {
         wire__crate__api__electrum__ffi_electrum_client_sync_impl(
             port_,
-            that,
+            opaque,
             request,
             batch_size,
             fetch_prev_txouts,
@@ -10450,23 +10450,23 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_broadcast(
         port_: i64,
-        that: *mut wire_cst_ffi_esplora_client,
+        opaque: *mut wire_cst_ffi_esplora_client,
         transaction: *mut wire_cst_ffi_transaction,
     ) {
-        wire__crate__api__esplora__ffi_esplora_client_broadcast_impl(port_, that, transaction)
+        wire__crate__api__esplora__ffi_esplora_client_broadcast_impl(port_, opaque, transaction)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_full_scan(
         port_: i64,
-        that: *mut wire_cst_ffi_esplora_client,
+        opaque: *mut wire_cst_ffi_esplora_client,
         request: *mut wire_cst_ffi_full_scan_request,
         stop_gap: u64,
         parallel_requests: u64,
     ) {
         wire__crate__api__esplora__ffi_esplora_client_full_scan_impl(
             port_,
-            that,
+            opaque,
             request,
             stop_gap,
             parallel_requests,
@@ -10484,13 +10484,13 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_sync(
         port_: i64,
-        that: *mut wire_cst_ffi_esplora_client,
+        opaque: *mut wire_cst_ffi_esplora_client,
         request: *mut wire_cst_ffi_sync_request,
         parallel_requests: u64,
     ) {
         wire__crate__api__esplora__ffi_esplora_client_sync_impl(
             port_,
-            that,
+            opaque,
             request,
             parallel_requests,
         )
