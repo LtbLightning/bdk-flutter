@@ -37578,6 +37578,3999 @@ abstract class PsbtParseError_Base64Encoding extends PsbtParseError {
 }
 
 /// @nodoc
+mixin _$SignerError {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SignerErrorCopyWith<$Res> {
+  factory $SignerErrorCopyWith(
+          SignerError value, $Res Function(SignerError) then) =
+      _$SignerErrorCopyWithImpl<$Res, SignerError>;
+}
+
+/// @nodoc
+class _$SignerErrorCopyWithImpl<$Res, $Val extends SignerError>
+    implements $SignerErrorCopyWith<$Res> {
+  _$SignerErrorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$SignerError_MissingKeyImplCopyWith<$Res> {
+  factory _$$SignerError_MissingKeyImplCopyWith(
+          _$SignerError_MissingKeyImpl value,
+          $Res Function(_$SignerError_MissingKeyImpl) then) =
+      __$$SignerError_MissingKeyImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_MissingKeyImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_MissingKeyImpl>
+    implements _$$SignerError_MissingKeyImplCopyWith<$Res> {
+  __$$SignerError_MissingKeyImplCopyWithImpl(
+      _$SignerError_MissingKeyImpl _value,
+      $Res Function(_$SignerError_MissingKeyImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_MissingKeyImpl extends SignerError_MissingKey {
+  const _$SignerError_MissingKeyImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.missingKey()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MissingKeyImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return missingKey();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return missingKey?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingKey != null) {
+      return missingKey();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return missingKey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return missingKey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingKey != null) {
+      return missingKey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MissingKey extends SignerError {
+  const factory SignerError_MissingKey() = _$SignerError_MissingKeyImpl;
+  const SignerError_MissingKey._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_InvalidKeyImplCopyWith<$Res> {
+  factory _$$SignerError_InvalidKeyImplCopyWith(
+          _$SignerError_InvalidKeyImpl value,
+          $Res Function(_$SignerError_InvalidKeyImpl) then) =
+      __$$SignerError_InvalidKeyImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_InvalidKeyImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_InvalidKeyImpl>
+    implements _$$SignerError_InvalidKeyImplCopyWith<$Res> {
+  __$$SignerError_InvalidKeyImplCopyWithImpl(
+      _$SignerError_InvalidKeyImpl _value,
+      $Res Function(_$SignerError_InvalidKeyImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_InvalidKeyImpl extends SignerError_InvalidKey {
+  const _$SignerError_InvalidKeyImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.invalidKey()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_InvalidKeyImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return invalidKey();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return invalidKey?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidKey != null) {
+      return invalidKey();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return invalidKey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return invalidKey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidKey != null) {
+      return invalidKey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_InvalidKey extends SignerError {
+  const factory SignerError_InvalidKey() = _$SignerError_InvalidKeyImpl;
+  const SignerError_InvalidKey._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_UserCanceledImplCopyWith<$Res> {
+  factory _$$SignerError_UserCanceledImplCopyWith(
+          _$SignerError_UserCanceledImpl value,
+          $Res Function(_$SignerError_UserCanceledImpl) then) =
+      __$$SignerError_UserCanceledImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_UserCanceledImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_UserCanceledImpl>
+    implements _$$SignerError_UserCanceledImplCopyWith<$Res> {
+  __$$SignerError_UserCanceledImplCopyWithImpl(
+      _$SignerError_UserCanceledImpl _value,
+      $Res Function(_$SignerError_UserCanceledImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_UserCanceledImpl extends SignerError_UserCanceled {
+  const _$SignerError_UserCanceledImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.userCanceled()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_UserCanceledImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return userCanceled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return userCanceled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (userCanceled != null) {
+      return userCanceled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return userCanceled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return userCanceled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (userCanceled != null) {
+      return userCanceled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_UserCanceled extends SignerError {
+  const factory SignerError_UserCanceled() = _$SignerError_UserCanceledImpl;
+  const SignerError_UserCanceled._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_InputIndexOutOfRangeImplCopyWith<$Res> {
+  factory _$$SignerError_InputIndexOutOfRangeImplCopyWith(
+          _$SignerError_InputIndexOutOfRangeImpl value,
+          $Res Function(_$SignerError_InputIndexOutOfRangeImpl) then) =
+      __$$SignerError_InputIndexOutOfRangeImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_InputIndexOutOfRangeImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_InputIndexOutOfRangeImpl>
+    implements _$$SignerError_InputIndexOutOfRangeImplCopyWith<$Res> {
+  __$$SignerError_InputIndexOutOfRangeImplCopyWithImpl(
+      _$SignerError_InputIndexOutOfRangeImpl _value,
+      $Res Function(_$SignerError_InputIndexOutOfRangeImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_InputIndexOutOfRangeImpl
+    extends SignerError_InputIndexOutOfRange {
+  const _$SignerError_InputIndexOutOfRangeImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.inputIndexOutOfRange()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_InputIndexOutOfRangeImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return inputIndexOutOfRange();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return inputIndexOutOfRange?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (inputIndexOutOfRange != null) {
+      return inputIndexOutOfRange();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return inputIndexOutOfRange(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return inputIndexOutOfRange?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (inputIndexOutOfRange != null) {
+      return inputIndexOutOfRange(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_InputIndexOutOfRange extends SignerError {
+  const factory SignerError_InputIndexOutOfRange() =
+      _$SignerError_InputIndexOutOfRangeImpl;
+  const SignerError_InputIndexOutOfRange._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_MissingNonWitnessUtxoImplCopyWith<$Res> {
+  factory _$$SignerError_MissingNonWitnessUtxoImplCopyWith(
+          _$SignerError_MissingNonWitnessUtxoImpl value,
+          $Res Function(_$SignerError_MissingNonWitnessUtxoImpl) then) =
+      __$$SignerError_MissingNonWitnessUtxoImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_MissingNonWitnessUtxoImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_MissingNonWitnessUtxoImpl>
+    implements _$$SignerError_MissingNonWitnessUtxoImplCopyWith<$Res> {
+  __$$SignerError_MissingNonWitnessUtxoImplCopyWithImpl(
+      _$SignerError_MissingNonWitnessUtxoImpl _value,
+      $Res Function(_$SignerError_MissingNonWitnessUtxoImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_MissingNonWitnessUtxoImpl
+    extends SignerError_MissingNonWitnessUtxo {
+  const _$SignerError_MissingNonWitnessUtxoImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.missingNonWitnessUtxo()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MissingNonWitnessUtxoImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return missingNonWitnessUtxo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return missingNonWitnessUtxo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingNonWitnessUtxo != null) {
+      return missingNonWitnessUtxo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return missingNonWitnessUtxo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return missingNonWitnessUtxo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingNonWitnessUtxo != null) {
+      return missingNonWitnessUtxo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MissingNonWitnessUtxo extends SignerError {
+  const factory SignerError_MissingNonWitnessUtxo() =
+      _$SignerError_MissingNonWitnessUtxoImpl;
+  const SignerError_MissingNonWitnessUtxo._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_InvalidNonWitnessUtxoImplCopyWith<$Res> {
+  factory _$$SignerError_InvalidNonWitnessUtxoImplCopyWith(
+          _$SignerError_InvalidNonWitnessUtxoImpl value,
+          $Res Function(_$SignerError_InvalidNonWitnessUtxoImpl) then) =
+      __$$SignerError_InvalidNonWitnessUtxoImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_InvalidNonWitnessUtxoImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_InvalidNonWitnessUtxoImpl>
+    implements _$$SignerError_InvalidNonWitnessUtxoImplCopyWith<$Res> {
+  __$$SignerError_InvalidNonWitnessUtxoImplCopyWithImpl(
+      _$SignerError_InvalidNonWitnessUtxoImpl _value,
+      $Res Function(_$SignerError_InvalidNonWitnessUtxoImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_InvalidNonWitnessUtxoImpl
+    extends SignerError_InvalidNonWitnessUtxo {
+  const _$SignerError_InvalidNonWitnessUtxoImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.invalidNonWitnessUtxo()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_InvalidNonWitnessUtxoImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return invalidNonWitnessUtxo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return invalidNonWitnessUtxo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidNonWitnessUtxo != null) {
+      return invalidNonWitnessUtxo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return invalidNonWitnessUtxo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return invalidNonWitnessUtxo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidNonWitnessUtxo != null) {
+      return invalidNonWitnessUtxo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_InvalidNonWitnessUtxo extends SignerError {
+  const factory SignerError_InvalidNonWitnessUtxo() =
+      _$SignerError_InvalidNonWitnessUtxoImpl;
+  const SignerError_InvalidNonWitnessUtxo._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_MissingWitnessUtxoImplCopyWith<$Res> {
+  factory _$$SignerError_MissingWitnessUtxoImplCopyWith(
+          _$SignerError_MissingWitnessUtxoImpl value,
+          $Res Function(_$SignerError_MissingWitnessUtxoImpl) then) =
+      __$$SignerError_MissingWitnessUtxoImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_MissingWitnessUtxoImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_MissingWitnessUtxoImpl>
+    implements _$$SignerError_MissingWitnessUtxoImplCopyWith<$Res> {
+  __$$SignerError_MissingWitnessUtxoImplCopyWithImpl(
+      _$SignerError_MissingWitnessUtxoImpl _value,
+      $Res Function(_$SignerError_MissingWitnessUtxoImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_MissingWitnessUtxoImpl
+    extends SignerError_MissingWitnessUtxo {
+  const _$SignerError_MissingWitnessUtxoImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.missingWitnessUtxo()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MissingWitnessUtxoImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return missingWitnessUtxo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return missingWitnessUtxo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingWitnessUtxo != null) {
+      return missingWitnessUtxo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return missingWitnessUtxo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return missingWitnessUtxo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingWitnessUtxo != null) {
+      return missingWitnessUtxo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MissingWitnessUtxo extends SignerError {
+  const factory SignerError_MissingWitnessUtxo() =
+      _$SignerError_MissingWitnessUtxoImpl;
+  const SignerError_MissingWitnessUtxo._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_MissingWitnessScriptImplCopyWith<$Res> {
+  factory _$$SignerError_MissingWitnessScriptImplCopyWith(
+          _$SignerError_MissingWitnessScriptImpl value,
+          $Res Function(_$SignerError_MissingWitnessScriptImpl) then) =
+      __$$SignerError_MissingWitnessScriptImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_MissingWitnessScriptImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_MissingWitnessScriptImpl>
+    implements _$$SignerError_MissingWitnessScriptImplCopyWith<$Res> {
+  __$$SignerError_MissingWitnessScriptImplCopyWithImpl(
+      _$SignerError_MissingWitnessScriptImpl _value,
+      $Res Function(_$SignerError_MissingWitnessScriptImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_MissingWitnessScriptImpl
+    extends SignerError_MissingWitnessScript {
+  const _$SignerError_MissingWitnessScriptImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.missingWitnessScript()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MissingWitnessScriptImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return missingWitnessScript();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return missingWitnessScript?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingWitnessScript != null) {
+      return missingWitnessScript();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return missingWitnessScript(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return missingWitnessScript?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingWitnessScript != null) {
+      return missingWitnessScript(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MissingWitnessScript extends SignerError {
+  const factory SignerError_MissingWitnessScript() =
+      _$SignerError_MissingWitnessScriptImpl;
+  const SignerError_MissingWitnessScript._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_MissingHdKeypathImplCopyWith<$Res> {
+  factory _$$SignerError_MissingHdKeypathImplCopyWith(
+          _$SignerError_MissingHdKeypathImpl value,
+          $Res Function(_$SignerError_MissingHdKeypathImpl) then) =
+      __$$SignerError_MissingHdKeypathImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_MissingHdKeypathImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_MissingHdKeypathImpl>
+    implements _$$SignerError_MissingHdKeypathImplCopyWith<$Res> {
+  __$$SignerError_MissingHdKeypathImplCopyWithImpl(
+      _$SignerError_MissingHdKeypathImpl _value,
+      $Res Function(_$SignerError_MissingHdKeypathImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_MissingHdKeypathImpl extends SignerError_MissingHdKeypath {
+  const _$SignerError_MissingHdKeypathImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.missingHdKeypath()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MissingHdKeypathImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return missingHdKeypath();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return missingHdKeypath?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingHdKeypath != null) {
+      return missingHdKeypath();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return missingHdKeypath(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return missingHdKeypath?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (missingHdKeypath != null) {
+      return missingHdKeypath(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MissingHdKeypath extends SignerError {
+  const factory SignerError_MissingHdKeypath() =
+      _$SignerError_MissingHdKeypathImpl;
+  const SignerError_MissingHdKeypath._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_NonStandardSighashImplCopyWith<$Res> {
+  factory _$$SignerError_NonStandardSighashImplCopyWith(
+          _$SignerError_NonStandardSighashImpl value,
+          $Res Function(_$SignerError_NonStandardSighashImpl) then) =
+      __$$SignerError_NonStandardSighashImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_NonStandardSighashImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_NonStandardSighashImpl>
+    implements _$$SignerError_NonStandardSighashImplCopyWith<$Res> {
+  __$$SignerError_NonStandardSighashImplCopyWithImpl(
+      _$SignerError_NonStandardSighashImpl _value,
+      $Res Function(_$SignerError_NonStandardSighashImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_NonStandardSighashImpl
+    extends SignerError_NonStandardSighash {
+  const _$SignerError_NonStandardSighashImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.nonStandardSighash()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_NonStandardSighashImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return nonStandardSighash();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return nonStandardSighash?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (nonStandardSighash != null) {
+      return nonStandardSighash();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return nonStandardSighash(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return nonStandardSighash?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (nonStandardSighash != null) {
+      return nonStandardSighash(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_NonStandardSighash extends SignerError {
+  const factory SignerError_NonStandardSighash() =
+      _$SignerError_NonStandardSighashImpl;
+  const SignerError_NonStandardSighash._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_InvalidSighashImplCopyWith<$Res> {
+  factory _$$SignerError_InvalidSighashImplCopyWith(
+          _$SignerError_InvalidSighashImpl value,
+          $Res Function(_$SignerError_InvalidSighashImpl) then) =
+      __$$SignerError_InvalidSighashImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignerError_InvalidSighashImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_InvalidSighashImpl>
+    implements _$$SignerError_InvalidSighashImplCopyWith<$Res> {
+  __$$SignerError_InvalidSighashImplCopyWithImpl(
+      _$SignerError_InvalidSighashImpl _value,
+      $Res Function(_$SignerError_InvalidSighashImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignerError_InvalidSighashImpl extends SignerError_InvalidSighash {
+  const _$SignerError_InvalidSighashImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SignerError.invalidSighash()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_InvalidSighashImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return invalidSighash();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return invalidSighash?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidSighash != null) {
+      return invalidSighash();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return invalidSighash(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return invalidSighash?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (invalidSighash != null) {
+      return invalidSighash(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_InvalidSighash extends SignerError {
+  const factory SignerError_InvalidSighash() = _$SignerError_InvalidSighashImpl;
+  const SignerError_InvalidSighash._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SignerError_SighashP2wpkhImplCopyWith<$Res> {
+  factory _$$SignerError_SighashP2wpkhImplCopyWith(
+          _$SignerError_SighashP2wpkhImpl value,
+          $Res Function(_$SignerError_SighashP2wpkhImpl) then) =
+      __$$SignerError_SighashP2wpkhImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_SighashP2wpkhImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_SighashP2wpkhImpl>
+    implements _$$SignerError_SighashP2wpkhImplCopyWith<$Res> {
+  __$$SignerError_SighashP2wpkhImplCopyWithImpl(
+      _$SignerError_SighashP2wpkhImpl _value,
+      $Res Function(_$SignerError_SighashP2wpkhImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_SighashP2wpkhImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_SighashP2wpkhImpl extends SignerError_SighashP2wpkh {
+  const _$SignerError_SighashP2wpkhImpl({required this.errorMessage})
+      : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.sighashP2Wpkh(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_SighashP2wpkhImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_SighashP2wpkhImplCopyWith<_$SignerError_SighashP2wpkhImpl>
+      get copyWith => __$$SignerError_SighashP2wpkhImplCopyWithImpl<
+          _$SignerError_SighashP2wpkhImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return sighashP2Wpkh(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return sighashP2Wpkh?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (sighashP2Wpkh != null) {
+      return sighashP2Wpkh(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return sighashP2Wpkh(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return sighashP2Wpkh?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (sighashP2Wpkh != null) {
+      return sighashP2Wpkh(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_SighashP2wpkh extends SignerError {
+  const factory SignerError_SighashP2wpkh(
+      {required final String errorMessage}) = _$SignerError_SighashP2wpkhImpl;
+  const SignerError_SighashP2wpkh._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_SighashP2wpkhImplCopyWith<_$SignerError_SighashP2wpkhImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignerError_SighashTaprootImplCopyWith<$Res> {
+  factory _$$SignerError_SighashTaprootImplCopyWith(
+          _$SignerError_SighashTaprootImpl value,
+          $Res Function(_$SignerError_SighashTaprootImpl) then) =
+      __$$SignerError_SighashTaprootImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_SighashTaprootImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_SighashTaprootImpl>
+    implements _$$SignerError_SighashTaprootImplCopyWith<$Res> {
+  __$$SignerError_SighashTaprootImplCopyWithImpl(
+      _$SignerError_SighashTaprootImpl _value,
+      $Res Function(_$SignerError_SighashTaprootImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_SighashTaprootImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_SighashTaprootImpl extends SignerError_SighashTaproot {
+  const _$SignerError_SighashTaprootImpl({required this.errorMessage})
+      : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.sighashTaproot(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_SighashTaprootImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_SighashTaprootImplCopyWith<_$SignerError_SighashTaprootImpl>
+      get copyWith => __$$SignerError_SighashTaprootImplCopyWithImpl<
+          _$SignerError_SighashTaprootImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return sighashTaproot(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return sighashTaproot?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (sighashTaproot != null) {
+      return sighashTaproot(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return sighashTaproot(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return sighashTaproot?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (sighashTaproot != null) {
+      return sighashTaproot(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_SighashTaproot extends SignerError {
+  const factory SignerError_SighashTaproot(
+      {required final String errorMessage}) = _$SignerError_SighashTaprootImpl;
+  const SignerError_SighashTaproot._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_SighashTaprootImplCopyWith<_$SignerError_SighashTaprootImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignerError_TxInputsIndexErrorImplCopyWith<$Res> {
+  factory _$$SignerError_TxInputsIndexErrorImplCopyWith(
+          _$SignerError_TxInputsIndexErrorImpl value,
+          $Res Function(_$SignerError_TxInputsIndexErrorImpl) then) =
+      __$$SignerError_TxInputsIndexErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_TxInputsIndexErrorImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res,
+        _$SignerError_TxInputsIndexErrorImpl>
+    implements _$$SignerError_TxInputsIndexErrorImplCopyWith<$Res> {
+  __$$SignerError_TxInputsIndexErrorImplCopyWithImpl(
+      _$SignerError_TxInputsIndexErrorImpl _value,
+      $Res Function(_$SignerError_TxInputsIndexErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_TxInputsIndexErrorImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_TxInputsIndexErrorImpl
+    extends SignerError_TxInputsIndexError {
+  const _$SignerError_TxInputsIndexErrorImpl({required this.errorMessage})
+      : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.txInputsIndexError(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_TxInputsIndexErrorImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_TxInputsIndexErrorImplCopyWith<
+          _$SignerError_TxInputsIndexErrorImpl>
+      get copyWith => __$$SignerError_TxInputsIndexErrorImplCopyWithImpl<
+          _$SignerError_TxInputsIndexErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return txInputsIndexError(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return txInputsIndexError?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (txInputsIndexError != null) {
+      return txInputsIndexError(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return txInputsIndexError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return txInputsIndexError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (txInputsIndexError != null) {
+      return txInputsIndexError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_TxInputsIndexError extends SignerError {
+  const factory SignerError_TxInputsIndexError(
+          {required final String errorMessage}) =
+      _$SignerError_TxInputsIndexErrorImpl;
+  const SignerError_TxInputsIndexError._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_TxInputsIndexErrorImplCopyWith<
+          _$SignerError_TxInputsIndexErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignerError_MiniscriptPsbtImplCopyWith<$Res> {
+  factory _$$SignerError_MiniscriptPsbtImplCopyWith(
+          _$SignerError_MiniscriptPsbtImpl value,
+          $Res Function(_$SignerError_MiniscriptPsbtImpl) then) =
+      __$$SignerError_MiniscriptPsbtImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_MiniscriptPsbtImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_MiniscriptPsbtImpl>
+    implements _$$SignerError_MiniscriptPsbtImplCopyWith<$Res> {
+  __$$SignerError_MiniscriptPsbtImplCopyWithImpl(
+      _$SignerError_MiniscriptPsbtImpl _value,
+      $Res Function(_$SignerError_MiniscriptPsbtImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_MiniscriptPsbtImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_MiniscriptPsbtImpl extends SignerError_MiniscriptPsbt {
+  const _$SignerError_MiniscriptPsbtImpl({required this.errorMessage})
+      : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.miniscriptPsbt(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_MiniscriptPsbtImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_MiniscriptPsbtImplCopyWith<_$SignerError_MiniscriptPsbtImpl>
+      get copyWith => __$$SignerError_MiniscriptPsbtImplCopyWithImpl<
+          _$SignerError_MiniscriptPsbtImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return miniscriptPsbt(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return miniscriptPsbt?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (miniscriptPsbt != null) {
+      return miniscriptPsbt(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return miniscriptPsbt(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return miniscriptPsbt?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (miniscriptPsbt != null) {
+      return miniscriptPsbt(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_MiniscriptPsbt extends SignerError {
+  const factory SignerError_MiniscriptPsbt(
+      {required final String errorMessage}) = _$SignerError_MiniscriptPsbtImpl;
+  const SignerError_MiniscriptPsbt._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_MiniscriptPsbtImplCopyWith<_$SignerError_MiniscriptPsbtImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignerError_ExternalImplCopyWith<$Res> {
+  factory _$$SignerError_ExternalImplCopyWith(_$SignerError_ExternalImpl value,
+          $Res Function(_$SignerError_ExternalImpl) then) =
+      __$$SignerError_ExternalImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_ExternalImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_ExternalImpl>
+    implements _$$SignerError_ExternalImplCopyWith<$Res> {
+  __$$SignerError_ExternalImplCopyWithImpl(_$SignerError_ExternalImpl _value,
+      $Res Function(_$SignerError_ExternalImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_ExternalImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_ExternalImpl extends SignerError_External {
+  const _$SignerError_ExternalImpl({required this.errorMessage}) : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.external_(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_ExternalImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_ExternalImplCopyWith<_$SignerError_ExternalImpl>
+      get copyWith =>
+          __$$SignerError_ExternalImplCopyWithImpl<_$SignerError_ExternalImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return external_(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return external_?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (external_ != null) {
+      return external_(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return external_(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return external_?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (external_ != null) {
+      return external_(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_External extends SignerError {
+  const factory SignerError_External({required final String errorMessage}) =
+      _$SignerError_ExternalImpl;
+  const SignerError_External._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_ExternalImplCopyWith<_$SignerError_ExternalImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignerError_PsbtImplCopyWith<$Res> {
+  factory _$$SignerError_PsbtImplCopyWith(_$SignerError_PsbtImpl value,
+          $Res Function(_$SignerError_PsbtImpl) then) =
+      __$$SignerError_PsbtImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignerError_PsbtImplCopyWithImpl<$Res>
+    extends _$SignerErrorCopyWithImpl<$Res, _$SignerError_PsbtImpl>
+    implements _$$SignerError_PsbtImplCopyWith<$Res> {
+  __$$SignerError_PsbtImplCopyWithImpl(_$SignerError_PsbtImpl _value,
+      $Res Function(_$SignerError_PsbtImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignerError_PsbtImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignerError_PsbtImpl extends SignerError_Psbt {
+  const _$SignerError_PsbtImpl({required this.errorMessage}) : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SignerError.psbt(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignerError_PsbtImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignerError_PsbtImplCopyWith<_$SignerError_PsbtImpl> get copyWith =>
+      __$$SignerError_PsbtImplCopyWithImpl<_$SignerError_PsbtImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() missingKey,
+    required TResult Function() invalidKey,
+    required TResult Function() userCanceled,
+    required TResult Function() inputIndexOutOfRange,
+    required TResult Function() missingNonWitnessUtxo,
+    required TResult Function() invalidNonWitnessUtxo,
+    required TResult Function() missingWitnessUtxo,
+    required TResult Function() missingWitnessScript,
+    required TResult Function() missingHdKeypath,
+    required TResult Function() nonStandardSighash,
+    required TResult Function() invalidSighash,
+    required TResult Function(String errorMessage) sighashP2Wpkh,
+    required TResult Function(String errorMessage) sighashTaproot,
+    required TResult Function(String errorMessage) txInputsIndexError,
+    required TResult Function(String errorMessage) miniscriptPsbt,
+    required TResult Function(String errorMessage) external_,
+    required TResult Function(String errorMessage) psbt,
+  }) {
+    return psbt(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? missingKey,
+    TResult? Function()? invalidKey,
+    TResult? Function()? userCanceled,
+    TResult? Function()? inputIndexOutOfRange,
+    TResult? Function()? missingNonWitnessUtxo,
+    TResult? Function()? invalidNonWitnessUtxo,
+    TResult? Function()? missingWitnessUtxo,
+    TResult? Function()? missingWitnessScript,
+    TResult? Function()? missingHdKeypath,
+    TResult? Function()? nonStandardSighash,
+    TResult? Function()? invalidSighash,
+    TResult? Function(String errorMessage)? sighashP2Wpkh,
+    TResult? Function(String errorMessage)? sighashTaproot,
+    TResult? Function(String errorMessage)? txInputsIndexError,
+    TResult? Function(String errorMessage)? miniscriptPsbt,
+    TResult? Function(String errorMessage)? external_,
+    TResult? Function(String errorMessage)? psbt,
+  }) {
+    return psbt?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? missingKey,
+    TResult Function()? invalidKey,
+    TResult Function()? userCanceled,
+    TResult Function()? inputIndexOutOfRange,
+    TResult Function()? missingNonWitnessUtxo,
+    TResult Function()? invalidNonWitnessUtxo,
+    TResult Function()? missingWitnessUtxo,
+    TResult Function()? missingWitnessScript,
+    TResult Function()? missingHdKeypath,
+    TResult Function()? nonStandardSighash,
+    TResult Function()? invalidSighash,
+    TResult Function(String errorMessage)? sighashP2Wpkh,
+    TResult Function(String errorMessage)? sighashTaproot,
+    TResult Function(String errorMessage)? txInputsIndexError,
+    TResult Function(String errorMessage)? miniscriptPsbt,
+    TResult Function(String errorMessage)? external_,
+    TResult Function(String errorMessage)? psbt,
+    required TResult orElse(),
+  }) {
+    if (psbt != null) {
+      return psbt(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignerError_MissingKey value) missingKey,
+    required TResult Function(SignerError_InvalidKey value) invalidKey,
+    required TResult Function(SignerError_UserCanceled value) userCanceled,
+    required TResult Function(SignerError_InputIndexOutOfRange value)
+        inputIndexOutOfRange,
+    required TResult Function(SignerError_MissingNonWitnessUtxo value)
+        missingNonWitnessUtxo,
+    required TResult Function(SignerError_InvalidNonWitnessUtxo value)
+        invalidNonWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessUtxo value)
+        missingWitnessUtxo,
+    required TResult Function(SignerError_MissingWitnessScript value)
+        missingWitnessScript,
+    required TResult Function(SignerError_MissingHdKeypath value)
+        missingHdKeypath,
+    required TResult Function(SignerError_NonStandardSighash value)
+        nonStandardSighash,
+    required TResult Function(SignerError_InvalidSighash value) invalidSighash,
+    required TResult Function(SignerError_SighashP2wpkh value) sighashP2Wpkh,
+    required TResult Function(SignerError_SighashTaproot value) sighashTaproot,
+    required TResult Function(SignerError_TxInputsIndexError value)
+        txInputsIndexError,
+    required TResult Function(SignerError_MiniscriptPsbt value) miniscriptPsbt,
+    required TResult Function(SignerError_External value) external_,
+    required TResult Function(SignerError_Psbt value) psbt,
+  }) {
+    return psbt(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignerError_MissingKey value)? missingKey,
+    TResult? Function(SignerError_InvalidKey value)? invalidKey,
+    TResult? Function(SignerError_UserCanceled value)? userCanceled,
+    TResult? Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult? Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult? Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult? Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult? Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult? Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult? Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult? Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult? Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult? Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult? Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult? Function(SignerError_External value)? external_,
+    TResult? Function(SignerError_Psbt value)? psbt,
+  }) {
+    return psbt?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignerError_MissingKey value)? missingKey,
+    TResult Function(SignerError_InvalidKey value)? invalidKey,
+    TResult Function(SignerError_UserCanceled value)? userCanceled,
+    TResult Function(SignerError_InputIndexOutOfRange value)?
+        inputIndexOutOfRange,
+    TResult Function(SignerError_MissingNonWitnessUtxo value)?
+        missingNonWitnessUtxo,
+    TResult Function(SignerError_InvalidNonWitnessUtxo value)?
+        invalidNonWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessUtxo value)? missingWitnessUtxo,
+    TResult Function(SignerError_MissingWitnessScript value)?
+        missingWitnessScript,
+    TResult Function(SignerError_MissingHdKeypath value)? missingHdKeypath,
+    TResult Function(SignerError_NonStandardSighash value)? nonStandardSighash,
+    TResult Function(SignerError_InvalidSighash value)? invalidSighash,
+    TResult Function(SignerError_SighashP2wpkh value)? sighashP2Wpkh,
+    TResult Function(SignerError_SighashTaproot value)? sighashTaproot,
+    TResult Function(SignerError_TxInputsIndexError value)? txInputsIndexError,
+    TResult Function(SignerError_MiniscriptPsbt value)? miniscriptPsbt,
+    TResult Function(SignerError_External value)? external_,
+    TResult Function(SignerError_Psbt value)? psbt,
+    required TResult orElse(),
+  }) {
+    if (psbt != null) {
+      return psbt(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignerError_Psbt extends SignerError {
+  const factory SignerError_Psbt({required final String errorMessage}) =
+      _$SignerError_PsbtImpl;
+  const SignerError_Psbt._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$SignerError_PsbtImplCopyWith<_$SignerError_PsbtImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SqliteError {
   String get rusqliteError => throw _privateConstructorUsedError;
   @optionalTypeArgs

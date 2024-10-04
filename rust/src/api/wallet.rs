@@ -8,15 +8,15 @@ use flutter_rust_bridge::frb;
 
 use crate::api::descriptor::FfiDescriptor;
 
-use super::bitcoin::{FeeRate, FfiScriptBuf, FfiTransaction};
+use super::bitcoin::{FeeRate, FfiPsbt, FfiScriptBuf, FfiTransaction};
 use super::error::{
     CalculateFeeError, CannotConnectError, CreateWithPersistError, LoadWithPersistError,
-    SqliteError, TxidParseError,
+    SignerError, SqliteError, TxidParseError,
 };
 use super::store::FfiConnection;
 use super::types::{
     AddressInfo, Balance, CanonicalTx, FfiFullScanRequestBuilder, FfiSyncRequestBuilder, FfiUpdate,
-    KeychainKind, LocalOutput, Network,
+    KeychainKind, LocalOutput, Network, SignOptions,
 };
 use crate::frb_generated::RustOpaque;
 
@@ -112,6 +112,14 @@ impl FfiWallet {
         let bdk_balance = self.get_wallet().balance();
         Balance::from(bdk_balance)
     }
+
+    pub fn sign(&self, psbt: FfiPsbt, sign_options: SignOptions) -> Result<bool, SignerError> {
+        let mut psbt = psbt.opaque.lock().unwrap();
+        self.get_wallet()
+            .sign(&mut psbt, sign_options.into())
+            .map_err(SignerError::from)
+    }
+
     ///Iterate over the transactions in the wallet.
     #[frb(sync)]
     pub fn transactions(&self) -> Vec<CanonicalTx> {

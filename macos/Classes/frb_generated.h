@@ -179,6 +179,16 @@ typedef struct wire_cst_ffi_connection {
   uintptr_t field0;
 } wire_cst_ffi_connection;
 
+typedef struct wire_cst_sign_options {
+  bool trust_witness_utxo;
+  uint32_t *assume_height;
+  bool allow_all_sighashes;
+  bool remove_partial_sigs;
+  bool try_finalize;
+  bool sign_with_tap_internal_key;
+  bool allow_grinding;
+} wire_cst_sign_options;
+
 typedef struct wire_cst_block_id {
   uint32_t height;
   struct wire_cst_list_prim_u_8_strict *hash;
@@ -811,15 +821,43 @@ typedef struct wire_cst_psbt_parse_error {
   union PsbtParseErrorKind kind;
 } wire_cst_psbt_parse_error;
 
-typedef struct wire_cst_sign_options {
-  bool trust_witness_utxo;
-  uint32_t *assume_height;
-  bool allow_all_sighashes;
-  bool remove_partial_sigs;
-  bool try_finalize;
-  bool sign_with_tap_internal_key;
-  bool allow_grinding;
-} wire_cst_sign_options;
+typedef struct wire_cst_SignerError_SighashP2wpkh {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_SighashP2wpkh;
+
+typedef struct wire_cst_SignerError_SighashTaproot {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_SighashTaproot;
+
+typedef struct wire_cst_SignerError_TxInputsIndexError {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_TxInputsIndexError;
+
+typedef struct wire_cst_SignerError_MiniscriptPsbt {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_MiniscriptPsbt;
+
+typedef struct wire_cst_SignerError_External {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_External;
+
+typedef struct wire_cst_SignerError_Psbt {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_SignerError_Psbt;
+
+typedef union SignerErrorKind {
+  struct wire_cst_SignerError_SighashP2wpkh SighashP2wpkh;
+  struct wire_cst_SignerError_SighashTaproot SighashTaproot;
+  struct wire_cst_SignerError_TxInputsIndexError TxInputsIndexError;
+  struct wire_cst_SignerError_MiniscriptPsbt MiniscriptPsbt;
+  struct wire_cst_SignerError_External External;
+  struct wire_cst_SignerError_Psbt Psbt;
+} SignerErrorKind;
+
+typedef struct wire_cst_signer_error {
+  int32_t tag;
+  union SignerErrorKind kind;
+} wire_cst_signer_error;
 
 typedef struct wire_cst_SqliteError_Sqlite {
   struct wire_cst_list_prim_u_8_strict *rusqlite_error;
@@ -1184,6 +1222,11 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist(int64_t por
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address(struct wire_cst_ffi_wallet *that,
                                                                                                  int32_t keychain_kind);
 
+void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(int64_t port_,
+                                                                  struct wire_cst_ffi_wallet *that,
+                                                                  struct wire_cst_ffi_psbt *psbt,
+                                                                  struct wire_cst_sign_options *sign_options);
+
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_full_scan(int64_t port_,
                                                                              struct wire_cst_ffi_wallet *that);
 
@@ -1310,6 +1353,8 @@ struct wire_cst_lock_time *frbgen_bdk_flutter_cst_new_box_autoadd_lock_time(void
 
 struct wire_cst_rbf_value *frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value(void);
 
+struct wire_cst_sign_options *frbgen_bdk_flutter_cst_new_box_autoadd_sign_options(void);
+
 uint32_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_32(uint32_t value);
 
 uint64_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_64(uint64_t value);
@@ -1356,6 +1401,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_wallet);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_lock_time);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_sign_options);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_32);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_64);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_canonical_tx);
@@ -1493,6 +1539,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_new);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_full_scan);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_sync_with_revealed_spks);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_transactions);
