@@ -1916,7 +1916,7 @@ fn wire__crate__api__wallet__ffi_wallet_apply_update_impl(
 }
 fn wire__crate__api__wallet__ffi_wallet_calculate_fee_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    opaque: impl CstDecode<crate::api::wallet::FfiWallet>,
     tx: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1926,12 +1926,12 @@ fn wire__crate__api__wallet__ffi_wallet_calculate_fee_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_tx = tx.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::CalculateFeeError>((move || {
                     let output_ok =
-                        crate::api::wallet::FfiWallet::calculate_fee(&api_that, api_tx)?;
+                        crate::api::wallet::FfiWallet::calculate_fee(&api_opaque, api_tx)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -1941,7 +1941,7 @@ fn wire__crate__api__wallet__ffi_wallet_calculate_fee_impl(
 }
 fn wire__crate__api__wallet__ffi_wallet_calculate_fee_rate_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    opaque: impl CstDecode<crate::api::wallet::FfiWallet>,
     tx: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1951,12 +1951,12 @@ fn wire__crate__api__wallet__ffi_wallet_calculate_fee_rate_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_tx = tx.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::CalculateFeeError>((move || {
                     let output_ok =
-                        crate::api::wallet::FfiWallet::calculate_fee_rate(&api_that, api_tx)?;
+                        crate::api::wallet::FfiWallet::calculate_fee_rate(&api_opaque, api_tx)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -2155,7 +2155,7 @@ fn wire__crate__api__wallet__ffi_wallet_new_impl(
 }
 fn wire__crate__api__wallet__ffi_wallet_persist_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    opaque: impl CstDecode<crate::api::wallet::FfiWallet>,
     connection: impl CstDecode<crate::api::store::FfiConnection>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -2165,12 +2165,12 @@ fn wire__crate__api__wallet__ffi_wallet_persist_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_connection = connection.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::SqliteError>((move || {
                     let output_ok =
-                        crate::api::wallet::FfiWallet::persist(&api_that, api_connection)?;
+                        crate::api::wallet::FfiWallet::persist(&api_opaque, api_connection)?;
                     Ok(output_ok)
                 })())
             }
@@ -2203,7 +2203,7 @@ fn wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(
 }
 fn wire__crate__api__wallet__ffi_wallet_sign_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    opaque: impl CstDecode<crate::api::wallet::FfiWallet>,
     psbt: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
     sign_options: impl CstDecode<crate::api::types::SignOptions>,
 ) {
@@ -2214,13 +2214,16 @@ fn wire__crate__api__wallet__ffi_wallet_sign_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_psbt = psbt.cst_decode();
             let api_sign_options = sign_options.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::SignerError>((move || {
-                    let output_ok =
-                        crate::api::wallet::FfiWallet::sign(&api_that, api_psbt, api_sign_options)?;
+                    let output_ok = crate::api::wallet::FfiWallet::sign(
+                        &api_opaque,
+                        api_psbt,
+                        api_sign_options,
+                    )?;
                     Ok(output_ok)
                 })())
             }
@@ -10758,19 +10761,19 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_calculate_fee(
         port_: i64,
-        that: *mut wire_cst_ffi_wallet,
+        opaque: *mut wire_cst_ffi_wallet,
         tx: *mut wire_cst_ffi_transaction,
     ) {
-        wire__crate__api__wallet__ffi_wallet_calculate_fee_impl(port_, that, tx)
+        wire__crate__api__wallet__ffi_wallet_calculate_fee_impl(port_, opaque, tx)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(
         port_: i64,
-        that: *mut wire_cst_ffi_wallet,
+        opaque: *mut wire_cst_ffi_wallet,
         tx: *mut wire_cst_ffi_transaction,
     ) {
-        wire__crate__api__wallet__ffi_wallet_calculate_fee_rate_impl(port_, that, tx)
+        wire__crate__api__wallet__ffi_wallet_calculate_fee_rate_impl(port_, opaque, tx)
     }
 
     #[no_mangle]
@@ -10854,10 +10857,10 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist(
         port_: i64,
-        that: *mut wire_cst_ffi_wallet,
+        opaque: *mut wire_cst_ffi_wallet,
         connection: *mut wire_cst_ffi_connection,
     ) {
-        wire__crate__api__wallet__ffi_wallet_persist_impl(port_, that, connection)
+        wire__crate__api__wallet__ffi_wallet_persist_impl(port_, opaque, connection)
     }
 
     #[no_mangle]
@@ -10871,11 +10874,11 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(
         port_: i64,
-        that: *mut wire_cst_ffi_wallet,
+        opaque: *mut wire_cst_ffi_wallet,
         psbt: *mut wire_cst_ffi_psbt,
         sign_options: *mut wire_cst_sign_options,
     ) {
-        wire__crate__api__wallet__ffi_wallet_sign_impl(port_, that, psbt, sign_options)
+        wire__crate__api__wallet__ffi_wallet_sign_impl(port_, opaque, psbt, sign_options)
     }
 
     #[no_mangle]

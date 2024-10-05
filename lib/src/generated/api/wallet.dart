@@ -26,12 +26,15 @@ class FfiWallet {
   Future<void> applyUpdate({required FfiUpdate update}) => core.instance.api
       .crateApiWalletFfiWalletApplyUpdate(that: this, update: update);
 
-  Future<BigInt> calculateFee({required FfiTransaction tx}) =>
-      core.instance.api.crateApiWalletFfiWalletCalculateFee(that: this, tx: tx);
-
-  Future<FeeRate> calculateFeeRate({required FfiTransaction tx}) =>
+  static Future<BigInt> calculateFee(
+          {required FfiWallet opaque, required FfiTransaction tx}) =>
       core.instance.api
-          .crateApiWalletFfiWalletCalculateFeeRate(that: this, tx: tx);
+          .crateApiWalletFfiWalletCalculateFee(opaque: opaque, tx: tx);
+
+  static Future<FeeRate> calculateFeeRate(
+          {required FfiWallet opaque, required FfiTransaction tx}) =>
+      core.instance.api
+          .crateApiWalletFfiWalletCalculateFeeRate(opaque: opaque, tx: tx);
 
   /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
   /// on the internal database, which first needs to be Wallet.sync manually.
@@ -85,8 +88,10 @@ class FfiWallet {
           network: network,
           connection: connection);
 
-  Future<bool> persist({required FfiConnection connection}) => core.instance.api
-      .crateApiWalletFfiWalletPersist(that: this, connection: connection);
+  static Future<bool> persist(
+          {required FfiWallet opaque, required FfiConnection connection}) =>
+      core.instance.api.crateApiWalletFfiWalletPersist(
+          opaque: opaque, connection: connection);
 
   /// Attempt to reveal the next address of the given `keychain`.
   ///
@@ -99,10 +104,12 @@ class FfiWallet {
       core.instance.api.crateApiWalletFfiWalletRevealNextAddress(
           opaque: opaque, keychainKind: keychainKind);
 
-  Future<bool> sign(
-          {required FfiPsbt psbt, required SignOptions signOptions}) =>
+  static Future<bool> sign(
+          {required FfiWallet opaque,
+          required FfiPsbt psbt,
+          required SignOptions signOptions}) =>
       core.instance.api.crateApiWalletFfiWalletSign(
-          that: this, psbt: psbt, signOptions: signOptions);
+          opaque: opaque, psbt: psbt, signOptions: signOptions);
 
   Future<FfiFullScanRequestBuilder> startFullScan() =>
       core.instance.api.crateApiWalletFfiWalletStartFullScan(

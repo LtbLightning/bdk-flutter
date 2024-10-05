@@ -5221,12 +5221,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__wallet__ffi_wallet_calculate_fee(
     int port_,
-    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
     ffi.Pointer<wire_cst_ffi_transaction> tx,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_calculate_fee(
       port_,
-      that,
+      opaque,
       tx,
     );
   }
@@ -5243,12 +5243,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(
     int port_,
-    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
     ffi.Pointer<wire_cst_ffi_transaction> tx,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(
       port_,
-      that,
+      opaque,
       tx,
     );
   }
@@ -5437,12 +5437,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__wallet__ffi_wallet_persist(
     int port_,
-    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
     ffi.Pointer<wire_cst_ffi_connection> connection,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_persist(
       port_,
-      that,
+      opaque,
       connection,
     );
   }
@@ -5479,13 +5479,13 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__wallet__ffi_wallet_sign(
     int port_,
-    ffi.Pointer<wire_cst_ffi_wallet> that,
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
     ffi.Pointer<wire_cst_ffi_psbt> psbt,
     ffi.Pointer<wire_cst_sign_options> sign_options,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_sign(
       port_,
-      that,
+      opaque,
       psbt,
       sign_options,
     );

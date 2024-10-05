@@ -12,7 +12,7 @@ import 'bdk_flutter_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Blockchain>()])
 @GenerateNiceMocks([MockSpec<DescriptorSecretKey>()])
 @GenerateNiceMocks([MockSpec<DescriptorPublicKey>()])
-@GenerateNiceMocks([MockSpec<PartiallySignedTransaction>()])
+@GenerateNiceMocks([MockSpec<PSBT>()])
 @GenerateNiceMocks([MockSpec<TxBuilder>()])
 @GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
 @GenerateNiceMocks([MockSpec<ScriptBuf>()])
@@ -236,7 +236,7 @@ void main() {
           .addRecipient(script, BigInt.from(1200))
           .addForeignUtxo(input, outPoint, BigInt.zero);
       final res = await txBuilder.finish(mockWallet);
-      expect(res, isA<(PartiallySignedTransaction, TransactionDetails)>());
+      expect(res, isA<(PSBT, TransactionDetails)>());
     });
     test('Create a proper psbt transaction ', () async {
       const psbtBase64 = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
@@ -245,7 +245,7 @@ void main() {
           "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
           "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
           "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
-      final psbt = await PartiallySignedTransaction.fromString(psbtBase64);
+      final psbt = await PSBT.fromString(psbtBase64);
       when(mockAddress.scriptPubkey()).thenAnswer((_) => MockScriptBuf());
       when(mockTxBuilder.addRecipient(mockScript, any))
           .thenReturn(mockTxBuilder);

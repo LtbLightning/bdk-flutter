@@ -1180,11 +1180,11 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_apply_update(int64_
                                                                           struct wire_cst_ffi_update *update);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_calculate_fee(int64_t port_,
-                                                                           struct wire_cst_ffi_wallet *that,
+                                                                           struct wire_cst_ffi_wallet *opaque,
                                                                            struct wire_cst_ffi_transaction *tx);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(int64_t port_,
-                                                                                struct wire_cst_ffi_wallet *that,
+                                                                                struct wire_cst_ffi_wallet *opaque,
                                                                                 struct wire_cst_ffi_transaction *tx);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_get_balance(struct wire_cst_ffi_wallet *that);
@@ -1215,14 +1215,14 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_new(int64_t port_,
                                                                  struct wire_cst_ffi_connection *connection);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist(int64_t port_,
-                                                                     struct wire_cst_ffi_wallet *that,
+                                                                     struct wire_cst_ffi_wallet *opaque,
                                                                      struct wire_cst_ffi_connection *connection);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address(struct wire_cst_ffi_wallet *opaque,
                                                                                                  int32_t keychain_kind);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(int64_t port_,
-                                                                  struct wire_cst_ffi_wallet *that,
+                                                                  struct wire_cst_ffi_wallet *opaque,
                                                                   struct wire_cst_ffi_psbt *psbt,
                                                                   struct wire_cst_sign_options *sign_options);
 
