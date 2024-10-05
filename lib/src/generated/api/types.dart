@@ -408,11 +408,6 @@ class SignOptions {
   /// Defaults to `false` which will only allow signing using `SIGHASH_ALL`.
   final bool allowAllSighashes;
 
-  /// Whether to remove partial signatures from the PSBT inputs while finalizing PSBT.
-  ///
-  /// Defaults to `true` which will remove partial signatures during finalization.
-  final bool removePartialSigs;
-
   /// Whether to try finalizing the PSBT after the inputs are signed.
   ///
   /// Defaults to `true` which will try finalizing PSBT after inputs are signed.
@@ -433,7 +428,6 @@ class SignOptions {
     required this.trustWitnessUtxo,
     this.assumeHeight,
     required this.allowAllSighashes,
-    required this.removePartialSigs,
     required this.tryFinalize,
     required this.signWithTapInternalKey,
     required this.allowGrinding,
@@ -447,7 +441,6 @@ class SignOptions {
       trustWitnessUtxo.hashCode ^
       assumeHeight.hashCode ^
       allowAllSighashes.hashCode ^
-      removePartialSigs.hashCode ^
       tryFinalize.hashCode ^
       signWithTapInternalKey.hashCode ^
       allowGrinding.hashCode;
@@ -460,7 +453,6 @@ class SignOptions {
           trustWitnessUtxo == other.trustWitnessUtxo &&
           assumeHeight == other.assumeHeight &&
           allowAllSighashes == other.allowAllSighashes &&
-          removePartialSigs == other.removePartialSigs &&
           tryFinalize == other.tryFinalize &&
           signWithTapInternalKey == other.signWithTapInternalKey &&
           allowGrinding == other.allowGrinding;
