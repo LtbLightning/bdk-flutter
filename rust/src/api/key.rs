@@ -55,12 +55,12 @@ impl FfiMnemonic {
 }
 
 pub struct FfiDerivationPath {
-    pub ptr: RustOpaque<bdk_wallet::bitcoin::bip32::DerivationPath>,
+    pub opaque: RustOpaque<bdk_wallet::bitcoin::bip32::DerivationPath>,
 }
 impl From<bitcoin::bip32::DerivationPath> for FfiDerivationPath {
     fn from(value: bitcoin::bip32::DerivationPath) -> Self {
         FfiDerivationPath {
-            ptr: RustOpaque::new(value),
+            opaque: RustOpaque::new(value),
         }
     }
 }
@@ -73,18 +73,18 @@ impl FfiDerivationPath {
     }
     #[frb(sync)]
     pub fn as_string(&self) -> String {
-        self.ptr.to_string()
+        self.opaque.to_string()
     }
 }
 
 #[derive(Debug)]
 pub struct FfiDescriptorSecretKey {
-    pub ptr: RustOpaque<bdk_wallet::keys::DescriptorSecretKey>,
+    pub opaque: RustOpaque<bdk_wallet::keys::DescriptorSecretKey>,
 }
 impl From<keys::DescriptorSecretKey> for FfiDescriptorSecretKey {
     fn from(value: keys::DescriptorSecretKey) -> Self {
         Self {
-            ptr: RustOpaque::new(value),
+            opaque: RustOpaque::new(value),
         }
     }
 }
@@ -110,24 +110,24 @@ impl FfiDescriptorSecretKey {
     }
 
     pub fn derive(
-        ptr: FfiDescriptorSecretKey,
+        opaque: FfiDescriptorSecretKey,
         path: FfiDerivationPath,
     ) -> Result<Self, DescriptorKeyError> {
         let secp = Secp256k1::new();
-        let descriptor_secret_key = (*ptr.ptr).clone();
+        let descriptor_secret_key = (*opaque.opaque).clone();
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 let derived_xprv = descriptor_x_key
                     .xkey
-                    .derive_priv(&secp, &(*path.ptr).clone())
+                    .derive_priv(&secp, &(*path.opaque).clone())
                     .map_err(DescriptorKeyError::from)?;
                 let key_source = match descriptor_x_key.origin.clone() {
                     Some((fingerprint, origin_path)) => {
-                        (fingerprint, origin_path.extend(&(*path.ptr).clone()))
+                        (fingerprint, origin_path.extend(&(*path.opaque).clone()))
                     }
                     None => (
                         descriptor_x_key.xkey.fingerprint(&secp),
-                        (*path.ptr).clone(),
+                        (*path.opaque).clone(),
                     ),
                 };
                 let derived_descriptor_secret_key =
@@ -144,13 +144,15 @@ impl FfiDescriptorSecretKey {
         }
     }
     pub fn extend(
-        ptr: FfiDescriptorSecretKey,
+        opaque: FfiDescriptorSecretKey,
         path: FfiDerivationPath,
     ) -> Result<Self, DescriptorKeyError> {
-        let descriptor_secret_key = (*ptr.ptr).clone();
+        let descriptor_secret_key = (*opaque.opaque).clone();
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
-                let extended_path = descriptor_x_key.derivation_path.extend((*path.ptr).clone());
+                let extended_path = descriptor_x_key
+                    .derivation_path
+                    .extend((*path.opaque).clone());
                 let extended_descriptor_secret_key =
                     keys::DescriptorSecretKey::XPrv(DescriptorXKey {
                         origin: descriptor_x_key.origin.clone(),
@@ -166,16 +168,16 @@ impl FfiDescriptorSecretKey {
     }
     #[frb(sync)]
     pub fn as_public(
-        ptr: FfiDescriptorSecretKey,
+        opaque: FfiDescriptorSecretKey,
     ) -> Result<FfiDescriptorPublicKey, DescriptorKeyError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = ptr.ptr.to_public(&secp)?;
+        let descriptor_public_key = opaque.opaque.to_public(&secp)?;
         Ok(descriptor_public_key.into())
     }
     #[frb(sync)]
     /// Get the private key as bytes.
     pub fn secret_bytes(&self) -> Result<Vec<u8>, DescriptorKeyError> {
-        let descriptor_secret_key = &*self.ptr;
+        let descriptor_secret_key = &*self.opaque;
         match descriptor_secret_key {
             keys::DescriptorSecretKey::XPrv(descriptor_x_key) => {
                 Ok(descriptor_x_key.xkey.private_key.secret_bytes().to_vec())
@@ -192,17 +194,17 @@ impl FfiDescriptorSecretKey {
     }
     #[frb(sync)]
     pub fn as_string(&self) -> String {
-        self.ptr.to_string()
+        self.opaque.to_string()
     }
 }
 #[derive(Debug)]
 pub struct FfiDescriptorPublicKey {
-    pub ptr: RustOpaque<bdk_wallet::keys::DescriptorPublicKey>,
+    pub opaque: RustOpaque<bdk_wallet::keys::DescriptorPublicKey>,
 }
 impl From<keys::DescriptorPublicKey> for FfiDescriptorPublicKey {
     fn from(value: keys::DescriptorPublicKey) -> Self {
         Self {
-            ptr: RustOpaque::new(value),
+            opaque: RustOpaque::new(value),
         }
     }
 }
@@ -215,22 +217,22 @@ impl FfiDescriptorPublicKey {
         }
     }
     pub fn derive(
-        ptr: FfiDescriptorPublicKey,
+        opaque: FfiDescriptorPublicKey,
         path: FfiDerivationPath,
     ) -> Result<Self, DescriptorKeyError> {
         let secp = Secp256k1::new();
-        let descriptor_public_key = (*ptr.ptr).clone();
+        let descriptor_public_key = (*opaque.opaque).clone();
         match descriptor_public_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let derived_xpub = descriptor_x_key
                     .xkey
-                    .derive_pub(&secp, &(*path.ptr).clone())
+                    .derive_pub(&secp, &(*path.opaque).clone())
                     .map_err(DescriptorKeyError::from)?;
                 let key_source = match descriptor_x_key.origin.clone() {
                     Some((fingerprint, origin_path)) => {
-                        (fingerprint, origin_path.extend(&(*path.ptr).clone()))
+                        (fingerprint, origin_path.extend(&(*path.opaque).clone()))
                     }
-                    None => (descriptor_x_key.xkey.fingerprint(), (*path.ptr).clone()),
+                    None => (descriptor_x_key.xkey.fingerprint(), (*path.opaque).clone()),
                 };
                 let derived_descriptor_public_key =
                     keys::DescriptorPublicKey::XPub(DescriptorXKey {
@@ -240,7 +242,7 @@ impl FfiDescriptorPublicKey {
                         wildcard: descriptor_x_key.wildcard,
                     });
                 Ok(Self {
-                    ptr: RustOpaque::new(derived_descriptor_public_key),
+                    opaque: RustOpaque::new(derived_descriptor_public_key),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(DescriptorKeyError::InvalidKeyType),
@@ -249,15 +251,15 @@ impl FfiDescriptorPublicKey {
     }
 
     pub fn extend(
-        ptr: FfiDescriptorPublicKey,
+        opaque: FfiDescriptorPublicKey,
         path: FfiDerivationPath,
     ) -> Result<Self, DescriptorKeyError> {
-        let descriptor_public_key = (*ptr.ptr).clone();
+        let descriptor_public_key = (*opaque.opaque).clone();
         match descriptor_public_key {
             keys::DescriptorPublicKey::XPub(descriptor_x_key) => {
                 let extended_path = descriptor_x_key
                     .derivation_path
-                    .extend(&(*path.ptr).clone());
+                    .extend(&(*path.opaque).clone());
                 let extended_descriptor_public_key =
                     keys::DescriptorPublicKey::XPub(DescriptorXKey {
                         origin: descriptor_x_key.origin.clone(),
@@ -266,7 +268,7 @@ impl FfiDescriptorPublicKey {
                         wildcard: descriptor_x_key.wildcard,
                     });
                 Ok(Self {
-                    ptr: RustOpaque::new(extended_descriptor_public_key),
+                    opaque: RustOpaque::new(extended_descriptor_public_key),
                 })
             }
             keys::DescriptorPublicKey::Single(_) => Err(DescriptorKeyError::InvalidKeyType),
@@ -276,6 +278,6 @@ impl FfiDescriptorPublicKey {
 
     #[frb(sync)]
     pub fn as_string(&self) -> String {
-        self.ptr.to_string()
+        self.opaque.to_string()
     }
 }

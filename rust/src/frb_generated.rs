@@ -142,7 +142,7 @@ fn wire__crate__api__bitcoin__ffi_address_is_valid_for_network_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_address_script_impl(
-    ptr: impl CstDecode<crate::api::bitcoin::FfiAddress>,
+    opaque: impl CstDecode<crate::api::bitcoin::FfiAddress>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -151,10 +151,10 @@ fn wire__crate__api__bitcoin__ffi_address_script_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             transform_result_dco::<_, _, ()>((move || {
                 let output_ok =
-                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiAddress::script(api_ptr))?;
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiAddress::script(api_opaque))?;
                 Ok(output_ok)
             })())
         },
@@ -180,30 +180,27 @@ fn wire__crate__api__bitcoin__ffi_address_to_qr_uri_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_psbt_as_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_psbt_as_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok =
-                        Result::<_, ()>::Ok(crate::api::bitcoin::FfiPsbt::as_string(&api_that))?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiPsbt::as_string(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_psbt_combine_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
+    opaque: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
     other: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -213,11 +210,11 @@ fn wire__crate__api__bitcoin__ffi_psbt_combine_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_other = other.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::PsbtError>((move || {
-                    let output_ok = crate::api::bitcoin::FfiPsbt::combine(api_ptr, api_other)?;
+                    let output_ok = crate::api::bitcoin::FfiPsbt::combine(api_opaque, api_other)?;
                     Ok(output_ok)
                 })())
             }
@@ -225,7 +222,7 @@ fn wire__crate__api__bitcoin__ffi_psbt_combine_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_psbt_extract_tx_impl(
-    ptr: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
+    opaque: impl CstDecode<crate::api::bitcoin::FfiPsbt>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -234,9 +231,9 @@ fn wire__crate__api__bitcoin__ffi_psbt_extract_tx_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             transform_result_dco::<_, _, crate::api::error::ExtractTxError>((move || {
-                let output_ok = crate::api::bitcoin::FfiPsbt::extract_tx(api_ptr)?;
+                let output_ok = crate::api::bitcoin::FfiPsbt::extract_tx(api_opaque)?;
                 Ok(output_ok)
             })())
         },
@@ -1306,7 +1303,7 @@ fn wire__crate__api__key__ffi_descriptor_public_key_as_string_impl(
 }
 fn wire__crate__api__key__ffi_descriptor_public_key_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::key::FfiDescriptorPublicKey>,
+    opaque: impl CstDecode<crate::api::key::FfiDescriptorPublicKey>,
     path: impl CstDecode<crate::api::key::FfiDerivationPath>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1316,12 +1313,12 @@ fn wire__crate__api__key__ffi_descriptor_public_key_derive_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::DescriptorKeyError>((move || {
                     let output_ok =
-                        crate::api::key::FfiDescriptorPublicKey::derive(api_ptr, api_path)?;
+                        crate::api::key::FfiDescriptorPublicKey::derive(api_opaque, api_path)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -1331,7 +1328,7 @@ fn wire__crate__api__key__ffi_descriptor_public_key_derive_impl(
 }
 fn wire__crate__api__key__ffi_descriptor_public_key_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::key::FfiDescriptorPublicKey>,
+    opaque: impl CstDecode<crate::api::key::FfiDescriptorPublicKey>,
     path: impl CstDecode<crate::api::key::FfiDerivationPath>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1341,12 +1338,12 @@ fn wire__crate__api__key__ffi_descriptor_public_key_extend_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::DescriptorKeyError>((move || {
                     let output_ok =
-                        crate::api::key::FfiDescriptorPublicKey::extend(api_ptr, api_path)?;
+                        crate::api::key::FfiDescriptorPublicKey::extend(api_opaque, api_path)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -1378,7 +1375,7 @@ fn wire__crate__api__key__ffi_descriptor_public_key_from_string_impl(
     )
 }
 fn wire__crate__api__key__ffi_descriptor_secret_key_as_public_impl(
-    ptr: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
+    opaque: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1387,9 +1384,9 @@ fn wire__crate__api__key__ffi_descriptor_secret_key_as_public_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             transform_result_dco::<_, _, crate::api::error::DescriptorKeyError>((move || {
-                let output_ok = crate::api::key::FfiDescriptorSecretKey::as_public(api_ptr)?;
+                let output_ok = crate::api::key::FfiDescriptorSecretKey::as_public(api_opaque)?;
                 Ok(output_ok)
             })())
         },
@@ -1447,7 +1444,7 @@ fn wire__crate__api__key__ffi_descriptor_secret_key_create_impl(
 }
 fn wire__crate__api__key__ffi_descriptor_secret_key_derive_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
+    opaque: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
     path: impl CstDecode<crate::api::key::FfiDerivationPath>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1457,12 +1454,12 @@ fn wire__crate__api__key__ffi_descriptor_secret_key_derive_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::DescriptorKeyError>((move || {
                     let output_ok =
-                        crate::api::key::FfiDescriptorSecretKey::derive(api_ptr, api_path)?;
+                        crate::api::key::FfiDescriptorSecretKey::derive(api_opaque, api_path)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -1472,7 +1469,7 @@ fn wire__crate__api__key__ffi_descriptor_secret_key_derive_impl(
 }
 fn wire__crate__api__key__ffi_descriptor_secret_key_extend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
+    opaque: impl CstDecode<crate::api::key::FfiDescriptorSecretKey>,
     path: impl CstDecode<crate::api::key::FfiDerivationPath>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1482,12 +1479,12 @@ fn wire__crate__api__key__ffi_descriptor_secret_key_extend_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_ptr = ptr.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_path = path.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::DescriptorKeyError>((move || {
                     let output_ok =
-                        crate::api::key::FfiDescriptorSecretKey::extend(api_ptr, api_path)?;
+                        crate::api::key::FfiDescriptorSecretKey::extend(api_opaque, api_path)?;
                     Ok(output_ok)
                 })(
                 ))
@@ -2181,7 +2178,7 @@ fn wire__crate__api__wallet__ffi_wallet_persist_impl(
     )
 }
 fn wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(
-    that: impl CstDecode<crate::api::wallet::FfiWallet>,
+    opaque: impl CstDecode<crate::api::wallet::FfiWallet>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
@@ -2191,12 +2188,12 @@ fn wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_opaque = opaque.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             transform_result_dco::<_, _, ()>((move || {
                 let output_ok =
                     Result::<_, ()>::Ok(crate::api::wallet::FfiWallet::reveal_next_address(
-                        &api_that,
+                        api_opaque,
                         api_keychain_kind,
                     ))?;
                 Ok(output_ok)
@@ -2939,18 +2936,6 @@ impl SseDecode for crate::api::error::CannotConnectError {
     }
 }
 
-impl SseDecode for crate::api::types::CanonicalTx {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_transaction = <crate::api::bitcoin::FfiTransaction>::sse_decode(deserializer);
-        let mut var_chainPosition = <crate::api::types::ChainPosition>::sse_decode(deserializer);
-        return crate::api::types::CanonicalTx {
-            transaction: var_transaction,
-            chain_position: var_chainPosition,
-        };
-    }
-}
-
 impl SseDecode for crate::api::types::ChainPosition {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3484,6 +3469,18 @@ impl SseDecode for crate::api::bitcoin::FfiAddress {
     }
 }
 
+impl SseDecode for crate::api::types::FfiCanonicalTx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_transaction = <crate::api::bitcoin::FfiTransaction>::sse_decode(deserializer);
+        let mut var_chainPosition = <crate::api::types::ChainPosition>::sse_decode(deserializer);
+        return crate::api::types::FfiCanonicalTx {
+            transaction: var_transaction,
+            chain_position: var_chainPosition,
+        };
+    }
+}
+
 impl SseDecode for crate::api::store::FfiConnection {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3498,9 +3495,9 @@ impl SseDecode for crate::api::store::FfiConnection {
 impl SseDecode for crate::api::key::FfiDerivationPath {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_ptr =
+        let mut var_opaque =
             <RustOpaqueNom<bdk_wallet::bitcoin::bip32::DerivationPath>>::sse_decode(deserializer);
-        return crate::api::key::FfiDerivationPath { ptr: var_ptr };
+        return crate::api::key::FfiDerivationPath { opaque: var_opaque };
     }
 }
 
@@ -3520,18 +3517,18 @@ impl SseDecode for crate::api::descriptor::FfiDescriptor {
 impl SseDecode for crate::api::key::FfiDescriptorPublicKey {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_ptr =
+        let mut var_opaque =
             <RustOpaqueNom<bdk_wallet::keys::DescriptorPublicKey>>::sse_decode(deserializer);
-        return crate::api::key::FfiDescriptorPublicKey { ptr: var_ptr };
+        return crate::api::key::FfiDescriptorPublicKey { opaque: var_opaque };
     }
 }
 
 impl SseDecode for crate::api::key::FfiDescriptorSecretKey {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_ptr =
+        let mut var_opaque =
             <RustOpaqueNom<bdk_wallet::keys::DescriptorSecretKey>>::sse_decode(deserializer);
-        return crate::api::key::FfiDescriptorSecretKey { ptr: var_ptr };
+        return crate::api::key::FfiDescriptorSecretKey { opaque: var_opaque };
     }
 }
 
@@ -3713,13 +3710,15 @@ impl SseDecode for crate::api::types::KeychainKind {
     }
 }
 
-impl SseDecode for Vec<crate::api::types::CanonicalTx> {
+impl SseDecode for Vec<crate::api::types::FfiCanonicalTx> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::types::CanonicalTx>::sse_decode(deserializer));
+            ans_.push(<crate::api::types::FfiCanonicalTx>::sse_decode(
+                deserializer,
+            ));
         }
         return ans_;
     }
@@ -3899,22 +3898,24 @@ impl SseDecode for Option<String> {
     }
 }
 
-impl SseDecode for Option<crate::api::types::CanonicalTx> {
+impl SseDecode for Option<crate::api::bitcoin::FeeRate> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::types::CanonicalTx>::sse_decode(deserializer));
+            return Some(<crate::api::bitcoin::FeeRate>::sse_decode(deserializer));
         } else {
             return None;
         }
     }
 }
 
-impl SseDecode for Option<crate::api::bitcoin::FeeRate> {
+impl SseDecode for Option<crate::api::types::FfiCanonicalTx> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::bitcoin::FeeRate>::sse_decode(deserializer));
+            return Some(<crate::api::types::FfiCanonicalTx>::sse_decode(
+                deserializer,
+            ));
         } else {
             return None;
         }
@@ -4708,27 +4709,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::error::CannotConnectError>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::types::CanonicalTx {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.transaction.into_into_dart().into_dart(),
-            self.chain_position.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::types::CanonicalTx
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::types::CanonicalTx>
-    for crate::api::types::CanonicalTx
-{
-    fn into_into_dart(self) -> crate::api::types::CanonicalTx {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::ChainPosition {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -5188,6 +5168,27 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::bitcoin::FfiAddress>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::FfiCanonicalTx {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.transaction.into_into_dart().into_dart(),
+            self.chain_position.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::FfiCanonicalTx
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::FfiCanonicalTx>
+    for crate::api::types::FfiCanonicalTx
+{
+    fn into_into_dart(self) -> crate::api::types::FfiCanonicalTx {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::store::FfiConnection {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [self.0.into_into_dart().into_dart()].into_dart()
@@ -5207,7 +5208,7 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::store::FfiConnection>
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::key::FfiDerivationPath {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.ptr.into_into_dart().into_dart()].into_dart()
+        [self.opaque.into_into_dart().into_dart()].into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
@@ -5245,7 +5246,7 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::descriptor::FfiDescriptor>
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::key::FfiDescriptorPublicKey {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.ptr.into_into_dart().into_dart()].into_dart()
+        [self.opaque.into_into_dart().into_dart()].into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
@@ -5262,7 +5263,7 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::key::FfiDescriptorPublicKey>
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::key::FfiDescriptorSecretKey {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.ptr.into_into_dart().into_dart()].into_dart()
+        [self.opaque.into_into_dart().into_dart()].into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
@@ -6402,14 +6403,6 @@ impl SseEncode for crate::api::error::CannotConnectError {
     }
 }
 
-impl SseEncode for crate::api::types::CanonicalTx {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::bitcoin::FfiTransaction>::sse_encode(self.transaction, serializer);
-        <crate::api::types::ChainPosition>::sse_encode(self.chain_position, serializer);
-    }
-}
-
 impl SseEncode for crate::api::types::ChainPosition {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6841,6 +6834,14 @@ impl SseEncode for crate::api::bitcoin::FfiAddress {
     }
 }
 
+impl SseEncode for crate::api::types::FfiCanonicalTx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <crate::api::bitcoin::FfiTransaction>::sse_encode(self.transaction, serializer);
+        <crate::api::types::ChainPosition>::sse_encode(self.chain_position, serializer);
+    }
+}
+
 impl SseEncode for crate::api::store::FfiConnection {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6854,7 +6855,8 @@ impl SseEncode for crate::api::key::FfiDerivationPath {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <RustOpaqueNom<bdk_wallet::bitcoin::bip32::DerivationPath>>::sse_encode(
-            self.ptr, serializer,
+            self.opaque,
+            serializer,
         );
     }
 }
@@ -6873,14 +6875,14 @@ impl SseEncode for crate::api::descriptor::FfiDescriptor {
 impl SseEncode for crate::api::key::FfiDescriptorPublicKey {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<bdk_wallet::keys::DescriptorPublicKey>>::sse_encode(self.ptr, serializer);
+        <RustOpaqueNom<bdk_wallet::keys::DescriptorPublicKey>>::sse_encode(self.opaque, serializer);
     }
 }
 
 impl SseEncode for crate::api::key::FfiDescriptorSecretKey {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueNom<bdk_wallet::keys::DescriptorSecretKey>>::sse_encode(self.ptr, serializer);
+        <RustOpaqueNom<bdk_wallet::keys::DescriptorSecretKey>>::sse_encode(self.opaque, serializer);
     }
 }
 
@@ -7050,12 +7052,12 @@ impl SseEncode for crate::api::types::KeychainKind {
     }
 }
 
-impl SseEncode for Vec<crate::api::types::CanonicalTx> {
+impl SseEncode for Vec<crate::api::types::FfiCanonicalTx> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
-            <crate::api::types::CanonicalTx>::sse_encode(item, serializer);
+            <crate::api::types::FfiCanonicalTx>::sse_encode(item, serializer);
         }
     }
 }
@@ -7209,22 +7211,22 @@ impl SseEncode for Option<String> {
     }
 }
 
-impl SseEncode for Option<crate::api::types::CanonicalTx> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <crate::api::types::CanonicalTx>::sse_encode(value, serializer);
-        }
-    }
-}
-
 impl SseEncode for Option<crate::api::bitcoin::FeeRate> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::bitcoin::FeeRate>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::types::FfiCanonicalTx> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::types::FfiCanonicalTx>::sse_encode(value, serializer);
         }
     }
 }
@@ -8065,13 +8067,6 @@ mod io {
             }
         }
     }
-    impl CstDecode<crate::api::types::CanonicalTx> for *mut wire_cst_canonical_tx {
-        // Codec=Cst (C-struct based), see doc to use other codecs
-        fn cst_decode(self) -> crate::api::types::CanonicalTx {
-            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
-            CstDecode::<crate::api::types::CanonicalTx>::cst_decode(*wrap).into()
-        }
-    }
     impl CstDecode<crate::api::types::ConfirmationBlockTime> for *mut wire_cst_confirmation_block_time {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::types::ConfirmationBlockTime {
@@ -8091,6 +8086,13 @@ mod io {
         fn cst_decode(self) -> crate::api::bitcoin::FfiAddress {
             let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
             CstDecode::<crate::api::bitcoin::FfiAddress>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::types::FfiCanonicalTx> for *mut wire_cst_ffi_canonical_tx {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::types::FfiCanonicalTx {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::types::FfiCanonicalTx>::cst_decode(*wrap).into()
         }
     }
     impl CstDecode<crate::api::store::FfiConnection> for *mut wire_cst_ffi_connection {
@@ -8290,15 +8292,6 @@ mod io {
                     }
                 }
                 _ => unreachable!(),
-            }
-        }
-    }
-    impl CstDecode<crate::api::types::CanonicalTx> for wire_cst_canonical_tx {
-        // Codec=Cst (C-struct based), see doc to use other codecs
-        fn cst_decode(self) -> crate::api::types::CanonicalTx {
-            crate::api::types::CanonicalTx {
-                transaction: self.transaction.cst_decode(),
-                chain_position: self.chain_position.cst_decode(),
             }
         }
     }
@@ -8732,6 +8725,15 @@ mod io {
             crate::api::bitcoin::FfiAddress(self.field0.cst_decode())
         }
     }
+    impl CstDecode<crate::api::types::FfiCanonicalTx> for wire_cst_ffi_canonical_tx {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::types::FfiCanonicalTx {
+            crate::api::types::FfiCanonicalTx {
+                transaction: self.transaction.cst_decode(),
+                chain_position: self.chain_position.cst_decode(),
+            }
+        }
+    }
     impl CstDecode<crate::api::store::FfiConnection> for wire_cst_ffi_connection {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::store::FfiConnection {
@@ -8742,7 +8744,7 @@ mod io {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::key::FfiDerivationPath {
             crate::api::key::FfiDerivationPath {
-                ptr: self.ptr.cst_decode(),
+                opaque: self.opaque.cst_decode(),
             }
         }
     }
@@ -8759,7 +8761,7 @@ mod io {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::key::FfiDescriptorPublicKey {
             crate::api::key::FfiDescriptorPublicKey {
-                ptr: self.ptr.cst_decode(),
+                opaque: self.opaque.cst_decode(),
             }
         }
     }
@@ -8767,7 +8769,7 @@ mod io {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::key::FfiDescriptorSecretKey {
             crate::api::key::FfiDescriptorSecretKey {
-                ptr: self.ptr.cst_decode(),
+                opaque: self.opaque.cst_decode(),
             }
         }
     }
@@ -8881,9 +8883,9 @@ mod io {
             }
         }
     }
-    impl CstDecode<Vec<crate::api::types::CanonicalTx>> for *mut wire_cst_list_canonical_tx {
+    impl CstDecode<Vec<crate::api::types::FfiCanonicalTx>> for *mut wire_cst_list_ffi_canonical_tx {
         // Codec=Cst (C-struct based), see doc to use other codecs
-        fn cst_decode(self) -> Vec<crate::api::types::CanonicalTx> {
+        fn cst_decode(self) -> Vec<crate::api::types::FfiCanonicalTx> {
             let vec = unsafe {
                 let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
                 flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -9425,19 +9427,6 @@ mod io {
             Self::new_with_null_ptr()
         }
     }
-    impl NewWithNullPtr for wire_cst_canonical_tx {
-        fn new_with_null_ptr() -> Self {
-            Self {
-                transaction: Default::default(),
-                chain_position: Default::default(),
-            }
-        }
-    }
-    impl Default for wire_cst_canonical_tx {
-        fn default() -> Self {
-            Self::new_with_null_ptr()
-        }
-    }
     impl NewWithNullPtr for wire_cst_chain_position {
         fn new_with_null_ptr() -> Self {
             Self {
@@ -9579,6 +9568,19 @@ mod io {
             Self::new_with_null_ptr()
         }
     }
+    impl NewWithNullPtr for wire_cst_ffi_canonical_tx {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                transaction: Default::default(),
+                chain_position: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_ffi_canonical_tx {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
     impl NewWithNullPtr for wire_cst_ffi_connection {
         fn new_with_null_ptr() -> Self {
             Self {
@@ -9594,7 +9596,7 @@ mod io {
     impl NewWithNullPtr for wire_cst_ffi_derivation_path {
         fn new_with_null_ptr() -> Self {
             Self {
-                ptr: Default::default(),
+                opaque: Default::default(),
             }
         }
     }
@@ -9619,7 +9621,7 @@ mod io {
     impl NewWithNullPtr for wire_cst_ffi_descriptor_public_key {
         fn new_with_null_ptr() -> Self {
             Self {
-                ptr: Default::default(),
+                opaque: Default::default(),
             }
         }
     }
@@ -9631,7 +9633,7 @@ mod io {
     impl NewWithNullPtr for wire_cst_ffi_descriptor_secret_key {
         fn new_with_null_ptr() -> Self {
             Self {
-                ptr: Default::default(),
+                opaque: Default::default(),
             }
         }
     }
@@ -10037,9 +10039,9 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_address_script(
-        ptr: *mut wire_cst_ffi_address,
+        opaque: *mut wire_cst_ffi_address,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__crate__api__bitcoin__ffi_address_script_impl(ptr)
+        wire__crate__api__bitcoin__ffi_address_script_impl(opaque)
     }
 
     #[no_mangle]
@@ -10051,26 +10053,25 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_as_string(
-        port_: i64,
         that: *mut wire_cst_ffi_psbt,
-    ) {
-        wire__crate__api__bitcoin__ffi_psbt_as_string_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_psbt_as_string_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_combine(
         port_: i64,
-        ptr: *mut wire_cst_ffi_psbt,
+        opaque: *mut wire_cst_ffi_psbt,
         other: *mut wire_cst_ffi_psbt,
     ) {
-        wire__crate__api__bitcoin__ffi_psbt_combine_impl(port_, ptr, other)
+        wire__crate__api__bitcoin__ffi_psbt_combine_impl(port_, opaque, other)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_extract_tx(
-        ptr: *mut wire_cst_ffi_psbt,
+        opaque: *mut wire_cst_ffi_psbt,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__crate__api__bitcoin__ffi_psbt_extract_tx_impl(ptr)
+        wire__crate__api__bitcoin__ffi_psbt_extract_tx_impl(opaque)
     }
 
     #[no_mangle]
@@ -10517,19 +10518,19 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_derive(
         port_: i64,
-        ptr: *mut wire_cst_ffi_descriptor_public_key,
+        opaque: *mut wire_cst_ffi_descriptor_public_key,
         path: *mut wire_cst_ffi_derivation_path,
     ) {
-        wire__crate__api__key__ffi_descriptor_public_key_derive_impl(port_, ptr, path)
+        wire__crate__api__key__ffi_descriptor_public_key_derive_impl(port_, opaque, path)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_extend(
         port_: i64,
-        ptr: *mut wire_cst_ffi_descriptor_public_key,
+        opaque: *mut wire_cst_ffi_descriptor_public_key,
         path: *mut wire_cst_ffi_derivation_path,
     ) {
-        wire__crate__api__key__ffi_descriptor_public_key_extend_impl(port_, ptr, path)
+        wire__crate__api__key__ffi_descriptor_public_key_extend_impl(port_, opaque, path)
     }
 
     #[no_mangle]
@@ -10542,9 +10543,9 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_as_public(
-        ptr: *mut wire_cst_ffi_descriptor_secret_key,
+        opaque: *mut wire_cst_ffi_descriptor_secret_key,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__crate__api__key__ffi_descriptor_secret_key_as_public_impl(ptr)
+        wire__crate__api__key__ffi_descriptor_secret_key_as_public_impl(opaque)
     }
 
     #[no_mangle]
@@ -10569,19 +10570,19 @@ mod io {
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_derive(
         port_: i64,
-        ptr: *mut wire_cst_ffi_descriptor_secret_key,
+        opaque: *mut wire_cst_ffi_descriptor_secret_key,
         path: *mut wire_cst_ffi_derivation_path,
     ) {
-        wire__crate__api__key__ffi_descriptor_secret_key_derive_impl(port_, ptr, path)
+        wire__crate__api__key__ffi_descriptor_secret_key_derive_impl(port_, opaque, path)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_extend(
         port_: i64,
-        ptr: *mut wire_cst_ffi_descriptor_secret_key,
+        opaque: *mut wire_cst_ffi_descriptor_secret_key,
         path: *mut wire_cst_ffi_derivation_path,
     ) {
-        wire__crate__api__key__ffi_descriptor_secret_key_extend_impl(port_, ptr, path)
+        wire__crate__api__key__ffi_descriptor_secret_key_extend_impl(port_, opaque, path)
     }
 
     #[no_mangle]
@@ -10861,10 +10862,10 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address(
-        that: *mut wire_cst_ffi_wallet,
+        opaque: *mut wire_cst_ffi_wallet,
         keychain_kind: i32,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(that, keychain_kind)
+        wire__crate__api__wallet__ffi_wallet_reveal_next_address_impl(opaque, keychain_kind)
     }
 
     #[no_mangle]
@@ -11269,14 +11270,6 @@ mod io {
     }
 
     #[no_mangle]
-    pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_canonical_tx(
-    ) -> *mut wire_cst_canonical_tx {
-        flutter_rust_bridge::for_generated::new_leak_box_ptr(
-            wire_cst_canonical_tx::new_with_null_ptr(),
-        )
-    }
-
-    #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_confirmation_block_time(
     ) -> *mut wire_cst_confirmation_block_time {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(
@@ -11294,6 +11287,14 @@ mod io {
     ) -> *mut wire_cst_ffi_address {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(
             wire_cst_ffi_address::new_with_null_ptr(),
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_ffi_canonical_tx(
+    ) -> *mut wire_cst_ffi_canonical_tx {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_ffi_canonical_tx::new_with_null_ptr(),
         )
     }
 
@@ -11461,12 +11462,12 @@ mod io {
     }
 
     #[no_mangle]
-    pub extern "C" fn frbgen_bdk_flutter_cst_new_list_canonical_tx(
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_list_ffi_canonical_tx(
         len: i32,
-    ) -> *mut wire_cst_list_canonical_tx {
-        let wrap = wire_cst_list_canonical_tx {
+    ) -> *mut wire_cst_list_ffi_canonical_tx {
+        let wrap = wire_cst_list_ffi_canonical_tx {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
-                <wire_cst_canonical_tx>::new_with_null_ptr(),
+                <wire_cst_ffi_canonical_tx>::new_with_null_ptr(),
                 len,
             ),
             len,
@@ -11763,12 +11764,6 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_CannotConnectError_Include {
         height: u32,
-    }
-    #[repr(C)]
-    #[derive(Clone, Copy)]
-    pub struct wire_cst_canonical_tx {
-        transaction: wire_cst_ffi_transaction,
-        chain_position: wire_cst_chain_position,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -12192,13 +12187,19 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_ffi_canonical_tx {
+        transaction: wire_cst_ffi_transaction,
+        chain_position: wire_cst_chain_position,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_ffi_connection {
         field0: usize,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_ffi_derivation_path {
-        ptr: usize,
+        opaque: usize,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -12209,12 +12210,12 @@ mod io {
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_ffi_descriptor_public_key {
-        ptr: usize,
+        opaque: usize,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_ffi_descriptor_secret_key {
-        ptr: usize,
+        opaque: usize,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -12301,8 +12302,8 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
-    pub struct wire_cst_list_canonical_tx {
-        ptr: *mut wire_cst_canonical_tx,
+    pub struct wire_cst_list_ffi_canonical_tx {
+        ptr: *mut wire_cst_ffi_canonical_tx,
         len: i32,
     }
     #[repr(C)]

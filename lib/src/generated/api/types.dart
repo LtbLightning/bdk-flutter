@@ -118,27 +118,6 @@ class BlockId {
           hash == other.hash;
 }
 
-class CanonicalTx {
-  final FfiTransaction transaction;
-  final ChainPosition chainPosition;
-
-  const CanonicalTx({
-    required this.transaction,
-    required this.chainPosition,
-  });
-
-  @override
-  int get hashCode => transaction.hashCode ^ chainPosition.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CanonicalTx &&
-          runtimeType == other.runtimeType &&
-          transaction == other.transaction &&
-          chainPosition == other.chainPosition;
-}
-
 @freezed
 sealed class ChainPosition with _$ChainPosition {
   const ChainPosition._();
@@ -186,6 +165,27 @@ class ConfirmationBlockTime {
           runtimeType == other.runtimeType &&
           blockId == other.blockId &&
           confirmationTime == other.confirmationTime;
+}
+
+class FfiCanonicalTx {
+  final FfiTransaction transaction;
+  final ChainPosition chainPosition;
+
+  const FfiCanonicalTx({
+    required this.transaction,
+    required this.chainPosition,
+  });
+
+  @override
+  int get hashCode => transaction.hashCode ^ chainPosition.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FfiCanonicalTx &&
+          runtimeType == other.runtimeType &&
+          transaction == other.transaction &&
+          chainPosition == other.chainPosition;
 }
 
 class FfiFullScanRequest {

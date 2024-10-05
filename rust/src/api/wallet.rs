@@ -15,8 +15,8 @@ use super::error::{
 };
 use super::store::FfiConnection;
 use super::types::{
-    AddressInfo, Balance, CanonicalTx, FfiFullScanRequestBuilder, FfiSyncRequestBuilder, FfiUpdate,
-    KeychainKind, LocalOutput, Network, SignOptions,
+    AddressInfo, Balance, FfiCanonicalTx, FfiFullScanRequestBuilder, FfiSyncRequestBuilder,
+    FfiUpdate, KeychainKind, LocalOutput, Network, SignOptions,
 };
 use crate::frb_generated::RustOpaque;
 
@@ -80,8 +80,9 @@ impl FfiWallet {
     /// index defined in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki),
     /// then the last revealed address will be returned.
     #[frb(sync)]
-    pub fn reveal_next_address(&self, keychain_kind: KeychainKind) -> AddressInfo {
-        self.get_wallet()
+    pub fn reveal_next_address(opaque: FfiWallet, keychain_kind: KeychainKind) -> AddressInfo {
+        opaque
+            .get_wallet()
             .reveal_next_address(keychain_kind.into())
             .into()
     }
@@ -122,14 +123,15 @@ impl FfiWallet {
 
     ///Iterate over the transactions in the wallet.
     #[frb(sync)]
-    pub fn transactions(&self) -> Vec<CanonicalTx> {
+    pub fn transactions(&self) -> Vec<FfiCanonicalTx> {
         self.get_wallet()
             .transactions()
             .map(|tx| tx.into())
             .collect()
     }
+
     ///Get a single transaction from the wallet as a WalletTx (if the transaction exists).
-    pub fn get_tx(&self, txid: String) -> Result<Option<CanonicalTx>, TxidParseError> {
+    pub fn get_tx(&self, txid: String) -> Result<Option<FfiCanonicalTx>, TxidParseError> {
         let txid =
             Txid::from_str(txid.as_str()).map_err(|_| TxidParseError::InvalidTxid { txid })?;
         Ok(self.get_wallet().get_tx(txid).map(|tx| tx.into()))
@@ -167,12 +169,12 @@ impl FfiWallet {
     // /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
     // /// in this library will.
     // pub fn sign(
-    //     ptr: FfiWallet,
+    //     opaque: FfiWallet,
     //     psbt: BdkPsbt,
     //     sign_options: Option<SignOptions>
     // ) -> Result<bool, BdkError> {
-    //     let mut psbt = psbt.ptr.lock().unwrap();
-    //     ptr.get_wallet()
+    //     let mut psbt = psbt.opaque.lock().unwrap();
+    //     opaque.get_wallet()
     //         .sign(&mut psbt, sign_options.map(SignOptions::into).unwrap_or_default())
     //         .map_err(|e| e.into())
     // }

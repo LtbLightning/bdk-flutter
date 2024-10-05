@@ -54,8 +54,8 @@ class FfiAddress {
   bool isValidForNetwork({required Network network}) => core.instance.api
       .crateApiBitcoinFfiAddressIsValidForNetwork(that: this, network: network);
 
-  static FfiScriptBuf script({required FfiAddress ptr}) =>
-      core.instance.api.crateApiBitcoinFfiAddressScript(ptr: ptr);
+  static FfiScriptBuf script({required FfiAddress opaque}) =>
+      core.instance.api.crateApiBitcoinFfiAddressScript(opaque: opaque);
 
   String toQrUri() => core.instance.api.crateApiBitcoinFfiAddressToQrUri(
         that: this,
@@ -79,7 +79,7 @@ class FfiPsbt {
     required this.opaque,
   });
 
-  Future<String> asString() => core.instance.api.crateApiBitcoinFfiPsbtAsString(
+  String asString() => core.instance.api.crateApiBitcoinFfiPsbtAsString(
         that: this,
       );
 
@@ -87,12 +87,13 @@ class FfiPsbt {
   ///
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
   static Future<FfiPsbt> combine(
-          {required FfiPsbt ptr, required FfiPsbt other}) =>
-      core.instance.api.crateApiBitcoinFfiPsbtCombine(ptr: ptr, other: other);
+          {required FfiPsbt opaque, required FfiPsbt other}) =>
+      core.instance.api
+          .crateApiBitcoinFfiPsbtCombine(opaque: opaque, other: other);
 
   /// Return the transaction.
-  static FfiTransaction extractTx({required FfiPsbt ptr}) =>
-      core.instance.api.crateApiBitcoinFfiPsbtExtractTx(ptr: ptr);
+  static FfiTransaction extractTx({required FfiPsbt opaque}) =>
+      core.instance.api.crateApiBitcoinFfiPsbtExtractTx(opaque: opaque);
 
   /// The total transaction fee amount, sum of input amounts minus sum of output amounts, in Sats.
   /// If the PSBT is missing a TxOut for an input returns None.

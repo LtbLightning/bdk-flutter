@@ -128,7 +128,7 @@ pub struct BlockId {
     pub height: u32,
     pub hash: String,
 }
-pub struct CanonicalTx {
+pub struct FfiCanonicalTx {
     pub transaction: FfiTransaction,
     pub chain_position: ChainPosition,
 }
@@ -140,7 +140,7 @@ impl
             Arc<bdk_core::bitcoin::transaction::Transaction>,
             bdk_wallet::chain::ConfirmationBlockTime,
         >,
-    > for CanonicalTx
+    > for FfiCanonicalTx
 {
     fn from(
         value: bdk_wallet::chain::tx_graph::CanonicalTx<
@@ -167,7 +167,7 @@ impl
             }
         };
 
-        CanonicalTx {
+        FfiCanonicalTx {
             transaction: (*value.tx_node.tx).clone().try_into().unwrap(),
             chain_position,
         }

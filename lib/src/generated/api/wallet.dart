@@ -40,7 +40,7 @@ class FfiWallet {
       );
 
   ///Get a single transaction from the wallet as a WalletTx (if the transaction exists).
-  Future<CanonicalTx?> getTx({required String txid}) =>
+  Future<FfiCanonicalTx?> getTx({required String txid}) =>
       core.instance.api.crateApiWalletFfiWalletGetTx(that: this, txid: txid);
 
   /// Return whether or not a script is part of this wallet (either internal or external).
@@ -94,9 +94,10 @@ class FfiWallet {
   /// contain a wildcard or every address is already revealed up to the maximum derivation
   /// index defined in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki),
   /// then the last revealed address will be returned.
-  AddressInfo revealNextAddress({required KeychainKind keychainKind}) =>
+  static AddressInfo revealNextAddress(
+          {required FfiWallet opaque, required KeychainKind keychainKind}) =>
       core.instance.api.crateApiWalletFfiWalletRevealNextAddress(
-          that: this, keychainKind: keychainKind);
+          opaque: opaque, keychainKind: keychainKind);
 
   Future<bool> sign(
           {required FfiPsbt psbt, required SignOptions signOptions}) =>
@@ -114,7 +115,7 @@ class FfiWallet {
       );
 
   ///Iterate over the transactions in the wallet.
-  List<CanonicalTx> transactions() =>
+  List<FfiCanonicalTx> transactions() =>
       core.instance.api.crateApiWalletFfiWalletTransactions(
         that: this,
       );
