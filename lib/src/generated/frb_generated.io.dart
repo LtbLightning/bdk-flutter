@@ -4357,12 +4357,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__electrum__ffi_electrum_client_broadcast(
     int port_,
-    ffi.Pointer<wire_cst_ffi_electrum_client> that,
+    ffi.Pointer<wire_cst_ffi_electrum_client> opaque,
     ffi.Pointer<wire_cst_ffi_transaction> transaction,
   ) {
     return _wire__crate__api__electrum__ffi_electrum_client_broadcast(
       port_,
-      that,
+      opaque,
       transaction,
     );
   }
@@ -4382,7 +4382,7 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__electrum__ffi_electrum_client_full_scan(
     int port_,
-    ffi.Pointer<wire_cst_ffi_electrum_client> that,
+    ffi.Pointer<wire_cst_ffi_electrum_client> opaque,
     ffi.Pointer<wire_cst_ffi_full_scan_request> request,
     int stop_gap,
     int batch_size,
@@ -4390,7 +4390,7 @@ class coreWire implements BaseWire {
   ) {
     return _wire__crate__api__electrum__ffi_electrum_client_full_scan(
       port_,
-      that,
+      opaque,
       request,
       stop_gap,
       batch_size,
@@ -4435,14 +4435,14 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__electrum__ffi_electrum_client_sync(
     int port_,
-    ffi.Pointer<wire_cst_ffi_electrum_client> that,
+    ffi.Pointer<wire_cst_ffi_electrum_client> opaque,
     ffi.Pointer<wire_cst_ffi_sync_request> request,
     int batch_size,
     bool fetch_prev_txouts,
   ) {
     return _wire__crate__api__electrum__ffi_electrum_client_sync(
       port_,
-      that,
+      opaque,
       request,
       batch_size,
       fetch_prev_txouts,
@@ -4465,12 +4465,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__esplora__ffi_esplora_client_broadcast(
     int port_,
-    ffi.Pointer<wire_cst_ffi_esplora_client> that,
+    ffi.Pointer<wire_cst_ffi_esplora_client> opaque,
     ffi.Pointer<wire_cst_ffi_transaction> transaction,
   ) {
     return _wire__crate__api__esplora__ffi_esplora_client_broadcast(
       port_,
-      that,
+      opaque,
       transaction,
     );
   }
@@ -4489,14 +4489,14 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__esplora__ffi_esplora_client_full_scan(
     int port_,
-    ffi.Pointer<wire_cst_ffi_esplora_client> that,
+    ffi.Pointer<wire_cst_ffi_esplora_client> opaque,
     ffi.Pointer<wire_cst_ffi_full_scan_request> request,
     int stop_gap,
     int parallel_requests,
   ) {
     return _wire__crate__api__esplora__ffi_esplora_client_full_scan(
       port_,
-      that,
+      opaque,
       request,
       stop_gap,
       parallel_requests,
@@ -4538,13 +4538,13 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__esplora__ffi_esplora_client_sync(
     int port_,
-    ffi.Pointer<wire_cst_ffi_esplora_client> that,
+    ffi.Pointer<wire_cst_ffi_esplora_client> opaque,
     ffi.Pointer<wire_cst_ffi_sync_request> request,
     int parallel_requests,
   ) {
     return _wire__crate__api__esplora__ffi_esplora_client_sync(
       port_,
-      that,
+      opaque,
       request,
       parallel_requests,
     );

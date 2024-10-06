@@ -31,17 +31,20 @@ class FfiElectrumClient {
     required this.opaque,
   });
 
-  Future<String> broadcast({required FfiTransaction transaction}) =>
+  static Future<String> broadcast(
+          {required FfiElectrumClient opaque,
+          required FfiTransaction transaction}) =>
       core.instance.api.crateApiElectrumFfiElectrumClientBroadcast(
-          that: this, transaction: transaction);
+          opaque: opaque, transaction: transaction);
 
-  Future<FfiUpdate> fullScan(
-          {required FfiFullScanRequest request,
+  static Future<FfiUpdate> fullScan(
+          {required FfiElectrumClient opaque,
+          required FfiFullScanRequest request,
           required BigInt stopGap,
           required BigInt batchSize,
           required bool fetchPrevTxouts}) =>
       core.instance.api.crateApiElectrumFfiElectrumClientFullScan(
-          that: this,
+          opaque: opaque,
           request: request,
           stopGap: stopGap,
           batchSize: batchSize,
@@ -51,12 +54,13 @@ class FfiElectrumClient {
   static Future<FfiElectrumClient> newInstance({required String url}) =>
       core.instance.api.crateApiElectrumFfiElectrumClientNew(url: url);
 
-  Future<FfiUpdate> sync_(
-          {required FfiSyncRequest request,
+  static Future<FfiUpdate> sync_(
+          {required FfiElectrumClient opaque,
+          required FfiSyncRequest request,
           required BigInt batchSize,
           required bool fetchPrevTxouts}) =>
       core.instance.api.crateApiElectrumFfiElectrumClientSync(
-          that: this,
+          opaque: opaque,
           request: request,
           batchSize: batchSize,
           fetchPrevTxouts: fetchPrevTxouts);

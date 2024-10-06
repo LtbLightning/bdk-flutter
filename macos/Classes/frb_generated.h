@@ -1042,11 +1042,11 @@ void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip86_p
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_to_string_with_secret(struct wire_cst_ffi_descriptor *that);
 
 void frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_broadcast(int64_t port_,
-                                                                                  struct wire_cst_ffi_electrum_client *that,
+                                                                                  struct wire_cst_ffi_electrum_client *opaque,
                                                                                   struct wire_cst_ffi_transaction *transaction);
 
 void frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_full_scan(int64_t port_,
-                                                                                  struct wire_cst_ffi_electrum_client *that,
+                                                                                  struct wire_cst_ffi_electrum_client *opaque,
                                                                                   struct wire_cst_ffi_full_scan_request *request,
                                                                                   uint64_t stop_gap,
                                                                                   uint64_t batch_size,
@@ -1056,17 +1056,17 @@ void frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_new(int6
                                                                             struct wire_cst_list_prim_u_8_strict *url);
 
 void frbgen_bdk_flutter_wire__crate__api__electrum__ffi_electrum_client_sync(int64_t port_,
-                                                                             struct wire_cst_ffi_electrum_client *that,
+                                                                             struct wire_cst_ffi_electrum_client *opaque,
                                                                              struct wire_cst_ffi_sync_request *request,
                                                                              uint64_t batch_size,
                                                                              bool fetch_prev_txouts);
 
 void frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_broadcast(int64_t port_,
-                                                                                struct wire_cst_ffi_esplora_client *that,
+                                                                                struct wire_cst_ffi_esplora_client *opaque,
                                                                                 struct wire_cst_ffi_transaction *transaction);
 
 void frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_full_scan(int64_t port_,
-                                                                                struct wire_cst_ffi_esplora_client *that,
+                                                                                struct wire_cst_ffi_esplora_client *opaque,
                                                                                 struct wire_cst_ffi_full_scan_request *request,
                                                                                 uint64_t stop_gap,
                                                                                 uint64_t parallel_requests);
@@ -1075,7 +1075,7 @@ void frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_new(int64_
                                                                           struct wire_cst_list_prim_u_8_strict *url);
 
 void frbgen_bdk_flutter_wire__crate__api__esplora__ffi_esplora_client_sync(int64_t port_,
-                                                                           struct wire_cst_ffi_esplora_client *that,
+                                                                           struct wire_cst_ffi_esplora_client *opaque,
                                                                            struct wire_cst_ffi_sync_request *request,
                                                                            uint64_t parallel_requests);
 

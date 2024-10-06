@@ -4,7 +4,9 @@ import 'dart:typed_data';
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/generated/api/bitcoin.dart' as bitcoin;
 import 'package:bdk_flutter/src/generated/api/descriptor.dart';
+import 'package:bdk_flutter/src/generated/api/electrum.dart';
 import 'package:bdk_flutter/src/generated/api/error.dart';
+import 'package:bdk_flutter/src/generated/api/esplora.dart';
 import 'package:bdk_flutter/src/generated/api/key.dart';
 import 'package:bdk_flutter/src/generated/api/store.dart';
 import 'package:bdk_flutter/src/generated/api/tx_builder.dart';
@@ -466,6 +468,88 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return super.secretBytes();
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    }
+  }
+}
+
+class EsploraClient extends FfiEsploraClient {
+  EsploraClient._({required super.opaque});
+
+  static Future<EsploraClient> create(String url) async {
+    try {
+      await Api.initialize();
+      final res = await FfiEsploraClient.newInstance(url: url);
+      return EsploraClient._(opaque: res.opaque);
+    } on EsploraError catch (e) {
+      throw mapEsploraError(e);
+    }
+  }
+
+  Future<void> broadcast({required Transaction transaction}) async {
+    try {
+      await FfiEsploraClient.broadcast(opaque: super, transaction: transaction);
+      return;
+    } on EsploraError catch (e) {
+      throw mapEsploraError(e);
+    }
+  }
+
+  Future<Update> fullScan({
+    required FullScanRequest request,
+    required BigInt stopGap,
+    required BigInt parallelRequests,
+  }) async {
+    try {
+      final res = await FfiEsploraClient.fullScan(
+          opaque: super,
+          request: request,
+          stopGap: stopGap,
+          parallelRequests: parallelRequests);
+      return Update._(field0: res.field0);
+    } on EsploraError catch (e) {
+      throw mapEsploraError(e);
+    }
+  }
+}
+
+class ElectrumClient extends FfiElectrumClient {
+  ElectrumClient._({required super.opaque});
+  static Future<ElectrumClient> create(String url) async {
+    try {
+      await Api.initialize();
+      final res = await FfiElectrumClient.newInstance(url: url);
+      return ElectrumClient._(opaque: res.opaque);
+    } on EsploraError catch (e) {
+      throw mapEsploraError(e);
+    }
+  }
+
+  Future<String> broadcast({required Transaction transaction}) async {
+    try {
+      return await FfiElectrumClient.broadcast(
+          opaque: super, transaction: transaction);
+    } on ElectrumError catch (e) {
+      throw mapElectrumError(e);
+    }
+  }
+
+  Future<Update> fullScan({
+    required FfiFullScanRequest request,
+    required BigInt stopGap,
+    required BigInt batchSize,
+    required bool fetchPrevTxouts,
+  }) async {
+    try {
+      final res = await FfiElectrumClient.fullScan(
+        opaque: super,
+        request: request,
+        stopGap: stopGap,
+        batchSize: batchSize,
+        fetchPrevTxouts: fetchPrevTxouts,
+      );
+      return Update._(field0: res.field0);
+    } on ElectrumError catch (e) {
+      throw mapElectrumError(e);
     }
   }
 }
@@ -1062,6 +1146,10 @@ class CanonicalTx extends FfiCanonicalTx {
   Transaction get transaction {
     return Transaction._(opaque: super.transaction.opaque);
   }
+}
+
+class Update extends FfiUpdate {
+  Update._({required super.field0});
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address

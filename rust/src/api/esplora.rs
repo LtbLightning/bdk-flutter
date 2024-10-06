@@ -28,7 +28,7 @@ impl FfiEsploraClient {
     }
 
     pub fn full_scan(
-        &self,
+        opaque: FfiEsploraClient,
         request: FfiFullScanRequest,
         stop_gap: u64,
         parallel_requests: u64,
@@ -42,7 +42,8 @@ impl FfiEsploraClient {
             .ok_or(EsploraError::RequestAlreadyConsumed)?;
 
         let result: BdkFullScanResult<KeychainKind> =
-            self.opaque
+            opaque
+                .opaque
                 .full_scan(request, stop_gap as usize, parallel_requests as usize)?;
 
         let update = BdkUpdate {
@@ -55,7 +56,7 @@ impl FfiEsploraClient {
     }
 
     pub fn sync(
-        &self,
+        opaque: FfiEsploraClient,
         request: FfiSyncRequest,
         parallel_requests: u64,
     ) -> Result<FfiUpdate, EsploraError> {
@@ -67,7 +68,7 @@ impl FfiEsploraClient {
             .take()
             .ok_or(EsploraError::RequestAlreadyConsumed)?;
 
-        let result: BdkSyncResult = self.opaque.sync(request, parallel_requests as usize)?;
+        let result: BdkSyncResult = opaque.opaque.sync(request, parallel_requests as usize)?;
 
         let update = BdkUpdate {
             last_active_indices: BTreeMap::default(),
@@ -78,8 +79,12 @@ impl FfiEsploraClient {
         Ok(FfiUpdate(RustOpaque::new(update)))
     }
 
-    pub fn broadcast(&self, transaction: &FfiTransaction) -> Result<(), EsploraError> {
-        self.opaque
+    pub fn broadcast(
+        opaque: FfiEsploraClient,
+        transaction: &FfiTransaction,
+    ) -> Result<(), EsploraError> {
+        opaque
+            .opaque
             .broadcast(&transaction.into())
             .map_err(EsploraError::from)
     }

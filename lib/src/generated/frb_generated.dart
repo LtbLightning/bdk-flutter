@@ -221,10 +221,10 @@ abstract class coreApi extends BaseApi {
       {required FfiDescriptor that});
 
   Future<String> crateApiElectrumFfiElectrumClientBroadcast(
-      {required FfiElectrumClient that, required FfiTransaction transaction});
+      {required FfiElectrumClient opaque, required FfiTransaction transaction});
 
   Future<FfiUpdate> crateApiElectrumFfiElectrumClientFullScan(
-      {required FfiElectrumClient that,
+      {required FfiElectrumClient opaque,
       required FfiFullScanRequest request,
       required BigInt stopGap,
       required BigInt batchSize,
@@ -234,16 +234,16 @@ abstract class coreApi extends BaseApi {
       {required String url});
 
   Future<FfiUpdate> crateApiElectrumFfiElectrumClientSync(
-      {required FfiElectrumClient that,
+      {required FfiElectrumClient opaque,
       required FfiSyncRequest request,
       required BigInt batchSize,
       required bool fetchPrevTxouts});
 
   Future<void> crateApiEsploraFfiEsploraClientBroadcast(
-      {required FfiEsploraClient that, required FfiTransaction transaction});
+      {required FfiEsploraClient opaque, required FfiTransaction transaction});
 
   Future<FfiUpdate> crateApiEsploraFfiEsploraClientFullScan(
-      {required FfiEsploraClient that,
+      {required FfiEsploraClient opaque,
       required FfiFullScanRequest request,
       required BigInt stopGap,
       required BigInt parallelRequests});
@@ -252,7 +252,7 @@ abstract class coreApi extends BaseApi {
       {required String url});
 
   Future<FfiUpdate> crateApiEsploraFfiEsploraClientSync(
-      {required FfiEsploraClient that,
+      {required FfiEsploraClient opaque,
       required FfiSyncRequest request,
       required BigInt parallelRequests});
 
@@ -1639,10 +1639,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<String> crateApiElectrumFfiElectrumClientBroadcast(
-      {required FfiElectrumClient that, required FfiTransaction transaction}) {
+      {required FfiElectrumClient opaque,
+      required FfiTransaction transaction}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_transaction(transaction);
         return wire.wire__crate__api__electrum__ffi_electrum_client_broadcast(
             port_, arg0, arg1);
@@ -1652,7 +1653,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_electrum_error,
       ),
       constMeta: kCrateApiElectrumFfiElectrumClientBroadcastConstMeta,
-      argValues: [that, transaction],
+      argValues: [opaque, transaction],
       apiImpl: this,
     ));
   }
@@ -1660,19 +1661,19 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiElectrumFfiElectrumClientBroadcastConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_electrum_client_broadcast",
-        argNames: ["that", "transaction"],
+        argNames: ["opaque", "transaction"],
       );
 
   @override
   Future<FfiUpdate> crateApiElectrumFfiElectrumClientFullScan(
-      {required FfiElectrumClient that,
+      {required FfiElectrumClient opaque,
       required FfiFullScanRequest request,
       required BigInt stopGap,
       required BigInt batchSize,
       required bool fetchPrevTxouts}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_full_scan_request(request);
         var arg2 = cst_encode_u_64(stopGap);
         var arg3 = cst_encode_u_64(batchSize);
@@ -1685,7 +1686,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_electrum_error,
       ),
       constMeta: kCrateApiElectrumFfiElectrumClientFullScanConstMeta,
-      argValues: [that, request, stopGap, batchSize, fetchPrevTxouts],
+      argValues: [opaque, request, stopGap, batchSize, fetchPrevTxouts],
       apiImpl: this,
     ));
   }
@@ -1694,7 +1695,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       const TaskConstMeta(
         debugName: "ffi_electrum_client_full_scan",
         argNames: [
-          "that",
+          "opaque",
           "request",
           "stopGap",
           "batchSize",
@@ -1729,13 +1730,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<FfiUpdate> crateApiElectrumFfiElectrumClientSync(
-      {required FfiElectrumClient that,
+      {required FfiElectrumClient opaque,
       required FfiSyncRequest request,
       required BigInt batchSize,
       required bool fetchPrevTxouts}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_electrum_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_sync_request(request);
         var arg2 = cst_encode_u_64(batchSize);
         var arg3 = cst_encode_bool(fetchPrevTxouts);
@@ -1747,7 +1748,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_electrum_error,
       ),
       constMeta: kCrateApiElectrumFfiElectrumClientSyncConstMeta,
-      argValues: [that, request, batchSize, fetchPrevTxouts],
+      argValues: [opaque, request, batchSize, fetchPrevTxouts],
       apiImpl: this,
     ));
   }
@@ -1755,15 +1756,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiElectrumFfiElectrumClientSyncConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_electrum_client_sync",
-        argNames: ["that", "request", "batchSize", "fetchPrevTxouts"],
+        argNames: ["opaque", "request", "batchSize", "fetchPrevTxouts"],
       );
 
   @override
   Future<void> crateApiEsploraFfiEsploraClientBroadcast(
-      {required FfiEsploraClient that, required FfiTransaction transaction}) {
+      {required FfiEsploraClient opaque, required FfiTransaction transaction}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_transaction(transaction);
         return wire.wire__crate__api__esplora__ffi_esplora_client_broadcast(
             port_, arg0, arg1);
@@ -1773,7 +1774,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_esplora_error,
       ),
       constMeta: kCrateApiEsploraFfiEsploraClientBroadcastConstMeta,
-      argValues: [that, transaction],
+      argValues: [opaque, transaction],
       apiImpl: this,
     ));
   }
@@ -1781,18 +1782,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiEsploraFfiEsploraClientBroadcastConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_esplora_client_broadcast",
-        argNames: ["that", "transaction"],
+        argNames: ["opaque", "transaction"],
       );
 
   @override
   Future<FfiUpdate> crateApiEsploraFfiEsploraClientFullScan(
-      {required FfiEsploraClient that,
+      {required FfiEsploraClient opaque,
       required FfiFullScanRequest request,
       required BigInt stopGap,
       required BigInt parallelRequests}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_full_scan_request(request);
         var arg2 = cst_encode_u_64(stopGap);
         var arg3 = cst_encode_u_64(parallelRequests);
@@ -1804,7 +1805,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_esplora_error,
       ),
       constMeta: kCrateApiEsploraFfiEsploraClientFullScanConstMeta,
-      argValues: [that, request, stopGap, parallelRequests],
+      argValues: [opaque, request, stopGap, parallelRequests],
       apiImpl: this,
     ));
   }
@@ -1812,7 +1813,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiEsploraFfiEsploraClientFullScanConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_esplora_client_full_scan",
-        argNames: ["that", "request", "stopGap", "parallelRequests"],
+        argNames: ["opaque", "request", "stopGap", "parallelRequests"],
       );
 
   @override
@@ -1842,12 +1843,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<FfiUpdate> crateApiEsploraFfiEsploraClientSync(
-      {required FfiEsploraClient that,
+      {required FfiEsploraClient opaque,
       required FfiSyncRequest request,
       required BigInt parallelRequests}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(that);
+        var arg0 = cst_encode_box_autoadd_ffi_esplora_client(opaque);
         var arg1 = cst_encode_box_autoadd_ffi_sync_request(request);
         var arg2 = cst_encode_u_64(parallelRequests);
         return wire.wire__crate__api__esplora__ffi_esplora_client_sync(
@@ -1858,7 +1859,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_esplora_error,
       ),
       constMeta: kCrateApiEsploraFfiEsploraClientSyncConstMeta,
-      argValues: [that, request, parallelRequests],
+      argValues: [opaque, request, parallelRequests],
       apiImpl: this,
     ));
   }
@@ -1866,7 +1867,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiEsploraFfiEsploraClientSyncConstMeta =>
       const TaskConstMeta(
         debugName: "ffi_esplora_client_sync",
-        argNames: ["that", "request", "parallelRequests"],
+        argNames: ["opaque", "request", "parallelRequests"],
       );
 
   @override

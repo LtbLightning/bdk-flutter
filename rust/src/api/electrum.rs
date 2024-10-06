@@ -28,7 +28,7 @@ impl FfiElectrumClient {
     }
 
     pub fn full_scan(
-        &self,
+        opaque: FfiElectrumClient,
         request: FfiFullScanRequest,
         stop_gap: u64,
         batch_size: u64,
@@ -42,7 +42,7 @@ impl FfiElectrumClient {
             .take()
             .ok_or(ElectrumError::RequestAlreadyConsumed)?;
 
-        let full_scan_result = self.opaque.full_scan(
+        let full_scan_result = opaque.opaque.full_scan(
             request,
             stop_gap as usize,
             batch_size as usize,
@@ -58,7 +58,7 @@ impl FfiElectrumClient {
         Ok(super::types::FfiUpdate(RustOpaque::new(update)))
     }
     pub fn sync(
-        &self,
+        opaque: FfiElectrumClient,
         request: FfiSyncRequest,
         batch_size: u64,
         fetch_prev_txouts: bool,
@@ -72,7 +72,8 @@ impl FfiElectrumClient {
             .ok_or(ElectrumError::RequestAlreadyConsumed)?;
 
         let sync_result: BdkSyncResult =
-            self.opaque
+            opaque
+                .opaque
                 .sync(request, batch_size as usize, fetch_prev_txouts)?;
 
         let update = bdk_wallet::Update {
@@ -84,8 +85,12 @@ impl FfiElectrumClient {
         Ok(super::types::FfiUpdate(RustOpaque::new(update)))
     }
 
-    pub fn broadcast(&self, transaction: &FfiTransaction) -> Result<String, ElectrumError> {
-        self.opaque
+    pub fn broadcast(
+        opaque: FfiElectrumClient,
+        transaction: &FfiTransaction,
+    ) -> Result<String, ElectrumError> {
+        opaque
+            .opaque
             .transaction_broadcast(&transaction.into())
             .map_err(ElectrumError::from)
             .map(|txid| txid.to_string())
