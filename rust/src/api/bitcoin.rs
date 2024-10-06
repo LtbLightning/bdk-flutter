@@ -181,6 +181,7 @@ impl FfiTransaction {
             bdk_core::bitcoin::transaction::Transaction::consensus_decode(&mut decoder)?;
         Ok(tx.into())
     }
+    #[frb(sync)]
     /// Computes the [`Txid`].
     ///
     /// Hashes the transaction **excluding** the segwit data (i.e. the marker, flag bytes, and the
@@ -196,6 +197,7 @@ impl FfiTransaction {
             .weight()
             .to_wu()
     }
+    #[frb(sync)]
     ///Returns the “virtual size” (vsize) of this transaction.
     ///
     // Will be ceil(weight / 4.0). Note this implements the virtual size as per BIP141, which is different to what is implemented in Bitcoin Core.
@@ -203,36 +205,43 @@ impl FfiTransaction {
     pub fn vsize(&self) -> u64 {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).vsize() as u64
     }
+    #[frb(sync)]
     ///Encodes an object into a vector.
     pub fn serialize(&self) -> Vec<u8> {
         let tx = <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self);
         bdk_core::bitcoin::consensus::serialize(&tx)
     }
+    #[frb(sync)]
     ///Is this a coin base transaction?
     pub fn is_coinbase(&self) -> bool {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_coinbase()
     }
+    #[frb(sync)]
     ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
     /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
     pub fn is_explicitly_rbf(&self) -> bool {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_explicitly_rbf()
     }
+    #[frb(sync)]
     ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
     pub fn is_lock_time_enabled(&self) -> bool {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self).is_lock_time_enabled()
     }
+    #[frb(sync)]
     ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
     pub fn version(&self) -> i32 {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
             .version
             .0
     }
+    #[frb(sync)]
     ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
     pub fn lock_time(&self) -> LockTime {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
             .lock_time
             .into()
     }
+    #[frb(sync)]
     ///List of transaction inputs.
     pub fn input(&self) -> Vec<TxIn> {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
@@ -241,6 +250,7 @@ impl FfiTransaction {
             .map(|x| x.into())
             .collect()
     }
+    #[frb(sync)]
     ///List of transaction outputs.
     pub fn output(&self) -> Vec<TxOut> {
         <&FfiTransaction as Into<bdk_core::bitcoin::Transaction>>::into(self)
