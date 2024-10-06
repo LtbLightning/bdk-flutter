@@ -1804,11 +1804,11 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       return;
     }
     if (apiObj is CreateTxError_LockTime) {
-      var pre_requested = cst_encode_String(apiObj.requested);
-      var pre_required = cst_encode_String(apiObj.required_);
+      var pre_requested_time = cst_encode_String(apiObj.requestedTime);
+      var pre_required_time = cst_encode_String(apiObj.requiredTime);
       wireObj.tag = 6;
-      wireObj.kind.LockTime.requested = pre_requested;
-      wireObj.kind.LockTime.required = pre_required;
+      wireObj.kind.LockTime.requested_time = pre_requested_time;
+      wireObj.kind.LockTime.required_time = pre_required_time;
       return;
     }
     if (apiObj is CreateTxError_RbfSequence) {
@@ -1824,15 +1824,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       return;
     }
     if (apiObj is CreateTxError_FeeTooLow) {
-      var pre_required = cst_encode_String(apiObj.required_);
+      var pre_fee_required = cst_encode_String(apiObj.feeRequired);
       wireObj.tag = 9;
-      wireObj.kind.FeeTooLow.required = pre_required;
+      wireObj.kind.FeeTooLow.fee_required = pre_fee_required;
       return;
     }
     if (apiObj is CreateTxError_FeeRateTooLow) {
-      var pre_required = cst_encode_String(apiObj.required_);
+      var pre_fee_rate_required = cst_encode_String(apiObj.feeRateRequired);
       wireObj.tag = 10;
-      wireObj.kind.FeeRateTooLow.required = pre_required;
+      wireObj.kind.FeeRateTooLow.fee_rate_required = pre_fee_rate_required;
       return;
     }
     if (apiObj is CreateTxError_NoUtxosSelected) {
@@ -1963,9 +1963,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       return;
     }
     if (apiObj is DescriptorError_InvalidDescriptorCharacter) {
-      var pre_char = cst_encode_String(apiObj.char);
+      var pre_charector = cst_encode_String(apiObj.charector);
       wireObj.tag = 8;
-      wireObj.kind.InvalidDescriptorCharacter.char = pre_char;
+      wireObj.kind.InvalidDescriptorCharacter.charector = pre_charector;
       return;
     }
     if (apiObj is DescriptorError_Bip32) {
@@ -2662,7 +2662,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     wireObj.assume_height =
         cst_encode_opt_box_autoadd_u_32(apiObj.assumeHeight);
     wireObj.allow_all_sighashes = cst_encode_bool(apiObj.allowAllSighashes);
-    wireObj.remove_partial_sigs = cst_encode_bool(apiObj.removePartialSigs);
     wireObj.try_finalize = cst_encode_bool(apiObj.tryFinalize);
     wireObj.sign_with_tap_internal_key =
         cst_encode_bool(apiObj.signWithTapInternalKey);
@@ -3755,24 +3754,23 @@ class coreWire implements BaseWire {
       _wire__crate__api__bitcoin__ffi_script_buf_with_capacityPtr
           .asFunction<void Function(int, int)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_compute_txid(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_compute_txid(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_compute_txid(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_compute_txidPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_compute_txid');
   late final _wire__crate__api__bitcoin__ffi_transaction_compute_txid =
       _wire__crate__api__bitcoin__ffi_transaction_compute_txidPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
   void wire__crate__api__bitcoin__ffi_transaction_from_bytes(
     int port_,
@@ -3793,50 +3791,47 @@ class coreWire implements BaseWire {
       _wire__crate__api__bitcoin__ffi_transaction_from_bytesPtr.asFunction<
           void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_input(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_input(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_input(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_inputPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_input');
   late final _wire__crate__api__bitcoin__ffi_transaction_input =
       _wire__crate__api__bitcoin__ffi_transaction_inputPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_is_coinbase(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_is_coinbase(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_is_coinbase(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_is_coinbasePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_coinbase');
   late final _wire__crate__api__bitcoin__ffi_transaction_is_coinbase =
       _wire__crate__api__bitcoin__ffi_transaction_is_coinbasePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(
-    int port_,
+  WireSyncRust2DartDco
+      wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(
-      port_,
       that,
     );
   }
@@ -3844,20 +3839,20 @@ class coreWire implements BaseWire {
   late final _wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbfPtr =
       _lookup<
               ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+                  WireSyncRust2DartDco Function(
+                      ffi.Pointer<wire_cst_ffi_transaction>)>>(
           'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf');
   late final _wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf =
       _wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbfPtr
           .asFunction<
-              void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(
-    int port_,
+  WireSyncRust2DartDco
+      wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(
-      port_,
       that,
     );
   }
@@ -3865,32 +3860,32 @@ class coreWire implements BaseWire {
   late final _wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabledPtr =
       _lookup<
               ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+                  WireSyncRust2DartDco Function(
+                      ffi.Pointer<wire_cst_ffi_transaction>)>>(
           'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled');
   late final _wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled =
       _wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabledPtr
           .asFunction<
-              void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_lock_time(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_lock_time(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_lock_time(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_lock_timePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_lock_time');
   late final _wire__crate__api__bitcoin__ffi_transaction_lock_time =
       _wire__crate__api__bitcoin__ffi_transaction_lock_timePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
   void wire__crate__api__bitcoin__ffi_transaction_new(
     int port_,
@@ -3926,81 +3921,77 @@ class coreWire implements BaseWire {
               ffi.Pointer<wire_cst_list_tx_in>,
               ffi.Pointer<wire_cst_list_tx_out>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_output(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_output(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_output(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_outputPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_output');
   late final _wire__crate__api__bitcoin__ffi_transaction_output =
       _wire__crate__api__bitcoin__ffi_transaction_outputPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_serialize(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_serialize(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_serialize(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_serializePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_serialize');
   late final _wire__crate__api__bitcoin__ffi_transaction_serialize =
       _wire__crate__api__bitcoin__ffi_transaction_serializePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_version(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_version(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_version(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_versionPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_version');
   late final _wire__crate__api__bitcoin__ffi_transaction_version =
       _wire__crate__api__bitcoin__ffi_transaction_versionPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
-  void wire__crate__api__bitcoin__ffi_transaction_vsize(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_vsize(
     ffi.Pointer<wire_cst_ffi_transaction> that,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_vsize(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__bitcoin__ffi_transaction_vsizePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64, ffi.Pointer<wire_cst_ffi_transaction>)>>(
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_transaction>)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_vsize');
   late final _wire__crate__api__bitcoin__ffi_transaction_vsize =
       _wire__crate__api__bitcoin__ffi_transaction_vsizePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_transaction>)>();
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_transaction>)>();
 
   void wire__crate__api__bitcoin__ffi_transaction_weight(
     int port_,
@@ -6826,9 +6817,6 @@ final class wire_cst_sign_options extends ffi.Struct {
   external bool allow_all_sighashes;
 
   @ffi.Bool()
-  external bool remove_partial_sigs;
-
-  @ffi.Bool()
   external bool try_finalize;
 
   @ffi.Bool()
@@ -7115,9 +7103,9 @@ final class wire_cst_CreateTxError_SpendingPolicyRequired extends ffi.Struct {
 }
 
 final class wire_cst_CreateTxError_LockTime extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> requested;
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> requested_time;
 
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> required1;
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> required_time;
 }
 
 final class wire_cst_CreateTxError_RbfSequenceCsv extends ffi.Struct {
@@ -7127,11 +7115,11 @@ final class wire_cst_CreateTxError_RbfSequenceCsv extends ffi.Struct {
 }
 
 final class wire_cst_CreateTxError_FeeTooLow extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> required1;
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> fee_required;
 }
 
 final class wire_cst_CreateTxError_FeeRateTooLow extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> required1;
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> fee_rate_required;
 }
 
 final class wire_cst_CreateTxError_OutputBelowDustLimit extends ffi.Struct {
@@ -7247,7 +7235,7 @@ final class wire_cst_DescriptorError_Policy extends ffi.Struct {
 
 final class wire_cst_DescriptorError_InvalidDescriptorCharacter
     extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> char_;
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> charector;
 }
 
 final class wire_cst_DescriptorError_Bip32 extends ffi.Struct {

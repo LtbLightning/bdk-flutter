@@ -123,25 +123,23 @@ abstract class coreApi extends BaseApi {
   Future<FfiScriptBuf> crateApiBitcoinFfiScriptBufWithCapacity(
       {required BigInt capacity});
 
-  Future<String> crateApiBitcoinFfiTransactionComputeTxid(
+  String crateApiBitcoinFfiTransactionComputeTxid(
       {required FfiTransaction that});
 
   Future<FfiTransaction> crateApiBitcoinFfiTransactionFromBytes(
       {required List<int> transactionBytes});
 
-  Future<List<TxIn>> crateApiBitcoinFfiTransactionInput(
+  List<TxIn> crateApiBitcoinFfiTransactionInput({required FfiTransaction that});
+
+  bool crateApiBitcoinFfiTransactionIsCoinbase({required FfiTransaction that});
+
+  bool crateApiBitcoinFfiTransactionIsExplicitlyRbf(
       {required FfiTransaction that});
 
-  Future<bool> crateApiBitcoinFfiTransactionIsCoinbase(
+  bool crateApiBitcoinFfiTransactionIsLockTimeEnabled(
       {required FfiTransaction that});
 
-  Future<bool> crateApiBitcoinFfiTransactionIsExplicitlyRbf(
-      {required FfiTransaction that});
-
-  Future<bool> crateApiBitcoinFfiTransactionIsLockTimeEnabled(
-      {required FfiTransaction that});
-
-  Future<LockTime> crateApiBitcoinFfiTransactionLockTime(
+  LockTime crateApiBitcoinFfiTransactionLockTime(
       {required FfiTransaction that});
 
   Future<FfiTransaction> crateApiBitcoinFfiTransactionNew(
@@ -150,17 +148,15 @@ abstract class coreApi extends BaseApi {
       required List<TxIn> input,
       required List<TxOut> output});
 
-  Future<List<TxOut>> crateApiBitcoinFfiTransactionOutput(
+  List<TxOut> crateApiBitcoinFfiTransactionOutput(
       {required FfiTransaction that});
 
-  Future<Uint8List> crateApiBitcoinFfiTransactionSerialize(
+  Uint8List crateApiBitcoinFfiTransactionSerialize(
       {required FfiTransaction that});
 
-  Future<int> crateApiBitcoinFfiTransactionVersion(
-      {required FfiTransaction that});
+  int crateApiBitcoinFfiTransactionVersion({required FfiTransaction that});
 
-  Future<BigInt> crateApiBitcoinFfiTransactionVsize(
-      {required FfiTransaction that});
+  BigInt crateApiBitcoinFfiTransactionVsize({required FfiTransaction that});
 
   Future<BigInt> crateApiBitcoinFfiTransactionWeight(
       {required FfiTransaction that});
@@ -956,13 +952,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<String> crateApiBitcoinFfiTransactionComputeTxid(
+  String crateApiBitcoinFfiTransactionComputeTxid(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_compute_txid(
-            port_, arg0);
+        return wire
+            .wire__crate__api__bitcoin__ffi_transaction_compute_txid(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_String,
@@ -1006,13 +1002,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<List<TxIn>> crateApiBitcoinFfiTransactionInput(
+  List<TxIn> crateApiBitcoinFfiTransactionInput(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_input(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_input(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_tx_in,
@@ -1031,13 +1026,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<bool> crateApiBitcoinFfiTransactionIsCoinbase(
-      {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  bool crateApiBitcoinFfiTransactionIsCoinbase({required FfiTransaction that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_is_coinbase(
-            port_, arg0);
+        return wire
+            .wire__crate__api__bitcoin__ffi_transaction_is_coinbase(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bool,
@@ -1056,14 +1050,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<bool> crateApiBitcoinFfiTransactionIsExplicitlyRbf(
+  bool crateApiBitcoinFfiTransactionIsExplicitlyRbf(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
         return wire
-            .wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(
-                port_, arg0);
+            .wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bool,
@@ -1082,14 +1075,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<bool> crateApiBitcoinFfiTransactionIsLockTimeEnabled(
+  bool crateApiBitcoinFfiTransactionIsLockTimeEnabled(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
         return wire
             .wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(
-                port_, arg0);
+                arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_bool,
@@ -1108,13 +1101,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<LockTime> crateApiBitcoinFfiTransactionLockTime(
+  LockTime crateApiBitcoinFfiTransactionLockTime(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_lock_time(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_lock_time(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_lock_time,
@@ -1164,13 +1156,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<List<TxOut>> crateApiBitcoinFfiTransactionOutput(
+  List<TxOut> crateApiBitcoinFfiTransactionOutput(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_output(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_output(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_tx_out,
@@ -1189,13 +1180,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<Uint8List> crateApiBitcoinFfiTransactionSerialize(
+  Uint8List crateApiBitcoinFfiTransactionSerialize(
       {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_serialize(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_serialize(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_prim_u_8_strict,
@@ -1214,13 +1204,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<int> crateApiBitcoinFfiTransactionVersion(
-      {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  int crateApiBitcoinFfiTransactionVersion({required FfiTransaction that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_version(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_version(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_i_32,
@@ -1239,13 +1227,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<BigInt> crateApiBitcoinFfiTransactionVsize(
-      {required FfiTransaction that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+  BigInt crateApiBitcoinFfiTransactionVsize({required FfiTransaction that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_transaction(that);
-        return wire.wire__crate__api__bitcoin__ffi_transaction_vsize(
-            port_, arg0);
+        return wire.wire__crate__api__bitcoin__ffi_transaction_vsize(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_u_64,
@@ -3873,8 +3859,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         return CreateTxError_Version1Csv();
       case 6:
         return CreateTxError_LockTime(
-          requested: dco_decode_String(raw[1]),
-          required_: dco_decode_String(raw[2]),
+          requestedTime: dco_decode_String(raw[1]),
+          requiredTime: dco_decode_String(raw[2]),
         );
       case 7:
         return CreateTxError_RbfSequence();
@@ -3885,11 +3871,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         );
       case 9:
         return CreateTxError_FeeTooLow(
-          required_: dco_decode_String(raw[1]),
+          feeRequired: dco_decode_String(raw[1]),
         );
       case 10:
         return CreateTxError_FeeRateTooLow(
-          required_: dco_decode_String(raw[1]),
+          feeRateRequired: dco_decode_String(raw[1]),
         );
       case 11:
         return CreateTxError_NoUtxosSelected();
@@ -3982,7 +3968,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         );
       case 8:
         return DescriptorError_InvalidDescriptorCharacter(
-          char: dco_decode_String(raw[1]),
+          charector: dco_decode_String(raw[1]),
         );
       case 9:
         return DescriptorError_Bip32(
@@ -4769,16 +4755,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   SignOptions dco_decode_sign_options(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 7)
-      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
     return SignOptions(
       trustWitnessUtxo: dco_decode_bool(arr[0]),
       assumeHeight: dco_decode_opt_box_autoadd_u_32(arr[1]),
       allowAllSighashes: dco_decode_bool(arr[2]),
-      removePartialSigs: dco_decode_bool(arr[3]),
-      tryFinalize: dco_decode_bool(arr[4]),
-      signWithTapInternalKey: dco_decode_bool(arr[5]),
-      allowGrinding: dco_decode_bool(arr[6]),
+      tryFinalize: dco_decode_bool(arr[3]),
+      signWithTapInternalKey: dco_decode_bool(arr[4]),
+      allowGrinding: dco_decode_bool(arr[5]),
     );
   }
 
@@ -5545,10 +5530,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       case 5:
         return CreateTxError_Version1Csv();
       case 6:
-        var var_requested = sse_decode_String(deserializer);
-        var var_required_ = sse_decode_String(deserializer);
+        var var_requestedTime = sse_decode_String(deserializer);
+        var var_requiredTime = sse_decode_String(deserializer);
         return CreateTxError_LockTime(
-            requested: var_requested, required_: var_required_);
+            requestedTime: var_requestedTime, requiredTime: var_requiredTime);
       case 7:
         return CreateTxError_RbfSequence();
       case 8:
@@ -5556,11 +5541,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         var var_csv = sse_decode_String(deserializer);
         return CreateTxError_RbfSequenceCsv(rbf: var_rbf, csv: var_csv);
       case 9:
-        var var_required_ = sse_decode_String(deserializer);
-        return CreateTxError_FeeTooLow(required_: var_required_);
+        var var_feeRequired = sse_decode_String(deserializer);
+        return CreateTxError_FeeTooLow(feeRequired: var_feeRequired);
       case 10:
-        var var_required_ = sse_decode_String(deserializer);
-        return CreateTxError_FeeRateTooLow(required_: var_required_);
+        var var_feeRateRequired = sse_decode_String(deserializer);
+        return CreateTxError_FeeRateTooLow(
+            feeRateRequired: var_feeRateRequired);
       case 11:
         return CreateTxError_NoUtxosSelected();
       case 12:
@@ -5645,8 +5631,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         var var_errorMessage = sse_decode_String(deserializer);
         return DescriptorError_Policy(errorMessage: var_errorMessage);
       case 8:
-        var var_char = sse_decode_String(deserializer);
-        return DescriptorError_InvalidDescriptorCharacter(char: var_char);
+        var var_charector = sse_decode_String(deserializer);
+        return DescriptorError_InvalidDescriptorCharacter(
+            charector: var_charector);
       case 9:
         var var_errorMessage = sse_decode_String(deserializer);
         return DescriptorError_Bip32(errorMessage: var_errorMessage);
@@ -6424,7 +6411,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     var var_trustWitnessUtxo = sse_decode_bool(deserializer);
     var var_assumeHeight = sse_decode_opt_box_autoadd_u_32(deserializer);
     var var_allowAllSighashes = sse_decode_bool(deserializer);
-    var var_removePartialSigs = sse_decode_bool(deserializer);
     var var_tryFinalize = sse_decode_bool(deserializer);
     var var_signWithTapInternalKey = sse_decode_bool(deserializer);
     var var_allowGrinding = sse_decode_bool(deserializer);
@@ -6432,7 +6418,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         trustWitnessUtxo: var_trustWitnessUtxo,
         assumeHeight: var_assumeHeight,
         allowAllSighashes: var_allowAllSighashes,
-        removePartialSigs: var_removePartialSigs,
         tryFinalize: var_tryFinalize,
         signWithTapInternalKey: var_signWithTapInternalKey,
         allowGrinding: var_allowGrinding);
@@ -7452,24 +7437,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       case CreateTxError_Version1Csv():
         sse_encode_i_32(5, serializer);
       case CreateTxError_LockTime(
-          requested: final requested,
-          required_: final required_
+          requestedTime: final requestedTime,
+          requiredTime: final requiredTime
         ):
         sse_encode_i_32(6, serializer);
-        sse_encode_String(requested, serializer);
-        sse_encode_String(required_, serializer);
+        sse_encode_String(requestedTime, serializer);
+        sse_encode_String(requiredTime, serializer);
       case CreateTxError_RbfSequence():
         sse_encode_i_32(7, serializer);
       case CreateTxError_RbfSequenceCsv(rbf: final rbf, csv: final csv):
         sse_encode_i_32(8, serializer);
         sse_encode_String(rbf, serializer);
         sse_encode_String(csv, serializer);
-      case CreateTxError_FeeTooLow(required_: final required_):
+      case CreateTxError_FeeTooLow(feeRequired: final feeRequired):
         sse_encode_i_32(9, serializer);
-        sse_encode_String(required_, serializer);
-      case CreateTxError_FeeRateTooLow(required_: final required_):
+        sse_encode_String(feeRequired, serializer);
+      case CreateTxError_FeeRateTooLow(feeRateRequired: final feeRateRequired):
         sse_encode_i_32(10, serializer);
-        sse_encode_String(required_, serializer);
+        sse_encode_String(feeRateRequired, serializer);
       case CreateTxError_NoUtxosSelected():
         sse_encode_i_32(11, serializer);
       case CreateTxError_OutputBelowDustLimit(index: final index):
@@ -7551,9 +7536,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       case DescriptorError_Policy(errorMessage: final errorMessage):
         sse_encode_i_32(7, serializer);
         sse_encode_String(errorMessage, serializer);
-      case DescriptorError_InvalidDescriptorCharacter(char: final char):
+      case DescriptorError_InvalidDescriptorCharacter(
+          charector: final charector
+        ):
         sse_encode_i_32(8, serializer);
-        sse_encode_String(char, serializer);
+        sse_encode_String(charector, serializer);
       case DescriptorError_Bip32(errorMessage: final errorMessage):
         sse_encode_i_32(9, serializer);
         sse_encode_String(errorMessage, serializer);
@@ -8258,7 +8245,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self.trustWitnessUtxo, serializer);
     sse_encode_opt_box_autoadd_u_32(self.assumeHeight, serializer);
     sse_encode_bool(self.allowAllSighashes, serializer);
-    sse_encode_bool(self.removePartialSigs, serializer);
     sse_encode_bool(self.tryFinalize, serializer);
     sse_encode_bool(self.signWithTapInternalKey, serializer);
     sse_encode_bool(self.allowGrinding, serializer);

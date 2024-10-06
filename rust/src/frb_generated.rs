@@ -376,25 +376,22 @@ fn wire__crate__api__bitcoin__ffi_script_buf_with_capacity_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_compute_txid_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_compute_txid",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::compute_txid(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::bitcoin::FfiTransaction::compute_txid(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -422,116 +419,100 @@ fn wire__crate__api__bitcoin__ffi_transaction_from_bytes_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_input_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_input",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok =
-                        Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::input(&api_that))?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::input(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_is_coinbase_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_is_coinbase",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::is_coinbase(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::bitcoin::FfiTransaction::is_coinbase(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_is_explicitly_rbf",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::is_explicitly_rbf(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::bitcoin::FfiTransaction::is_explicitly_rbf(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_is_lock_time_enabled",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::is_lock_time_enabled(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::bitcoin::FfiTransaction::is_lock_time_enabled(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_lock_time_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_lock_time",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::lock_time(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::lock_time(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -569,93 +550,78 @@ fn wire__crate__api__bitcoin__ffi_transaction_new_impl(
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_output_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_output",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::output(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::output(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_serialize_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_serialize",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::serialize(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::serialize(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_version_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_version",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::bitcoin::FfiTransaction::version(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::version(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__bitcoin__ffi_transaction_vsize_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::bitcoin::FfiTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ffi_transaction_vsize",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok =
-                        Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::vsize(&api_that))?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::bitcoin::FfiTransaction::vsize(&api_that))?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -3023,11 +2989,11 @@ impl SseDecode for crate::api::error::CreateTxError {
                 return crate::api::error::CreateTxError::Version1Csv;
             }
             6 => {
-                let mut var_requested = <String>::sse_decode(deserializer);
-                let mut var_required_ = <String>::sse_decode(deserializer);
+                let mut var_requestedTime = <String>::sse_decode(deserializer);
+                let mut var_requiredTime = <String>::sse_decode(deserializer);
                 return crate::api::error::CreateTxError::LockTime {
-                    requested: var_requested,
-                    required: var_required_,
+                    requested_time: var_requestedTime,
+                    required_time: var_requiredTime,
                 };
             }
             7 => {
@@ -3042,15 +3008,15 @@ impl SseDecode for crate::api::error::CreateTxError {
                 };
             }
             9 => {
-                let mut var_required_ = <String>::sse_decode(deserializer);
+                let mut var_feeRequired = <String>::sse_decode(deserializer);
                 return crate::api::error::CreateTxError::FeeTooLow {
-                    required: var_required_,
+                    fee_required: var_feeRequired,
                 };
             }
             10 => {
-                let mut var_required_ = <String>::sse_decode(deserializer);
+                let mut var_feeRateRequired = <String>::sse_decode(deserializer);
                 return crate::api::error::CreateTxError::FeeRateTooLow {
-                    required: var_required_,
+                    fee_rate_required: var_feeRateRequired,
                 };
             }
             11 => {
@@ -3181,9 +3147,9 @@ impl SseDecode for crate::api::error::DescriptorError {
                 };
             }
             8 => {
-                let mut var_char = <String>::sse_decode(deserializer);
+                let mut var_charector = <String>::sse_decode(deserializer);
                 return crate::api::error::DescriptorError::InvalidDescriptorCharacter {
-                    char: var_char,
+                    charector: var_charector,
                 };
             }
             9 => {
@@ -4196,7 +4162,6 @@ impl SseDecode for crate::api::types::SignOptions {
         let mut var_trustWitnessUtxo = <bool>::sse_decode(deserializer);
         let mut var_assumeHeight = <Option<u32>>::sse_decode(deserializer);
         let mut var_allowAllSighashes = <bool>::sse_decode(deserializer);
-        let mut var_removePartialSigs = <bool>::sse_decode(deserializer);
         let mut var_tryFinalize = <bool>::sse_decode(deserializer);
         let mut var_signWithTapInternalKey = <bool>::sse_decode(deserializer);
         let mut var_allowGrinding = <bool>::sse_decode(deserializer);
@@ -4204,7 +4169,6 @@ impl SseDecode for crate::api::types::SignOptions {
             trust_witness_utxo: var_trustWitnessUtxo,
             assume_height: var_assumeHeight,
             allow_all_sighashes: var_allowAllSighashes,
-            remove_partial_sigs: var_removePartialSigs,
             try_finalize: var_tryFinalize,
             sign_with_tap_internal_key: var_signWithTapInternalKey,
             allow_grinding: var_allowGrinding,
@@ -4804,12 +4768,12 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::CreateTxError {
             crate::api::error::CreateTxError::Version0 => [4.into_dart()].into_dart(),
             crate::api::error::CreateTxError::Version1Csv => [5.into_dart()].into_dart(),
             crate::api::error::CreateTxError::LockTime {
-                requested,
-                required,
+                requested_time,
+                required_time,
             } => [
                 6.into_dart(),
-                requested.into_into_dart().into_dart(),
-                required.into_into_dart().into_dart(),
+                requested_time.into_into_dart().into_dart(),
+                required_time.into_into_dart().into_dart(),
             ]
             .into_dart(),
             crate::api::error::CreateTxError::RbfSequence => [7.into_dart()].into_dart(),
@@ -4819,12 +4783,14 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::CreateTxError {
                 csv.into_into_dart().into_dart(),
             ]
             .into_dart(),
-            crate::api::error::CreateTxError::FeeTooLow { required } => {
-                [9.into_dart(), required.into_into_dart().into_dart()].into_dart()
+            crate::api::error::CreateTxError::FeeTooLow { fee_required } => {
+                [9.into_dart(), fee_required.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::CreateTxError::FeeRateTooLow { required } => {
-                [10.into_dart(), required.into_into_dart().into_dart()].into_dart()
-            }
+            crate::api::error::CreateTxError::FeeRateTooLow { fee_rate_required } => [
+                10.into_dart(),
+                fee_rate_required.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
             crate::api::error::CreateTxError::NoUtxosSelected => [11.into_dart()].into_dart(),
             crate::api::error::CreateTxError::OutputBelowDustLimit { index } => {
                 [12.into_dart(), index.into_into_dart().into_dart()].into_dart()
@@ -4926,8 +4892,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::DescriptorError {
             crate::api::error::DescriptorError::Policy { error_message } => {
                 [7.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
             }
-            crate::api::error::DescriptorError::InvalidDescriptorCharacter { char } => {
-                [8.into_dart(), char.into_into_dart().into_dart()].into_dart()
+            crate::api::error::DescriptorError::InvalidDescriptorCharacter { charector } => {
+                [8.into_dart(), charector.into_into_dart().into_dart()].into_dart()
             }
             crate::api::error::DescriptorError::Bip32 { error_message } => {
                 [9.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
@@ -5788,7 +5754,6 @@ impl flutter_rust_bridge::IntoDart for crate::api::types::SignOptions {
             self.trust_witness_utxo.into_into_dart().into_dart(),
             self.assume_height.into_into_dart().into_dart(),
             self.allow_all_sighashes.into_into_dart().into_dart(),
-            self.remove_partial_sigs.into_into_dart().into_dart(),
             self.try_finalize.into_into_dart().into_dart(),
             self.sign_with_tap_internal_key.into_into_dart().into_dart(),
             self.allow_grinding.into_into_dart().into_dart(),
@@ -6482,12 +6447,12 @@ impl SseEncode for crate::api::error::CreateTxError {
                 <i32>::sse_encode(5, serializer);
             }
             crate::api::error::CreateTxError::LockTime {
-                requested,
-                required,
+                requested_time,
+                required_time,
             } => {
                 <i32>::sse_encode(6, serializer);
-                <String>::sse_encode(requested, serializer);
-                <String>::sse_encode(required, serializer);
+                <String>::sse_encode(requested_time, serializer);
+                <String>::sse_encode(required_time, serializer);
             }
             crate::api::error::CreateTxError::RbfSequence => {
                 <i32>::sse_encode(7, serializer);
@@ -6497,13 +6462,13 @@ impl SseEncode for crate::api::error::CreateTxError {
                 <String>::sse_encode(rbf, serializer);
                 <String>::sse_encode(csv, serializer);
             }
-            crate::api::error::CreateTxError::FeeTooLow { required } => {
+            crate::api::error::CreateTxError::FeeTooLow { fee_required } => {
                 <i32>::sse_encode(9, serializer);
-                <String>::sse_encode(required, serializer);
+                <String>::sse_encode(fee_required, serializer);
             }
-            crate::api::error::CreateTxError::FeeRateTooLow { required } => {
+            crate::api::error::CreateTxError::FeeRateTooLow { fee_rate_required } => {
                 <i32>::sse_encode(10, serializer);
-                <String>::sse_encode(required, serializer);
+                <String>::sse_encode(fee_rate_required, serializer);
             }
             crate::api::error::CreateTxError::NoUtxosSelected => {
                 <i32>::sse_encode(11, serializer);
@@ -6607,9 +6572,9 @@ impl SseEncode for crate::api::error::DescriptorError {
                 <i32>::sse_encode(7, serializer);
                 <String>::sse_encode(error_message, serializer);
             }
-            crate::api::error::DescriptorError::InvalidDescriptorCharacter { char } => {
+            crate::api::error::DescriptorError::InvalidDescriptorCharacter { charector } => {
                 <i32>::sse_encode(8, serializer);
-                <String>::sse_encode(char, serializer);
+                <String>::sse_encode(charector, serializer);
             }
             crate::api::error::DescriptorError::Bip32 { error_message } => {
                 <i32>::sse_encode(9, serializer);
@@ -7471,7 +7436,6 @@ impl SseEncode for crate::api::types::SignOptions {
         <bool>::sse_encode(self.trust_witness_utxo, serializer);
         <Option<u32>>::sse_encode(self.assume_height, serializer);
         <bool>::sse_encode(self.allow_all_sighashes, serializer);
-        <bool>::sse_encode(self.remove_partial_sigs, serializer);
         <bool>::sse_encode(self.try_finalize, serializer);
         <bool>::sse_encode(self.sign_with_tap_internal_key, serializer);
         <bool>::sse_encode(self.allow_grinding, serializer);
@@ -8360,8 +8324,8 @@ mod io {
                 6 => {
                     let ans = unsafe { self.kind.LockTime };
                     crate::api::error::CreateTxError::LockTime {
-                        requested: ans.requested.cst_decode(),
-                        required: ans.required.cst_decode(),
+                        requested_time: ans.requested_time.cst_decode(),
+                        required_time: ans.required_time.cst_decode(),
                     }
                 }
                 7 => crate::api::error::CreateTxError::RbfSequence,
@@ -8375,13 +8339,13 @@ mod io {
                 9 => {
                     let ans = unsafe { self.kind.FeeTooLow };
                     crate::api::error::CreateTxError::FeeTooLow {
-                        required: ans.required.cst_decode(),
+                        fee_required: ans.fee_required.cst_decode(),
                     }
                 }
                 10 => {
                     let ans = unsafe { self.kind.FeeRateTooLow };
                     crate::api::error::CreateTxError::FeeRateTooLow {
-                        required: ans.required.cst_decode(),
+                        fee_rate_required: ans.fee_rate_required.cst_decode(),
                     }
                 }
                 11 => crate::api::error::CreateTxError::NoUtxosSelected,
@@ -8491,7 +8455,7 @@ mod io {
                 8 => {
                     let ans = unsafe { self.kind.InvalidDescriptorCharacter };
                     crate::api::error::DescriptorError::InvalidDescriptorCharacter {
-                        char: ans.char.cst_decode(),
+                        charector: ans.charector.cst_decode(),
                     }
                 }
                 9 => {
@@ -9185,7 +9149,6 @@ mod io {
                 trust_witness_utxo: self.trust_witness_utxo.cst_decode(),
                 assume_height: self.assume_height.cst_decode(),
                 allow_all_sighashes: self.allow_all_sighashes.cst_decode(),
-                remove_partial_sigs: self.remove_partial_sigs.cst_decode(),
                 try_finalize: self.try_finalize.cst_decode(),
                 sign_with_tap_internal_key: self.sign_with_tap_internal_key.cst_decode(),
                 allow_grinding: self.allow_grinding.cst_decode(),
@@ -9914,7 +9877,6 @@ mod io {
                 trust_witness_utxo: Default::default(),
                 assume_height: core::ptr::null_mut(),
                 allow_all_sighashes: Default::default(),
-                remove_partial_sigs: Default::default(),
                 try_finalize: Default::default(),
                 sign_with_tap_internal_key: Default::default(),
                 allow_grinding: Default::default(),
@@ -10129,10 +10091,9 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_compute_txid(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_compute_txid_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_compute_txid_impl(that)
     }
 
     #[no_mangle]
@@ -10145,42 +10106,37 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_input(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_input_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_input_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_coinbase(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_is_coinbase_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_is_coinbase_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_lock_time(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_lock_time_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_lock_time_impl(that)
     }
 
     #[no_mangle]
@@ -10198,34 +10154,30 @@ mod io {
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_output(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_output_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_output_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_serialize(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_serialize_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_serialize_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_version(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_version_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_version_impl(that)
     }
 
     #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_vsize(
-        port_: i64,
         that: *mut wire_cst_ffi_transaction,
-    ) {
-        wire__crate__api__bitcoin__ffi_transaction_vsize_impl(port_, that)
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__crate__api__bitcoin__ffi_transaction_vsize_impl(that)
     }
 
     #[no_mangle]
@@ -11847,8 +11799,8 @@ mod io {
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_CreateTxError_LockTime {
-        requested: *mut wire_cst_list_prim_u_8_strict,
-        required: *mut wire_cst_list_prim_u_8_strict,
+        requested_time: *mut wire_cst_list_prim_u_8_strict,
+        required_time: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -11859,12 +11811,12 @@ mod io {
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_CreateTxError_FeeTooLow {
-        required: *mut wire_cst_list_prim_u_8_strict,
+        fee_required: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_CreateTxError_FeeRateTooLow {
-        required: *mut wire_cst_list_prim_u_8_strict,
+        fee_rate_required: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -11968,7 +11920,7 @@ mod io {
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_DescriptorError_InvalidDescriptorCharacter {
-        char: *mut wire_cst_list_prim_u_8_strict,
+        charector: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -12558,7 +12510,6 @@ mod io {
         trust_witness_utxo: bool,
         assume_height: *mut u32,
         allow_all_sighashes: bool,
-        remove_partial_sigs: bool,
         try_finalize: bool,
         sign_with_tap_internal_key: bool,
         allow_grinding: bool,

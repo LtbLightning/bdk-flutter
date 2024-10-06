@@ -183,7 +183,6 @@ typedef struct wire_cst_sign_options {
   bool trust_witness_utxo;
   uint32_t *assume_height;
   bool allow_all_sighashes;
-  bool remove_partial_sigs;
   bool try_finalize;
   bool sign_with_tap_internal_key;
   bool allow_grinding;
@@ -401,8 +400,8 @@ typedef struct wire_cst_CreateTxError_SpendingPolicyRequired {
 } wire_cst_CreateTxError_SpendingPolicyRequired;
 
 typedef struct wire_cst_CreateTxError_LockTime {
-  struct wire_cst_list_prim_u_8_strict *requested;
-  struct wire_cst_list_prim_u_8_strict *required;
+  struct wire_cst_list_prim_u_8_strict *requested_time;
+  struct wire_cst_list_prim_u_8_strict *required_time;
 } wire_cst_CreateTxError_LockTime;
 
 typedef struct wire_cst_CreateTxError_RbfSequenceCsv {
@@ -411,11 +410,11 @@ typedef struct wire_cst_CreateTxError_RbfSequenceCsv {
 } wire_cst_CreateTxError_RbfSequenceCsv;
 
 typedef struct wire_cst_CreateTxError_FeeTooLow {
-  struct wire_cst_list_prim_u_8_strict *required;
+  struct wire_cst_list_prim_u_8_strict *fee_required;
 } wire_cst_CreateTxError_FeeTooLow;
 
 typedef struct wire_cst_CreateTxError_FeeRateTooLow {
-  struct wire_cst_list_prim_u_8_strict *required;
+  struct wire_cst_list_prim_u_8_strict *fee_rate_required;
 } wire_cst_CreateTxError_FeeRateTooLow;
 
 typedef struct wire_cst_CreateTxError_OutputBelowDustLimit {
@@ -506,7 +505,7 @@ typedef struct wire_cst_DescriptorError_Policy {
 } wire_cst_DescriptorError_Policy;
 
 typedef struct wire_cst_DescriptorError_InvalidDescriptorCharacter {
-  struct wire_cst_list_prim_u_8_strict *char_;
+  struct wire_cst_list_prim_u_8_strict *charector;
 } wire_cst_DescriptorError_InvalidDescriptorCharacter;
 
 typedef struct wire_cst_DescriptorError_Bip32 {
@@ -945,26 +944,20 @@ WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_bu
 void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_with_capacity(int64_t port_,
                                                                                 uintptr_t capacity);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_compute_txid(int64_t port_,
-                                                                                struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_compute_txid(struct wire_cst_ffi_transaction *that);
 
 void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_from_bytes(int64_t port_,
                                                                               struct wire_cst_list_prim_u_8_loose *transaction_bytes);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_input(int64_t port_,
-                                                                         struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_input(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_coinbase(int64_t port_,
-                                                                               struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_coinbase(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(int64_t port_,
-                                                                                     struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_explicitly_rbf(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(int64_t port_,
-                                                                                        struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_is_lock_time_enabled(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_lock_time(int64_t port_,
-                                                                             struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_lock_time(struct wire_cst_ffi_transaction *that);
 
 void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_new(int64_t port_,
                                                                        int32_t version,
@@ -972,17 +965,13 @@ void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_new(int64_t p
                                                                        struct wire_cst_list_tx_in *input,
                                                                        struct wire_cst_list_tx_out *output);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_output(int64_t port_,
-                                                                          struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_output(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_serialize(int64_t port_,
-                                                                             struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_serialize(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_version(int64_t port_,
-                                                                           struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_version(struct wire_cst_ffi_transaction *that);
 
-void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_vsize(int64_t port_,
-                                                                         struct wire_cst_ffi_transaction *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_vsize(struct wire_cst_ffi_transaction *that);
 
 void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_weight(int64_t port_,
                                                                           struct wire_cst_ffi_transaction *that);
