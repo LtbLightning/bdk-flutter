@@ -485,9 +485,23 @@ class EsploraClient extends FfiEsploraClient {
     }
   }
 
+  ///  [EsploraClient] constructor for creating `Esplora` blockchain in `Mutinynet`
+  ///  Esplora url: https://mutinynet.ltbl.io/api
+  static Future<EsploraClient> createMutinynet() async {
+    final client = await EsploraClient.create('https://mutinynet.ltbl.io/api');
+    return client;
+  }
+
+  ///  [EsploraClient] constructor for creating `Esplora` blockchain in `Testnet`
+  ///  Esplora url: https://testnet.ltbl.io/api
+  static Future<EsploraClient> createTestnet() async {
+    final client = await EsploraClient.create('https://testnet.ltbl.io/api');
+    return client;
+  }
+
   Future<void> broadcast({required Transaction transaction}) async {
     try {
-      await FfiEsploraClient.broadcast(opaque: super, transaction: transaction);
+      await FfiEsploraClient.broadcast(opaque: this, transaction: transaction);
       return;
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
@@ -501,10 +515,21 @@ class EsploraClient extends FfiEsploraClient {
   }) async {
     try {
       final res = await FfiEsploraClient.fullScan(
-          opaque: super,
+          opaque: this,
           request: request,
           stopGap: stopGap,
           parallelRequests: parallelRequests);
+      return Update._(field0: res.field0);
+    } on EsploraError catch (e) {
+      throw mapEsploraError(e);
+    }
+  }
+
+  Future<Update> sync(
+      {required SyncRequest request, required BigInt parallelRequests}) async {
+    try {
+      final res = await FfiEsploraClient.sync_(
+          opaque: this, request: request, parallelRequests: parallelRequests);
       return Update._(field0: res.field0);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
@@ -527,7 +552,7 @@ class ElectrumClient extends FfiElectrumClient {
   Future<String> broadcast({required Transaction transaction}) async {
     try {
       return await FfiElectrumClient.broadcast(
-          opaque: super, transaction: transaction);
+          opaque: this, transaction: transaction);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
     }
@@ -541,9 +566,27 @@ class ElectrumClient extends FfiElectrumClient {
   }) async {
     try {
       final res = await FfiElectrumClient.fullScan(
-        opaque: super,
+        opaque: this,
         request: request,
         stopGap: stopGap,
+        batchSize: batchSize,
+        fetchPrevTxouts: fetchPrevTxouts,
+      );
+      return Update._(field0: res.field0);
+    } on ElectrumError catch (e) {
+      throw mapElectrumError(e);
+    }
+  }
+
+  Future<Update> sync({
+    required SyncRequest request,
+    required BigInt batchSize,
+    required bool fetchPrevTxouts,
+  }) async {
+    try {
+      final res = await FfiElectrumClient.sync_(
+        opaque: this,
+        request: request,
         batchSize: batchSize,
         fetchPrevTxouts: fetchPrevTxouts,
       );
@@ -1005,11 +1048,18 @@ class Wallet extends FfiWallet {
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
 
-  Future<bool> sign(
-      {required PSBT psbt, required SignOptions signOptions}) async {
+  Future<bool> sign({required PSBT psbt, SignOptions? signOptions}) async {
     try {
       final res = await FfiWallet.sign(
-          opaque: this, psbt: psbt, signOptions: signOptions);
+          opaque: this,
+          psbt: psbt,
+          signOptions: signOptions ??
+              SignOptions(
+                  trustWitnessUtxo: false,
+                  allowAllSighashes: false,
+                  tryFinalize: true,
+                  signWithTapInternalKey: true,
+                  allowGrinding: true));
       return res;
     } on SignerError catch (e) {
       throw mapSignerError(e);
@@ -1059,7 +1109,7 @@ class Wallet extends FfiWallet {
 class SyncRequestBuilder extends FfiSyncRequestBuilder {
   SyncRequestBuilder._({required super.field0});
   @override
-  Future<FfiSyncRequestBuilder> inspectSpks(
+  Future<SyncRequestBuilder> inspectSpks(
       {required FutureOr<void> Function(bitcoin.FfiScriptBuf p1, BigInt p2)
           inspector}) async {
     try {
@@ -1102,7 +1152,7 @@ class FullScanRequestBuilder extends FfiFullScanRequestBuilder {
   }
 
   @override
-  Future<FfiFullScanRequest> build() async {
+  Future<FullScanRequest> build() async {
     try {
       final res = await super.build();
       return FullScanRequest._(field0: res.field0);
