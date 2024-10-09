@@ -154,8 +154,11 @@ pub enum CreateTxError {
     #[error("unsupported version 1 with csv")]
     Version1Csv,
 
-    #[error("lock time conflict: requested {requested}, but required {required}")]
-    LockTime { requested: String, required: String },
+    #[error("lock time conflict: requested {requested_time}, but required {required_time}")]
+    LockTime {
+        requested_time: String,
+        required_time: String,
+    },
 
     #[error("transaction requires rbf sequence number")]
     RbfSequence,
@@ -163,11 +166,11 @@ pub enum CreateTxError {
     #[error("rbf sequence: {rbf}, csv sequence: {csv}")]
     RbfSequenceCsv { rbf: String, csv: String },
 
-    #[error("fee too low: required {required}")]
-    FeeTooLow { required: String },
+    #[error("fee too low: required {fee_required}")]
+    FeeTooLow { fee_required: String },
 
-    #[error("fee rate too low: {required}")]
-    FeeRateTooLow { required: String },
+    #[error("fee rate too low: {fee_rate_required}")]
+    FeeRateTooLow { fee_rate_required: String },
 
     #[error("no utxos selected for the transaction")]
     NoUtxosSelected,
@@ -240,8 +243,8 @@ pub enum DescriptorError {
     #[error("policy error: {error_message}")]
     Policy { error_message: String },
 
-    #[error("invalid descriptor character: {char}")]
-    InvalidDescriptorCharacter { char: String },
+    #[error("invalid descriptor character: {charector}")]
+    InvalidDescriptorCharacter { charector: String },
 
     #[error("bip32 error: {error_message}")]
     Bip32 { error_message: String },
@@ -806,8 +809,8 @@ impl From<BdkCreateTxError> for CreateTxError {
                 requested,
                 required,
             } => CreateTxError::LockTime {
-                requested: requested.to_string(),
-                required: required.to_string(),
+                requested_time: requested.to_string(),
+                required_time: required.to_string(),
             },
             BdkCreateTxError::RbfSequence => CreateTxError::RbfSequence,
             BdkCreateTxError::RbfSequenceCsv { rbf, csv } => CreateTxError::RbfSequenceCsv {
@@ -815,10 +818,10 @@ impl From<BdkCreateTxError> for CreateTxError {
                 csv: csv.to_string(),
             },
             BdkCreateTxError::FeeTooLow { required } => CreateTxError::FeeTooLow {
-                required: required.to_string(),
+                fee_required: required.to_string(),
             },
             BdkCreateTxError::FeeRateTooLow { required } => CreateTxError::FeeRateTooLow {
-                required: required.to_string(),
+                fee_rate_required: required.to_string(),
             },
             BdkCreateTxError::NoUtxosSelected => CreateTxError::NoUtxosSelected,
             BdkCreateTxError::OutputBelowDustLimit(index) => CreateTxError::OutputBelowDustLimit {
@@ -890,7 +893,7 @@ impl From<BuildFeeBumpError> for CreateTxError {
                 outpoint: txid.to_string(),
             },
             BuildFeeBumpError::FeeRateUnavailable => CreateTxError::FeeRateTooLow {
-                required: "unavailable".to_string(),
+                fee_rate_required: "unavailable".to_string(),
             },
         }
     }
@@ -913,7 +916,7 @@ impl From<BdkDescriptorError> for DescriptorError {
             },
             BdkDescriptorError::InvalidDescriptorCharacter(char) => {
                 DescriptorError::InvalidDescriptorCharacter {
-                    char: char.to_string(),
+                    charector: char.to_string(),
                 }
             }
             BdkDescriptorError::Bip32(e) => DescriptorError::Bip32 {

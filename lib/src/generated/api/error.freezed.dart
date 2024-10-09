@@ -5902,11 +5902,12 @@ mixin _$CreateTxError {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -5929,11 +5930,11 @@ mixin _$CreateTxError {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -5955,11 +5956,11 @@ mixin _$CreateTxError {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -6163,11 +6164,12 @@ class _$CreateTxError_GenericImpl extends CreateTxError_Generic {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -6193,11 +6195,11 @@ class _$CreateTxError_GenericImpl extends CreateTxError_Generic {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -6222,11 +6224,11 @@ class _$CreateTxError_GenericImpl extends CreateTxError_Generic {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -6441,11 +6443,12 @@ class _$CreateTxError_DescriptorImpl extends CreateTxError_Descriptor {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -6471,11 +6474,11 @@ class _$CreateTxError_DescriptorImpl extends CreateTxError_Descriptor {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -6500,11 +6503,11 @@ class _$CreateTxError_DescriptorImpl extends CreateTxError_Descriptor {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -6717,11 +6720,12 @@ class _$CreateTxError_PolicyImpl extends CreateTxError_Policy {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -6747,11 +6751,11 @@ class _$CreateTxError_PolicyImpl extends CreateTxError_Policy {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -6776,11 +6780,11 @@ class _$CreateTxError_PolicyImpl extends CreateTxError_Policy {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -6997,11 +7001,12 @@ class _$CreateTxError_SpendingPolicyRequiredImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -7027,11 +7032,11 @@ class _$CreateTxError_SpendingPolicyRequiredImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -7056,11 +7061,11 @@ class _$CreateTxError_SpendingPolicyRequiredImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -7249,11 +7254,12 @@ class _$CreateTxError_Version0Impl extends CreateTxError_Version0 {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -7279,11 +7285,11 @@ class _$CreateTxError_Version0Impl extends CreateTxError_Version0 {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -7308,11 +7314,11 @@ class _$CreateTxError_Version0Impl extends CreateTxError_Version0 {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -7493,11 +7499,12 @@ class _$CreateTxError_Version1CsvImpl extends CreateTxError_Version1Csv {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -7523,11 +7530,11 @@ class _$CreateTxError_Version1CsvImpl extends CreateTxError_Version1Csv {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -7552,11 +7559,11 @@ class _$CreateTxError_Version1CsvImpl extends CreateTxError_Version1Csv {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -7697,7 +7704,7 @@ abstract class _$$CreateTxError_LockTimeImplCopyWith<$Res> {
           $Res Function(_$CreateTxError_LockTimeImpl) then) =
       __$$CreateTxError_LockTimeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String requested, String required_});
+  $Res call({String requestedTime, String requiredTime});
 }
 
 /// @nodoc
@@ -7712,17 +7719,17 @@ class __$$CreateTxError_LockTimeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? requested = null,
-    Object? required_ = null,
+    Object? requestedTime = null,
+    Object? requiredTime = null,
   }) {
     return _then(_$CreateTxError_LockTimeImpl(
-      requested: null == requested
-          ? _value.requested
-          : requested // ignore: cast_nullable_to_non_nullable
+      requestedTime: null == requestedTime
+          ? _value.requestedTime
+          : requestedTime // ignore: cast_nullable_to_non_nullable
               as String,
-      required_: null == required_
-          ? _value.required_
-          : required_ // ignore: cast_nullable_to_non_nullable
+      requiredTime: null == requiredTime
+          ? _value.requiredTime
+          : requiredTime // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -7732,17 +7739,17 @@ class __$$CreateTxError_LockTimeImplCopyWithImpl<$Res>
 
 class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
   const _$CreateTxError_LockTimeImpl(
-      {required this.requested, required this.required_})
+      {required this.requestedTime, required this.requiredTime})
       : super._();
 
   @override
-  final String requested;
+  final String requestedTime;
   @override
-  final String required_;
+  final String requiredTime;
 
   @override
   String toString() {
-    return 'CreateTxError.lockTime(requested: $requested, required_: $required_)';
+    return 'CreateTxError.lockTime(requestedTime: $requestedTime, requiredTime: $requiredTime)';
   }
 
   @override
@@ -7750,14 +7757,14 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateTxError_LockTimeImpl &&
-            (identical(other.requested, requested) ||
-                other.requested == requested) &&
-            (identical(other.required_, required_) ||
-                other.required_ == required_));
+            (identical(other.requestedTime, requestedTime) ||
+                other.requestedTime == requestedTime) &&
+            (identical(other.requiredTime, requiredTime) ||
+                other.requiredTime == requiredTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, requested, required_);
+  int get hashCode => Object.hash(runtimeType, requestedTime, requiredTime);
 
   @JsonKey(ignore: true)
   @override
@@ -7775,11 +7782,12 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -7793,7 +7801,7 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     required TResult Function(String outpoint) missingNonWitnessUtxo,
     required TResult Function(String errorMessage) miniscriptPsbt,
   }) {
-    return lockTime(requested, required_);
+    return lockTime(requestedTime, requiredTime);
   }
 
   @override
@@ -7805,11 +7813,11 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -7822,7 +7830,7 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     TResult? Function(String outpoint)? missingNonWitnessUtxo,
     TResult? Function(String errorMessage)? miniscriptPsbt,
   }) {
-    return lockTime?.call(requested, required_);
+    return lockTime?.call(requestedTime, requiredTime);
   }
 
   @override
@@ -7834,11 +7842,11 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -7853,7 +7861,7 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
     required TResult orElse(),
   }) {
     if (lockTime != null) {
-      return lockTime(requested, required_);
+      return lockTime(requestedTime, requiredTime);
     }
     return orElse();
   }
@@ -7969,12 +7977,12 @@ class _$CreateTxError_LockTimeImpl extends CreateTxError_LockTime {
 
 abstract class CreateTxError_LockTime extends CreateTxError {
   const factory CreateTxError_LockTime(
-      {required final String requested,
-      required final String required_}) = _$CreateTxError_LockTimeImpl;
+      {required final String requestedTime,
+      required final String requiredTime}) = _$CreateTxError_LockTimeImpl;
   const CreateTxError_LockTime._() : super._();
 
-  String get requested;
-  String get required_;
+  String get requestedTime;
+  String get requiredTime;
   @JsonKey(ignore: true)
   _$$CreateTxError_LockTimeImplCopyWith<_$CreateTxError_LockTimeImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -8027,11 +8035,12 @@ class _$CreateTxError_RbfSequenceImpl extends CreateTxError_RbfSequence {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -8057,11 +8066,11 @@ class _$CreateTxError_RbfSequenceImpl extends CreateTxError_RbfSequence {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -8086,11 +8095,11 @@ class _$CreateTxError_RbfSequenceImpl extends CreateTxError_RbfSequence {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -8309,11 +8318,12 @@ class _$CreateTxError_RbfSequenceCsvImpl extends CreateTxError_RbfSequenceCsv {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -8339,11 +8349,11 @@ class _$CreateTxError_RbfSequenceCsvImpl extends CreateTxError_RbfSequenceCsv {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -8368,11 +8378,11 @@ class _$CreateTxError_RbfSequenceCsvImpl extends CreateTxError_RbfSequenceCsv {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -8522,7 +8532,7 @@ abstract class _$$CreateTxError_FeeTooLowImplCopyWith<$Res> {
           $Res Function(_$CreateTxError_FeeTooLowImpl) then) =
       __$$CreateTxError_FeeTooLowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String required_});
+  $Res call({String feeRequired});
 }
 
 /// @nodoc
@@ -8537,12 +8547,12 @@ class __$$CreateTxError_FeeTooLowImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? required_ = null,
+    Object? feeRequired = null,
   }) {
     return _then(_$CreateTxError_FeeTooLowImpl(
-      required_: null == required_
-          ? _value.required_
-          : required_ // ignore: cast_nullable_to_non_nullable
+      feeRequired: null == feeRequired
+          ? _value.feeRequired
+          : feeRequired // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -8551,14 +8561,14 @@ class __$$CreateTxError_FeeTooLowImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
-  const _$CreateTxError_FeeTooLowImpl({required this.required_}) : super._();
+  const _$CreateTxError_FeeTooLowImpl({required this.feeRequired}) : super._();
 
   @override
-  final String required_;
+  final String feeRequired;
 
   @override
   String toString() {
-    return 'CreateTxError.feeTooLow(required_: $required_)';
+    return 'CreateTxError.feeTooLow(feeRequired: $feeRequired)';
   }
 
   @override
@@ -8566,12 +8576,12 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateTxError_FeeTooLowImpl &&
-            (identical(other.required_, required_) ||
-                other.required_ == required_));
+            (identical(other.feeRequired, feeRequired) ||
+                other.feeRequired == feeRequired));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, required_);
+  int get hashCode => Object.hash(runtimeType, feeRequired);
 
   @JsonKey(ignore: true)
   @override
@@ -8589,11 +8599,12 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -8607,7 +8618,7 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     required TResult Function(String outpoint) missingNonWitnessUtxo,
     required TResult Function(String errorMessage) miniscriptPsbt,
   }) {
-    return feeTooLow(required_);
+    return feeTooLow(feeRequired);
   }
 
   @override
@@ -8619,11 +8630,11 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -8636,7 +8647,7 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     TResult? Function(String outpoint)? missingNonWitnessUtxo,
     TResult? Function(String errorMessage)? miniscriptPsbt,
   }) {
-    return feeTooLow?.call(required_);
+    return feeTooLow?.call(feeRequired);
   }
 
   @override
@@ -8648,11 +8659,11 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -8667,7 +8678,7 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
     required TResult orElse(),
   }) {
     if (feeTooLow != null) {
-      return feeTooLow(required_);
+      return feeTooLow(feeRequired);
     }
     return orElse();
   }
@@ -8782,11 +8793,11 @@ class _$CreateTxError_FeeTooLowImpl extends CreateTxError_FeeTooLow {
 }
 
 abstract class CreateTxError_FeeTooLow extends CreateTxError {
-  const factory CreateTxError_FeeTooLow({required final String required_}) =
+  const factory CreateTxError_FeeTooLow({required final String feeRequired}) =
       _$CreateTxError_FeeTooLowImpl;
   const CreateTxError_FeeTooLow._() : super._();
 
-  String get required_;
+  String get feeRequired;
   @JsonKey(ignore: true)
   _$$CreateTxError_FeeTooLowImplCopyWith<_$CreateTxError_FeeTooLowImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -8799,7 +8810,7 @@ abstract class _$$CreateTxError_FeeRateTooLowImplCopyWith<$Res> {
           $Res Function(_$CreateTxError_FeeRateTooLowImpl) then) =
       __$$CreateTxError_FeeRateTooLowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String required_});
+  $Res call({String feeRateRequired});
 }
 
 /// @nodoc
@@ -8814,12 +8825,12 @@ class __$$CreateTxError_FeeRateTooLowImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? required_ = null,
+    Object? feeRateRequired = null,
   }) {
     return _then(_$CreateTxError_FeeRateTooLowImpl(
-      required_: null == required_
-          ? _value.required_
-          : required_ // ignore: cast_nullable_to_non_nullable
+      feeRateRequired: null == feeRateRequired
+          ? _value.feeRateRequired
+          : feeRateRequired // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -8828,15 +8839,15 @@ class __$$CreateTxError_FeeRateTooLowImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
-  const _$CreateTxError_FeeRateTooLowImpl({required this.required_})
+  const _$CreateTxError_FeeRateTooLowImpl({required this.feeRateRequired})
       : super._();
 
   @override
-  final String required_;
+  final String feeRateRequired;
 
   @override
   String toString() {
-    return 'CreateTxError.feeRateTooLow(required_: $required_)';
+    return 'CreateTxError.feeRateTooLow(feeRateRequired: $feeRateRequired)';
   }
 
   @override
@@ -8844,12 +8855,12 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateTxError_FeeRateTooLowImpl &&
-            (identical(other.required_, required_) ||
-                other.required_ == required_));
+            (identical(other.feeRateRequired, feeRateRequired) ||
+                other.feeRateRequired == feeRateRequired));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, required_);
+  int get hashCode => Object.hash(runtimeType, feeRateRequired);
 
   @JsonKey(ignore: true)
   @override
@@ -8867,11 +8878,12 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -8885,7 +8897,7 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     required TResult Function(String outpoint) missingNonWitnessUtxo,
     required TResult Function(String errorMessage) miniscriptPsbt,
   }) {
-    return feeRateTooLow(required_);
+    return feeRateTooLow(feeRateRequired);
   }
 
   @override
@@ -8897,11 +8909,11 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -8914,7 +8926,7 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     TResult? Function(String outpoint)? missingNonWitnessUtxo,
     TResult? Function(String errorMessage)? miniscriptPsbt,
   }) {
-    return feeRateTooLow?.call(required_);
+    return feeRateTooLow?.call(feeRateRequired);
   }
 
   @override
@@ -8926,11 +8938,11 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -8945,7 +8957,7 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
     required TResult orElse(),
   }) {
     if (feeRateTooLow != null) {
-      return feeRateTooLow(required_);
+      return feeRateTooLow(feeRateRequired);
     }
     return orElse();
   }
@@ -9060,11 +9072,12 @@ class _$CreateTxError_FeeRateTooLowImpl extends CreateTxError_FeeRateTooLow {
 }
 
 abstract class CreateTxError_FeeRateTooLow extends CreateTxError {
-  const factory CreateTxError_FeeRateTooLow({required final String required_}) =
+  const factory CreateTxError_FeeRateTooLow(
+          {required final String feeRateRequired}) =
       _$CreateTxError_FeeRateTooLowImpl;
   const CreateTxError_FeeRateTooLow._() : super._();
 
-  String get required_;
+  String get feeRateRequired;
   @JsonKey(ignore: true)
   _$$CreateTxError_FeeRateTooLowImplCopyWith<_$CreateTxError_FeeRateTooLowImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -9119,11 +9132,12 @@ class _$CreateTxError_NoUtxosSelectedImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -9149,11 +9163,11 @@ class _$CreateTxError_NoUtxosSelectedImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -9178,11 +9192,11 @@ class _$CreateTxError_NoUtxosSelectedImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -9394,11 +9408,12 @@ class _$CreateTxError_OutputBelowDustLimitImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -9424,11 +9439,11 @@ class _$CreateTxError_OutputBelowDustLimitImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -9453,11 +9468,11 @@ class _$CreateTxError_OutputBelowDustLimitImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -9647,11 +9662,12 @@ class _$CreateTxError_ChangePolicyDescriptorImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -9677,11 +9693,11 @@ class _$CreateTxError_ChangePolicyDescriptorImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -9706,11 +9722,11 @@ class _$CreateTxError_ChangePolicyDescriptorImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -9920,11 +9936,12 @@ class _$CreateTxError_CoinSelectionImpl extends CreateTxError_CoinSelection {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -9950,11 +9967,11 @@ class _$CreateTxError_CoinSelectionImpl extends CreateTxError_CoinSelection {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -9979,11 +9996,11 @@ class _$CreateTxError_CoinSelectionImpl extends CreateTxError_CoinSelection {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -10210,11 +10227,12 @@ class _$CreateTxError_InsufficientFundsImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -10240,11 +10258,11 @@ class _$CreateTxError_InsufficientFundsImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -10269,11 +10287,11 @@ class _$CreateTxError_InsufficientFundsImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -10463,11 +10481,12 @@ class _$CreateTxError_NoRecipientsImpl extends CreateTxError_NoRecipients {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -10493,11 +10512,11 @@ class _$CreateTxError_NoRecipientsImpl extends CreateTxError_NoRecipients {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -10522,11 +10541,11 @@ class _$CreateTxError_NoRecipientsImpl extends CreateTxError_NoRecipients {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -10732,11 +10751,12 @@ class _$CreateTxError_PsbtImpl extends CreateTxError_Psbt {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -10762,11 +10782,11 @@ class _$CreateTxError_PsbtImpl extends CreateTxError_Psbt {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -10791,11 +10811,11 @@ class _$CreateTxError_PsbtImpl extends CreateTxError_Psbt {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -11011,11 +11031,12 @@ class _$CreateTxError_MissingKeyOriginImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -11041,11 +11062,11 @@ class _$CreateTxError_MissingKeyOriginImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -11070,11 +11091,11 @@ class _$CreateTxError_MissingKeyOriginImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -11289,11 +11310,12 @@ class _$CreateTxError_UnknownUtxoImpl extends CreateTxError_UnknownUtxo {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -11319,11 +11341,11 @@ class _$CreateTxError_UnknownUtxoImpl extends CreateTxError_UnknownUtxo {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -11348,11 +11370,11 @@ class _$CreateTxError_UnknownUtxoImpl extends CreateTxError_UnknownUtxo {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -11570,11 +11592,12 @@ class _$CreateTxError_MissingNonWitnessUtxoImpl
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -11600,11 +11623,11 @@ class _$CreateTxError_MissingNonWitnessUtxoImpl
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -11629,11 +11652,11 @@ class _$CreateTxError_MissingNonWitnessUtxoImpl
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -11852,11 +11875,12 @@ class _$CreateTxError_MiniscriptPsbtImpl extends CreateTxError_MiniscriptPsbt {
     required TResult Function(String kind) spendingPolicyRequired,
     required TResult Function() version0,
     required TResult Function() version1Csv,
-    required TResult Function(String requested, String required_) lockTime,
+    required TResult Function(String requestedTime, String requiredTime)
+        lockTime,
     required TResult Function() rbfSequence,
     required TResult Function(String rbf, String csv) rbfSequenceCsv,
-    required TResult Function(String required_) feeTooLow,
-    required TResult Function(String required_) feeRateTooLow,
+    required TResult Function(String feeRequired) feeTooLow,
+    required TResult Function(String feeRateRequired) feeRateTooLow,
     required TResult Function() noUtxosSelected,
     required TResult Function(BigInt index) outputBelowDustLimit,
     required TResult Function() changePolicyDescriptor,
@@ -11882,11 +11906,11 @@ class _$CreateTxError_MiniscriptPsbtImpl extends CreateTxError_MiniscriptPsbt {
     TResult? Function(String kind)? spendingPolicyRequired,
     TResult? Function()? version0,
     TResult? Function()? version1Csv,
-    TResult? Function(String requested, String required_)? lockTime,
+    TResult? Function(String requestedTime, String requiredTime)? lockTime,
     TResult? Function()? rbfSequence,
     TResult? Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult? Function(String required_)? feeTooLow,
-    TResult? Function(String required_)? feeRateTooLow,
+    TResult? Function(String feeRequired)? feeTooLow,
+    TResult? Function(String feeRateRequired)? feeRateTooLow,
     TResult? Function()? noUtxosSelected,
     TResult? Function(BigInt index)? outputBelowDustLimit,
     TResult? Function()? changePolicyDescriptor,
@@ -11911,11 +11935,11 @@ class _$CreateTxError_MiniscriptPsbtImpl extends CreateTxError_MiniscriptPsbt {
     TResult Function(String kind)? spendingPolicyRequired,
     TResult Function()? version0,
     TResult Function()? version1Csv,
-    TResult Function(String requested, String required_)? lockTime,
+    TResult Function(String requestedTime, String requiredTime)? lockTime,
     TResult Function()? rbfSequence,
     TResult Function(String rbf, String csv)? rbfSequenceCsv,
-    TResult Function(String required_)? feeTooLow,
-    TResult Function(String required_)? feeRateTooLow,
+    TResult Function(String feeRequired)? feeTooLow,
+    TResult Function(String feeRateRequired)? feeRateTooLow,
     TResult Function()? noUtxosSelected,
     TResult Function(BigInt index)? outputBelowDustLimit,
     TResult Function()? changePolicyDescriptor,
@@ -12571,7 +12595,7 @@ mixin _$DescriptorError {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -12590,7 +12614,7 @@ mixin _$DescriptorError {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -12609,7 +12633,7 @@ mixin _$DescriptorError {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -12765,7 +12789,7 @@ class _$DescriptorError_InvalidHdKeyPathImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -12787,7 +12811,7 @@ class _$DescriptorError_InvalidHdKeyPathImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -12809,7 +12833,7 @@ class _$DescriptorError_InvalidHdKeyPathImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -12969,7 +12993,7 @@ class _$DescriptorError_MissingPrivateDataImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -12991,7 +13015,7 @@ class _$DescriptorError_MissingPrivateDataImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -13013,7 +13037,7 @@ class _$DescriptorError_MissingPrivateDataImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -13173,7 +13197,7 @@ class _$DescriptorError_InvalidDescriptorChecksumImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -13195,7 +13219,7 @@ class _$DescriptorError_InvalidDescriptorChecksumImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -13217,7 +13241,7 @@ class _$DescriptorError_InvalidDescriptorChecksumImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -13378,7 +13402,7 @@ class _$DescriptorError_HardenedDerivationXpubImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -13400,7 +13424,7 @@ class _$DescriptorError_HardenedDerivationXpubImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -13422,7 +13446,7 @@ class _$DescriptorError_HardenedDerivationXpubImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -13580,7 +13604,7 @@ class _$DescriptorError_MultiPathImpl extends DescriptorError_MultiPath {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -13602,7 +13626,7 @@ class _$DescriptorError_MultiPathImpl extends DescriptorError_MultiPath {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -13624,7 +13648,7 @@ class _$DescriptorError_MultiPathImpl extends DescriptorError_MultiPath {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -13806,7 +13830,7 @@ class _$DescriptorError_KeyImpl extends DescriptorError_Key {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -13828,7 +13852,7 @@ class _$DescriptorError_KeyImpl extends DescriptorError_Key {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -13850,7 +13874,7 @@ class _$DescriptorError_KeyImpl extends DescriptorError_Key {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -14040,7 +14064,7 @@ class _$DescriptorError_GenericImpl extends DescriptorError_Generic {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -14062,7 +14086,7 @@ class _$DescriptorError_GenericImpl extends DescriptorError_Generic {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -14084,7 +14108,7 @@ class _$DescriptorError_GenericImpl extends DescriptorError_Generic {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -14274,7 +14298,7 @@ class _$DescriptorError_PolicyImpl extends DescriptorError_Policy {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -14296,7 +14320,7 @@ class _$DescriptorError_PolicyImpl extends DescriptorError_Policy {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -14318,7 +14342,7 @@ class _$DescriptorError_PolicyImpl extends DescriptorError_Policy {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -14440,7 +14464,7 @@ abstract class _$$DescriptorError_InvalidDescriptorCharacterImplCopyWith<$Res> {
               then) =
       __$$DescriptorError_InvalidDescriptorCharacterImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String char});
+  $Res call({String charector});
 }
 
 /// @nodoc
@@ -14456,12 +14480,12 @@ class __$$DescriptorError_InvalidDescriptorCharacterImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? char = null,
+    Object? charector = null,
   }) {
     return _then(_$DescriptorError_InvalidDescriptorCharacterImpl(
-      char: null == char
-          ? _value.char
-          : char // ignore: cast_nullable_to_non_nullable
+      charector: null == charector
+          ? _value.charector
+          : charector // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -14471,15 +14495,16 @@ class __$$DescriptorError_InvalidDescriptorCharacterImplCopyWithImpl<$Res>
 
 class _$DescriptorError_InvalidDescriptorCharacterImpl
     extends DescriptorError_InvalidDescriptorCharacter {
-  const _$DescriptorError_InvalidDescriptorCharacterImpl({required this.char})
+  const _$DescriptorError_InvalidDescriptorCharacterImpl(
+      {required this.charector})
       : super._();
 
   @override
-  final String char;
+  final String charector;
 
   @override
   String toString() {
-    return 'DescriptorError.invalidDescriptorCharacter(char: $char)';
+    return 'DescriptorError.invalidDescriptorCharacter(charector: $charector)';
   }
 
   @override
@@ -14487,11 +14512,12 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DescriptorError_InvalidDescriptorCharacterImpl &&
-            (identical(other.char, char) || other.char == char));
+            (identical(other.charector, charector) ||
+                other.charector == charector));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, char);
+  int get hashCode => Object.hash(runtimeType, charector);
 
   @JsonKey(ignore: true)
   @override
@@ -14514,7 +14540,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -14522,7 +14548,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     required TResult Function(String errorMessage) hex,
     required TResult Function() externalAndInternalAreTheSame,
   }) {
-    return invalidDescriptorCharacter(char);
+    return invalidDescriptorCharacter(charector);
   }
 
   @override
@@ -14536,7 +14562,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -14544,7 +14570,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     TResult? Function(String errorMessage)? hex,
     TResult? Function()? externalAndInternalAreTheSame,
   }) {
-    return invalidDescriptorCharacter?.call(char);
+    return invalidDescriptorCharacter?.call(charector);
   }
 
   @override
@@ -14558,7 +14584,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -14568,7 +14594,7 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
     required TResult orElse(),
   }) {
     if (invalidDescriptorCharacter != null) {
-      return invalidDescriptorCharacter(char);
+      return invalidDescriptorCharacter(charector);
     }
     return orElse();
   }
@@ -14664,11 +14690,11 @@ class _$DescriptorError_InvalidDescriptorCharacterImpl
 abstract class DescriptorError_InvalidDescriptorCharacter
     extends DescriptorError {
   const factory DescriptorError_InvalidDescriptorCharacter(
-          {required final String char}) =
+          {required final String charector}) =
       _$DescriptorError_InvalidDescriptorCharacterImpl;
   const DescriptorError_InvalidDescriptorCharacter._() : super._();
 
-  String get char;
+  String get charector;
   @JsonKey(ignore: true)
   _$$DescriptorError_InvalidDescriptorCharacterImplCopyWith<
           _$DescriptorError_InvalidDescriptorCharacterImpl>
@@ -14750,7 +14776,7 @@ class _$DescriptorError_Bip32Impl extends DescriptorError_Bip32 {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -14772,7 +14798,7 @@ class _$DescriptorError_Bip32Impl extends DescriptorError_Bip32 {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -14794,7 +14820,7 @@ class _$DescriptorError_Bip32Impl extends DescriptorError_Bip32 {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -14984,7 +15010,7 @@ class _$DescriptorError_Base58Impl extends DescriptorError_Base58 {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -15006,7 +15032,7 @@ class _$DescriptorError_Base58Impl extends DescriptorError_Base58 {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -15028,7 +15054,7 @@ class _$DescriptorError_Base58Impl extends DescriptorError_Base58 {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -15216,7 +15242,7 @@ class _$DescriptorError_PkImpl extends DescriptorError_Pk {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -15238,7 +15264,7 @@ class _$DescriptorError_PkImpl extends DescriptorError_Pk {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -15260,7 +15286,7 @@ class _$DescriptorError_PkImpl extends DescriptorError_Pk {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -15452,7 +15478,7 @@ class _$DescriptorError_MiniscriptImpl extends DescriptorError_Miniscript {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -15474,7 +15500,7 @@ class _$DescriptorError_MiniscriptImpl extends DescriptorError_Miniscript {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -15496,7 +15522,7 @@ class _$DescriptorError_MiniscriptImpl extends DescriptorError_Miniscript {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -15684,7 +15710,7 @@ class _$DescriptorError_HexImpl extends DescriptorError_Hex {
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -15706,7 +15732,7 @@ class _$DescriptorError_HexImpl extends DescriptorError_Hex {
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -15728,7 +15754,7 @@ class _$DescriptorError_HexImpl extends DescriptorError_Hex {
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,
@@ -15896,7 +15922,7 @@ class _$DescriptorError_ExternalAndInternalAreTheSameImpl
     required TResult Function(String errorMessage) key,
     required TResult Function(String errorMessage) generic,
     required TResult Function(String errorMessage) policy,
-    required TResult Function(String char) invalidDescriptorCharacter,
+    required TResult Function(String charector) invalidDescriptorCharacter,
     required TResult Function(String errorMessage) bip32,
     required TResult Function(String errorMessage) base58,
     required TResult Function(String errorMessage) pk,
@@ -15918,7 +15944,7 @@ class _$DescriptorError_ExternalAndInternalAreTheSameImpl
     TResult? Function(String errorMessage)? key,
     TResult? Function(String errorMessage)? generic,
     TResult? Function(String errorMessage)? policy,
-    TResult? Function(String char)? invalidDescriptorCharacter,
+    TResult? Function(String charector)? invalidDescriptorCharacter,
     TResult? Function(String errorMessage)? bip32,
     TResult? Function(String errorMessage)? base58,
     TResult? Function(String errorMessage)? pk,
@@ -15940,7 +15966,7 @@ class _$DescriptorError_ExternalAndInternalAreTheSameImpl
     TResult Function(String errorMessage)? key,
     TResult Function(String errorMessage)? generic,
     TResult Function(String errorMessage)? policy,
-    TResult Function(String char)? invalidDescriptorCharacter,
+    TResult Function(String charector)? invalidDescriptorCharacter,
     TResult Function(String errorMessage)? bip32,
     TResult Function(String errorMessage)? base58,
     TResult Function(String errorMessage)? pk,

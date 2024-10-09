@@ -141,8 +141,8 @@ sealed class CreateTxError with _$CreateTxError implements FrbException {
   const factory CreateTxError.version0() = CreateTxError_Version0;
   const factory CreateTxError.version1Csv() = CreateTxError_Version1Csv;
   const factory CreateTxError.lockTime({
-    required String requested,
-    required String required_,
+    required String requestedTime,
+    required String requiredTime,
   }) = CreateTxError_LockTime;
   const factory CreateTxError.rbfSequence() = CreateTxError_RbfSequence;
   const factory CreateTxError.rbfSequenceCsv({
@@ -150,10 +150,10 @@ sealed class CreateTxError with _$CreateTxError implements FrbException {
     required String csv,
   }) = CreateTxError_RbfSequenceCsv;
   const factory CreateTxError.feeTooLow({
-    required String required_,
+    required String feeRequired,
   }) = CreateTxError_FeeTooLow;
   const factory CreateTxError.feeRateTooLow({
-    required String required_,
+    required String feeRateRequired,
   }) = CreateTxError_FeeRateTooLow;
   const factory CreateTxError.noUtxosSelected() = CreateTxError_NoUtxosSelected;
   const factory CreateTxError.outputBelowDustLimit({
@@ -225,7 +225,7 @@ sealed class DescriptorError with _$DescriptorError implements FrbException {
     required String errorMessage,
   }) = DescriptorError_Policy;
   const factory DescriptorError.invalidDescriptorCharacter({
-    required String char,
+    required String charector,
   }) = DescriptorError_InvalidDescriptorCharacter;
   const factory DescriptorError.bip32({
     required String errorMessage,
