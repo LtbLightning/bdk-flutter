@@ -310,16 +310,11 @@ pub struct SignOptions {
     /// Defaults to `false` which will only allow signing using `SIGHASH_ALL`.
     pub allow_all_sighashes: bool,
 
-    /// Whether to remove partial signatures from the PSBT inputs while finalizing PSBT.
-    ///
-    /// Defaults to `true` which will remove partial signatures during finalization.
-    pub remove_partial_sigs: bool,
-
     /// Whether to try finalizing the PSBT after the inputs are signed.
     ///
     /// Defaults to `true` which will try finalizing PSBT after inputs are signed.
     pub try_finalize: bool,
-
+    //TODO; Expose tap_leaves_options.
     // Specifies which Taproot script-spend leaves we should sign for. This option is
     // ignored if we're signing a non-taproot PSBT.
     //
