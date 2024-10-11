@@ -168,7 +168,7 @@ class FfiTransaction {
   ///
   /// Hashes the transaction **excluding** the segwit data (i.e. the marker, flag bytes, and the
   /// witness fields themselves). For non-segwit transactions which do not have any segwit data,
-  Future<String> computeTxid() =>
+  String computeTxid() =>
       core.instance.api.crateApiBitcoinFfiTransactionComputeTxid(
         that: this,
       );
@@ -179,32 +179,31 @@ class FfiTransaction {
           transactionBytes: transactionBytes);
 
   ///List of transaction inputs.
-  Future<List<TxIn>> input() =>
-      core.instance.api.crateApiBitcoinFfiTransactionInput(
+  List<TxIn> input() => core.instance.api.crateApiBitcoinFfiTransactionInput(
         that: this,
       );
 
   ///Is this a coin base transaction?
-  Future<bool> isCoinbase() =>
+  bool isCoinbase() =>
       core.instance.api.crateApiBitcoinFfiTransactionIsCoinbase(
         that: this,
       );
 
   ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
   /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
-  Future<bool> isExplicitlyRbf() =>
+  bool isExplicitlyRbf() =>
       core.instance.api.crateApiBitcoinFfiTransactionIsExplicitlyRbf(
         that: this,
       );
 
   ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
-  Future<bool> isLockTimeEnabled() =>
+  bool isLockTimeEnabled() =>
       core.instance.api.crateApiBitcoinFfiTransactionIsLockTimeEnabled(
         that: this,
       );
 
   ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
-  Future<LockTime> lockTime() =>
+  LockTime lockTime() =>
       core.instance.api.crateApiBitcoinFfiTransactionLockTime(
         that: this,
       );
@@ -219,27 +218,24 @@ class FfiTransaction {
           version: version, lockTime: lockTime, input: input, output: output);
 
   ///List of transaction outputs.
-  Future<List<TxOut>> output() =>
-      core.instance.api.crateApiBitcoinFfiTransactionOutput(
+  List<TxOut> output() => core.instance.api.crateApiBitcoinFfiTransactionOutput(
         that: this,
       );
 
   ///Encodes an object into a vector.
-  Future<Uint8List> serialize() =>
+  Uint8List serialize() =>
       core.instance.api.crateApiBitcoinFfiTransactionSerialize(
         that: this,
       );
 
   ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
-  Future<int> version() =>
-      core.instance.api.crateApiBitcoinFfiTransactionVersion(
+  int version() => core.instance.api.crateApiBitcoinFfiTransactionVersion(
         that: this,
       );
 
   ///Returns the “virtual size” (vsize) of this transaction.
   ///
-  Future<BigInt> vsize() =>
-      core.instance.api.crateApiBitcoinFfiTransactionVsize(
+  BigInt vsize() => core.instance.api.crateApiBitcoinFfiTransactionVsize(
         that: this,
       );
 
