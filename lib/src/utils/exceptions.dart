@@ -7,7 +7,7 @@ abstract class BdkFfiException implements Exception {
   @override
   String toString() => (errorMessage != null)
       ? '$runtimeType( code:$code, error:$errorMessage )'
-      : runtimeType.toString();
+      : '$runtimeType( code:$code )';
 }
 
 /// Exception thrown when parsing an address
@@ -131,53 +131,80 @@ class CreateTxException extends BdkFfiException {
 
 CreateTxException mapCreateTxError(CreateTxError error) {
   return error.when(
-      generic: (e) =>
-          CreateTxException(code: "Unknown", errorMessage: e.toString()),
-      descriptor: (e) =>
-          CreateTxException(code: "Descriptor", errorMessage: e.toString()),
-      policy: (e) =>
-          CreateTxException(code: "Policy", errorMessage: e.toString()),
-      spendingPolicyRequired: (e) => CreateTxException(
-          code: "SpendingPolicyRequired",
-          errorMessage: "spending policy required for: ${e.toString()}"),
-      version0: () => CreateTxException(
-          code: "Version0", errorMessage: "unsupported version 0"),
-      version1Csv: () => CreateTxException(
-          code: "Version1Csv", errorMessage: "unsupported version 1 with csv"),
-      lockTime: (requested, required) => CreateTxException(
-          code: "LockTime",
-          errorMessage:
-              "lock time conflict: requested $requested, but required $required"),
-      rbfSequence: () => CreateTxException(
-          code: "RbfSequence",
-          errorMessage: "transaction requires rbf sequence number"),
-      rbfSequenceCsv: (rbf, csv) => CreateTxException(
-          code: "RbfSequenceCsv",
-          errorMessage: "rbf sequence: $rbf, csv sequence: $csv"),
-      feeTooLow: (e) => CreateTxException(
-          code: "FeeTooLow",
-          errorMessage: "fee too low: required ${e.toString()}"),
-      feeRateTooLow: (e) => CreateTxException(
-          code: "FeeRateTooLow",
-          errorMessage: "fee rate too low: ${e.toString()}"),
-      noUtxosSelected: () => CreateTxException(
-          code: "NoUtxosSelected",
-          errorMessage: "no utxos selected for the transaction"),
-      outputBelowDustLimit: (e) => CreateTxException(
-          code: "OutputBelowDustLimit",
-          errorMessage: "output value below dust limit at index $e"),
-      changePolicyDescriptor: () => CreateTxException(
-          code: "ChangePolicyDescriptor",
-          errorMessage: "change policy descriptor error"),
-      coinSelection: (e) => CreateTxException(
-          code: "CoinSelectionFailed", errorMessage: e.toString()),
-      insufficientFunds: (needed, available) => CreateTxException(code: "InsufficientFunds", errorMessage: "insufficient funds: needed $needed sat, available $available sat"),
-      noRecipients: () => CreateTxException(code: "NoRecipients", errorMessage: "transaction has no recipients"),
-      psbt: (e) => CreateTxException(code: "Psbt", errorMessage: "spending policy required for: ${e.toString()}"),
-      missingKeyOrigin: (e) => CreateTxException(code: "MissingKeyOrigin", errorMessage: "missing key origin for: ${e.toString()}"),
-      unknownUtxo: (e) => CreateTxException(code: "UnknownUtxo", errorMessage: "reference to an unknown utxo: ${e.toString()}"),
-      missingNonWitnessUtxo: (e) => CreateTxException(code: "MissingNonWitnessUtxo", errorMessage: "missing non-witness utxo for outpoint:${e.toString()}"),
-      miniscriptPsbt: (e) => CreateTxException(code: "MiniscriptPsbt", errorMessage: e.toString()));
+    generic: (e) =>
+        CreateTxException(code: "Unknown", errorMessage: e.toString()),
+    descriptor: (e) =>
+        CreateTxException(code: "Descriptor", errorMessage: e.toString()),
+    policy: (e) =>
+        CreateTxException(code: "Policy", errorMessage: e.toString()),
+    spendingPolicyRequired: (e) => CreateTxException(
+        code: "SpendingPolicyRequired",
+        errorMessage: "spending policy required for: ${e.toString()}"),
+    version0: () => CreateTxException(
+        code: "Version0", errorMessage: "unsupported version 0"),
+    version1Csv: () => CreateTxException(
+        code: "Version1Csv", errorMessage: "unsupported version 1 with csv"),
+    lockTime: (requested, required) => CreateTxException(
+        code: "LockTime",
+        errorMessage:
+            "lock time conflict: requested $requested, but required $required"),
+    rbfSequence: () => CreateTxException(
+        code: "RbfSequence",
+        errorMessage: "transaction requires rbf sequence number"),
+    rbfSequenceCsv: (rbf, csv) => CreateTxException(
+        code: "RbfSequenceCsv",
+        errorMessage: "rbf sequence: $rbf, csv sequence: $csv"),
+    feeTooLow: (e) => CreateTxException(
+        code: "FeeTooLow",
+        errorMessage: "fee too low: required ${e.toString()}"),
+    feeRateTooLow: (e) => CreateTxException(
+        code: "FeeRateTooLow",
+        errorMessage: "fee rate too low: ${e.toString()}"),
+    noUtxosSelected: () => CreateTxException(
+        code: "NoUtxosSelected",
+        errorMessage: "no utxos selected for the transaction"),
+    outputBelowDustLimit: (e) => CreateTxException(
+        code: "OutputBelowDustLimit",
+        errorMessage: "output value below dust limit at index $e"),
+    changePolicyDescriptor: () => CreateTxException(
+        code: "ChangePolicyDescriptor",
+        errorMessage: "change policy descriptor error"),
+    coinSelection: (e) => CreateTxException(
+        code: "CoinSelectionFailed", errorMessage: e.toString()),
+    insufficientFunds: (needed, available) => CreateTxException(
+        code: "InsufficientFunds",
+        errorMessage:
+            "insufficient funds: needed $needed sat, available $available sat"),
+    noRecipients: () => CreateTxException(
+        code: "NoRecipients", errorMessage: "transaction has no recipients"),
+    psbt: (e) => CreateTxException(
+        code: "Psbt",
+        errorMessage: "spending policy required for: ${e.toString()}"),
+    missingKeyOrigin: (e) => CreateTxException(
+        code: "MissingKeyOrigin",
+        errorMessage: "missing key origin for: ${e.toString()}"),
+    unknownUtxo: (e) => CreateTxException(
+        code: "UnknownUtxo",
+        errorMessage: "reference to an unknown utxo: ${e.toString()}"),
+    missingNonWitnessUtxo: (e) => CreateTxException(
+        code: "MissingNonWitnessUtxo",
+        errorMessage: "missing non-witness utxo for outpoint:${e.toString()}"),
+    miniscriptPsbt: (e) =>
+        CreateTxException(code: "MiniscriptPsbt", errorMessage: e.toString()),
+    transactionNotFound: (e) => CreateTxException(
+        code: "TransactionNotFound",
+        errorMessage: "transaction: $e is not found in the internal database"),
+    transactionConfirmed: (e) => CreateTxException(
+        code: "TransactionConfirmed",
+        errorMessage: "transaction: $e that is already confirmed"),
+    irreplaceableTransaction: (e) => CreateTxException(
+        code: "IrreplaceableTransaction",
+        errorMessage:
+            "trying to replace a transaction: $e that has a sequence >= `0xFFFFFFFE`"),
+    feeRateUnavailable: () => CreateTxException(
+        code: "FeeRateUnavailable",
+        errorMessage: "node doesn't have data to estimate a fee rate"),
+  );
 }
 
 class CreateWithPersistException extends BdkFfiException {
