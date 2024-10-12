@@ -15,7 +15,8 @@ class _SimpleWalletState extends State<SimpleWallet> {
   String displayText = "";
   BigInt balance = BigInt.zero;
   late Wallet wallet;
-  Blockchain? blockchain;
+  EsploraClient? blockchain;
+  Connection? connection;
   BdkLibrary lib = BdkLibrary();
   @override
   void initState() {
@@ -37,19 +38,22 @@ class _SimpleWalletState extends State<SimpleWallet> {
     final aliceMnemonic = await Mnemonic.fromString(
         'give rate trigger race embrace dream wish column upon steel wrist rice');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
-    wallet = await lib.restoreWallet(aliceDescriptor);
+    final connection = await Connection.createInMemory();
+    wallet = await lib.crateOrLoadWallet(
+        aliceDescriptor[0], aliceDescriptor[1], connection);
     setState(() {
       displayText = "Wallets restored";
     });
+    await sync(fullScan: true);
   }
 
-  sync() async {
+  sync({required bool fullScan}) async {
     blockchain ??= await lib.initializeBlockchain();
-    await lib.sync(blockchain!, wallet);
+    await lib.sync(blockchain!, wallet, fullScan);
   }
 
   getNewAddress() async {
-    final addressInfo = lib.getAddressInfo(wallet);
+    final addressInfo = lib.revealNextAddress(wallet);
     debugPrint(addressInfo.address.toString());
 
     setState(() {
@@ -64,12 +68,10 @@ class _SimpleWalletState extends State<SimpleWallet> {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
     for (var e in unConfirmed) {
-      final txOut = await e.transaction!.output();
+      final txOut = e.transaction.output();
+      final tx = e.transaction;
       if (kDebugMode) {
-        print(" txid: ${e.txid}");
-        print(" fee: ${e.fee}");
-        print(" received: ${e.received}");
-        print(" send: ${e.sent}");
+        print(" txid: ${tx.computeTxid()}");
         print(" output address: ${txOut.last.scriptPubkey.bytes}");
         print("===========================");
       }
@@ -83,11 +85,9 @@ class _SimpleWalletState extends State<SimpleWallet> {
     });
     for (var e in confirmed) {
       if (kDebugMode) {
-        print(" txid: ${e.txid}");
-        print(" confirmationTime: ${e.confirmationTime?.timestamp}");
-        print(" confirmationTime Height: ${e.confirmationTime?.height}");
-        final txIn = await e.transaction!.input();
-        final txOut = await e.transaction!.output();
+        print(" txid: ${e.transaction.computeTxid()}");
+        final txIn = e.transaction.input();
+        final txOut = e.transaction.output();
         print("=============TxIn==============");
         for (var e in txIn) {
           print("         previousOutout Txid: ${e.previousOutput.txid}");
@@ -128,28 +128,6 @@ class _SimpleWalletState extends State<SimpleWallet> {
             "txout: { address:${e.txout.scriptPubkey.bytes}, value: ${e.txout.value} }");
         print("===========================");
       }
-    }
-  }
-
-  Future<int> getBlockHeight() async {
-    final res = await blockchain!.getHeight();
-    if (kDebugMode) {
-      print(res);
-    }
-    setState(() {
-      displayText = "Height: $res";
-    });
-    return res;
-  }
-
-  getBlockHash() async {
-    final height = await getBlockHeight();
-    final blockHash = await blockchain!.getBlockHash(height: height);
-    setState(() {
-      displayText = "BlockHash: $blockHash";
-    });
-    if (kDebugMode) {
-      print(blockHash);
     }
   }
 
@@ -236,7 +214,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
                   )),
               TextButton(
                   onPressed: () async {
-                    await sync();
+                    await sync(fullScan: false);
                   },
                   child: const Text(
                     'Press to  sync',
@@ -290,16 +268,6 @@ class _SimpleWalletState extends State<SimpleWallet> {
                   onPressed: () => sendBit(100000),
                   child: const Text(
                     'Press to send 1200 satoshi',
-                    style: TextStyle(
-                        color: Colors.indigoAccent,
-                        fontSize: 12,
-                        height: 1.5,
-                        fontWeight: FontWeight.w800),
-                  )),
-              TextButton(
-                  onPressed: () => getBlockHash(),
-                  child: const Text(
-                    'get BlockHash',
                     style: TextStyle(
                         color: Colors.indigoAccent,
                         fontSize: 12,
