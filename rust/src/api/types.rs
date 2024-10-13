@@ -166,7 +166,7 @@ impl
                 ChainPosition::Unconfirmed { timestamp }
             }
         };
-
+        //todo; resolve unhandled unwrap()s
         FfiCanonicalTx {
             transaction: (*value.tx_node.tx).clone().try_into().unwrap(),
             chain_position,
@@ -381,6 +381,7 @@ impl FfiFullScanRequestBuilder {
         )))
     }
     pub fn build(&self) -> Result<FfiFullScanRequest, RequestBuilderError> {
+        //todo; resolve unhandled unwrap()s
         let guard = self
             .0
             .lock()
@@ -403,8 +404,12 @@ pub struct FfiSyncRequestBuilder(
 impl FfiSyncRequestBuilder {
     pub fn inspect_spks(
         &self,
-        inspector: impl (Fn(FfiScriptBuf, u64) -> DartFnFuture<()>) + Send + 'static + std::marker::Sync,
+        inspector: impl (Fn(FfiScriptBuf, SyncProgress) -> DartFnFuture<()>)
+            + Send
+            + 'static
+            + std::marker::Sync,
     ) -> Result<Self, RequestBuilderError> {
+        //todo; resolve unhandled unwrap()s
         let guard = self
             .0
             .lock()
@@ -416,7 +421,7 @@ impl FfiSyncRequestBuilder {
         let sync_request_builder = guard.inspect({
             move |script, progress| {
                 if let SyncItem::Spk(_, spk) = script {
-                    runtime.block_on(inspector(spk.to_owned().into(), progress.total() as u64));
+                    runtime.block_on(inspector(spk.to_owned().into(), progress.into()));
                 }
             }
         });
@@ -426,6 +431,7 @@ impl FfiSyncRequestBuilder {
     }
 
     pub fn build(&self) -> Result<FfiSyncRequest, RequestBuilderError> {
+        //todo; resolve unhandled unwrap()s
         let guard = self
             .0
             .lock()
@@ -504,6 +510,35 @@ impl From<bdk_wallet::LocalOutput> for LocalOutput {
             },
             keychain: local_utxo.keychain.into(),
             is_spent: local_utxo.is_spent,
+        }
+    }
+}
+
+/// The progress of [`SyncRequest`].
+#[derive(Debug, Clone)]
+pub struct SyncProgress {
+    /// Script pubkeys consumed by the request.
+    pub spks_consumed: u64,
+    /// Script pubkeys remaining in the request.
+    pub spks_remaining: u64,
+    /// Txids consumed by the request.
+    pub txids_consumed: u64,
+    /// Txids remaining in the request.
+    pub txids_remaining: u64,
+    /// Outpoints consumed by the request.
+    pub outpoints_consumed: u64,
+    /// Outpoints remaining in the request.
+    pub outpoints_remaining: u64,
+}
+impl From<bdk_core::spk_client::SyncProgress> for SyncProgress {
+    fn from(value: bdk_core::spk_client::SyncProgress) -> Self {
+        SyncProgress {
+            spks_consumed: value.spks_consumed as u64,
+            spks_remaining: value.spks_remaining as u64,
+            txids_consumed: value.txids_consumed as u64,
+            txids_remaining: value.txids_remaining as u64,
+            outpoints_consumed: value.outpoints_consumed as u64,
+            outpoints_remaining: value.outpoints_remaining as u64,
         }
     }
 }
