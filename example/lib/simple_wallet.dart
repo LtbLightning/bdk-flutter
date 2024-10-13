@@ -44,7 +44,7 @@ class _SimpleWalletState extends State<SimpleWallet> {
     setState(() {
       displayText = "Wallets restored";
     });
-    await sync(fullScan: true);
+    await sync(fullScan: false);
   }
 
   sync({required bool fullScan}) async {
