@@ -19,7 +19,7 @@ pub fn finish_bump_fee_tx_builder(
     let txid = Txid::from_str(txid.as_str()).map_err(|e| CreateTxError::Generic {
         error_message: e.to_string(),
     })?;
-    //TODO; Handling unwrap lock
+    //todo; resolve unhandled unwrap()s
     let mut bdk_wallet = wallet.opaque.lock().unwrap();
 
     let mut tx_builder = bdk_wallet.build_fee_bump(txid)?;
@@ -50,6 +50,7 @@ pub fn tx_builder_finish(
     rbf: Option<RbfValue>,
     data: Vec<u8>,
 ) -> anyhow::Result<FfiPsbt, CreateTxError> {
+    //todo; resolve unhandled unwrap()s
     let mut binding = wallet.opaque.lock().unwrap();
 
     let mut tx_builder = binding.build_tx();
