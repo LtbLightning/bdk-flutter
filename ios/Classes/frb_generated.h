@@ -886,6 +886,15 @@ typedef struct wire_cst_sqlite_error {
   union SqliteErrorKind kind;
 } wire_cst_sqlite_error;
 
+typedef struct wire_cst_sync_progress {
+  uint64_t spks_consumed;
+  uint64_t spks_remaining;
+  uint64_t txids_consumed;
+  uint64_t txids_remaining;
+  uint64_t outpoints_consumed;
+  uint64_t outpoints_remaining;
+} wire_cst_sync_progress;
+
 typedef struct wire_cst_TransactionError_InvalidChecksum {
   struct wire_cst_list_prim_u_8_strict *expected;
   struct wire_cst_list_prim_u_8_strict *actual;
