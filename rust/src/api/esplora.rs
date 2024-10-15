@@ -33,6 +33,7 @@ impl FfiEsploraClient {
         stop_gap: u64,
         parallel_requests: u64,
     ) -> Result<FfiUpdate, EsploraError> {
+        //todo; resolve unhandled unwrap()s
         // using option and take is not ideal but the only way to take full ownership of the request
         let request: BdkFullScanRequest<KeychainKind> = request
             .0
@@ -60,6 +61,7 @@ impl FfiEsploraClient {
         request: FfiSyncRequest,
         parallel_requests: u64,
     ) -> Result<FfiUpdate, EsploraError> {
+        //todo; resolve unhandled unwrap()s
         // using option and take is not ideal but the only way to take full ownership of the request
         let request: BdkSyncRequest<(KeychainKind, u32)> = request
             .0

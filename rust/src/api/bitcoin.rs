@@ -274,6 +274,7 @@ impl From<bdk_core::bitcoin::psbt::Psbt> for FfiPsbt {
     }
 }
 impl FfiPsbt {
+    //todo; resolve unhandled unwrap()s
     pub fn from_str(psbt_base64: String) -> Result<FfiPsbt, PsbtParseError> {
         let psbt: bdk_core::bitcoin::psbt::Psbt =
             bdk_core::bitcoin::psbt::Psbt::from_str(&psbt_base64)?;

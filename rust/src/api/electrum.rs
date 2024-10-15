@@ -34,6 +34,7 @@ impl FfiElectrumClient {
         batch_size: u64,
         fetch_prev_txouts: bool,
     ) -> Result<super::types::FfiUpdate, ElectrumError> {
+        //todo; resolve unhandled unwrap()s
         // using option and take is not ideal but the only way to take full ownership of the request
         let request = request
             .0
@@ -63,6 +64,7 @@ impl FfiElectrumClient {
         batch_size: u64,
         fetch_prev_txouts: bool,
     ) -> Result<super::types::FfiUpdate, ElectrumError> {
+        //todo; resolve unhandled unwrap()s
         // using option and take is not ideal but the only way to take full ownership of the request
         let request: BdkSyncRequest<(KeychainKind, u32)> = request
             .0
