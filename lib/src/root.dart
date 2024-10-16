@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:bdk_flutter/src/generated/api/bitcoin.dart' as bitcoin;
@@ -13,6 +12,7 @@ import 'package:bdk_flutter/src/generated/api/tx_builder.dart';
 import 'package:bdk_flutter/src/generated/api/types.dart';
 import 'package:bdk_flutter/src/generated/api/wallet.dart';
 import 'package:bdk_flutter/src/utils/utils.dart';
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 ///A Bitcoin address.
 class Address extends bitcoin.FfiAddress {
@@ -28,6 +28,8 @@ class Address extends bitcoin.FfiAddress {
       return Address._(field0: res.field0);
     } on FromScriptError catch (e) {
       throw mapFromScriptError(e);
+    } on PanicException catch (e) {
+      throw FromScriptException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -41,6 +43,8 @@ class Address extends bitcoin.FfiAddress {
       return Address._(field0: res.field0);
     } on AddressParseError catch (e) {
       throw mapAddressParseError(e);
+    } on PanicException catch (e) {
+      throw AddressParseException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -113,6 +117,8 @@ class BumpFeeTxBuilder {
       return PSBT._(opaque: res.opaque);
     } on CreateTxError catch (e) {
       throw mapCreateTxError(e);
+    } on PanicException catch (e) {
+      throw CreateTxException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -129,6 +135,8 @@ class DerivationPath extends FfiDerivationPath {
       return DerivationPath._(opaque: res.opaque);
     } on Bip32Error catch (e) {
       throw mapBip32Error(e);
+    } on PanicException catch (e) {
+      throw Bip32Exception(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -153,6 +161,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -171,6 +181,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -195,6 +207,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -213,6 +227,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -237,6 +253,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -255,6 +273,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -279,6 +299,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -297,6 +319,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -321,6 +345,8 @@ class Descriptor extends FfiDescriptor {
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -347,6 +373,8 @@ class Descriptor extends FfiDescriptor {
       return super.maxSatisfactionWeight();
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -363,6 +391,8 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -380,6 +410,8 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -391,6 +423,8 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -407,6 +441,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -422,6 +458,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorError catch (e) {
       throw mapDescriptorError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -432,6 +470,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -442,6 +482,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -452,6 +494,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -468,6 +512,8 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       return super.secretBytes();
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
+    } on PanicException catch (e) {
+      throw DescriptorKeyException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -482,6 +528,8 @@ class EsploraClient extends FfiEsploraClient {
       return EsploraClient._(opaque: res.opaque);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
+    } on PanicException catch (e) {
+      throw EsploraException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -505,6 +553,8 @@ class EsploraClient extends FfiEsploraClient {
       return;
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
+    } on PanicException catch (e) {
+      throw EsploraException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -522,6 +572,8 @@ class EsploraClient extends FfiEsploraClient {
       return Update._(field0: res.field0);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
+    } on PanicException catch (e) {
+      throw EsploraException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -533,6 +585,8 @@ class EsploraClient extends FfiEsploraClient {
       return Update._(field0: res.field0);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
+    } on PanicException catch (e) {
+      throw EsploraException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -544,8 +598,10 @@ class ElectrumClient extends FfiElectrumClient {
       await Api.initialize();
       final res = await FfiElectrumClient.newInstance(url: url);
       return ElectrumClient._(opaque: res.opaque);
-    } on EsploraError catch (e) {
-      throw mapEsploraError(e);
+    } on ElectrumError catch (e) {
+      throw mapElectrumError(e);
+    } on PanicException catch (e) {
+      throw ElectrumException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -555,6 +611,8 @@ class ElectrumClient extends FfiElectrumClient {
           opaque: this, transaction: transaction);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
+    } on PanicException catch (e) {
+      throw ElectrumException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -575,6 +633,8 @@ class ElectrumClient extends FfiElectrumClient {
       return Update._(field0: res.field0);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
+    } on PanicException catch (e) {
+      throw ElectrumException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -593,6 +653,8 @@ class ElectrumClient extends FfiElectrumClient {
       return Update._(field0: res.field0);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
+    } on PanicException catch (e) {
+      throw ElectrumException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -611,6 +673,8 @@ class Mnemonic extends FfiMnemonic {
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
+    } on PanicException catch (e) {
+      throw Bip39Exception(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -625,6 +689,8 @@ class Mnemonic extends FfiMnemonic {
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
+    } on PanicException catch (e) {
+      throw Bip39Exception(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -638,6 +704,8 @@ class Mnemonic extends FfiMnemonic {
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
+    } on PanicException catch (e) {
+      throw Bip39Exception(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -662,6 +730,8 @@ class PSBT extends bitcoin.FfiPsbt {
       return PSBT._(opaque: res.opaque);
     } on PsbtParseError catch (e) {
       throw mapPsbtParseError(e);
+    } on PanicException catch (e) {
+      throw PsbtException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -677,6 +747,8 @@ class PSBT extends bitcoin.FfiPsbt {
       return super.jsonSerialize();
     } on PsbtError catch (e) {
       throw mapPsbtError(e);
+    } on PanicException catch (e) {
+      throw PsbtException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -698,6 +770,8 @@ class PSBT extends bitcoin.FfiPsbt {
       return Transaction._(opaque: res.opaque);
     } on ExtractTxError catch (e) {
       throw mapExtractTxError(e);
+    } on PanicException catch (e) {
+      throw ExtractTxException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -708,6 +782,8 @@ class PSBT extends bitcoin.FfiPsbt {
       return PSBT._(opaque: res.opaque);
     } on PsbtError catch (e) {
       throw mapPsbtError(e);
+    } on PanicException catch (e) {
+      throw PsbtException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -755,6 +831,8 @@ class Transaction extends bitcoin.FfiTransaction {
       return Transaction._(opaque: res.opaque);
     } on TransactionError catch (e) {
       throw mapTransactionError(e);
+    } on PanicException catch (e) {
+      throw TransactionException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -766,6 +844,8 @@ class Transaction extends bitcoin.FfiTransaction {
       return Transaction._(opaque: res.opaque);
     } on TransactionError catch (e) {
       throw mapTransactionError(e);
+    } on PanicException catch (e) {
+      throw TransactionException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -937,6 +1017,8 @@ class TxBuilder {
       return PSBT._(opaque: res.opaque);
     } on CreateTxError catch (e) {
       throw mapCreateTxError(e);
+    } on PanicException catch (e) {
+      throw CreateTxException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -970,6 +1052,9 @@ class Wallet extends FfiWallet {
       return Wallet._(opaque: res.opaque);
     } on CreateWithPersistError catch (e) {
       throw mapCreateWithPersistError(e);
+    } on PanicException catch (e) {
+      throw CreateWithPersistException(
+          code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -988,6 +1073,9 @@ class Wallet extends FfiWallet {
       return Wallet._(opaque: res.opaque);
     } on CreateWithPersistError catch (e) {
       throw mapCreateWithPersistError(e);
+    } on PanicException catch (e) {
+      throw CreateWithPersistException(
+          code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1063,6 +1151,8 @@ class Wallet extends FfiWallet {
       return res;
     } on SignerError catch (e) {
       throw mapSignerError(e);
+    } on PanicException catch (e) {
+      throw SignerException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1072,6 +1162,8 @@ class Wallet extends FfiWallet {
       return res;
     } on CalculateFeeError catch (e) {
       throw mapCalculateFeeError(e);
+    } on PanicException catch (e) {
+      throw CalculateFeeException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1081,6 +1173,8 @@ class Wallet extends FfiWallet {
       return res;
     } on CalculateFeeError catch (e) {
       throw mapCalculateFeeError(e);
+    } on PanicException catch (e) {
+      throw CalculateFeeException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1102,6 +1196,8 @@ class Wallet extends FfiWallet {
       return res;
     } on SqliteError catch (e) {
       throw mapSqliteError(e);
+    } on PanicException catch (e) {
+      throw SqliteException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -1110,13 +1206,17 @@ class SyncRequestBuilder extends FfiSyncRequestBuilder {
   SyncRequestBuilder._({required super.field0});
   @override
   Future<SyncRequestBuilder> inspectSpks(
-      {required FutureOr<void> Function(bitcoin.FfiScriptBuf p1, BigInt p2)
+      {required FutureOr<void> Function(ScriptBuf script, SyncProgress progress)
           inspector}) async {
     try {
-      final res = await super.inspectSpks(inspector: inspector);
+      final res = await super.inspectSpks(
+          inspector: (script, progress) =>
+              inspector(ScriptBuf(bytes: script.bytes), progress));
       return SyncRequestBuilder._(field0: res.field0);
     } on RequestBuilderError catch (e) {
       throw mapRequestBuilderError(e);
+    } on PanicException catch (e) {
+      throw RequestBuilderException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1127,6 +1227,8 @@ class SyncRequestBuilder extends FfiSyncRequestBuilder {
       return SyncRequest._(field0: res.field0);
     } on RequestBuilderError catch (e) {
       throw mapRequestBuilderError(e);
+    } on PanicException catch (e) {
+      throw RequestBuilderException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -1140,14 +1242,18 @@ class FullScanRequestBuilder extends FfiFullScanRequestBuilder {
   @override
   Future<FullScanRequestBuilder> inspectSpksForAllKeychains(
       {required FutureOr<void> Function(
-              KeychainKind p1, int p2, bitcoin.FfiScriptBuf p3)
+              KeychainKind keychain, int index, ScriptBuf script)
           inspector}) async {
     try {
       await Api.initialize();
-      final res = await super.inspectSpksForAllKeychains(inspector: inspector);
+      final res = await super.inspectSpksForAllKeychains(
+          inspector: (keychain, index, script) =>
+              inspector(keychain, index, ScriptBuf(bytes: script.bytes)));
       return FullScanRequestBuilder._(field0: res.field0);
     } on RequestBuilderError catch (e) {
       throw mapRequestBuilderError(e);
+    } on PanicException catch (e) {
+      throw RequestBuilderException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1158,6 +1264,8 @@ class FullScanRequestBuilder extends FfiFullScanRequestBuilder {
       return FullScanRequest._(field0: res.field0);
     } on RequestBuilderError catch (e) {
       throw mapRequestBuilderError(e);
+    } on PanicException catch (e) {
+      throw RequestBuilderException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
@@ -1176,6 +1284,8 @@ class Connection extends FfiConnection {
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
       throw mapSqliteError(e);
+    } on PanicException catch (e) {
+      throw SqliteException(code: "Unknown", errorMessage: e.message);
     }
   }
 
@@ -1186,6 +1296,8 @@ class Connection extends FfiConnection {
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
       throw mapSqliteError(e);
+    } on PanicException catch (e) {
+      throw SqliteException(code: "Unknown", errorMessage: e.message);
     }
   }
 }
