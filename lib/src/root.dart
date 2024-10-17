@@ -101,7 +101,7 @@ class BumpFeeTxBuilder {
     return this;
   }
 
-  /// Finish building the transaction. Returns the  [PSBT]& [TransactionDetails].
+  /// Finish building the transaction. Returns the  [PSBT].
   Future<PSBT> finish(Wallet wallet) async {
     try {
       final res = await finishBumpFeeTxBuilder(
