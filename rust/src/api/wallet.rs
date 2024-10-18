@@ -97,7 +97,6 @@ impl FfiWallet {
     pub fn network(&self) -> Network {
         self.get_wallet().network().into()
     }
-    /// Return whether or not a script is part of this wallet (either internal or external).
     #[frb(sync)]
     pub fn is_mine(&self, script: FfiScriptBuf) -> bool {
         self.get_wallet()

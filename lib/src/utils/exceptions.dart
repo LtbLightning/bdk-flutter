@@ -79,19 +79,21 @@ class Bip39Exception extends BdkFfiException {
 
 Exception mapBip39Error(Bip39Error error) {
   return error.when(
-      badWordCount: (e) => Bip39Exception(
-          code: "BadWordCount",
-          errorMessage: "the word count ${e.toString()} is not supported"),
-      unknownWord: (e) => Bip39Exception(
-          code: "UnknownWord",
-          errorMessage: "unknown word at index ${e.toString()} "),
-      badEntropyBitCount: (e) => Bip39Exception(
-          code: "BadEntropyBitCount",
-          errorMessage: "entropy bit count ${e.toString()} is invalid"),
-      invalidChecksum: () => Bip39Exception(code: "InvalidChecksum"),
-      ambiguousLanguages: (e) => Bip39Exception(
-          code: "AmbiguousLanguages",
-          errorMessage: "ambiguous languages detected: ${e.toString()}"));
+    badWordCount: (e) => Bip39Exception(
+        code: "BadWordCount",
+        errorMessage: "the word count ${e.toString()} is not supported"),
+    unknownWord: (e) => Bip39Exception(
+        code: "UnknownWord",
+        errorMessage: "unknown word at index ${e.toString()} "),
+    badEntropyBitCount: (e) => Bip39Exception(
+        code: "BadEntropyBitCount",
+        errorMessage: "entropy bit count ${e.toString()} is invalid"),
+    invalidChecksum: () => Bip39Exception(code: "InvalidChecksum"),
+    ambiguousLanguages: (e) => Bip39Exception(
+        code: "AmbiguousLanguages",
+        errorMessage: "ambiguous languages detected: ${e.toString()}"),
+    generic: (e) => Bip39Exception(code: "Unknown"),
+  );
 }
 
 class CalculateFeeException extends BdkFfiException {

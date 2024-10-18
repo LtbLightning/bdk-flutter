@@ -4317,6 +4317,7 @@ mixin _$Bip39Error {
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4326,6 +4327,7 @@ mixin _$Bip39Error {
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4335,6 +4337,7 @@ mixin _$Bip39Error {
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -4347,6 +4350,7 @@ mixin _$Bip39Error {
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4356,6 +4360,7 @@ mixin _$Bip39Error {
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4365,6 +4370,7 @@ mixin _$Bip39Error {
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -4461,6 +4467,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) {
     return badWordCount(wordCount);
   }
@@ -4473,6 +4480,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) {
     return badWordCount?.call(wordCount);
   }
@@ -4485,6 +4493,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) {
     if (badWordCount != null) {
@@ -4503,6 +4512,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) {
     return badWordCount(this);
   }
@@ -4515,6 +4525,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) {
     return badWordCount?.call(this);
   }
@@ -4527,6 +4538,7 @@ class _$Bip39Error_BadWordCountImpl extends Bip39Error_BadWordCount {
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) {
     if (badWordCount != null) {
@@ -4619,6 +4631,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) {
     return unknownWord(index);
   }
@@ -4631,6 +4644,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) {
     return unknownWord?.call(index);
   }
@@ -4643,6 +4657,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) {
     if (unknownWord != null) {
@@ -4661,6 +4676,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) {
     return unknownWord(this);
   }
@@ -4673,6 +4689,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) {
     return unknownWord?.call(this);
   }
@@ -4685,6 +4702,7 @@ class _$Bip39Error_UnknownWordImpl extends Bip39Error_UnknownWord {
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) {
     if (unknownWord != null) {
@@ -4781,6 +4799,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) {
     return badEntropyBitCount(bitCount);
   }
@@ -4793,6 +4812,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) {
     return badEntropyBitCount?.call(bitCount);
   }
@@ -4805,6 +4825,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) {
     if (badEntropyBitCount != null) {
@@ -4823,6 +4844,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) {
     return badEntropyBitCount(this);
   }
@@ -4835,6 +4857,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) {
     return badEntropyBitCount?.call(this);
   }
@@ -4847,6 +4870,7 @@ class _$Bip39Error_BadEntropyBitCountImpl
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) {
     if (badEntropyBitCount != null) {
@@ -4914,6 +4938,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) {
     return invalidChecksum();
   }
@@ -4926,6 +4951,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) {
     return invalidChecksum?.call();
   }
@@ -4938,6 +4964,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) {
     if (invalidChecksum != null) {
@@ -4956,6 +4983,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) {
     return invalidChecksum(this);
   }
@@ -4968,6 +4996,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) {
     return invalidChecksum?.call(this);
   }
@@ -4980,6 +5009,7 @@ class _$Bip39Error_InvalidChecksumImpl extends Bip39Error_InvalidChecksum {
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) {
     if (invalidChecksum != null) {
@@ -5070,6 +5100,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     required TResult Function(BigInt bitCount) badEntropyBitCount,
     required TResult Function() invalidChecksum,
     required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
   }) {
     return ambiguousLanguages(languages);
   }
@@ -5082,6 +5113,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     TResult? Function(BigInt bitCount)? badEntropyBitCount,
     TResult? Function()? invalidChecksum,
     TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
   }) {
     return ambiguousLanguages?.call(languages);
   }
@@ -5094,6 +5126,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     TResult Function(BigInt bitCount)? badEntropyBitCount,
     TResult Function()? invalidChecksum,
     TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
     required TResult orElse(),
   }) {
     if (ambiguousLanguages != null) {
@@ -5112,6 +5145,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
     required TResult Function(Bip39Error_AmbiguousLanguages value)
         ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
   }) {
     return ambiguousLanguages(this);
   }
@@ -5124,6 +5158,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
   }) {
     return ambiguousLanguages?.call(this);
   }
@@ -5136,6 +5171,7 @@ class _$Bip39Error_AmbiguousLanguagesImpl
     TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
     TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
     TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
     required TResult orElse(),
   }) {
     if (ambiguousLanguages != null) {
@@ -5155,6 +5191,169 @@ abstract class Bip39Error_AmbiguousLanguages extends Bip39Error {
   _$$Bip39Error_AmbiguousLanguagesImplCopyWith<
           _$Bip39Error_AmbiguousLanguagesImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Bip39Error_GenericImplCopyWith<$Res> {
+  factory _$$Bip39Error_GenericImplCopyWith(_$Bip39Error_GenericImpl value,
+          $Res Function(_$Bip39Error_GenericImpl) then) =
+      __$$Bip39Error_GenericImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$Bip39Error_GenericImplCopyWithImpl<$Res>
+    extends _$Bip39ErrorCopyWithImpl<$Res, _$Bip39Error_GenericImpl>
+    implements _$$Bip39Error_GenericImplCopyWith<$Res> {
+  __$$Bip39Error_GenericImplCopyWithImpl(_$Bip39Error_GenericImpl _value,
+      $Res Function(_$Bip39Error_GenericImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$Bip39Error_GenericImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Bip39Error_GenericImpl extends Bip39Error_Generic {
+  const _$Bip39Error_GenericImpl({required this.errorMessage}) : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'Bip39Error.generic(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Bip39Error_GenericImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Bip39Error_GenericImplCopyWith<_$Bip39Error_GenericImpl> get copyWith =>
+      __$$Bip39Error_GenericImplCopyWithImpl<_$Bip39Error_GenericImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt wordCount) badWordCount,
+    required TResult Function(BigInt index) unknownWord,
+    required TResult Function(BigInt bitCount) badEntropyBitCount,
+    required TResult Function() invalidChecksum,
+    required TResult Function(String languages) ambiguousLanguages,
+    required TResult Function(String errorMessage) generic,
+  }) {
+    return generic(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt wordCount)? badWordCount,
+    TResult? Function(BigInt index)? unknownWord,
+    TResult? Function(BigInt bitCount)? badEntropyBitCount,
+    TResult? Function()? invalidChecksum,
+    TResult? Function(String languages)? ambiguousLanguages,
+    TResult? Function(String errorMessage)? generic,
+  }) {
+    return generic?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt wordCount)? badWordCount,
+    TResult Function(BigInt index)? unknownWord,
+    TResult Function(BigInt bitCount)? badEntropyBitCount,
+    TResult Function()? invalidChecksum,
+    TResult Function(String languages)? ambiguousLanguages,
+    TResult Function(String errorMessage)? generic,
+    required TResult orElse(),
+  }) {
+    if (generic != null) {
+      return generic(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Bip39Error_BadWordCount value) badWordCount,
+    required TResult Function(Bip39Error_UnknownWord value) unknownWord,
+    required TResult Function(Bip39Error_BadEntropyBitCount value)
+        badEntropyBitCount,
+    required TResult Function(Bip39Error_InvalidChecksum value) invalidChecksum,
+    required TResult Function(Bip39Error_AmbiguousLanguages value)
+        ambiguousLanguages,
+    required TResult Function(Bip39Error_Generic value) generic,
+  }) {
+    return generic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Bip39Error_BadWordCount value)? badWordCount,
+    TResult? Function(Bip39Error_UnknownWord value)? unknownWord,
+    TResult? Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
+    TResult? Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
+    TResult? Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult? Function(Bip39Error_Generic value)? generic,
+  }) {
+    return generic?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Bip39Error_BadWordCount value)? badWordCount,
+    TResult Function(Bip39Error_UnknownWord value)? unknownWord,
+    TResult Function(Bip39Error_BadEntropyBitCount value)? badEntropyBitCount,
+    TResult Function(Bip39Error_InvalidChecksum value)? invalidChecksum,
+    TResult Function(Bip39Error_AmbiguousLanguages value)? ambiguousLanguages,
+    TResult Function(Bip39Error_Generic value)? generic,
+    required TResult orElse(),
+  }) {
+    if (generic != null) {
+      return generic(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Bip39Error_Generic extends Bip39Error {
+  const factory Bip39Error_Generic({required final String errorMessage}) =
+      _$Bip39Error_GenericImpl;
+  const Bip39Error_Generic._() : super._();
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$Bip39Error_GenericImplCopyWith<_$Bip39Error_GenericImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

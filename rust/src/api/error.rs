@@ -116,6 +116,8 @@ pub enum Bip39Error {
 
     #[error("ambiguous languages detected: {languages}")]
     AmbiguousLanguages { languages: String },
+    #[error("generic error: {error_message}")]
+    Generic { error_message: String },
 }
 
 #[derive(Debug, thiserror::Error)]

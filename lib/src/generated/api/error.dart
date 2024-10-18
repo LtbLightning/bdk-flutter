@@ -92,6 +92,9 @@ sealed class Bip39Error with _$Bip39Error implements FrbException {
   const factory Bip39Error.ambiguousLanguages({
     required String languages,
   }) = Bip39Error_AmbiguousLanguages;
+  const factory Bip39Error.generic({
+    required String errorMessage,
+  }) = Bip39Error_Generic;
 }
 
 @freezed

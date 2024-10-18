@@ -46,7 +46,6 @@ class FfiWallet {
   Future<FfiCanonicalTx?> getTx({required String txid}) =>
       core.instance.api.crateApiWalletFfiWalletGetTx(that: this, txid: txid);
 
-  /// Return whether or not a script is part of this wallet (either internal or external).
   bool isMine({required FfiScriptBuf script}) => core.instance.api
       .crateApiWalletFfiWalletIsMine(that: this, script: script);
 

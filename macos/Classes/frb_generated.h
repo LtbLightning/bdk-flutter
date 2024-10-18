@@ -335,11 +335,16 @@ typedef struct wire_cst_Bip39Error_AmbiguousLanguages {
   struct wire_cst_list_prim_u_8_strict *languages;
 } wire_cst_Bip39Error_AmbiguousLanguages;
 
+typedef struct wire_cst_Bip39Error_Generic {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_Bip39Error_Generic;
+
 typedef union Bip39ErrorKind {
   struct wire_cst_Bip39Error_BadWordCount BadWordCount;
   struct wire_cst_Bip39Error_UnknownWord UnknownWord;
   struct wire_cst_Bip39Error_BadEntropyBitCount BadEntropyBitCount;
   struct wire_cst_Bip39Error_AmbiguousLanguages AmbiguousLanguages;
+  struct wire_cst_Bip39Error_Generic Generic;
 } Bip39ErrorKind;
 
 typedef struct wire_cst_bip_39_error {
