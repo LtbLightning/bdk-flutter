@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'bdk_library.dart';
 
-class SimpleWallet extends StatefulWidget {
-  const SimpleWallet({super.key});
+class BdkWallet extends StatefulWidget {
+  const BdkWallet({super.key});
 
   @override
-  State<SimpleWallet> createState() => _SimpleWalletState();
+  State<BdkWallet> createState() => _BdkWalletState();
 }
 
-class _SimpleWalletState extends State<SimpleWallet> {
+class _BdkWalletState extends State<BdkWallet> {
   String displayText = "";
   BigInt balance = BigInt.zero;
   late Wallet wallet;
