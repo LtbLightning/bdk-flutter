@@ -45,6 +45,10 @@ class _BdkWalletState extends State<BdkWallet> {
       displayText = "Wallets restored";
     });
     await sync(fullScan: true);
+    setState(() {
+      displayText = "Full scan complete ";
+    });
+    await getBalance();
   }
 
   sync({required bool fullScan}) async {
