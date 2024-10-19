@@ -66,27 +66,19 @@ class BdkLibrary {
             parallelRequests: BigInt.from(1));
         await wallet.applyUpdate(update: update);
       } else {
-        print("syncing1");
         final syncRequestBuilder = await wallet.startSyncWithRevealedSpks();
         final syncRequest = await (await syncRequestBuilder.inspectSpks(
                 inspector: (script, progress) {
           debugPrint(
-              "syncing outputs: ${(progress.outpointsConsumed / (progress.outpointsConsumed + progress.outpointsRemaining)) * 100} %");
-          debugPrint(
-              "syncing txids: ${(progress.txidsConsumed / (progress.txidsConsumed + progress.txidsRemaining)) * 100} %");
-          debugPrint(
               "syncing spk: ${(progress.spksConsumed / (progress.spksConsumed + progress.spksRemaining)) * 100} %");
         }))
             .build();
-        print("syncing-inspect");
         final update = await esploraClient.sync(
             request: syncRequest, parallelRequests: BigInt.from(1));
-        print("syncing-complete");
         await wallet.applyUpdate(update: update);
-        print("syncing-applied");
       }
-    } on FormatException catch (e) {
-      debugPrint(e.message);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
     }
   }
 
@@ -132,9 +124,11 @@ class BdkLibrary {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
           s: receiverAddress, network: wallet.network());
-
+      final unspentUtxo =
+          wallet.listUnspent().firstWhere((e) => e.isSpent == false);
       final psbt = await txBuilder
           .addRecipient(address.script(), BigInt.from(amountSat))
+          .addUtxo(unspentUtxo.outpoint)
           .finish(wallet);
       final isFinalized = await wallet.sign(psbt: psbt);
       if (isFinalized) {
@@ -144,7 +138,6 @@ class BdkLibrary {
       } else {
         debugPrint("psbt not finalized!");
       }
-      // Isolate.run(() async => {});
     } on Exception catch (_) {
       rethrow;
     }
