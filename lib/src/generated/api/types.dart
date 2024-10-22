@@ -13,7 +13,7 @@ import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'types.freezed.dart';
 
 // These types are ignored because they are not used by any `pub` functions: `AddressIndex`, `SentAndReceivedValues`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `cmp`, `cmp`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `hash`, `partial_cmp`, `partial_cmp`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `cmp`, `cmp`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `hash`, `partial_cmp`, `partial_cmp`
 
 // Rust type: RustOpaqueNom<std :: sync :: Mutex < Option < bdk_core :: spk_client :: FullScanRequestBuilder < bdk_wallet :: KeychainKind > > >>
 abstract class MutexOptionFullScanRequestBuilderKeychainKind
@@ -234,6 +234,28 @@ class FfiFullScanRequestBuilder {
       other is FfiFullScanRequestBuilder &&
           runtimeType == other.runtimeType &&
           field0 == other.field0;
+}
+
+class FfiPolicy {
+  final Policy opaque;
+
+  const FfiPolicy({
+    required this.opaque,
+  });
+
+  String id() => core.instance.api.crateApiTypesFfiPolicyId(
+        that: this,
+      );
+
+  @override
+  int get hashCode => opaque.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FfiPolicy &&
+          runtimeType == other.runtimeType &&
+          opaque == other.opaque;
 }
 
 class FfiSyncRequest {

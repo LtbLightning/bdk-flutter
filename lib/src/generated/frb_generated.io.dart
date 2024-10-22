@@ -54,6 +54,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptorPtr;
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr => wire
+      ._rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr;
+
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_DescriptorPublicKeyPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKeyPtr;
@@ -136,6 +139,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   ExtendedDescriptor
       dco_decode_RustOpaque_bdk_walletdescriptorExtendedDescriptor(dynamic raw);
+
+  @protected
+  Policy dco_decode_RustOpaque_bdk_walletdescriptorPolicy(dynamic raw);
 
   @protected
   DescriptorPublicKey dco_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
@@ -256,6 +262,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   FfiMnemonic dco_decode_box_autoadd_ffi_mnemonic(dynamic raw);
 
   @protected
+  FfiPolicy dco_decode_box_autoadd_ffi_policy(dynamic raw);
+
+  @protected
   FfiPsbt dco_decode_box_autoadd_ffi_psbt(dynamic raw);
 
   @protected
@@ -369,6 +378,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   FfiMnemonic dco_decode_ffi_mnemonic(dynamic raw);
 
   @protected
+  FfiPolicy dco_decode_ffi_policy(dynamic raw);
+
+  @protected
   FfiPsbt dco_decode_ffi_psbt(dynamic raw);
 
   @protected
@@ -449,6 +461,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiCanonicalTx? dco_decode_opt_box_autoadd_ffi_canonical_tx(dynamic raw);
+
+  @protected
+  FfiPolicy? dco_decode_opt_box_autoadd_ffi_policy(dynamic raw);
 
   @protected
   FfiScriptBuf? dco_decode_opt_box_autoadd_ffi_script_buf(dynamic raw);
@@ -559,6 +574,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   ExtendedDescriptor
       sse_decode_RustOpaque_bdk_walletdescriptorExtendedDescriptor(
           SseDeserializer deserializer);
+
+  @protected
+  Policy sse_decode_RustOpaque_bdk_walletdescriptorPolicy(
+      SseDeserializer deserializer);
 
   @protected
   DescriptorPublicKey sse_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
@@ -690,6 +709,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   FfiMnemonic sse_decode_box_autoadd_ffi_mnemonic(SseDeserializer deserializer);
 
   @protected
+  FfiPolicy sse_decode_box_autoadd_ffi_policy(SseDeserializer deserializer);
+
+  @protected
   FfiPsbt sse_decode_box_autoadd_ffi_psbt(SseDeserializer deserializer);
 
   @protected
@@ -817,6 +839,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   FfiMnemonic sse_decode_ffi_mnemonic(SseDeserializer deserializer);
 
   @protected
+  FfiPolicy sse_decode_ffi_policy(SseDeserializer deserializer);
+
+  @protected
   FfiPsbt sse_decode_ffi_psbt(SseDeserializer deserializer);
 
   @protected
@@ -901,6 +926,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   FfiCanonicalTx? sse_decode_opt_box_autoadd_ffi_canonical_tx(
+      SseDeserializer deserializer);
+
+  @protected
+  FfiPolicy? sse_decode_opt_box_autoadd_ffi_policy(
       SseDeserializer deserializer);
 
   @protected
@@ -1120,6 +1149,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_ffi_mnemonic();
     cst_api_fill_to_wire_ffi_mnemonic(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_ffi_policy> cst_encode_box_autoadd_ffi_policy(
+      FfiPolicy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_ffi_policy();
+    cst_api_fill_to_wire_ffi_policy(raw, ptr.ref);
     return ptr;
   }
 
@@ -1346,6 +1384,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     return raw == null
         ? ffi.nullptr
         : cst_encode_box_autoadd_ffi_canonical_tx(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_ffi_policy> cst_encode_opt_box_autoadd_ffi_policy(
+      FfiPolicy? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_ffi_policy(raw);
   }
 
   @protected
@@ -1656,6 +1701,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_box_autoadd_ffi_mnemonic(
       FfiMnemonic apiObj, ffi.Pointer<wire_cst_ffi_mnemonic> wireObj) {
     cst_api_fill_to_wire_ffi_mnemonic(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_ffi_policy(
+      FfiPolicy apiObj, ffi.Pointer<wire_cst_ffi_policy> wireObj) {
+    cst_api_fill_to_wire_ffi_policy(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2357,6 +2408,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_ffi_policy(
+      FfiPolicy apiObj, wire_cst_ffi_policy wireObj) {
+    wireObj.opaque =
+        cst_encode_RustOpaque_bdk_walletdescriptorPolicy(apiObj.opaque);
+  }
+
+  @protected
   void cst_api_fill_to_wire_ffi_psbt(
       FfiPsbt apiObj, wire_cst_ffi_psbt wireObj) {
     wireObj.opaque = cst_encode_RustOpaque_stdsyncMutexbdk_corebitcoinpsbtPsbt(
@@ -2914,6 +2972,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       ExtendedDescriptor raw);
 
   @protected
+  int cst_encode_RustOpaque_bdk_walletdescriptorPolicy(Policy raw);
+
+  @protected
   int cst_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
       DescriptorPublicKey raw);
 
@@ -3034,6 +3095,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_RustOpaque_bdk_walletdescriptorExtendedDescriptor(
       ExtendedDescriptor self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_bdk_walletdescriptorPolicy(
+      Policy self, SseSerializer serializer);
 
   @protected
   void sse_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
@@ -3166,6 +3231,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_box_autoadd_ffi_mnemonic(
       FfiMnemonic self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_ffi_policy(
+      FfiPolicy self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_ffi_psbt(FfiPsbt self, SseSerializer serializer);
@@ -3304,6 +3373,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_ffi_mnemonic(FfiMnemonic self, SseSerializer serializer);
 
   @protected
+  void sse_encode_ffi_policy(FfiPolicy self, SseSerializer serializer);
+
+  @protected
   void sse_encode_ffi_psbt(FfiPsbt self, SseSerializer serializer);
 
   @protected
@@ -3395,6 +3467,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_opt_box_autoadd_ffi_canonical_tx(
       FfiCanonicalTx? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_ffi_policy(
+      FfiPolicy? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_ffi_script_buf(
@@ -5162,6 +5238,22 @@ class coreWire implements BaseWire {
                   ffi.Pointer<wire_cst_ffi_full_scan_request_builder>,
                   ffi.Pointer<ffi.Void>)>();
 
+  WireSyncRust2DartDco wire__crate__api__types__ffi_policy_id(
+    ffi.Pointer<wire_cst_ffi_policy> that,
+  ) {
+    return _wire__crate__api__types__ffi_policy_id(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__ffi_policy_idPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_id');
+  late final _wire__crate__api__types__ffi_policy_id =
+      _wire__crate__api__types__ffi_policy_idPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_policy>)>();
+
   void wire__crate__api__types__ffi_sync_request_builder_build(
     int port_,
     ffi.Pointer<wire_cst_ffi_sync_request_builder> that,
@@ -5319,13 +5411,11 @@ class coreWire implements BaseWire {
       _wire__crate__api__wallet__ffi_wallet_get_balancePtr.asFunction<
           WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>)>();
 
-  void wire__crate__api__wallet__ffi_wallet_get_tx(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_get_tx(
     ffi.Pointer<wire_cst_ffi_wallet> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_get_tx(
-      port_,
       that,
       txid,
     );
@@ -5333,12 +5423,12 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__wallet__ffi_wallet_get_txPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_ffi_wallet>,
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>,
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_get_tx');
   late final _wire__crate__api__wallet__ffi_wallet_get_tx =
       _wire__crate__api__wallet__ffi_wallet_get_txPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_ffi_wallet>,
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
 
   WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_is_mine(
@@ -5361,23 +5451,21 @@ class coreWire implements BaseWire {
           WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>,
               ffi.Pointer<wire_cst_ffi_script_buf>)>();
 
-  void wire__crate__api__wallet__ffi_wallet_list_output(
-    int port_,
+  WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_list_output(
     ffi.Pointer<wire_cst_ffi_wallet> that,
   ) {
     return _wire__crate__api__wallet__ffi_wallet_list_output(
-      port_,
       that,
     );
   }
 
   late final _wire__crate__api__wallet__ffi_wallet_list_outputPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_cst_ffi_wallet>)>>(
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>)>>(
       'frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_list_output');
   late final _wire__crate__api__wallet__ffi_wallet_list_output =
-      _wire__crate__api__wallet__ffi_wallet_list_outputPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_cst_ffi_wallet>)>();
+      _wire__crate__api__wallet__ffi_wallet_list_outputPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_ffi_wallet>)>();
 
   WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_list_unspent(
     ffi.Pointer<wire_cst_ffi_wallet> that,
@@ -5496,6 +5584,26 @@ class coreWire implements BaseWire {
       _wire__crate__api__wallet__ffi_wallet_persistPtr.asFunction<
           void Function(int, ffi.Pointer<wire_cst_ffi_wallet>,
               ffi.Pointer<wire_cst_ffi_connection>)>();
+
+  WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_policies(
+    ffi.Pointer<wire_cst_ffi_wallet> opaque,
+    int keychain_kind,
+  ) {
+    return _wire__crate__api__wallet__ffi_wallet_policies(
+      opaque,
+      keychain_kind,
+    );
+  }
+
+  late final _wire__crate__api__wallet__ffi_wallet_policiesPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_ffi_wallet>, ffi.Int32)>>(
+      'frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_policies');
+  late final _wire__crate__api__wallet__ffi_wallet_policies =
+      _wire__crate__api__wallet__ffi_wallet_policiesPtr.asFunction<
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_ffi_wallet>, int)>();
 
   WireSyncRust2DartDco wire__crate__api__wallet__ffi_wallet_reveal_next_address(
     ffi.Pointer<wire_cst_ffi_wallet> opaque,
@@ -5817,6 +5925,36 @@ class coreWire implements BaseWire {
           'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor');
   late final _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor =
       _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptorPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy');
+  late final _rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy =
+      _rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy');
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy =
+      _rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
@@ -6338,6 +6476,17 @@ class coreWire implements BaseWire {
       _cst_new_box_autoadd_ffi_mnemonicPtr
           .asFunction<ffi.Pointer<wire_cst_ffi_mnemonic> Function()>();
 
+  ffi.Pointer<wire_cst_ffi_policy> cst_new_box_autoadd_ffi_policy() {
+    return _cst_new_box_autoadd_ffi_policy();
+  }
+
+  late final _cst_new_box_autoadd_ffi_policyPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_ffi_policy> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_ffi_policy');
+  late final _cst_new_box_autoadd_ffi_policy =
+      _cst_new_box_autoadd_ffi_policyPtr
+          .asFunction<ffi.Pointer<wire_cst_ffi_policy> Function()>();
+
   ffi.Pointer<wire_cst_ffi_psbt> cst_new_box_autoadd_ffi_psbt() {
     return _cst_new_box_autoadd_ffi_psbt();
   }
@@ -6839,6 +6988,11 @@ final class wire_cst_rbf_value extends ffi.Struct {
 final class wire_cst_ffi_full_scan_request_builder extends ffi.Struct {
   @ffi.UintPtr()
   external int field0;
+}
+
+final class wire_cst_ffi_policy extends ffi.Struct {
+  @ffi.UintPtr()
+  external int opaque;
 }
 
 final class wire_cst_ffi_sync_request_builder extends ffi.Struct {

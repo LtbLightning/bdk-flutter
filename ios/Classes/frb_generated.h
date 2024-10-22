@@ -167,6 +167,10 @@ typedef struct wire_cst_ffi_full_scan_request_builder {
   uintptr_t field0;
 } wire_cst_ffi_full_scan_request_builder;
 
+typedef struct wire_cst_ffi_policy {
+  uintptr_t opaque;
+} wire_cst_ffi_policy;
+
 typedef struct wire_cst_ffi_sync_request_builder {
   uintptr_t field0;
 } wire_cst_ffi_sync_request_builder;
@@ -1182,6 +1186,8 @@ void frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_i
                                                                                                               struct wire_cst_ffi_full_scan_request_builder *that,
                                                                                                               const void *inspector);
 
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_id(struct wire_cst_ffi_policy *that);
+
 void frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_build(int64_t port_,
                                                                                 struct wire_cst_ffi_sync_request_builder *that);
 
@@ -1207,15 +1213,13 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_calculate_fee_rate(
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_get_balance(struct wire_cst_ffi_wallet *that);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_get_tx(int64_t port_,
-                                                                    struct wire_cst_ffi_wallet *that,
-                                                                    struct wire_cst_list_prim_u_8_strict *txid);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_get_tx(struct wire_cst_ffi_wallet *that,
+                                                                                    struct wire_cst_list_prim_u_8_strict *txid);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_is_mine(struct wire_cst_ffi_wallet *that,
                                                                                      struct wire_cst_ffi_script_buf *script);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_list_output(int64_t port_,
-                                                                         struct wire_cst_ffi_wallet *that);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_list_output(struct wire_cst_ffi_wallet *that);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_list_unspent(struct wire_cst_ffi_wallet *that);
 
@@ -1235,6 +1239,9 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_new(int64_t port_,
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist(int64_t port_,
                                                                      struct wire_cst_ffi_wallet *opaque,
                                                                      struct wire_cst_ffi_connection *connection);
+
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_policies(struct wire_cst_ffi_wallet *opaque,
+                                                                                      int32_t keychain_kind);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address(struct wire_cst_ffi_wallet *opaque,
                                                                                                  int32_t keychain_kind);
@@ -1279,6 +1286,10 @@ void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletbit
 void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor(const void *ptr);
 
 void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor(const void *ptr);
+
+void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy(const void *ptr);
+
+void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy(const void *ptr);
 
 void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKey(const void *ptr);
 
@@ -1352,6 +1363,8 @@ struct wire_cst_ffi_full_scan_request_builder *frbgen_bdk_flutter_cst_new_box_au
 
 struct wire_cst_ffi_mnemonic *frbgen_bdk_flutter_cst_new_box_autoadd_ffi_mnemonic(void);
 
+struct wire_cst_ffi_policy *frbgen_bdk_flutter_cst_new_box_autoadd_ffi_policy(void);
+
 struct wire_cst_ffi_psbt *frbgen_bdk_flutter_cst_new_box_autoadd_ffi_psbt(void);
 
 struct wire_cst_ffi_script_buf *frbgen_bdk_flutter_cst_new_box_autoadd_ffi_script_buf(void);
@@ -1409,6 +1422,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_full_scan_request);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_full_scan_request_builder);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_mnemonic);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_policy);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_psbt);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_script_buf);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_sync_request);
@@ -1437,6 +1451,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletUpdate);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletbitcoinbip32DerivationPath);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKey);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletkeysDescriptorSecretKey);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_walletkeysKeyMap);
@@ -1455,6 +1470,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletUpdate);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletbitcoinbip32DerivationPath);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKey);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletkeysDescriptorSecretKey);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdk_walletkeysKeyMap);
@@ -1539,6 +1555,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__change_spend_policy_default);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_build);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_inspect_spks_for_all_keychains);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_id);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_build);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_inspect_spks);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__network_default);
@@ -1555,6 +1572,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_network);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_new);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_persist);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_policies);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_full_scan);

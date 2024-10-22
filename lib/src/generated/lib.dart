@@ -18,6 +18,9 @@ abstract class DerivationPath implements RustOpaqueInterface {}
 // Rust type: RustOpaqueNom<bdk_wallet :: descriptor :: ExtendedDescriptor>
 abstract class ExtendedDescriptor implements RustOpaqueInterface {}
 
+// Rust type: RustOpaqueNom<bdk_wallet :: descriptor :: Policy>
+abstract class Policy implements RustOpaqueInterface {}
+
 // Rust type: RustOpaqueNom<bdk_wallet :: keys :: DescriptorPublicKey>
 abstract class DescriptorPublicKey implements RustOpaqueInterface {}
 

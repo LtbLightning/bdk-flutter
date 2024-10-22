@@ -3,6 +3,7 @@ use std::sync::Arc;
 use crate::frb_generated::RustOpaque;
 
 use bdk_core::spk_client::SyncItem;
+
 // use bdk_core::spk_client::{
 //     FullScanRequest,
 //     // SyncItem
@@ -20,6 +21,7 @@ use super::{
 };
 use flutter_rust_bridge::{
     // frb,
+    frb,
     DartFnFuture,
 };
 use serde::Deserialize;
@@ -86,7 +88,9 @@ pub enum AddressIndex {
     /// index used by `AddressIndex` and `AddressIndex.LastUsed`.
     /// Use with caution, if an index is given that is less than the current descriptor index
     /// then the returned address may have already been used.
-    Peek { index: u32 },
+    Peek {
+        index: u32,
+    },
     /// Return the address for a specific descriptor index and reset the current descriptor index
     /// used by `AddressIndex` and `AddressIndex.LastUsed` to this value.
     /// Use with caution, if an index is given that is less than the current descriptor index
@@ -94,7 +98,9 @@ pub enum AddressIndex {
     /// and `AddressIndex.LastUsed` may have already been used. Also if the index is reset to a
     /// value earlier than the Blockchain stopGap (default is 20) then a
     /// larger stopGap should be used to monitor for all possibly used addresses.
-    Reset { index: u32 },
+    Reset {
+        index: u32,
+    },
 }
 // impl From<AddressIndex> for bdk_core::bitcoin::address::AddressIndex {
 //     fn from(x: AddressIndex) -> bdk_core::bitcoin::AddressIndex {
@@ -133,21 +139,20 @@ pub struct FfiCanonicalTx {
     pub chain_position: ChainPosition,
 }
 //TODO; Replace From with TryFrom
-impl
-    From<
-        bdk_wallet::chain::tx_graph::CanonicalTx<
-            '_,
-            Arc<bdk_core::bitcoin::transaction::Transaction>,
-            bdk_wallet::chain::ConfirmationBlockTime,
-        >,
-    > for FfiCanonicalTx
-{
+impl From<
+    bdk_wallet::chain::tx_graph::CanonicalTx<
+        '_,
+        Arc<bdk_core::bitcoin::transaction::Transaction>,
+        bdk_wallet::chain::ConfirmationBlockTime
+    >
+>
+for FfiCanonicalTx {
     fn from(
         value: bdk_wallet::chain::tx_graph::CanonicalTx<
             '_,
             Arc<bdk_core::bitcoin::transaction::Transaction>,
-            bdk_wallet::chain::ConfirmationBlockTime,
-        >,
+            bdk_wallet::chain::ConfirmationBlockTime
+        >
     ) -> Self {
         let chain_position = match value.chain_position {
             bdk_wallet::chain::ChainPosition::Confirmed(anchor) => {
@@ -346,23 +351,18 @@ impl From<SignOptions> for bdk_wallet::SignOptions {
 }
 
 pub struct FfiFullScanRequestBuilder(
-    pub  RustOpaque<
-        std::sync::Mutex<
-            Option<bdk_core::spk_client::FullScanRequestBuilder<bdk_wallet::KeychainKind>>,
-        >,
-    >,
+    pub RustOpaque<std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequestBuilder<bdk_wallet::KeychainKind>>>>,
 );
 
 impl FfiFullScanRequestBuilder {
     pub fn inspect_spks_for_all_keychains(
         &self,
-        inspector: impl (Fn(KeychainKind, u32, FfiScriptBuf) -> DartFnFuture<()>)
-            + Send
-            + 'static
-            + std::marker::Sync,
+        inspector: impl (Fn(KeychainKind, u32, FfiScriptBuf) -> DartFnFuture<()>) +
+            Send +
+            'static +
+            std::marker::Sync
     ) -> Result<Self, RequestBuilderError> {
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
@@ -376,42 +376,40 @@ impl FfiFullScanRequestBuilder {
             runtime.block_on(inspector(keychain.into(), index, script.to_owned().into()))
         });
 
-        Ok(FfiFullScanRequestBuilder(RustOpaque::new(
-            std::sync::Mutex::new(Some(full_scan_request_builder)),
-        )))
+        Ok(
+            FfiFullScanRequestBuilder(
+                RustOpaque::new(std::sync::Mutex::new(Some(full_scan_request_builder)))
+            )
+        )
     }
     pub fn build(&self) -> Result<FfiFullScanRequest, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
             .ok_or(RequestBuilderError::RequestAlreadyConsumed)?;
-        Ok(FfiFullScanRequest(RustOpaque::new(std::sync::Mutex::new(
-            Some(guard.build()),
-        ))))
+        Ok(FfiFullScanRequest(RustOpaque::new(std::sync::Mutex::new(Some(guard.build())))))
     }
 }
 pub struct FfiSyncRequestBuilder(
-    pub  RustOpaque<
+    pub RustOpaque<
         std::sync::Mutex<
-            Option<bdk_core::spk_client::SyncRequestBuilder<(bdk_wallet::KeychainKind, u32)>>,
-        >,
+            Option<bdk_core::spk_client::SyncRequestBuilder<(bdk_wallet::KeychainKind, u32)>>
+        >
     >,
 );
 
 impl FfiSyncRequestBuilder {
     pub fn inspect_spks(
         &self,
-        inspector: impl (Fn(FfiScriptBuf, SyncProgress) -> DartFnFuture<()>)
-            + Send
-            + 'static
-            + std::marker::Sync,
+        inspector: impl (Fn(FfiScriptBuf, SyncProgress) -> DartFnFuture<()>) +
+            Send +
+            'static +
+            std::marker::Sync
     ) -> Result<Self, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
@@ -425,22 +423,21 @@ impl FfiSyncRequestBuilder {
                 }
             }
         });
-        Ok(FfiSyncRequestBuilder(RustOpaque::new(
-            std::sync::Mutex::new(Some(sync_request_builder)),
-        )))
+        Ok(
+            FfiSyncRequestBuilder(
+                RustOpaque::new(std::sync::Mutex::new(Some(sync_request_builder)))
+            )
+        )
     }
 
     pub fn build(&self) -> Result<FfiSyncRequest, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
             .ok_or(RequestBuilderError::RequestAlreadyConsumed)?;
-        Ok(FfiSyncRequest(RustOpaque::new(std::sync::Mutex::new(
-            Some(guard.build()),
-        ))))
+        Ok(FfiSyncRequest(RustOpaque::new(std::sync::Mutex::new(Some(guard.build())))))
     }
 }
 
@@ -456,15 +453,11 @@ pub struct SentAndReceivedValues {
     pub received: u64,
 }
 pub struct FfiFullScanRequest(
-    pub  RustOpaque<
-        std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequest<bdk_wallet::KeychainKind>>>,
-    >,
+    pub RustOpaque<std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequest<bdk_wallet::KeychainKind>>>>,
 );
 pub struct FfiSyncRequest(
-    pub  RustOpaque<
-        std::sync::Mutex<
-            Option<bdk_core::spk_client::SyncRequest<(bdk_wallet::KeychainKind, u32)>>,
-        >,
+    pub RustOpaque<
+        std::sync::Mutex<Option<bdk_core::spk_client::SyncRequest<(bdk_wallet::KeychainKind, u32)>>>
     >,
 );
 /// Policy regarding the use of change outputs when creating a transaction
@@ -539,6 +532,22 @@ impl From<bdk_core::spk_client::SyncProgress> for SyncProgress {
             txids_remaining: value.txids_remaining as u64,
             outpoints_consumed: value.outpoints_consumed as u64,
             outpoints_remaining: value.outpoints_remaining as u64,
+        }
+    }
+}
+pub struct FfiPolicy {
+    pub opaque: RustOpaque<bdk_wallet::descriptor::Policy>,
+}
+impl FfiPolicy {
+    #[frb(sync)]
+    pub fn id(&self) -> String {
+        self.opaque.id.clone()
+    }
+}
+impl From<bdk_wallet::descriptor::Policy> for FfiPolicy {
+    fn from(value: bdk_wallet::descriptor::Policy) -> Self {
+        FfiPolicy {
+            opaque: RustOpaque::new(value),
         }
     }
 }
