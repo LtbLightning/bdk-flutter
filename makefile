@@ -11,12 +11,12 @@ help: makefile
 
 ## init: Install missing dependencies.
 init:
-	cargo install flutter_rust_bridge_codegen --version 2.4.0
+	cargo install flutter_rust_bridge_codegen --version 2.0.0
 ## :
 
-all: init native
+all: init generate-bindings
 
-native:
+generate-bindings:
 	@echo "[GENERATING FRB CODE] $@"
 	flutter_rust_bridge_codegen generate
 	@echo "[Done ✅]"
