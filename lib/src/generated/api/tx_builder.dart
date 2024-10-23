@@ -34,6 +34,7 @@ Future<FfiPsbt> txBuilderFinish(
         FeeRate? feeRate,
         BigInt? feeAbsolute,
         required bool drainWallet,
+        (Map<String, Uint64List>, KeychainKind)? policyPath,
         FfiScriptBuf? drainTo,
         RbfValue? rbf,
         required List<int> data}) =>
@@ -47,6 +48,7 @@ Future<FfiPsbt> txBuilderFinish(
         feeRate: feeRate,
         feeAbsolute: feeAbsolute,
         drainWallet: drainWallet,
+        policyPath: policyPath,
         drainTo: drainTo,
         rbf: rbf,
         data: data);

@@ -2261,16 +2261,14 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
       ) as List<_i2.CanonicalTx>);
 
   @override
-  _i10.Future<_i2.CanonicalTx?> getTx({required String? txid}) =>
-      (super.noSuchMethod(
+  _i2.CanonicalTx? getTx({required String? txid}) => (super.noSuchMethod(
         Invocation.method(
           #getTx,
           [],
           {#txid: txid},
         ),
-        returnValue: _i10.Future<_i2.CanonicalTx?>.value(),
-        returnValueForMissingStub: _i10.Future<_i2.CanonicalTx?>.value(),
-      ) as _i10.Future<_i2.CanonicalTx?>);
+        returnValueForMissingStub: null,
+      ) as _i2.CanonicalTx?);
 
   @override
   List<_i2.LocalOutput> listUnspent({dynamic hint}) => (super.noSuchMethod(
@@ -2284,16 +2282,23 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
       ) as List<_i2.LocalOutput>);
 
   @override
-  _i10.Future<List<_i2.LocalOutput>> listOutput() => (super.noSuchMethod(
+  List<_i2.LocalOutput> listOutput() => (super.noSuchMethod(
         Invocation.method(
           #listOutput,
           [],
         ),
-        returnValue:
-            _i10.Future<List<_i2.LocalOutput>>.value(<_i2.LocalOutput>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i2.LocalOutput>>.value(<_i2.LocalOutput>[]),
-      ) as _i10.Future<List<_i2.LocalOutput>>);
+        returnValue: <_i2.LocalOutput>[],
+        returnValueForMissingStub: <_i2.LocalOutput>[],
+      ) as List<_i2.LocalOutput>);
+
+  @override
+  _i2.Policy? policies(_i2.KeychainKind? keychainKind) => (super.noSuchMethod(
+        Invocation.method(
+          #policies,
+          [keychainKind],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i2.Policy?);
 
   @override
   _i10.Future<bool> sign({

@@ -866,6 +866,7 @@ class TxBuilder {
   ScriptBuf? _drainTo;
   RbfValue? _rbfValue;
   List<int> _data = [];
+  (Map<String, Uint64List>, KeychainKind)? _policyPath;
 
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
@@ -986,6 +987,54 @@ class TxBuilder {
     return this;
   }
 
+  /// Set the policy path to use while creating the transaction for a given keychain.
+  ///
+  /// This method accepts a map where the key is the policy node id (see
+  /// policy.id()) and the value is the list of the indexes of
+  /// the items that are intended to be satisfied from the policy node
+  /// ## Example
+  ///
+  /// An example of when the policy path is needed is the following descriptor:
+  /// `wsh(thresh(2,pk(A),sj:and_v(v:pk(B),n:older(6)),snj:and_v(v:pk(C),after(630000))))`,
+  /// derived from the miniscript policy `thresh(2,pk(A),and(pk(B),older(6)),and(pk(C),after(630000)))`.
+  /// It declares three descriptor fragments, and at the top level it uses `thresh()` to
+  /// ensure that at least two of them are satisfied. The individual fragments are:
+  ///
+  /// 1. `pk(A)`
+  /// 2. `and(pk(B),older(6))`
+  /// 3. `and(pk(C),after(630000))`
+  ///
+  /// When those conditions are combined in pairs, it's clear that the transaction needs to be created
+  /// differently depending on how the user intends to satisfy the policy afterwards:
+  ///
+  /// * If fragments `1` and `2` are used, the transaction will need to use a specific
+  ///   `n_sequence` in order to spend an `OP_CSV` branch.
+  /// * If fragments `1` and `3` are used, the transaction will need to use a specific `locktime`
+  ///   in order to spend an `OP_CLTV` branch.
+  /// * If fragments `2` and `3` are used, the transaction will need both.
+  ///
+  /// When the spending policy is represented as a tree every node
+  /// is assigned a unique identifier that can be used in the policy path to specify which of
+  /// the node's children the user intends to satisfy: for instance, assuming the `thresh()`
+  /// root node of this example has an id of `aabbccdd`, the policy path map would look like:
+  ///
+  /// `{ "aabbccdd" => [0, 1] }`
+  ///
+  /// where the key is the node's id, and the value is a list of the children that should be
+  /// used, in no particular order.
+  ///
+  /// If a particularly complex descriptor has multiple ambiguous thresholds in its structure,
+  /// multiple entries can be added to the map, one for each node that requires an explicit path.
+  TxBuilder policyPath(
+      KeychainKind keychain, Map<String, List<BigInt>> policies) {
+    _policyPath = (
+      policies.map((key, value) =>
+          MapEntry(key, Uint64List.fromList(value.cast<int>()))),
+      keychain
+    );
+    return this;
+  }
+
   ///Only spend change outputs
   ///
   /// This effectively adds all the non-change outputs to the “unspendable” list.
@@ -1002,6 +1051,7 @@ class TxBuilder {
     try {
       final res = await txBuilderFinish(
           wallet: wallet,
+          policyPath: _policyPath,
           recipients: _recipients,
           utxos: _utxos,
           unSpendable: _unSpendable,
