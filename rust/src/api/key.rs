@@ -25,7 +25,7 @@ impl From<keys::bip39::Mnemonic> for FfiMnemonic {
 impl FfiMnemonic {
     /// Generates Mnemonic with a random entropy
     pub fn new(word_count: WordCount) -> Result<Self, Bip39Error> {
-        //TODO; Resolve the unwrap()
+        //todo; resolve unhandled unwrap()s
         let generated_key: keys::GeneratedKey<_, BareCtx> =
             keys::bip39::Mnemonic::generate((word_count.into(), Language::English)).unwrap();
         keys::bip39::Mnemonic::parse_in(Language::English, generated_key.to_string())
