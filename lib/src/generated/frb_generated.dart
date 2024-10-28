@@ -348,7 +348,7 @@ abstract class coreApi extends BaseApi {
 
   Future<FfiSyncRequestBuilder> crateApiTypesFfiSyncRequestBuilderInspectSpks(
       {required FfiSyncRequestBuilder that,
-      required FutureOr<void> Function(FfiScriptBuf, BigInt) inspector});
+      required FutureOr<void> Function(FfiScriptBuf, SyncProgress) inspector});
 
   Future<Network> crateApiTypesNetworkDefault();
 
@@ -2554,12 +2554,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   @override
   Future<FfiSyncRequestBuilder> crateApiTypesFfiSyncRequestBuilderInspectSpks(
       {required FfiSyncRequestBuilder that,
-      required FutureOr<void> Function(FfiScriptBuf, BigInt) inspector}) {
+      required FutureOr<void> Function(FfiScriptBuf, SyncProgress) inspector}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         var arg0 = cst_encode_box_autoadd_ffi_sync_request_builder(that);
         var arg1 =
-            cst_encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+            cst_encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
                 inspector);
         return wire
             .wire__crate__api__types__ffi_sync_request_builder_inspect_spks(
@@ -3067,11 +3067,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   Future<void> Function(int, dynamic, dynamic)
-      encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
-          FutureOr<void> Function(FfiScriptBuf, BigInt) raw) {
+      encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
+          FutureOr<void> Function(FfiScriptBuf, SyncProgress) raw) {
     return (callId, rawArg0, rawArg1) async {
       final arg0 = dco_decode_ffi_script_buf(rawArg0);
-      final arg1 = dco_decode_u_64(rawArg1);
+      final arg1 = dco_decode_sync_progress(rawArg1);
 
       Box<void>? rawOutput;
       Box<AnyhowException>? rawError;
@@ -3286,8 +3286,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  FutureOr<void> Function(FfiScriptBuf, BigInt)
-      dco_decode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+  FutureOr<void> Function(FfiScriptBuf, SyncProgress)
+      dco_decode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError('');
@@ -4847,6 +4847,22 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       default:
         throw Exception("unreachable");
     }
+  }
+
+  @protected
+  SyncProgress dco_decode_sync_progress(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return SyncProgress(
+      spksConsumed: dco_decode_u_64(arr[0]),
+      spksRemaining: dco_decode_u_64(arr[1]),
+      txidsConsumed: dco_decode_u_64(arr[2]),
+      txidsRemaining: dco_decode_u_64(arr[3]),
+      outpointsConsumed: dco_decode_u_64(arr[4]),
+      outpointsRemaining: dco_decode_u_64(arr[5]),
+    );
   }
 
   @protected
@@ -6514,6 +6530,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  SyncProgress sse_decode_sync_progress(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_spksConsumed = sse_decode_u_64(deserializer);
+    var var_spksRemaining = sse_decode_u_64(deserializer);
+    var var_txidsConsumed = sse_decode_u_64(deserializer);
+    var var_txidsRemaining = sse_decode_u_64(deserializer);
+    var var_outpointsConsumed = sse_decode_u_64(deserializer);
+    var var_outpointsRemaining = sse_decode_u_64(deserializer);
+    return SyncProgress(
+        spksConsumed: var_spksConsumed,
+        spksRemaining: var_spksRemaining,
+        txidsConsumed: var_txidsConsumed,
+        txidsRemaining: var_txidsRemaining,
+        outpointsConsumed: var_outpointsConsumed,
+        outpointsRemaining: var_outpointsRemaining);
+  }
+
+  @protected
   TransactionError sse_decode_transaction_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -6622,11 +6656,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @protected
   PlatformPointer
-      cst_encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
-          FutureOr<void> Function(FfiScriptBuf, BigInt) raw) {
+      cst_encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
+          FutureOr<void> Function(FfiScriptBuf, SyncProgress) raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_DartOpaque(
-        encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+        encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
             raw));
   }
 
@@ -6863,12 +6897,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
-      FutureOr<void> Function(FfiScriptBuf, BigInt) self,
-      SseSerializer serializer) {
+  void
+      sse_encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
+          FutureOr<void> Function(FfiScriptBuf, SyncProgress) self,
+          SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_DartOpaque(
-        encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+        encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
             self),
         serializer);
   }
@@ -8345,6 +8380,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       default:
         throw UnimplementedError('');
     }
+  }
+
+  @protected
+  void sse_encode_sync_progress(SyncProgress self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.spksConsumed, serializer);
+    sse_encode_u_64(self.spksRemaining, serializer);
+    sse_encode_u_64(self.txidsConsumed, serializer);
+    sse_encode_u_64(self.txidsRemaining, serializer);
+    sse_encode_u_64(self.outpointsConsumed, serializer);
+    sse_encode_u_64(self.outpointsRemaining, serializer);
   }
 
   @protected

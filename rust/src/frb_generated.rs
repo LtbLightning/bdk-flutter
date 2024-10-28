@@ -1801,7 +1801,7 @@ fn wire__crate__api__types__ffi_sync_request_builder_inspect_spks_impl(
         move || {
             let api_that = that.cst_decode();
             let api_inspector =
-                decode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+                decode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
                     inspector.cst_decode(),
                 );
             move |context| {
@@ -2264,15 +2264,18 @@ fn wire__crate__api__wallet__ffi_wallet_transactions_impl(
 
 // Section: related_funcs
 
-fn decode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+fn decode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
-) -> impl Fn(crate::api::bitcoin::FfiScriptBuf, u64) -> flutter_rust_bridge::DartFnFuture<()> {
+) -> impl Fn(
+    crate::api::bitcoin::FfiScriptBuf,
+    crate::api::types::SyncProgress,
+) -> flutter_rust_bridge::DartFnFuture<()> {
     use flutter_rust_bridge::IntoDart;
 
     async fn body(
         dart_opaque: flutter_rust_bridge::DartOpaque,
         arg0: crate::api::bitcoin::FfiScriptBuf,
-        arg1: u64,
+        arg1: crate::api::types::SyncProgress,
     ) -> () {
         let args = vec![
             arg0.into_into_dart().into_dart(),
@@ -2296,7 +2299,7 @@ fn decode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
         ans
     }
 
-    move |arg0: crate::api::bitcoin::FfiScriptBuf, arg1: u64| {
+    move |arg0: crate::api::bitcoin::FfiScriptBuf, arg1: crate::api::types::SyncProgress| {
         flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(
             dart_opaque.clone(),
             arg0,
@@ -4292,6 +4295,26 @@ impl SseDecode for crate::api::error::SqliteError {
     }
 }
 
+impl SseDecode for crate::api::types::SyncProgress {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_spksConsumed = <u64>::sse_decode(deserializer);
+        let mut var_spksRemaining = <u64>::sse_decode(deserializer);
+        let mut var_txidsConsumed = <u64>::sse_decode(deserializer);
+        let mut var_txidsRemaining = <u64>::sse_decode(deserializer);
+        let mut var_outpointsConsumed = <u64>::sse_decode(deserializer);
+        let mut var_outpointsRemaining = <u64>::sse_decode(deserializer);
+        return crate::api::types::SyncProgress {
+            spks_consumed: var_spksConsumed,
+            spks_remaining: var_spksRemaining,
+            txids_consumed: var_txidsConsumed,
+            txids_remaining: var_txidsRemaining,
+            outpoints_consumed: var_outpointsConsumed,
+            outpoints_remaining: var_outpointsRemaining,
+        };
+    }
+}
+
 impl SseDecode for crate::api::error::TransactionError {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5870,6 +5893,31 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::error::SqliteError>
     for crate::api::error::SqliteError
 {
     fn into_into_dart(self) -> crate::api::error::SqliteError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::SyncProgress {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.spks_consumed.into_into_dart().into_dart(),
+            self.spks_remaining.into_into_dart().into_dart(),
+            self.txids_consumed.into_into_dart().into_dart(),
+            self.txids_remaining.into_into_dart().into_dart(),
+            self.outpoints_consumed.into_into_dart().into_dart(),
+            self.outpoints_remaining.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::SyncProgress
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SyncProgress>
+    for crate::api::types::SyncProgress
+{
+    fn into_into_dart(self) -> crate::api::types::SyncProgress {
         self
     }
 }
@@ -7564,6 +7612,18 @@ impl SseEncode for crate::api::error::SqliteError {
                 unimplemented!("");
             }
         }
+    }
+}
+
+impl SseEncode for crate::api::types::SyncProgress {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.spks_consumed, serializer);
+        <u64>::sse_encode(self.spks_remaining, serializer);
+        <u64>::sse_encode(self.txids_consumed, serializer);
+        <u64>::sse_encode(self.txids_remaining, serializer);
+        <u64>::sse_encode(self.outpoints_consumed, serializer);
+        <u64>::sse_encode(self.outpoints_remaining, serializer);
     }
 }
 
@@ -9285,6 +9345,19 @@ mod io {
             }
         }
     }
+    impl CstDecode<crate::api::types::SyncProgress> for wire_cst_sync_progress {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::types::SyncProgress {
+            crate::api::types::SyncProgress {
+                spks_consumed: self.spks_consumed.cst_decode(),
+                spks_remaining: self.spks_remaining.cst_decode(),
+                txids_consumed: self.txids_consumed.cst_decode(),
+                txids_remaining: self.txids_remaining.cst_decode(),
+                outpoints_consumed: self.outpoints_consumed.cst_decode(),
+                outpoints_remaining: self.outpoints_remaining.cst_decode(),
+            }
+        }
+    }
     impl CstDecode<crate::api::error::TransactionError> for wire_cst_transaction_error {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::error::TransactionError {
@@ -9971,6 +10044,23 @@ mod io {
         }
     }
     impl Default for wire_cst_sqlite_error {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_sync_progress {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                spks_consumed: Default::default(),
+                spks_remaining: Default::default(),
+                txids_consumed: Default::default(),
+                txids_remaining: Default::default(),
+                outpoints_consumed: Default::default(),
+                outpoints_remaining: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_sync_progress {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -12656,6 +12746,16 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_SqliteError_Sqlite {
         rusqlite_error: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_sync_progress {
+        spks_consumed: u64,
+        spks_remaining: u64,
+        txids_consumed: u64,
+        txids_remaining: u64,
+        outpoints_consumed: u64,
+        outpoints_remaining: u64,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

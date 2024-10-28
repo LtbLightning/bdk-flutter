@@ -99,8 +99,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
   @protected
-  FutureOr<void> Function(FfiScriptBuf, BigInt)
-      dco_decode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
+  FutureOr<void> Function(FfiScriptBuf, SyncProgress)
+      dco_decode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
           dynamic raw);
 
   @protected
@@ -488,6 +488,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   SqliteError dco_decode_sqlite_error(dynamic raw);
+
+  @protected
+  SyncProgress dco_decode_sync_progress(dynamic raw);
 
   @protected
   TransactionError dco_decode_transaction_error(dynamic raw);
@@ -941,6 +944,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   SqliteError sse_decode_sqlite_error(SseDeserializer deserializer);
+
+  @protected
+  SyncProgress sse_decode_sync_progress(SseDeserializer deserializer);
 
   @protected
   TransactionError sse_decode_transaction_error(SseDeserializer deserializer);
@@ -2787,6 +2793,17 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_sync_progress(
+      SyncProgress apiObj, wire_cst_sync_progress wireObj) {
+    wireObj.spks_consumed = cst_encode_u_64(apiObj.spksConsumed);
+    wireObj.spks_remaining = cst_encode_u_64(apiObj.spksRemaining);
+    wireObj.txids_consumed = cst_encode_u_64(apiObj.txidsConsumed);
+    wireObj.txids_remaining = cst_encode_u_64(apiObj.txidsRemaining);
+    wireObj.outpoints_consumed = cst_encode_u_64(apiObj.outpointsConsumed);
+    wireObj.outpoints_remaining = cst_encode_u_64(apiObj.outpointsRemaining);
+  }
+
+  @protected
   void cst_api_fill_to_wire_transaction_error(
       TransactionError apiObj, wire_cst_transaction_error wireObj) {
     if (apiObj is TransactionError_Io) {
@@ -2854,8 +2871,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   PlatformPointer
-      cst_encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
-          FutureOr<void> Function(FfiScriptBuf, BigInt) raw);
+      cst_encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
+          FutureOr<void> Function(FfiScriptBuf, SyncProgress) raw);
 
   @protected
   PlatformPointer
@@ -2969,9 +2986,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       AnyhowException self, SseSerializer serializer);
 
   @protected
-  void sse_encode_DartFn_Inputs_ffi_script_buf_u_64_Output_unit_AnyhowException(
-      FutureOr<void> Function(FfiScriptBuf, BigInt) self,
-      SseSerializer serializer);
+  void
+      sse_encode_DartFn_Inputs_ffi_script_buf_sync_progress_Output_unit_AnyhowException(
+          FutureOr<void> Function(FfiScriptBuf, SyncProgress) self,
+          SseSerializer serializer);
 
   @protected
   void
@@ -3415,6 +3433,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   void sse_encode_sqlite_error(SqliteError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sync_progress(SyncProgress self, SseSerializer serializer);
 
   @protected
   void sse_encode_transaction_error(
@@ -7719,6 +7740,26 @@ final class wire_cst_sqlite_error extends ffi.Struct {
   external int tag;
 
   external SqliteErrorKind kind;
+}
+
+final class wire_cst_sync_progress extends ffi.Struct {
+  @ffi.Uint64()
+  external int spks_consumed;
+
+  @ffi.Uint64()
+  external int spks_remaining;
+
+  @ffi.Uint64()
+  external int txids_consumed;
+
+  @ffi.Uint64()
+  external int txids_remaining;
+
+  @ffi.Uint64()
+  external int outpoints_consumed;
+
+  @ffi.Uint64()
+  external int outpoints_remaining;
 }
 
 final class wire_cst_TransactionError_InvalidChecksum extends ffi.Struct {
