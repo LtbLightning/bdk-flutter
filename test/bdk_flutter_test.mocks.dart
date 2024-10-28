@@ -1317,7 +1317,7 @@ class MockFullScanRequestBuilder extends _i1.Mock
           {required _i10.FutureOr<void> Function(
             _i2.KeychainKind,
             int,
-            _i8.FfiScriptBuf,
+            _i2.ScriptBuf,
           )? inspector}) =>
       (super.noSuchMethod(
         Invocation.method(
