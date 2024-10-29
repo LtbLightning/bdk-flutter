@@ -33,7 +33,7 @@ class BdkLibrary {
       final wallet = await Wallet.create(
           descriptor: descriptor,
           changeDescriptor: changeDescriptor,
-          network: Network.testnet,
+          network: Network.signet,
           connection: connection);
       return wallet;
     } on CreateWithPersistException catch (e) {
@@ -56,24 +56,34 @@ class BdkLibrary {
         final fullScanRequestBuilder = await wallet.startFullScan();
         final fullScanRequest = await (await fullScanRequestBuilder
                 .inspectSpksForAllKeychains(inspector: (e, f, g) {
-          debugPrint("Syncing progress: ${f.toString()}");
+          debugPrint(
+              "Syncing: index: ${f.toString()}, script: ${g.toString()}");
         }))
             .build();
         final update = await esploraClient.fullScan(
             request: fullScanRequest,
-            stopGap: BigInt.from(10),
-            parallelRequests: BigInt.from(2));
+            stopGap: BigInt.from(1),
+            parallelRequests: BigInt.from(1));
         await wallet.applyUpdate(update: update);
       } else {
+        print("syncing1");
         final syncRequestBuilder = await wallet.startSyncWithRevealedSpks();
         final syncRequest = await (await syncRequestBuilder.inspectSpks(
-                inspector: (i, f) async {
-          debugPrint(f.toString());
+                inspector: (script, progress) async {
+          debugPrint(
+              "syncing outputs: ${(progress.outpointsConsumed / (progress.outpointsConsumed + progress.outpointsRemaining)) * 100} %");
+          debugPrint(
+              "syncing txids: ${(progress.txidsConsumed / (progress.txidsConsumed + progress.txidsRemaining)) * 100} %");
+          debugPrint(
+              "syncing spk: ${(progress.spksConsumed / (progress.spksConsumed + progress.spksRemaining)) * 100} %");
         }))
             .build();
+        print("syncing-inspect");
         final update = await esploraClient.sync(
-            request: syncRequest, parallelRequests: BigInt.from(2));
+            request: syncRequest, parallelRequests: BigInt.from(1));
+        print("syncing-complete");
         await wallet.applyUpdate(update: update);
+        print("syncing-applied");
       }
     } on FormatException catch (e) {
       debugPrint(e.message);
