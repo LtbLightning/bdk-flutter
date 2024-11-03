@@ -1551,6 +1551,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       wireObj.kind.AmbiguousLanguages.languages = pre_languages;
       return;
     }
+    if (apiObj is Bip39Error_Generic) {
+      var pre_error_message = cst_encode_String(apiObj.errorMessage);
+      wireObj.tag = 5;
+      wireObj.kind.Generic.error_message = pre_error_message;
+      return;
+    }
   }
 
   @protected
@@ -7069,6 +7075,10 @@ final class wire_cst_Bip39Error_AmbiguousLanguages extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> languages;
 }
 
+final class wire_cst_Bip39Error_Generic extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error_message;
+}
+
 final class Bip39ErrorKind extends ffi.Union {
   external wire_cst_Bip39Error_BadWordCount BadWordCount;
 
@@ -7077,6 +7087,8 @@ final class Bip39ErrorKind extends ffi.Union {
   external wire_cst_Bip39Error_BadEntropyBitCount BadEntropyBitCount;
 
   external wire_cst_Bip39Error_AmbiguousLanguages AmbiguousLanguages;
+
+  external wire_cst_Bip39Error_Generic Generic;
 }
 
 final class wire_cst_bip_39_error extends ffi.Struct {

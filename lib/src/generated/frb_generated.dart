@@ -3579,6 +3579,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         return Bip39Error_AmbiguousLanguages(
           languages: dco_decode_String(raw[1]),
         );
+      case 5:
+        return Bip39Error_Generic(
+          errorMessage: dco_decode_String(raw[1]),
+        );
       default:
         throw Exception("unreachable");
     }
@@ -5271,6 +5275,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       case 4:
         var var_languages = sse_decode_String(deserializer);
         return Bip39Error_AmbiguousLanguages(languages: var_languages);
+      case 5:
+        var var_errorMessage = sse_decode_String(deserializer);
+        return Bip39Error_Generic(errorMessage: var_errorMessage);
       default:
         throw UnimplementedError('');
     }
@@ -7214,6 +7221,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       case Bip39Error_AmbiguousLanguages(languages: final languages):
         sse_encode_i_32(4, serializer);
         sse_encode_String(languages, serializer);
+      case Bip39Error_Generic(errorMessage: final errorMessage):
+        sse_encode_i_32(5, serializer);
+        sse_encode_String(errorMessage, serializer);
       default:
         throw UnimplementedError('');
     }

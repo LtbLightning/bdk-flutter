@@ -2837,6 +2837,12 @@ impl SseDecode for crate::api::error::Bip39Error {
                     languages: var_languages,
                 };
             }
+            5 => {
+                let mut var_errorMessage = <String>::sse_decode(deserializer);
+                return crate::api::error::Bip39Error::Generic {
+                    error_message: var_errorMessage,
+                };
+            }
             _ => {
                 unimplemented!("");
             }
@@ -4631,6 +4637,9 @@ impl flutter_rust_bridge::IntoDart for crate::api::error::Bip39Error {
             crate::api::error::Bip39Error::AmbiguousLanguages { languages } => {
                 [4.into_dart(), languages.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::error::Bip39Error::Generic { error_message } => {
+                [5.into_dart(), error_message.into_into_dart().into_dart()].into_dart()
+            }
             _ => {
                 unimplemented!("");
             }
@@ -6386,6 +6395,10 @@ impl SseEncode for crate::api::error::Bip39Error {
                 <i32>::sse_encode(4, serializer);
                 <String>::sse_encode(languages, serializer);
             }
+            crate::api::error::Bip39Error::Generic { error_message } => {
+                <i32>::sse_encode(5, serializer);
+                <String>::sse_encode(error_message, serializer);
+            }
             _ => {
                 unimplemented!("");
             }
@@ -8121,6 +8134,12 @@ mod io {
                     let ans = unsafe { self.kind.AmbiguousLanguages };
                     crate::api::error::Bip39Error::AmbiguousLanguages {
                         languages: ans.languages.cst_decode(),
+                    }
+                }
+                5 => {
+                    let ans = unsafe { self.kind.Generic };
+                    crate::api::error::Bip39Error::Generic {
+                        error_message: ans.error_message.cst_decode(),
                     }
                 }
                 _ => unreachable!(),
@@ -11797,6 +11816,7 @@ mod io {
         UnknownWord: wire_cst_Bip39Error_UnknownWord,
         BadEntropyBitCount: wire_cst_Bip39Error_BadEntropyBitCount,
         AmbiguousLanguages: wire_cst_Bip39Error_AmbiguousLanguages,
+        Generic: wire_cst_Bip39Error_Generic,
         nil__: (),
     }
     #[repr(C)]
@@ -11818,6 +11838,11 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_Bip39Error_AmbiguousLanguages {
         languages: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Bip39Error_Generic {
+        error_message: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

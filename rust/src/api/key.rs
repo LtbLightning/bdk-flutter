@@ -27,7 +27,14 @@ impl FfiMnemonic {
     pub fn new(word_count: WordCount) -> Result<Self, Bip39Error> {
         //todo; resolve unhandled unwrap()s
         let generated_key: keys::GeneratedKey<_, BareCtx> =
-            keys::bip39::Mnemonic::generate((word_count.into(), Language::English)).unwrap();
+            (match keys::bip39::Mnemonic::generate((word_count.into(), Language::English)) {
+                Ok(value) => Ok(value),
+                Err(Some(err)) => Err(err.into()),
+                Err(None) => Err(Bip39Error::Generic {
+                    error_message: "".to_string(),
+                }),
+            })?;
+
         keys::bip39::Mnemonic::parse_in(Language::English, generated_key.to_string())
             .map(|e| e.into())
             .map_err(Bip39Error::from)
