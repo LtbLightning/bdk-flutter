@@ -27,8 +27,10 @@ Pod::Spec.new do |s|
               }
               s.pod_target_xcconfig = {
                 'DEFINES_MODULE' => 'YES',
-                # Flutter.framework does not contain a i386 slice.
-                'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
                 'OTHER_LDFLAGS' => '-force_load ${BUILT_PRODUCTS_DIR}/libbdk_flutter.a',
+                'DEAD_CODE_STRIPPING' => 'YES',
+                'STRIP_INSTALLED_PRODUCT[config=Release][sdk=*][arch=*]' => "YES",
+                'STRIP_STYLE[config=Release][sdk=*][arch=*]' => "non-global",
+                'DEPLOYMENT_POSTPROCESSING[config=Release][sdk=*][arch=*]' => "YES",
               }
 end
