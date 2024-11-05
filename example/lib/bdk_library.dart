@@ -69,7 +69,7 @@ class BdkLibrary {
         print("syncing1");
         final syncRequestBuilder = await wallet.startSyncWithRevealedSpks();
         final syncRequest = await (await syncRequestBuilder.inspectSpks(
-                inspector: (script, progress) async {
+                inspector: (script, progress) {
           debugPrint(
               "syncing outputs: ${(progress.outpointsConsumed / (progress.outpointsConsumed + progress.outpointsRemaining)) * 100} %");
           debugPrint(
