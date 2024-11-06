@@ -912,3 +912,19 @@ impl TryFrom<bdk::bitcoin::psbt::Input> for Input {
         })
     }
 }
+pub struct FfiPolicy {
+    pub opaque: RustOpaque<bdk::descriptor::Policy>,
+}
+impl FfiPolicy {
+    #[frb(sync)]
+    pub fn id(&self) -> String {
+        self.opaque.id.clone()
+    }
+}
+impl From<bdk::descriptor::Policy> for FfiPolicy {
+    fn from(value: bdk::descriptor::Policy) -> Self {
+        FfiPolicy {
+            opaque: RustOpaque::new(value),
+        }
+    }
+}
