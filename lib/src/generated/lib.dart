@@ -19,6 +19,9 @@ abstract class AnyBlockchain implements RustOpaqueInterface {}
 // Rust type: RustOpaqueNom<bdk :: descriptor :: ExtendedDescriptor>
 abstract class ExtendedDescriptor implements RustOpaqueInterface {}
 
+// Rust type: RustOpaqueNom<bdk :: descriptor :: Policy>
+abstract class Policy implements RustOpaqueInterface {}
+
 // Rust type: RustOpaqueNom<bdk :: keys :: DescriptorPublicKey>
 abstract class DescriptorPublicKey implements RustOpaqueInterface {}
 

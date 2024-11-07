@@ -10,7 +10,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'types.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `default`, `default`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `hash`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `default`, `default`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `hash`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`, `try_from`
 
 @freezed
 sealed class AddressIndex with _$AddressIndex {
@@ -139,6 +139,50 @@ class BdkAddress {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BdkAddress &&
+          runtimeType == other.runtimeType &&
+          ptr == other.ptr;
+}
+
+class BdkPolicy {
+  final Policy ptr;
+
+  const BdkPolicy({
+    required this.ptr,
+  });
+
+  String asString() => core.instance.api.crateApiTypesBdkPolicyAsString(
+        that: this,
+      );
+
+  Satisfaction contribution() =>
+      core.instance.api.crateApiTypesBdkPolicyContribution(
+        that: this,
+      );
+
+  String id() => core.instance.api.crateApiTypesBdkPolicyId(
+        that: this,
+      );
+
+  SatisfiableItem item() => core.instance.api.crateApiTypesBdkPolicyItem(
+        that: this,
+      );
+
+  bool requiresPath() => core.instance.api.crateApiTypesBdkPolicyRequiresPath(
+        that: this,
+      );
+
+  Satisfaction satisfaction() =>
+      core.instance.api.crateApiTypesBdkPolicySatisfaction(
+        that: this,
+      );
+
+  @override
+  int get hashCode => ptr.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BdkPolicy &&
           runtimeType == other.runtimeType &&
           ptr == other.ptr;
 }
@@ -312,6 +356,27 @@ enum ChangeSpendPolicy {
   ;
 }
 
+class Condition {
+  final int? csv;
+  final LockTime? timelock;
+
+  const Condition({
+    this.csv,
+    this.timelock,
+  });
+
+  @override
+  int get hashCode => csv.hashCode ^ timelock.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Condition &&
+          runtimeType == other.runtimeType &&
+          csv == other.csv &&
+          timelock == other.timelock;
+}
+
 @freezed
 sealed class DatabaseConfig with _$DatabaseConfig {
   const DatabaseConfig._();
@@ -479,6 +544,21 @@ sealed class Payload with _$Payload {
   }) = Payload_WitnessProgram;
 }
 
+@freezed
+sealed class PkOrF with _$PkOrF {
+  const PkOrF._();
+
+  const factory PkOrF.pubkey({
+    required String value,
+  }) = PkOrF_Pubkey;
+  const factory PkOrF.xOnlyPubkey({
+    required String value,
+  }) = PkOrF_XOnlyPubkey;
+  const factory PkOrF.fingerprint({
+    required String value,
+  }) = PkOrF_Fingerprint;
+}
+
 class PsbtSigHashType {
   final int inner;
 
@@ -505,6 +585,70 @@ sealed class RbfValue with _$RbfValue {
   const factory RbfValue.value(
     int field0,
   ) = RbfValue_Value;
+}
+
+@freezed
+sealed class Satisfaction with _$Satisfaction {
+  const Satisfaction._();
+
+  const factory Satisfaction.partial({
+    required BigInt n,
+    required BigInt m,
+    required Uint64List items,
+    bool? sorted,
+    required Map<int, List<Condition>> conditions,
+  }) = Satisfaction_Partial;
+  const factory Satisfaction.partialComplete({
+    required BigInt n,
+    required BigInt m,
+    required Uint64List items,
+    bool? sorted,
+    required Map<Uint32List, List<Condition>> conditions,
+  }) = Satisfaction_PartialComplete;
+  const factory Satisfaction.complete({
+    required Condition condition,
+  }) = Satisfaction_Complete;
+  const factory Satisfaction.none({
+    required String msg,
+  }) = Satisfaction_None;
+}
+
+@freezed
+sealed class SatisfiableItem with _$SatisfiableItem {
+  const SatisfiableItem._();
+
+  const factory SatisfiableItem.ecdsaSignature({
+    required PkOrF key,
+  }) = SatisfiableItem_EcdsaSignature;
+  const factory SatisfiableItem.schnorrSignature({
+    required PkOrF key,
+  }) = SatisfiableItem_SchnorrSignature;
+  const factory SatisfiableItem.sha256Preimage({
+    required String hash,
+  }) = SatisfiableItem_Sha256Preimage;
+  const factory SatisfiableItem.hash256Preimage({
+    required String hash,
+  }) = SatisfiableItem_Hash256Preimage;
+  const factory SatisfiableItem.ripemd160Preimage({
+    required String hash,
+  }) = SatisfiableItem_Ripemd160Preimage;
+  const factory SatisfiableItem.hash160Preimage({
+    required String hash,
+  }) = SatisfiableItem_Hash160Preimage;
+  const factory SatisfiableItem.absoluteTimelock({
+    required LockTime value,
+  }) = SatisfiableItem_AbsoluteTimelock;
+  const factory SatisfiableItem.relativeTimelock({
+    required int value,
+  }) = SatisfiableItem_RelativeTimelock;
+  const factory SatisfiableItem.multisig({
+    required List<PkOrF> keys,
+    required BigInt threshold,
+  }) = SatisfiableItem_Multisig;
+  const factory SatisfiableItem.thresh({
+    required List<BdkPolicy> items,
+    required BigInt threshold,
+  }) = SatisfiableItem_Thresh;
 }
 
 /// A output script and an amount of satoshis.

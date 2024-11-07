@@ -62,7 +62,7 @@ class core extends BaseEntrypoint<coreApi, coreApiImpl, coreWire> {
   String get codegenVersion => '2.0.0';
 
   @override
-  int get rustContentHash => 1897842111;
+  int get rustContentHash => -321771070;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -232,6 +232,18 @@ abstract class coreApi extends BaseApi {
 
   String crateApiTypesBdkAddressToQrUri({required BdkAddress that});
 
+  String crateApiTypesBdkPolicyAsString({required BdkPolicy that});
+
+  Satisfaction crateApiTypesBdkPolicyContribution({required BdkPolicy that});
+
+  String crateApiTypesBdkPolicyId({required BdkPolicy that});
+
+  SatisfiableItem crateApiTypesBdkPolicyItem({required BdkPolicy that});
+
+  bool crateApiTypesBdkPolicyRequiresPath({required BdkPolicy that});
+
+  Satisfaction crateApiTypesBdkPolicySatisfaction({required BdkPolicy that});
+
   String crateApiTypesBdkScriptBufAsString({required BdkScriptBuf that});
 
   BdkScriptBuf crateApiTypesBdkScriptBufEmpty();
@@ -319,6 +331,9 @@ abstract class coreApi extends BaseApi {
       required Network network,
       required DatabaseConfig databaseConfig});
 
+  BdkPolicy? crateApiWalletBdkWalletPolicies(
+      {required BdkWallet ptr, required KeychainKind keychain});
+
   Future<bool> crateApiWalletBdkWalletSign(
       {required BdkWallet ptr,
       required BdkPsbt psbt,
@@ -348,6 +363,8 @@ abstract class coreApi extends BaseApi {
       required bool drainWallet,
       BdkScriptBuf? drainTo,
       RbfValue? rbf,
+      Map<String, Uint64List>? internalPolicyPath,
+      Map<String, Uint64List>? externalPolicyPath,
       required List<int> data});
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Address;
@@ -382,6 +399,12 @@ abstract class coreApi extends BaseApi {
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Policy;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Policy;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_DescriptorPublicKey;
@@ -1748,6 +1771,142 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
+  String crateApiTypesBdkPolicyAsString({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_as_string(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kCrateApiTypesBdkPolicyAsStringConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicyAsStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "bdk_policy_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Satisfaction crateApiTypesBdkPolicyContribution({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_contribution(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_satisfaction,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesBdkPolicyContributionConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicyContributionConstMeta =>
+      const TaskConstMeta(
+        debugName: "bdk_policy_contribution",
+        argNames: ["that"],
+      );
+
+  @override
+  String crateApiTypesBdkPolicyId({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_id(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesBdkPolicyIdConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicyIdConstMeta => const TaskConstMeta(
+        debugName: "bdk_policy_id",
+        argNames: ["that"],
+      );
+
+  @override
+  SatisfiableItem crateApiTypesBdkPolicyItem({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_item(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_satisfiable_item,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesBdkPolicyItemConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicyItemConstMeta => const TaskConstMeta(
+        debugName: "bdk_policy_item",
+        argNames: ["that"],
+      );
+
+  @override
+  bool crateApiTypesBdkPolicyRequiresPath({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_requires_path(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_bool,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesBdkPolicyRequiresPathConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicyRequiresPathConstMeta =>
+      const TaskConstMeta(
+        debugName: "bdk_policy_requires_path",
+        argNames: ["that"],
+      );
+
+  @override
+  Satisfaction crateApiTypesBdkPolicySatisfaction({required BdkPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_policy(that);
+        return wire.wire__crate__api__types__bdk_policy_satisfaction(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_satisfaction,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesBdkPolicySatisfactionConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesBdkPolicySatisfactionConstMeta =>
+      const TaskConstMeta(
+        debugName: "bdk_policy_satisfaction",
+        argNames: ["that"],
+      );
+
+  @override
   String crateApiTypesBdkScriptBufAsString({required BdkScriptBuf that}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
@@ -2461,6 +2620,31 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
+  BdkPolicy? crateApiWalletBdkWalletPolicies(
+      {required BdkWallet ptr, required KeychainKind keychain}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
+        var arg1 = cst_encode_keychain_kind(keychain);
+        return wire.wire__crate__api__wallet__bdk_wallet_policies(arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_box_autoadd_bdk_policy,
+        decodeErrorData: dco_decode_bdk_error,
+      ),
+      constMeta: kCrateApiWalletBdkWalletPoliciesConstMeta,
+      argValues: [ptr, keychain],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWalletBdkWalletPoliciesConstMeta =>
+      const TaskConstMeta(
+        debugName: "bdk_wallet_policies",
+        argNames: ["ptr", "keychain"],
+      );
+
+  @override
   Future<bool> crateApiWalletBdkWalletSign(
       {required BdkWallet ptr,
       required BdkPsbt psbt,
@@ -2571,6 +2755,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       required bool drainWallet,
       BdkScriptBuf? drainTo,
       RbfValue? rbf,
+      Map<String, Uint64List>? internalPolicyPath,
+      Map<String, Uint64List>? externalPolicyPath,
       required List<int> data}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -2587,7 +2773,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         var arg9 = cst_encode_bool(drainWallet);
         var arg10 = cst_encode_opt_box_autoadd_bdk_script_buf(drainTo);
         var arg11 = cst_encode_opt_box_autoadd_rbf_value(rbf);
-        var arg12 = cst_encode_list_prim_u_8_loose(data);
+        var arg12 = cst_encode_opt_Map_String_list_prim_usize_strict(
+            internalPolicyPath);
+        var arg13 = cst_encode_opt_Map_String_list_prim_usize_strict(
+            externalPolicyPath);
+        var arg14 = cst_encode_list_prim_u_8_loose(data);
         return wire.wire__crate__api__wallet__tx_builder_finish(
             port_,
             arg0,
@@ -2602,7 +2792,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
             arg9,
             arg10,
             arg11,
-            arg12);
+            arg12,
+            arg13,
+            arg14);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_record_bdk_psbt_transaction_details,
@@ -2622,6 +2814,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         drainWallet,
         drainTo,
         rbf,
+        internalPolicyPath,
+        externalPolicyPath,
         data
       ],
       apiImpl: this,
@@ -2644,6 +2838,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           "drainWallet",
           "drainTo",
           "rbf",
+          "internalPolicyPath",
+          "externalPolicyPath",
           "data"
         ],
       );
@@ -2679,6 +2875,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RustArcDecrementStrongCountFnType
       get rust_arc_decrement_strong_count_ExtendedDescriptor => wire
           .rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorExtendedDescriptor;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_Policy =>
+          wire.rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_Policy =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_DescriptorPublicKey => wire
@@ -2729,6 +2933,31 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           .rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdkbitcoinpsbtPartiallySignedTransaction;
 
   @protected
+  Map<String, Uint64List> dco_decode_Map_String_list_prim_usize_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(
+        dco_decode_list_record_string_list_prim_usize_strict(raw)
+            .map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
+  Map<Uint32List, List<Condition>>
+      dco_decode_Map_list_prim_u_32_strict_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(
+        dco_decode_list_record_list_prim_u_32_strict_list_condition(raw)
+            .map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
+  Map<int, List<Condition>> dco_decode_Map_u_32_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(dco_decode_list_record_u_32_list_condition(raw)
+        .map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   Address dco_decode_RustOpaque_bdkbitcoinAddress(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return AddressImpl.frbInternalDcoDecode(raw as List<dynamic>);
@@ -2752,6 +2981,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ExtendedDescriptorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Policy dco_decode_RustOpaque_bdkdescriptorPolicy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PolicyImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -3177,6 +3412,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  BdkPolicy dco_decode_bdk_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return BdkPolicy(
+      ptr: dco_decode_RustOpaque_bdkdescriptorPolicy(arr[0]),
+    );
+  }
+
+  @protected
   BdkPsbt dco_decode_bdk_psbt(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -3319,6 +3565,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  BdkPolicy dco_decode_box_autoadd_bdk_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_bdk_policy(raw);
+  }
+
+  @protected
   BdkPsbt dco_decode_box_autoadd_bdk_psbt(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_bdk_psbt(raw);
@@ -3352,6 +3604,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   BlockchainConfig dco_decode_box_autoadd_blockchain_config(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_blockchain_config(raw);
+  }
+
+  @protected
+  bool dco_decode_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
+  Condition dco_decode_box_autoadd_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_condition(raw);
   }
 
   @protected
@@ -3418,6 +3682,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   OutPoint dco_decode_box_autoadd_out_point(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_out_point(raw);
+  }
+
+  @protected
+  PkOrF dco_decode_box_autoadd_pk_or_f(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pk_or_f(raw);
   }
 
   @protected
@@ -3493,6 +3763,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   ChangeSpendPolicy dco_decode_change_spend_policy(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ChangeSpendPolicy.values[raw as int];
+  }
+
+  @protected
+  Condition dco_decode_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Condition(
+      csv: dco_decode_opt_box_autoadd_u_32(arr[0]),
+      timelock: dco_decode_opt_box_autoadd_lock_time(arr[1]),
+    );
   }
 
   @protected
@@ -3690,6 +3972,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<BdkPolicy> dco_decode_list_bdk_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_bdk_policy).toList();
+  }
+
+  @protected
+  List<Condition> dco_decode_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_condition).toList();
+  }
+
+  @protected
   List<Uint8List> dco_decode_list_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_list_prim_u_8_strict).toList();
@@ -3708,6 +4002,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<PkOrF> dco_decode_list_pk_or_f(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_pk_or_f).toList();
+  }
+
+  @protected
+  Uint32List dco_decode_list_prim_u_32_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint32List;
+  }
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeUint64List(raw);
+  }
+
+  @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as List<int>;
@@ -3717,6 +4029,39 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
+  }
+
+  @protected
+  Uint64List dco_decode_list_prim_usize_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint64List;
+  }
+
+  @protected
+  List<(Uint32List, List<Condition>)>
+      dco_decode_list_record_list_prim_u_32_strict_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_record_list_prim_u_32_strict_list_condition)
+        .toList();
+  }
+
+  @protected
+  List<(String, Uint64List)>
+      dco_decode_list_record_string_list_prim_usize_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_record_string_list_prim_usize_strict)
+        .toList();
+  }
+
+  @protected
+  List<(int, List<Condition>)> dco_decode_list_record_u_32_list_condition(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_record_u_32_list_condition)
+        .toList();
   }
 
   @protected
@@ -3781,6 +4126,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Map<String, Uint64List>? dco_decode_opt_Map_String_list_prim_usize_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_Map_String_list_prim_usize_strict(raw);
+  }
+
+  @protected
   String? dco_decode_opt_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_String(raw);
@@ -3796,6 +4150,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   BdkDescriptor? dco_decode_opt_box_autoadd_bdk_descriptor(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_bdk_descriptor(raw);
+  }
+
+  @protected
+  BdkPolicy? dco_decode_opt_box_autoadd_bdk_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_bdk_policy(raw);
   }
 
   @protected
@@ -3817,6 +4177,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  bool? dco_decode_opt_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_bool(raw);
+  }
+
+  @protected
   double? dco_decode_opt_box_autoadd_f_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_f_32(raw);
@@ -3826,6 +4192,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  LockTime? dco_decode_opt_box_autoadd_lock_time(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_lock_time(raw);
   }
 
   @protected
@@ -3914,6 +4286,27 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  PkOrF dco_decode_pk_or_f(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return PkOrF_Pubkey(
+          value: dco_decode_String(raw[1]),
+        );
+      case 1:
+        return PkOrF_XOnlyPubkey(
+          value: dco_decode_String(raw[1]),
+        );
+      case 2:
+        return PkOrF_Fingerprint(
+          value: dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
   PsbtSigHashType dco_decode_psbt_sig_hash_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -3967,6 +4360,20 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  (Uint32List, List<Condition>)
+      dco_decode_record_list_prim_u_32_strict_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_list_prim_u_32_strict(arr[0]),
+      dco_decode_list_condition(arr[1]),
+    );
+  }
+
+  @protected
   (OutPoint, Input, BigInt) dco_decode_record_out_point_input_usize(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -3978,6 +4385,33 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       dco_decode_out_point(arr[0]),
       dco_decode_input(arr[1]),
       dco_decode_usize(arr[2]),
+    );
+  }
+
+  @protected
+  (String, Uint64List) dco_decode_record_string_list_prim_usize_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_String(arr[0]),
+      dco_decode_list_prim_usize_strict(arr[1]),
+    );
+  }
+
+  @protected
+  (int, List<Condition>) dco_decode_record_u_32_list_condition(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_u_32(arr[0]),
+      dco_decode_list_condition(arr[1]),
     );
   }
 
@@ -4008,6 +4442,91 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       forceStartTime: dco_decode_bool(arr[2]),
       pollRateSec: dco_decode_u_64(arr[3]),
     );
+  }
+
+  @protected
+  Satisfaction dco_decode_satisfaction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return Satisfaction_Partial(
+          n: dco_decode_u_64(raw[1]),
+          m: dco_decode_u_64(raw[2]),
+          items: dco_decode_list_prim_u_64_strict(raw[3]),
+          sorted: dco_decode_opt_box_autoadd_bool(raw[4]),
+          conditions: dco_decode_Map_u_32_list_condition(raw[5]),
+        );
+      case 1:
+        return Satisfaction_PartialComplete(
+          n: dco_decode_u_64(raw[1]),
+          m: dco_decode_u_64(raw[2]),
+          items: dco_decode_list_prim_u_64_strict(raw[3]),
+          sorted: dco_decode_opt_box_autoadd_bool(raw[4]),
+          conditions:
+              dco_decode_Map_list_prim_u_32_strict_list_condition(raw[5]),
+        );
+      case 2:
+        return Satisfaction_Complete(
+          condition: dco_decode_box_autoadd_condition(raw[1]),
+        );
+      case 3:
+        return Satisfaction_None(
+          msg: dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  SatisfiableItem dco_decode_satisfiable_item(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return SatisfiableItem_EcdsaSignature(
+          key: dco_decode_box_autoadd_pk_or_f(raw[1]),
+        );
+      case 1:
+        return SatisfiableItem_SchnorrSignature(
+          key: dco_decode_box_autoadd_pk_or_f(raw[1]),
+        );
+      case 2:
+        return SatisfiableItem_Sha256Preimage(
+          hash: dco_decode_String(raw[1]),
+        );
+      case 3:
+        return SatisfiableItem_Hash256Preimage(
+          hash: dco_decode_String(raw[1]),
+        );
+      case 4:
+        return SatisfiableItem_Ripemd160Preimage(
+          hash: dco_decode_String(raw[1]),
+        );
+      case 5:
+        return SatisfiableItem_Hash160Preimage(
+          hash: dco_decode_String(raw[1]),
+        );
+      case 6:
+        return SatisfiableItem_AbsoluteTimelock(
+          value: dco_decode_box_autoadd_lock_time(raw[1]),
+        );
+      case 7:
+        return SatisfiableItem_RelativeTimelock(
+          value: dco_decode_u_32(raw[1]),
+        );
+      case 8:
+        return SatisfiableItem_Multisig(
+          keys: dco_decode_list_pk_or_f(raw[1]),
+          threshold: dco_decode_u_64(raw[2]),
+        );
+      case 9:
+        return SatisfiableItem_Thresh(
+          items: dco_decode_list_bdk_policy(raw[1]),
+          threshold: dco_decode_u_64(raw[2]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
   }
 
   @protected
@@ -4159,6 +4678,33 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Map<String, Uint64List> sse_decode_Map_String_list_prim_usize_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner =
+        sse_decode_list_record_string_list_prim_usize_strict(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
+  Map<Uint32List, List<Condition>>
+      sse_decode_Map_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_record_list_prim_u_32_strict_list_condition(
+        deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
+  Map<int, List<Condition>> sse_decode_Map_u_32_list_condition(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_record_u_32_list_condition(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   Address sse_decode_RustOpaque_bdkbitcoinAddress(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -4187,6 +4733,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ExtendedDescriptorImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Policy sse_decode_RustOpaque_bdkdescriptorPolicy(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PolicyImpl.frbInternalSseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -4566,6 +5120,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  BdkPolicy sse_decode_bdk_policy(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ptr = sse_decode_RustOpaque_bdkdescriptorPolicy(deserializer);
+    return BdkPolicy(ptr: var_ptr);
+  }
+
+  @protected
   BdkPsbt sse_decode_bdk_psbt(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_ptr =
@@ -4694,6 +5255,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  BdkPolicy sse_decode_box_autoadd_bdk_policy(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_bdk_policy(deserializer));
+  }
+
+  @protected
   BdkPsbt sse_decode_box_autoadd_bdk_psbt(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_bdk_psbt(deserializer));
@@ -4730,6 +5297,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_blockchain_config(deserializer));
+  }
+
+  @protected
+  bool sse_decode_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_bool(deserializer));
+  }
+
+  @protected
+  Condition sse_decode_box_autoadd_condition(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_condition(deserializer));
   }
 
   @protected
@@ -4801,6 +5380,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_out_point(deserializer));
+  }
+
+  @protected
+  PkOrF sse_decode_box_autoadd_pk_or_f(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pk_or_f(deserializer));
   }
 
   @protected
@@ -4881,6 +5466,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return ChangeSpendPolicy.values[inner];
+  }
+
+  @protected
+  Condition sse_decode_condition(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_csv = sse_decode_opt_box_autoadd_u_32(deserializer);
+    var var_timelock = sse_decode_opt_box_autoadd_lock_time(deserializer);
+    return Condition(csv: var_csv, timelock: var_timelock);
   }
 
   @protected
@@ -5068,6 +5661,30 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<BdkPolicy> sse_decode_list_bdk_policy(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <BdkPolicy>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_bdk_policy(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<Condition> sse_decode_list_condition(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <Condition>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_condition(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<Uint8List> sse_decode_list_list_prim_u_8_strict(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5105,6 +5722,32 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<PkOrF> sse_decode_list_pk_or_f(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PkOrF>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_pk_or_f(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  Uint32List sse_decode_list_prim_u_32_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint32List(len_);
+  }
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint64List(len_);
+  }
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
@@ -5116,6 +5759,55 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
     return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint64List(len_);
+  }
+
+  @protected
+  List<(Uint32List, List<Condition>)>
+      sse_decode_list_record_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(Uint32List, List<Condition>)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(
+          sse_decode_record_list_prim_u_32_strict_list_condition(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<(String, Uint64List)>
+      sse_decode_list_record_string_list_prim_usize_strict(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(String, Uint64List)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_string_list_prim_usize_strict(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<(int, List<Condition>)> sse_decode_list_record_u_32_list_condition(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(int, List<Condition>)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_u_32_list_condition(deserializer));
+    }
+    return ans_;
   }
 
   @protected
@@ -5207,6 +5899,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Map<String, Uint64List>? sse_decode_opt_Map_String_list_prim_usize_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_Map_String_list_prim_usize_strict(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -5236,6 +5940,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_bdk_descriptor(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  BdkPolicy? sse_decode_opt_box_autoadd_bdk_policy(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_bdk_policy(deserializer));
     } else {
       return null;
     }
@@ -5278,6 +5994,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  bool? sse_decode_opt_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_bool(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   double? sse_decode_opt_box_autoadd_f_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -5294,6 +6021,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_fee_rate(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  LockTime? sse_decode_opt_box_autoadd_lock_time(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_lock_time(deserializer));
     } else {
       return null;
     }
@@ -5424,6 +6162,26 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  PkOrF sse_decode_pk_or_f(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_value = sse_decode_String(deserializer);
+        return PkOrF_Pubkey(value: var_value);
+      case 1:
+        var var_value = sse_decode_String(deserializer);
+        return PkOrF_XOnlyPubkey(value: var_value);
+      case 2:
+        var var_value = sse_decode_String(deserializer);
+        return PkOrF_Fingerprint(value: var_value);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   PsbtSigHashType sse_decode_psbt_sig_hash_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_inner = sse_decode_u_32(deserializer);
@@ -5465,6 +6223,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  (Uint32List, List<Condition>)
+      sse_decode_record_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_list_prim_u_32_strict(deserializer);
+    var var_field1 = sse_decode_list_condition(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
   (OutPoint, Input, BigInt) sse_decode_record_out_point_input_usize(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5472,6 +6240,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     var var_field1 = sse_decode_input(deserializer);
     var var_field2 = sse_decode_usize(deserializer);
     return (var_field0, var_field1, var_field2);
+  }
+
+  @protected
+  (String, Uint64List) sse_decode_record_string_list_prim_usize_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_String(deserializer);
+    var var_field1 = sse_decode_list_prim_usize_strict(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
+  (int, List<Condition>) sse_decode_record_u_32_list_condition(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_u_32(deserializer);
+    var var_field1 = sse_decode_list_condition(deserializer);
+    return (var_field0, var_field1);
   }
 
   @protected
@@ -5503,6 +6289,93 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         startTime: var_startTime,
         forceStartTime: var_forceStartTime,
         pollRateSec: var_pollRateSec);
+  }
+
+  @protected
+  Satisfaction sse_decode_satisfaction(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_n = sse_decode_u_64(deserializer);
+        var var_m = sse_decode_u_64(deserializer);
+        var var_items = sse_decode_list_prim_u_64_strict(deserializer);
+        var var_sorted = sse_decode_opt_box_autoadd_bool(deserializer);
+        var var_conditions = sse_decode_Map_u_32_list_condition(deserializer);
+        return Satisfaction_Partial(
+            n: var_n,
+            m: var_m,
+            items: var_items,
+            sorted: var_sorted,
+            conditions: var_conditions);
+      case 1:
+        var var_n = sse_decode_u_64(deserializer);
+        var var_m = sse_decode_u_64(deserializer);
+        var var_items = sse_decode_list_prim_u_64_strict(deserializer);
+        var var_sorted = sse_decode_opt_box_autoadd_bool(deserializer);
+        var var_conditions =
+            sse_decode_Map_list_prim_u_32_strict_list_condition(deserializer);
+        return Satisfaction_PartialComplete(
+            n: var_n,
+            m: var_m,
+            items: var_items,
+            sorted: var_sorted,
+            conditions: var_conditions);
+      case 2:
+        var var_condition = sse_decode_box_autoadd_condition(deserializer);
+        return Satisfaction_Complete(condition: var_condition);
+      case 3:
+        var var_msg = sse_decode_String(deserializer);
+        return Satisfaction_None(msg: var_msg);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  SatisfiableItem sse_decode_satisfiable_item(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_key = sse_decode_box_autoadd_pk_or_f(deserializer);
+        return SatisfiableItem_EcdsaSignature(key: var_key);
+      case 1:
+        var var_key = sse_decode_box_autoadd_pk_or_f(deserializer);
+        return SatisfiableItem_SchnorrSignature(key: var_key);
+      case 2:
+        var var_hash = sse_decode_String(deserializer);
+        return SatisfiableItem_Sha256Preimage(hash: var_hash);
+      case 3:
+        var var_hash = sse_decode_String(deserializer);
+        return SatisfiableItem_Hash256Preimage(hash: var_hash);
+      case 4:
+        var var_hash = sse_decode_String(deserializer);
+        return SatisfiableItem_Ripemd160Preimage(hash: var_hash);
+      case 5:
+        var var_hash = sse_decode_String(deserializer);
+        return SatisfiableItem_Hash160Preimage(hash: var_hash);
+      case 6:
+        var var_value = sse_decode_box_autoadd_lock_time(deserializer);
+        return SatisfiableItem_AbsoluteTimelock(value: var_value);
+      case 7:
+        var var_value = sse_decode_u_32(deserializer);
+        return SatisfiableItem_RelativeTimelock(value: var_value);
+      case 8:
+        var var_keys = sse_decode_list_pk_or_f(deserializer);
+        var var_threshold = sse_decode_u_64(deserializer);
+        return SatisfiableItem_Multisig(
+            keys: var_keys, threshold: var_threshold);
+      case 9:
+        var var_items = sse_decode_list_bdk_policy(deserializer);
+        var var_threshold = sse_decode_u_64(deserializer);
+        return SatisfiableItem_Thresh(
+            items: var_items, threshold: var_threshold);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected
@@ -5680,6 +6553,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  int cst_encode_RustOpaque_bdkdescriptorPolicy(Policy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return (raw as PolicyImpl).frbInternalCstEncode();
+  }
+
+  @protected
   int cst_encode_RustOpaque_bdkkeysDescriptorPublicKey(
       DescriptorPublicKey raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -5798,6 +6678,30 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_Map_String_list_prim_usize_strict(
+      Map<String, Uint64List> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_string_list_prim_usize_strict(
+        self.entries.map((e) => (e.key, e.value)).toList(), serializer);
+  }
+
+  @protected
+  void sse_encode_Map_list_prim_u_32_strict_list_condition(
+      Map<Uint32List, List<Condition>> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_list_prim_u_32_strict_list_condition(
+        self.entries.map((e) => (e.key, e.value)).toList(), serializer);
+  }
+
+  @protected
+  void sse_encode_Map_u_32_list_condition(
+      Map<int, List<Condition>> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_u_32_list_condition(
+        self.entries.map((e) => (e.key, e.value)).toList(), serializer);
+  }
+
+  @protected
   void sse_encode_RustOpaque_bdkbitcoinAddress(
       Address self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5830,6 +6734,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_usize(
         (self as ExtendedDescriptorImpl).frbInternalSseEncode(move: null),
         serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_bdkdescriptorPolicy(
+      Policy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as PolicyImpl).frbInternalSseEncode(move: null), serializer);
   }
 
   @protected
@@ -6195,6 +7107,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_bdk_policy(BdkPolicy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_bdkdescriptorPolicy(self.ptr, serializer);
+  }
+
+  @protected
   void sse_encode_bdk_psbt(BdkPsbt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_stdsyncMutexbdkbitcoinpsbtPartiallySignedTransaction(
@@ -6317,6 +7235,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_bdk_policy(
+      BdkPolicy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_bdk_policy(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_bdk_psbt(BdkPsbt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_bdk_psbt(self, serializer);
@@ -6355,6 +7280,19 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       BlockchainConfig self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_blockchain_config(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_bool(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_condition(
+      Condition self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_condition(self, serializer);
   }
 
   @protected
@@ -6430,6 +7368,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       OutPoint self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_out_point(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_pk_or_f(PkOrF self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pk_or_f(self, serializer);
   }
 
   @protected
@@ -6511,6 +7455,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       ChangeSpendPolicy self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_condition(Condition self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_u_32(self.csv, serializer);
+    sse_encode_opt_box_autoadd_lock_time(self.timelock, serializer);
   }
 
   @protected
@@ -6680,6 +7631,26 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_list_bdk_policy(
+      List<BdkPolicy> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_bdk_policy(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_condition(
+      List<Condition> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_condition(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_list_prim_u_8_strict(
       List<Uint8List> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -6710,6 +7681,31 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_list_pk_or_f(List<PkOrF> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_pk_or_f(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_32_strict(
+      Uint32List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint32List(self);
+  }
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint64List(self);
+  }
+
+  @protected
   void sse_encode_list_prim_u_8_loose(
       List<int> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -6724,6 +7720,44 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_list_prim_usize_strict(
+      Uint64List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint64List(self);
+  }
+
+  @protected
+  void sse_encode_list_record_list_prim_u_32_strict_list_condition(
+      List<(Uint32List, List<Condition>)> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_list_prim_u_32_strict_list_condition(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_record_string_list_prim_usize_strict(
+      List<(String, Uint64List)> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_string_list_prim_usize_strict(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_record_u_32_list_condition(
+      List<(int, List<Condition>)> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_u_32_list_condition(item, serializer);
+    }
   }
 
   @protected
@@ -6795,6 +7829,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_opt_Map_String_list_prim_usize_strict(
+      Map<String, Uint64List>? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_Map_String_list_prim_usize_strict(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -6823,6 +7868,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_bdk_descriptor(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_bdk_policy(
+      BdkPolicy? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_bdk_policy(self, serializer);
     }
   }
 
@@ -6860,6 +7916,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_bool(bool? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_bool(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_box_autoadd_f_32(double? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -6877,6 +7943,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_fee_rate(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_lock_time(
+      LockTime? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_lock_time(self, serializer);
     }
   }
 
@@ -6995,6 +8072,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_pk_or_f(PkOrF self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case PkOrF_Pubkey(value: final value):
+        sse_encode_i_32(0, serializer);
+        sse_encode_String(value, serializer);
+      case PkOrF_XOnlyPubkey(value: final value):
+        sse_encode_i_32(1, serializer);
+        sse_encode_String(value, serializer);
+      case PkOrF_Fingerprint(value: final value):
+        sse_encode_i_32(2, serializer);
+        sse_encode_String(value, serializer);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   void sse_encode_psbt_sig_hash_type(
       PsbtSigHashType self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -7032,12 +8127,36 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_record_list_prim_u_32_strict_list_condition(
+      (Uint32List, List<Condition>) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_32_strict(self.$1, serializer);
+    sse_encode_list_condition(self.$2, serializer);
+  }
+
+  @protected
   void sse_encode_record_out_point_input_usize(
       (OutPoint, Input, BigInt) self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_out_point(self.$1, serializer);
     sse_encode_input(self.$2, serializer);
     sse_encode_usize(self.$3, serializer);
+  }
+
+  @protected
+  void sse_encode_record_string_list_prim_usize_strict(
+      (String, Uint64List) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.$1, serializer);
+    sse_encode_list_prim_usize_strict(self.$2, serializer);
+  }
+
+  @protected
+  void sse_encode_record_u_32_list_condition(
+      (int, List<Condition>) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.$1, serializer);
+    sse_encode_list_condition(self.$2, serializer);
   }
 
   @protected
@@ -7058,6 +8177,96 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_u_64(self.startTime, serializer);
     sse_encode_bool(self.forceStartTime, serializer);
     sse_encode_u_64(self.pollRateSec, serializer);
+  }
+
+  @protected
+  void sse_encode_satisfaction(Satisfaction self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case Satisfaction_Partial(
+          n: final n,
+          m: final m,
+          items: final items,
+          sorted: final sorted,
+          conditions: final conditions
+        ):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_64(n, serializer);
+        sse_encode_u_64(m, serializer);
+        sse_encode_list_prim_u_64_strict(items, serializer);
+        sse_encode_opt_box_autoadd_bool(sorted, serializer);
+        sse_encode_Map_u_32_list_condition(conditions, serializer);
+      case Satisfaction_PartialComplete(
+          n: final n,
+          m: final m,
+          items: final items,
+          sorted: final sorted,
+          conditions: final conditions
+        ):
+        sse_encode_i_32(1, serializer);
+        sse_encode_u_64(n, serializer);
+        sse_encode_u_64(m, serializer);
+        sse_encode_list_prim_u_64_strict(items, serializer);
+        sse_encode_opt_box_autoadd_bool(sorted, serializer);
+        sse_encode_Map_list_prim_u_32_strict_list_condition(
+            conditions, serializer);
+      case Satisfaction_Complete(condition: final condition):
+        sse_encode_i_32(2, serializer);
+        sse_encode_box_autoadd_condition(condition, serializer);
+      case Satisfaction_None(msg: final msg):
+        sse_encode_i_32(3, serializer);
+        sse_encode_String(msg, serializer);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  void sse_encode_satisfiable_item(
+      SatisfiableItem self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case SatisfiableItem_EcdsaSignature(key: final key):
+        sse_encode_i_32(0, serializer);
+        sse_encode_box_autoadd_pk_or_f(key, serializer);
+      case SatisfiableItem_SchnorrSignature(key: final key):
+        sse_encode_i_32(1, serializer);
+        sse_encode_box_autoadd_pk_or_f(key, serializer);
+      case SatisfiableItem_Sha256Preimage(hash: final hash):
+        sse_encode_i_32(2, serializer);
+        sse_encode_String(hash, serializer);
+      case SatisfiableItem_Hash256Preimage(hash: final hash):
+        sse_encode_i_32(3, serializer);
+        sse_encode_String(hash, serializer);
+      case SatisfiableItem_Ripemd160Preimage(hash: final hash):
+        sse_encode_i_32(4, serializer);
+        sse_encode_String(hash, serializer);
+      case SatisfiableItem_Hash160Preimage(hash: final hash):
+        sse_encode_i_32(5, serializer);
+        sse_encode_String(hash, serializer);
+      case SatisfiableItem_AbsoluteTimelock(value: final value):
+        sse_encode_i_32(6, serializer);
+        sse_encode_box_autoadd_lock_time(value, serializer);
+      case SatisfiableItem_RelativeTimelock(value: final value):
+        sse_encode_i_32(7, serializer);
+        sse_encode_u_32(value, serializer);
+      case SatisfiableItem_Multisig(
+          keys: final keys,
+          threshold: final threshold
+        ):
+        sse_encode_i_32(8, serializer);
+        sse_encode_list_pk_or_f(keys, serializer);
+        sse_encode_u_64(threshold, serializer);
+      case SatisfiableItem_Thresh(
+          items: final items,
+          threshold: final threshold
+        ):
+        sse_encode_i_32(9, serializer);
+        sse_encode_list_bdk_policy(items, serializer);
+        sse_encode_u_64(threshold, serializer);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected
@@ -7383,5 +8592,25 @@ class MutexWalletAnyDatabaseImpl extends RustOpaque
         .instance.api.rust_arc_decrement_strong_count_MutexWalletAnyDatabase,
     rustArcDecrementStrongCountPtr: core
         .instance.api.rust_arc_decrement_strong_count_MutexWalletAnyDatabasePtr,
+  );
+}
+
+@sealed
+class PolicyImpl extends RustOpaque implements Policy {
+  // Not to be used by end users
+  PolicyImpl.frbInternalDcoDecode(List<dynamic> wire)
+      : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PolicyImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        core.instance.api.rust_arc_increment_strong_count_Policy,
+    rustArcDecrementStrongCount:
+        core.instance.api.rust_arc_decrement_strong_count_Policy,
+    rustArcDecrementStrongCountPtr:
+        core.instance.api.rust_arc_decrement_strong_count_PolicyPtr,
   );
 }

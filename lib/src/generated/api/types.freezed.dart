@@ -1960,6 +1960,527 @@ abstract class Payload_WitnessProgram extends Payload {
 }
 
 /// @nodoc
+mixin _$PkOrF {
+  String get value => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PkOrFCopyWith<PkOrF> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PkOrFCopyWith<$Res> {
+  factory $PkOrFCopyWith(PkOrF value, $Res Function(PkOrF) then) =
+      _$PkOrFCopyWithImpl<$Res, PkOrF>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class _$PkOrFCopyWithImpl<$Res, $Val extends PkOrF>
+    implements $PkOrFCopyWith<$Res> {
+  _$PkOrFCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_value.copyWith(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PkOrF_PubkeyImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_PubkeyImplCopyWith(
+          _$PkOrF_PubkeyImpl value, $Res Function(_$PkOrF_PubkeyImpl) then) =
+      __$$PkOrF_PubkeyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_PubkeyImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_PubkeyImpl>
+    implements _$$PkOrF_PubkeyImplCopyWith<$Res> {
+  __$$PkOrF_PubkeyImplCopyWithImpl(
+      _$PkOrF_PubkeyImpl _value, $Res Function(_$PkOrF_PubkeyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_PubkeyImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_PubkeyImpl extends PkOrF_Pubkey {
+  const _$PkOrF_PubkeyImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.pubkey(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_PubkeyImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
+      __$$PkOrF_PubkeyImplCopyWithImpl<_$PkOrF_PubkeyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return pubkey(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return pubkey?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (pubkey != null) {
+      return pubkey(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return pubkey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return pubkey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (pubkey != null) {
+      return pubkey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_Pubkey extends PkOrF {
+  const factory PkOrF_Pubkey({required final String value}) =
+      _$PkOrF_PubkeyImpl;
+  const PkOrF_Pubkey._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_XOnlyPubkeyImplCopyWith(_$PkOrF_XOnlyPubkeyImpl value,
+          $Res Function(_$PkOrF_XOnlyPubkeyImpl) then) =
+      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_XOnlyPubkeyImpl>
+    implements _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res> {
+  __$$PkOrF_XOnlyPubkeyImplCopyWithImpl(_$PkOrF_XOnlyPubkeyImpl _value,
+      $Res Function(_$PkOrF_XOnlyPubkeyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_XOnlyPubkeyImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_XOnlyPubkeyImpl extends PkOrF_XOnlyPubkey {
+  const _$PkOrF_XOnlyPubkeyImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.xOnlyPubkey(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_XOnlyPubkeyImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
+      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<_$PkOrF_XOnlyPubkeyImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return xOnlyPubkey(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return xOnlyPubkey?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (xOnlyPubkey != null) {
+      return xOnlyPubkey(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return xOnlyPubkey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return xOnlyPubkey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (xOnlyPubkey != null) {
+      return xOnlyPubkey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_XOnlyPubkey extends PkOrF {
+  const factory PkOrF_XOnlyPubkey({required final String value}) =
+      _$PkOrF_XOnlyPubkeyImpl;
+  const PkOrF_XOnlyPubkey._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PkOrF_FingerprintImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_FingerprintImplCopyWith(_$PkOrF_FingerprintImpl value,
+          $Res Function(_$PkOrF_FingerprintImpl) then) =
+      __$$PkOrF_FingerprintImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_FingerprintImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_FingerprintImpl>
+    implements _$$PkOrF_FingerprintImplCopyWith<$Res> {
+  __$$PkOrF_FingerprintImplCopyWithImpl(_$PkOrF_FingerprintImpl _value,
+      $Res Function(_$PkOrF_FingerprintImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_FingerprintImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_FingerprintImpl extends PkOrF_Fingerprint {
+  const _$PkOrF_FingerprintImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.fingerprint(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_FingerprintImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
+      __$$PkOrF_FingerprintImplCopyWithImpl<_$PkOrF_FingerprintImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return fingerprint(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return fingerprint?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (fingerprint != null) {
+      return fingerprint(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return fingerprint(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return fingerprint?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (fingerprint != null) {
+      return fingerprint(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_Fingerprint extends PkOrF {
+  const factory PkOrF_Fingerprint({required final String value}) =
+      _$PkOrF_FingerprintImpl;
+  const PkOrF_Fingerprint._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$RbfValue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -2255,4 +2776,3055 @@ abstract class RbfValue_Value extends RbfValue {
   @JsonKey(ignore: true)
   _$$RbfValue_ValueImplCopyWith<_$RbfValue_ValueImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$Satisfaction {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<int, List<Condition>> conditions)
+        partial,
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<Uint32List, List<Condition>> conditions)
+        partialComplete,
+    required TResult Function(Condition condition) complete,
+    required TResult Function(String msg) none,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult? Function(Condition condition)? complete,
+    TResult? Function(String msg)? none,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult Function(Condition condition)? complete,
+    TResult Function(String msg)? none,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Satisfaction_Partial value) partial,
+    required TResult Function(Satisfaction_PartialComplete value)
+        partialComplete,
+    required TResult Function(Satisfaction_Complete value) complete,
+    required TResult Function(Satisfaction_None value) none,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Satisfaction_Partial value)? partial,
+    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult? Function(Satisfaction_Complete value)? complete,
+    TResult? Function(Satisfaction_None value)? none,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Satisfaction_Partial value)? partial,
+    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult Function(Satisfaction_Complete value)? complete,
+    TResult Function(Satisfaction_None value)? none,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SatisfactionCopyWith<$Res> {
+  factory $SatisfactionCopyWith(
+          Satisfaction value, $Res Function(Satisfaction) then) =
+      _$SatisfactionCopyWithImpl<$Res, Satisfaction>;
+}
+
+/// @nodoc
+class _$SatisfactionCopyWithImpl<$Res, $Val extends Satisfaction>
+    implements $SatisfactionCopyWith<$Res> {
+  _$SatisfactionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$Satisfaction_PartialImplCopyWith<$Res> {
+  factory _$$Satisfaction_PartialImplCopyWith(_$Satisfaction_PartialImpl value,
+          $Res Function(_$Satisfaction_PartialImpl) then) =
+      __$$Satisfaction_PartialImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {BigInt n,
+      BigInt m,
+      Uint64List items,
+      bool? sorted,
+      Map<int, List<Condition>> conditions});
+}
+
+/// @nodoc
+class __$$Satisfaction_PartialImplCopyWithImpl<$Res>
+    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_PartialImpl>
+    implements _$$Satisfaction_PartialImplCopyWith<$Res> {
+  __$$Satisfaction_PartialImplCopyWithImpl(_$Satisfaction_PartialImpl _value,
+      $Res Function(_$Satisfaction_PartialImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? n = null,
+    Object? m = null,
+    Object? items = null,
+    Object? sorted = freezed,
+    Object? conditions = null,
+  }) {
+    return _then(_$Satisfaction_PartialImpl(
+      n: null == n
+          ? _value.n
+          : n // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+      m: null == m
+          ? _value.m
+          : m // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Uint64List,
+      sorted: freezed == sorted
+          ? _value.sorted
+          : sorted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      conditions: null == conditions
+          ? _value._conditions
+          : conditions // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Condition>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Satisfaction_PartialImpl extends Satisfaction_Partial {
+  const _$Satisfaction_PartialImpl(
+      {required this.n,
+      required this.m,
+      required this.items,
+      this.sorted,
+      required final Map<int, List<Condition>> conditions})
+      : _conditions = conditions,
+        super._();
+
+  @override
+  final BigInt n;
+  @override
+  final BigInt m;
+  @override
+  final Uint64List items;
+  @override
+  final bool? sorted;
+  final Map<int, List<Condition>> _conditions;
+  @override
+  Map<int, List<Condition>> get conditions {
+    if (_conditions is EqualUnmodifiableMapView) return _conditions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_conditions);
+  }
+
+  @override
+  String toString() {
+    return 'Satisfaction.partial(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Satisfaction_PartialImpl &&
+            (identical(other.n, n) || other.n == n) &&
+            (identical(other.m, m) || other.m == m) &&
+            const DeepCollectionEquality().equals(other.items, items) &&
+            (identical(other.sorted, sorted) || other.sorted == sorted) &&
+            const DeepCollectionEquality()
+                .equals(other._conditions, _conditions));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      n,
+      m,
+      const DeepCollectionEquality().hash(items),
+      sorted,
+      const DeepCollectionEquality().hash(_conditions));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Satisfaction_PartialImplCopyWith<_$Satisfaction_PartialImpl>
+      get copyWith =>
+          __$$Satisfaction_PartialImplCopyWithImpl<_$Satisfaction_PartialImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<int, List<Condition>> conditions)
+        partial,
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<Uint32List, List<Condition>> conditions)
+        partialComplete,
+    required TResult Function(Condition condition) complete,
+    required TResult Function(String msg) none,
+  }) {
+    return partial(n, m, items, sorted, conditions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult? Function(Condition condition)? complete,
+    TResult? Function(String msg)? none,
+  }) {
+    return partial?.call(n, m, items, sorted, conditions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult Function(Condition condition)? complete,
+    TResult Function(String msg)? none,
+    required TResult orElse(),
+  }) {
+    if (partial != null) {
+      return partial(n, m, items, sorted, conditions);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Satisfaction_Partial value) partial,
+    required TResult Function(Satisfaction_PartialComplete value)
+        partialComplete,
+    required TResult Function(Satisfaction_Complete value) complete,
+    required TResult Function(Satisfaction_None value) none,
+  }) {
+    return partial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Satisfaction_Partial value)? partial,
+    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult? Function(Satisfaction_Complete value)? complete,
+    TResult? Function(Satisfaction_None value)? none,
+  }) {
+    return partial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Satisfaction_Partial value)? partial,
+    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult Function(Satisfaction_Complete value)? complete,
+    TResult Function(Satisfaction_None value)? none,
+    required TResult orElse(),
+  }) {
+    if (partial != null) {
+      return partial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Satisfaction_Partial extends Satisfaction {
+  const factory Satisfaction_Partial(
+          {required final BigInt n,
+          required final BigInt m,
+          required final Uint64List items,
+          final bool? sorted,
+          required final Map<int, List<Condition>> conditions}) =
+      _$Satisfaction_PartialImpl;
+  const Satisfaction_Partial._() : super._();
+
+  BigInt get n;
+  BigInt get m;
+  Uint64List get items;
+  bool? get sorted;
+  Map<int, List<Condition>> get conditions;
+  @JsonKey(ignore: true)
+  _$$Satisfaction_PartialImplCopyWith<_$Satisfaction_PartialImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Satisfaction_PartialCompleteImplCopyWith<$Res> {
+  factory _$$Satisfaction_PartialCompleteImplCopyWith(
+          _$Satisfaction_PartialCompleteImpl value,
+          $Res Function(_$Satisfaction_PartialCompleteImpl) then) =
+      __$$Satisfaction_PartialCompleteImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {BigInt n,
+      BigInt m,
+      Uint64List items,
+      bool? sorted,
+      Map<Uint32List, List<Condition>> conditions});
+}
+
+/// @nodoc
+class __$$Satisfaction_PartialCompleteImplCopyWithImpl<$Res>
+    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_PartialCompleteImpl>
+    implements _$$Satisfaction_PartialCompleteImplCopyWith<$Res> {
+  __$$Satisfaction_PartialCompleteImplCopyWithImpl(
+      _$Satisfaction_PartialCompleteImpl _value,
+      $Res Function(_$Satisfaction_PartialCompleteImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? n = null,
+    Object? m = null,
+    Object? items = null,
+    Object? sorted = freezed,
+    Object? conditions = null,
+  }) {
+    return _then(_$Satisfaction_PartialCompleteImpl(
+      n: null == n
+          ? _value.n
+          : n // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+      m: null == m
+          ? _value.m
+          : m // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Uint64List,
+      sorted: freezed == sorted
+          ? _value.sorted
+          : sorted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      conditions: null == conditions
+          ? _value._conditions
+          : conditions // ignore: cast_nullable_to_non_nullable
+              as Map<Uint32List, List<Condition>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Satisfaction_PartialCompleteImpl extends Satisfaction_PartialComplete {
+  const _$Satisfaction_PartialCompleteImpl(
+      {required this.n,
+      required this.m,
+      required this.items,
+      this.sorted,
+      required final Map<Uint32List, List<Condition>> conditions})
+      : _conditions = conditions,
+        super._();
+
+  @override
+  final BigInt n;
+  @override
+  final BigInt m;
+  @override
+  final Uint64List items;
+  @override
+  final bool? sorted;
+  final Map<Uint32List, List<Condition>> _conditions;
+  @override
+  Map<Uint32List, List<Condition>> get conditions {
+    if (_conditions is EqualUnmodifiableMapView) return _conditions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_conditions);
+  }
+
+  @override
+  String toString() {
+    return 'Satisfaction.partialComplete(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Satisfaction_PartialCompleteImpl &&
+            (identical(other.n, n) || other.n == n) &&
+            (identical(other.m, m) || other.m == m) &&
+            const DeepCollectionEquality().equals(other.items, items) &&
+            (identical(other.sorted, sorted) || other.sorted == sorted) &&
+            const DeepCollectionEquality()
+                .equals(other._conditions, _conditions));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      n,
+      m,
+      const DeepCollectionEquality().hash(items),
+      sorted,
+      const DeepCollectionEquality().hash(_conditions));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Satisfaction_PartialCompleteImplCopyWith<
+          _$Satisfaction_PartialCompleteImpl>
+      get copyWith => __$$Satisfaction_PartialCompleteImplCopyWithImpl<
+          _$Satisfaction_PartialCompleteImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<int, List<Condition>> conditions)
+        partial,
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<Uint32List, List<Condition>> conditions)
+        partialComplete,
+    required TResult Function(Condition condition) complete,
+    required TResult Function(String msg) none,
+  }) {
+    return partialComplete(n, m, items, sorted, conditions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult? Function(Condition condition)? complete,
+    TResult? Function(String msg)? none,
+  }) {
+    return partialComplete?.call(n, m, items, sorted, conditions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult Function(Condition condition)? complete,
+    TResult Function(String msg)? none,
+    required TResult orElse(),
+  }) {
+    if (partialComplete != null) {
+      return partialComplete(n, m, items, sorted, conditions);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Satisfaction_Partial value) partial,
+    required TResult Function(Satisfaction_PartialComplete value)
+        partialComplete,
+    required TResult Function(Satisfaction_Complete value) complete,
+    required TResult Function(Satisfaction_None value) none,
+  }) {
+    return partialComplete(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Satisfaction_Partial value)? partial,
+    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult? Function(Satisfaction_Complete value)? complete,
+    TResult? Function(Satisfaction_None value)? none,
+  }) {
+    return partialComplete?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Satisfaction_Partial value)? partial,
+    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult Function(Satisfaction_Complete value)? complete,
+    TResult Function(Satisfaction_None value)? none,
+    required TResult orElse(),
+  }) {
+    if (partialComplete != null) {
+      return partialComplete(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Satisfaction_PartialComplete extends Satisfaction {
+  const factory Satisfaction_PartialComplete(
+          {required final BigInt n,
+          required final BigInt m,
+          required final Uint64List items,
+          final bool? sorted,
+          required final Map<Uint32List, List<Condition>> conditions}) =
+      _$Satisfaction_PartialCompleteImpl;
+  const Satisfaction_PartialComplete._() : super._();
+
+  BigInt get n;
+  BigInt get m;
+  Uint64List get items;
+  bool? get sorted;
+  Map<Uint32List, List<Condition>> get conditions;
+  @JsonKey(ignore: true)
+  _$$Satisfaction_PartialCompleteImplCopyWith<
+          _$Satisfaction_PartialCompleteImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Satisfaction_CompleteImplCopyWith<$Res> {
+  factory _$$Satisfaction_CompleteImplCopyWith(
+          _$Satisfaction_CompleteImpl value,
+          $Res Function(_$Satisfaction_CompleteImpl) then) =
+      __$$Satisfaction_CompleteImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Condition condition});
+}
+
+/// @nodoc
+class __$$Satisfaction_CompleteImplCopyWithImpl<$Res>
+    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_CompleteImpl>
+    implements _$$Satisfaction_CompleteImplCopyWith<$Res> {
+  __$$Satisfaction_CompleteImplCopyWithImpl(_$Satisfaction_CompleteImpl _value,
+      $Res Function(_$Satisfaction_CompleteImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? condition = null,
+  }) {
+    return _then(_$Satisfaction_CompleteImpl(
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as Condition,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Satisfaction_CompleteImpl extends Satisfaction_Complete {
+  const _$Satisfaction_CompleteImpl({required this.condition}) : super._();
+
+  @override
+  final Condition condition;
+
+  @override
+  String toString() {
+    return 'Satisfaction.complete(condition: $condition)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Satisfaction_CompleteImpl &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, condition);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Satisfaction_CompleteImplCopyWith<_$Satisfaction_CompleteImpl>
+      get copyWith => __$$Satisfaction_CompleteImplCopyWithImpl<
+          _$Satisfaction_CompleteImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<int, List<Condition>> conditions)
+        partial,
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<Uint32List, List<Condition>> conditions)
+        partialComplete,
+    required TResult Function(Condition condition) complete,
+    required TResult Function(String msg) none,
+  }) {
+    return complete(condition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult? Function(Condition condition)? complete,
+    TResult? Function(String msg)? none,
+  }) {
+    return complete?.call(condition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult Function(Condition condition)? complete,
+    TResult Function(String msg)? none,
+    required TResult orElse(),
+  }) {
+    if (complete != null) {
+      return complete(condition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Satisfaction_Partial value) partial,
+    required TResult Function(Satisfaction_PartialComplete value)
+        partialComplete,
+    required TResult Function(Satisfaction_Complete value) complete,
+    required TResult Function(Satisfaction_None value) none,
+  }) {
+    return complete(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Satisfaction_Partial value)? partial,
+    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult? Function(Satisfaction_Complete value)? complete,
+    TResult? Function(Satisfaction_None value)? none,
+  }) {
+    return complete?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Satisfaction_Partial value)? partial,
+    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult Function(Satisfaction_Complete value)? complete,
+    TResult Function(Satisfaction_None value)? none,
+    required TResult orElse(),
+  }) {
+    if (complete != null) {
+      return complete(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Satisfaction_Complete extends Satisfaction {
+  const factory Satisfaction_Complete({required final Condition condition}) =
+      _$Satisfaction_CompleteImpl;
+  const Satisfaction_Complete._() : super._();
+
+  Condition get condition;
+  @JsonKey(ignore: true)
+  _$$Satisfaction_CompleteImplCopyWith<_$Satisfaction_CompleteImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Satisfaction_NoneImplCopyWith<$Res> {
+  factory _$$Satisfaction_NoneImplCopyWith(_$Satisfaction_NoneImpl value,
+          $Res Function(_$Satisfaction_NoneImpl) then) =
+      __$$Satisfaction_NoneImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String msg});
+}
+
+/// @nodoc
+class __$$Satisfaction_NoneImplCopyWithImpl<$Res>
+    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_NoneImpl>
+    implements _$$Satisfaction_NoneImplCopyWith<$Res> {
+  __$$Satisfaction_NoneImplCopyWithImpl(_$Satisfaction_NoneImpl _value,
+      $Res Function(_$Satisfaction_NoneImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$Satisfaction_NoneImpl(
+      msg: null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Satisfaction_NoneImpl extends Satisfaction_None {
+  const _$Satisfaction_NoneImpl({required this.msg}) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'Satisfaction.none(msg: $msg)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Satisfaction_NoneImpl &&
+            (identical(other.msg, msg) || other.msg == msg));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Satisfaction_NoneImplCopyWith<_$Satisfaction_NoneImpl> get copyWith =>
+      __$$Satisfaction_NoneImplCopyWithImpl<_$Satisfaction_NoneImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<int, List<Condition>> conditions)
+        partial,
+    required TResult Function(BigInt n, BigInt m, Uint64List items,
+            bool? sorted, Map<Uint32List, List<Condition>> conditions)
+        partialComplete,
+    required TResult Function(Condition condition) complete,
+    required TResult Function(String msg) none,
+  }) {
+    return none(msg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult? Function(Condition condition)? complete,
+    TResult? Function(String msg)? none,
+  }) {
+    return none?.call(msg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<int, List<Condition>> conditions)?
+        partial,
+    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
+            Map<Uint32List, List<Condition>> conditions)?
+        partialComplete,
+    TResult Function(Condition condition)? complete,
+    TResult Function(String msg)? none,
+    required TResult orElse(),
+  }) {
+    if (none != null) {
+      return none(msg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Satisfaction_Partial value) partial,
+    required TResult Function(Satisfaction_PartialComplete value)
+        partialComplete,
+    required TResult Function(Satisfaction_Complete value) complete,
+    required TResult Function(Satisfaction_None value) none,
+  }) {
+    return none(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Satisfaction_Partial value)? partial,
+    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult? Function(Satisfaction_Complete value)? complete,
+    TResult? Function(Satisfaction_None value)? none,
+  }) {
+    return none?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Satisfaction_Partial value)? partial,
+    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
+    TResult Function(Satisfaction_Complete value)? complete,
+    TResult Function(Satisfaction_None value)? none,
+    required TResult orElse(),
+  }) {
+    if (none != null) {
+      return none(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Satisfaction_None extends Satisfaction {
+  const factory Satisfaction_None({required final String msg}) =
+      _$Satisfaction_NoneImpl;
+  const Satisfaction_None._() : super._();
+
+  String get msg;
+  @JsonKey(ignore: true)
+  _$$Satisfaction_NoneImplCopyWith<_$Satisfaction_NoneImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SatisfiableItem {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItemCopyWith(
+          SatisfiableItem value, $Res Function(SatisfiableItem) then) =
+      _$SatisfiableItemCopyWithImpl<$Res, SatisfiableItem>;
+}
+
+/// @nodoc
+class _$SatisfiableItemCopyWithImpl<$Res, $Val extends SatisfiableItem>
+    implements $SatisfiableItemCopyWith<$Res> {
+  _$SatisfiableItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_EcdsaSignatureImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_EcdsaSignatureImplCopyWith(
+          _$SatisfiableItem_EcdsaSignatureImpl value,
+          $Res Function(_$SatisfiableItem_EcdsaSignatureImpl) then) =
+      __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PkOrF key});
+
+  $PkOrFCopyWith<$Res> get key;
+}
+
+/// @nodoc
+class __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_EcdsaSignatureImpl>
+    implements _$$SatisfiableItem_EcdsaSignatureImplCopyWith<$Res> {
+  __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl(
+      _$SatisfiableItem_EcdsaSignatureImpl _value,
+      $Res Function(_$SatisfiableItem_EcdsaSignatureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? key = null,
+  }) {
+    return _then(_$SatisfiableItem_EcdsaSignatureImpl(
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as PkOrF,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PkOrFCopyWith<$Res> get key {
+    return $PkOrFCopyWith<$Res>(_value.key, (value) {
+      return _then(_value.copyWith(key: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_EcdsaSignatureImpl
+    extends SatisfiableItem_EcdsaSignature {
+  const _$SatisfiableItem_EcdsaSignatureImpl({required this.key}) : super._();
+
+  @override
+  final PkOrF key;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.ecdsaSignature(key: $key)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_EcdsaSignatureImpl &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, key);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_EcdsaSignatureImplCopyWith<
+          _$SatisfiableItem_EcdsaSignatureImpl>
+      get copyWith => __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<
+          _$SatisfiableItem_EcdsaSignatureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return ecdsaSignature(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return ecdsaSignature?.call(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (ecdsaSignature != null) {
+      return ecdsaSignature(key);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return ecdsaSignature(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return ecdsaSignature?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (ecdsaSignature != null) {
+      return ecdsaSignature(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_EcdsaSignature extends SatisfiableItem {
+  const factory SatisfiableItem_EcdsaSignature({required final PkOrF key}) =
+      _$SatisfiableItem_EcdsaSignatureImpl;
+  const SatisfiableItem_EcdsaSignature._() : super._();
+
+  PkOrF get key;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_EcdsaSignatureImplCopyWith<
+          _$SatisfiableItem_EcdsaSignatureImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_SchnorrSignatureImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_SchnorrSignatureImplCopyWith(
+          _$SatisfiableItem_SchnorrSignatureImpl value,
+          $Res Function(_$SatisfiableItem_SchnorrSignatureImpl) then) =
+      __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PkOrF key});
+
+  $PkOrFCopyWith<$Res> get key;
+}
+
+/// @nodoc
+class __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_SchnorrSignatureImpl>
+    implements _$$SatisfiableItem_SchnorrSignatureImplCopyWith<$Res> {
+  __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl(
+      _$SatisfiableItem_SchnorrSignatureImpl _value,
+      $Res Function(_$SatisfiableItem_SchnorrSignatureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? key = null,
+  }) {
+    return _then(_$SatisfiableItem_SchnorrSignatureImpl(
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as PkOrF,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PkOrFCopyWith<$Res> get key {
+    return $PkOrFCopyWith<$Res>(_value.key, (value) {
+      return _then(_value.copyWith(key: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_SchnorrSignatureImpl
+    extends SatisfiableItem_SchnorrSignature {
+  const _$SatisfiableItem_SchnorrSignatureImpl({required this.key}) : super._();
+
+  @override
+  final PkOrF key;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.schnorrSignature(key: $key)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_SchnorrSignatureImpl &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, key);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_SchnorrSignatureImplCopyWith<
+          _$SatisfiableItem_SchnorrSignatureImpl>
+      get copyWith => __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<
+          _$SatisfiableItem_SchnorrSignatureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return schnorrSignature(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return schnorrSignature?.call(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (schnorrSignature != null) {
+      return schnorrSignature(key);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return schnorrSignature(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return schnorrSignature?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (schnorrSignature != null) {
+      return schnorrSignature(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_SchnorrSignature extends SatisfiableItem {
+  const factory SatisfiableItem_SchnorrSignature({required final PkOrF key}) =
+      _$SatisfiableItem_SchnorrSignatureImpl;
+  const SatisfiableItem_SchnorrSignature._() : super._();
+
+  PkOrF get key;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_SchnorrSignatureImplCopyWith<
+          _$SatisfiableItem_SchnorrSignatureImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_Sha256PreimageImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_Sha256PreimageImplCopyWith(
+          _$SatisfiableItem_Sha256PreimageImpl value,
+          $Res Function(_$SatisfiableItem_Sha256PreimageImpl) then) =
+      __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hash});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_Sha256PreimageImpl>
+    implements _$$SatisfiableItem_Sha256PreimageImplCopyWith<$Res> {
+  __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl(
+      _$SatisfiableItem_Sha256PreimageImpl _value,
+      $Res Function(_$SatisfiableItem_Sha256PreimageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hash = null,
+  }) {
+    return _then(_$SatisfiableItem_Sha256PreimageImpl(
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_Sha256PreimageImpl
+    extends SatisfiableItem_Sha256Preimage {
+  const _$SatisfiableItem_Sha256PreimageImpl({required this.hash}) : super._();
+
+  @override
+  final String hash;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.sha256Preimage(hash: $hash)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_Sha256PreimageImpl &&
+            (identical(other.hash, hash) || other.hash == hash));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hash);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_Sha256PreimageImplCopyWith<
+          _$SatisfiableItem_Sha256PreimageImpl>
+      get copyWith => __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<
+          _$SatisfiableItem_Sha256PreimageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return sha256Preimage(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return sha256Preimage?.call(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (sha256Preimage != null) {
+      return sha256Preimage(hash);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return sha256Preimage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return sha256Preimage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (sha256Preimage != null) {
+      return sha256Preimage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Sha256Preimage extends SatisfiableItem {
+  const factory SatisfiableItem_Sha256Preimage({required final String hash}) =
+      _$SatisfiableItem_Sha256PreimageImpl;
+  const SatisfiableItem_Sha256Preimage._() : super._();
+
+  String get hash;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_Sha256PreimageImplCopyWith<
+          _$SatisfiableItem_Sha256PreimageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_Hash256PreimageImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_Hash256PreimageImplCopyWith(
+          _$SatisfiableItem_Hash256PreimageImpl value,
+          $Res Function(_$SatisfiableItem_Hash256PreimageImpl) then) =
+      __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hash});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_Hash256PreimageImpl>
+    implements _$$SatisfiableItem_Hash256PreimageImplCopyWith<$Res> {
+  __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl(
+      _$SatisfiableItem_Hash256PreimageImpl _value,
+      $Res Function(_$SatisfiableItem_Hash256PreimageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hash = null,
+  }) {
+    return _then(_$SatisfiableItem_Hash256PreimageImpl(
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_Hash256PreimageImpl
+    extends SatisfiableItem_Hash256Preimage {
+  const _$SatisfiableItem_Hash256PreimageImpl({required this.hash}) : super._();
+
+  @override
+  final String hash;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.hash256Preimage(hash: $hash)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_Hash256PreimageImpl &&
+            (identical(other.hash, hash) || other.hash == hash));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hash);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_Hash256PreimageImplCopyWith<
+          _$SatisfiableItem_Hash256PreimageImpl>
+      get copyWith => __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<
+          _$SatisfiableItem_Hash256PreimageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return hash256Preimage(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return hash256Preimage?.call(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (hash256Preimage != null) {
+      return hash256Preimage(hash);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return hash256Preimage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return hash256Preimage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (hash256Preimage != null) {
+      return hash256Preimage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Hash256Preimage extends SatisfiableItem {
+  const factory SatisfiableItem_Hash256Preimage({required final String hash}) =
+      _$SatisfiableItem_Hash256PreimageImpl;
+  const SatisfiableItem_Hash256Preimage._() : super._();
+
+  String get hash;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_Hash256PreimageImplCopyWith<
+          _$SatisfiableItem_Hash256PreimageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_Ripemd160PreimageImplCopyWith(
+          _$SatisfiableItem_Ripemd160PreimageImpl value,
+          $Res Function(_$SatisfiableItem_Ripemd160PreimageImpl) then) =
+      __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hash});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_Ripemd160PreimageImpl>
+    implements _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<$Res> {
+  __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl(
+      _$SatisfiableItem_Ripemd160PreimageImpl _value,
+      $Res Function(_$SatisfiableItem_Ripemd160PreimageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hash = null,
+  }) {
+    return _then(_$SatisfiableItem_Ripemd160PreimageImpl(
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_Ripemd160PreimageImpl
+    extends SatisfiableItem_Ripemd160Preimage {
+  const _$SatisfiableItem_Ripemd160PreimageImpl({required this.hash})
+      : super._();
+
+  @override
+  final String hash;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.ripemd160Preimage(hash: $hash)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_Ripemd160PreimageImpl &&
+            (identical(other.hash, hash) || other.hash == hash));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hash);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<
+          _$SatisfiableItem_Ripemd160PreimageImpl>
+      get copyWith => __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<
+          _$SatisfiableItem_Ripemd160PreimageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return ripemd160Preimage(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return ripemd160Preimage?.call(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (ripemd160Preimage != null) {
+      return ripemd160Preimage(hash);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return ripemd160Preimage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return ripemd160Preimage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (ripemd160Preimage != null) {
+      return ripemd160Preimage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Ripemd160Preimage extends SatisfiableItem {
+  const factory SatisfiableItem_Ripemd160Preimage(
+      {required final String hash}) = _$SatisfiableItem_Ripemd160PreimageImpl;
+  const SatisfiableItem_Ripemd160Preimage._() : super._();
+
+  String get hash;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<
+          _$SatisfiableItem_Ripemd160PreimageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_Hash160PreimageImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_Hash160PreimageImplCopyWith(
+          _$SatisfiableItem_Hash160PreimageImpl value,
+          $Res Function(_$SatisfiableItem_Hash160PreimageImpl) then) =
+      __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hash});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_Hash160PreimageImpl>
+    implements _$$SatisfiableItem_Hash160PreimageImplCopyWith<$Res> {
+  __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl(
+      _$SatisfiableItem_Hash160PreimageImpl _value,
+      $Res Function(_$SatisfiableItem_Hash160PreimageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hash = null,
+  }) {
+    return _then(_$SatisfiableItem_Hash160PreimageImpl(
+      hash: null == hash
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_Hash160PreimageImpl
+    extends SatisfiableItem_Hash160Preimage {
+  const _$SatisfiableItem_Hash160PreimageImpl({required this.hash}) : super._();
+
+  @override
+  final String hash;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.hash160Preimage(hash: $hash)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_Hash160PreimageImpl &&
+            (identical(other.hash, hash) || other.hash == hash));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hash);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_Hash160PreimageImplCopyWith<
+          _$SatisfiableItem_Hash160PreimageImpl>
+      get copyWith => __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<
+          _$SatisfiableItem_Hash160PreimageImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return hash160Preimage(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return hash160Preimage?.call(hash);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (hash160Preimage != null) {
+      return hash160Preimage(hash);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return hash160Preimage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return hash160Preimage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (hash160Preimage != null) {
+      return hash160Preimage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Hash160Preimage extends SatisfiableItem {
+  const factory SatisfiableItem_Hash160Preimage({required final String hash}) =
+      _$SatisfiableItem_Hash160PreimageImpl;
+  const SatisfiableItem_Hash160Preimage._() : super._();
+
+  String get hash;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_Hash160PreimageImplCopyWith<
+          _$SatisfiableItem_Hash160PreimageImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_AbsoluteTimelockImplCopyWith(
+          _$SatisfiableItem_AbsoluteTimelockImpl value,
+          $Res Function(_$SatisfiableItem_AbsoluteTimelockImpl) then) =
+      __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LockTime value});
+
+  $LockTimeCopyWith<$Res> get value;
+}
+
+/// @nodoc
+class __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_AbsoluteTimelockImpl>
+    implements _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<$Res> {
+  __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl(
+      _$SatisfiableItem_AbsoluteTimelockImpl _value,
+      $Res Function(_$SatisfiableItem_AbsoluteTimelockImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$SatisfiableItem_AbsoluteTimelockImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as LockTime,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LockTimeCopyWith<$Res> get value {
+    return $LockTimeCopyWith<$Res>(_value.value, (value) {
+      return _then(_value.copyWith(value: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_AbsoluteTimelockImpl
+    extends SatisfiableItem_AbsoluteTimelock {
+  const _$SatisfiableItem_AbsoluteTimelockImpl({required this.value})
+      : super._();
+
+  @override
+  final LockTime value;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.absoluteTimelock(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_AbsoluteTimelockImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<
+          _$SatisfiableItem_AbsoluteTimelockImpl>
+      get copyWith => __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<
+          _$SatisfiableItem_AbsoluteTimelockImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return absoluteTimelock(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return absoluteTimelock?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (absoluteTimelock != null) {
+      return absoluteTimelock(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return absoluteTimelock(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return absoluteTimelock?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (absoluteTimelock != null) {
+      return absoluteTimelock(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_AbsoluteTimelock extends SatisfiableItem {
+  const factory SatisfiableItem_AbsoluteTimelock(
+      {required final LockTime value}) = _$SatisfiableItem_AbsoluteTimelockImpl;
+  const SatisfiableItem_AbsoluteTimelock._() : super._();
+
+  LockTime get value;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<
+          _$SatisfiableItem_AbsoluteTimelockImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_RelativeTimelockImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_RelativeTimelockImplCopyWith(
+          _$SatisfiableItem_RelativeTimelockImpl value,
+          $Res Function(_$SatisfiableItem_RelativeTimelockImpl) then) =
+      __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int value});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res,
+        _$SatisfiableItem_RelativeTimelockImpl>
+    implements _$$SatisfiableItem_RelativeTimelockImplCopyWith<$Res> {
+  __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl(
+      _$SatisfiableItem_RelativeTimelockImpl _value,
+      $Res Function(_$SatisfiableItem_RelativeTimelockImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$SatisfiableItem_RelativeTimelockImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_RelativeTimelockImpl
+    extends SatisfiableItem_RelativeTimelock {
+  const _$SatisfiableItem_RelativeTimelockImpl({required this.value})
+      : super._();
+
+  @override
+  final int value;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.relativeTimelock(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_RelativeTimelockImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_RelativeTimelockImplCopyWith<
+          _$SatisfiableItem_RelativeTimelockImpl>
+      get copyWith => __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<
+          _$SatisfiableItem_RelativeTimelockImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return relativeTimelock(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return relativeTimelock?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (relativeTimelock != null) {
+      return relativeTimelock(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return relativeTimelock(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return relativeTimelock?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (relativeTimelock != null) {
+      return relativeTimelock(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_RelativeTimelock extends SatisfiableItem {
+  const factory SatisfiableItem_RelativeTimelock({required final int value}) =
+      _$SatisfiableItem_RelativeTimelockImpl;
+  const SatisfiableItem_RelativeTimelock._() : super._();
+
+  int get value;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_RelativeTimelockImplCopyWith<
+          _$SatisfiableItem_RelativeTimelockImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_MultisigImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_MultisigImplCopyWith(
+          _$SatisfiableItem_MultisigImpl value,
+          $Res Function(_$SatisfiableItem_MultisigImpl) then) =
+      __$$SatisfiableItem_MultisigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<PkOrF> keys, BigInt threshold});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_MultisigImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res, _$SatisfiableItem_MultisigImpl>
+    implements _$$SatisfiableItem_MultisigImplCopyWith<$Res> {
+  __$$SatisfiableItem_MultisigImplCopyWithImpl(
+      _$SatisfiableItem_MultisigImpl _value,
+      $Res Function(_$SatisfiableItem_MultisigImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? keys = null,
+    Object? threshold = null,
+  }) {
+    return _then(_$SatisfiableItem_MultisigImpl(
+      keys: null == keys
+          ? _value._keys
+          : keys // ignore: cast_nullable_to_non_nullable
+              as List<PkOrF>,
+      threshold: null == threshold
+          ? _value.threshold
+          : threshold // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_MultisigImpl extends SatisfiableItem_Multisig {
+  const _$SatisfiableItem_MultisigImpl(
+      {required final List<PkOrF> keys, required this.threshold})
+      : _keys = keys,
+        super._();
+
+  final List<PkOrF> _keys;
+  @override
+  List<PkOrF> get keys {
+    if (_keys is EqualUnmodifiableListView) return _keys;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_keys);
+  }
+
+  @override
+  final BigInt threshold;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.multisig(keys: $keys, threshold: $threshold)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_MultisigImpl &&
+            const DeepCollectionEquality().equals(other._keys, _keys) &&
+            (identical(other.threshold, threshold) ||
+                other.threshold == threshold));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_keys), threshold);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_MultisigImplCopyWith<_$SatisfiableItem_MultisigImpl>
+      get copyWith => __$$SatisfiableItem_MultisigImplCopyWithImpl<
+          _$SatisfiableItem_MultisigImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return multisig(keys, threshold);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return multisig?.call(keys, threshold);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (multisig != null) {
+      return multisig(keys, threshold);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return multisig(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return multisig?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (multisig != null) {
+      return multisig(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Multisig extends SatisfiableItem {
+  const factory SatisfiableItem_Multisig(
+      {required final List<PkOrF> keys,
+      required final BigInt threshold}) = _$SatisfiableItem_MultisigImpl;
+  const SatisfiableItem_Multisig._() : super._();
+
+  List<PkOrF> get keys;
+  BigInt get threshold;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_MultisigImplCopyWith<_$SatisfiableItem_MultisigImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SatisfiableItem_ThreshImplCopyWith<$Res> {
+  factory _$$SatisfiableItem_ThreshImplCopyWith(
+          _$SatisfiableItem_ThreshImpl value,
+          $Res Function(_$SatisfiableItem_ThreshImpl) then) =
+      __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<BdkPolicy> items, BigInt threshold});
+}
+
+/// @nodoc
+class __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>
+    extends _$SatisfiableItemCopyWithImpl<$Res, _$SatisfiableItem_ThreshImpl>
+    implements _$$SatisfiableItem_ThreshImplCopyWith<$Res> {
+  __$$SatisfiableItem_ThreshImplCopyWithImpl(
+      _$SatisfiableItem_ThreshImpl _value,
+      $Res Function(_$SatisfiableItem_ThreshImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? items = null,
+    Object? threshold = null,
+  }) {
+    return _then(_$SatisfiableItem_ThreshImpl(
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<BdkPolicy>,
+      threshold: null == threshold
+          ? _value.threshold
+          : threshold // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
+  const _$SatisfiableItem_ThreshImpl(
+      {required final List<BdkPolicy> items, required this.threshold})
+      : _items = items,
+        super._();
+
+  final List<BdkPolicy> _items;
+  @override
+  List<BdkPolicy> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
+  @override
+  final BigInt threshold;
+
+  @override
+  String toString() {
+    return 'SatisfiableItem.thresh(items: $items, threshold: $threshold)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SatisfiableItem_ThreshImpl &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.threshold, threshold) ||
+                other.threshold == threshold));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_items), threshold);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SatisfiableItem_ThreshImplCopyWith<_$SatisfiableItem_ThreshImpl>
+      get copyWith => __$$SatisfiableItem_ThreshImplCopyWithImpl<
+          _$SatisfiableItem_ThreshImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PkOrF key) ecdsaSignature,
+    required TResult Function(PkOrF key) schnorrSignature,
+    required TResult Function(String hash) sha256Preimage,
+    required TResult Function(String hash) hash256Preimage,
+    required TResult Function(String hash) ripemd160Preimage,
+    required TResult Function(String hash) hash160Preimage,
+    required TResult Function(LockTime value) absoluteTimelock,
+    required TResult Function(int value) relativeTimelock,
+    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
+    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+  }) {
+    return thresh(items, threshold);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF key)? ecdsaSignature,
+    TResult? Function(PkOrF key)? schnorrSignature,
+    TResult? Function(String hash)? sha256Preimage,
+    TResult? Function(String hash)? hash256Preimage,
+    TResult? Function(String hash)? ripemd160Preimage,
+    TResult? Function(String hash)? hash160Preimage,
+    TResult? Function(LockTime value)? absoluteTimelock,
+    TResult? Function(int value)? relativeTimelock,
+    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+  }) {
+    return thresh?.call(items, threshold);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PkOrF key)? ecdsaSignature,
+    TResult Function(PkOrF key)? schnorrSignature,
+    TResult Function(String hash)? sha256Preimage,
+    TResult Function(String hash)? hash256Preimage,
+    TResult Function(String hash)? ripemd160Preimage,
+    TResult Function(String hash)? hash160Preimage,
+    TResult Function(LockTime value)? absoluteTimelock,
+    TResult Function(int value)? relativeTimelock,
+    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
+    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    required TResult orElse(),
+  }) {
+    if (thresh != null) {
+      return thresh(items, threshold);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SatisfiableItem_EcdsaSignature value)
+        ecdsaSignature,
+    required TResult Function(SatisfiableItem_SchnorrSignature value)
+        schnorrSignature,
+    required TResult Function(SatisfiableItem_Sha256Preimage value)
+        sha256Preimage,
+    required TResult Function(SatisfiableItem_Hash256Preimage value)
+        hash256Preimage,
+    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
+        ripemd160Preimage,
+    required TResult Function(SatisfiableItem_Hash160Preimage value)
+        hash160Preimage,
+    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
+        absoluteTimelock,
+    required TResult Function(SatisfiableItem_RelativeTimelock value)
+        relativeTimelock,
+    required TResult Function(SatisfiableItem_Multisig value) multisig,
+    required TResult Function(SatisfiableItem_Thresh value) thresh,
+  }) {
+    return thresh(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult? Function(SatisfiableItem_Multisig value)? multisig,
+    TResult? Function(SatisfiableItem_Thresh value)? thresh,
+  }) {
+    return thresh?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
+    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
+    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
+    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
+    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
+        ripemd160Preimage,
+    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
+    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
+    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
+    TResult Function(SatisfiableItem_Multisig value)? multisig,
+    TResult Function(SatisfiableItem_Thresh value)? thresh,
+    required TResult orElse(),
+  }) {
+    if (thresh != null) {
+      return thresh(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SatisfiableItem_Thresh extends SatisfiableItem {
+  const factory SatisfiableItem_Thresh(
+      {required final List<BdkPolicy> items,
+      required final BigInt threshold}) = _$SatisfiableItem_ThreshImpl;
+  const SatisfiableItem_Thresh._() : super._();
+
+  List<BdkPolicy> get items;
+  BigInt get threshold;
+  @JsonKey(ignore: true)
+  _$$SatisfiableItem_ThreshImplCopyWith<_$SatisfiableItem_ThreshImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

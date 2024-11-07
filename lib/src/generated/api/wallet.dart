@@ -42,6 +42,8 @@ Future<(BdkPsbt, TransactionDetails)> txBuilderFinish(
         required bool drainWallet,
         BdkScriptBuf? drainTo,
         RbfValue? rbf,
+        Map<String, Uint64List>? internalPolicyPath,
+        Map<String, Uint64List>? externalPolicyPath,
         required List<int> data}) =>
     core.instance.api.crateApiWalletTxBuilderFinish(
         wallet: wallet,
@@ -56,6 +58,8 @@ Future<(BdkPsbt, TransactionDetails)> txBuilderFinish(
         drainWallet: drainWallet,
         drainTo: drainTo,
         rbf: rbf,
+        internalPolicyPath: internalPolicyPath,
+        externalPolicyPath: externalPolicyPath,
         data: data);
 
 class BdkWallet {
@@ -139,6 +143,11 @@ class BdkWallet {
           changeDescriptor: changeDescriptor,
           network: network,
           databaseConfig: databaseConfig);
+
+  static BdkPolicy? policies(
+          {required BdkWallet ptr, required KeychainKind keychain}) =>
+      core.instance.api
+          .crateApiWalletBdkWalletPolicies(ptr: ptr, keychain: keychain);
 
   /// Sign a transaction with all the wallet's signers. This function returns an encapsulated bool that
   /// has the value true if the PSBT was finalized, or false otherwise.

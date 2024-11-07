@@ -15,6 +15,33 @@ flutter_rust_bridge::frb_generated_boilerplate_io!();
 
 // Section: dart2rust
 
+impl CstDecode<std::collections::HashMap<String, Vec<usize>>>
+    for *mut wire_cst_list_record_string_list_prim_usize_strict
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> std::collections::HashMap<String, Vec<usize>> {
+        let vec: Vec<(String, Vec<usize>)> = self.cst_decode();
+        vec.into_iter().collect()
+    }
+}
+impl CstDecode<std::collections::HashMap<Vec<u32>, Vec<crate::api::types::Condition>>>
+    for *mut wire_cst_list_record_list_prim_u_32_strict_list_condition
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> std::collections::HashMap<Vec<u32>, Vec<crate::api::types::Condition>> {
+        let vec: Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> = self.cst_decode();
+        vec.into_iter().collect()
+    }
+}
+impl CstDecode<std::collections::HashMap<u32, Vec<crate::api::types::Condition>>>
+    for *mut wire_cst_list_record_u_32_list_condition
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> std::collections::HashMap<u32, Vec<crate::api::types::Condition>> {
+        let vec: Vec<(u32, Vec<crate::api::types::Condition>)> = self.cst_decode();
+        vec.into_iter().collect()
+    }
+}
 impl CstDecode<RustOpaqueNom<bdk::bitcoin::Address>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> RustOpaqueNom<bdk::bitcoin::Address> {
@@ -36,6 +63,12 @@ impl CstDecode<RustOpaqueNom<bdk::blockchain::AnyBlockchain>> for usize {
 impl CstDecode<RustOpaqueNom<bdk::descriptor::ExtendedDescriptor>> for usize {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> RustOpaqueNom<bdk::descriptor::ExtendedDescriptor> {
+        unsafe { decode_rust_opaque_nom(self as _) }
+    }
+}
+impl CstDecode<RustOpaqueNom<bdk::descriptor::Policy>> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> RustOpaqueNom<bdk::descriptor::Policy> {
         unsafe { decode_rust_opaque_nom(self as _) }
     }
 }
@@ -438,6 +471,14 @@ impl CstDecode<crate::api::key::BdkMnemonic> for wire_cst_bdk_mnemonic {
         }
     }
 }
+impl CstDecode<crate::api::types::BdkPolicy> for wire_cst_bdk_policy {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::BdkPolicy {
+        crate::api::types::BdkPolicy {
+            ptr: self.ptr.cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::psbt::BdkPsbt> for wire_cst_bdk_psbt {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::psbt::BdkPsbt {
@@ -572,6 +613,13 @@ impl CstDecode<crate::api::key::BdkMnemonic> for *mut wire_cst_bdk_mnemonic {
         CstDecode::<crate::api::key::BdkMnemonic>::cst_decode(*wrap).into()
     }
 }
+impl CstDecode<crate::api::types::BdkPolicy> for *mut wire_cst_bdk_policy {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::BdkPolicy {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::BdkPolicy>::cst_decode(*wrap).into()
+    }
+}
 impl CstDecode<crate::api::psbt::BdkPsbt> for *mut wire_cst_bdk_psbt {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::psbt::BdkPsbt {
@@ -612,6 +660,19 @@ impl CstDecode<crate::api::blockchain::BlockchainConfig> for *mut wire_cst_block
     fn cst_decode(self) -> crate::api::blockchain::BlockchainConfig {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
         CstDecode::<crate::api::blockchain::BlockchainConfig>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<bool> for *mut bool {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> bool {
+        unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+    }
+}
+impl CstDecode<crate::api::types::Condition> for *mut wire_cst_condition {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::Condition {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::Condition>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::error::ConsensusError> for *mut wire_cst_consensus_error {
@@ -688,6 +749,13 @@ impl CstDecode<crate::api::types::OutPoint> for *mut wire_cst_out_point {
     fn cst_decode(self) -> crate::api::types::OutPoint {
         let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
         CstDecode::<crate::api::types::OutPoint>::cst_decode(*wrap).into()
+    }
+}
+impl CstDecode<crate::api::types::PkOrF> for *mut wire_cst_pk_or_f {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::PkOrF {
+        let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+        CstDecode::<crate::api::types::PkOrF>::cst_decode(*wrap).into()
     }
 }
 impl CstDecode<crate::api::types::PsbtSigHashType> for *mut wire_cst_psbt_sig_hash_type {
@@ -767,6 +835,15 @@ impl CstDecode<u8> for *mut u8 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> u8 {
         unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+    }
+}
+impl CstDecode<crate::api::types::Condition> for wire_cst_condition {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::Condition {
+        crate::api::types::Condition {
+            csv: self.csv.cst_decode(),
+            timelock: self.timelock.cst_decode(),
+        }
     }
 }
 impl CstDecode<crate::api::error::ConsensusError> for wire_cst_consensus_error {
@@ -935,6 +1012,26 @@ impl CstDecode<crate::api::types::Input> for wire_cst_input {
         }
     }
 }
+impl CstDecode<Vec<crate::api::types::BdkPolicy>> for *mut wire_cst_list_bdk_policy {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::BdkPolicy> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<crate::api::types::Condition>> for *mut wire_cst_list_condition {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::Condition> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
 impl CstDecode<Vec<Vec<u8>>> for *mut wire_cst_list_list_prim_u_8_strict {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> Vec<Vec<u8>> {
@@ -965,6 +1062,34 @@ impl CstDecode<Vec<crate::api::types::OutPoint>> for *mut wire_cst_list_out_poin
         vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
+impl CstDecode<Vec<crate::api::types::PkOrF>> for *mut wire_cst_list_pk_or_f {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::PkOrF> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<u32>> for *mut wire_cst_list_prim_u_32_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u32> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+impl CstDecode<Vec<u64>> for *mut wire_cst_list_prim_u_64_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<u64> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
 impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_loose {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> Vec<u8> {
@@ -981,6 +1106,51 @@ impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
             let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
             flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
         }
+    }
+}
+impl CstDecode<Vec<usize>> for *mut wire_cst_list_prim_usize_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<usize> {
+        unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        }
+    }
+}
+impl CstDecode<Vec<(Vec<u32>, Vec<crate::api::types::Condition>)>>
+    for *mut wire_cst_list_record_list_prim_u_32_strict_list_condition
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<(String, Vec<usize>)>>
+    for *mut wire_cst_list_record_string_list_prim_usize_strict
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<(String, Vec<usize>)> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<(u32, Vec<crate::api::types::Condition>)>>
+    for *mut wire_cst_list_record_u_32_list_condition
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<(u32, Vec<crate::api::types::Condition>)> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
 impl CstDecode<Vec<crate::api::types::ScriptAmount>> for *mut wire_cst_list_script_amount {
@@ -1088,6 +1258,32 @@ impl CstDecode<crate::api::types::Payload> for wire_cst_payload {
         }
     }
 }
+impl CstDecode<crate::api::types::PkOrF> for wire_cst_pk_or_f {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::PkOrF {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.Pubkey };
+                crate::api::types::PkOrF::Pubkey {
+                    value: ans.value.cst_decode(),
+                }
+            }
+            1 => {
+                let ans = unsafe { self.kind.XOnlyPubkey };
+                crate::api::types::PkOrF::XOnlyPubkey {
+                    value: ans.value.cst_decode(),
+                }
+            }
+            2 => {
+                let ans = unsafe { self.kind.Fingerprint };
+                crate::api::types::PkOrF::Fingerprint {
+                    value: ans.value.cst_decode(),
+                }
+            }
+            _ => unreachable!(),
+        }
+    }
+}
 impl CstDecode<crate::api::types::PsbtSigHashType> for wire_cst_psbt_sig_hash_type {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::PsbtSigHashType {
@@ -1131,6 +1327,14 @@ impl
         (self.field0.cst_decode(), self.field1.cst_decode())
     }
 }
+impl CstDecode<(Vec<u32>, Vec<crate::api::types::Condition>)>
+    for wire_cst_record_list_prim_u_32_strict_list_condition
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> (Vec<u32>, Vec<crate::api::types::Condition>) {
+        (self.field0.cst_decode(), self.field1.cst_decode())
+    }
+}
 impl CstDecode<(crate::api::types::OutPoint, crate::api::types::Input, usize)>
     for wire_cst_record_out_point_input_usize
 {
@@ -1141,6 +1345,18 @@ impl CstDecode<(crate::api::types::OutPoint, crate::api::types::Input, usize)>
             self.field1.cst_decode(),
             self.field2.cst_decode(),
         )
+    }
+}
+impl CstDecode<(String, Vec<usize>)> for wire_cst_record_string_list_prim_usize_strict {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> (String, Vec<usize>) {
+        (self.field0.cst_decode(), self.field1.cst_decode())
+    }
+}
+impl CstDecode<(u32, Vec<crate::api::types::Condition>)> for wire_cst_record_u_32_list_condition {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> (u32, Vec<crate::api::types::Condition>) {
+        (self.field0.cst_decode(), self.field1.cst_decode())
     }
 }
 impl CstDecode<crate::api::blockchain::RpcConfig> for wire_cst_rpc_config {
@@ -1163,6 +1379,116 @@ impl CstDecode<crate::api::blockchain::RpcSyncParams> for wire_cst_rpc_sync_para
             start_time: self.start_time.cst_decode(),
             force_start_time: self.force_start_time.cst_decode(),
             poll_rate_sec: self.poll_rate_sec.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::Satisfaction> for wire_cst_satisfaction {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::Satisfaction {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.Partial };
+                crate::api::types::Satisfaction::Partial {
+                    n: ans.n.cst_decode(),
+                    m: ans.m.cst_decode(),
+                    items: ans.items.cst_decode(),
+                    sorted: ans.sorted.cst_decode(),
+                    conditions: ans.conditions.cst_decode(),
+                }
+            }
+            1 => {
+                let ans = unsafe { self.kind.PartialComplete };
+                crate::api::types::Satisfaction::PartialComplete {
+                    n: ans.n.cst_decode(),
+                    m: ans.m.cst_decode(),
+                    items: ans.items.cst_decode(),
+                    sorted: ans.sorted.cst_decode(),
+                    conditions: ans.conditions.cst_decode(),
+                }
+            }
+            2 => {
+                let ans = unsafe { self.kind.Complete };
+                crate::api::types::Satisfaction::Complete {
+                    condition: ans.condition.cst_decode(),
+                }
+            }
+            3 => {
+                let ans = unsafe { self.kind.None };
+                crate::api::types::Satisfaction::None {
+                    msg: ans.msg.cst_decode(),
+                }
+            }
+            _ => unreachable!(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::SatisfiableItem> for wire_cst_satisfiable_item {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::SatisfiableItem {
+        match self.tag {
+            0 => {
+                let ans = unsafe { self.kind.EcdsaSignature };
+                crate::api::types::SatisfiableItem::EcdsaSignature {
+                    key: ans.key.cst_decode(),
+                }
+            }
+            1 => {
+                let ans = unsafe { self.kind.SchnorrSignature };
+                crate::api::types::SatisfiableItem::SchnorrSignature {
+                    key: ans.key.cst_decode(),
+                }
+            }
+            2 => {
+                let ans = unsafe { self.kind.Sha256Preimage };
+                crate::api::types::SatisfiableItem::Sha256Preimage {
+                    hash: ans.hash.cst_decode(),
+                }
+            }
+            3 => {
+                let ans = unsafe { self.kind.Hash256Preimage };
+                crate::api::types::SatisfiableItem::Hash256Preimage {
+                    hash: ans.hash.cst_decode(),
+                }
+            }
+            4 => {
+                let ans = unsafe { self.kind.Ripemd160Preimage };
+                crate::api::types::SatisfiableItem::Ripemd160Preimage {
+                    hash: ans.hash.cst_decode(),
+                }
+            }
+            5 => {
+                let ans = unsafe { self.kind.Hash160Preimage };
+                crate::api::types::SatisfiableItem::Hash160Preimage {
+                    hash: ans.hash.cst_decode(),
+                }
+            }
+            6 => {
+                let ans = unsafe { self.kind.AbsoluteTimelock };
+                crate::api::types::SatisfiableItem::AbsoluteTimelock {
+                    value: ans.value.cst_decode(),
+                }
+            }
+            7 => {
+                let ans = unsafe { self.kind.RelativeTimelock };
+                crate::api::types::SatisfiableItem::RelativeTimelock {
+                    value: ans.value.cst_decode(),
+                }
+            }
+            8 => {
+                let ans = unsafe { self.kind.Multisig };
+                crate::api::types::SatisfiableItem::Multisig {
+                    keys: ans.keys.cst_decode(),
+                    threshold: ans.threshold.cst_decode(),
+                }
+            }
+            9 => {
+                let ans = unsafe { self.kind.Thresh };
+                crate::api::types::SatisfiableItem::Thresh {
+                    items: ans.items.cst_decode(),
+                    threshold: ans.threshold.cst_decode(),
+                }
+            }
+            _ => unreachable!(),
         }
     }
 }
@@ -1400,6 +1726,18 @@ impl Default for wire_cst_bdk_mnemonic {
         Self::new_with_null_ptr()
     }
 }
+impl NewWithNullPtr for wire_cst_bdk_policy {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            ptr: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_bdk_policy {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
 impl NewWithNullPtr for wire_cst_bdk_psbt {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1470,6 +1808,19 @@ impl NewWithNullPtr for wire_cst_blockchain_config {
     }
 }
 impl Default for wire_cst_blockchain_config {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_condition {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            csv: core::ptr::null_mut(),
+            timelock: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_condition {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -1637,6 +1988,19 @@ impl Default for wire_cst_payload {
         Self::new_with_null_ptr()
     }
 }
+impl NewWithNullPtr for wire_cst_pk_or_f {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: PkOrFKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_pk_or_f {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
 impl NewWithNullPtr for wire_cst_psbt_sig_hash_type {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1688,6 +2052,19 @@ impl Default for wire_cst_record_bdk_psbt_transaction_details {
         Self::new_with_null_ptr()
     }
 }
+impl NewWithNullPtr for wire_cst_record_list_prim_u_32_strict_list_condition {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            field0: core::ptr::null_mut(),
+            field1: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_record_list_prim_u_32_strict_list_condition {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
 impl NewWithNullPtr for wire_cst_record_out_point_input_usize {
     fn new_with_null_ptr() -> Self {
         Self {
@@ -1698,6 +2075,32 @@ impl NewWithNullPtr for wire_cst_record_out_point_input_usize {
     }
 }
 impl Default for wire_cst_record_out_point_input_usize {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_record_string_list_prim_usize_strict {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            field0: core::ptr::null_mut(),
+            field1: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_record_string_list_prim_usize_strict {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_record_u_32_list_condition {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            field0: Default::default(),
+            field1: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_record_u_32_list_condition {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -1729,6 +2132,32 @@ impl NewWithNullPtr for wire_cst_rpc_sync_params {
     }
 }
 impl Default for wire_cst_rpc_sync_params {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_satisfaction {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: SatisfactionKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_satisfaction {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_satisfiable_item {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: SatisfiableItemKind { nil__: () },
+        }
+    }
+}
+impl Default for wire_cst_satisfiable_item {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -2300,6 +2729,48 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_address_to_qr_
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_as_string(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_as_string_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_contribution(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_contribution_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_id(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_id_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_item(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_item_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_requires_path(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_requires_path_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_satisfaction(
+    that: *mut wire_cst_bdk_policy,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_policy_satisfaction_impl(that)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_script_buf_as_string(
     that: *mut wire_cst_bdk_script_buf,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -2539,6 +3010,14 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_new(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_policies(
+    ptr: *mut wire_cst_bdk_wallet,
+    keychain: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_policies_impl(ptr, keychain)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_sign(
     port_: i64,
     ptr: *mut wire_cst_bdk_wallet,
@@ -2593,6 +3072,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish
     drain_wallet: bool,
     drain_to: *mut wire_cst_bdk_script_buf,
     rbf: *mut wire_cst_rbf_value,
+    internal_policy_path: *mut wire_cst_list_record_string_list_prim_usize_strict,
+    external_policy_path: *mut wire_cst_list_record_string_list_prim_usize_strict,
     data: *mut wire_cst_list_prim_u_8_loose,
 ) {
     wire__crate__api__wallet__tx_builder_finish_impl(
@@ -2609,6 +3090,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish
         drain_wallet,
         drain_to,
         rbf,
+        internal_policy_path,
+        external_policy_path,
         data,
     )
 }
@@ -2682,6 +3165,24 @@ pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_
 ) {
     unsafe {
         StdArc::<bdk::descriptor::ExtendedDescriptor>::decrement_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<bdk::descriptor::Policy>::increment_strong_count(ptr as _);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy(
+    ptr: *const std::ffi::c_void,
+) {
+    unsafe {
+        StdArc::<bdk::descriptor::Policy>::decrement_strong_count(ptr as _);
     }
 }
 
@@ -2862,6 +3363,11 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bdk_mnemonic() -> *mut 
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bdk_policy() -> *mut wire_cst_bdk_policy {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_bdk_policy::new_with_null_ptr())
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bdk_psbt() -> *mut wire_cst_bdk_psbt {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_bdk_psbt::new_with_null_ptr())
 }
@@ -2898,6 +3404,16 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_blockchain_config(
     flutter_rust_bridge::for_generated::new_leak_box_ptr(
         wire_cst_blockchain_config::new_with_null_ptr(),
     )
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_bool(value: bool) -> *mut bool {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_condition() -> *mut wire_cst_condition {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_condition::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -2968,6 +3484,11 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_lock_time() -> *mut wir
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_out_point() -> *mut wire_cst_out_point {
     flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_out_point::new_with_null_ptr())
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_pk_or_f() -> *mut wire_cst_pk_or_f {
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_pk_or_f::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -3042,6 +3563,34 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_u_8(value: u8) -> *mut 
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_bdk_policy(
+    len: i32,
+) -> *mut wire_cst_list_bdk_policy {
+    let wrap = wire_cst_list_bdk_policy {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_bdk_policy>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_condition(
+    len: i32,
+) -> *mut wire_cst_list_condition {
+    let wrap = wire_cst_list_condition {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_condition>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_list_list_prim_u_8_strict(
     len: i32,
 ) -> *mut wire_cst_list_list_prim_u_8_strict {
@@ -3084,6 +3633,40 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_out_point(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_pk_or_f(len: i32) -> *mut wire_cst_list_pk_or_f {
+    let wrap = wire_cst_list_pk_or_f {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_pk_or_f>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_u_32_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_u_32_strict {
+    let ans = wire_cst_list_prim_u_32_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_u_64_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_u_64_strict {
+    let ans = wire_cst_list_prim_u_64_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_u_8_loose(
     len: i32,
 ) -> *mut wire_cst_list_prim_u_8_loose {
@@ -3103,6 +3686,59 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_u_8_strict(
         len,
     };
     flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_usize_strict(
+    len: i32,
+) -> *mut wire_cst_list_prim_usize_strict {
+    let ans = wire_cst_list_prim_usize_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition(
+    len: i32,
+) -> *mut wire_cst_list_record_list_prim_u_32_strict_list_condition {
+    let wrap = wire_cst_list_record_list_prim_u_32_strict_list_condition {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_record_list_prim_u_32_strict_list_condition>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(
+    len: i32,
+) -> *mut wire_cst_list_record_string_list_prim_usize_strict {
+    let wrap = wire_cst_list_record_string_list_prim_usize_strict {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_record_string_list_prim_usize_strict>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition(
+    len: i32,
+) -> *mut wire_cst_list_record_u_32_list_condition {
+    let wrap = wire_cst_list_record_u_32_list_condition {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_record_u_32_list_condition>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
 }
 
 #[no_mangle]
@@ -3550,6 +4186,11 @@ pub struct wire_cst_bdk_mnemonic {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_bdk_policy {
+    ptr: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_bdk_psbt {
     ptr: usize,
 }
@@ -3602,6 +4243,12 @@ pub struct wire_cst_BlockchainConfig_Esplora {
 #[derive(Clone, Copy)]
 pub struct wire_cst_BlockchainConfig_Rpc {
     config: *mut wire_cst_rpc_config,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_condition {
+    csv: *mut u32,
+    timelock: *mut wire_cst_lock_time,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -3789,6 +4436,18 @@ pub struct wire_cst_input {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_list_bdk_policy {
+    ptr: *mut wire_cst_bdk_policy,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_condition {
+    ptr: *mut wire_cst_condition,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_list_list_prim_u_8_strict {
     ptr: *mut *mut wire_cst_list_prim_u_8_strict,
     len: i32,
@@ -3807,6 +4466,24 @@ pub struct wire_cst_list_out_point {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_list_pk_or_f {
+    ptr: *mut wire_cst_pk_or_f,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_u_32_strict {
+    ptr: *mut u32,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_u_64_strict {
+    ptr: *mut u64,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_list_prim_u_8_loose {
     ptr: *mut u8,
     len: i32,
@@ -3815,6 +4492,30 @@ pub struct wire_cst_list_prim_u_8_loose {
 #[derive(Clone, Copy)]
 pub struct wire_cst_list_prim_u_8_strict {
     ptr: *mut u8,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_prim_usize_strict {
+    ptr: *mut usize,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_record_list_prim_u_32_strict_list_condition {
+    ptr: *mut wire_cst_record_list_prim_u_32_strict_list_condition,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_record_string_list_prim_usize_strict {
+    ptr: *mut wire_cst_record_string_list_prim_usize_strict,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_record_u_32_list_condition {
+    ptr: *mut wire_cst_record_u_32_list_condition,
     len: i32,
 }
 #[repr(C)]
@@ -3910,6 +4611,35 @@ pub struct wire_cst_Payload_WitnessProgram {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_pk_or_f {
+    tag: i32,
+    kind: PkOrFKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union PkOrFKind {
+    Pubkey: wire_cst_PkOrF_Pubkey,
+    XOnlyPubkey: wire_cst_PkOrF_XOnlyPubkey,
+    Fingerprint: wire_cst_PkOrF_Fingerprint,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_PkOrF_Pubkey {
+    value: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_PkOrF_XOnlyPubkey {
+    value: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_PkOrF_Fingerprint {
+    value: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_psbt_sig_hash_type {
     inner: u32,
 }
@@ -3944,10 +4674,28 @@ pub struct wire_cst_record_bdk_psbt_transaction_details {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_record_list_prim_u_32_strict_list_condition {
+    field0: *mut wire_cst_list_prim_u_32_strict,
+    field1: *mut wire_cst_list_condition,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_record_out_point_input_usize {
     field0: wire_cst_out_point,
     field1: wire_cst_input,
     field2: usize,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_record_string_list_prim_usize_strict {
+    field0: *mut wire_cst_list_prim_u_8_strict,
+    field1: *mut wire_cst_list_prim_usize_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_record_u_32_list_condition {
+    field0: u32,
+    field1: *mut wire_cst_list_condition,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -3965,6 +4713,122 @@ pub struct wire_cst_rpc_sync_params {
     start_time: u64,
     force_start_time: bool,
     poll_rate_sec: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_satisfaction {
+    tag: i32,
+    kind: SatisfactionKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union SatisfactionKind {
+    Partial: wire_cst_Satisfaction_Partial,
+    PartialComplete: wire_cst_Satisfaction_PartialComplete,
+    Complete: wire_cst_Satisfaction_Complete,
+    None: wire_cst_Satisfaction_None,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Satisfaction_Partial {
+    n: u64,
+    m: u64,
+    items: *mut wire_cst_list_prim_u_64_strict,
+    sorted: *mut bool,
+    conditions: *mut wire_cst_list_record_u_32_list_condition,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Satisfaction_PartialComplete {
+    n: u64,
+    m: u64,
+    items: *mut wire_cst_list_prim_u_64_strict,
+    sorted: *mut bool,
+    conditions: *mut wire_cst_list_record_list_prim_u_32_strict_list_condition,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Satisfaction_Complete {
+    condition: *mut wire_cst_condition,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_Satisfaction_None {
+    msg: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_satisfiable_item {
+    tag: i32,
+    kind: SatisfiableItemKind,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union SatisfiableItemKind {
+    EcdsaSignature: wire_cst_SatisfiableItem_EcdsaSignature,
+    SchnorrSignature: wire_cst_SatisfiableItem_SchnorrSignature,
+    Sha256Preimage: wire_cst_SatisfiableItem_Sha256Preimage,
+    Hash256Preimage: wire_cst_SatisfiableItem_Hash256Preimage,
+    Ripemd160Preimage: wire_cst_SatisfiableItem_Ripemd160Preimage,
+    Hash160Preimage: wire_cst_SatisfiableItem_Hash160Preimage,
+    AbsoluteTimelock: wire_cst_SatisfiableItem_AbsoluteTimelock,
+    RelativeTimelock: wire_cst_SatisfiableItem_RelativeTimelock,
+    Multisig: wire_cst_SatisfiableItem_Multisig,
+    Thresh: wire_cst_SatisfiableItem_Thresh,
+    nil__: (),
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_EcdsaSignature {
+    key: *mut wire_cst_pk_or_f,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_SchnorrSignature {
+    key: *mut wire_cst_pk_or_f,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Sha256Preimage {
+    hash: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Hash256Preimage {
+    hash: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Ripemd160Preimage {
+    hash: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Hash160Preimage {
+    hash: *mut wire_cst_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_AbsoluteTimelock {
+    value: *mut wire_cst_lock_time,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_RelativeTimelock {
+    value: u32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Multisig {
+    keys: *mut wire_cst_list_pk_or_f,
+    threshold: u64,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_SatisfiableItem_Thresh {
+    items: *mut wire_cst_list_bdk_policy,
+    threshold: u64,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

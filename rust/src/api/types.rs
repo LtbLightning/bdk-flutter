@@ -5,6 +5,7 @@ use bdk::bitcoin::hashes::hex::Error;
 use bdk::database::AnyDatabaseConfig;
 use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::io::Cursor;
 use std::str::FromStr;
 
@@ -543,6 +544,7 @@ impl From<bdk::bitcoin::bech32::Variant> for Variant {
         }
     }
 }
+#[derive(Debug, Clone)]
 pub enum LockTime {
     Blocks(u32),
     Seconds(u32),
@@ -912,19 +914,255 @@ impl TryFrom<bdk::bitcoin::psbt::Input> for Input {
         })
     }
 }
-pub struct FfiPolicy {
-    pub opaque: RustOpaque<bdk::descriptor::Policy>,
+#[derive(Debug, Clone)]
+pub struct BdkPolicy {
+    pub ptr: RustOpaque<bdk::descriptor::Policy>,
 }
-impl FfiPolicy {
+impl BdkPolicy {
     #[frb(sync)]
     pub fn id(&self) -> String {
-        self.opaque.id.clone()
+        self.ptr.id.clone()
+    }
+    #[frb(sync)]
+    pub fn as_string(&self) -> Result<String, BdkError> {
+        serde_json::to_string(&*self.ptr).map_err(|e| BdkError::Generic(e.to_string()))
+    }
+    #[frb(sync)]
+    pub fn requires_path(&self) -> bool {
+        self.ptr.requires_path()
+    }
+    #[frb(sync)]
+    pub fn item(&self) -> SatisfiableItem {
+        self.ptr.item.clone().into()
+    }
+    #[frb(sync)]
+    pub fn satisfaction(&self) -> Satisfaction {
+        self.ptr.satisfaction.clone().into()
+    }
+    #[frb(sync)]
+    pub fn contribution(&self) -> Satisfaction {
+        self.ptr.contribution.clone().into()
     }
 }
-impl From<bdk::descriptor::Policy> for FfiPolicy {
+impl From<bdk::descriptor::Policy> for BdkPolicy {
     fn from(value: bdk::descriptor::Policy) -> Self {
-        FfiPolicy {
-            opaque: RustOpaque::new(value),
+        BdkPolicy {
+            ptr: RustOpaque::new(value),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum SatisfiableItem {
+    EcdsaSignature {
+        key: PkOrF,
+    },
+    SchnorrSignature {
+        key: PkOrF,
+    },
+    Sha256Preimage {
+        hash: String,
+    },
+    Hash256Preimage {
+        hash: String,
+    },
+    Ripemd160Preimage {
+        hash: String,
+    },
+    Hash160Preimage {
+        hash: String,
+    },
+    AbsoluteTimelock {
+        value: LockTime,
+    },
+    RelativeTimelock {
+        value: u32,
+    },
+
+    Multisig {
+        keys: Vec<PkOrF>,
+
+        threshold: u64,
+    },
+
+    Thresh {
+        items: Vec<BdkPolicy>,
+
+        threshold: u64,
+    },
+}
+impl From<bdk::descriptor::policy::SatisfiableItem> for SatisfiableItem {
+    fn from(value: bdk::descriptor::policy::SatisfiableItem) -> Self {
+        match value {
+            bdk::descriptor::policy::SatisfiableItem::EcdsaSignature(pk_or_f) => {
+                SatisfiableItem::EcdsaSignature {
+                    key: pk_or_f.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::SchnorrSignature(pk_or_f) => {
+                SatisfiableItem::SchnorrSignature {
+                    key: pk_or_f.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Sha256Preimage { hash } => {
+                SatisfiableItem::Sha256Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Hash256Preimage { hash } => {
+                SatisfiableItem::Hash256Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Ripemd160Preimage { hash } => {
+                SatisfiableItem::Ripemd160Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Hash160Preimage { hash } => {
+                SatisfiableItem::Hash160Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::AbsoluteTimelock { value } => {
+                SatisfiableItem::AbsoluteTimelock {
+                    value: value.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::RelativeTimelock { value } => {
+                SatisfiableItem::RelativeTimelock {
+                    value: value.to_consensus_u32(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Multisig { keys, threshold } => {
+                SatisfiableItem::Multisig {
+                    keys: keys.iter().map(|e| e.to_owned().into()).collect(),
+                    threshold: threshold as u64,
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Thresh { items, threshold } => {
+                SatisfiableItem::Thresh {
+                    items: items.iter().map(|e| e.to_owned().into()).collect(),
+                    threshold: threshold as u64,
+                }
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum PkOrF {
+    Pubkey { value: String },
+    XOnlyPubkey { value: String },
+    Fingerprint { value: String },
+}
+impl From<bdk::descriptor::policy::PkOrF> for PkOrF {
+    fn from(value: bdk::descriptor::policy::PkOrF) -> Self {
+        match value {
+            bdk::descriptor::policy::PkOrF::Pubkey(public_key) => PkOrF::Pubkey {
+                value: public_key.to_string(),
+            },
+            bdk::descriptor::policy::PkOrF::XOnlyPubkey(xonly_public_key) => PkOrF::XOnlyPubkey {
+                value: xonly_public_key.to_string(),
+            },
+            bdk::descriptor::policy::PkOrF::Fingerprint(fingerprint) => PkOrF::Fingerprint {
+                value: fingerprint.to_string(),
+            },
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum Satisfaction {
+    Partial {
+        n: u64,
+        m: u64,
+        items: Vec<u64>,
+        sorted: Option<bool>,
+        conditions: HashMap<u32, Vec<Condition>>,
+    },
+    PartialComplete {
+        n: u64,
+        m: u64,
+        items: Vec<u64>,
+        sorted: Option<bool>,
+        conditions: HashMap<Vec<u32>, Vec<Condition>>,
+    },
+    Complete {
+        condition: Condition,
+    },
+
+    None {
+        msg: String,
+    },
+}
+impl From<bdk::descriptor::policy::Satisfaction> for Satisfaction {
+    fn from(value: bdk::descriptor::policy::Satisfaction) -> Self {
+        match value {
+            bdk::descriptor::policy::Satisfaction::Partial {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => Satisfaction::Partial {
+                n: n as u64,
+                m: m as u64,
+                items: items.iter().map(|e| e.to_owned() as u64).collect(),
+                sorted,
+                conditions: conditions
+                    .into_iter()
+                    .map(|(index, conditions)| {
+                        (
+                            index as u32,
+                            conditions.into_iter().map(|e| e.into()).collect(),
+                        )
+                    })
+                    .collect(),
+            },
+            bdk::descriptor::policy::Satisfaction::PartialComplete {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => Satisfaction::PartialComplete {
+                n: n as u64,
+                m: m as u64,
+                items: items.iter().map(|e| e.to_owned() as u64).collect(),
+                sorted,
+                conditions: conditions
+                    .into_iter()
+                    .map(|(index, conditions)| {
+                        (
+                            index.iter().map(|e| e.to_owned() as u32).collect(),
+                            conditions.into_iter().map(|e| e.into()).collect(), // Convert each `Condition` to `YourType`
+                        )
+                    })
+                    .collect(),
+            },
+            bdk::descriptor::policy::Satisfaction::Complete { condition } => {
+                Satisfaction::Complete {
+                    condition: condition.into(),
+                }
+            }
+            bdk::descriptor::policy::Satisfaction::None => Satisfaction::None {
+                msg: "Cannot satisfy or contribute to the policy item".to_string(),
+            },
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Condition {
+    pub csv: Option<u32>,
+    pub timelock: Option<LockTime>,
+}
+impl From<bdk::descriptor::policy::Condition> for Condition {
+    fn from(value: bdk::descriptor::policy::Condition) -> Self {
+        Condition {
+            csv: value.csv.map(|e| e.to_consensus_u32()),
+            timelock: value.timelock.map(|e| e.into()),
         }
     }
 }
