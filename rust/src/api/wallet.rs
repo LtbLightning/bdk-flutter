@@ -32,6 +32,7 @@ use bdk::database::ConfigurableDatabase;
 use flutter_rust_bridge::frb;
 
 use super::handle_mutex;
+use super::types::FfiPolicy;
 
 #[derive(Debug)]
 pub struct BdkWallet {
@@ -195,6 +196,14 @@ impl BdkWallet {
         handle_mutex(&ptr.ptr, |w| {
             let extended_descriptor = w.get_descriptor_for_keychain(keychain.into());
             BdkDescriptor::new(extended_descriptor.to_string(), w.network().into())
+        })?
+    }
+    #[frb(sync)]
+    pub fn policies(ptr: BdkWallet, keychain: KeychainKind) -> Result<Option<FfiPolicy>, BdkError> {
+        handle_mutex(&ptr.ptr, |w| {
+            w.policies(keychain.into())
+                .map_err(|e| e.into())
+                .map(|e| e.map(|f| f.into()))
         })?
     }
 }
