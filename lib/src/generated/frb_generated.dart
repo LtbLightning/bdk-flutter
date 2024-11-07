@@ -75,7 +75,7 @@ class core extends BaseEntrypoint<coreApi, coreApiImpl, coreWire> {
   String get codegenVersion => '2.4.0';
 
   @override
-  int get rustContentHash => -1125178077;
+  int get rustContentHash => 1560530746;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -343,6 +343,8 @@ abstract class coreApi extends BaseApi {
           required FutureOr<void> Function(KeychainKind, int, FfiScriptBuf)
               inspector});
 
+  String crateApiTypesFfiPolicyId({required FfiPolicy that});
+
   Future<FfiSyncRequest> crateApiTypesFfiSyncRequestBuilderBuild(
       {required FfiSyncRequestBuilder that});
 
@@ -365,13 +367,13 @@ abstract class coreApi extends BaseApi {
 
   Balance crateApiWalletFfiWalletGetBalance({required FfiWallet that});
 
-  Future<FfiCanonicalTx?> crateApiWalletFfiWalletGetTx(
+  FfiCanonicalTx? crateApiWalletFfiWalletGetTx(
       {required FfiWallet that, required String txid});
 
   bool crateApiWalletFfiWalletIsMine(
       {required FfiWallet that, required FfiScriptBuf script});
 
-  Future<List<LocalOutput>> crateApiWalletFfiWalletListOutput(
+  List<LocalOutput> crateApiWalletFfiWalletListOutput(
       {required FfiWallet that});
 
   List<LocalOutput> crateApiWalletFfiWalletListUnspent(
@@ -392,6 +394,9 @@ abstract class coreApi extends BaseApi {
 
   Future<bool> crateApiWalletFfiWalletPersist(
       {required FfiWallet opaque, required FfiConnection connection});
+
+  FfiPolicy? crateApiWalletFfiWalletPolicies(
+      {required FfiWallet opaque, required KeychainKind keychainKind});
 
   AddressInfo crateApiWalletFfiWalletRevealNextAddress(
       {required FfiWallet opaque, required KeychainKind keychainKind});
@@ -466,6 +471,12 @@ abstract class coreApi extends BaseApi {
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Policy;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Policy;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_DescriptorPublicKey;
@@ -2527,6 +2538,28 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           );
 
   @override
+  String crateApiTypesFfiPolicyId({required FfiPolicy that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_policy(that);
+        return wire.wire__crate__api__types__ffi_policy_id(arg0);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_String,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiTypesFfiPolicyIdConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiTypesFfiPolicyIdConstMeta => const TaskConstMeta(
+        debugName: "ffi_policy_id",
+        argNames: ["that"],
+      );
+
+  @override
   Future<FfiSyncRequest> crateApiTypesFfiSyncRequestBuilderBuild(
       {required FfiSyncRequestBuilder that}) {
     return handler.executeNormal(NormalTask(
@@ -2727,14 +2760,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<FfiCanonicalTx?> crateApiWalletFfiWalletGetTx(
+  FfiCanonicalTx? crateApiWalletFfiWalletGetTx(
       {required FfiWallet that, required String txid}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
         var arg1 = cst_encode_String(txid);
-        return wire.wire__crate__api__wallet__ffi_wallet_get_tx(
-            port_, arg0, arg1);
+        return wire.wire__crate__api__wallet__ffi_wallet_get_tx(arg0, arg1);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_opt_box_autoadd_ffi_canonical_tx,
@@ -2778,13 +2810,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       );
 
   @override
-  Future<List<LocalOutput>> crateApiWalletFfiWalletListOutput(
+  List<LocalOutput> crateApiWalletFfiWalletListOutput(
       {required FfiWallet that}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_box_autoadd_ffi_wallet(that);
-        return wire.wire__crate__api__wallet__ffi_wallet_list_output(
-            port_, arg0);
+        return wire.wire__crate__api__wallet__ffi_wallet_list_output(arg0);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_list_local_output,
@@ -2932,6 +2963,31 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       const TaskConstMeta(
         debugName: "ffi_wallet_persist",
         argNames: ["opaque", "connection"],
+      );
+
+  @override
+  FfiPolicy? crateApiWalletFfiWalletPolicies(
+      {required FfiWallet opaque, required KeychainKind keychainKind}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        var arg0 = cst_encode_box_autoadd_ffi_wallet(opaque);
+        var arg1 = cst_encode_keychain_kind(keychainKind);
+        return wire.wire__crate__api__wallet__ffi_wallet_policies(arg0, arg1);
+      },
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_box_autoadd_ffi_policy,
+        decodeErrorData: dco_decode_descriptor_error,
+      ),
+      constMeta: kCrateApiWalletFfiWalletPoliciesConstMeta,
+      argValues: [opaque, keychainKind],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiWalletFfiWalletPoliciesConstMeta =>
+      const TaskConstMeta(
+        debugName: "ffi_wallet_policies",
+        argNames: ["opaque", "keychainKind"],
       );
 
   @override
@@ -3192,6 +3248,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           .rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorExtendedDescriptor;
 
   RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_Policy => wire
+          .rust_arc_increment_strong_count_RustOpaque_bdk_walletdescriptorPolicy;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_Policy => wire
+          .rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy;
+
+  RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_DescriptorPublicKey => wire
           .rust_arc_increment_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKey;
 
@@ -3354,6 +3418,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ExtendedDescriptorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Policy dco_decode_RustOpaque_bdk_walletdescriptorPolicy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PolicyImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -3692,6 +3762,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiMnemonic dco_decode_box_autoadd_ffi_mnemonic(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_ffi_mnemonic(raw);
+  }
+
+  @protected
+  FfiPolicy dco_decode_box_autoadd_ffi_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_ffi_policy(raw);
   }
 
   @protected
@@ -4329,6 +4405,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  FfiPolicy dco_decode_ffi_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return FfiPolicy(
+      opaque: dco_decode_RustOpaque_bdk_walletdescriptorPolicy(arr[0]),
+    );
+  }
+
+  @protected
   FfiPsbt dco_decode_ffi_psbt(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -4579,6 +4666,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   FfiCanonicalTx? dco_decode_opt_box_autoadd_ffi_canonical_tx(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_ffi_canonical_tx(raw);
+  }
+
+  @protected
+  FfiPolicy? dco_decode_opt_box_autoadd_ffi_policy(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_ffi_policy(raw);
   }
 
   @protected
@@ -5050,6 +5143,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Policy sse_decode_RustOpaque_bdk_walletdescriptorPolicy(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PolicyImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   DescriptorPublicKey sse_decode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5392,6 +5493,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_ffi_mnemonic(deserializer));
+  }
+
+  @protected
+  FfiPolicy sse_decode_box_autoadd_ffi_policy(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_ffi_policy(deserializer));
   }
 
   @protected
@@ -5967,6 +6074,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  FfiPolicy sse_decode_ffi_policy(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_opaque =
+        sse_decode_RustOpaque_bdk_walletdescriptorPolicy(deserializer);
+    return FfiPolicy(opaque: var_opaque);
+  }
+
+  @protected
   FfiPsbt sse_decode_ffi_psbt(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_opaque =
@@ -6253,6 +6368,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_ffi_canonical_tx(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  FfiPolicy? sse_decode_opt_box_autoadd_ffi_policy(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_ffi_policy(deserializer));
     } else {
       return null;
     }
@@ -6742,6 +6869,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  int cst_encode_RustOpaque_bdk_walletdescriptorPolicy(Policy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+// ignore: invalid_use_of_internal_member
+    return (raw as PolicyImpl).frbInternalCstEncode();
+  }
+
+  @protected
   int cst_encode_RustOpaque_bdk_walletkeysDescriptorPublicKey(
       DescriptorPublicKey raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -6995,6 +7129,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_usize(
         (self as ExtendedDescriptorImpl).frbInternalSseEncode(move: null),
         serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_bdk_walletdescriptorPolicy(
+      Policy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as PolicyImpl).frbInternalSseEncode(move: null), serializer);
   }
 
   @protected
@@ -7337,6 +7479,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FfiMnemonic self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_ffi_mnemonic(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_ffi_policy(
+      FfiPolicy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_ffi_policy(self, serializer);
   }
 
   @protected
@@ -7883,6 +8032,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_ffi_policy(FfiPolicy self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_RustOpaque_bdk_walletdescriptorPolicy(self.opaque, serializer);
+  }
+
+  @protected
   void sse_encode_ffi_psbt(FfiPsbt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_RustOpaque_stdsyncMutexbdk_corebitcoinpsbtPsbt(
@@ -8133,6 +8288,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_ffi_canonical_tx(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_ffi_policy(
+      FfiPolicy? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_ffi_policy(self, serializer);
     }
   }
 
@@ -8842,6 +9008,26 @@ class MutexPsbtImpl extends RustOpaque implements MutexPsbt {
         core.instance.api.rust_arc_decrement_strong_count_MutexPsbt,
     rustArcDecrementStrongCountPtr:
         core.instance.api.rust_arc_decrement_strong_count_MutexPsbtPtr,
+  );
+}
+
+@sealed
+class PolicyImpl extends RustOpaque implements Policy {
+  // Not to be used by end users
+  PolicyImpl.frbInternalDcoDecode(List<dynamic> wire)
+      : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PolicyImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        core.instance.api.rust_arc_increment_strong_count_Policy,
+    rustArcDecrementStrongCount:
+        core.instance.api.rust_arc_decrement_strong_count_Policy,
+    rustArcDecrementStrongCountPtr:
+        core.instance.api.rust_arc_decrement_strong_count_PolicyPtr,
   );
 }
 

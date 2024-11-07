@@ -43,14 +43,14 @@ class FfiWallet {
       );
 
   ///Get a single transaction from the wallet as a WalletTx (if the transaction exists).
-  Future<FfiCanonicalTx?> getTx({required String txid}) =>
+  FfiCanonicalTx? getTx({required String txid}) =>
       core.instance.api.crateApiWalletFfiWalletGetTx(that: this, txid: txid);
 
   bool isMine({required FfiScriptBuf script}) => core.instance.api
       .crateApiWalletFfiWalletIsMine(that: this, script: script);
 
   ///List all relevant outputs (includes both spent and unspent, confirmed and unconfirmed).
-  Future<List<LocalOutput>> listOutput() =>
+  List<LocalOutput> listOutput() =>
       core.instance.api.crateApiWalletFfiWalletListOutput(
         that: this,
       );
@@ -91,6 +91,11 @@ class FfiWallet {
           {required FfiWallet opaque, required FfiConnection connection}) =>
       core.instance.api.crateApiWalletFfiWalletPersist(
           opaque: opaque, connection: connection);
+
+  static FfiPolicy? policies(
+          {required FfiWallet opaque, required KeychainKind keychainKind}) =>
+      core.instance.api.crateApiWalletFfiWalletPolicies(
+          opaque: opaque, keychainKind: keychainKind);
 
   /// Attempt to reveal the next address of the given `keychain`.
   ///

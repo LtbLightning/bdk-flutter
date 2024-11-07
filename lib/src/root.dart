@@ -1109,8 +1109,8 @@ class Wallet extends FfiWallet {
   }
 
   @override
-  Future<CanonicalTx?> getTx({required String txid}) async {
-    final res = await super.getTx(txid: txid);
+  CanonicalTx? getTx({required String txid}) {
+    final res = super.getTx(txid: txid);
     if (res == null) return null;
     return CanonicalTx._(
         transaction: res.transaction, chainPosition: res.chainPosition);
@@ -1123,9 +1123,17 @@ class Wallet extends FfiWallet {
     return super.listUnspent();
   }
 
+  ///List all relevant outputs (includes both spent and unspent, confirmed and unconfirmed).
   @override
-  Future<List<LocalOutput>> listOutput() async {
-    return await super.listOutput();
+  List<LocalOutput> listOutput() {
+    return super.listOutput();
+  }
+
+  ///Return the spending policies for the wallet's descriptor
+  Policy? policies(KeychainKind keychainKind) {
+    final res = FfiWallet.policies(opaque: this, keychainKind: keychainKind);
+    if (res == null) return null;
+    return Policy._(opaque: res.opaque);
   }
 
   /// Sign a transaction with all the wallet's signers. This function returns an encapsulated bool that
@@ -1335,5 +1343,16 @@ class TxIn extends bitcoin.TxIn {
 
 ///A transaction output, which defines new coins to be created from old ones.
 class TxOut extends bitcoin.TxOut {
-  TxOut({required super.value, required super.scriptPubkey});
+  TxOut({required super.value, required ScriptBuf scriptPubkey})
+      : super(scriptPubkey: scriptPubkey);
+}
+
+class Policy extends FfiPolicy {
+  Policy._({required super.opaque});
+
+  ///Identifier for this policy node
+  @override
+  String id() {
+    return super.id();
+  }
 }
