@@ -115,6 +115,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Object dco_decode_DartOpaque(dynamic raw);
 
   @protected
+  Map<String, Uint64List> dco_decode_Map_String_list_prim_usize_strict(
+      dynamic raw);
+
+  @protected
   Address dco_decode_RustOpaque_bdk_corebitcoinAddress(dynamic raw);
 
   @protected
@@ -293,6 +297,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw);
 
   @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  ) dco_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      dynamic raw);
+
+  @protected
   SignOptions dco_decode_box_autoadd_sign_options(dynamic raw);
 
   @protected
@@ -432,8 +443,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
+  Uint64List dco_decode_list_prim_usize_strict(dynamic raw);
+
+  @protected
   List<(FfiScriptBuf, BigInt)> dco_decode_list_record_ffi_script_buf_u_64(
       dynamic raw);
+
+  @protected
+  List<(String, Uint64List)>
+      dco_decode_list_record_string_list_prim_usize_strict(dynamic raw);
 
   @protected
   List<TxIn> dco_decode_list_tx_in(dynamic raw);
@@ -472,6 +490,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue? dco_decode_opt_box_autoadd_rbf_value(dynamic raw);
 
   @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  )? dco_decode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      dynamic raw);
+
+  @protected
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
 
   @protected
@@ -491,6 +516,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   (FfiScriptBuf, BigInt) dco_decode_record_ffi_script_buf_u_64(dynamic raw);
+
+  @protected
+  (Map<String, Uint64List>, KeychainKind)
+      dco_decode_record_map_string_list_prim_usize_strict_keychain_kind(
+          dynamic raw);
+
+  @protected
+  (String, Uint64List) dco_decode_record_string_list_prim_usize_strict(
+      dynamic raw);
 
   @protected
   RequestBuilderError dco_decode_request_builder_error(dynamic raw);
@@ -545,6 +579,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   Object sse_decode_DartOpaque(SseDeserializer deserializer);
+
+  @protected
+  Map<String, Uint64List> sse_decode_Map_String_list_prim_usize_strict(
+      SseDeserializer deserializer);
 
   @protected
   Address sse_decode_RustOpaque_bdk_corebitcoinAddress(
@@ -743,6 +781,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer);
 
   @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  ) sse_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      SseDeserializer deserializer);
+
+  @protected
   SignOptions sse_decode_box_autoadd_sign_options(SseDeserializer deserializer);
 
   @protected
@@ -896,8 +941,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
+  Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer);
+
+  @protected
   List<(FfiScriptBuf, BigInt)> sse_decode_list_record_ffi_script_buf_u_64(
       SseDeserializer deserializer);
+
+  @protected
+  List<(String, Uint64List)>
+      sse_decode_list_record_string_list_prim_usize_strict(
+          SseDeserializer deserializer);
 
   @protected
   List<TxIn> sse_decode_list_tx_in(SseDeserializer deserializer);
@@ -940,6 +993,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   RbfValue? sse_decode_opt_box_autoadd_rbf_value(SseDeserializer deserializer);
 
   @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  )? sse_decode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      SseDeserializer deserializer);
+
+  @protected
   int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
 
   @protected
@@ -959,6 +1019,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   (FfiScriptBuf, BigInt) sse_decode_record_ffi_script_buf_u_64(
+      SseDeserializer deserializer);
+
+  @protected
+  (Map<String, Uint64List>, KeychainKind)
+      sse_decode_record_map_string_list_prim_usize_strict_keychain_kind(
+          SseDeserializer deserializer);
+
+  @protected
+  (String, Uint64List) sse_decode_record_string_list_prim_usize_strict(
       SseDeserializer deserializer);
 
   @protected
@@ -1015,6 +1084,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       AnyhowException raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     throw UnimplementedError();
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+      cst_encode_Map_String_list_prim_usize_strict(
+          Map<String, Uint64List> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_record_string_list_prim_usize_strict(
+        raw.entries.map((e) => (e.key, e.value)).toList());
   }
 
   @protected
@@ -1243,6 +1321,18 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+      cst_encode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind) raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire
+        .cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind();
+    cst_api_fill_to_wire_record_map_string_list_prim_usize_strict_keychain_kind(
+        raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_sign_options> cst_encode_box_autoadd_sign_options(
       SignOptions raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1332,6 +1422,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_prim_usize_strict>
+      cst_encode_list_prim_usize_strict(Uint64List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    throw UnimplementedError('Not implemented in this codec');
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_record_ffi_script_buf_u_64>
       cst_encode_list_record_ffi_script_buf_u_64(
           List<(FfiScriptBuf, BigInt)> raw) {
@@ -1339,6 +1436,20 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     final ans = wire.cst_new_list_record_ffi_script_buf_u_64(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_record_ffi_script_buf_u_64(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+      cst_encode_list_record_string_list_prim_usize_strict(
+          List<(String, Uint64List)> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans =
+        wire.cst_new_list_record_string_list_prim_usize_strict(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_record_string_list_prim_usize_strict(
+          raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -1407,6 +1518,17 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       RbfValue? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_rbf_value(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+      cst_encode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind)? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+            raw);
   }
 
   @protected
@@ -1762,6 +1884,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_box_autoadd_rbf_value(
       RbfValue apiObj, ffi.Pointer<wire_cst_rbf_value> wireObj) {
     cst_api_fill_to_wire_rbf_value(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      (Map<String, Uint64List>, KeychainKind) apiObj,
+      ffi.Pointer<
+              wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+          wireObj) {
+    cst_api_fill_to_wire_record_map_string_list_prim_usize_strict_keychain_kind(
+        apiObj, wireObj.ref);
   }
 
   @protected
@@ -2748,6 +2880,24 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void
+      cst_api_fill_to_wire_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind) apiObj,
+          wire_cst_record_map_string_list_prim_usize_strict_keychain_kind
+              wireObj) {
+    wireObj.field0 = cst_encode_Map_String_list_prim_usize_strict(apiObj.$1);
+    wireObj.field1 = cst_encode_keychain_kind(apiObj.$2);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_record_string_list_prim_usize_strict(
+      (String, Uint64List) apiObj,
+      wire_cst_record_string_list_prim_usize_strict wireObj) {
+    wireObj.field0 = cst_encode_String(apiObj.$1);
+    wireObj.field1 = cst_encode_list_prim_usize_strict(apiObj.$2);
+  }
+
+  @protected
   void cst_api_fill_to_wire_sign_options(
       SignOptions apiObj, wire_cst_sign_options wireObj) {
     wireObj.trust_witness_utxo = cst_encode_bool(apiObj.trustWitnessUtxo);
@@ -3068,6 +3218,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_DartOpaque(Object self, SseSerializer serializer);
 
   @protected
+  void sse_encode_Map_String_list_prim_usize_strict(
+      Map<String, Uint64List> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_RustOpaque_bdk_corebitcoinAddress(
       Address self, SseSerializer serializer);
 
@@ -3272,6 +3426,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       RbfValue self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind) self,
+          SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_sign_options(
       SignOptions self, SseSerializer serializer);
 
@@ -3435,8 +3595,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       Uint8List self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_prim_usize_strict(
+      Uint64List self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_record_ffi_script_buf_u_64(
       List<(FfiScriptBuf, BigInt)> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_record_string_list_prim_usize_strict(
+      List<(String, Uint64List)> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_tx_in(List<TxIn> self, SseSerializer serializer);
@@ -3481,6 +3649,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       RbfValue? self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind)? self,
+          SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
 
   @protected
@@ -3502,6 +3676,14 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_record_ffi_script_buf_u_64(
       (FfiScriptBuf, BigInt) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_map_string_list_prim_usize_strict_keychain_kind(
+      (Map<String, Uint64List>, KeychainKind) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_string_list_prim_usize_strict(
+      (String, Uint64List) self, SseSerializer serializer);
 
   @protected
   void sse_encode_request_builder_error(
@@ -5117,6 +5299,8 @@ class coreWire implements BaseWire {
     ffi.Pointer<wire_cst_fee_rate> fee_rate,
     ffi.Pointer<ffi.Uint64> fee_absolute,
     bool drain_wallet,
+    ffi.Pointer<wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+        policy_path,
     ffi.Pointer<wire_cst_ffi_script_buf> drain_to,
     ffi.Pointer<wire_cst_rbf_value> rbf,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
@@ -5132,6 +5316,7 @@ class coreWire implements BaseWire {
       fee_rate,
       fee_absolute,
       drain_wallet,
+      policy_path,
       drain_to,
       rbf,
       data,
@@ -5151,6 +5336,8 @@ class coreWire implements BaseWire {
                   ffi.Pointer<wire_cst_fee_rate>,
                   ffi.Pointer<ffi.Uint64>,
                   ffi.Bool,
+                  ffi.Pointer<
+                      wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>,
                   ffi.Pointer<wire_cst_ffi_script_buf>,
                   ffi.Pointer<wire_cst_rbf_value>,
                   ffi.Pointer<wire_cst_list_prim_u_8_loose>)>>(
@@ -5168,6 +5355,8 @@ class coreWire implements BaseWire {
               ffi.Pointer<wire_cst_fee_rate>,
               ffi.Pointer<ffi.Uint64>,
               bool,
+              ffi.Pointer<
+                  wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>,
               ffi.Pointer<wire_cst_ffi_script_buf>,
               ffi.Pointer<wire_cst_rbf_value>,
               ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
@@ -6587,6 +6776,25 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_rbf_value = _cst_new_box_autoadd_rbf_valuePtr
       .asFunction<ffi.Pointer<wire_cst_rbf_value> Function()>();
 
+  ffi.Pointer<wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+      cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind() {
+    return _cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind();
+  }
+
+  late final _cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kindPtr =
+      _lookup<
+              ffi.NativeFunction<
+                  ffi.Pointer<
+                          wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+                      Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind');
+  late final _cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind =
+      _cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kindPtr
+          .asFunction<
+              ffi.Pointer<
+                      wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>
+                  Function()>();
+
   ffi.Pointer<wire_cst_sign_options> cst_new_box_autoadd_sign_options() {
     return _cst_new_box_autoadd_sign_options();
   }
@@ -6719,6 +6927,22 @@ class coreWire implements BaseWire {
   late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
       .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_prim_usize_strict> cst_new_list_prim_usize_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_usize_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_usize_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_usize_strict> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_usize_strict');
+  late final _cst_new_list_prim_usize_strict =
+      _cst_new_list_prim_usize_strictPtr.asFunction<
+          ffi.Pointer<wire_cst_list_prim_usize_strict> Function(int)>();
+
   ffi.Pointer<wire_cst_list_record_ffi_script_buf_u_64>
       cst_new_list_record_ffi_script_buf_u_64(
     int len,
@@ -6737,6 +6961,25 @@ class coreWire implements BaseWire {
       _cst_new_list_record_ffi_script_buf_u_64Ptr.asFunction<
           ffi.Pointer<wire_cst_list_record_ffi_script_buf_u_64> Function(
               int)>();
+
+  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+      cst_new_list_record_string_list_prim_usize_strict(
+    int len,
+  ) {
+    return _cst_new_list_record_string_list_prim_usize_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_record_string_list_prim_usize_strictPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+                  Function(ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict');
+  late final _cst_new_list_record_string_list_prim_usize_strict =
+      _cst_new_list_record_string_list_prim_usize_strictPtr.asFunction<
+          ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+              Function(int)>();
 
   ffi.Pointer<wire_cst_list_tx_in> cst_new_list_tx_in(
     int len,
@@ -6967,6 +7210,36 @@ final class wire_cst_list_out_point extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_list_prim_usize_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.UintPtr> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_record_string_list_prim_usize_strict extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
+
+  external ffi.Pointer<wire_cst_list_prim_usize_strict> field1;
+}
+
+final class wire_cst_list_record_string_list_prim_usize_strict
+    extends ffi.Struct {
+  external ffi.Pointer<wire_cst_record_string_list_prim_usize_strict> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_record_map_string_list_prim_usize_strict_keychain_kind
+    extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+      field0;
+
+  @ffi.Int32()
+  external int field1;
 }
 
 final class wire_cst_RbfValue_Value extends ffi.Struct {

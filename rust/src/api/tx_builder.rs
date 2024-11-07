@@ -1,11 +1,14 @@
-use std::str::FromStr;
+use std::{
+    collections::{BTreeMap, HashMap},
+    str::FromStr,
+};
 
 use bdk_core::bitcoin::{script::PushBytesBuf, Amount, Sequence, Txid};
 
 use super::{
     bitcoin::{FeeRate, FfiPsbt, FfiScriptBuf, OutPoint},
     error::{CreateTxError, TxidParseError},
-    types::{ChangeSpendPolicy, RbfValue},
+    types::{ChangeSpendPolicy, KeychainKind, RbfValue},
     wallet::FfiWallet,
 };
 
@@ -46,6 +49,7 @@ pub fn tx_builder_finish(
     fee_rate: Option<FeeRate>,
     fee_absolute: Option<u64>,
     drain_wallet: bool,
+    policy_path: Option<(HashMap<String, Vec<usize>>, KeychainKind)>,
     drain_to: Option<FfiScriptBuf>,
     rbf: Option<RbfValue>,
     data: Vec<u8>,
@@ -58,7 +62,17 @@ pub fn tx_builder_finish(
     for e in recipients {
         tx_builder.add_recipient(e.0.into(), Amount::from_sat(e.1));
     }
+
     tx_builder.change_policy(change_policy.into());
+    if let Some((map, chain)) = policy_path {
+        tx_builder.policy_path(
+            map.clone()
+                .into_iter()
+                .map(|(key, value)| (key, value.into_iter().map(|x| x as usize).collect()))
+                .collect::<BTreeMap<String, Vec<usize>>>(),
+            chain.into(),
+        );
+    }
 
     if !utxos.is_empty() {
         let bdk_utxos = utxos

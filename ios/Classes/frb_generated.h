@@ -150,6 +150,26 @@ typedef struct wire_cst_list_out_point {
   int32_t len;
 } wire_cst_list_out_point;
 
+typedef struct wire_cst_list_prim_usize_strict {
+  uintptr_t *ptr;
+  int32_t len;
+} wire_cst_list_prim_usize_strict;
+
+typedef struct wire_cst_record_string_list_prim_usize_strict {
+  struct wire_cst_list_prim_u_8_strict *field0;
+  struct wire_cst_list_prim_usize_strict *field1;
+} wire_cst_record_string_list_prim_usize_strict;
+
+typedef struct wire_cst_list_record_string_list_prim_usize_strict {
+  struct wire_cst_record_string_list_prim_usize_strict *ptr;
+  int32_t len;
+} wire_cst_list_record_string_list_prim_usize_strict;
+
+typedef struct wire_cst_record_map_string_list_prim_usize_strict_keychain_kind {
+  struct wire_cst_list_record_string_list_prim_usize_strict *field0;
+  int32_t field1;
+} wire_cst_record_map_string_list_prim_usize_strict_keychain_kind;
+
 typedef struct wire_cst_RbfValue_Value {
   uint32_t field0;
 } wire_cst_RbfValue_Value;
@@ -1173,6 +1193,7 @@ void frbgen_bdk_flutter_wire__crate__api__tx_builder__tx_builder_finish(int64_t 
                                                                         struct wire_cst_fee_rate *fee_rate,
                                                                         uint64_t *fee_absolute,
                                                                         bool drain_wallet,
+                                                                        struct wire_cst_record_map_string_list_prim_usize_strict_keychain_kind *policy_path,
                                                                         struct wire_cst_ffi_script_buf *drain_to,
                                                                         struct wire_cst_rbf_value *rbf,
                                                                         struct wire_cst_list_prim_u_8_loose *data);
@@ -1383,6 +1404,8 @@ struct wire_cst_lock_time *frbgen_bdk_flutter_cst_new_box_autoadd_lock_time(void
 
 struct wire_cst_rbf_value *frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value(void);
 
+struct wire_cst_record_map_string_list_prim_usize_strict_keychain_kind *frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(void);
+
 struct wire_cst_sign_options *frbgen_bdk_flutter_cst_new_box_autoadd_sign_options(void);
 
 uint32_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_32(uint32_t value);
@@ -1401,7 +1424,11 @@ struct wire_cst_list_prim_u_8_loose *frbgen_bdk_flutter_cst_new_list_prim_u_8_lo
 
 struct wire_cst_list_prim_u_8_strict *frbgen_bdk_flutter_cst_new_list_prim_u_8_strict(int32_t len);
 
+struct wire_cst_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_prim_usize_strict(int32_t len);
+
 struct wire_cst_list_record_ffi_script_buf_u_64 *frbgen_bdk_flutter_cst_new_list_record_ffi_script_buf_u_64(int32_t len);
+
+struct wire_cst_list_record_string_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(int32_t len);
 
 struct wire_cst_list_tx_in *frbgen_bdk_flutter_cst_new_list_tx_in(int32_t len);
 
@@ -1432,6 +1459,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_wallet);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_lock_time);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_sign_options);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_32);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_64);
@@ -1441,7 +1469,9 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_out_point);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_loose);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_strict);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_usize_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_ffi_script_buf_u_64);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_tx_in);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_tx_out);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_corebitcoinAddress);

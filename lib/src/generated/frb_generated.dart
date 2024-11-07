@@ -328,6 +328,7 @@ abstract class coreApi extends BaseApi {
       FeeRate? feeRate,
       BigInt? feeAbsolute,
       required bool drainWallet,
+      (Map<String, Uint64List>, KeychainKind)? policyPath,
       FfiScriptBuf? drainTo,
       RbfValue? rbf,
       required List<int> data});
@@ -2392,6 +2393,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       FeeRate? feeRate,
       BigInt? feeAbsolute,
       required bool drainWallet,
+      (Map<String, Uint64List>, KeychainKind)? policyPath,
       FfiScriptBuf? drainTo,
       RbfValue? rbf,
       required List<int> data}) {
@@ -2406,11 +2408,27 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         var arg6 = cst_encode_opt_box_autoadd_fee_rate(feeRate);
         var arg7 = cst_encode_opt_box_autoadd_u_64(feeAbsolute);
         var arg8 = cst_encode_bool(drainWallet);
-        var arg9 = cst_encode_opt_box_autoadd_ffi_script_buf(drainTo);
-        var arg10 = cst_encode_opt_box_autoadd_rbf_value(rbf);
-        var arg11 = cst_encode_list_prim_u_8_loose(data);
-        return wire.wire__crate__api__tx_builder__tx_builder_finish(port_, arg0,
-            arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+        var arg9 =
+            cst_encode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+                policyPath);
+        var arg10 = cst_encode_opt_box_autoadd_ffi_script_buf(drainTo);
+        var arg11 = cst_encode_opt_box_autoadd_rbf_value(rbf);
+        var arg12 = cst_encode_list_prim_u_8_loose(data);
+        return wire.wire__crate__api__tx_builder__tx_builder_finish(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+            arg10,
+            arg11,
+            arg12);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_ffi_psbt,
@@ -2427,6 +2445,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         feeRate,
         feeAbsolute,
         drainWallet,
+        policyPath,
         drainTo,
         rbf,
         data
@@ -2448,6 +2467,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           "feeRate",
           "feeAbsolute",
           "drainWallet",
+          "policyPath",
           "drainTo",
           "rbf",
           "data"
@@ -3372,6 +3392,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Map<String, Uint64List> dco_decode_Map_String_list_prim_usize_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(
+        dco_decode_list_record_string_list_prim_usize_strict(raw)
+            .map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   Address dco_decode_RustOpaque_bdk_corebitcoinAddress(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return AddressImpl.frbInternalDcoDecode(raw as List<dynamic>);
@@ -3823,6 +3852,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RbfValue dco_decode_box_autoadd_rbf_value(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_rbf_value(raw);
+  }
+
+  @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  ) dco_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as (Map<String, Uint64List>, KeychainKind);
   }
 
   @protected
@@ -4574,11 +4613,26 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Uint64List dco_decode_list_prim_usize_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint64List;
+  }
+
+  @protected
   List<(FfiScriptBuf, BigInt)> dco_decode_list_record_ffi_script_buf_u_64(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>)
         .map(dco_decode_record_ffi_script_buf_u_64)
+        .toList();
+  }
+
+  @protected
+  List<(String, Uint64List)>
+      dco_decode_list_record_string_list_prim_usize_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_record_string_list_prim_usize_strict)
         .toList();
   }
 
@@ -4684,6 +4738,19 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RbfValue? dco_decode_opt_box_autoadd_rbf_value(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_rbf_value(raw);
+  }
+
+  @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  )? dco_decode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+            raw);
   }
 
   @protected
@@ -4853,6 +4920,35 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     return (
       dco_decode_ffi_script_buf(arr[0]),
       dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  (Map<String, Uint64List>, KeychainKind)
+      dco_decode_record_map_string_list_prim_usize_strict_keychain_kind(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_Map_String_list_prim_usize_strict(arr[0]),
+      dco_decode_keychain_kind(arr[1]),
+    );
+  }
+
+  @protected
+  (String, Uint64List) dco_decode_record_string_list_prim_usize_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_String(arr[0]),
+      dco_decode_list_prim_usize_strict(arr[1]),
     );
   }
 
@@ -5083,6 +5179,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_isize(deserializer);
     return decodeDartOpaque(inner, generalizedFrbRustBinding);
+  }
+
+  @protected
+  Map<String, Uint64List> sse_decode_Map_String_list_prim_usize_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner =
+        sse_decode_list_record_string_list_prim_usize_strict(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
   }
 
   @protected
@@ -5557,6 +5662,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RbfValue sse_decode_box_autoadd_rbf_value(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_rbf_value(deserializer));
+  }
+
+  @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  ) sse_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_record_map_string_list_prim_usize_strict_keychain_kind(
+        deserializer));
   }
 
   @protected
@@ -6244,6 +6360,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint64List(len_);
+  }
+
+  @protected
   List<(FfiScriptBuf, BigInt)> sse_decode_list_record_ffi_script_buf_u_64(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -6252,6 +6375,20 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     var ans_ = <(FfiScriptBuf, BigInt)>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_record_ffi_script_buf_u_64(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<(String, Uint64List)>
+      sse_decode_list_record_string_list_prim_usize_strict(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(String, Uint64List)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_string_list_prim_usize_strict(deserializer));
     }
     return ans_;
   }
@@ -6403,6 +6540,22 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_rbf_value(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  (
+    Map<String, Uint64List>,
+    KeychainKind
+  )? sse_decode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          deserializer));
     } else {
       return null;
     }
@@ -6569,6 +6722,25 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_field0 = sse_decode_ffi_script_buf(deserializer);
     var var_field1 = sse_decode_u_64(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
+  (Map<String, Uint64List>, KeychainKind)
+      sse_decode_record_map_string_list_prim_usize_strict_keychain_kind(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_Map_String_list_prim_usize_strict(deserializer);
+    var var_field1 = sse_decode_keychain_kind(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
+  (String, Uint64List) sse_decode_record_string_list_prim_usize_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_String(deserializer);
+    var var_field1 = sse_decode_list_prim_usize_strict(deserializer);
     return (var_field0, var_field1);
   }
 
@@ -7071,6 +7243,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_Map_String_list_prim_usize_strict(
+      Map<String, Uint64List> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_string_list_prim_usize_strict(
+        self.entries.map((e) => (e.key, e.value)).toList(), serializer);
+  }
+
+  @protected
   void sse_encode_RustOpaque_bdk_corebitcoinAddress(
       Address self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -7548,6 +7728,16 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       RbfValue self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_rbf_value(self, serializer);
+  }
+
+  @protected
+  void
+      sse_encode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind) self,
+          SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_record_map_string_list_prim_usize_strict_keychain_kind(
+        self, serializer);
   }
 
   @protected
@@ -8182,12 +8372,30 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_list_prim_usize_strict(
+      Uint64List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint64List(self);
+  }
+
+  @protected
   void sse_encode_list_record_ffi_script_buf_u_64(
       List<(FfiScriptBuf, BigInt)> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_record_ffi_script_buf_u_64(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_record_string_list_prim_usize_strict(
+      List<(String, Uint64List)> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_string_list_prim_usize_strict(item, serializer);
     }
   }
 
@@ -8321,6 +8529,20 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_rbf_value(self, serializer);
+    }
+  }
+
+  @protected
+  void
+      sse_encode_opt_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          (Map<String, Uint64List>, KeychainKind)? self,
+          SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+          self, serializer);
     }
   }
 
@@ -8477,6 +8699,22 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_ffi_script_buf(self.$1, serializer);
     sse_encode_u_64(self.$2, serializer);
+  }
+
+  @protected
+  void sse_encode_record_map_string_list_prim_usize_strict_keychain_kind(
+      (Map<String, Uint64List>, KeychainKind) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Map_String_list_prim_usize_strict(self.$1, serializer);
+    sse_encode_keychain_kind(self.$2, serializer);
+  }
+
+  @protected
+  void sse_encode_record_string_list_prim_usize_strict(
+      (String, Uint64List) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.$1, serializer);
+    sse_encode_list_prim_usize_strict(self.$2, serializer);
   }
 
   @protected

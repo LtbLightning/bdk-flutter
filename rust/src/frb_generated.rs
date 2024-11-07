@@ -1667,6 +1667,12 @@ fn wire__crate__api__tx_builder__tx_builder_finish_impl(
     fee_rate: impl CstDecode<Option<crate::api::bitcoin::FeeRate>>,
     fee_absolute: impl CstDecode<Option<u64>>,
     drain_wallet: impl CstDecode<bool>,
+    policy_path: impl CstDecode<
+        Option<(
+            std::collections::HashMap<String, Vec<usize>>,
+            crate::api::types::KeychainKind,
+        )>,
+    >,
     drain_to: impl CstDecode<Option<crate::api::bitcoin::FfiScriptBuf>>,
     rbf: impl CstDecode<Option<crate::api::types::RbfValue>>,
     data: impl CstDecode<Vec<u8>>,
@@ -1687,6 +1693,7 @@ fn wire__crate__api__tx_builder__tx_builder_finish_impl(
             let api_fee_rate = fee_rate.cst_decode();
             let api_fee_absolute = fee_absolute.cst_decode();
             let api_drain_wallet = drain_wallet.cst_decode();
+            let api_policy_path = policy_path.cst_decode();
             let api_drain_to = drain_to.cst_decode();
             let api_rbf = rbf.cst_decode();
             let api_data = data.cst_decode();
@@ -1702,6 +1709,7 @@ fn wire__crate__api__tx_builder__tx_builder_finish_impl(
                         api_fee_rate,
                         api_fee_absolute,
                         api_drain_wallet,
+                        api_policy_path,
                         api_drain_to,
                         api_rbf,
                         api_data,
@@ -2505,6 +2513,14 @@ impl SseDecode for flutter_rust_bridge::DartOpaque {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
         return unsafe { flutter_rust_bridge::for_generated::sse_decode_dart_opaque(inner) };
+    }
+}
+
+impl SseDecode for std::collections::HashMap<String, Vec<usize>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <Vec<(String, Vec<usize>)>>::sse_decode(deserializer);
+        return inner.into_iter().collect();
     }
 }
 
@@ -3816,6 +3832,18 @@ impl SseDecode for Vec<u8> {
     }
 }
 
+impl SseDecode for Vec<usize> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<usize>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<(crate::api::bitcoin::FfiScriptBuf, u64)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3825,6 +3853,18 @@ impl SseDecode for Vec<(crate::api::bitcoin::FfiScriptBuf, u64)> {
             ans_.push(<(crate::api::bitcoin::FfiScriptBuf, u64)>::sse_decode(
                 deserializer,
             ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<(String, Vec<usize>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<(String, Vec<usize>)>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3995,6 +4035,25 @@ impl SseDecode for Option<crate::api::types::RbfValue> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<crate::api::types::RbfValue>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode
+    for Option<(
+        std::collections::HashMap<String, Vec<usize>>,
+        crate::api::types::KeychainKind,
+    )>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<(
+                std::collections::HashMap<String, Vec<usize>>,
+                crate::api::types::KeychainKind,
+            )>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -4227,6 +4286,30 @@ impl SseDecode for (crate::api::bitcoin::FfiScriptBuf, u64) {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_field0 = <crate::api::bitcoin::FfiScriptBuf>::sse_decode(deserializer);
         let mut var_field1 = <u64>::sse_decode(deserializer);
+        return (var_field0, var_field1);
+    }
+}
+
+impl SseDecode
+    for (
+        std::collections::HashMap<String, Vec<usize>>,
+        crate::api::types::KeychainKind,
+    )
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 =
+            <std::collections::HashMap<String, Vec<usize>>>::sse_decode(deserializer);
+        let mut var_field1 = <crate::api::types::KeychainKind>::sse_decode(deserializer);
+        return (var_field0, var_field1);
+    }
+}
+
+impl SseDecode for (String, Vec<usize>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 = <String>::sse_decode(deserializer);
+        let mut var_field1 = <Vec<usize>>::sse_decode(deserializer);
         return (var_field0, var_field1);
     }
 }
@@ -6133,6 +6216,13 @@ impl SseEncode for flutter_rust_bridge::DartOpaque {
     }
 }
 
+impl SseEncode for std::collections::HashMap<String, Vec<usize>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<(String, Vec<usize>)>>::sse_encode(self.into_iter().collect(), serializer);
+    }
+}
+
 impl SseEncode for RustOpaqueNom<bdk_core::bitcoin::Address> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7263,12 +7353,32 @@ impl SseEncode for Vec<u8> {
     }
 }
 
+impl SseEncode for Vec<usize> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <usize>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<(crate::api::bitcoin::FfiScriptBuf, u64)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <(crate::api::bitcoin::FfiScriptBuf, u64)>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<(String, Vec<usize>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <(String, Vec<usize>)>::sse_encode(item, serializer);
         }
     }
 }
@@ -7418,6 +7528,24 @@ impl SseEncode for Option<crate::api::types::RbfValue> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::types::RbfValue>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode
+    for Option<(
+        std::collections::HashMap<String, Vec<usize>>,
+        crate::api::types::KeychainKind,
+    )>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <(
+                std::collections::HashMap<String, Vec<usize>>,
+                crate::api::types::KeychainKind,
+            )>::sse_encode(value, serializer);
         }
     }
 }
@@ -7615,6 +7743,27 @@ impl SseEncode for (crate::api::bitcoin::FfiScriptBuf, u64) {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <crate::api::bitcoin::FfiScriptBuf>::sse_encode(self.0, serializer);
         <u64>::sse_encode(self.1, serializer);
+    }
+}
+
+impl SseEncode
+    for (
+        std::collections::HashMap<String, Vec<usize>>,
+        crate::api::types::KeychainKind,
+    )
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <std::collections::HashMap<String, Vec<usize>>>::sse_encode(self.0, serializer);
+        <crate::api::types::KeychainKind>::sse_encode(self.1, serializer);
+    }
+}
+
+impl SseEncode for (String, Vec<usize>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.0, serializer);
+        <Vec<usize>>::sse_encode(self.1, serializer);
     }
 }
 
@@ -7905,6 +8054,15 @@ mod io {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> flutter_rust_bridge::DartOpaque {
             unsafe { flutter_rust_bridge::for_generated::cst_decode_dart_opaque(self as _) }
+        }
+    }
+    impl CstDecode<std::collections::HashMap<String, Vec<usize>>>
+        for *mut wire_cst_list_record_string_list_prim_usize_strict
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> std::collections::HashMap<String, Vec<usize>> {
+            let vec: Vec<(String, Vec<usize>)> = self.cst_decode();
+            vec.into_iter().collect()
         }
     }
     impl CstDecode<RustOpaqueNom<bdk_core::bitcoin::Address>> for usize {
@@ -8435,6 +8593,27 @@ mod io {
         fn cst_decode(self) -> crate::api::types::RbfValue {
             let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
             CstDecode::<crate::api::types::RbfValue>::cst_decode(*wrap).into()
+        }
+    }
+    impl
+        CstDecode<(
+            std::collections::HashMap<String, Vec<usize>>,
+            crate::api::types::KeychainKind,
+        )> for *mut wire_cst_record_map_string_list_prim_usize_strict_keychain_kind
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(
+            self,
+        ) -> (
+            std::collections::HashMap<String, Vec<usize>>,
+            crate::api::types::KeychainKind,
+        ) {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<(
+                std::collections::HashMap<String, Vec<usize>>,
+                crate::api::types::KeychainKind,
+            )>::cst_decode(*wrap)
+            .into()
         }
     }
     impl CstDecode<crate::api::types::SignOptions> for *mut wire_cst_sign_options {
@@ -9169,11 +9348,32 @@ mod io {
             }
         }
     }
+    impl CstDecode<Vec<usize>> for *mut wire_cst_list_prim_usize_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<usize> {
+            unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            }
+        }
+    }
     impl CstDecode<Vec<(crate::api::bitcoin::FfiScriptBuf, u64)>>
         for *mut wire_cst_list_record_ffi_script_buf_u_64
     {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<(crate::api::bitcoin::FfiScriptBuf, u64)> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<(String, Vec<usize>)>>
+        for *mut wire_cst_list_record_string_list_prim_usize_strict
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<(String, Vec<usize>)> {
             let vec = unsafe {
                 let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
                 flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -9400,6 +9600,28 @@ mod io {
     impl CstDecode<(crate::api::bitcoin::FfiScriptBuf, u64)> for wire_cst_record_ffi_script_buf_u_64 {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> (crate::api::bitcoin::FfiScriptBuf, u64) {
+            (self.field0.cst_decode(), self.field1.cst_decode())
+        }
+    }
+    impl
+        CstDecode<(
+            std::collections::HashMap<String, Vec<usize>>,
+            crate::api::types::KeychainKind,
+        )> for wire_cst_record_map_string_list_prim_usize_strict_keychain_kind
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(
+            self,
+        ) -> (
+            std::collections::HashMap<String, Vec<usize>>,
+            crate::api::types::KeychainKind,
+        ) {
+            (self.field0.cst_decode(), self.field1.cst_decode())
+        }
+    }
+    impl CstDecode<(String, Vec<usize>)> for wire_cst_record_string_list_prim_usize_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> (String, Vec<usize>) {
             (self.field0.cst_decode(), self.field1.cst_decode())
         }
     }
@@ -10153,6 +10375,32 @@ mod io {
         }
     }
     impl Default for wire_cst_record_ffi_script_buf_u_64 {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_record_map_string_list_prim_usize_strict_keychain_kind {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                field0: core::ptr::null_mut(),
+                field1: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_record_map_string_list_prim_usize_strict_keychain_kind {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_record_string_list_prim_usize_strict {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                field0: core::ptr::null_mut(),
+                field1: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_record_string_list_prim_usize_strict {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -10930,6 +11178,7 @@ mod io {
         fee_rate: *mut wire_cst_fee_rate,
         fee_absolute: *mut u64,
         drain_wallet: bool,
+        policy_path: *mut wire_cst_record_map_string_list_prim_usize_strict_keychain_kind,
         drain_to: *mut wire_cst_ffi_script_buf,
         rbf: *mut wire_cst_rbf_value,
         data: *mut wire_cst_list_prim_u_8_loose,
@@ -10945,6 +11194,7 @@ mod io {
             fee_rate,
             fee_absolute,
             drain_wallet,
+            policy_path,
             drain_to,
             rbf,
             data,
@@ -11741,6 +11991,14 @@ mod io {
     }
 
     #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(
+    ) -> *mut wire_cst_record_map_string_list_prim_usize_strict_keychain_kind {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_record_map_string_list_prim_usize_strict_keychain_kind::new_with_null_ptr(),
+        )
+    }
+
+    #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_cst_new_box_autoadd_sign_options(
     ) -> *mut wire_cst_sign_options {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(
@@ -11837,12 +12095,37 @@ mod io {
     }
 
     #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_usize_strict(
+        len: i32,
+    ) -> *mut wire_cst_list_prim_usize_strict {
+        let ans = wire_cst_list_prim_usize_strict {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+    }
+
+    #[no_mangle]
     pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_ffi_script_buf_u_64(
         len: i32,
     ) -> *mut wire_cst_list_record_ffi_script_buf_u_64 {
         let wrap = wire_cst_list_record_ffi_script_buf_u_64 {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
                 <wire_cst_record_ffi_script_buf_u_64>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(
+        len: i32,
+    ) -> *mut wire_cst_list_record_string_list_prim_usize_strict {
+        let wrap = wire_cst_list_record_string_list_prim_usize_strict {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_record_string_list_prim_usize_strict>::new_with_null_ptr(),
                 len,
             ),
             len,
@@ -12664,8 +12947,20 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_prim_usize_strict {
+        ptr: *mut usize,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_list_record_ffi_script_buf_u_64 {
         ptr: *mut wire_cst_record_ffi_script_buf_u_64,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_record_string_list_prim_usize_strict {
+        ptr: *mut wire_cst_record_string_list_prim_usize_strict,
         len: i32,
     }
     #[repr(C)]
@@ -12874,6 +13169,18 @@ mod io {
     pub struct wire_cst_record_ffi_script_buf_u_64 {
         field0: wire_cst_ffi_script_buf,
         field1: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_record_map_string_list_prim_usize_strict_keychain_kind {
+        field0: *mut wire_cst_list_record_string_list_prim_usize_strict,
+        field1: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_record_string_list_prim_usize_strict {
+        field0: *mut wire_cst_list_prim_u_8_strict,
+        field1: *mut wire_cst_list_prim_usize_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
