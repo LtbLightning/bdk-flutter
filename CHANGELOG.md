@@ -1,3 +1,5 @@
+## [1.0.0-alpha.11]
+
 ## [0.31.2]
 Updated `flutter_rust_bridge` to `2.0.0`.
 #### APIs added

@@ -15,70 +15,59 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AddressIndex {
+mixin _$ChainPosition {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
+    required TResult Function(ConfirmationBlockTime confirmationBlockTime)
+        confirmed,
+    required TResult Function(BigInt timestamp) unconfirmed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
+    TResult? Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult? Function(BigInt timestamp)? unconfirmed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
+    TResult Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult Function(BigInt timestamp)? unconfirmed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
+    required TResult Function(ChainPosition_Confirmed value) confirmed,
+    required TResult Function(ChainPosition_Unconfirmed value) unconfirmed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
+    TResult? Function(ChainPosition_Confirmed value)? confirmed,
+    TResult? Function(ChainPosition_Unconfirmed value)? unconfirmed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
+    TResult Function(ChainPosition_Confirmed value)? confirmed,
+    TResult Function(ChainPosition_Unconfirmed value)? unconfirmed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddressIndexCopyWith<$Res> {
-  factory $AddressIndexCopyWith(
-          AddressIndex value, $Res Function(AddressIndex) then) =
-      _$AddressIndexCopyWithImpl<$Res, AddressIndex>;
+abstract class $ChainPositionCopyWith<$Res> {
+  factory $ChainPositionCopyWith(
+          ChainPosition value, $Res Function(ChainPosition) then) =
+      _$ChainPositionCopyWithImpl<$Res, ChainPosition>;
 }
 
 /// @nodoc
-class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
-    implements $AddressIndexCopyWith<$Res> {
-  _$AddressIndexCopyWithImpl(this._value, this._then);
+class _$ChainPositionCopyWithImpl<$Res, $Val extends ChainPosition>
+    implements $ChainPositionCopyWith<$Res> {
+  _$ChainPositionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -87,335 +76,99 @@ class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_IncreaseImplCopyWith<$Res> {
-  factory _$$AddressIndex_IncreaseImplCopyWith(
-          _$AddressIndex_IncreaseImpl value,
-          $Res Function(_$AddressIndex_IncreaseImpl) then) =
-      __$$AddressIndex_IncreaseImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AddressIndex_IncreaseImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_IncreaseImpl>
-    implements _$$AddressIndex_IncreaseImplCopyWith<$Res> {
-  __$$AddressIndex_IncreaseImplCopyWithImpl(_$AddressIndex_IncreaseImpl _value,
-      $Res Function(_$AddressIndex_IncreaseImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$AddressIndex_IncreaseImpl extends AddressIndex_Increase {
-  const _$AddressIndex_IncreaseImpl() : super._();
-
-  @override
-  String toString() {
-    return 'AddressIndex.increase()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_IncreaseImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return increase();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return increase?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (increase != null) {
-      return increase();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return increase(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return increase?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (increase != null) {
-      return increase(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddressIndex_Increase extends AddressIndex {
-  const factory AddressIndex_Increase() = _$AddressIndex_IncreaseImpl;
-  const AddressIndex_Increase._() : super._();
-}
-
-/// @nodoc
-abstract class _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
-  factory _$$AddressIndex_LastUnusedImplCopyWith(
-          _$AddressIndex_LastUnusedImpl value,
-          $Res Function(_$AddressIndex_LastUnusedImpl) then) =
-      __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnusedImpl>
-    implements _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
-  __$$AddressIndex_LastUnusedImplCopyWithImpl(
-      _$AddressIndex_LastUnusedImpl _value,
-      $Res Function(_$AddressIndex_LastUnusedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$AddressIndex_LastUnusedImpl extends AddressIndex_LastUnused {
-  const _$AddressIndex_LastUnusedImpl() : super._();
-
-  @override
-  String toString() {
-    return 'AddressIndex.lastUnused()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_LastUnusedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return lastUnused();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return lastUnused?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (lastUnused != null) {
-      return lastUnused();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return lastUnused(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return lastUnused?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (lastUnused != null) {
-      return lastUnused(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddressIndex_LastUnused extends AddressIndex {
-  const factory AddressIndex_LastUnused() = _$AddressIndex_LastUnusedImpl;
-  const AddressIndex_LastUnused._() : super._();
-}
-
-/// @nodoc
-abstract class _$$AddressIndex_PeekImplCopyWith<$Res> {
-  factory _$$AddressIndex_PeekImplCopyWith(_$AddressIndex_PeekImpl value,
-          $Res Function(_$AddressIndex_PeekImpl) then) =
-      __$$AddressIndex_PeekImplCopyWithImpl<$Res>;
+abstract class _$$ChainPosition_ConfirmedImplCopyWith<$Res> {
+  factory _$$ChainPosition_ConfirmedImplCopyWith(
+          _$ChainPosition_ConfirmedImpl value,
+          $Res Function(_$ChainPosition_ConfirmedImpl) then) =
+      __$$ChainPosition_ConfirmedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({ConfirmationBlockTime confirmationBlockTime});
 }
 
 /// @nodoc
-class __$$AddressIndex_PeekImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_PeekImpl>
-    implements _$$AddressIndex_PeekImplCopyWith<$Res> {
-  __$$AddressIndex_PeekImplCopyWithImpl(_$AddressIndex_PeekImpl _value,
-      $Res Function(_$AddressIndex_PeekImpl) _then)
+class __$$ChainPosition_ConfirmedImplCopyWithImpl<$Res>
+    extends _$ChainPositionCopyWithImpl<$Res, _$ChainPosition_ConfirmedImpl>
+    implements _$$ChainPosition_ConfirmedImplCopyWith<$Res> {
+  __$$ChainPosition_ConfirmedImplCopyWithImpl(
+      _$ChainPosition_ConfirmedImpl _value,
+      $Res Function(_$ChainPosition_ConfirmedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? confirmationBlockTime = null,
   }) {
-    return _then(_$AddressIndex_PeekImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$ChainPosition_ConfirmedImpl(
+      confirmationBlockTime: null == confirmationBlockTime
+          ? _value.confirmationBlockTime
+          : confirmationBlockTime // ignore: cast_nullable_to_non_nullable
+              as ConfirmationBlockTime,
     ));
   }
 }
 
 /// @nodoc
 
-class _$AddressIndex_PeekImpl extends AddressIndex_Peek {
-  const _$AddressIndex_PeekImpl({required this.index}) : super._();
+class _$ChainPosition_ConfirmedImpl extends ChainPosition_Confirmed {
+  const _$ChainPosition_ConfirmedImpl({required this.confirmationBlockTime})
+      : super._();
 
   @override
-  final int index;
+  final ConfirmationBlockTime confirmationBlockTime;
 
   @override
   String toString() {
-    return 'AddressIndex.peek(index: $index)';
+    return 'ChainPosition.confirmed(confirmationBlockTime: $confirmationBlockTime)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_PeekImpl &&
-            (identical(other.index, index) || other.index == index));
+            other is _$ChainPosition_ConfirmedImpl &&
+            (identical(other.confirmationBlockTime, confirmationBlockTime) ||
+                other.confirmationBlockTime == confirmationBlockTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, confirmationBlockTime);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
-      __$$AddressIndex_PeekImplCopyWithImpl<_$AddressIndex_PeekImpl>(
-          this, _$identity);
+  _$$ChainPosition_ConfirmedImplCopyWith<_$ChainPosition_ConfirmedImpl>
+      get copyWith => __$$ChainPosition_ConfirmedImplCopyWithImpl<
+          _$ChainPosition_ConfirmedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
+    required TResult Function(ConfirmationBlockTime confirmationBlockTime)
+        confirmed,
+    required TResult Function(BigInt timestamp) unconfirmed,
   }) {
-    return peek(index);
+    return confirmed(confirmationBlockTime);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
+    TResult? Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult? Function(BigInt timestamp)? unconfirmed,
   }) {
-    return peek?.call(index);
+    return confirmed?.call(confirmationBlockTime);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
+    TResult Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult Function(BigInt timestamp)? unconfirmed,
     required TResult orElse(),
   }) {
-    if (peek != null) {
-      return peek(index);
+    if (confirmed != null) {
+      return confirmed(confirmationBlockTime);
     }
     return orElse();
   }
@@ -423,613 +176,140 @@ class _$AddressIndex_PeekImpl extends AddressIndex_Peek {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
+    required TResult Function(ChainPosition_Confirmed value) confirmed,
+    required TResult Function(ChainPosition_Unconfirmed value) unconfirmed,
   }) {
-    return peek(this);
+    return confirmed(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
+    TResult? Function(ChainPosition_Confirmed value)? confirmed,
+    TResult? Function(ChainPosition_Unconfirmed value)? unconfirmed,
   }) {
-    return peek?.call(this);
+    return confirmed?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
+    TResult Function(ChainPosition_Confirmed value)? confirmed,
+    TResult Function(ChainPosition_Unconfirmed value)? unconfirmed,
     required TResult orElse(),
   }) {
-    if (peek != null) {
-      return peek(this);
+    if (confirmed != null) {
+      return confirmed(this);
     }
     return orElse();
   }
 }
 
-abstract class AddressIndex_Peek extends AddressIndex {
-  const factory AddressIndex_Peek({required final int index}) =
-      _$AddressIndex_PeekImpl;
-  const AddressIndex_Peek._() : super._();
+abstract class ChainPosition_Confirmed extends ChainPosition {
+  const factory ChainPosition_Confirmed(
+          {required final ConfirmationBlockTime confirmationBlockTime}) =
+      _$ChainPosition_ConfirmedImpl;
+  const ChainPosition_Confirmed._() : super._();
 
-  int get index;
+  ConfirmationBlockTime get confirmationBlockTime;
   @JsonKey(ignore: true)
-  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AddressIndex_ResetImplCopyWith<$Res> {
-  factory _$$AddressIndex_ResetImplCopyWith(_$AddressIndex_ResetImpl value,
-          $Res Function(_$AddressIndex_ResetImpl) then) =
-      __$$AddressIndex_ResetImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int index});
-}
-
-/// @nodoc
-class __$$AddressIndex_ResetImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_ResetImpl>
-    implements _$$AddressIndex_ResetImplCopyWith<$Res> {
-  __$$AddressIndex_ResetImplCopyWithImpl(_$AddressIndex_ResetImpl _value,
-      $Res Function(_$AddressIndex_ResetImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = null,
-  }) {
-    return _then(_$AddressIndex_ResetImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AddressIndex_ResetImpl extends AddressIndex_Reset {
-  const _$AddressIndex_ResetImpl({required this.index}) : super._();
-
-  @override
-  final int index;
-
-  @override
-  String toString() {
-    return 'AddressIndex.reset(index: $index)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_ResetImpl &&
-            (identical(other.index, index) || other.index == index));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
-      __$$AddressIndex_ResetImplCopyWithImpl<_$AddressIndex_ResetImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return reset(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return reset?.call(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(index);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return reset(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return reset?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddressIndex_Reset extends AddressIndex {
-  const factory AddressIndex_Reset({required final int index}) =
-      _$AddressIndex_ResetImpl;
-  const AddressIndex_Reset._() : super._();
-
-  int get index;
-  @JsonKey(ignore: true)
-  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$DatabaseConfig {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DatabaseConfigCopyWith<$Res> {
-  factory $DatabaseConfigCopyWith(
-          DatabaseConfig value, $Res Function(DatabaseConfig) then) =
-      _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
-}
-
-/// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
-    implements $DatabaseConfigCopyWith<$Res> {
-  _$DatabaseConfigCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_MemoryImplCopyWith(
-          _$DatabaseConfig_MemoryImpl value,
-          $Res Function(_$DatabaseConfig_MemoryImpl) then) =
-      __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_MemoryImpl>
-    implements _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
-  __$$DatabaseConfig_MemoryImplCopyWithImpl(_$DatabaseConfig_MemoryImpl _value,
-      $Res Function(_$DatabaseConfig_MemoryImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$DatabaseConfig_MemoryImpl extends DatabaseConfig_Memory {
-  const _$DatabaseConfig_MemoryImpl() : super._();
-
-  @override
-  String toString() {
-    return 'DatabaseConfig.memory()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_MemoryImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) {
-    return memory();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) {
-    return memory?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) {
-    if (memory != null) {
-      return memory();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) {
-    return memory(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) {
-    return memory?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) {
-    if (memory != null) {
-      return memory(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DatabaseConfig_Memory extends DatabaseConfig {
-  const factory DatabaseConfig_Memory() = _$DatabaseConfig_MemoryImpl;
-  const DatabaseConfig_Memory._() : super._();
-}
-
-/// @nodoc
-abstract class _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_SqliteImplCopyWith(
-          _$DatabaseConfig_SqliteImpl value,
-          $Res Function(_$DatabaseConfig_SqliteImpl) then) =
-      __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({SqliteDbConfiguration config});
-}
-
-/// @nodoc
-class __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SqliteImpl>
-    implements _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
-  __$$DatabaseConfig_SqliteImplCopyWithImpl(_$DatabaseConfig_SqliteImpl _value,
-      $Res Function(_$DatabaseConfig_SqliteImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? config = null,
-  }) {
-    return _then(_$DatabaseConfig_SqliteImpl(
-      config: null == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as SqliteDbConfiguration,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$DatabaseConfig_SqliteImpl extends DatabaseConfig_Sqlite {
-  const _$DatabaseConfig_SqliteImpl({required this.config}) : super._();
-
-  @override
-  final SqliteDbConfiguration config;
-
-  @override
-  String toString() {
-    return 'DatabaseConfig.sqlite(config: $config)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_SqliteImpl &&
-            (identical(other.config, config) || other.config == config));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, config);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
-      get copyWith => __$$DatabaseConfig_SqliteImplCopyWithImpl<
-          _$DatabaseConfig_SqliteImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) {
-    return sqlite(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) {
-    return sqlite?.call(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) {
-    if (sqlite != null) {
-      return sqlite(config);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) {
-    return sqlite(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) {
-    return sqlite?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) {
-    if (sqlite != null) {
-      return sqlite(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DatabaseConfig_Sqlite extends DatabaseConfig {
-  const factory DatabaseConfig_Sqlite(
-          {required final SqliteDbConfiguration config}) =
-      _$DatabaseConfig_SqliteImpl;
-  const DatabaseConfig_Sqlite._() : super._();
-
-  SqliteDbConfiguration get config;
-  @JsonKey(ignore: true)
-  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
+  _$$ChainPosition_ConfirmedImplCopyWith<_$ChainPosition_ConfirmedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_SledImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_SledImplCopyWith(_$DatabaseConfig_SledImpl value,
-          $Res Function(_$DatabaseConfig_SledImpl) then) =
-      __$$DatabaseConfig_SledImplCopyWithImpl<$Res>;
+abstract class _$$ChainPosition_UnconfirmedImplCopyWith<$Res> {
+  factory _$$ChainPosition_UnconfirmedImplCopyWith(
+          _$ChainPosition_UnconfirmedImpl value,
+          $Res Function(_$ChainPosition_UnconfirmedImpl) then) =
+      __$$ChainPosition_UnconfirmedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({SledDbConfiguration config});
+  $Res call({BigInt timestamp});
 }
 
 /// @nodoc
-class __$$DatabaseConfig_SledImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SledImpl>
-    implements _$$DatabaseConfig_SledImplCopyWith<$Res> {
-  __$$DatabaseConfig_SledImplCopyWithImpl(_$DatabaseConfig_SledImpl _value,
-      $Res Function(_$DatabaseConfig_SledImpl) _then)
+class __$$ChainPosition_UnconfirmedImplCopyWithImpl<$Res>
+    extends _$ChainPositionCopyWithImpl<$Res, _$ChainPosition_UnconfirmedImpl>
+    implements _$$ChainPosition_UnconfirmedImplCopyWith<$Res> {
+  __$$ChainPosition_UnconfirmedImplCopyWithImpl(
+      _$ChainPosition_UnconfirmedImpl _value,
+      $Res Function(_$ChainPosition_UnconfirmedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? config = null,
+    Object? timestamp = null,
   }) {
-    return _then(_$DatabaseConfig_SledImpl(
-      config: null == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as SledDbConfiguration,
+    return _then(_$ChainPosition_UnconfirmedImpl(
+      timestamp: null == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as BigInt,
     ));
   }
 }
 
 /// @nodoc
 
-class _$DatabaseConfig_SledImpl extends DatabaseConfig_Sled {
-  const _$DatabaseConfig_SledImpl({required this.config}) : super._();
+class _$ChainPosition_UnconfirmedImpl extends ChainPosition_Unconfirmed {
+  const _$ChainPosition_UnconfirmedImpl({required this.timestamp}) : super._();
 
   @override
-  final SledDbConfiguration config;
+  final BigInt timestamp;
 
   @override
   String toString() {
-    return 'DatabaseConfig.sled(config: $config)';
+    return 'ChainPosition.unconfirmed(timestamp: $timestamp)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_SledImpl &&
-            (identical(other.config, config) || other.config == config));
+            other is _$ChainPosition_UnconfirmedImpl &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, config);
+  int get hashCode => Object.hash(runtimeType, timestamp);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
-      __$$DatabaseConfig_SledImplCopyWithImpl<_$DatabaseConfig_SledImpl>(
-          this, _$identity);
+  _$$ChainPosition_UnconfirmedImplCopyWith<_$ChainPosition_UnconfirmedImpl>
+      get copyWith => __$$ChainPosition_UnconfirmedImplCopyWithImpl<
+          _$ChainPosition_UnconfirmedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
+    required TResult Function(ConfirmationBlockTime confirmationBlockTime)
+        confirmed,
+    required TResult Function(BigInt timestamp) unconfirmed,
   }) {
-    return sled(config);
+    return unconfirmed(timestamp);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
+    TResult? Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult? Function(BigInt timestamp)? unconfirmed,
   }) {
-    return sled?.call(config);
+    return unconfirmed?.call(timestamp);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
+    TResult Function(ConfirmationBlockTime confirmationBlockTime)? confirmed,
+    TResult Function(BigInt timestamp)? unconfirmed,
     required TResult orElse(),
   }) {
-    if (sled != null) {
-      return sled(config);
+    if (unconfirmed != null) {
+      return unconfirmed(timestamp);
     }
     return orElse();
   }
@@ -1037,47 +317,44 @@ class _$DatabaseConfig_SledImpl extends DatabaseConfig_Sled {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
+    required TResult Function(ChainPosition_Confirmed value) confirmed,
+    required TResult Function(ChainPosition_Unconfirmed value) unconfirmed,
   }) {
-    return sled(this);
+    return unconfirmed(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
+    TResult? Function(ChainPosition_Confirmed value)? confirmed,
+    TResult? Function(ChainPosition_Unconfirmed value)? unconfirmed,
   }) {
-    return sled?.call(this);
+    return unconfirmed?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
+    TResult Function(ChainPosition_Confirmed value)? confirmed,
+    TResult Function(ChainPosition_Unconfirmed value)? unconfirmed,
     required TResult orElse(),
   }) {
-    if (sled != null) {
-      return sled(this);
+    if (unconfirmed != null) {
+      return unconfirmed(this);
     }
     return orElse();
   }
 }
 
-abstract class DatabaseConfig_Sled extends DatabaseConfig {
-  const factory DatabaseConfig_Sled(
-      {required final SledDbConfiguration config}) = _$DatabaseConfig_SledImpl;
-  const DatabaseConfig_Sled._() : super._();
+abstract class ChainPosition_Unconfirmed extends ChainPosition {
+  const factory ChainPosition_Unconfirmed({required final BigInt timestamp}) =
+      _$ChainPosition_UnconfirmedImpl;
+  const ChainPosition_Unconfirmed._() : super._();
 
-  SledDbConfiguration get config;
+  BigInt get timestamp;
   @JsonKey(ignore: true)
-  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ChainPosition_UnconfirmedImplCopyWith<_$ChainPosition_UnconfirmedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1435,528 +712,6 @@ abstract class LockTime_Seconds extends LockTime {
   @JsonKey(ignore: true)
   _$$LockTime_SecondsImplCopyWith<_$LockTime_SecondsImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$Payload {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
-      _$PayloadCopyWithImpl<$Res, Payload>;
-}
-
-/// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
-    implements $PayloadCopyWith<$Res> {
-  _$PayloadCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$Payload_PubkeyHashImplCopyWith<$Res> {
-  factory _$$Payload_PubkeyHashImplCopyWith(_$Payload_PubkeyHashImpl value,
-          $Res Function(_$Payload_PubkeyHashImpl) then) =
-      __$$Payload_PubkeyHashImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String pubkeyHash});
-}
-
-/// @nodoc
-class __$$Payload_PubkeyHashImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHashImpl>
-    implements _$$Payload_PubkeyHashImplCopyWith<$Res> {
-  __$$Payload_PubkeyHashImplCopyWithImpl(_$Payload_PubkeyHashImpl _value,
-      $Res Function(_$Payload_PubkeyHashImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? pubkeyHash = null,
-  }) {
-    return _then(_$Payload_PubkeyHashImpl(
-      pubkeyHash: null == pubkeyHash
-          ? _value.pubkeyHash
-          : pubkeyHash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Payload_PubkeyHashImpl extends Payload_PubkeyHash {
-  const _$Payload_PubkeyHashImpl({required this.pubkeyHash}) : super._();
-
-  @override
-  final String pubkeyHash;
-
-  @override
-  String toString() {
-    return 'Payload.pubkeyHash(pubkeyHash: $pubkeyHash)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_PubkeyHashImpl &&
-            (identical(other.pubkeyHash, pubkeyHash) ||
-                other.pubkeyHash == pubkeyHash));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, pubkeyHash);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
-      __$$Payload_PubkeyHashImplCopyWithImpl<_$Payload_PubkeyHashImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return pubkeyHash(this.pubkeyHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return pubkeyHash?.call(this.pubkeyHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (pubkeyHash != null) {
-      return pubkeyHash(this.pubkeyHash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return pubkeyHash(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return pubkeyHash?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (pubkeyHash != null) {
-      return pubkeyHash(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Payload_PubkeyHash extends Payload {
-  const factory Payload_PubkeyHash({required final String pubkeyHash}) =
-      _$Payload_PubkeyHashImpl;
-  const Payload_PubkeyHash._() : super._();
-
-  String get pubkeyHash;
-  @JsonKey(ignore: true)
-  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$Payload_ScriptHashImplCopyWith<$Res> {
-  factory _$$Payload_ScriptHashImplCopyWith(_$Payload_ScriptHashImpl value,
-          $Res Function(_$Payload_ScriptHashImpl) then) =
-      __$$Payload_ScriptHashImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String scriptHash});
-}
-
-/// @nodoc
-class __$$Payload_ScriptHashImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHashImpl>
-    implements _$$Payload_ScriptHashImplCopyWith<$Res> {
-  __$$Payload_ScriptHashImplCopyWithImpl(_$Payload_ScriptHashImpl _value,
-      $Res Function(_$Payload_ScriptHashImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? scriptHash = null,
-  }) {
-    return _then(_$Payload_ScriptHashImpl(
-      scriptHash: null == scriptHash
-          ? _value.scriptHash
-          : scriptHash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Payload_ScriptHashImpl extends Payload_ScriptHash {
-  const _$Payload_ScriptHashImpl({required this.scriptHash}) : super._();
-
-  @override
-  final String scriptHash;
-
-  @override
-  String toString() {
-    return 'Payload.scriptHash(scriptHash: $scriptHash)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_ScriptHashImpl &&
-            (identical(other.scriptHash, scriptHash) ||
-                other.scriptHash == scriptHash));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, scriptHash);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
-      __$$Payload_ScriptHashImplCopyWithImpl<_$Payload_ScriptHashImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return scriptHash(this.scriptHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return scriptHash?.call(this.scriptHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (scriptHash != null) {
-      return scriptHash(this.scriptHash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return scriptHash(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return scriptHash?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (scriptHash != null) {
-      return scriptHash(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Payload_ScriptHash extends Payload {
-  const factory Payload_ScriptHash({required final String scriptHash}) =
-      _$Payload_ScriptHashImpl;
-  const Payload_ScriptHash._() : super._();
-
-  String get scriptHash;
-  @JsonKey(ignore: true)
-  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$Payload_WitnessProgramImplCopyWith<$Res> {
-  factory _$$Payload_WitnessProgramImplCopyWith(
-          _$Payload_WitnessProgramImpl value,
-          $Res Function(_$Payload_WitnessProgramImpl) then) =
-      __$$Payload_WitnessProgramImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({WitnessVersion version, Uint8List program});
-}
-
-/// @nodoc
-class __$$Payload_WitnessProgramImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgramImpl>
-    implements _$$Payload_WitnessProgramImplCopyWith<$Res> {
-  __$$Payload_WitnessProgramImplCopyWithImpl(
-      _$Payload_WitnessProgramImpl _value,
-      $Res Function(_$Payload_WitnessProgramImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? version = null,
-    Object? program = null,
-  }) {
-    return _then(_$Payload_WitnessProgramImpl(
-      version: null == version
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as WitnessVersion,
-      program: null == program
-          ? _value.program
-          : program // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Payload_WitnessProgramImpl extends Payload_WitnessProgram {
-  const _$Payload_WitnessProgramImpl(
-      {required this.version, required this.program})
-      : super._();
-
-  /// The witness program version.
-  @override
-  final WitnessVersion version;
-
-  /// The witness program.
-  @override
-  final Uint8List program;
-
-  @override
-  String toString() {
-    return 'Payload.witnessProgram(version: $version, program: $program)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_WitnessProgramImpl &&
-            (identical(other.version, version) || other.version == version) &&
-            const DeepCollectionEquality().equals(other.program, program));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, version, const DeepCollectionEquality().hash(program));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
-      get copyWith => __$$Payload_WitnessProgramImplCopyWithImpl<
-          _$Payload_WitnessProgramImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return witnessProgram(version, program);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return witnessProgram?.call(version, program);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (witnessProgram != null) {
-      return witnessProgram(version, program);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return witnessProgram(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return witnessProgram?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (witnessProgram != null) {
-      return witnessProgram(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Payload_WitnessProgram extends Payload {
-  const factory Payload_WitnessProgram(
-      {required final WitnessVersion version,
-      required final Uint8List program}) = _$Payload_WitnessProgramImpl;
-  const Payload_WitnessProgram._() : super._();
-
-  /// The witness program version.
-  WitnessVersion get version;
-
-  /// The witness program.
-  Uint8List get program;
-  @JsonKey(ignore: true)
-  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
