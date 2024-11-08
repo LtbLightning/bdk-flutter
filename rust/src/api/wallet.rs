@@ -1,312 +1,206 @@
-use crate::api::descriptor::BdkDescriptor;
-use crate::api::types::{
-    AddressIndex,
-    Balance,
-    BdkAddress,
-    BdkScriptBuf,
-    ChangeSpendPolicy,
-    DatabaseConfig,
-    Input,
-    KeychainKind,
-    LocalUtxo,
-    Network,
-    OutPoint,
-    PsbtSigHashType,
-    RbfValue,
-    ScriptAmount,
-    SignOptions,
-    TransactionDetails,
-};
-use std::ops::Deref;
+use std::borrow::BorrowMut;
 use std::str::FromStr;
+use std::sync::{Mutex, MutexGuard};
 
-use crate::api::blockchain::BdkBlockchain;
-use crate::api::error::BdkError;
-use crate::api::psbt::BdkPsbt;
-use crate::frb_generated::RustOpaque;
-use bdk::bitcoin::script::PushBytesBuf;
-use bdk::bitcoin::{ Sequence, Txid };
-pub use bdk::blockchain::GetTx;
-
-use bdk::database::ConfigurableDatabase;
+use bdk_core::bitcoin::Txid;
+use bdk_wallet::PersistedWallet;
 use flutter_rust_bridge::frb;
 
-use super::handle_mutex;
+use crate::api::descriptor::FfiDescriptor;
+
+use super::bitcoin::{FeeRate, FfiPsbt, FfiScriptBuf, FfiTransaction};
+use super::error::{
+    CalculateFeeError, CannotConnectError, CreateWithPersistError, DescriptorError,
+    LoadWithPersistError, SignerError, SqliteError, TxidParseError,
+};
+use super::store::FfiConnection;
+use super::types::{
+    AddressInfo, Balance, FfiCanonicalTx, FfiFullScanRequestBuilder, FfiPolicy,
+    FfiSyncRequestBuilder, FfiUpdate, KeychainKind, LocalOutput, Network, SignOptions,
+};
+use crate::frb_generated::RustOpaque;
 
 #[derive(Debug)]
-pub struct BdkWallet {
-    pub ptr: RustOpaque<std::sync::Mutex<bdk::Wallet<bdk::database::AnyDatabase>>>,
+pub struct FfiWallet {
+    pub opaque:
+        RustOpaque<std::sync::Mutex<bdk_wallet::PersistedWallet<bdk_wallet::rusqlite::Connection>>>,
 }
-impl BdkWallet {
+impl FfiWallet {
     pub fn new(
-        descriptor: BdkDescriptor,
-        change_descriptor: Option<BdkDescriptor>,
+        descriptor: FfiDescriptor,
+        change_descriptor: FfiDescriptor,
         network: Network,
-        database_config: DatabaseConfig
-    ) -> Result<Self, BdkError> {
-        let database = bdk::database::AnyDatabase::from_config(&database_config.into())?;
-        let descriptor: String = descriptor.to_string_private();
-        let change_descriptor: Option<String> = change_descriptor.map(|d| d.to_string_private());
+        connection: FfiConnection,
+    ) -> Result<Self, CreateWithPersistError> {
+        let descriptor = descriptor.to_string_with_secret();
+        let change_descriptor = change_descriptor.to_string_with_secret();
+        let mut binding = connection.get_store();
+        let db: &mut bdk_wallet::rusqlite::Connection = binding.borrow_mut();
 
-        let wallet = bdk::Wallet::new(
-            &descriptor,
-            change_descriptor.as_ref(),
-            network.into(),
-            database
-        )?;
-        Ok(BdkWallet {
-            ptr: RustOpaque::new(std::sync::Mutex::new(wallet)),
+        let wallet: bdk_wallet::PersistedWallet<bdk_wallet::rusqlite::Connection> =
+            bdk_wallet::Wallet::create(descriptor, change_descriptor)
+                .network(network.into())
+                .create_wallet(db)?;
+        Ok(FfiWallet {
+            opaque: RustOpaque::new(std::sync::Mutex::new(wallet)),
         })
     }
 
-    /// Get the Bitcoin network the wallet is using.
-    #[frb(sync)]
-    pub fn network(&self) -> Result<Network, BdkError> {
-        handle_mutex(&self.ptr, |w| w.network().into())
+    pub fn load(
+        descriptor: FfiDescriptor,
+        change_descriptor: FfiDescriptor,
+        connection: FfiConnection,
+    ) -> Result<Self, LoadWithPersistError> {
+        let descriptor = descriptor.to_string_with_secret();
+        let change_descriptor = change_descriptor.to_string_with_secret();
+        let mut binding = connection.get_store();
+        let db: &mut bdk_wallet::rusqlite::Connection = binding.borrow_mut();
+
+        let wallet: PersistedWallet<bdk_wallet::rusqlite::Connection> = bdk_wallet::Wallet::load()
+            .descriptor(bdk_wallet::KeychainKind::External, Some(descriptor))
+            .descriptor(bdk_wallet::KeychainKind::Internal, Some(change_descriptor))
+            .extract_keys()
+            .load_wallet(db)?
+            .ok_or(LoadWithPersistError::CouldNotLoad)?;
+
+        Ok(FfiWallet {
+            opaque: RustOpaque::new(std::sync::Mutex::new(wallet)),
+        })
     }
-    #[frb(sync)]
-    pub fn is_mine(&self, script: BdkScriptBuf) -> Result<bool, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            w.is_mine(
-                <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script()
-            ).map_err(|e| e.into())
-        })?
+    //TODO; crate a macro to handle unwrapping lock
+    pub(crate) fn get_wallet(
+        &self,
+    ) -> MutexGuard<PersistedWallet<bdk_wallet::rusqlite::Connection>> {
+        self.opaque.lock().expect("wallet")
     }
-    /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
-    /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
-    /// then the same address will always be returned for any AddressIndex.
+    /// Attempt to reveal the next address of the given `keychain`.
+    ///
+    /// This will increment the keychain's derivation index. If the keychain's descriptor doesn't
+    /// contain a wildcard or every address is already revealed up to the maximum derivation
+    /// index defined in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki),
+    /// then the last revealed address will be returned.
     #[frb(sync)]
-    pub fn get_address(
-        ptr: BdkWallet,
-        address_index: AddressIndex
-    ) -> Result<(BdkAddress, u32), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
-            w.get_address(address_index.into())
-                .map(|e| (e.address.into(), e.index))
-                .map_err(|e| e.into())
-        })?
+    pub fn reveal_next_address(opaque: FfiWallet, keychain_kind: KeychainKind) -> AddressInfo {
+        opaque
+            .get_wallet()
+            .reveal_next_address(keychain_kind.into())
+            .into()
     }
 
-    /// Return a derived address using the internal (change) descriptor.
-    ///
-    /// If the wallet doesn't have an internal descriptor it will use the external descriptor.
-    ///
-    /// see [AddressIndex] for available address index selection strategies. If none of the keys
-    /// in the descriptor are derivable (i.e. does not end with /*) then the same address will always
-    /// be returned for any [AddressIndex].
+    pub fn apply_update(&self, update: FfiUpdate) -> Result<(), CannotConnectError> {
+        self.get_wallet()
+            .apply_update(update)
+            .map_err(CannotConnectError::from)
+    }
+    /// Get the Bitcoin network the wallet is using.
     #[frb(sync)]
-    pub fn get_internal_address(
-        ptr: BdkWallet,
-        address_index: AddressIndex
-    ) -> Result<(BdkAddress, u32), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
-            w.get_internal_address(address_index.into())
-                .map(|e| (e.address.into(), e.index))
-                .map_err(|e| e.into())
-        })?
+    pub fn network(&self) -> Network {
+        self.get_wallet().network().into()
+    }
+    #[frb(sync)]
+    pub fn is_mine(&self, script: FfiScriptBuf) -> bool {
+        self.get_wallet()
+            .is_mine(<FfiScriptBuf as Into<bdk_core::bitcoin::ScriptBuf>>::into(
+                script,
+            ))
     }
 
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
     /// on the internal database, which first needs to be Wallet.sync manually.
     #[frb(sync)]
-    pub fn get_balance(&self) -> Result<Balance, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            w.get_balance()
-                .map(|b| b.into())
-                .map_err(|e| e.into())
-        })?
-    }
-    /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
-    #[frb(sync)]
-    pub fn list_transactions(
-        &self,
-        include_raw: bool
-    ) -> Result<Vec<TransactionDetails>, BdkError> {
-        handle_mutex(&self.ptr, |wallet| {
-            let mut transaction_details = vec![];
-
-            // List transactions and convert them using try_into
-            for e in wallet.list_transactions(include_raw)?.into_iter() {
-                transaction_details.push(e.try_into()?);
-            }
-
-            Ok(transaction_details)
-        })?
+    pub fn get_balance(&self) -> Balance {
+        let bdk_balance = self.get_wallet().balance();
+        Balance::from(bdk_balance)
     }
 
-    /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
-    /// which first needs to be Wallet.sync manually.
-    #[frb(sync)]
-    pub fn list_unspent(&self) -> Result<Vec<LocalUtxo>, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            let unspent: Vec<bdk::LocalUtxo> = w.list_unspent()?;
-            Ok(unspent.into_iter().map(LocalUtxo::from).collect())
-        })?
-    }
-
-    /// Sign a transaction with all the wallet's signers. This function returns an encapsulated bool that
-    /// has the value true if the PSBT was finalized, or false otherwise.
-    ///
-    /// The [SignOptions] can be used to tweak the behavior of the software signers, and the way
-    /// the transaction is finalized at the end. Note that it can't be guaranteed that *every*
-    /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
-    /// in this library will.
     pub fn sign(
-        ptr: BdkWallet,
-        psbt: BdkPsbt,
-        sign_options: Option<SignOptions>
-    ) -> Result<bool, BdkError> {
-        let mut psbt = psbt.ptr.lock().map_err(|_| BdkError::Generic("Poison Error!".to_string()))?;
-        handle_mutex(&ptr.ptr, |w| {
-            w.sign(&mut psbt, sign_options.map(SignOptions::into).unwrap_or_default()).map_err(|e|
-                e.into()
-            )
-        })?
-    }
-    /// Sync the internal database with the blockchain.
-    pub fn sync(ptr: BdkWallet, blockchain: &BdkBlockchain) -> Result<(), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
-            w.sync(blockchain.ptr.deref(), bdk::SyncOptions::default()).map_err(|e| e.into())
-        })?
+        opaque: &FfiWallet,
+        psbt: FfiPsbt,
+        sign_options: SignOptions,
+    ) -> Result<bool, SignerError> {
+        let mut psbt = psbt.opaque.lock().unwrap();
+        opaque
+            .get_wallet()
+            .sign(&mut psbt, sign_options.into())
+            .map_err(SignerError::from)
     }
 
-    ///get the corresponding PSBT Input for a LocalUtxo
-    pub fn get_psbt_input(
-        &self,
-        utxo: LocalUtxo,
-        only_witness_utxo: bool,
-        sighash_type: Option<PsbtSigHashType>
-    ) -> anyhow::Result<Input, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            let input = w.get_psbt_input(
-                utxo.try_into()?,
-                sighash_type.map(|e| e.into()),
-                only_witness_utxo
-            )?;
-            input.try_into()
-        })?
-    }
-    ///Returns the descriptor used to create addresses for a particular keychain.
+    ///Iterate over the transactions in the wallet.
     #[frb(sync)]
-    pub fn get_descriptor_for_keychain(
-        ptr: BdkWallet,
-        keychain: KeychainKind
-    ) -> anyhow::Result<BdkDescriptor, BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
-            let extended_descriptor = w.get_descriptor_for_keychain(keychain.into());
-            BdkDescriptor::new(extended_descriptor.to_string(), w.network().into())
-        })?
+    pub fn transactions(&self) -> Vec<FfiCanonicalTx> {
+        self.get_wallet()
+            .transactions()
+            .map(|tx| tx.into())
+            .collect()
     }
-}
+    #[frb(sync)]
+    ///Get a single transaction from the wallet as a WalletTx (if the transaction exists).
+    pub fn get_tx(&self, txid: String) -> Result<Option<FfiCanonicalTx>, TxidParseError> {
+        let txid =
+            Txid::from_str(txid.as_str()).map_err(|_| TxidParseError::InvalidTxid { txid })?;
+        Ok(self.get_wallet().get_tx(txid).map(|tx| tx.into()))
+    }
+    pub fn calculate_fee(opaque: &FfiWallet, tx: FfiTransaction) -> Result<u64, CalculateFeeError> {
+        opaque
+            .get_wallet()
+            .calculate_fee(&(&tx).into())
+            .map(|e| e.to_sat())
+            .map_err(|e| e.into())
+    }
 
-pub fn finish_bump_fee_tx_builder(
-    txid: String,
-    fee_rate: f32,
-    allow_shrinking: Option<BdkAddress>,
-    wallet: BdkWallet,
-    enable_rbf: bool,
-    n_sequence: Option<u32>
-) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
-    let txid = Txid::from_str(txid.as_str()).map_err(|e| BdkError::PsbtParse(e.to_string()))?;
-    handle_mutex(&wallet.ptr, |w| {
-        let mut tx_builder = w.build_fee_bump(txid)?;
-        tx_builder.fee_rate(bdk::FeeRate::from_sat_per_vb(fee_rate));
-        if let Some(allow_shrinking) = &allow_shrinking {
-            let address = allow_shrinking.ptr.clone();
-            let script = address.script_pubkey();
-            tx_builder.allow_shrinking(script)?;
-        }
-        if let Some(n_sequence) = n_sequence {
-            tx_builder.enable_rbf_with_sequence(Sequence(n_sequence));
-        }
-        if enable_rbf {
-            tx_builder.enable_rbf();
-        }
-        return match tx_builder.finish() {
-            Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(e.1)?)),
-            Err(e) => Err(e.into()),
-        };
-    })?
-}
+    pub fn calculate_fee_rate(
+        opaque: &FfiWallet,
+        tx: FfiTransaction,
+    ) -> Result<FeeRate, CalculateFeeError> {
+        opaque
+            .get_wallet()
+            .calculate_fee_rate(&(&tx).into())
+            .map(|bdk_fee_rate| FeeRate {
+                sat_kwu: bdk_fee_rate.to_sat_per_kwu(),
+            })
+            .map_err(|e| e.into())
+    }
 
-pub fn tx_builder_finish(
-    wallet: BdkWallet,
-    recipients: Vec<ScriptAmount>,
-    utxos: Vec<OutPoint>,
-    foreign_utxo: Option<(OutPoint, Input, usize)>,
-    un_spendable: Vec<OutPoint>,
-    change_policy: ChangeSpendPolicy,
-    manually_selected_only: bool,
-    fee_rate: Option<f32>,
-    fee_absolute: Option<u64>,
-    drain_wallet: bool,
-    drain_to: Option<BdkScriptBuf>,
-    rbf: Option<RbfValue>,
-    data: Vec<u8>
-) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
-    handle_mutex(&wallet.ptr, |w| {
-        let mut tx_builder = w.build_tx();
+    /// Return the list of unspent outputs of this wallet.
+    #[frb(sync)]
+    pub fn list_unspent(&self) -> Vec<LocalOutput> {
+        self.get_wallet().list_unspent().map(|o| o.into()).collect()
+    }
+    #[frb(sync)]
+    ///List all relevant outputs (includes both spent and unspent, confirmed and unconfirmed).
+    pub fn list_output(&self) -> Vec<LocalOutput> {
+        self.get_wallet().list_output().map(|o| o.into()).collect()
+    }
+    #[frb(sync)]
+    pub fn policies(
+        opaque: FfiWallet,
+        keychain_kind: KeychainKind,
+    ) -> Result<Option<FfiPolicy>, DescriptorError> {
+        opaque
+            .get_wallet()
+            .policies(keychain_kind.into())
+            .map(|e| e.map(|p| p.into()))
+            .map_err(|e| e.into())
+    }
+    pub fn start_full_scan(&self) -> FfiFullScanRequestBuilder {
+        let builder = self.get_wallet().start_full_scan();
+        FfiFullScanRequestBuilder(RustOpaque::new(Mutex::new(Some(builder))))
+    }
 
-        for e in recipients {
-            tx_builder.add_recipient(e.script.into(), e.amount);
-        }
-        tx_builder.change_policy(change_policy.into());
+    pub fn start_sync_with_revealed_spks(&self) -> FfiSyncRequestBuilder {
+        let builder = self.get_wallet().start_sync_with_revealed_spks();
+        FfiSyncRequestBuilder(RustOpaque::new(Mutex::new(Some(builder))))
+    }
 
-        if !utxos.is_empty() {
-            let bdk_utxos = utxos
-                .iter()
-                .map(|e| bdk::bitcoin::OutPoint::try_from(e))
-                .collect::<Result<Vec<bdk::bitcoin::OutPoint>, BdkError>>()?;
-            tx_builder
-                .add_utxos(bdk_utxos.as_slice())
-                .map_err(|e| <bdk::Error as Into<BdkError>>::into(e))?;
-        }
-        if !un_spendable.is_empty() {
-            let bdk_unspendable = un_spendable
-                .iter()
-                .map(|e| bdk::bitcoin::OutPoint::try_from(e))
-                .collect::<Result<Vec<bdk::bitcoin::OutPoint>, BdkError>>()?;
-            tx_builder.unspendable(bdk_unspendable);
-        }
-        if manually_selected_only {
-            tx_builder.manually_selected_only();
-        }
-        if let Some(sat_per_vb) = fee_rate {
-            tx_builder.fee_rate(bdk::FeeRate::from_sat_per_vb(sat_per_vb));
-        }
-        if let Some(fee_amount) = fee_absolute {
-            tx_builder.fee_absolute(fee_amount);
-        }
-        if drain_wallet {
-            tx_builder.drain_wallet();
-        }
-        if let Some(script_) = drain_to {
-            tx_builder.drain_to(script_.into());
-        }
-        if let Some(utxo) = foreign_utxo {
-            let foreign_utxo: bdk::bitcoin::psbt::Input = utxo.1.try_into()?;
-            tx_builder.add_foreign_utxo((&utxo.0).try_into()?, foreign_utxo, utxo.2)?;
-        }
-        if let Some(rbf) = &rbf {
-            match rbf {
-                RbfValue::RbfDefault => {
-                    tx_builder.enable_rbf();
-                }
-                RbfValue::Value(nsequence) => {
-                    tx_builder.enable_rbf_with_sequence(Sequence(nsequence.to_owned()));
-                }
-            }
-        }
-        if !data.is_empty() {
-            let push_bytes = PushBytesBuf::try_from(data.clone()).map_err(|_| {
-                BdkError::Generic("Failed to convert data to PushBytes".to_string())
-            })?;
-            tx_builder.add_data(&push_bytes);
-        }
-
-        return match tx_builder.finish() {
-            Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(&e.1)?)),
-            Err(e) => Err(e.into()),
-        };
-    })?
+    // pub fn persist(&self, connection: Connection) -> Result<bool, FfiGenericError> {
+    pub fn persist(opaque: &FfiWallet, connection: FfiConnection) -> Result<bool, SqliteError> {
+        let mut binding = connection.get_store();
+        let db: &mut bdk_wallet::rusqlite::Connection = binding.borrow_mut();
+        opaque
+            .get_wallet()
+            .persist(db)
+            .map_err(|e| SqliteError::Sqlite {
+                rusqlite_error: e.to_string(),
+            })
+    }
 }
