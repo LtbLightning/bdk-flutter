@@ -3,18 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i10;
-import 'dart:typed_data' as _i11;
+import 'dart:async' as _i4;
+import 'dart:typed_data' as _i7;
 
-import 'package:bdk_flutter/bdk_flutter.dart' as _i2;
-import 'package:bdk_flutter/src/generated/api/bitcoin.dart' as _i8;
-import 'package:bdk_flutter/src/generated/api/electrum.dart' as _i6;
-import 'package:bdk_flutter/src/generated/api/esplora.dart' as _i5;
-import 'package:bdk_flutter/src/generated/api/store.dart' as _i4;
-import 'package:bdk_flutter/src/generated/api/types.dart' as _i7;
-import 'package:bdk_flutter/src/generated/lib.dart' as _i3;
+import 'package:bdk_flutter/bdk_flutter.dart' as _i3;
+import 'package:bdk_flutter/src/generated/api/types.dart' as _i5;
+import 'package:bdk_flutter/src/generated/lib.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,8 +25,9 @@ import 'package:mockito/src/dummies.dart' as _i9;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeAddress_0 extends _i1.SmartFake implements _i2.Address {
-  _FakeAddress_0(
+class _FakeMutexWalletAnyDatabase_0 extends _i1.SmartFake
+    implements _i2.MutexWalletAnyDatabase {
+  _FakeMutexWalletAnyDatabase_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -39,8 +36,8 @@ class _FakeAddress_0 extends _i1.SmartFake implements _i2.Address {
         );
 }
 
-class _FakeAddress_1 extends _i1.SmartFake implements _i3.Address {
-  _FakeAddress_1(
+class _FakeAddressInfo_1 extends _i1.SmartFake implements _i3.AddressInfo {
+  _FakeAddressInfo_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -49,8 +46,8 @@ class _FakeAddress_1 extends _i1.SmartFake implements _i3.Address {
         );
 }
 
-class _FakeScriptBuf_2 extends _i1.SmartFake implements _i2.ScriptBuf {
-  _FakeScriptBuf_2(
+class _FakeBalance_2 extends _i1.SmartFake implements _i3.Balance {
+  _FakeBalance_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -59,8 +56,8 @@ class _FakeScriptBuf_2 extends _i1.SmartFake implements _i2.ScriptBuf {
         );
 }
 
-class _FakeFeeRate_3 extends _i1.SmartFake implements _i2.FeeRate {
-  _FakeFeeRate_3(
+class _FakeDescriptor_3 extends _i1.SmartFake implements _i3.Descriptor {
+  _FakeDescriptor_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -69,9 +66,8 @@ class _FakeFeeRate_3 extends _i1.SmartFake implements _i2.FeeRate {
         );
 }
 
-class _FakeBumpFeeTxBuilder_4 extends _i1.SmartFake
-    implements _i2.BumpFeeTxBuilder {
-  _FakeBumpFeeTxBuilder_4(
+class _FakeInput_4 extends _i1.SmartFake implements _i3.Input {
+  _FakeInput_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -80,8 +76,8 @@ class _FakeBumpFeeTxBuilder_4 extends _i1.SmartFake
         );
 }
 
-class _FakePSBT_5 extends _i1.SmartFake implements _i2.PSBT {
-  _FakePSBT_5(
+class _FakeAnyBlockchain_5 extends _i1.SmartFake implements _i2.AnyBlockchain {
+  _FakeAnyBlockchain_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -90,9 +86,8 @@ class _FakePSBT_5 extends _i1.SmartFake implements _i2.PSBT {
         );
 }
 
-class _FakeMutexConnection_6 extends _i1.SmartFake
-    implements _i4.MutexConnection {
-  _FakeMutexConnection_6(
+class _FakeFeeRate_6 extends _i1.SmartFake implements _i3.FeeRate {
+  _FakeFeeRate_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -101,41 +96,9 @@ class _FakeMutexConnection_6 extends _i1.SmartFake
         );
 }
 
-class _FakeTransaction_7 extends _i1.SmartFake implements _i2.Transaction {
-  _FakeTransaction_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDerivationPath_8 extends _i1.SmartFake
-    implements _i3.DerivationPath {
-  _FakeDerivationPath_8(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDescriptorSecretKey_9 extends _i1.SmartFake
-    implements _i3.DescriptorSecretKey {
-  _FakeDescriptorSecretKey_9(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDescriptorSecretKey_10 extends _i1.SmartFake
+class _FakeDescriptorSecretKey_7 extends _i1.SmartFake
     implements _i2.DescriptorSecretKey {
-  _FakeDescriptorSecretKey_10(
+  _FakeDescriptorSecretKey_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -144,9 +107,9 @@ class _FakeDescriptorSecretKey_10 extends _i1.SmartFake
         );
 }
 
-class _FakeDescriptorPublicKey_11 extends _i1.SmartFake
-    implements _i2.DescriptorPublicKey {
-  _FakeDescriptorPublicKey_11(
+class _FakeDescriptorSecretKey_8 extends _i1.SmartFake
+    implements _i3.DescriptorSecretKey {
+  _FakeDescriptorSecretKey_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -155,9 +118,9 @@ class _FakeDescriptorPublicKey_11 extends _i1.SmartFake
         );
 }
 
-class _FakeDescriptorPublicKey_12 extends _i1.SmartFake
+class _FakeDescriptorPublicKey_9 extends _i1.SmartFake
     implements _i3.DescriptorPublicKey {
-  _FakeDescriptorPublicKey_12(
+  _FakeDescriptorPublicKey_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -166,9 +129,9 @@ class _FakeDescriptorPublicKey_12 extends _i1.SmartFake
         );
 }
 
-class _FakeExtendedDescriptor_13 extends _i1.SmartFake
-    implements _i3.ExtendedDescriptor {
-  _FakeExtendedDescriptor_13(
+class _FakeDescriptorPublicKey_10 extends _i1.SmartFake
+    implements _i2.DescriptorPublicKey {
+  _FakeDescriptorPublicKey_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -177,8 +140,9 @@ class _FakeExtendedDescriptor_13 extends _i1.SmartFake
         );
 }
 
-class _FakeKeyMap_14 extends _i1.SmartFake implements _i3.KeyMap {
-  _FakeKeyMap_14(
+class _FakeMutexPartiallySignedTransaction_11 extends _i1.SmartFake
+    implements _i2.MutexPartiallySignedTransaction {
+  _FakeMutexPartiallySignedTransaction_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -187,9 +151,8 @@ class _FakeKeyMap_14 extends _i1.SmartFake implements _i3.KeyMap {
         );
 }
 
-class _FakeBlockingClient_15 extends _i1.SmartFake
-    implements _i5.BlockingClient {
-  _FakeBlockingClient_15(
+class _FakeTransaction_12 extends _i1.SmartFake implements _i3.Transaction {
+  _FakeTransaction_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -198,8 +161,9 @@ class _FakeBlockingClient_15 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdate_16 extends _i1.SmartFake implements _i2.Update {
-  _FakeUpdate_16(
+class _FakePartiallySignedTransaction_13 extends _i1.SmartFake
+    implements _i3.PartiallySignedTransaction {
+  _FakePartiallySignedTransaction_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -208,9 +172,8 @@ class _FakeUpdate_16 extends _i1.SmartFake implements _i2.Update {
         );
 }
 
-class _FakeBdkElectrumClientClient_17 extends _i1.SmartFake
-    implements _i6.BdkElectrumClientClient {
-  _FakeBdkElectrumClientClient_17(
+class _FakeTxBuilder_14 extends _i1.SmartFake implements _i3.TxBuilder {
+  _FakeTxBuilder_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -219,9 +182,9 @@ class _FakeBdkElectrumClientClient_17 extends _i1.SmartFake
         );
 }
 
-class _FakeMutexOptionFullScanRequestBuilderKeychainKind_18 extends _i1
-    .SmartFake implements _i7.MutexOptionFullScanRequestBuilderKeychainKind {
-  _FakeMutexOptionFullScanRequestBuilderKeychainKind_18(
+class _FakeTransactionDetails_15 extends _i1.SmartFake
+    implements _i3.TransactionDetails {
+  _FakeTransactionDetails_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -230,9 +193,9 @@ class _FakeMutexOptionFullScanRequestBuilderKeychainKind_18 extends _i1
         );
 }
 
-class _FakeFullScanRequestBuilder_19 extends _i1.SmartFake
-    implements _i2.FullScanRequestBuilder {
-  _FakeFullScanRequestBuilder_19(
+class _FakeBumpFeeTxBuilder_16 extends _i1.SmartFake
+    implements _i3.BumpFeeTxBuilder {
+  _FakeBumpFeeTxBuilder_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -241,9 +204,8 @@ class _FakeFullScanRequestBuilder_19 extends _i1.SmartFake
         );
 }
 
-class _FakeFullScanRequest_20 extends _i1.SmartFake
-    implements _i2.FullScanRequest {
-  _FakeFullScanRequest_20(
+class _FakeAddress_17 extends _i1.SmartFake implements _i2.Address {
+  _FakeAddress_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -252,9 +214,8 @@ class _FakeFullScanRequest_20 extends _i1.SmartFake
         );
 }
 
-class _FakeMutexOptionFullScanRequestKeychainKind_21 extends _i1.SmartFake
-    implements _i6.MutexOptionFullScanRequestKeychainKind {
-  _FakeMutexOptionFullScanRequestKeychainKind_21(
+class _FakeScriptBuf_18 extends _i1.SmartFake implements _i3.ScriptBuf {
+  _FakeScriptBuf_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -263,8 +224,9 @@ class _FakeMutexOptionFullScanRequestKeychainKind_21 extends _i1.SmartFake
         );
 }
 
-class _FakeOutPoint_22 extends _i1.SmartFake implements _i2.OutPoint {
-  _FakeOutPoint_22(
+class _FakeDerivationPath_19 extends _i1.SmartFake
+    implements _i2.DerivationPath {
+  _FakeDerivationPath_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -273,8 +235,8 @@ class _FakeOutPoint_22 extends _i1.SmartFake implements _i2.OutPoint {
         );
 }
 
-class _FakeTxOut_23 extends _i1.SmartFake implements _i8.TxOut {
-  _FakeTxOut_23(
+class _FakeOutPoint_20 extends _i1.SmartFake implements _i3.OutPoint {
+  _FakeOutPoint_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -283,8 +245,8 @@ class _FakeTxOut_23 extends _i1.SmartFake implements _i8.TxOut {
         );
 }
 
-class _FakeMnemonic_24 extends _i1.SmartFake implements _i3.Mnemonic {
-  _FakeMnemonic_24(
+class _FakeTxOut_21 extends _i1.SmartFake implements _i3.TxOut {
+  _FakeTxOut_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -293,496 +255,758 @@ class _FakeMnemonic_24 extends _i1.SmartFake implements _i3.Mnemonic {
         );
 }
 
-class _FakeMutexPsbt_25 extends _i1.SmartFake implements _i3.MutexPsbt {
-  _FakeMutexPsbt_25(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTransaction_26 extends _i1.SmartFake implements _i3.Transaction {
-  _FakeTransaction_26(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTxBuilder_27 extends _i1.SmartFake implements _i2.TxBuilder {
-  _FakeTxBuilder_27(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeMutexPersistedWalletConnection_28 extends _i1.SmartFake
-    implements _i3.MutexPersistedWalletConnection {
-  _FakeMutexPersistedWalletConnection_28(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeAddressInfo_29 extends _i1.SmartFake implements _i2.AddressInfo {
-  _FakeAddressInfo_29(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeBalance_30 extends _i1.SmartFake implements _i2.Balance {
-  _FakeBalance_30(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeSyncRequestBuilder_31 extends _i1.SmartFake
-    implements _i2.SyncRequestBuilder {
-  _FakeSyncRequestBuilder_31(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeUpdate_32 extends _i1.SmartFake implements _i6.Update {
-  _FakeUpdate_32(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [AddressInfo].
+/// A class which mocks [Wallet].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddressInfo extends _i1.Mock implements _i2.AddressInfo {
+class MockWallet extends _i1.Mock implements _i3.Wallet {
   @override
-  int get index => (super.noSuchMethod(
-        Invocation.getter(#index),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
+  _i2.MutexWalletAnyDatabase get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeMutexWalletAnyDatabase_0(
+          this,
+          Invocation.getter(#ptr),
+        ),
+        returnValueForMissingStub: _FakeMutexWalletAnyDatabase_0(
+          this,
+          Invocation.getter(#ptr),
+        ),
+      ) as _i2.MutexWalletAnyDatabase);
 
   @override
-  _i2.Address get address => (super.noSuchMethod(
-        Invocation.getter(#address),
-        returnValue: _FakeAddress_0(
-          this,
-          Invocation.getter(#address),
-        ),
-        returnValueForMissingStub: _FakeAddress_0(
-          this,
-          Invocation.getter(#address),
-        ),
-      ) as _i2.Address);
-}
-
-/// A class which mocks [Address].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockAddress extends _i1.Mock implements _i2.Address {
-  @override
-  _i3.Address get field0 => (super.noSuchMethod(
-        Invocation.getter(#field0),
-        returnValue: _FakeAddress_1(
-          this,
-          Invocation.getter(#field0),
-        ),
-        returnValueForMissingStub: _FakeAddress_1(
-          this,
-          Invocation.getter(#field0),
-        ),
-      ) as _i3.Address);
-
-  @override
-  _i2.ScriptBuf script() => (super.noSuchMethod(
-        Invocation.method(
-          #script,
-          [],
-        ),
-        returnValue: _FakeScriptBuf_2(
-          this,
-          Invocation.method(
-            #script,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _FakeScriptBuf_2(
-          this,
-          Invocation.method(
-            #script,
-            [],
-          ),
-        ),
-      ) as _i2.ScriptBuf);
-
-  @override
-  String toQrUri() => (super.noSuchMethod(
-        Invocation.method(
-          #toQrUri,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #toQrUri,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #toQrUri,
-            [],
-          ),
-        ),
-      ) as String);
-
-  @override
-  bool isValidForNetwork({required _i2.Network? network}) =>
+  _i3.AddressInfo getAddress({
+    required _i3.AddressIndex? addressIndex,
+    dynamic hint,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #isValidForNetwork,
+          #getAddress,
           [],
-          {#network: network},
+          {
+            #addressIndex: addressIndex,
+            #hint: hint,
+          },
+        ),
+        returnValue: _FakeAddressInfo_1(
+          this,
+          Invocation.method(
+            #getAddress,
+            [],
+            {
+              #addressIndex: addressIndex,
+              #hint: hint,
+            },
+          ),
+        ),
+        returnValueForMissingStub: _FakeAddressInfo_1(
+          this,
+          Invocation.method(
+            #getAddress,
+            [],
+            {
+              #addressIndex: addressIndex,
+              #hint: hint,
+            },
+          ),
+        ),
+      ) as _i3.AddressInfo);
+
+  @override
+  _i3.Balance getBalance({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #getBalance,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: _FakeBalance_2(
+          this,
+          Invocation.method(
+            #getBalance,
+            [],
+            {#hint: hint},
+          ),
+        ),
+        returnValueForMissingStub: _FakeBalance_2(
+          this,
+          Invocation.method(
+            #getBalance,
+            [],
+            {#hint: hint},
+          ),
+        ),
+      ) as _i3.Balance);
+
+  @override
+  _i4.Future<_i3.Descriptor> getDescriptorForKeychain({
+    required _i3.KeychainKind? keychain,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getDescriptorForKeychain,
+          [],
+          {
+            #keychain: keychain,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<_i3.Descriptor>.value(_FakeDescriptor_3(
+          this,
+          Invocation.method(
+            #getDescriptorForKeychain,
+            [],
+            {
+              #keychain: keychain,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i3.Descriptor>.value(_FakeDescriptor_3(
+          this,
+          Invocation.method(
+            #getDescriptorForKeychain,
+            [],
+            {
+              #keychain: keychain,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i3.Descriptor>);
+
+  @override
+  _i3.AddressInfo getInternalAddress({
+    required _i3.AddressIndex? addressIndex,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getInternalAddress,
+          [],
+          {
+            #addressIndex: addressIndex,
+            #hint: hint,
+          },
+        ),
+        returnValue: _FakeAddressInfo_1(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {
+              #addressIndex: addressIndex,
+              #hint: hint,
+            },
+          ),
+        ),
+        returnValueForMissingStub: _FakeAddressInfo_1(
+          this,
+          Invocation.method(
+            #getInternalAddress,
+            [],
+            {
+              #addressIndex: addressIndex,
+              #hint: hint,
+            },
+          ),
+        ),
+      ) as _i3.AddressInfo);
+
+  @override
+  _i4.Future<_i3.Input> getPsbtInput({
+    required _i3.LocalUtxo? utxo,
+    required bool? onlyWitnessUtxo,
+    _i3.PsbtSigHashType? sighashType,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPsbtInput,
+          [],
+          {
+            #utxo: utxo,
+            #onlyWitnessUtxo: onlyWitnessUtxo,
+            #sighashType: sighashType,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<_i3.Input>.value(_FakeInput_4(
+          this,
+          Invocation.method(
+            #getPsbtInput,
+            [],
+            {
+              #utxo: utxo,
+              #onlyWitnessUtxo: onlyWitnessUtxo,
+              #sighashType: sighashType,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<_i3.Input>.value(_FakeInput_4(
+          this,
+          Invocation.method(
+            #getPsbtInput,
+            [],
+            {
+              #utxo: utxo,
+              #onlyWitnessUtxo: onlyWitnessUtxo,
+              #sighashType: sighashType,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i3.Input>);
+
+  @override
+  bool isMine({
+    required _i5.BdkScriptBuf? script,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isMine,
+          [],
+          {
+            #script: script,
+            #hint: hint,
+          },
         ),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [BumpFeeTxBuilder].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockBumpFeeTxBuilder extends _i1.Mock implements _i2.BumpFeeTxBuilder {
-  @override
-  String get txid => (super.noSuchMethod(
-        Invocation.getter(#txid),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.getter(#txid),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.getter(#txid),
-        ),
-      ) as String);
-
-  @override
-  _i2.FeeRate get feeRate => (super.noSuchMethod(
-        Invocation.getter(#feeRate),
-        returnValue: _FakeFeeRate_3(
-          this,
-          Invocation.getter(#feeRate),
-        ),
-        returnValueForMissingStub: _FakeFeeRate_3(
-          this,
-          Invocation.getter(#feeRate),
-        ),
-      ) as _i2.FeeRate);
-
-  @override
-  _i2.BumpFeeTxBuilder enableRbf() => (super.noSuchMethod(
-        Invocation.method(
-          #enableRbf,
-          [],
-        ),
-        returnValue: _FakeBumpFeeTxBuilder_4(
-          this,
-          Invocation.method(
-            #enableRbf,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_4(
-          this,
-          Invocation.method(
-            #enableRbf,
-            [],
-          ),
-        ),
-      ) as _i2.BumpFeeTxBuilder);
-
-  @override
-  _i2.BumpFeeTxBuilder enableRbfWithSequence(int? nSequence) =>
+  List<_i3.TransactionDetails> listTransactions({
+    required bool? includeRaw,
+    dynamic hint,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #enableRbfWithSequence,
-          [nSequence],
-        ),
-        returnValue: _FakeBumpFeeTxBuilder_4(
-          this,
-          Invocation.method(
-            #enableRbfWithSequence,
-            [nSequence],
-          ),
-        ),
-        returnValueForMissingStub: _FakeBumpFeeTxBuilder_4(
-          this,
-          Invocation.method(
-            #enableRbfWithSequence,
-            [nSequence],
-          ),
-        ),
-      ) as _i2.BumpFeeTxBuilder);
-
-  @override
-  _i10.Future<_i2.PSBT> finish(_i2.Wallet? wallet) => (super.noSuchMethod(
-        Invocation.method(
-          #finish,
-          [wallet],
-        ),
-        returnValue: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #finish,
-            [wallet],
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #finish,
-            [wallet],
-          ),
-        )),
-      ) as _i10.Future<_i2.PSBT>);
-}
-
-/// A class which mocks [Connection].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockConnection extends _i1.Mock implements _i2.Connection {
-  @override
-  _i4.MutexConnection get field0 => (super.noSuchMethod(
-        Invocation.getter(#field0),
-        returnValue: _FakeMutexConnection_6(
-          this,
-          Invocation.getter(#field0),
-        ),
-        returnValueForMissingStub: _FakeMutexConnection_6(
-          this,
-          Invocation.getter(#field0),
-        ),
-      ) as _i4.MutexConnection);
-}
-
-/// A class which mocks [CanonicalTx].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockCanonicalTx extends _i1.Mock implements _i2.CanonicalTx {
-  @override
-  _i2.Transaction get transaction => (super.noSuchMethod(
-        Invocation.getter(#transaction),
-        returnValue: _FakeTransaction_7(
-          this,
-          Invocation.getter(#transaction),
-        ),
-        returnValueForMissingStub: _FakeTransaction_7(
-          this,
-          Invocation.getter(#transaction),
-        ),
-      ) as _i2.Transaction);
-
-  @override
-  _i2.ChainPosition get chainPosition => (super.noSuchMethod(
-        Invocation.getter(#chainPosition),
-        returnValue: _i9.dummyValue<_i2.ChainPosition>(
-          this,
-          Invocation.getter(#chainPosition),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<_i2.ChainPosition>(
-          this,
-          Invocation.getter(#chainPosition),
-        ),
-      ) as _i2.ChainPosition);
-}
-
-/// A class which mocks [DerivationPath].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDerivationPath extends _i1.Mock implements _i2.DerivationPath {
-  @override
-  _i3.DerivationPath get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeDerivationPath_8(
-          this,
-          Invocation.getter(#opaque),
-        ),
-        returnValueForMissingStub: _FakeDerivationPath_8(
-          this,
-          Invocation.getter(#opaque),
-        ),
-      ) as _i3.DerivationPath);
-
-  @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
+          #listTransactions,
           [],
+          {
+            #includeRaw: includeRaw,
+            #hint: hint,
+          },
         ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
+        returnValue: <_i3.TransactionDetails>[],
+        returnValueForMissingStub: <_i3.TransactionDetails>[],
+      ) as List<_i3.TransactionDetails>);
+
+  @override
+  List<_i3.LocalUtxo> listUnspent({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #listUnspent,
+          [],
+          {#hint: hint},
         ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
+        returnValue: <_i3.LocalUtxo>[],
+        returnValueForMissingStub: <_i3.LocalUtxo>[],
+      ) as List<_i3.LocalUtxo>);
+
+  @override
+  _i3.Network network({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #network,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: _i3.Network.testnet,
+        returnValueForMissingStub: _i3.Network.testnet,
+      ) as _i3.Network);
+
+  @override
+  _i4.Future<bool> sign({
+    required _i3.PartiallySignedTransaction? psbt,
+    _i3.SignOptions? signOptions,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sign,
+          [],
+          {
+            #psbt: psbt,
+            #signOptions: signOptions,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<void> sync({
+    required _i3.Blockchain? blockchain,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sync,
+          [],
+          {
+            #blockchain: blockchain,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [Transaction].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransaction extends _i1.Mock implements _i3.Transaction {
+  @override
+  String get s => (super.noSuchMethod(
+        Invocation.getter(#s),
+        returnValue: _i6.dummyValue<String>(
           this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
+          Invocation.getter(#s),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#s),
         ),
       ) as String);
+
+  @override
+  _i4.Future<List<_i3.TxIn>> input() => (super.noSuchMethod(
+        Invocation.method(
+          #input,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i3.TxIn>>.value(<_i3.TxIn>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i3.TxIn>>.value(<_i3.TxIn>[]),
+      ) as _i4.Future<List<_i3.TxIn>>);
+
+  @override
+  _i4.Future<bool> isCoinBase() => (super.noSuchMethod(
+        Invocation.method(
+          #isCoinBase,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<bool> isExplicitlyRbf() => (super.noSuchMethod(
+        Invocation.method(
+          #isExplicitlyRbf,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<bool> isLockTimeEnabled() => (super.noSuchMethod(
+        Invocation.method(
+          #isLockTimeEnabled,
+          [],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<_i3.LockTime> lockTime() => (super.noSuchMethod(
+        Invocation.method(
+          #lockTime,
+          [],
+        ),
+        returnValue:
+            _i4.Future<_i3.LockTime>.value(_i6.dummyValue<_i3.LockTime>(
+          this,
+          Invocation.method(
+            #lockTime,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i3.LockTime>.value(_i6.dummyValue<_i3.LockTime>(
+          this,
+          Invocation.method(
+            #lockTime,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i3.LockTime>);
+
+  @override
+  _i4.Future<List<_i3.TxOut>> output() => (super.noSuchMethod(
+        Invocation.method(
+          #output,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i3.TxOut>>.value(<_i3.TxOut>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i3.TxOut>>.value(<_i3.TxOut>[]),
+      ) as _i4.Future<List<_i3.TxOut>>);
+
+  @override
+  _i4.Future<_i7.Uint8List> serialize() => (super.noSuchMethod(
+        Invocation.method(
+          #serialize,
+          [],
+        ),
+        returnValue: _i4.Future<_i7.Uint8List>.value(_i7.Uint8List(0)),
+        returnValueForMissingStub:
+            _i4.Future<_i7.Uint8List>.value(_i7.Uint8List(0)),
+      ) as _i4.Future<_i7.Uint8List>);
+
+  @override
+  _i4.Future<BigInt> size() => (super.noSuchMethod(
+        Invocation.method(
+          #size,
+          [],
+        ),
+        returnValue: _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #size,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #size,
+            [],
+          ),
+        )),
+      ) as _i4.Future<BigInt>);
+
+  @override
+  _i4.Future<String> txid() => (super.noSuchMethod(
+        Invocation.method(
+          #txid,
+          [],
+        ),
+        returnValue: _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #txid,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #txid,
+            [],
+          ),
+        )),
+      ) as _i4.Future<String>);
+
+  @override
+  _i4.Future<int> version() => (super.noSuchMethod(
+        Invocation.method(
+          #version,
+          [],
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
+
+  @override
+  _i4.Future<BigInt> vsize() => (super.noSuchMethod(
+        Invocation.method(
+          #vsize,
+          [],
+        ),
+        returnValue: _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #vsize,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #vsize,
+            [],
+          ),
+        )),
+      ) as _i4.Future<BigInt>);
+
+  @override
+  _i4.Future<BigInt> weight() => (super.noSuchMethod(
+        Invocation.method(
+          #weight,
+          [],
+        ),
+        returnValue: _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #weight,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<BigInt>.value(_i6.dummyValue<BigInt>(
+          this,
+          Invocation.method(
+            #weight,
+            [],
+          ),
+        )),
+      ) as _i4.Future<BigInt>);
+}
+
+/// A class which mocks [Blockchain].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBlockchain extends _i1.Mock implements _i3.Blockchain {
+  @override
+  _i2.AnyBlockchain get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeAnyBlockchain_5(
+          this,
+          Invocation.getter(#ptr),
+        ),
+        returnValueForMissingStub: _FakeAnyBlockchain_5(
+          this,
+          Invocation.getter(#ptr),
+        ),
+      ) as _i2.AnyBlockchain);
+
+  @override
+  _i4.Future<_i3.FeeRate> estimateFee({
+    required BigInt? target,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #estimateFee,
+          [],
+          {
+            #target: target,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<_i3.FeeRate>.value(_FakeFeeRate_6(
+          this,
+          Invocation.method(
+            #estimateFee,
+            [],
+            {
+              #target: target,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<_i3.FeeRate>.value(_FakeFeeRate_6(
+          this,
+          Invocation.method(
+            #estimateFee,
+            [],
+            {
+              #target: target,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i3.FeeRate>);
+
+  @override
+  _i4.Future<String> broadcast({
+    required _i5.BdkTransaction? transaction,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #broadcast,
+          [],
+          {
+            #transaction: transaction,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #broadcast,
+            [],
+            {
+              #transaction: transaction,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #broadcast,
+            [],
+            {
+              #transaction: transaction,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i4.Future<String>);
+
+  @override
+  _i4.Future<String> getBlockHash({
+    required int? height,
+    dynamic hint,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getBlockHash,
+          [],
+          {
+            #height: height,
+            #hint: hint,
+          },
+        ),
+        returnValue: _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getBlockHash,
+            [],
+            {
+              #height: height,
+              #hint: hint,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<String>.value(_i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getBlockHash,
+            [],
+            {
+              #height: height,
+              #hint: hint,
+            },
+          ),
+        )),
+      ) as _i4.Future<String>);
+
+  @override
+  _i4.Future<int> getHeight({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #getHeight,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: _i4.Future<int>.value(0),
+        returnValueForMissingStub: _i4.Future<int>.value(0),
+      ) as _i4.Future<int>);
 }
 
 /// A class which mocks [DescriptorSecretKey].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDescriptorSecretKey extends _i1.Mock
-    implements _i2.DescriptorSecretKey {
+    implements _i3.DescriptorSecretKey {
   @override
-  _i3.DescriptorSecretKey get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeDescriptorSecretKey_9(
+  _i2.DescriptorSecretKey get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeDescriptorSecretKey_7(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeDescriptorSecretKey_9(
+        returnValueForMissingStub: _FakeDescriptorSecretKey_7(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-      ) as _i3.DescriptorSecretKey);
+      ) as _i2.DescriptorSecretKey);
 
   @override
-  _i10.Future<_i2.DescriptorSecretKey> derive(_i2.DerivationPath? path) =>
+  _i4.Future<_i3.DescriptorSecretKey> derive(_i3.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
           [path],
         ),
-        returnValue: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValue: _i4.Future<_i3.DescriptorSecretKey>.value(
+            _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #derive,
             [path],
           ),
         )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorSecretKey>.value(
+            _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #derive,
             [path],
           ),
         )),
-      ) as _i10.Future<_i2.DescriptorSecretKey>);
+      ) as _i4.Future<_i3.DescriptorSecretKey>);
 
   @override
-  _i10.Future<_i2.DescriptorSecretKey> extend(_i2.DerivationPath? path) =>
+  _i4.Future<_i3.DescriptorSecretKey> extend(_i3.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
           [path],
         ),
-        returnValue: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValue: _i4.Future<_i3.DescriptorSecretKey>.value(
+            _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #extend,
             [path],
           ),
         )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorSecretKey>.value(
+            _FakeDescriptorSecretKey_8(
           this,
           Invocation.method(
             #extend,
             [path],
           ),
         )),
-      ) as _i10.Future<_i2.DescriptorSecretKey>);
+      ) as _i4.Future<_i3.DescriptorSecretKey>);
 
   @override
-  _i2.DescriptorPublicKey toPublic() => (super.noSuchMethod(
+  _i3.DescriptorPublicKey toPublic() => (super.noSuchMethod(
         Invocation.method(
           #toPublic,
           [],
         ),
-        returnValue: _FakeDescriptorPublicKey_11(
+        returnValue: _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #toPublic,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeDescriptorPublicKey_11(
+        returnValueForMissingStub: _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #toPublic,
             [],
           ),
         ),
-      ) as _i2.DescriptorPublicKey);
+      ) as _i3.DescriptorPublicKey);
 
   @override
-  _i11.Uint8List secretBytes({dynamic hint}) => (super.noSuchMethod(
+  _i7.Uint8List secretBytes({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #secretBytes,
           [],
           {#hint: hint},
         ),
-        returnValue: _i11.Uint8List(0),
-        returnValueForMissingStub: _i11.Uint8List(0),
-      ) as _i11.Uint8List);
+        returnValue: _i7.Uint8List(0),
+        returnValueForMissingStub: _i7.Uint8List(0),
+      ) as _i7.Uint8List);
 
   @override
   String asString() => (super.noSuchMethod(
@@ -790,14 +1014,14 @@ class MockDescriptorSecretKey extends _i1.Mock
           #asString,
           [],
         ),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #asString,
             [],
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #asString,
@@ -811,23 +1035,23 @@ class MockDescriptorSecretKey extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDescriptorPublicKey extends _i1.Mock
-    implements _i2.DescriptorPublicKey {
+    implements _i3.DescriptorPublicKey {
   @override
-  _i3.DescriptorPublicKey get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeDescriptorPublicKey_12(
+  _i2.DescriptorPublicKey get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeDescriptorPublicKey_10(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeDescriptorPublicKey_12(
+        returnValueForMissingStub: _FakeDescriptorPublicKey_10(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-      ) as _i3.DescriptorPublicKey);
+      ) as _i2.DescriptorPublicKey);
 
   @override
-  _i10.Future<_i2.DescriptorPublicKey> derive({
-    required _i2.DerivationPath? path,
+  _i4.Future<_i3.DescriptorPublicKey> derive({
+    required _i3.DerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -839,8 +1063,8 @@ class MockDescriptorPublicKey extends _i1.Mock
             #hint: hint,
           },
         ),
-        returnValue: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValue: _i4.Future<_i3.DescriptorPublicKey>.value(
+            _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #derive,
@@ -851,8 +1075,8 @@ class MockDescriptorPublicKey extends _i1.Mock
             },
           ),
         )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorPublicKey>.value(
+            _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #derive,
@@ -863,11 +1087,11 @@ class MockDescriptorPublicKey extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.Future<_i2.DescriptorPublicKey>);
+      ) as _i4.Future<_i3.DescriptorPublicKey>);
 
   @override
-  _i10.Future<_i2.DescriptorPublicKey> extend({
-    required _i2.DerivationPath? path,
+  _i4.Future<_i3.DescriptorPublicKey> extend({
+    required _i3.DerivationPath? path,
     dynamic hint,
   }) =>
       (super.noSuchMethod(
@@ -879,8 +1103,8 @@ class MockDescriptorPublicKey extends _i1.Mock
             #hint: hint,
           },
         ),
-        returnValue: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValue: _i4.Future<_i3.DescriptorPublicKey>.value(
+            _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #extend,
@@ -891,8 +1115,8 @@ class MockDescriptorPublicKey extends _i1.Mock
             },
           ),
         )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValueForMissingStub: _i4.Future<_i3.DescriptorPublicKey>.value(
+            _FakeDescriptorPublicKey_9(
           this,
           Invocation.method(
             #extend,
@@ -903,7 +1127,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.Future<_i2.DescriptorPublicKey>);
+      ) as _i4.Future<_i3.DescriptorPublicKey>);
 
   @override
   String asString() => (super.noSuchMethod(
@@ -911,117 +1135,14 @@ class MockDescriptorPublicKey extends _i1.Mock
           #asString,
           [],
         ),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #asString,
             [],
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [Descriptor].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDescriptor extends _i1.Mock implements _i2.Descriptor {
-  @override
-  _i3.ExtendedDescriptor get extendedDescriptor => (super.noSuchMethod(
-        Invocation.getter(#extendedDescriptor),
-        returnValue: _FakeExtendedDescriptor_13(
-          this,
-          Invocation.getter(#extendedDescriptor),
-        ),
-        returnValueForMissingStub: _FakeExtendedDescriptor_13(
-          this,
-          Invocation.getter(#extendedDescriptor),
-        ),
-      ) as _i3.ExtendedDescriptor);
-
-  @override
-  _i3.KeyMap get keyMap => (super.noSuchMethod(
-        Invocation.getter(#keyMap),
-        returnValue: _FakeKeyMap_14(
-          this,
-          Invocation.getter(#keyMap),
-        ),
-        returnValueForMissingStub: _FakeKeyMap_14(
-          this,
-          Invocation.getter(#keyMap),
-        ),
-      ) as _i3.KeyMap);
-
-  @override
-  String toStringWithSecret({dynamic hint}) => (super.noSuchMethod(
-        Invocation.method(
-          #toStringWithSecret,
-          [],
-          {#hint: hint},
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #toStringWithSecret,
-            [],
-            {#hint: hint},
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #toStringWithSecret,
-            [],
-            {#hint: hint},
-          ),
-        ),
-      ) as String);
-
-  @override
-  BigInt maxSatisfactionWeight({dynamic hint}) => (super.noSuchMethod(
-        Invocation.method(
-          #maxSatisfactionWeight,
-          [],
-          {#hint: hint},
-        ),
-        returnValue: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #maxSatisfactionWeight,
-            [],
-            {#hint: hint},
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #maxSatisfactionWeight,
-            [],
-            {#hint: hint},
-          ),
-        ),
-      ) as BigInt);
-
-  @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #asString,
@@ -1031,466 +1152,23 @@ class MockDescriptor extends _i1.Mock implements _i2.Descriptor {
       ) as String);
 }
 
-/// A class which mocks [EsploraClient].
+/// A class which mocks [PartiallySignedTransaction].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEsploraClient extends _i1.Mock implements _i2.EsploraClient {
+class MockPartiallySignedTransaction extends _i1.Mock
+    implements _i3.PartiallySignedTransaction {
   @override
-  _i5.BlockingClient get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeBlockingClient_15(
+  _i2.MutexPartiallySignedTransaction get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeMutexPartiallySignedTransaction_11(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeBlockingClient_15(
+        returnValueForMissingStub: _FakeMutexPartiallySignedTransaction_11(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#ptr),
         ),
-      ) as _i5.BlockingClient);
-
-  @override
-  _i10.Future<void> broadcast({required _i2.Transaction? transaction}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #broadcast,
-          [],
-          {#transaction: transaction},
-        ),
-        returnValue: _i10.Future<void>.value(),
-        returnValueForMissingStub: _i10.Future<void>.value(),
-      ) as _i10.Future<void>);
-
-  @override
-  _i10.Future<_i2.Update> fullScan({
-    required _i2.FullScanRequest? request,
-    required BigInt? stopGap,
-    required BigInt? parallelRequests,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fullScan,
-          [],
-          {
-            #request: request,
-            #stopGap: stopGap,
-            #parallelRequests: parallelRequests,
-          },
-        ),
-        returnValue: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #fullScan,
-            [],
-            {
-              #request: request,
-              #stopGap: stopGap,
-              #parallelRequests: parallelRequests,
-            },
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #fullScan,
-            [],
-            {
-              #request: request,
-              #stopGap: stopGap,
-              #parallelRequests: parallelRequests,
-            },
-          ),
-        )),
-      ) as _i10.Future<_i2.Update>);
-
-  @override
-  _i10.Future<_i2.Update> sync({
-    required _i2.SyncRequest? request,
-    required BigInt? parallelRequests,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #sync,
-          [],
-          {
-            #request: request,
-            #parallelRequests: parallelRequests,
-          },
-        ),
-        returnValue: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #sync,
-            [],
-            {
-              #request: request,
-              #parallelRequests: parallelRequests,
-            },
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #sync,
-            [],
-            {
-              #request: request,
-              #parallelRequests: parallelRequests,
-            },
-          ),
-        )),
-      ) as _i10.Future<_i2.Update>);
-}
-
-/// A class which mocks [ElectrumClient].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockElectrumClient extends _i1.Mock implements _i2.ElectrumClient {
-  @override
-  _i6.BdkElectrumClientClient get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeBdkElectrumClientClient_17(
-          this,
-          Invocation.getter(#opaque),
-        ),
-        returnValueForMissingStub: _FakeBdkElectrumClientClient_17(
-          this,
-          Invocation.getter(#opaque),
-        ),
-      ) as _i6.BdkElectrumClientClient);
-
-  @override
-  _i10.Future<String> broadcast({required _i2.Transaction? transaction}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #broadcast,
-          [],
-          {#transaction: transaction},
-        ),
-        returnValue: _i10.Future<String>.value(_i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #broadcast,
-            [],
-            {#transaction: transaction},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<String>.value(_i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #broadcast,
-            [],
-            {#transaction: transaction},
-          ),
-        )),
-      ) as _i10.Future<String>);
-
-  @override
-  _i10.Future<_i2.Update> fullScan({
-    required _i7.FfiFullScanRequest? request,
-    required BigInt? stopGap,
-    required BigInt? batchSize,
-    required bool? fetchPrevTxouts,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fullScan,
-          [],
-          {
-            #request: request,
-            #stopGap: stopGap,
-            #batchSize: batchSize,
-            #fetchPrevTxouts: fetchPrevTxouts,
-          },
-        ),
-        returnValue: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #fullScan,
-            [],
-            {
-              #request: request,
-              #stopGap: stopGap,
-              #batchSize: batchSize,
-              #fetchPrevTxouts: fetchPrevTxouts,
-            },
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #fullScan,
-            [],
-            {
-              #request: request,
-              #stopGap: stopGap,
-              #batchSize: batchSize,
-              #fetchPrevTxouts: fetchPrevTxouts,
-            },
-          ),
-        )),
-      ) as _i10.Future<_i2.Update>);
-
-  @override
-  _i10.Future<_i2.Update> sync({
-    required _i2.SyncRequest? request,
-    required BigInt? batchSize,
-    required bool? fetchPrevTxouts,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #sync,
-          [],
-          {
-            #request: request,
-            #batchSize: batchSize,
-            #fetchPrevTxouts: fetchPrevTxouts,
-          },
-        ),
-        returnValue: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #sync,
-            [],
-            {
-              #request: request,
-              #batchSize: batchSize,
-              #fetchPrevTxouts: fetchPrevTxouts,
-            },
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.Update>.value(_FakeUpdate_16(
-          this,
-          Invocation.method(
-            #sync,
-            [],
-            {
-              #request: request,
-              #batchSize: batchSize,
-              #fetchPrevTxouts: fetchPrevTxouts,
-            },
-          ),
-        )),
-      ) as _i10.Future<_i2.Update>);
-}
-
-/// A class which mocks [FeeRate].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFeeRate extends _i1.Mock implements _i2.FeeRate {
-  @override
-  BigInt get satKwu => (super.noSuchMethod(
-        Invocation.getter(#satKwu),
-        returnValue: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.getter(#satKwu),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.getter(#satKwu),
-        ),
-      ) as BigInt);
-}
-
-/// A class which mocks [FullScanRequestBuilder].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFullScanRequestBuilder extends _i1.Mock
-    implements _i2.FullScanRequestBuilder {
-  @override
-  _i7.MutexOptionFullScanRequestBuilderKeychainKind get field0 =>
-      (super.noSuchMethod(
-        Invocation.getter(#field0),
-        returnValue: _FakeMutexOptionFullScanRequestBuilderKeychainKind_18(
-          this,
-          Invocation.getter(#field0),
-        ),
-        returnValueForMissingStub:
-            _FakeMutexOptionFullScanRequestBuilderKeychainKind_18(
-          this,
-          Invocation.getter(#field0),
-        ),
-      ) as _i7.MutexOptionFullScanRequestBuilderKeychainKind);
-
-  @override
-  _i10.Future<_i2.FullScanRequestBuilder> inspectSpksForAllKeychains(
-          {required _i10.FutureOr<void> Function(
-            _i2.KeychainKind,
-            int,
-            _i2.ScriptBuf,
-          )? inspector}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #inspectSpksForAllKeychains,
-          [],
-          {#inspector: inspector},
-        ),
-        returnValue: _i10.Future<_i2.FullScanRequestBuilder>.value(
-            _FakeFullScanRequestBuilder_19(
-          this,
-          Invocation.method(
-            #inspectSpksForAllKeychains,
-            [],
-            {#inspector: inspector},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i2.FullScanRequestBuilder>.value(
-                _FakeFullScanRequestBuilder_19(
-          this,
-          Invocation.method(
-            #inspectSpksForAllKeychains,
-            [],
-            {#inspector: inspector},
-          ),
-        )),
-      ) as _i10.Future<_i2.FullScanRequestBuilder>);
-
-  @override
-  _i10.Future<_i2.FullScanRequest> build() => (super.noSuchMethod(
-        Invocation.method(
-          #build,
-          [],
-        ),
-        returnValue:
-            _i10.Future<_i2.FullScanRequest>.value(_FakeFullScanRequest_20(
-          this,
-          Invocation.method(
-            #build,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i2.FullScanRequest>.value(_FakeFullScanRequest_20(
-          this,
-          Invocation.method(
-            #build,
-            [],
-          ),
-        )),
-      ) as _i10.Future<_i2.FullScanRequest>);
-}
-
-/// A class which mocks [FullScanRequest].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFullScanRequest extends _i1.Mock implements _i2.FullScanRequest {
-  @override
-  _i6.MutexOptionFullScanRequestKeychainKind get field0 => (super.noSuchMethod(
-        Invocation.getter(#field0),
-        returnValue: _FakeMutexOptionFullScanRequestKeychainKind_21(
-          this,
-          Invocation.getter(#field0),
-        ),
-        returnValueForMissingStub:
-            _FakeMutexOptionFullScanRequestKeychainKind_21(
-          this,
-          Invocation.getter(#field0),
-        ),
-      ) as _i6.MutexOptionFullScanRequestKeychainKind);
-}
-
-/// A class which mocks [LocalOutput].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockLocalOutput extends _i1.Mock implements _i2.LocalOutput {
-  @override
-  _i2.OutPoint get outpoint => (super.noSuchMethod(
-        Invocation.getter(#outpoint),
-        returnValue: _FakeOutPoint_22(
-          this,
-          Invocation.getter(#outpoint),
-        ),
-        returnValueForMissingStub: _FakeOutPoint_22(
-          this,
-          Invocation.getter(#outpoint),
-        ),
-      ) as _i2.OutPoint);
-
-  @override
-  _i8.TxOut get txout => (super.noSuchMethod(
-        Invocation.getter(#txout),
-        returnValue: _FakeTxOut_23(
-          this,
-          Invocation.getter(#txout),
-        ),
-        returnValueForMissingStub: _FakeTxOut_23(
-          this,
-          Invocation.getter(#txout),
-        ),
-      ) as _i8.TxOut);
-
-  @override
-  _i2.KeychainKind get keychain => (super.noSuchMethod(
-        Invocation.getter(#keychain),
-        returnValue: _i2.KeychainKind.externalChain,
-        returnValueForMissingStub: _i2.KeychainKind.externalChain,
-      ) as _i2.KeychainKind);
-
-  @override
-  bool get isSpent => (super.noSuchMethod(
-        Invocation.getter(#isSpent),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-}
-
-/// A class which mocks [Mnemonic].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMnemonic extends _i1.Mock implements _i2.Mnemonic {
-  @override
-  _i3.Mnemonic get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeMnemonic_24(
-          this,
-          Invocation.getter(#opaque),
-        ),
-        returnValueForMissingStub: _FakeMnemonic_24(
-          this,
-          Invocation.getter(#opaque),
-        ),
-      ) as _i3.Mnemonic);
-
-  @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [PSBT].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockPSBT extends _i1.Mock implements _i2.PSBT {
-  @override
-  _i3.MutexPsbt get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeMutexPsbt_25(
-          this,
-          Invocation.getter(#opaque),
-        ),
-        returnValueForMissingStub: _FakeMutexPsbt_25(
-          this,
-          Invocation.getter(#opaque),
-        ),
-      ) as _i3.MutexPsbt);
+      ) as _i2.MutexPartiallySignedTransaction);
 
   @override
   String jsonSerialize({dynamic hint}) => (super.noSuchMethod(
@@ -1499,7 +1177,7 @@ class MockPSBT extends _i1.Mock implements _i2.PSBT {
           [],
           {#hint: hint},
         ),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #jsonSerialize,
@@ -1507,7 +1185,7 @@ class MockPSBT extends _i1.Mock implements _i2.PSBT {
             {#hint: hint},
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.method(
             #jsonSerialize,
@@ -1518,306 +1196,125 @@ class MockPSBT extends _i1.Mock implements _i2.PSBT {
       ) as String);
 
   @override
-  _i11.Uint8List serialize({dynamic hint}) => (super.noSuchMethod(
+  _i7.Uint8List serialize({dynamic hint}) => (super.noSuchMethod(
         Invocation.method(
           #serialize,
           [],
           {#hint: hint},
         ),
-        returnValue: _i11.Uint8List(0),
-        returnValueForMissingStub: _i11.Uint8List(0),
-      ) as _i11.Uint8List);
+        returnValue: _i7.Uint8List(0),
+        returnValueForMissingStub: _i7.Uint8List(0),
+      ) as _i7.Uint8List);
 
   @override
-  _i2.Transaction extractTx() => (super.noSuchMethod(
+  _i3.Transaction extractTx() => (super.noSuchMethod(
         Invocation.method(
           #extractTx,
           [],
         ),
-        returnValue: _FakeTransaction_7(
+        returnValue: _FakeTransaction_12(
           this,
           Invocation.method(
             #extractTx,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTransaction_7(
+        returnValueForMissingStub: _FakeTransaction_12(
           this,
           Invocation.method(
             #extractTx,
             [],
           ),
-        ),
-      ) as _i2.Transaction);
-
-  @override
-  _i10.Future<_i2.PSBT> combine(_i2.PSBT? other) => (super.noSuchMethod(
-        Invocation.method(
-          #combine,
-          [other],
-        ),
-        returnValue: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #combine,
-            [other],
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #combine,
-            [other],
-          ),
-        )),
-      ) as _i10.Future<_i2.PSBT>);
-
-  @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [ScriptBuf].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockScriptBuf extends _i1.Mock implements _i2.ScriptBuf {
-  @override
-  _i11.Uint8List get bytes => (super.noSuchMethod(
-        Invocation.getter(#bytes),
-        returnValue: _i11.Uint8List(0),
-        returnValueForMissingStub: _i11.Uint8List(0),
-      ) as _i11.Uint8List);
-
-  @override
-  String asString() => (super.noSuchMethod(
-        Invocation.method(
-          #asString,
-          [],
-        ),
-        returnValue: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
-          this,
-          Invocation.method(
-            #asString,
-            [],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [Transaction].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockTransaction extends _i1.Mock implements _i2.Transaction {
-  @override
-  _i3.Transaction get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeTransaction_26(
-          this,
-          Invocation.getter(#opaque),
-        ),
-        returnValueForMissingStub: _FakeTransaction_26(
-          this,
-          Invocation.getter(#opaque),
         ),
       ) as _i3.Transaction);
 
   @override
-  String computeTxid() => (super.noSuchMethod(
+  _i4.Future<_i3.PartiallySignedTransaction> combine(
+          _i3.PartiallySignedTransaction? other) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #computeTxid,
-          [],
+          #combine,
+          [other],
         ),
-        returnValue: _i9.dummyValue<String>(
+        returnValue: _i4.Future<_i3.PartiallySignedTransaction>.value(
+            _FakePartiallySignedTransaction_13(
           this,
           Invocation.method(
-            #computeTxid,
+            #combine,
+            [other],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i3.PartiallySignedTransaction>.value(
+                _FakePartiallySignedTransaction_13(
+          this,
+          Invocation.method(
+            #combine,
+            [other],
+          ),
+        )),
+      ) as _i4.Future<_i3.PartiallySignedTransaction>);
+
+  @override
+  String txid({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #txid,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #txid,
             [],
+            {#hint: hint},
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.method(
-            #computeTxid,
+            #txid,
             [],
+            {#hint: hint},
           ),
         ),
       ) as String);
 
   @override
-  List<_i8.TxIn> input() => (super.noSuchMethod(
+  String asString() => (super.noSuchMethod(
         Invocation.method(
-          #input,
+          #asString,
           [],
         ),
-        returnValue: <_i8.TxIn>[],
-        returnValueForMissingStub: <_i8.TxIn>[],
-      ) as List<_i8.TxIn>);
-
-  @override
-  bool isCoinbase() => (super.noSuchMethod(
-        Invocation.method(
-          #isCoinbase,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  bool isExplicitlyRbf() => (super.noSuchMethod(
-        Invocation.method(
-          #isExplicitlyRbf,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  bool isLockTimeEnabled() => (super.noSuchMethod(
-        Invocation.method(
-          #isLockTimeEnabled,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  _i7.LockTime lockTime() => (super.noSuchMethod(
-        Invocation.method(
-          #lockTime,
-          [],
-        ),
-        returnValue: _i9.dummyValue<_i7.LockTime>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.method(
-            #lockTime,
+            #asString,
             [],
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<_i7.LockTime>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.method(
-            #lockTime,
+            #asString,
             [],
           ),
         ),
-      ) as _i7.LockTime);
-
-  @override
-  List<_i8.TxOut> output() => (super.noSuchMethod(
-        Invocation.method(
-          #output,
-          [],
-        ),
-        returnValue: <_i8.TxOut>[],
-        returnValueForMissingStub: <_i8.TxOut>[],
-      ) as List<_i8.TxOut>);
-
-  @override
-  _i11.Uint8List serialize() => (super.noSuchMethod(
-        Invocation.method(
-          #serialize,
-          [],
-        ),
-        returnValue: _i11.Uint8List(0),
-        returnValueForMissingStub: _i11.Uint8List(0),
-      ) as _i11.Uint8List);
-
-  @override
-  int version() => (super.noSuchMethod(
-        Invocation.method(
-          #version,
-          [],
-        ),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  BigInt vsize() => (super.noSuchMethod(
-        Invocation.method(
-          #vsize,
-          [],
-        ),
-        returnValue: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #vsize,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #vsize,
-            [],
-          ),
-        ),
-      ) as BigInt);
-
-  @override
-  _i10.Future<BigInt> weight() => (super.noSuchMethod(
-        Invocation.method(
-          #weight,
-          [],
-        ),
-        returnValue: _i10.Future<BigInt>.value(_i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #weight,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<BigInt>.value(_i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #weight,
-            [],
-          ),
-        )),
-      ) as _i10.Future<BigInt>);
+      ) as String);
 }
 
 /// A class which mocks [TxBuilder].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
+class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
   @override
-  _i2.TxBuilder addData({required List<int>? data}) => (super.noSuchMethod(
+  _i3.TxBuilder addData({required List<int>? data}) => (super.noSuchMethod(
         Invocation.method(
           #addData,
           [],
           {#data: data},
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addData,
@@ -1825,7 +1322,7 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             {#data: data},
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addData,
@@ -1833,11 +1330,11 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             {#data: data},
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder addRecipient(
-    _i2.ScriptBuf? script,
+  _i3.TxBuilder addRecipient(
+    _i3.ScriptBuf? script,
     BigInt? amount,
   ) =>
       (super.noSuchMethod(
@@ -1848,7 +1345,7 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             amount,
           ],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addRecipient,
@@ -1858,7 +1355,7 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             ],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addRecipient,
@@ -1868,621 +1365,842 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
             ],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder unSpendable(List<_i2.OutPoint>? outpoints) =>
+  _i3.TxBuilder unSpendable(List<_i3.OutPoint>? outpoints) =>
       (super.noSuchMethod(
         Invocation.method(
           #unSpendable,
           [outpoints],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #unSpendable,
             [outpoints],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #unSpendable,
             [outpoints],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder addUtxo(_i2.OutPoint? outpoint) => (super.noSuchMethod(
+  _i3.TxBuilder addUtxo(_i3.OutPoint? outpoint) => (super.noSuchMethod(
         Invocation.method(
           #addUtxo,
           [outpoint],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUtxo,
             [outpoint],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUtxo,
             [outpoint],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder addUtxos(List<_i2.OutPoint>? outpoints) => (super.noSuchMethod(
+  _i3.TxBuilder addUtxos(List<_i3.OutPoint>? outpoints) => (super.noSuchMethod(
         Invocation.method(
           #addUtxos,
           [outpoints],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUtxos,
             [outpoints],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUtxos,
             [outpoints],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder doNotSpendChange() => (super.noSuchMethod(
+  _i3.TxBuilder addForeignUtxo(
+    _i3.Input? psbtInput,
+    _i3.OutPoint? outPoint,
+    BigInt? satisfactionWeight,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addForeignUtxo,
+          [
+            psbtInput,
+            outPoint,
+            satisfactionWeight,
+          ],
+        ),
+        returnValue: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #addForeignUtxo,
+            [
+              psbtInput,
+              outPoint,
+              satisfactionWeight,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #addForeignUtxo,
+            [
+              psbtInput,
+              outPoint,
+              satisfactionWeight,
+            ],
+          ),
+        ),
+      ) as _i3.TxBuilder);
+
+  @override
+  _i3.TxBuilder doNotSpendChange() => (super.noSuchMethod(
         Invocation.method(
           #doNotSpendChange,
           [],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #doNotSpendChange,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #doNotSpendChange,
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder drainWallet() => (super.noSuchMethod(
+  _i3.TxBuilder drainWallet() => (super.noSuchMethod(
         Invocation.method(
           #drainWallet,
           [],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #drainWallet,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #drainWallet,
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder drainTo(_i2.ScriptBuf? script) => (super.noSuchMethod(
+  _i3.TxBuilder drainTo(_i3.ScriptBuf? script) => (super.noSuchMethod(
         Invocation.method(
           #drainTo,
           [script],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #drainTo,
             [script],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #drainTo,
             [script],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder enableRbfWithSequence(int? nSequence) => (super.noSuchMethod(
+  _i3.TxBuilder enableRbfWithSequence(int? nSequence) => (super.noSuchMethod(
         Invocation.method(
           #enableRbfWithSequence,
           [nSequence],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #enableRbfWithSequence,
             [nSequence],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #enableRbfWithSequence,
             [nSequence],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder enableRbf() => (super.noSuchMethod(
+  _i3.TxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
           #enableRbf,
           [],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #enableRbf,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #enableRbf,
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder feeAbsolute(BigInt? feeAmount) => (super.noSuchMethod(
+  _i3.TxBuilder feeAbsolute(BigInt? feeAmount) => (super.noSuchMethod(
         Invocation.method(
           #feeAbsolute,
           [feeAmount],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #feeAbsolute,
             [feeAmount],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #feeAbsolute,
             [feeAmount],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder feeRate(_i2.FeeRate? satPerVbyte) => (super.noSuchMethod(
+  _i3.TxBuilder feeRate(double? satPerVbyte) => (super.noSuchMethod(
         Invocation.method(
           #feeRate,
           [satPerVbyte],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #feeRate,
             [satPerVbyte],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #feeRate,
             [satPerVbyte],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder manuallySelectedOnly() => (super.noSuchMethod(
+  _i3.TxBuilder setRecipients(List<_i3.ScriptAmount>? recipients) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setRecipients,
+          [recipients],
+        ),
+        returnValue: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #setRecipients,
+            [recipients],
+          ),
+        ),
+        returnValueForMissingStub: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #setRecipients,
+            [recipients],
+          ),
+        ),
+      ) as _i3.TxBuilder);
+
+  @override
+  _i3.TxBuilder manuallySelectedOnly() => (super.noSuchMethod(
         Invocation.method(
           #manuallySelectedOnly,
           [],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #manuallySelectedOnly,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #manuallySelectedOnly,
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder addUnSpendable(_i2.OutPoint? unSpendable) =>
+  _i3.TxBuilder addUnSpendable(_i3.OutPoint? unSpendable) =>
       (super.noSuchMethod(
         Invocation.method(
           #addUnSpendable,
           [unSpendable],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUnSpendable,
             [unSpendable],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #addUnSpendable,
             [unSpendable],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i2.TxBuilder onlySpendChange() => (super.noSuchMethod(
+  _i3.TxBuilder onlySpendChange() => (super.noSuchMethod(
         Invocation.method(
           #onlySpendChange,
           [],
         ),
-        returnValue: _FakeTxBuilder_27(
+        returnValue: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #onlySpendChange,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeTxBuilder_27(
+        returnValueForMissingStub: _FakeTxBuilder_14(
           this,
           Invocation.method(
             #onlySpendChange,
             [],
           ),
         ),
-      ) as _i2.TxBuilder);
+      ) as _i3.TxBuilder);
 
   @override
-  _i10.Future<_i2.PSBT> finish(_i2.Wallet? wallet) => (super.noSuchMethod(
+  _i4.Future<(_i3.PartiallySignedTransaction, _i3.TransactionDetails)> finish(
+          _i3.Wallet? wallet) =>
+      (super.noSuchMethod(
         Invocation.method(
           #finish,
           [wallet],
         ),
-        returnValue: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #finish,
-            [wallet],
+        returnValue: _i4.Future<
+            (_i3.PartiallySignedTransaction, _i3.TransactionDetails)>.value((
+          _FakePartiallySignedTransaction_13(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
           ),
+          _FakeTransactionDetails_15(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
+          )
         )),
-        returnValueForMissingStub: _i10.Future<_i2.PSBT>.value(_FakePSBT_5(
-          this,
-          Invocation.method(
-            #finish,
-            [wallet],
+        returnValueForMissingStub: _i4.Future<
+            (_i3.PartiallySignedTransaction, _i3.TransactionDetails)>.value((
+          _FakePartiallySignedTransaction_13(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
           ),
+          _FakeTransactionDetails_15(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
+          )
         )),
-      ) as _i10.Future<_i2.PSBT>);
+      ) as _i4
+          .Future<(_i3.PartiallySignedTransaction, _i3.TransactionDetails)>);
 }
 
-/// A class which mocks [Wallet].
+/// A class which mocks [BumpFeeTxBuilder].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWallet extends _i1.Mock implements _i2.Wallet {
+class MockBumpFeeTxBuilder extends _i1.Mock implements _i3.BumpFeeTxBuilder {
   @override
-  _i3.MutexPersistedWalletConnection get opaque => (super.noSuchMethod(
-        Invocation.getter(#opaque),
-        returnValue: _FakeMutexPersistedWalletConnection_28(
+  String get txid => (super.noSuchMethod(
+        Invocation.getter(#txid),
+        returnValue: _i6.dummyValue<String>(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#txid),
         ),
-        returnValueForMissingStub: _FakeMutexPersistedWalletConnection_28(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
-          Invocation.getter(#opaque),
+          Invocation.getter(#txid),
         ),
-      ) as _i3.MutexPersistedWalletConnection);
+      ) as String);
 
   @override
-  _i2.AddressInfo revealNextAddress(
-          {required _i2.KeychainKind? keychainKind}) =>
+  double get feeRate => (super.noSuchMethod(
+        Invocation.getter(#feeRate),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
+
+  @override
+  _i3.BumpFeeTxBuilder allowShrinking(_i3.Address? address) =>
       (super.noSuchMethod(
         Invocation.method(
-          #revealNextAddress,
-          [],
-          {#keychainKind: keychainKind},
+          #allowShrinking,
+          [address],
         ),
-        returnValue: _FakeAddressInfo_29(
+        returnValue: _FakeBumpFeeTxBuilder_16(
           this,
           Invocation.method(
-            #revealNextAddress,
-            [],
-            {#keychainKind: keychainKind},
+            #allowShrinking,
+            [address],
           ),
         ),
-        returnValueForMissingStub: _FakeAddressInfo_29(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
           this,
           Invocation.method(
-            #revealNextAddress,
-            [],
-            {#keychainKind: keychainKind},
+            #allowShrinking,
+            [address],
           ),
         ),
-      ) as _i2.AddressInfo);
+      ) as _i3.BumpFeeTxBuilder);
 
   @override
-  _i2.Balance getBalance({dynamic hint}) => (super.noSuchMethod(
+  _i3.BumpFeeTxBuilder enableRbf() => (super.noSuchMethod(
         Invocation.method(
-          #getBalance,
+          #enableRbf,
           [],
-          {#hint: hint},
         ),
-        returnValue: _FakeBalance_30(
+        returnValue: _FakeBumpFeeTxBuilder_16(
           this,
           Invocation.method(
-            #getBalance,
+            #enableRbf,
             [],
-            {#hint: hint},
           ),
         ),
-        returnValueForMissingStub: _FakeBalance_30(
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
           this,
           Invocation.method(
-            #getBalance,
+            #enableRbf,
             [],
-            {#hint: hint},
           ),
         ),
-      ) as _i2.Balance);
+      ) as _i3.BumpFeeTxBuilder);
 
   @override
-  List<_i2.CanonicalTx> transactions() => (super.noSuchMethod(
-        Invocation.method(
-          #transactions,
-          [],
-        ),
-        returnValue: <_i2.CanonicalTx>[],
-        returnValueForMissingStub: <_i2.CanonicalTx>[],
-      ) as List<_i2.CanonicalTx>);
-
-  @override
-  _i2.CanonicalTx? getTx({required String? txid}) => (super.noSuchMethod(
-        Invocation.method(
-          #getTx,
-          [],
-          {#txid: txid},
-        ),
-        returnValueForMissingStub: null,
-      ) as _i2.CanonicalTx?);
-
-  @override
-  List<_i2.LocalOutput> listUnspent({dynamic hint}) => (super.noSuchMethod(
-        Invocation.method(
-          #listUnspent,
-          [],
-          {#hint: hint},
-        ),
-        returnValue: <_i2.LocalOutput>[],
-        returnValueForMissingStub: <_i2.LocalOutput>[],
-      ) as List<_i2.LocalOutput>);
-
-  @override
-  List<_i2.LocalOutput> listOutput() => (super.noSuchMethod(
-        Invocation.method(
-          #listOutput,
-          [],
-        ),
-        returnValue: <_i2.LocalOutput>[],
-        returnValueForMissingStub: <_i2.LocalOutput>[],
-      ) as List<_i2.LocalOutput>);
-
-  @override
-  _i2.Policy? policies(_i2.KeychainKind? keychainKind) => (super.noSuchMethod(
-        Invocation.method(
-          #policies,
-          [keychainKind],
-        ),
-        returnValueForMissingStub: null,
-      ) as _i2.Policy?);
-
-  @override
-  _i10.Future<bool> sign({
-    required _i2.PSBT? psbt,
-    _i2.SignOptions? signOptions,
-  }) =>
+  _i3.BumpFeeTxBuilder enableRbfWithSequence(int? nSequence) =>
       (super.noSuchMethod(
         Invocation.method(
-          #sign,
-          [],
-          {
-            #psbt: psbt,
-            #signOptions: signOptions,
-          },
+          #enableRbfWithSequence,
+          [nSequence],
         ),
-        returnValue: _i10.Future<bool>.value(false),
-        returnValueForMissingStub: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _FakeBumpFeeTxBuilder_16(
+          this,
+          Invocation.method(
+            #enableRbfWithSequence,
+            [nSequence],
+          ),
+        ),
+        returnValueForMissingStub: _FakeBumpFeeTxBuilder_16(
+          this,
+          Invocation.method(
+            #enableRbfWithSequence,
+            [nSequence],
+          ),
+        ),
+      ) as _i3.BumpFeeTxBuilder);
 
   @override
-  _i10.Future<BigInt> calculateFee({required _i2.Transaction? tx}) =>
+  _i4.Future<(_i3.PartiallySignedTransaction, _i3.TransactionDetails)> finish(
+          _i3.Wallet? wallet) =>
       (super.noSuchMethod(
         Invocation.method(
-          #calculateFee,
-          [],
-          {#tx: tx},
+          #finish,
+          [wallet],
         ),
-        returnValue: _i10.Future<BigInt>.value(_i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #calculateFee,
-            [],
-            {#tx: tx},
+        returnValue: _i4.Future<
+            (_i3.PartiallySignedTransaction, _i3.TransactionDetails)>.value((
+          _FakePartiallySignedTransaction_13(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
           ),
+          _FakeTransactionDetails_15(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
+          )
         )),
-        returnValueForMissingStub:
-            _i10.Future<BigInt>.value(_i9.dummyValue<BigInt>(
-          this,
-          Invocation.method(
-            #calculateFee,
-            [],
-            {#tx: tx},
+        returnValueForMissingStub: _i4.Future<
+            (_i3.PartiallySignedTransaction, _i3.TransactionDetails)>.value((
+          _FakePartiallySignedTransaction_13(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
           ),
+          _FakeTransactionDetails_15(
+            this,
+            Invocation.method(
+              #finish,
+              [wallet],
+            ),
+          )
         )),
-      ) as _i10.Future<BigInt>);
+      ) as _i4
+          .Future<(_i3.PartiallySignedTransaction, _i3.TransactionDetails)>);
+}
+
+/// A class which mocks [ScriptBuf].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockScriptBuf extends _i1.Mock implements _i3.ScriptBuf {
+  @override
+  _i7.Uint8List get bytes => (super.noSuchMethod(
+        Invocation.getter(#bytes),
+        returnValue: _i7.Uint8List(0),
+        returnValueForMissingStub: _i7.Uint8List(0),
+      ) as _i7.Uint8List);
 
   @override
-  _i10.Future<_i2.FeeRate> calculateFeeRate({required _i2.Transaction? tx}) =>
+  String asString() => (super.noSuchMethod(
+        Invocation.method(
+          #asString,
+          [],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+      ) as String);
+}
+
+/// A class which mocks [Address].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAddress extends _i1.Mock implements _i3.Address {
+  @override
+  _i2.Address get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeAddress_17(
+          this,
+          Invocation.getter(#ptr),
+        ),
+        returnValueForMissingStub: _FakeAddress_17(
+          this,
+          Invocation.getter(#ptr),
+        ),
+      ) as _i2.Address);
+
+  @override
+  _i3.ScriptBuf scriptPubkey() => (super.noSuchMethod(
+        Invocation.method(
+          #scriptPubkey,
+          [],
+        ),
+        returnValue: _FakeScriptBuf_18(
+          this,
+          Invocation.method(
+            #scriptPubkey,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeScriptBuf_18(
+          this,
+          Invocation.method(
+            #scriptPubkey,
+            [],
+          ),
+        ),
+      ) as _i3.ScriptBuf);
+
+  @override
+  String toQrUri() => (super.noSuchMethod(
+        Invocation.method(
+          #toQrUri,
+          [],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #toQrUri,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #toQrUri,
+            [],
+          ),
+        ),
+      ) as String);
+
+  @override
+  bool isValidForNetwork({required _i3.Network? network}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #calculateFeeRate,
+          #isValidForNetwork,
           [],
-          {#tx: tx},
-        ),
-        returnValue: _i10.Future<_i2.FeeRate>.value(_FakeFeeRate_3(
-          this,
-          Invocation.method(
-            #calculateFeeRate,
-            [],
-            {#tx: tx},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i2.FeeRate>.value(_FakeFeeRate_3(
-          this,
-          Invocation.method(
-            #calculateFeeRate,
-            [],
-            {#tx: tx},
-          ),
-        )),
-      ) as _i10.Future<_i2.FeeRate>);
-
-  @override
-  _i10.Future<_i2.FullScanRequestBuilder> startFullScan() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #startFullScan,
-          [],
-        ),
-        returnValue: _i10.Future<_i2.FullScanRequestBuilder>.value(
-            _FakeFullScanRequestBuilder_19(
-          this,
-          Invocation.method(
-            #startFullScan,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i2.FullScanRequestBuilder>.value(
-                _FakeFullScanRequestBuilder_19(
-          this,
-          Invocation.method(
-            #startFullScan,
-            [],
-          ),
-        )),
-      ) as _i10.Future<_i2.FullScanRequestBuilder>);
-
-  @override
-  _i10.Future<_i2.SyncRequestBuilder> startSyncWithRevealedSpks() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #startSyncWithRevealedSpks,
-          [],
-        ),
-        returnValue: _i10.Future<_i2.SyncRequestBuilder>.value(
-            _FakeSyncRequestBuilder_31(
-          this,
-          Invocation.method(
-            #startSyncWithRevealedSpks,
-            [],
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.SyncRequestBuilder>.value(
-            _FakeSyncRequestBuilder_31(
-          this,
-          Invocation.method(
-            #startSyncWithRevealedSpks,
-            [],
-          ),
-        )),
-      ) as _i10.Future<_i2.SyncRequestBuilder>);
-
-  @override
-  _i10.Future<bool> persist({required _i2.Connection? connection}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #persist,
-          [],
-          {#connection: connection},
-        ),
-        returnValue: _i10.Future<bool>.value(false),
-        returnValueForMissingStub: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
-
-  @override
-  _i10.Future<void> applyUpdate({required _i7.FfiUpdate? update}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #applyUpdate,
-          [],
-          {#update: update},
-        ),
-        returnValue: _i10.Future<void>.value(),
-        returnValueForMissingStub: _i10.Future<void>.value(),
-      ) as _i10.Future<void>);
-
-  @override
-  bool isMine({required _i8.FfiScriptBuf? script}) => (super.noSuchMethod(
-        Invocation.method(
-          #isMine,
-          [],
-          {#script: script},
+          {#network: network},
         ),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i2.Network network() => (super.noSuchMethod(
+  _i3.Network network() => (super.noSuchMethod(
         Invocation.method(
           #network,
           [],
         ),
-        returnValue: _i2.Network.testnet,
-        returnValueForMissingStub: _i2.Network.testnet,
-      ) as _i2.Network);
+        returnValue: _i3.Network.testnet,
+        returnValueForMissingStub: _i3.Network.testnet,
+      ) as _i3.Network);
+
+  @override
+  _i3.Payload payload() => (super.noSuchMethod(
+        Invocation.method(
+          #payload,
+          [],
+        ),
+        returnValue: _i6.dummyValue<_i3.Payload>(
+          this,
+          Invocation.method(
+            #payload,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<_i3.Payload>(
+          this,
+          Invocation.method(
+            #payload,
+            [],
+          ),
+        ),
+      ) as _i3.Payload);
+
+  @override
+  String asString() => (super.noSuchMethod(
+        Invocation.method(
+          #asString,
+          [],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+      ) as String);
 }
 
-/// A class which mocks [Update].
+/// A class which mocks [DerivationPath].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUpdate extends _i1.Mock implements _i2.Update {
+class MockDerivationPath extends _i1.Mock implements _i3.DerivationPath {
   @override
-  _i6.Update get field0 => (super.noSuchMethod(
-        Invocation.getter(#field0),
-        returnValue: _FakeUpdate_32(
+  _i2.DerivationPath get ptr => (super.noSuchMethod(
+        Invocation.getter(#ptr),
+        returnValue: _FakeDerivationPath_19(
           this,
-          Invocation.getter(#field0),
+          Invocation.getter(#ptr),
         ),
-        returnValueForMissingStub: _FakeUpdate_32(
+        returnValueForMissingStub: _FakeDerivationPath_19(
           this,
-          Invocation.getter(#field0),
+          Invocation.getter(#ptr),
         ),
-      ) as _i6.Update);
+      ) as _i2.DerivationPath);
+
+  @override
+  String asString() => (super.noSuchMethod(
+        Invocation.method(
+          #asString,
+          [],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #asString,
+            [],
+          ),
+        ),
+      ) as String);
+}
+
+/// A class which mocks [FeeRate].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFeeRate extends _i1.Mock implements _i3.FeeRate {
+  @override
+  double get satPerVb => (super.noSuchMethod(
+        Invocation.getter(#satPerVb),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
+}
+
+/// A class which mocks [LocalUtxo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalUtxo extends _i1.Mock implements _i3.LocalUtxo {
+  @override
+  _i3.OutPoint get outpoint => (super.noSuchMethod(
+        Invocation.getter(#outpoint),
+        returnValue: _FakeOutPoint_20(
+          this,
+          Invocation.getter(#outpoint),
+        ),
+        returnValueForMissingStub: _FakeOutPoint_20(
+          this,
+          Invocation.getter(#outpoint),
+        ),
+      ) as _i3.OutPoint);
+
+  @override
+  _i3.TxOut get txout => (super.noSuchMethod(
+        Invocation.getter(#txout),
+        returnValue: _FakeTxOut_21(
+          this,
+          Invocation.getter(#txout),
+        ),
+        returnValueForMissingStub: _FakeTxOut_21(
+          this,
+          Invocation.getter(#txout),
+        ),
+      ) as _i3.TxOut);
+
+  @override
+  _i3.KeychainKind get keychain => (super.noSuchMethod(
+        Invocation.getter(#keychain),
+        returnValue: _i3.KeychainKind.externalChain,
+        returnValueForMissingStub: _i3.KeychainKind.externalChain,
+      ) as _i3.KeychainKind);
+
+  @override
+  bool get isSpent => (super.noSuchMethod(
+        Invocation.getter(#isSpent),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+}
+
+/// A class which mocks [TransactionDetails].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransactionDetails extends _i1.Mock
+    implements _i3.TransactionDetails {
+  @override
+  String get txid => (super.noSuchMethod(
+        Invocation.getter(#txid),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#txid),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#txid),
+        ),
+      ) as String);
+
+  @override
+  BigInt get received => (super.noSuchMethod(
+        Invocation.getter(#received),
+        returnValue: _i6.dummyValue<BigInt>(
+          this,
+          Invocation.getter(#received),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<BigInt>(
+          this,
+          Invocation.getter(#received),
+        ),
+      ) as BigInt);
+
+  @override
+  BigInt get sent => (super.noSuchMethod(
+        Invocation.getter(#sent),
+        returnValue: _i6.dummyValue<BigInt>(
+          this,
+          Invocation.getter(#sent),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<BigInt>(
+          this,
+          Invocation.getter(#sent),
+        ),
+      ) as BigInt);
 }

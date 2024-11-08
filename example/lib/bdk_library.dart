@@ -7,105 +7,70 @@ class BdkLibrary {
     return res;
   }
 
-  Future<List<Descriptor>> createDescriptor(Mnemonic mnemonic) async {
+  Future<Descriptor> createDescriptor(Mnemonic mnemonic) async {
     final descriptorSecretKey = await DescriptorSecretKey.create(
       network: Network.signet,
       mnemonic: mnemonic,
     );
+    if (kDebugMode) {
+      print(descriptorSecretKey.toPublic());
+      print(descriptorSecretKey.secretBytes());
+      print(descriptorSecretKey);
+    }
+
     final descriptor = await Descriptor.newBip84(
         secretKey: descriptorSecretKey,
         network: Network.signet,
         keychain: KeychainKind.externalChain);
-    final changeDescriptor = await Descriptor.newBip84(
-        secretKey: descriptorSecretKey,
-        network: Network.signet,
-        keychain: KeychainKind.internalChain);
-    return [descriptor, changeDescriptor];
+    return descriptor;
   }
 
-  Future<EsploraClient> initializeBlockchain() async {
-    return EsploraClient.createMutinynet();
+  Future<Blockchain> initializeBlockchain() async {
+    return Blockchain.createMutinynet();
   }
 
-  Future<Wallet> crateOrLoadWallet(Descriptor descriptor,
-      Descriptor changeDescriptor, Connection connection) async {
+  Future<Wallet> restoreWallet(Descriptor descriptor) async {
+    final wallet = await Wallet.create(
+        descriptor: descriptor,
+        network: Network.testnet,
+        databaseConfig: const DatabaseConfig.memory());
+    return wallet;
+  }
+
+  Future<void> sync(Blockchain blockchain, Wallet wallet) async {
     try {
-      final wallet = await Wallet.create(
-          descriptor: descriptor,
-          changeDescriptor: changeDescriptor,
-          network: Network.signet,
-          connection: connection);
-      return wallet;
-    } on CreateWithPersistException catch (e) {
-      if (e.code == "DatabaseExists") {
-        final res = await Wallet.load(
-            descriptor: descriptor,
-            changeDescriptor: changeDescriptor,
-            connection: connection);
-        return res;
-      } else {
-        rethrow;
-      }
+      await wallet.sync(blockchain: blockchain);
+    } on FormatException catch (e) {
+      debugPrint(e.message);
     }
   }
 
-  Future<void> sync(
-      EsploraClient esploraClient, Wallet wallet, bool fullScan) async {
-    try {
-      if (fullScan) {
-        final fullScanRequestBuilder = await wallet.startFullScan();
-        final fullScanRequest = await (await fullScanRequestBuilder
-                .inspectSpksForAllKeychains(inspector: (e, f, g) {
-          debugPrint(
-              "Syncing: index: ${f.toString()}, script: ${g.toString()}");
-        }))
-            .build();
-        final update = await esploraClient.fullScan(
-            request: fullScanRequest,
-            stopGap: BigInt.from(1),
-            parallelRequests: BigInt.from(1));
-        await wallet.applyUpdate(update: update);
-      } else {
-        final syncRequestBuilder = await wallet.startSyncWithRevealedSpks();
-        final syncRequest = await (await syncRequestBuilder.inspectSpks(
-                inspector: (script, progress) {
-          debugPrint(
-              "syncing spk: ${(progress.spksConsumed / (progress.spksConsumed + progress.spksRemaining)) * 100} %");
-        }))
-            .build();
-        final update = await esploraClient.sync(
-            request: syncRequest, parallelRequests: BigInt.from(1));
-        await wallet.applyUpdate(update: update);
-      }
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-    }
+  AddressInfo getAddressInfo(Wallet wallet) {
+    return wallet.getAddress(addressIndex: const AddressIndex.increase());
   }
 
-  AddressInfo revealNextAddress(Wallet wallet) {
-    return wallet.revealNextAddress(keychainKind: KeychainKind.externalChain);
+  Future<Input> getPsbtInput(
+      Wallet wallet, LocalUtxo utxo, bool onlyWitnessUtxo) async {
+    final input =
+        await wallet.getPsbtInput(utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+    return input;
   }
 
-  List<CanonicalTx> getUnConfirmedTransactions(Wallet wallet) {
-    List<CanonicalTx> unConfirmed = [];
-    final res = wallet.transactions();
+  List<TransactionDetails> getUnConfirmedTransactions(Wallet wallet) {
+    List<TransactionDetails> unConfirmed = [];
+    final res = wallet.listTransactions(includeRaw: true);
     for (var e in res) {
-      if (e.chainPosition
-          .maybeMap(orElse: () => false, unconfirmed: (_) => true)) {
-        unConfirmed.add(e);
-      }
+      if (e.confirmationTime == null) unConfirmed.add(e);
     }
     return unConfirmed;
   }
 
-  List<CanonicalTx> getConfirmedTransactions(Wallet wallet) {
-    List<CanonicalTx> confirmed = [];
-    final res = wallet.transactions();
+  List<TransactionDetails> getConfirmedTransactions(Wallet wallet) {
+    List<TransactionDetails> confirmed = [];
+    final res = wallet.listTransactions(includeRaw: true);
+
     for (var e in res) {
-      if (e.chainPosition
-          .maybeMap(orElse: () => false, confirmed: (_) => true)) {
-        confirmed.add(e);
-      }
+      if (e.confirmationTime != null) confirmed.add(e);
     }
     return confirmed;
   }
@@ -114,30 +79,39 @@ class BdkLibrary {
     return wallet.getBalance();
   }
 
-  List<LocalOutput> listUnspent(Wallet wallet) {
+  List<LocalUtxo> listUnspent(Wallet wallet) {
     return wallet.listUnspent();
   }
 
-  sendBitcoin(EsploraClient blockchain, Wallet wallet, String receiverAddress,
+  Future<FeeRate> estimateFeeRate(
+    int blocks,
+    Blockchain blockchain,
+  ) async {
+    final feeRate = await blockchain.estimateFee(target: BigInt.from(blocks));
+    return feeRate;
+  }
+
+  sendBitcoin(Blockchain blockchain, Wallet wallet, String receiverAddress,
       int amountSat) async {
     try {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
           s: receiverAddress, network: wallet.network());
-      final unspentUtxo =
-          wallet.listUnspent().firstWhere((e) => e.isSpent == false);
-      final psbt = await txBuilder
-          .addRecipient(address.script(), BigInt.from(amountSat))
-          .addUtxo(unspentUtxo.outpoint)
+      final script = address.scriptPubkey();
+      final feeRate = await estimateFeeRate(25, blockchain);
+      final (psbt, _) = await txBuilder
+          .addRecipient(script, BigInt.from(amountSat))
+          .feeRate(feeRate.satPerVb)
           .finish(wallet);
       final isFinalized = await wallet.sign(psbt: psbt);
       if (isFinalized) {
         final tx = psbt.extractTx();
-        await blockchain.broadcast(transaction: tx);
-        debugPrint(tx.computeTxid());
+        final res = await blockchain.broadcast(transaction: tx);
+        debugPrint(res);
       } else {
         debugPrint("psbt not finalized!");
       }
+      // Isolate.run(() async => {});
     } on Exception catch (_) {
       rethrow;
     }

@@ -1,5 +1,3 @@
-## [1.0.0-alpha.11]
-
 ## [0.31.2]
 Updated `flutter_rust_bridge` to `2.0.0`.
 #### APIs added
@@ -8,6 +6,9 @@ Updated `flutter_rust_bridge` to `2.0.0`.
 - `PartiallySignedTransaction`, `ScriptBuf` & `Transaction`. 
 #### Changed
 - `partiallySignedTransaction.serialize()` serialize the data as raw binary.
+#### Fixed
+- Thread `frb_workerpool` panicked on Sql database access.
+
 
 ## [0.31.2-dev.2]
 #### Fixed
