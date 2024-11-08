@@ -15,12 +15,12 @@ flutter_rust_bridge::frb_generated_boilerplate_io!();
 
 // Section: dart2rust
 
-impl CstDecode<std::collections::HashMap<String, Vec<usize>>>
-    for *mut wire_cst_list_record_string_list_prim_usize_strict
+impl CstDecode<std::collections::HashMap<String, Vec<u32>>>
+    for *mut wire_cst_list_record_string_list_prim_u_32_strict
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> std::collections::HashMap<String, Vec<usize>> {
-        let vec: Vec<(String, Vec<usize>)> = self.cst_decode();
+    fn cst_decode(self) -> std::collections::HashMap<String, Vec<u32>> {
+        let vec: Vec<(String, Vec<u32>)> = self.cst_decode();
         vec.into_iter().collect()
     }
 }
@@ -1108,15 +1108,6 @@ impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
         }
     }
 }
-impl CstDecode<Vec<usize>> for *mut wire_cst_list_prim_usize_strict {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> Vec<usize> {
-        unsafe {
-            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
-            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
-        }
-    }
-}
 impl CstDecode<Vec<(Vec<u32>, Vec<crate::api::types::Condition>)>>
     for *mut wire_cst_list_record_list_prim_u_32_strict_list_condition
 {
@@ -1129,11 +1120,9 @@ impl CstDecode<Vec<(Vec<u32>, Vec<crate::api::types::Condition>)>>
         vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
-impl CstDecode<Vec<(String, Vec<usize>)>>
-    for *mut wire_cst_list_record_string_list_prim_usize_strict
-{
+impl CstDecode<Vec<(String, Vec<u32>)>> for *mut wire_cst_list_record_string_list_prim_u_32_strict {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> Vec<(String, Vec<usize>)> {
+    fn cst_decode(self) -> Vec<(String, Vec<u32>)> {
         let vec = unsafe {
             let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
             flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -1347,9 +1336,9 @@ impl CstDecode<(crate::api::types::OutPoint, crate::api::types::Input, usize)>
         )
     }
 }
-impl CstDecode<(String, Vec<usize>)> for wire_cst_record_string_list_prim_usize_strict {
+impl CstDecode<(String, Vec<u32>)> for wire_cst_record_string_list_prim_u_32_strict {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> (String, Vec<usize>) {
+    fn cst_decode(self) -> (String, Vec<u32>) {
         (self.field0.cst_decode(), self.field1.cst_decode())
     }
 }
@@ -2079,7 +2068,7 @@ impl Default for wire_cst_record_out_point_input_usize {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_record_string_list_prim_usize_strict {
+impl NewWithNullPtr for wire_cst_record_string_list_prim_u_32_strict {
     fn new_with_null_ptr() -> Self {
         Self {
             field0: core::ptr::null_mut(),
@@ -2087,7 +2076,7 @@ impl NewWithNullPtr for wire_cst_record_string_list_prim_usize_strict {
         }
     }
 }
-impl Default for wire_cst_record_string_list_prim_usize_strict {
+impl Default for wire_cst_record_string_list_prim_u_32_strict {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -3072,8 +3061,8 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish
     drain_wallet: bool,
     drain_to: *mut wire_cst_bdk_script_buf,
     rbf: *mut wire_cst_rbf_value,
-    internal_policy_path: *mut wire_cst_list_record_string_list_prim_usize_strict,
-    external_policy_path: *mut wire_cst_list_record_string_list_prim_usize_strict,
+    internal_policy_path: *mut wire_cst_list_record_string_list_prim_u_32_strict,
+    external_policy_path: *mut wire_cst_list_record_string_list_prim_u_32_strict,
     data: *mut wire_cst_list_prim_u_8_loose,
 ) {
     wire__crate__api__wallet__tx_builder_finish_impl(
@@ -3689,17 +3678,6 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_u_8_strict(
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_list_prim_usize_strict(
-    len: i32,
-) -> *mut wire_cst_list_prim_usize_strict {
-    let ans = wire_cst_list_prim_usize_strict {
-        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
-        len,
-    };
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
-}
-
-#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition(
     len: i32,
 ) -> *mut wire_cst_list_record_list_prim_u_32_strict_list_condition {
@@ -3714,12 +3692,12 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_l
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_record_string_list_prim_u_32_strict(
     len: i32,
-) -> *mut wire_cst_list_record_string_list_prim_usize_strict {
-    let wrap = wire_cst_list_record_string_list_prim_usize_strict {
+) -> *mut wire_cst_list_record_string_list_prim_u_32_strict {
+    let wrap = wire_cst_list_record_string_list_prim_u_32_strict {
         ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
-            <wire_cst_record_string_list_prim_usize_strict>::new_with_null_ptr(),
+            <wire_cst_record_string_list_prim_u_32_strict>::new_with_null_ptr(),
             len,
         ),
         len,
@@ -4496,20 +4474,14 @@ pub struct wire_cst_list_prim_u_8_strict {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_list_prim_usize_strict {
-    ptr: *mut usize,
-    len: i32,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
 pub struct wire_cst_list_record_list_prim_u_32_strict_list_condition {
     ptr: *mut wire_cst_record_list_prim_u_32_strict_list_condition,
     len: i32,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_list_record_string_list_prim_usize_strict {
-    ptr: *mut wire_cst_record_string_list_prim_usize_strict,
+pub struct wire_cst_list_record_string_list_prim_u_32_strict {
+    ptr: *mut wire_cst_record_string_list_prim_u_32_strict,
     len: i32,
 }
 #[repr(C)]
@@ -4687,9 +4659,9 @@ pub struct wire_cst_record_out_point_input_usize {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_record_string_list_prim_usize_strict {
+pub struct wire_cst_record_string_list_prim_u_32_strict {
     field0: *mut wire_cst_list_prim_u_8_strict,
-    field1: *mut wire_cst_list_prim_usize_strict,
+    field1: *mut wire_cst_list_prim_u_32_strict,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]

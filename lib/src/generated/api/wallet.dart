@@ -42,8 +42,8 @@ Future<(BdkPsbt, TransactionDetails)> txBuilderFinish(
         required bool drainWallet,
         BdkScriptBuf? drainTo,
         RbfValue? rbf,
-        Map<String, Uint64List>? internalPolicyPath,
-        Map<String, Uint64List>? externalPolicyPath,
+        Map<String, Uint32List>? internalPolicyPath,
+        Map<String, Uint32List>? externalPolicyPath,
         required List<int> data}) =>
     core.instance.api.crateApiWalletTxBuilderFinish(
         wallet: wallet,

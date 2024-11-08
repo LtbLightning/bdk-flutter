@@ -363,8 +363,8 @@ abstract class coreApi extends BaseApi {
       required bool drainWallet,
       BdkScriptBuf? drainTo,
       RbfValue? rbf,
-      Map<String, Uint64List>? internalPolicyPath,
-      Map<String, Uint64List>? externalPolicyPath,
+      Map<String, Uint32List>? internalPolicyPath,
+      Map<String, Uint32List>? externalPolicyPath,
       required List<int> data});
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Address;
@@ -2755,8 +2755,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       required bool drainWallet,
       BdkScriptBuf? drainTo,
       RbfValue? rbf,
-      Map<String, Uint64List>? internalPolicyPath,
-      Map<String, Uint64List>? externalPolicyPath,
+      Map<String, Uint32List>? internalPolicyPath,
+      Map<String, Uint32List>? externalPolicyPath,
       required List<int> data}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -2773,10 +2773,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         var arg9 = cst_encode_bool(drainWallet);
         var arg10 = cst_encode_opt_box_autoadd_bdk_script_buf(drainTo);
         var arg11 = cst_encode_opt_box_autoadd_rbf_value(rbf);
-        var arg12 = cst_encode_opt_Map_String_list_prim_usize_strict(
-            internalPolicyPath);
-        var arg13 = cst_encode_opt_Map_String_list_prim_usize_strict(
-            externalPolicyPath);
+        var arg12 =
+            cst_encode_opt_Map_String_list_prim_u_32_strict(internalPolicyPath);
+        var arg13 =
+            cst_encode_opt_Map_String_list_prim_u_32_strict(externalPolicyPath);
         var arg14 = cst_encode_list_prim_u_8_loose(data);
         return wire.wire__crate__api__wallet__tx_builder_finish(
             port_,
@@ -2933,11 +2933,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           .rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdkbitcoinpsbtPartiallySignedTransaction;
 
   @protected
-  Map<String, Uint64List> dco_decode_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List> dco_decode_Map_String_list_prim_u_32_strict(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Map.fromEntries(
-        dco_decode_list_record_string_list_prim_usize_strict(raw)
+        dco_decode_list_record_string_list_prim_u_32_strict(raw)
             .map((e) => MapEntry(e.$1, e.$2)));
   }
 
@@ -4032,12 +4032,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  Uint64List dco_decode_list_prim_usize_strict(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw as Uint64List;
-  }
-
-  @protected
   List<(Uint32List, List<Condition>)>
       dco_decode_list_record_list_prim_u_32_strict_list_condition(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -4047,11 +4041,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  List<(String, Uint64List)>
-      dco_decode_list_record_string_list_prim_usize_strict(dynamic raw) {
+  List<(String, Uint32List)>
+      dco_decode_list_record_string_list_prim_u_32_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>)
-        .map(dco_decode_record_string_list_prim_usize_strict)
+        .map(dco_decode_record_string_list_prim_u_32_strict)
         .toList();
   }
 
@@ -4126,12 +4120,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  Map<String, Uint64List>? dco_decode_opt_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List>? dco_decode_opt_Map_String_list_prim_u_32_strict(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null
         ? null
-        : dco_decode_Map_String_list_prim_usize_strict(raw);
+        : dco_decode_Map_String_list_prim_u_32_strict(raw);
   }
 
   @protected
@@ -4389,7 +4383,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  (String, Uint64List) dco_decode_record_string_list_prim_usize_strict(
+  (String, Uint32List) dco_decode_record_string_list_prim_u_32_strict(
       dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -4398,7 +4392,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     }
     return (
       dco_decode_String(arr[0]),
-      dco_decode_list_prim_usize_strict(arr[1]),
+      dco_decode_list_prim_u_32_strict(arr[1]),
     );
   }
 
@@ -4678,11 +4672,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  Map<String, Uint64List> sse_decode_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List> sse_decode_Map_String_list_prim_u_32_strict(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner =
-        sse_decode_list_record_string_list_prim_usize_strict(deserializer);
+        sse_decode_list_record_string_list_prim_u_32_strict(deserializer);
     return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
   }
 
@@ -5762,13 +5756,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var len_ = sse_decode_i_32(deserializer);
-    return deserializer.buffer.getUint64List(len_);
-  }
-
-  @protected
   List<(Uint32List, List<Condition>)>
       sse_decode_list_record_list_prim_u_32_strict_list_condition(
           SseDeserializer deserializer) {
@@ -5784,15 +5771,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  List<(String, Uint64List)>
-      sse_decode_list_record_string_list_prim_usize_strict(
+  List<(String, Uint32List)>
+      sse_decode_list_record_string_list_prim_u_32_strict(
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <(String, Uint64List)>[];
+    var ans_ = <(String, Uint32List)>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_record_string_list_prim_usize_strict(deserializer));
+      ans_.add(sse_decode_record_string_list_prim_u_32_strict(deserializer));
     }
     return ans_;
   }
@@ -5899,12 +5886,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  Map<String, Uint64List>? sse_decode_opt_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List>? sse_decode_opt_Map_String_list_prim_u_32_strict(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_Map_String_list_prim_usize_strict(deserializer));
+      return (sse_decode_Map_String_list_prim_u_32_strict(deserializer));
     } else {
       return null;
     }
@@ -6243,11 +6230,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  (String, Uint64List) sse_decode_record_string_list_prim_usize_strict(
+  (String, Uint32List) sse_decode_record_string_list_prim_u_32_strict(
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_field0 = sse_decode_String(deserializer);
-    var var_field1 = sse_decode_list_prim_usize_strict(deserializer);
+    var var_field1 = sse_decode_list_prim_u_32_strict(deserializer);
     return (var_field0, var_field1);
   }
 
@@ -6678,10 +6665,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_Map_String_list_prim_usize_strict(
-      Map<String, Uint64List> self, SseSerializer serializer) {
+  void sse_encode_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_list_record_string_list_prim_usize_strict(
+    sse_encode_list_record_string_list_prim_u_32_strict(
         self.entries.map((e) => (e.key, e.value)).toList(), serializer);
   }
 
@@ -7723,14 +7710,6 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_list_prim_usize_strict(
-      Uint64List self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    serializer.buffer.putUint64List(self);
-  }
-
-  @protected
   void sse_encode_list_record_list_prim_u_32_strict_list_condition(
       List<(Uint32List, List<Condition>)> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -7741,12 +7720,12 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_list_record_string_list_prim_usize_strict(
-      List<(String, Uint64List)> self, SseSerializer serializer) {
+  void sse_encode_list_record_string_list_prim_u_32_strict(
+      List<(String, Uint32List)> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
-      sse_encode_record_string_list_prim_usize_strict(item, serializer);
+      sse_encode_record_string_list_prim_u_32_strict(item, serializer);
     }
   }
 
@@ -7829,13 +7808,13 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_opt_Map_String_list_prim_usize_strict(
-      Map<String, Uint64List>? self, SseSerializer serializer) {
+  void sse_encode_opt_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List>? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     sse_encode_bool(self != null, serializer);
     if (self != null) {
-      sse_encode_Map_String_list_prim_usize_strict(self, serializer);
+      sse_encode_Map_String_list_prim_u_32_strict(self, serializer);
     }
   }
 
@@ -8144,11 +8123,11 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
-  void sse_encode_record_string_list_prim_usize_strict(
-      (String, Uint64List) self, SseSerializer serializer) {
+  void sse_encode_record_string_list_prim_u_32_strict(
+      (String, Uint32List) self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.$1, serializer);
-    sse_encode_list_prim_usize_strict(self.$2, serializer);
+    sse_encode_list_prim_u_32_strict(self.$2, serializer);
   }
 
   @protected

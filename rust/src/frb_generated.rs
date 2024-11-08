@@ -2038,8 +2038,8 @@ fn wire__crate__api__wallet__tx_builder_finish_impl(
     drain_wallet: impl CstDecode<bool>,
     drain_to: impl CstDecode<Option<crate::api::types::BdkScriptBuf>>,
     rbf: impl CstDecode<Option<crate::api::types::RbfValue>>,
-    internal_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<usize>>>>,
-    external_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<usize>>>>,
+    internal_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<u32>>>>,
+    external_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<u32>>>>,
     data: impl CstDecode<Vec<u8>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -2213,10 +2213,10 @@ impl CstDecode<crate::api::types::WordCount> for i32 {
         }
     }
 }
-impl SseDecode for std::collections::HashMap<String, Vec<usize>> {
+impl SseDecode for std::collections::HashMap<String, Vec<u32>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <Vec<(String, Vec<usize>)>>::sse_decode(deserializer);
+        let mut inner = <Vec<(String, Vec<u32>)>>::sse_decode(deserializer);
         return inner.into_iter().collect();
     }
 }
@@ -3195,18 +3195,6 @@ impl SseDecode for Vec<u8> {
     }
 }
 
-impl SseDecode for Vec<usize> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(<usize>::sse_decode(deserializer));
-        }
-        return ans_;
-    }
-}
-
 impl SseDecode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3221,13 +3209,13 @@ impl SseDecode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
     }
 }
 
-impl SseDecode for Vec<(String, Vec<usize>)> {
+impl SseDecode for Vec<(String, Vec<u32>)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
-            ans_.push(<(String, Vec<usize>)>::sse_decode(deserializer));
+            ans_.push(<(String, Vec<u32>)>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3347,11 +3335,11 @@ impl SseDecode for crate::api::types::Network {
     }
 }
 
-impl SseDecode for Option<std::collections::HashMap<String, Vec<usize>>> {
+impl SseDecode for Option<std::collections::HashMap<String, Vec<u32>>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<std::collections::HashMap<String, Vec<usize>>>::sse_decode(
+            return Some(<std::collections::HashMap<String, Vec<u32>>>::sse_decode(
                 deserializer,
             ));
         } else {
@@ -3718,11 +3706,11 @@ impl SseDecode for (crate::api::types::OutPoint, crate::api::types::Input, usize
     }
 }
 
-impl SseDecode for (String, Vec<usize>) {
+impl SseDecode for (String, Vec<u32>) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_field0 = <String>::sse_decode(deserializer);
-        let mut var_field1 = <Vec<usize>>::sse_decode(deserializer);
+        let mut var_field1 = <Vec<u32>>::sse_decode(deserializer);
         return (var_field0, var_field1);
     }
 }
@@ -5474,10 +5462,10 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::WordCount>
     }
 }
 
-impl SseEncode for std::collections::HashMap<String, Vec<usize>> {
+impl SseEncode for std::collections::HashMap<String, Vec<u32>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Vec<(String, Vec<usize>)>>::sse_encode(self.into_iter().collect(), serializer);
+        <Vec<(String, Vec<u32>)>>::sse_encode(self.into_iter().collect(), serializer);
     }
 }
 
@@ -6374,16 +6362,6 @@ impl SseEncode for Vec<u8> {
     }
 }
 
-impl SseEncode for Vec<usize> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <usize>::sse_encode(item, serializer);
-        }
-    }
-}
-
 impl SseEncode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6394,12 +6372,12 @@ impl SseEncode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
     }
 }
 
-impl SseEncode for Vec<(String, Vec<usize>)> {
+impl SseEncode for Vec<(String, Vec<u32>)> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
-            <(String, Vec<usize>)>::sse_encode(item, serializer);
+            <(String, Vec<u32>)>::sse_encode(item, serializer);
         }
     }
 }
@@ -6501,12 +6479,12 @@ impl SseEncode for crate::api::types::Network {
     }
 }
 
-impl SseEncode for Option<std::collections::HashMap<String, Vec<usize>>> {
+impl SseEncode for Option<std::collections::HashMap<String, Vec<u32>>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
-            <std::collections::HashMap<String, Vec<usize>>>::sse_encode(value, serializer);
+            <std::collections::HashMap<String, Vec<u32>>>::sse_encode(value, serializer);
         }
     }
 }
@@ -6821,11 +6799,11 @@ impl SseEncode for (crate::api::types::OutPoint, crate::api::types::Input, usize
     }
 }
 
-impl SseEncode for (String, Vec<usize>) {
+impl SseEncode for (String, Vec<u32>) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.0, serializer);
-        <Vec<usize>>::sse_encode(self.1, serializer);
+        <Vec<u32>>::sse_encode(self.1, serializer);
     }
 }
 

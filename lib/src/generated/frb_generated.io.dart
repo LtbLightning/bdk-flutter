@@ -66,7 +66,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
           wire._rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdkbitcoinpsbtPartiallySignedTransactionPtr;
 
   @protected
-  Map<String, Uint64List> dco_decode_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List> dco_decode_Map_String_list_prim_u_32_strict(
       dynamic raw);
 
   @protected
@@ -377,15 +377,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
-  Uint64List dco_decode_list_prim_usize_strict(dynamic raw);
-
-  @protected
   List<(Uint32List, List<Condition>)>
       dco_decode_list_record_list_prim_u_32_strict_list_condition(dynamic raw);
 
   @protected
-  List<(String, Uint64List)>
-      dco_decode_list_record_string_list_prim_usize_strict(dynamic raw);
+  List<(String, Uint32List)>
+      dco_decode_list_record_string_list_prim_u_32_strict(dynamic raw);
 
   @protected
   List<(int, List<Condition>)> dco_decode_list_record_u_32_list_condition(
@@ -413,7 +410,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Network dco_decode_network(dynamic raw);
 
   @protected
-  Map<String, Uint64List>? dco_decode_opt_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List>? dco_decode_opt_Map_String_list_prim_u_32_strict(
       dynamic raw);
 
   @protected
@@ -505,7 +502,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       dynamic raw);
 
   @protected
-  (String, Uint64List) dco_decode_record_string_list_prim_usize_strict(
+  (String, Uint32List) dco_decode_record_string_list_prim_u_32_strict(
       dynamic raw);
 
   @protected
@@ -572,7 +569,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   WordCount dco_decode_word_count(dynamic raw);
 
   @protected
-  Map<String, Uint64List> sse_decode_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List> sse_decode_Map_String_list_prim_u_32_strict(
       SseDeserializer deserializer);
 
   @protected
@@ -909,16 +906,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
-  Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer);
-
-  @protected
   List<(Uint32List, List<Condition>)>
       sse_decode_list_record_list_prim_u_32_strict_list_condition(
           SseDeserializer deserializer);
 
   @protected
-  List<(String, Uint64List)>
-      sse_decode_list_record_string_list_prim_usize_strict(
+  List<(String, Uint32List)>
+      sse_decode_list_record_string_list_prim_u_32_strict(
           SseDeserializer deserializer);
 
   @protected
@@ -949,7 +943,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Network sse_decode_network(SseDeserializer deserializer);
 
   @protected
-  Map<String, Uint64List>? sse_decode_opt_Map_String_list_prim_usize_strict(
+  Map<String, Uint32List>? sse_decode_opt_Map_String_list_prim_u_32_strict(
       SseDeserializer deserializer);
 
   @protected
@@ -1053,7 +1047,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SseDeserializer deserializer);
 
   @protected
-  (String, Uint64List) sse_decode_record_string_list_prim_usize_strict(
+  (String, Uint32List) sse_decode_record_string_list_prim_u_32_strict(
       SseDeserializer deserializer);
 
   @protected
@@ -1124,11 +1118,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   WordCount sse_decode_word_count(SseDeserializer deserializer);
 
   @protected
-  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
-      cst_encode_Map_String_list_prim_usize_strict(
-          Map<String, Uint64List> raw) {
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_Map_String_list_prim_u_32_strict(Map<String, Uint32List> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return cst_encode_list_record_string_list_prim_usize_strict(
+    return cst_encode_list_record_string_list_prim_u_32_strict(
         raw.entries.map((e) => (e.key, e.value)).toList());
   }
 
@@ -1612,13 +1605,6 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_list_prim_usize_strict>
-      cst_encode_list_prim_usize_strict(Uint64List raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    throw UnimplementedError('Not implemented in this codec');
-  }
-
-  @protected
   ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
       cst_encode_list_record_list_prim_u_32_strict_list_condition(
           List<(Uint32List, List<Condition>)> raw) {
@@ -1633,14 +1619,14 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
-      cst_encode_list_record_string_list_prim_usize_strict(
-          List<(String, Uint64List)> raw) {
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_list_record_string_list_prim_u_32_strict(
+          List<(String, Uint32List)> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ans =
-        wire.cst_new_list_record_string_list_prim_usize_strict(raw.length);
+        wire.cst_new_list_record_string_list_prim_u_32_strict(raw.length);
     for (var i = 0; i < raw.length; ++i) {
-      cst_api_fill_to_wire_record_string_list_prim_usize_strict(
+      cst_api_fill_to_wire_record_string_list_prim_u_32_strict(
           raw[i], ans.ref.ptr[i]);
     }
     return ans;
@@ -1701,13 +1687,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
-      cst_encode_opt_Map_String_list_prim_usize_strict(
-          Map<String, Uint64List>? raw) {
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_opt_Map_String_list_prim_u_32_strict(
+          Map<String, Uint32List>? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null
         ? ffi.nullptr
-        : cst_encode_Map_String_list_prim_usize_strict(raw);
+        : cst_encode_Map_String_list_prim_u_32_strict(raw);
   }
 
   @protected
@@ -2953,11 +2939,11 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
-  void cst_api_fill_to_wire_record_string_list_prim_usize_strict(
-      (String, Uint64List) apiObj,
-      wire_cst_record_string_list_prim_usize_strict wireObj) {
+  void cst_api_fill_to_wire_record_string_list_prim_u_32_strict(
+      (String, Uint32List) apiObj,
+      wire_cst_record_string_list_prim_u_32_strict wireObj) {
     wireObj.field0 = cst_encode_String(apiObj.$1);
-    wireObj.field1 = cst_encode_list_prim_usize_strict(apiObj.$2);
+    wireObj.field1 = cst_encode_list_prim_u_32_strict(apiObj.$2);
   }
 
   @protected
@@ -3240,8 +3226,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   int cst_encode_word_count(WordCount raw);
 
   @protected
-  void sse_encode_Map_String_list_prim_usize_strict(
-      Map<String, Uint64List> self, SseSerializer serializer);
+  void sse_encode_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List> self, SseSerializer serializer);
 
   @protected
   void sse_encode_Map_list_prim_u_32_strict_list_condition(
@@ -3602,16 +3588,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       Uint8List self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_prim_usize_strict(
-      Uint64List self, SseSerializer serializer);
-
-  @protected
   void sse_encode_list_record_list_prim_u_32_strict_list_condition(
       List<(Uint32List, List<Condition>)> self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_record_string_list_prim_usize_strict(
-      List<(String, Uint64List)> self, SseSerializer serializer);
+  void sse_encode_list_record_string_list_prim_u_32_strict(
+      List<(String, Uint32List)> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_record_u_32_list_condition(
@@ -3641,8 +3623,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_network(Network self, SseSerializer serializer);
 
   @protected
-  void sse_encode_opt_Map_String_list_prim_usize_strict(
-      Map<String, Uint64List>? self, SseSerializer serializer);
+  void sse_encode_opt_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List>? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
@@ -3747,8 +3729,8 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       (OutPoint, Input, BigInt) self, SseSerializer serializer);
 
   @protected
-  void sse_encode_record_string_list_prim_usize_strict(
-      (String, Uint64List) self, SseSerializer serializer);
+  void sse_encode_record_string_list_prim_u_32_strict(
+      (String, Uint32List) self, SseSerializer serializer);
 
   @protected
   void sse_encode_record_u_32_list_condition(
@@ -5752,9 +5734,9 @@ class coreWire implements BaseWire {
     bool drain_wallet,
     ffi.Pointer<wire_cst_bdk_script_buf> drain_to,
     ffi.Pointer<wire_cst_rbf_value> rbf,
-    ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
         internal_policy_path,
-    ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
         external_policy_path,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
   ) {
@@ -5796,9 +5778,9 @@ class coreWire implements BaseWire {
                       ffi.Pointer<wire_cst_bdk_script_buf>,
                       ffi.Pointer<wire_cst_rbf_value>,
                       ffi.Pointer<
-                          wire_cst_list_record_string_list_prim_usize_strict>,
+                          wire_cst_list_record_string_list_prim_u_32_strict>,
                       ffi.Pointer<
-                          wire_cst_list_record_string_list_prim_usize_strict>,
+                          wire_cst_list_record_string_list_prim_u_32_strict>,
                       ffi.Pointer<wire_cst_list_prim_u_8_loose>)>>(
           'frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish');
   late final _wire__crate__api__wallet__tx_builder_finish =
@@ -5817,8 +5799,8 @@ class coreWire implements BaseWire {
               bool,
               ffi.Pointer<wire_cst_bdk_script_buf>,
               ffi.Pointer<wire_cst_rbf_value>,
-              ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>,
-              ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
 
   void rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(
@@ -6786,22 +6768,6 @@ class coreWire implements BaseWire {
   late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
       .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_prim_usize_strict> cst_new_list_prim_usize_strict(
-    int len,
-  ) {
-    return _cst_new_list_prim_usize_strict(
-      len,
-    );
-  }
-
-  late final _cst_new_list_prim_usize_strictPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_cst_list_prim_usize_strict> Function(
-              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_usize_strict');
-  late final _cst_new_list_prim_usize_strict =
-      _cst_new_list_prim_usize_strictPtr.asFunction<
-          ffi.Pointer<wire_cst_list_prim_usize_strict> Function(int)>();
-
   ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
       cst_new_list_record_list_prim_u_32_strict_list_condition(
     int len,
@@ -6822,23 +6788,23 @@ class coreWire implements BaseWire {
           ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
               Function(int)>();
 
-  ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
-      cst_new_list_record_string_list_prim_usize_strict(
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_new_list_record_string_list_prim_u_32_strict(
     int len,
   ) {
-    return _cst_new_list_record_string_list_prim_usize_strict(
+    return _cst_new_list_record_string_list_prim_u_32_strict(
       len,
     );
   }
 
-  late final _cst_new_list_record_string_list_prim_usize_strictPtr = _lookup<
+  late final _cst_new_list_record_string_list_prim_u_32_strictPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
                   Function(ffi.Int32)>>(
-      'frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict');
-  late final _cst_new_list_record_string_list_prim_usize_strict =
-      _cst_new_list_record_string_list_prim_usize_strictPtr.asFunction<
-          ffi.Pointer<wire_cst_list_record_string_list_prim_usize_strict>
+      'frbgen_bdk_flutter_cst_new_list_record_string_list_prim_u_32_strict');
+  late final _cst_new_list_record_string_list_prim_u_32_strict =
+      _cst_new_list_record_string_list_prim_u_32_strictPtr.asFunction<
+          ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
               Function(int)>();
 
   ffi.Pointer<wire_cst_list_record_u_32_list_condition>
@@ -7337,22 +7303,22 @@ final class wire_cst_rbf_value extends ffi.Struct {
   external RbfValueKind kind;
 }
 
-final class wire_cst_list_prim_usize_strict extends ffi.Struct {
-  external ffi.Pointer<ffi.UintPtr> ptr;
+final class wire_cst_list_prim_u_32_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint32> ptr;
 
   @ffi.Int32()
   external int len;
 }
 
-final class wire_cst_record_string_list_prim_usize_strict extends ffi.Struct {
+final class wire_cst_record_string_list_prim_u_32_strict extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
 
-  external ffi.Pointer<wire_cst_list_prim_usize_strict> field1;
+  external ffi.Pointer<wire_cst_list_prim_u_32_strict> field1;
 }
 
-final class wire_cst_list_record_string_list_prim_usize_strict
+final class wire_cst_list_record_string_list_prim_u_32_strict
     extends ffi.Struct {
-  external ffi.Pointer<wire_cst_record_string_list_prim_usize_strict> ptr;
+  external ffi.Pointer<wire_cst_record_string_list_prim_u_32_strict> ptr;
 
   @ffi.Int32()
   external int len;
@@ -7649,13 +7615,6 @@ final class wire_cst_list_local_utxo extends ffi.Struct {
 
 final class wire_cst_list_pk_or_f extends ffi.Struct {
   external ffi.Pointer<wire_cst_pk_or_f> ptr;
-
-  @ffi.Int32()
-  external int len;
-}
-
-final class wire_cst_list_prim_u_32_strict extends ffi.Struct {
-  external ffi.Pointer<ffi.Uint32> ptr;
 
   @ffi.Int32()
   external int len;

@@ -242,8 +242,8 @@ pub fn tx_builder_finish(
     drain_wallet: bool,
     drain_to: Option<BdkScriptBuf>,
     rbf: Option<RbfValue>,
-    internal_policy_path: Option<HashMap<String, Vec<usize>>>,
-    external_policy_path: Option<HashMap<String, Vec<usize>>>,
+    internal_policy_path: Option<HashMap<String, Vec<u32>>>,
+    external_policy_path: Option<HashMap<String, Vec<u32>>>,
     data: Vec<u8>,
 ) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
     execute_with_lock(&wallet.ptr, |w| {

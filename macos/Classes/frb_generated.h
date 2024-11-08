@@ -301,20 +301,20 @@ typedef struct wire_cst_rbf_value {
   union RbfValueKind kind;
 } wire_cst_rbf_value;
 
-typedef struct wire_cst_list_prim_usize_strict {
-  uintptr_t *ptr;
+typedef struct wire_cst_list_prim_u_32_strict {
+  uint32_t *ptr;
   int32_t len;
-} wire_cst_list_prim_usize_strict;
+} wire_cst_list_prim_u_32_strict;
 
-typedef struct wire_cst_record_string_list_prim_usize_strict {
+typedef struct wire_cst_record_string_list_prim_u_32_strict {
   struct wire_cst_list_prim_u_8_strict *field0;
-  struct wire_cst_list_prim_usize_strict *field1;
-} wire_cst_record_string_list_prim_usize_strict;
+  struct wire_cst_list_prim_u_32_strict *field1;
+} wire_cst_record_string_list_prim_u_32_strict;
 
-typedef struct wire_cst_list_record_string_list_prim_usize_strict {
-  struct wire_cst_record_string_list_prim_usize_strict *ptr;
+typedef struct wire_cst_list_record_string_list_prim_u_32_strict {
+  struct wire_cst_record_string_list_prim_u_32_strict *ptr;
   int32_t len;
-} wire_cst_list_record_string_list_prim_usize_strict;
+} wire_cst_list_record_string_list_prim_u_32_strict;
 
 typedef struct wire_cst_AddressError_Base58 {
   struct wire_cst_list_prim_u_8_strict *field0;
@@ -535,11 +535,6 @@ typedef struct wire_cst_list_pk_or_f {
   struct wire_cst_pk_or_f *ptr;
   int32_t len;
 } wire_cst_list_pk_or_f;
-
-typedef struct wire_cst_list_prim_u_32_strict {
-  uint32_t *ptr;
-  int32_t len;
-} wire_cst_list_prim_u_32_strict;
 
 typedef struct wire_cst_list_prim_u_64_strict {
   uint64_t *ptr;
@@ -1207,8 +1202,8 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish(int64_t port
                                                                     bool drain_wallet,
                                                                     struct wire_cst_bdk_script_buf *drain_to,
                                                                     struct wire_cst_rbf_value *rbf,
-                                                                    struct wire_cst_list_record_string_list_prim_usize_strict *internal_policy_path,
-                                                                    struct wire_cst_list_record_string_list_prim_usize_strict *external_policy_path,
+                                                                    struct wire_cst_list_record_string_list_prim_u_32_strict *internal_policy_path,
+                                                                    struct wire_cst_list_record_string_list_prim_u_32_strict *external_policy_path,
                                                                     struct wire_cst_list_prim_u_8_loose *data);
 
 void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(const void *ptr);
@@ -1357,11 +1352,9 @@ struct wire_cst_list_prim_u_8_loose *frbgen_bdk_flutter_cst_new_list_prim_u_8_lo
 
 struct wire_cst_list_prim_u_8_strict *frbgen_bdk_flutter_cst_new_list_prim_u_8_strict(int32_t len);
 
-struct wire_cst_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_prim_usize_strict(int32_t len);
-
 struct wire_cst_list_record_list_prim_u_32_strict_list_condition *frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition(int32_t len);
 
-struct wire_cst_list_record_string_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(int32_t len);
+struct wire_cst_list_record_string_list_prim_u_32_strict *frbgen_bdk_flutter_cst_new_list_record_string_list_prim_u_32_strict(int32_t len);
 
 struct wire_cst_list_record_u_32_list_condition *frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition(int32_t len);
 
@@ -1425,9 +1418,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_64_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_loose);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_strict);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_usize_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_string_list_prim_u_32_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_script_amount);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_transaction_details);
