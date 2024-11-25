@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1897842111;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -321771070;
 
 // Section: executor
 
@@ -1193,6 +1193,117 @@ fn wire__crate__api__types__bdk_address_to_qr_uri_impl(
         },
     )
 }
+fn wire__crate__api__types__bdk_policy_as_string_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_as_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkPolicy::as_string(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_policy_contribution_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_contribution",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::types::BdkPolicy::contribution(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_policy_id_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_id",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(crate::api::types::BdkPolicy::id(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_policy_item_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_item",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(crate::api::types::BdkPolicy::item(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_policy_requires_path_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_requires_path",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::types::BdkPolicy::requires_path(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_policy_satisfaction_impl(
+    that: impl CstDecode<crate::api::types::BdkPolicy>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_policy_satisfaction",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::types::BdkPolicy::satisfaction(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__types__bdk_script_buf_as_string_impl(
     that: impl CstDecode<crate::api::types::BdkScriptBuf>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -1806,6 +1917,26 @@ fn wire__crate__api__wallet__bdk_wallet_new_impl(
         },
     )
 }
+fn wire__crate__api__wallet__bdk_wallet_policies_impl(
+    ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
+    keychain: impl CstDecode<crate::api::types::KeychainKind>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_wallet_policies",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_ptr = ptr.cst_decode();
+            let api_keychain = keychain.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::policies(api_ptr, api_keychain)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__wallet__bdk_wallet_sign_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
@@ -1907,6 +2038,8 @@ fn wire__crate__api__wallet__tx_builder_finish_impl(
     drain_wallet: impl CstDecode<bool>,
     drain_to: impl CstDecode<Option<crate::api::types::BdkScriptBuf>>,
     rbf: impl CstDecode<Option<crate::api::types::RbfValue>>,
+    internal_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<u32>>>>,
+    external_policy_path: impl CstDecode<Option<std::collections::HashMap<String, Vec<u32>>>>,
     data: impl CstDecode<Vec<u8>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -1928,6 +2061,8 @@ fn wire__crate__api__wallet__tx_builder_finish_impl(
             let api_drain_wallet = drain_wallet.cst_decode();
             let api_drain_to = drain_to.cst_decode();
             let api_rbf = rbf.cst_decode();
+            let api_internal_policy_path = internal_policy_path.cst_decode();
+            let api_external_policy_path = external_policy_path.cst_decode();
             let api_data = data.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
@@ -1944,6 +2079,8 @@ fn wire__crate__api__wallet__tx_builder_finish_impl(
                         api_drain_wallet,
                         api_drain_to,
                         api_rbf,
+                        api_internal_policy_path,
+                        api_external_policy_path,
                         api_data,
                     )?;
                     Ok(output_ok)
@@ -2076,6 +2213,31 @@ impl CstDecode<crate::api::types::WordCount> for i32 {
         }
     }
 }
+impl SseDecode for std::collections::HashMap<String, Vec<u32>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <Vec<(String, Vec<u32>)>>::sse_decode(deserializer);
+        return inner.into_iter().collect();
+    }
+}
+
+impl SseDecode for std::collections::HashMap<Vec<u32>, Vec<crate::api::types::Condition>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner =
+            <Vec<(Vec<u32>, Vec<crate::api::types::Condition>)>>::sse_decode(deserializer);
+        return inner.into_iter().collect();
+    }
+}
+
+impl SseDecode for std::collections::HashMap<u32, Vec<crate::api::types::Condition>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <Vec<(u32, Vec<crate::api::types::Condition>)>>::sse_decode(deserializer);
+        return inner.into_iter().collect();
+    }
+}
+
 impl SseDecode for RustOpaqueNom<bdk::bitcoin::Address> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2101,6 +2263,14 @@ impl SseDecode for RustOpaqueNom<bdk::blockchain::AnyBlockchain> {
 }
 
 impl SseDecode for RustOpaqueNom<bdk::descriptor::ExtendedDescriptor> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode for RustOpaqueNom<bdk::descriptor::Policy> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2571,6 +2741,14 @@ impl SseDecode for crate::api::key::BdkMnemonic {
     }
 }
 
+impl SseDecode for crate::api::types::BdkPolicy {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ptr = <RustOpaqueNom<bdk::descriptor::Policy>>::sse_decode(deserializer);
+        return crate::api::types::BdkPolicy { ptr: var_ptr };
+    }
+}
+
 impl SseDecode for crate::api::psbt::BdkPsbt {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2662,6 +2840,18 @@ impl SseDecode for crate::api::types::ChangeSpendPolicy {
             1 => crate::api::types::ChangeSpendPolicy::OnlyChange,
             2 => crate::api::types::ChangeSpendPolicy::ChangeForbidden,
             _ => unreachable!("Invalid variant for ChangeSpendPolicy: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for crate::api::types::Condition {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_csv = <Option<u32>>::sse_decode(deserializer);
+        let mut var_timelock = <Option<crate::api::types::LockTime>>::sse_decode(deserializer);
+        return crate::api::types::Condition {
+            csv: var_csv,
+            timelock: var_timelock,
         };
     }
 }
@@ -2897,6 +3087,30 @@ impl SseDecode for crate::api::types::KeychainKind {
     }
 }
 
+impl SseDecode for Vec<crate::api::types::BdkPolicy> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::BdkPolicy>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::types::Condition> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::Condition>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<Vec<u8>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2933,6 +3147,42 @@ impl SseDecode for Vec<crate::api::types::OutPoint> {
     }
 }
 
+impl SseDecode for Vec<crate::api::types::PkOrF> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::PkOrF>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<u32>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<u64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<u64>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2940,6 +3190,46 @@ impl SseDecode for Vec<u8> {
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
             ans_.push(<u8>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<(Vec<u32>, Vec<crate::api::types::Condition>)>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<(String, Vec<u32>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<(String, Vec<u32>)>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<(u32, Vec<crate::api::types::Condition>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<(u32, Vec<crate::api::types::Condition>)>::sse_decode(
+                deserializer,
+            ));
         }
         return ans_;
     }
@@ -3045,6 +3335,19 @@ impl SseDecode for crate::api::types::Network {
     }
 }
 
+impl SseDecode for Option<std::collections::HashMap<String, Vec<u32>>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<std::collections::HashMap<String, Vec<u32>>>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3074,6 +3377,17 @@ impl SseDecode for Option<crate::api::descriptor::BdkDescriptor> {
             return Some(<crate::api::descriptor::BdkDescriptor>::sse_decode(
                 deserializer,
             ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::types::BdkPolicy> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::types::BdkPolicy>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -3115,6 +3429,17 @@ impl SseDecode for Option<crate::api::types::BlockTime> {
     }
 }
 
+impl SseDecode for Option<bool> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<bool>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<f32> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3131,6 +3456,17 @@ impl SseDecode for Option<crate::api::types::FeeRate> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<crate::api::types::FeeRate>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<crate::api::types::LockTime> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::types::LockTime>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -3277,6 +3613,30 @@ impl SseDecode for crate::api::types::Payload {
     }
 }
 
+impl SseDecode for crate::api::types::PkOrF {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_value = <String>::sse_decode(deserializer);
+                return crate::api::types::PkOrF::Pubkey { value: var_value };
+            }
+            1 => {
+                let mut var_value = <String>::sse_decode(deserializer);
+                return crate::api::types::PkOrF::XOnlyPubkey { value: var_value };
+            }
+            2 => {
+                let mut var_value = <String>::sse_decode(deserializer);
+                return crate::api::types::PkOrF::Fingerprint { value: var_value };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseDecode for crate::api::types::PsbtSigHashType {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3327,6 +3687,15 @@ impl SseDecode
     }
 }
 
+impl SseDecode for (Vec<u32>, Vec<crate::api::types::Condition>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 = <Vec<u32>>::sse_decode(deserializer);
+        let mut var_field1 = <Vec<crate::api::types::Condition>>::sse_decode(deserializer);
+        return (var_field0, var_field1);
+    }
+}
+
 impl SseDecode for (crate::api::types::OutPoint, crate::api::types::Input, usize) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3334,6 +3703,24 @@ impl SseDecode for (crate::api::types::OutPoint, crate::api::types::Input, usize
         let mut var_field1 = <crate::api::types::Input>::sse_decode(deserializer);
         let mut var_field2 = <usize>::sse_decode(deserializer);
         return (var_field0, var_field1, var_field2);
+    }
+}
+
+impl SseDecode for (String, Vec<u32>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 = <String>::sse_decode(deserializer);
+        let mut var_field1 = <Vec<u32>>::sse_decode(deserializer);
+        return (var_field0, var_field1);
+    }
+}
+
+impl SseDecode for (u32, Vec<crate::api::types::Condition>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_field0 = <u32>::sse_decode(deserializer);
+        let mut var_field1 = <Vec<crate::api::types::Condition>>::sse_decode(deserializer);
+        return (var_field0, var_field1);
     }
 }
 
@@ -3369,6 +3756,122 @@ impl SseDecode for crate::api::blockchain::RpcSyncParams {
             force_start_time: var_forceStartTime,
             poll_rate_sec: var_pollRateSec,
         };
+    }
+}
+
+impl SseDecode for crate::api::types::Satisfaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_n = <u64>::sse_decode(deserializer);
+                let mut var_m = <u64>::sse_decode(deserializer);
+                let mut var_items = <Vec<u64>>::sse_decode(deserializer);
+                let mut var_sorted = <Option<bool>>::sse_decode(deserializer);
+                let mut var_conditions = <std::collections::HashMap<
+                    u32,
+                    Vec<crate::api::types::Condition>,
+                >>::sse_decode(deserializer);
+                return crate::api::types::Satisfaction::Partial {
+                    n: var_n,
+                    m: var_m,
+                    items: var_items,
+                    sorted: var_sorted,
+                    conditions: var_conditions,
+                };
+            }
+            1 => {
+                let mut var_n = <u64>::sse_decode(deserializer);
+                let mut var_m = <u64>::sse_decode(deserializer);
+                let mut var_items = <Vec<u64>>::sse_decode(deserializer);
+                let mut var_sorted = <Option<bool>>::sse_decode(deserializer);
+                let mut var_conditions = <std::collections::HashMap<
+                    Vec<u32>,
+                    Vec<crate::api::types::Condition>,
+                >>::sse_decode(deserializer);
+                return crate::api::types::Satisfaction::PartialComplete {
+                    n: var_n,
+                    m: var_m,
+                    items: var_items,
+                    sorted: var_sorted,
+                    conditions: var_conditions,
+                };
+            }
+            2 => {
+                let mut var_condition = <crate::api::types::Condition>::sse_decode(deserializer);
+                return crate::api::types::Satisfaction::Complete {
+                    condition: var_condition,
+                };
+            }
+            3 => {
+                let mut var_msg = <String>::sse_decode(deserializer);
+                return crate::api::types::Satisfaction::None { msg: var_msg };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for crate::api::types::SatisfiableItem {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_key = <crate::api::types::PkOrF>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::EcdsaSignature { key: var_key };
+            }
+            1 => {
+                let mut var_key = <crate::api::types::PkOrF>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::SchnorrSignature { key: var_key };
+            }
+            2 => {
+                let mut var_hash = <String>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Sha256Preimage { hash: var_hash };
+            }
+            3 => {
+                let mut var_hash = <String>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Hash256Preimage { hash: var_hash };
+            }
+            4 => {
+                let mut var_hash = <String>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Ripemd160Preimage { hash: var_hash };
+            }
+            5 => {
+                let mut var_hash = <String>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Hash160Preimage { hash: var_hash };
+            }
+            6 => {
+                let mut var_value = <crate::api::types::LockTime>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::AbsoluteTimelock { value: var_value };
+            }
+            7 => {
+                let mut var_value = <u32>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::RelativeTimelock { value: var_value };
+            }
+            8 => {
+                let mut var_keys = <Vec<crate::api::types::PkOrF>>::sse_decode(deserializer);
+                let mut var_threshold = <u64>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Multisig {
+                    keys: var_keys,
+                    threshold: var_threshold,
+                };
+            }
+            9 => {
+                let mut var_items = <Vec<crate::api::types::BdkPolicy>>::sse_decode(deserializer);
+                let mut var_threshold = <u64>::sse_decode(deserializer);
+                return crate::api::types::SatisfiableItem::Thresh {
+                    items: var_items,
+                    threshold: var_threshold,
+                };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -4001,6 +4504,20 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::key::BdkMnemonic>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::BdkPolicy {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.ptr.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::BdkPolicy {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::BdkPolicy>
+    for crate::api::types::BdkPolicy
+{
+    fn into_into_dart(self) -> crate::api::types::BdkPolicy {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::psbt::BdkPsbt {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [self.ptr.into_into_dart().into_dart()].into_dart()
@@ -4127,6 +4644,24 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::ChangeSpendPolicy>
     for crate::api::types::ChangeSpendPolicy
 {
     fn into_into_dart(self) -> crate::api::types::ChangeSpendPolicy {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::Condition {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.csv.into_into_dart().into_dart(),
+            self.timelock.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::Condition {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::Condition>
+    for crate::api::types::Condition
+{
+    fn into_into_dart(self) -> crate::api::types::Condition {
         self
     }
 }
@@ -4487,6 +5022,31 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::Payload> for crate::ap
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::PkOrF {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::types::PkOrF::Pubkey { value } => {
+                [0.into_dart(), value.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::PkOrF::XOnlyPubkey { value } => {
+                [1.into_dart(), value.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::PkOrF::Fingerprint { value } => {
+                [2.into_dart(), value.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::PkOrF {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::PkOrF> for crate::api::types::PkOrF {
+    fn into_into_dart(self) -> crate::api::types::PkOrF {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::PsbtSigHashType {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [self.inner.into_into_dart().into_dart()].into_dart()
@@ -4569,6 +5129,120 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::blockchain::RpcSyncParams>
     for crate::api::blockchain::RpcSyncParams
 {
     fn into_into_dart(self) -> crate::api::blockchain::RpcSyncParams {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::Satisfaction {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::types::Satisfaction::Partial {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => [
+                0.into_dart(),
+                n.into_into_dart().into_dart(),
+                m.into_into_dart().into_dart(),
+                items.into_into_dart().into_dart(),
+                sorted.into_into_dart().into_dart(),
+                conditions.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::types::Satisfaction::PartialComplete {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => [
+                1.into_dart(),
+                n.into_into_dart().into_dart(),
+                m.into_into_dart().into_dart(),
+                items.into_into_dart().into_dart(),
+                sorted.into_into_dart().into_dart(),
+                conditions.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::types::Satisfaction::Complete { condition } => {
+                [2.into_dart(), condition.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::Satisfaction::None { msg } => {
+                [3.into_dart(), msg.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::Satisfaction
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::Satisfaction>
+    for crate::api::types::Satisfaction
+{
+    fn into_into_dart(self) -> crate::api::types::Satisfaction {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::SatisfiableItem {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::types::SatisfiableItem::EcdsaSignature { key } => {
+                [0.into_dart(), key.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::SchnorrSignature { key } => {
+                [1.into_dart(), key.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::Sha256Preimage { hash } => {
+                [2.into_dart(), hash.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::Hash256Preimage { hash } => {
+                [3.into_dart(), hash.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::Ripemd160Preimage { hash } => {
+                [4.into_dart(), hash.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::Hash160Preimage { hash } => {
+                [5.into_dart(), hash.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::AbsoluteTimelock { value } => {
+                [6.into_dart(), value.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::RelativeTimelock { value } => {
+                [7.into_dart(), value.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::types::SatisfiableItem::Multisig { keys, threshold } => [
+                8.into_dart(),
+                keys.into_into_dart().into_dart(),
+                threshold.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::types::SatisfiableItem::Thresh { items, threshold } => [
+                9.into_dart(),
+                items.into_into_dart().into_dart(),
+                threshold.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::SatisfiableItem
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SatisfiableItem>
+    for crate::api::types::SatisfiableItem
+{
+    fn into_into_dart(self) -> crate::api::types::SatisfiableItem {
         self
     }
 }
@@ -4788,6 +5462,33 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::WordCount>
     }
 }
 
+impl SseEncode for std::collections::HashMap<String, Vec<u32>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<(String, Vec<u32>)>>::sse_encode(self.into_iter().collect(), serializer);
+    }
+}
+
+impl SseEncode for std::collections::HashMap<Vec<u32>, Vec<crate::api::types::Condition>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<(Vec<u32>, Vec<crate::api::types::Condition>)>>::sse_encode(
+            self.into_iter().collect(),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for std::collections::HashMap<u32, Vec<crate::api::types::Condition>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<(u32, Vec<crate::api::types::Condition>)>>::sse_encode(
+            self.into_iter().collect(),
+            serializer,
+        );
+    }
+}
+
 impl SseEncode for RustOpaqueNom<bdk::bitcoin::Address> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4816,6 +5517,15 @@ impl SseEncode for RustOpaqueNom<bdk::blockchain::AnyBlockchain> {
 }
 
 impl SseEncode for RustOpaqueNom<bdk::descriptor::ExtendedDescriptor> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode for RustOpaqueNom<bdk::descriptor::Policy> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -5258,6 +5968,13 @@ impl SseEncode for crate::api::key::BdkMnemonic {
     }
 }
 
+impl SseEncode for crate::api::types::BdkPolicy {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<bdk::descriptor::Policy>>::sse_encode(self.ptr, serializer);
+    }
+}
+
 impl SseEncode for crate::api::psbt::BdkPsbt {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5340,6 +6057,14 @@ impl SseEncode for crate::api::types::ChangeSpendPolicy {
             },
             serializer,
         );
+    }
+}
+
+impl SseEncode for crate::api::types::Condition {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<u32>>::sse_encode(self.csv, serializer);
+        <Option<crate::api::types::LockTime>>::sse_encode(self.timelock, serializer);
     }
 }
 
@@ -5547,6 +6272,26 @@ impl SseEncode for crate::api::types::KeychainKind {
     }
 }
 
+impl SseEncode for Vec<crate::api::types::BdkPolicy> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::BdkPolicy>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::types::Condition> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::Condition>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<Vec<u8>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5577,12 +6322,72 @@ impl SseEncode for Vec<crate::api::types::OutPoint> {
     }
 }
 
+impl SseEncode for Vec<crate::api::types::PkOrF> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::PkOrF>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <u32>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<u64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <u64>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <u8>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<(Vec<u32>, Vec<crate::api::types::Condition>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <(Vec<u32>, Vec<crate::api::types::Condition>)>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<(String, Vec<u32>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <(String, Vec<u32>)>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<(u32, Vec<crate::api::types::Condition>)> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <(u32, Vec<crate::api::types::Condition>)>::sse_encode(item, serializer);
         }
     }
 }
@@ -5674,6 +6479,16 @@ impl SseEncode for crate::api::types::Network {
     }
 }
 
+impl SseEncode for Option<std::collections::HashMap<String, Vec<u32>>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <std::collections::HashMap<String, Vec<u32>>>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5700,6 +6515,16 @@ impl SseEncode for Option<crate::api::descriptor::BdkDescriptor> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::descriptor::BdkDescriptor>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::types::BdkPolicy> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::types::BdkPolicy>::sse_encode(value, serializer);
         }
     }
 }
@@ -5734,6 +6559,16 @@ impl SseEncode for Option<crate::api::types::BlockTime> {
     }
 }
 
+impl SseEncode for Option<bool> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <bool>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<f32> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5750,6 +6585,16 @@ impl SseEncode for Option<crate::api::types::FeeRate> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::types::FeeRate>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<crate::api::types::LockTime> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::types::LockTime>::sse_encode(value, serializer);
         }
     }
 }
@@ -5868,6 +6713,29 @@ impl SseEncode for crate::api::types::Payload {
     }
 }
 
+impl SseEncode for crate::api::types::PkOrF {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::types::PkOrF::Pubkey { value } => {
+                <i32>::sse_encode(0, serializer);
+                <String>::sse_encode(value, serializer);
+            }
+            crate::api::types::PkOrF::XOnlyPubkey { value } => {
+                <i32>::sse_encode(1, serializer);
+                <String>::sse_encode(value, serializer);
+            }
+            crate::api::types::PkOrF::Fingerprint { value } => {
+                <i32>::sse_encode(2, serializer);
+                <String>::sse_encode(value, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseEncode for crate::api::types::PsbtSigHashType {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -5914,12 +6782,36 @@ impl SseEncode
     }
 }
 
+impl SseEncode for (Vec<u32>, Vec<crate::api::types::Condition>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<u32>>::sse_encode(self.0, serializer);
+        <Vec<crate::api::types::Condition>>::sse_encode(self.1, serializer);
+    }
+}
+
 impl SseEncode for (crate::api::types::OutPoint, crate::api::types::Input, usize) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <crate::api::types::OutPoint>::sse_encode(self.0, serializer);
         <crate::api::types::Input>::sse_encode(self.1, serializer);
         <usize>::sse_encode(self.2, serializer);
+    }
+}
+
+impl SseEncode for (String, Vec<u32>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.0, serializer);
+        <Vec<u32>>::sse_encode(self.1, serializer);
+    }
+}
+
+impl SseEncode for (u32, Vec<crate::api::types::Condition>) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.0, serializer);
+        <Vec<crate::api::types::Condition>>::sse_encode(self.1, serializer);
     }
 }
 
@@ -5941,6 +6833,108 @@ impl SseEncode for crate::api::blockchain::RpcSyncParams {
         <u64>::sse_encode(self.start_time, serializer);
         <bool>::sse_encode(self.force_start_time, serializer);
         <u64>::sse_encode(self.poll_rate_sec, serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::Satisfaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::types::Satisfaction::Partial {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => {
+                <i32>::sse_encode(0, serializer);
+                <u64>::sse_encode(n, serializer);
+                <u64>::sse_encode(m, serializer);
+                <Vec<u64>>::sse_encode(items, serializer);
+                <Option<bool>>::sse_encode(sorted, serializer);
+                <std::collections::HashMap<u32, Vec<crate::api::types::Condition>>>::sse_encode(
+                    conditions, serializer,
+                );
+            }
+            crate::api::types::Satisfaction::PartialComplete {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } => {
+                <i32>::sse_encode(1, serializer);
+                <u64>::sse_encode(n, serializer);
+                <u64>::sse_encode(m, serializer);
+                <Vec<u64>>::sse_encode(items, serializer);
+                <Option<bool>>::sse_encode(sorted, serializer);
+                <std::collections::HashMap<Vec<u32>, Vec<crate::api::types::Condition>>>::sse_encode(conditions, serializer);
+            }
+            crate::api::types::Satisfaction::Complete { condition } => {
+                <i32>::sse_encode(2, serializer);
+                <crate::api::types::Condition>::sse_encode(condition, serializer);
+            }
+            crate::api::types::Satisfaction::None { msg } => {
+                <i32>::sse_encode(3, serializer);
+                <String>::sse_encode(msg, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseEncode for crate::api::types::SatisfiableItem {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::types::SatisfiableItem::EcdsaSignature { key } => {
+                <i32>::sse_encode(0, serializer);
+                <crate::api::types::PkOrF>::sse_encode(key, serializer);
+            }
+            crate::api::types::SatisfiableItem::SchnorrSignature { key } => {
+                <i32>::sse_encode(1, serializer);
+                <crate::api::types::PkOrF>::sse_encode(key, serializer);
+            }
+            crate::api::types::SatisfiableItem::Sha256Preimage { hash } => {
+                <i32>::sse_encode(2, serializer);
+                <String>::sse_encode(hash, serializer);
+            }
+            crate::api::types::SatisfiableItem::Hash256Preimage { hash } => {
+                <i32>::sse_encode(3, serializer);
+                <String>::sse_encode(hash, serializer);
+            }
+            crate::api::types::SatisfiableItem::Ripemd160Preimage { hash } => {
+                <i32>::sse_encode(4, serializer);
+                <String>::sse_encode(hash, serializer);
+            }
+            crate::api::types::SatisfiableItem::Hash160Preimage { hash } => {
+                <i32>::sse_encode(5, serializer);
+                <String>::sse_encode(hash, serializer);
+            }
+            crate::api::types::SatisfiableItem::AbsoluteTimelock { value } => {
+                <i32>::sse_encode(6, serializer);
+                <crate::api::types::LockTime>::sse_encode(value, serializer);
+            }
+            crate::api::types::SatisfiableItem::RelativeTimelock { value } => {
+                <i32>::sse_encode(7, serializer);
+                <u32>::sse_encode(value, serializer);
+            }
+            crate::api::types::SatisfiableItem::Multisig { keys, threshold } => {
+                <i32>::sse_encode(8, serializer);
+                <Vec<crate::api::types::PkOrF>>::sse_encode(keys, serializer);
+                <u64>::sse_encode(threshold, serializer);
+            }
+            crate::api::types::SatisfiableItem::Thresh { items, threshold } => {
+                <i32>::sse_encode(9, serializer);
+                <Vec<crate::api::types::BdkPolicy>>::sse_encode(items, serializer);
+                <u64>::sse_encode(threshold, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 

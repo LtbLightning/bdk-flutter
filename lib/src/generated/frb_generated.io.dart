@@ -40,6 +40,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       get rust_arc_decrement_strong_count_ExtendedDescriptorPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorExtendedDescriptorPtr;
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicyPtr;
+
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_DescriptorPublicKeyPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_bdkkeysDescriptorPublicKeyPtr;
@@ -63,6 +66,17 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
           wire._rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdkbitcoinpsbtPartiallySignedTransactionPtr;
 
   @protected
+  Map<String, Uint32List> dco_decode_Map_String_list_prim_u_32_strict(
+      dynamic raw);
+
+  @protected
+  Map<Uint32List, List<Condition>>
+      dco_decode_Map_list_prim_u_32_strict_list_condition(dynamic raw);
+
+  @protected
+  Map<int, List<Condition>> dco_decode_Map_u_32_list_condition(dynamic raw);
+
+  @protected
   Address dco_decode_RustOpaque_bdkbitcoinAddress(dynamic raw);
 
   @protected
@@ -75,6 +89,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   ExtendedDescriptor dco_decode_RustOpaque_bdkdescriptorExtendedDescriptor(
       dynamic raw);
+
+  @protected
+  Policy dco_decode_RustOpaque_bdkdescriptorPolicy(dynamic raw);
 
   @protected
   DescriptorPublicKey dco_decode_RustOpaque_bdkkeysDescriptorPublicKey(
@@ -140,6 +157,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   BdkMnemonic dco_decode_bdk_mnemonic(dynamic raw);
 
   @protected
+  BdkPolicy dco_decode_bdk_policy(dynamic raw);
+
+  @protected
   BdkPsbt dco_decode_bdk_psbt(dynamic raw);
 
   @protected
@@ -190,6 +210,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   BdkMnemonic dco_decode_box_autoadd_bdk_mnemonic(dynamic raw);
 
   @protected
+  BdkPolicy dco_decode_box_autoadd_bdk_policy(dynamic raw);
+
+  @protected
   BdkPsbt dco_decode_box_autoadd_bdk_psbt(dynamic raw);
 
   @protected
@@ -206,6 +229,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   BlockchainConfig dco_decode_box_autoadd_blockchain_config(dynamic raw);
+
+  @protected
+  bool dco_decode_box_autoadd_bool(dynamic raw);
+
+  @protected
+  Condition dco_decode_box_autoadd_condition(dynamic raw);
 
   @protected
   ConsensusError dco_decode_box_autoadd_consensus_error(dynamic raw);
@@ -239,6 +268,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   OutPoint dco_decode_box_autoadd_out_point(dynamic raw);
+
+  @protected
+  PkOrF dco_decode_box_autoadd_pk_or_f(dynamic raw);
 
   @protected
   PsbtSigHashType dco_decode_box_autoadd_psbt_sig_hash_type(dynamic raw);
@@ -279,6 +311,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   ChangeSpendPolicy dco_decode_change_spend_policy(dynamic raw);
 
   @protected
+  Condition dco_decode_condition(dynamic raw);
+
+  @protected
   ConsensusError dco_decode_consensus_error(dynamic raw);
 
   @protected
@@ -312,6 +347,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   KeychainKind dco_decode_keychain_kind(dynamic raw);
 
   @protected
+  List<BdkPolicy> dco_decode_list_bdk_policy(dynamic raw);
+
+  @protected
+  List<Condition> dco_decode_list_condition(dynamic raw);
+
+  @protected
   List<Uint8List> dco_decode_list_list_prim_u_8_strict(dynamic raw);
 
   @protected
@@ -321,10 +362,31 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   List<OutPoint> dco_decode_list_out_point(dynamic raw);
 
   @protected
+  List<PkOrF> dco_decode_list_pk_or_f(dynamic raw);
+
+  @protected
+  Uint32List dco_decode_list_prim_u_32_strict(dynamic raw);
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw);
+
+  @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+  @protected
+  List<(Uint32List, List<Condition>)>
+      dco_decode_list_record_list_prim_u_32_strict_list_condition(dynamic raw);
+
+  @protected
+  List<(String, Uint32List)>
+      dco_decode_list_record_string_list_prim_u_32_strict(dynamic raw);
+
+  @protected
+  List<(int, List<Condition>)> dco_decode_list_record_u_32_list_condition(
+      dynamic raw);
 
   @protected
   List<ScriptAmount> dco_decode_list_script_amount(dynamic raw);
@@ -348,6 +410,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Network dco_decode_network(dynamic raw);
 
   @protected
+  Map<String, Uint32List>? dco_decode_opt_Map_String_list_prim_u_32_strict(
+      dynamic raw);
+
+  @protected
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
@@ -355,6 +421,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   BdkDescriptor? dco_decode_opt_box_autoadd_bdk_descriptor(dynamic raw);
+
+  @protected
+  BdkPolicy? dco_decode_opt_box_autoadd_bdk_policy(dynamic raw);
 
   @protected
   BdkScriptBuf? dco_decode_opt_box_autoadd_bdk_script_buf(dynamic raw);
@@ -366,10 +435,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   BlockTime? dco_decode_opt_box_autoadd_block_time(dynamic raw);
 
   @protected
+  bool? dco_decode_opt_box_autoadd_bool(dynamic raw);
+
+  @protected
   double? dco_decode_opt_box_autoadd_f_32(dynamic raw);
 
   @protected
   FeeRate? dco_decode_opt_box_autoadd_fee_rate(dynamic raw);
+
+  @protected
+  LockTime? dco_decode_opt_box_autoadd_lock_time(dynamic raw);
 
   @protected
   PsbtSigHashType? dco_decode_opt_box_autoadd_psbt_sig_hash_type(dynamic raw);
@@ -403,6 +478,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Payload dco_decode_payload(dynamic raw);
 
   @protected
+  PkOrF dco_decode_pk_or_f(dynamic raw);
+
+  @protected
   PsbtSigHashType dco_decode_psbt_sig_hash_type(dynamic raw);
 
   @protected
@@ -416,14 +494,31 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       dynamic raw);
 
   @protected
+  (Uint32List, List<Condition>)
+      dco_decode_record_list_prim_u_32_strict_list_condition(dynamic raw);
+
+  @protected
   (OutPoint, Input, BigInt) dco_decode_record_out_point_input_usize(
       dynamic raw);
+
+  @protected
+  (String, Uint32List) dco_decode_record_string_list_prim_u_32_strict(
+      dynamic raw);
+
+  @protected
+  (int, List<Condition>) dco_decode_record_u_32_list_condition(dynamic raw);
 
   @protected
   RpcConfig dco_decode_rpc_config(dynamic raw);
 
   @protected
   RpcSyncParams dco_decode_rpc_sync_params(dynamic raw);
+
+  @protected
+  Satisfaction dco_decode_satisfaction(dynamic raw);
+
+  @protected
+  SatisfiableItem dco_decode_satisfiable_item(dynamic raw);
 
   @protected
   ScriptAmount dco_decode_script_amount(dynamic raw);
@@ -474,6 +569,19 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   WordCount dco_decode_word_count(dynamic raw);
 
   @protected
+  Map<String, Uint32List> sse_decode_Map_String_list_prim_u_32_strict(
+      SseDeserializer deserializer);
+
+  @protected
+  Map<Uint32List, List<Condition>>
+      sse_decode_Map_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer);
+
+  @protected
+  Map<int, List<Condition>> sse_decode_Map_u_32_list_condition(
+      SseDeserializer deserializer);
+
+  @protected
   Address sse_decode_RustOpaque_bdkbitcoinAddress(SseDeserializer deserializer);
 
   @protected
@@ -486,6 +594,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   ExtendedDescriptor sse_decode_RustOpaque_bdkdescriptorExtendedDescriptor(
+      SseDeserializer deserializer);
+
+  @protected
+  Policy sse_decode_RustOpaque_bdkdescriptorPolicy(
       SseDeserializer deserializer);
 
   @protected
@@ -556,6 +668,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   BdkMnemonic sse_decode_bdk_mnemonic(SseDeserializer deserializer);
 
   @protected
+  BdkPolicy sse_decode_bdk_policy(SseDeserializer deserializer);
+
+  @protected
   BdkPsbt sse_decode_bdk_psbt(SseDeserializer deserializer);
 
   @protected
@@ -611,6 +726,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   BdkMnemonic sse_decode_box_autoadd_bdk_mnemonic(SseDeserializer deserializer);
 
   @protected
+  BdkPolicy sse_decode_box_autoadd_bdk_policy(SseDeserializer deserializer);
+
+  @protected
   BdkPsbt sse_decode_box_autoadd_bdk_psbt(SseDeserializer deserializer);
 
   @protected
@@ -630,6 +748,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   BlockchainConfig sse_decode_box_autoadd_blockchain_config(
       SseDeserializer deserializer);
+
+  @protected
+  bool sse_decode_box_autoadd_bool(SseDeserializer deserializer);
+
+  @protected
+  Condition sse_decode_box_autoadd_condition(SseDeserializer deserializer);
 
   @protected
   ConsensusError sse_decode_box_autoadd_consensus_error(
@@ -668,6 +792,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   OutPoint sse_decode_box_autoadd_out_point(SseDeserializer deserializer);
+
+  @protected
+  PkOrF sse_decode_box_autoadd_pk_or_f(SseDeserializer deserializer);
 
   @protected
   PsbtSigHashType sse_decode_box_autoadd_psbt_sig_hash_type(
@@ -712,6 +839,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SseDeserializer deserializer);
 
   @protected
+  Condition sse_decode_condition(SseDeserializer deserializer);
+
+  @protected
   ConsensusError sse_decode_consensus_error(SseDeserializer deserializer);
 
   @protected
@@ -745,6 +875,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   KeychainKind sse_decode_keychain_kind(SseDeserializer deserializer);
 
   @protected
+  List<BdkPolicy> sse_decode_list_bdk_policy(SseDeserializer deserializer);
+
+  @protected
+  List<Condition> sse_decode_list_condition(SseDeserializer deserializer);
+
+  @protected
   List<Uint8List> sse_decode_list_list_prim_u_8_strict(
       SseDeserializer deserializer);
 
@@ -755,10 +891,33 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer);
 
   @protected
+  List<PkOrF> sse_decode_list_pk_or_f(SseDeserializer deserializer);
+
+  @protected
+  Uint32List sse_decode_list_prim_u_32_strict(SseDeserializer deserializer);
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer);
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+  @protected
+  List<(Uint32List, List<Condition>)>
+      sse_decode_list_record_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer);
+
+  @protected
+  List<(String, Uint32List)>
+      sse_decode_list_record_string_list_prim_u_32_strict(
+          SseDeserializer deserializer);
+
+  @protected
+  List<(int, List<Condition>)> sse_decode_list_record_u_32_list_condition(
+      SseDeserializer deserializer);
 
   @protected
   List<ScriptAmount> sse_decode_list_script_amount(
@@ -784,6 +943,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Network sse_decode_network(SseDeserializer deserializer);
 
   @protected
+  Map<String, Uint32List>? sse_decode_opt_Map_String_list_prim_u_32_strict(
+      SseDeserializer deserializer);
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
@@ -792,6 +955,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   BdkDescriptor? sse_decode_opt_box_autoadd_bdk_descriptor(
+      SseDeserializer deserializer);
+
+  @protected
+  BdkPolicy? sse_decode_opt_box_autoadd_bdk_policy(
       SseDeserializer deserializer);
 
   @protected
@@ -807,10 +974,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SseDeserializer deserializer);
 
   @protected
+  bool? sse_decode_opt_box_autoadd_bool(SseDeserializer deserializer);
+
+  @protected
   double? sse_decode_opt_box_autoadd_f_32(SseDeserializer deserializer);
 
   @protected
   FeeRate? sse_decode_opt_box_autoadd_fee_rate(SseDeserializer deserializer);
+
+  @protected
+  LockTime? sse_decode_opt_box_autoadd_lock_time(SseDeserializer deserializer);
 
   @protected
   PsbtSigHashType? sse_decode_opt_box_autoadd_psbt_sig_hash_type(
@@ -848,6 +1021,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   Payload sse_decode_payload(SseDeserializer deserializer);
 
   @protected
+  PkOrF sse_decode_pk_or_f(SseDeserializer deserializer);
+
+  @protected
   PsbtSigHashType sse_decode_psbt_sig_hash_type(SseDeserializer deserializer);
 
   @protected
@@ -862,7 +1038,20 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SseDeserializer deserializer);
 
   @protected
+  (Uint32List, List<Condition>)
+      sse_decode_record_list_prim_u_32_strict_list_condition(
+          SseDeserializer deserializer);
+
+  @protected
   (OutPoint, Input, BigInt) sse_decode_record_out_point_input_usize(
+      SseDeserializer deserializer);
+
+  @protected
+  (String, Uint32List) sse_decode_record_string_list_prim_u_32_strict(
+      SseDeserializer deserializer);
+
+  @protected
+  (int, List<Condition>) sse_decode_record_u_32_list_condition(
       SseDeserializer deserializer);
 
   @protected
@@ -870,6 +1059,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   RpcSyncParams sse_decode_rpc_sync_params(SseDeserializer deserializer);
+
+  @protected
+  Satisfaction sse_decode_satisfaction(SseDeserializer deserializer);
+
+  @protected
+  SatisfiableItem sse_decode_satisfiable_item(SseDeserializer deserializer);
 
   @protected
   ScriptAmount sse_decode_script_amount(SseDeserializer deserializer);
@@ -921,6 +1116,31 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   WordCount sse_decode_word_count(SseDeserializer deserializer);
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_Map_String_list_prim_u_32_strict(Map<String, Uint32List> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_record_string_list_prim_u_32_strict(
+        raw.entries.map((e) => (e.key, e.value)).toList());
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
+      cst_encode_Map_list_prim_u_32_strict_list_condition(
+          Map<Uint32List, List<Condition>> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_record_list_prim_u_32_strict_list_condition(
+        raw.entries.map((e) => (e.key, e.value)).toList());
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_u_32_list_condition>
+      cst_encode_Map_u_32_list_condition(Map<int, List<Condition>> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_record_u_32_list_condition(
+        raw.entries.map((e) => (e.key, e.value)).toList());
+  }
 
   @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_String(String raw) {
@@ -1012,6 +1232,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_bdk_policy> cst_encode_box_autoadd_bdk_policy(
+      BdkPolicy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_bdk_policy();
+    cst_api_fill_to_wire_bdk_policy(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_bdk_psbt> cst_encode_box_autoadd_bdk_psbt(BdkPsbt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_bdk_psbt();
@@ -1061,6 +1290,21 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ptr = wire.cst_new_box_autoadd_blockchain_config();
     cst_api_fill_to_wire_blockchain_config(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<ffi.Bool> cst_encode_box_autoadd_bool(bool raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_bool(cst_encode_bool(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_condition> cst_encode_box_autoadd_condition(
+      Condition raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_condition();
+    cst_api_fill_to_wire_condition(raw, ptr.ref);
     return ptr;
   }
 
@@ -1160,6 +1404,14 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_pk_or_f> cst_encode_box_autoadd_pk_or_f(PkOrF raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_pk_or_f();
+    cst_api_fill_to_wire_pk_or_f(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_psbt_sig_hash_type>
       cst_encode_box_autoadd_psbt_sig_hash_type(PsbtSigHashType raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1252,6 +1504,28 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_bdk_policy> cst_encode_list_bdk_policy(
+      List<BdkPolicy> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_bdk_policy(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_bdk_policy(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_condition> cst_encode_list_condition(
+      List<Condition> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_condition(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_condition(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_encode_list_list_prim_u_8_strict(List<Uint8List> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1285,6 +1559,34 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_pk_or_f> cst_encode_list_pk_or_f(List<PkOrF> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_pk_or_f(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_pk_or_f(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_32_strict> cst_encode_list_prim_u_32_strict(
+      Uint32List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_32_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_encode_list_prim_u_64_strict(
+      Uint64List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_64_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw.inner);
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_prim_u_8_loose> cst_encode_list_prim_u_8_loose(
       List<int> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1299,6 +1601,46 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     // Codec=Cst (C-struct based), see doc to use other codecs
     final ans = wire.cst_new_list_prim_u_8_strict(raw.length);
     ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
+      cst_encode_list_record_list_prim_u_32_strict_list_condition(
+          List<(Uint32List, List<Condition>)> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire
+        .cst_new_list_record_list_prim_u_32_strict_list_condition(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_record_list_prim_u_32_strict_list_condition(
+          raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_list_record_string_list_prim_u_32_strict(
+          List<(String, Uint32List)> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans =
+        wire.cst_new_list_record_string_list_prim_u_32_strict(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_record_string_list_prim_u_32_strict(
+          raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_record_u_32_list_condition>
+      cst_encode_list_record_u_32_list_condition(
+          List<(int, List<Condition>)> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_record_u_32_list_condition(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_record_u_32_list_condition(raw[i], ans.ref.ptr[i]);
+    }
     return ans;
   }
 
@@ -1345,6 +1687,16 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_encode_opt_Map_String_list_prim_u_32_strict(
+          Map<String, Uint32List>? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_Map_String_list_prim_u_32_strict(raw);
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_String(
       String? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1365,6 +1717,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     return raw == null
         ? ffi.nullptr
         : cst_encode_box_autoadd_bdk_descriptor(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_bdk_policy> cst_encode_opt_box_autoadd_bdk_policy(
+      BdkPolicy? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_bdk_policy(raw);
   }
 
   @protected
@@ -1393,6 +1752,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<ffi.Bool> cst_encode_opt_box_autoadd_bool(bool? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_bool(raw);
+  }
+
+  @protected
   ffi.Pointer<ffi.Float> cst_encode_opt_box_autoadd_f_32(double? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_f_32(raw);
@@ -1403,6 +1768,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       FeeRate? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_fee_rate(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_lock_time> cst_encode_opt_box_autoadd_lock_time(
+      LockTime? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_lock_time(raw);
   }
 
   @protected
@@ -1948,6 +2320,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_bdk_policy(
+      BdkPolicy apiObj, wire_cst_bdk_policy wireObj) {
+    wireObj.ptr = cst_encode_RustOpaque_bdkdescriptorPolicy(apiObj.ptr);
+  }
+
+  @protected
   void cst_api_fill_to_wire_bdk_psbt(
       BdkPsbt apiObj, wire_cst_bdk_psbt wireObj) {
     wireObj.ptr =
@@ -2063,6 +2441,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_bdk_policy(
+      BdkPolicy apiObj, ffi.Pointer<wire_cst_bdk_policy> wireObj) {
+    cst_api_fill_to_wire_bdk_policy(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_bdk_psbt(
       BdkPsbt apiObj, ffi.Pointer<wire_cst_bdk_psbt> wireObj) {
     cst_api_fill_to_wire_bdk_psbt(apiObj, wireObj.ref);
@@ -2097,6 +2481,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       BlockchainConfig apiObj,
       ffi.Pointer<wire_cst_blockchain_config> wireObj) {
     cst_api_fill_to_wire_blockchain_config(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_condition(
+      Condition apiObj, ffi.Pointer<wire_cst_condition> wireObj) {
+    cst_api_fill_to_wire_condition(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2160,6 +2550,12 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_pk_or_f(
+      PkOrF apiObj, ffi.Pointer<wire_cst_pk_or_f> wireObj) {
+    cst_api_fill_to_wire_pk_or_f(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_box_autoadd_psbt_sig_hash_type(
       PsbtSigHashType apiObj,
       ffi.Pointer<wire_cst_psbt_sig_hash_type> wireObj) {
@@ -2209,6 +2605,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       SqliteDbConfiguration apiObj,
       ffi.Pointer<wire_cst_sqlite_db_configuration> wireObj) {
     cst_api_fill_to_wire_sqlite_db_configuration(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_condition(
+      Condition apiObj, wire_cst_condition wireObj) {
+    wireObj.csv = cst_encode_opt_box_autoadd_u_32(apiObj.csv);
+    wireObj.timelock = cst_encode_opt_box_autoadd_lock_time(apiObj.timelock);
   }
 
   @protected
@@ -2461,6 +2864,28 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_pk_or_f(PkOrF apiObj, wire_cst_pk_or_f wireObj) {
+    if (apiObj is PkOrF_Pubkey) {
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 0;
+      wireObj.kind.Pubkey.value = pre_value;
+      return;
+    }
+    if (apiObj is PkOrF_XOnlyPubkey) {
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 1;
+      wireObj.kind.XOnlyPubkey.value = pre_value;
+      return;
+    }
+    if (apiObj is PkOrF_Fingerprint) {
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 2;
+      wireObj.kind.Fingerprint.value = pre_value;
+      return;
+    }
+  }
+
+  @protected
   void cst_api_fill_to_wire_psbt_sig_hash_type(
       PsbtSigHashType apiObj, wire_cst_psbt_sig_hash_type wireObj) {
     wireObj.inner = cst_encode_u_32(apiObj.inner);
@@ -2497,12 +2922,36 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_record_list_prim_u_32_strict_list_condition(
+      (Uint32List, List<Condition>) apiObj,
+      wire_cst_record_list_prim_u_32_strict_list_condition wireObj) {
+    wireObj.field0 = cst_encode_list_prim_u_32_strict(apiObj.$1);
+    wireObj.field1 = cst_encode_list_condition(apiObj.$2);
+  }
+
+  @protected
   void cst_api_fill_to_wire_record_out_point_input_usize(
       (OutPoint, Input, BigInt) apiObj,
       wire_cst_record_out_point_input_usize wireObj) {
     cst_api_fill_to_wire_out_point(apiObj.$1, wireObj.field0);
     cst_api_fill_to_wire_input(apiObj.$2, wireObj.field1);
     wireObj.field2 = cst_encode_usize(apiObj.$3);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_record_string_list_prim_u_32_strict(
+      (String, Uint32List) apiObj,
+      wire_cst_record_string_list_prim_u_32_strict wireObj) {
+    wireObj.field0 = cst_encode_String(apiObj.$1);
+    wireObj.field1 = cst_encode_list_prim_u_32_strict(apiObj.$2);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_record_u_32_list_condition(
+      (int, List<Condition>) apiObj,
+      wire_cst_record_u_32_list_condition wireObj) {
+    wireObj.field0 = cst_encode_u_32(apiObj.$1);
+    wireObj.field1 = cst_encode_list_condition(apiObj.$2);
   }
 
   @protected
@@ -2523,6 +2972,122 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     wireObj.start_time = cst_encode_u_64(apiObj.startTime);
     wireObj.force_start_time = cst_encode_bool(apiObj.forceStartTime);
     wireObj.poll_rate_sec = cst_encode_u_64(apiObj.pollRateSec);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_satisfaction(
+      Satisfaction apiObj, wire_cst_satisfaction wireObj) {
+    if (apiObj is Satisfaction_Partial) {
+      var pre_n = cst_encode_u_64(apiObj.n);
+      var pre_m = cst_encode_u_64(apiObj.m);
+      var pre_items = cst_encode_list_prim_u_64_strict(apiObj.items);
+      var pre_sorted = cst_encode_opt_box_autoadd_bool(apiObj.sorted);
+      var pre_conditions =
+          cst_encode_Map_u_32_list_condition(apiObj.conditions);
+      wireObj.tag = 0;
+      wireObj.kind.Partial.n = pre_n;
+      wireObj.kind.Partial.m = pre_m;
+      wireObj.kind.Partial.items = pre_items;
+      wireObj.kind.Partial.sorted = pre_sorted;
+      wireObj.kind.Partial.conditions = pre_conditions;
+      return;
+    }
+    if (apiObj is Satisfaction_PartialComplete) {
+      var pre_n = cst_encode_u_64(apiObj.n);
+      var pre_m = cst_encode_u_64(apiObj.m);
+      var pre_items = cst_encode_list_prim_u_64_strict(apiObj.items);
+      var pre_sorted = cst_encode_opt_box_autoadd_bool(apiObj.sorted);
+      var pre_conditions = cst_encode_Map_list_prim_u_32_strict_list_condition(
+          apiObj.conditions);
+      wireObj.tag = 1;
+      wireObj.kind.PartialComplete.n = pre_n;
+      wireObj.kind.PartialComplete.m = pre_m;
+      wireObj.kind.PartialComplete.items = pre_items;
+      wireObj.kind.PartialComplete.sorted = pre_sorted;
+      wireObj.kind.PartialComplete.conditions = pre_conditions;
+      return;
+    }
+    if (apiObj is Satisfaction_Complete) {
+      var pre_condition = cst_encode_box_autoadd_condition(apiObj.condition);
+      wireObj.tag = 2;
+      wireObj.kind.Complete.condition = pre_condition;
+      return;
+    }
+    if (apiObj is Satisfaction_None) {
+      var pre_msg = cst_encode_String(apiObj.msg);
+      wireObj.tag = 3;
+      wireObj.kind.None.msg = pre_msg;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_satisfiable_item(
+      SatisfiableItem apiObj, wire_cst_satisfiable_item wireObj) {
+    if (apiObj is SatisfiableItem_EcdsaSignature) {
+      var pre_key = cst_encode_box_autoadd_pk_or_f(apiObj.key);
+      wireObj.tag = 0;
+      wireObj.kind.EcdsaSignature.key = pre_key;
+      return;
+    }
+    if (apiObj is SatisfiableItem_SchnorrSignature) {
+      var pre_key = cst_encode_box_autoadd_pk_or_f(apiObj.key);
+      wireObj.tag = 1;
+      wireObj.kind.SchnorrSignature.key = pre_key;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Sha256Preimage) {
+      var pre_hash = cst_encode_String(apiObj.hash);
+      wireObj.tag = 2;
+      wireObj.kind.Sha256Preimage.hash = pre_hash;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Hash256Preimage) {
+      var pre_hash = cst_encode_String(apiObj.hash);
+      wireObj.tag = 3;
+      wireObj.kind.Hash256Preimage.hash = pre_hash;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Ripemd160Preimage) {
+      var pre_hash = cst_encode_String(apiObj.hash);
+      wireObj.tag = 4;
+      wireObj.kind.Ripemd160Preimage.hash = pre_hash;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Hash160Preimage) {
+      var pre_hash = cst_encode_String(apiObj.hash);
+      wireObj.tag = 5;
+      wireObj.kind.Hash160Preimage.hash = pre_hash;
+      return;
+    }
+    if (apiObj is SatisfiableItem_AbsoluteTimelock) {
+      var pre_value = cst_encode_box_autoadd_lock_time(apiObj.value);
+      wireObj.tag = 6;
+      wireObj.kind.AbsoluteTimelock.value = pre_value;
+      return;
+    }
+    if (apiObj is SatisfiableItem_RelativeTimelock) {
+      var pre_value = cst_encode_u_32(apiObj.value);
+      wireObj.tag = 7;
+      wireObj.kind.RelativeTimelock.value = pre_value;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Multisig) {
+      var pre_keys = cst_encode_list_pk_or_f(apiObj.keys);
+      var pre_threshold = cst_encode_u_64(apiObj.threshold);
+      wireObj.tag = 8;
+      wireObj.kind.Multisig.keys = pre_keys;
+      wireObj.kind.Multisig.threshold = pre_threshold;
+      return;
+    }
+    if (apiObj is SatisfiableItem_Thresh) {
+      var pre_items = cst_encode_list_bdk_policy(apiObj.items);
+      var pre_threshold = cst_encode_u_64(apiObj.threshold);
+      wireObj.tag = 9;
+      wireObj.kind.Thresh.items = pre_items;
+      wireObj.kind.Thresh.threshold = pre_threshold;
+      return;
+    }
   }
 
   @protected
@@ -2602,6 +3167,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       ExtendedDescriptor raw);
 
   @protected
+  int cst_encode_RustOpaque_bdkdescriptorPolicy(Policy raw);
+
+  @protected
   int cst_encode_RustOpaque_bdkkeysDescriptorPublicKey(DescriptorPublicKey raw);
 
   @protected
@@ -2658,6 +3226,18 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   int cst_encode_word_count(WordCount raw);
 
   @protected
+  void sse_encode_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Map_list_prim_u_32_strict_list_condition(
+      Map<Uint32List, List<Condition>> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Map_u_32_list_condition(
+      Map<int, List<Condition>> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_RustOpaque_bdkbitcoinAddress(
       Address self, SseSerializer serializer);
 
@@ -2672,6 +3252,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_RustOpaque_bdkdescriptorExtendedDescriptor(
       ExtendedDescriptor self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_bdkdescriptorPolicy(
+      Policy self, SseSerializer serializer);
 
   @protected
   void sse_encode_RustOpaque_bdkkeysDescriptorPublicKey(
@@ -2741,6 +3325,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_bdk_mnemonic(BdkMnemonic self, SseSerializer serializer);
 
   @protected
+  void sse_encode_bdk_policy(BdkPolicy self, SseSerializer serializer);
+
+  @protected
   void sse_encode_bdk_psbt(BdkPsbt self, SseSerializer serializer);
 
   @protected
@@ -2800,6 +3387,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       BdkMnemonic self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_bdk_policy(
+      BdkPolicy self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_bdk_psbt(BdkPsbt self, SseSerializer serializer);
 
   @protected
@@ -2821,6 +3412,13 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_box_autoadd_blockchain_config(
       BlockchainConfig self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_bool(bool self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_condition(
+      Condition self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_consensus_error(
@@ -2863,6 +3461,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_box_autoadd_out_point(
       OutPoint self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_pk_or_f(PkOrF self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_psbt_sig_hash_type(
@@ -2910,6 +3511,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       ChangeSpendPolicy self, SseSerializer serializer);
 
   @protected
+  void sse_encode_condition(Condition self, SseSerializer serializer);
+
+  @protected
   void sse_encode_consensus_error(
       ConsensusError self, SseSerializer serializer);
 
@@ -2947,6 +3551,14 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_keychain_kind(KeychainKind self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_bdk_policy(
+      List<BdkPolicy> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_condition(
+      List<Condition> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_list_prim_u_8_strict(
       List<Uint8List> self, SseSerializer serializer);
 
@@ -2958,11 +3570,34 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_list_out_point(List<OutPoint> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_pk_or_f(List<PkOrF> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_32_strict(
+      Uint32List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_prim_u_8_strict(
       Uint8List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_record_list_prim_u_32_strict_list_condition(
+      List<(Uint32List, List<Condition>)> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_record_string_list_prim_u_32_strict(
+      List<(String, Uint32List)> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_record_u_32_list_condition(
+      List<(int, List<Condition>)> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_script_amount(
@@ -2988,6 +3623,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_network(Network self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List>? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
@@ -2997,6 +3636,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   @protected
   void sse_encode_opt_box_autoadd_bdk_descriptor(
       BdkDescriptor? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_bdk_policy(
+      BdkPolicy? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_bdk_script_buf(
@@ -3011,11 +3654,18 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       BlockTime? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_bool(bool? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_f_32(double? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_fee_rate(
       FeeRate? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_lock_time(
+      LockTime? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_psbt_sig_hash_type(
@@ -3053,6 +3703,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_payload(Payload self, SseSerializer serializer);
 
   @protected
+  void sse_encode_pk_or_f(PkOrF self, SseSerializer serializer);
+
+  @protected
   void sse_encode_psbt_sig_hash_type(
       PsbtSigHashType self, SseSerializer serializer);
 
@@ -3068,14 +3721,33 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
       (BdkPsbt, TransactionDetails) self, SseSerializer serializer);
 
   @protected
+  void sse_encode_record_list_prim_u_32_strict_list_condition(
+      (Uint32List, List<Condition>) self, SseSerializer serializer);
+
+  @protected
   void sse_encode_record_out_point_input_usize(
       (OutPoint, Input, BigInt) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_string_list_prim_u_32_strict(
+      (String, Uint32List) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_record_u_32_list_condition(
+      (int, List<Condition>) self, SseSerializer serializer);
 
   @protected
   void sse_encode_rpc_config(RpcConfig self, SseSerializer serializer);
 
   @protected
   void sse_encode_rpc_sync_params(RpcSyncParams self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_satisfaction(Satisfaction self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_satisfiable_item(
+      SatisfiableItem self, SseSerializer serializer);
 
   @protected
   void sse_encode_script_amount(ScriptAmount self, SseSerializer serializer);
@@ -4267,6 +4939,102 @@ class coreWire implements BaseWire {
       _wire__crate__api__types__bdk_address_to_qr_uriPtr.asFunction<
           WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_address>)>();
 
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_as_string(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_as_string(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_as_stringPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_as_string');
+  late final _wire__crate__api__types__bdk_policy_as_string =
+      _wire__crate__api__types__bdk_policy_as_stringPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_contribution(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_contribution(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_contributionPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_contribution');
+  late final _wire__crate__api__types__bdk_policy_contribution =
+      _wire__crate__api__types__bdk_policy_contributionPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_id(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_id(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_idPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_id');
+  late final _wire__crate__api__types__bdk_policy_id =
+      _wire__crate__api__types__bdk_policy_idPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_item(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_item(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_itemPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_item');
+  late final _wire__crate__api__types__bdk_policy_item =
+      _wire__crate__api__types__bdk_policy_itemPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_requires_path(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_requires_path(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_requires_pathPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_requires_path');
+  late final _wire__crate__api__types__bdk_policy_requires_path =
+      _wire__crate__api__types__bdk_policy_requires_pathPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
+  WireSyncRust2DartDco wire__crate__api__types__bdk_policy_satisfaction(
+    ffi.Pointer<wire_cst_bdk_policy> that,
+  ) {
+    return _wire__crate__api__types__bdk_policy_satisfaction(
+      that,
+    );
+  }
+
+  late final _wire__crate__api__types__bdk_policy_satisfactionPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>>(
+      'frbgen_bdk_flutter_wire__crate__api__types__bdk_policy_satisfaction');
+  late final _wire__crate__api__types__bdk_policy_satisfaction =
+      _wire__crate__api__types__bdk_policy_satisfactionPtr.asFunction<
+          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_bdk_policy>)>();
+
   WireSyncRust2DartDco wire__crate__api__types__bdk_script_buf_as_string(
     ffi.Pointer<wire_cst_bdk_script_buf> that,
   ) {
@@ -4838,6 +5606,26 @@ class coreWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_database_config>)>();
 
+  WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_policies(
+    ffi.Pointer<wire_cst_bdk_wallet> ptr,
+    int keychain,
+  ) {
+    return _wire__crate__api__wallet__bdk_wallet_policies(
+      ptr,
+      keychain,
+    );
+  }
+
+  late final _wire__crate__api__wallet__bdk_wallet_policiesPtr = _lookup<
+          ffi.NativeFunction<
+              WireSyncRust2DartDco Function(
+                  ffi.Pointer<wire_cst_bdk_wallet>, ffi.Int32)>>(
+      'frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_policies');
+  late final _wire__crate__api__wallet__bdk_wallet_policies =
+      _wire__crate__api__wallet__bdk_wallet_policiesPtr.asFunction<
+          WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_bdk_wallet>, int)>();
+
   void wire__crate__api__wallet__bdk_wallet_sign(
     int port_,
     ffi.Pointer<wire_cst_bdk_wallet> ptr,
@@ -4946,6 +5734,10 @@ class coreWire implements BaseWire {
     bool drain_wallet,
     ffi.Pointer<wire_cst_bdk_script_buf> drain_to,
     ffi.Pointer<wire_cst_rbf_value> rbf,
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+        internal_policy_path,
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+        external_policy_path,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
   ) {
     return _wire__crate__api__wallet__tx_builder_finish(
@@ -4962,28 +5754,35 @@ class coreWire implements BaseWire {
       drain_wallet,
       drain_to,
       rbf,
+      internal_policy_path,
+      external_policy_path,
       data,
     );
   }
 
-  late final _wire__crate__api__wallet__tx_builder_finishPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_bdk_wallet>,
-                  ffi.Pointer<wire_cst_list_script_amount>,
-                  ffi.Pointer<wire_cst_list_out_point>,
-                  ffi.Pointer<wire_cst_record_out_point_input_usize>,
-                  ffi.Pointer<wire_cst_list_out_point>,
-                  ffi.Int32,
-                  ffi.Bool,
-                  ffi.Pointer<ffi.Float>,
-                  ffi.Pointer<ffi.Uint64>,
-                  ffi.Bool,
-                  ffi.Pointer<wire_cst_bdk_script_buf>,
-                  ffi.Pointer<wire_cst_rbf_value>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_loose>)>>(
-      'frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish');
+  late final _wire__crate__api__wallet__tx_builder_finishPtr =
+      _lookup<
+              ffi.NativeFunction<
+                  ffi.Void Function(
+                      ffi.Int64,
+                      ffi.Pointer<wire_cst_bdk_wallet>,
+                      ffi.Pointer<wire_cst_list_script_amount>,
+                      ffi.Pointer<wire_cst_list_out_point>,
+                      ffi.Pointer<wire_cst_record_out_point_input_usize>,
+                      ffi.Pointer<wire_cst_list_out_point>,
+                      ffi.Int32,
+                      ffi.Bool,
+                      ffi.Pointer<ffi.Float>,
+                      ffi.Pointer<ffi.Uint64>,
+                      ffi.Bool,
+                      ffi.Pointer<wire_cst_bdk_script_buf>,
+                      ffi.Pointer<wire_cst_rbf_value>,
+                      ffi.Pointer<
+                          wire_cst_list_record_string_list_prim_u_32_strict>,
+                      ffi.Pointer<
+                          wire_cst_list_record_string_list_prim_u_32_strict>,
+                      ffi.Pointer<wire_cst_list_prim_u_8_loose>)>>(
+          'frbgen_bdk_flutter_wire__crate__api__wallet__tx_builder_finish');
   late final _wire__crate__api__wallet__tx_builder_finish =
       _wire__crate__api__wallet__tx_builder_finishPtr.asFunction<
           void Function(
@@ -5000,6 +5799,8 @@ class coreWire implements BaseWire {
               bool,
               ffi.Pointer<wire_cst_bdk_script_buf>,
               ffi.Pointer<wire_cst_rbf_value>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
 
   void rust_arc_increment_strong_count_RustOpaque_bdkbitcoinAddress(
@@ -5122,6 +5923,36 @@ class coreWire implements BaseWire {
           'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorExtendedDescriptor');
   late final _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorExtendedDescriptor =
       _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorExtendedDescriptorPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy');
+  late final _rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy =
+      _rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicyPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy');
+  late final _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy =
+      _rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicyPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void rust_arc_increment_strong_count_RustOpaque_bdkkeysDescriptorPublicKey(
@@ -5413,6 +6244,17 @@ class coreWire implements BaseWire {
       _cst_new_box_autoadd_bdk_mnemonicPtr
           .asFunction<ffi.Pointer<wire_cst_bdk_mnemonic> Function()>();
 
+  ffi.Pointer<wire_cst_bdk_policy> cst_new_box_autoadd_bdk_policy() {
+    return _cst_new_box_autoadd_bdk_policy();
+  }
+
+  late final _cst_new_box_autoadd_bdk_policyPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_bdk_policy> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_bdk_policy');
+  late final _cst_new_box_autoadd_bdk_policy =
+      _cst_new_box_autoadd_bdk_policyPtr
+          .asFunction<ffi.Pointer<wire_cst_bdk_policy> Function()>();
+
   ffi.Pointer<wire_cst_bdk_psbt> cst_new_box_autoadd_bdk_psbt() {
     return _cst_new_box_autoadd_bdk_psbt();
   }
@@ -5479,6 +6321,30 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_blockchain_config =
       _cst_new_box_autoadd_blockchain_configPtr
           .asFunction<ffi.Pointer<wire_cst_blockchain_config> Function()>();
+
+  ffi.Pointer<ffi.Bool> cst_new_box_autoadd_bool(
+    bool value,
+  ) {
+    return _cst_new_box_autoadd_bool(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_boolPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Bool> Function(ffi.Bool)>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_bool');
+  late final _cst_new_box_autoadd_bool = _cst_new_box_autoadd_boolPtr
+      .asFunction<ffi.Pointer<ffi.Bool> Function(bool)>();
+
+  ffi.Pointer<wire_cst_condition> cst_new_box_autoadd_condition() {
+    return _cst_new_box_autoadd_condition();
+  }
+
+  late final _cst_new_box_autoadd_conditionPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_condition> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_condition');
+  late final _cst_new_box_autoadd_condition = _cst_new_box_autoadd_conditionPtr
+      .asFunction<ffi.Pointer<wire_cst_condition> Function()>();
 
   ffi.Pointer<wire_cst_consensus_error> cst_new_box_autoadd_consensus_error() {
     return _cst_new_box_autoadd_consensus_error();
@@ -5601,6 +6467,16 @@ class coreWire implements BaseWire {
           'frbgen_bdk_flutter_cst_new_box_autoadd_out_point');
   late final _cst_new_box_autoadd_out_point = _cst_new_box_autoadd_out_pointPtr
       .asFunction<ffi.Pointer<wire_cst_out_point> Function()>();
+
+  ffi.Pointer<wire_cst_pk_or_f> cst_new_box_autoadd_pk_or_f() {
+    return _cst_new_box_autoadd_pk_or_f();
+  }
+
+  late final _cst_new_box_autoadd_pk_or_fPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_pk_or_f> Function()>>(
+          'frbgen_bdk_flutter_cst_new_box_autoadd_pk_or_f');
+  late final _cst_new_box_autoadd_pk_or_f = _cst_new_box_autoadd_pk_or_fPtr
+      .asFunction<ffi.Pointer<wire_cst_pk_or_f> Function()>();
 
   ffi.Pointer<wire_cst_psbt_sig_hash_type>
       cst_new_box_autoadd_psbt_sig_hash_type() {
@@ -5739,6 +6615,36 @@ class coreWire implements BaseWire {
   late final _cst_new_box_autoadd_u_8 = _cst_new_box_autoadd_u_8Ptr
       .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_bdk_policy> cst_new_list_bdk_policy(
+    int len,
+  ) {
+    return _cst_new_list_bdk_policy(
+      len,
+    );
+  }
+
+  late final _cst_new_list_bdk_policyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_bdk_policy> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_bdk_policy');
+  late final _cst_new_list_bdk_policy = _cst_new_list_bdk_policyPtr
+      .asFunction<ffi.Pointer<wire_cst_list_bdk_policy> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_condition> cst_new_list_condition(
+    int len,
+  ) {
+    return _cst_new_list_condition(
+      len,
+    );
+  }
+
+  late final _cst_new_list_conditionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_condition> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_condition');
+  late final _cst_new_list_condition = _cst_new_list_conditionPtr
+      .asFunction<ffi.Pointer<wire_cst_list_condition> Function(int)>();
+
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_new_list_list_prim_u_8_strict(
     int len,
@@ -5787,6 +6693,51 @@ class coreWire implements BaseWire {
   late final _cst_new_list_out_point = _cst_new_list_out_pointPtr
       .asFunction<ffi.Pointer<wire_cst_list_out_point> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_pk_or_f> cst_new_list_pk_or_f(
+    int len,
+  ) {
+    return _cst_new_list_pk_or_f(
+      len,
+    );
+  }
+
+  late final _cst_new_list_pk_or_fPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_pk_or_f> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_pk_or_f');
+  late final _cst_new_list_pk_or_f = _cst_new_list_pk_or_fPtr
+      .asFunction<ffi.Pointer<wire_cst_list_pk_or_f> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_32_strict> cst_new_list_prim_u_32_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_32_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_32_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_32_strict> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_32_strict');
+  late final _cst_new_list_prim_u_32_strict = _cst_new_list_prim_u_32_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_32_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_new_list_prim_u_64_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_64_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_64_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_64_strict');
+  late final _cst_new_list_prim_u_64_strict = _cst_new_list_prim_u_64_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(int)>();
+
   ffi.Pointer<wire_cst_list_prim_u_8_loose> cst_new_list_prim_u_8_loose(
     int len,
   ) {
@@ -5816,6 +6767,64 @@ class coreWire implements BaseWire {
               ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_8_strict');
   late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
       .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
+      cst_new_list_record_list_prim_u_32_strict_list_condition(
+    int len,
+  ) {
+    return _cst_new_list_record_list_prim_u_32_strict_list_condition(
+      len,
+    );
+  }
+
+  late final _cst_new_list_record_list_prim_u_32_strict_list_conditionPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<
+                      wire_cst_list_record_list_prim_u_32_strict_list_condition>
+                  Function(ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition');
+  late final _cst_new_list_record_list_prim_u_32_strict_list_condition =
+      _cst_new_list_record_list_prim_u_32_strict_list_conditionPtr.asFunction<
+          ffi.Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
+              Function(int)>();
+
+  ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+      cst_new_list_record_string_list_prim_u_32_strict(
+    int len,
+  ) {
+    return _cst_new_list_record_string_list_prim_u_32_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_record_string_list_prim_u_32_strictPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+                  Function(ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_record_string_list_prim_u_32_strict');
+  late final _cst_new_list_record_string_list_prim_u_32_strict =
+      _cst_new_list_record_string_list_prim_u_32_strictPtr.asFunction<
+          ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+              Function(int)>();
+
+  ffi.Pointer<wire_cst_list_record_u_32_list_condition>
+      cst_new_list_record_u_32_list_condition(
+    int len,
+  ) {
+    return _cst_new_list_record_u_32_list_condition(
+      len,
+    );
+  }
+
+  late final _cst_new_list_record_u_32_list_conditionPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_record_u_32_list_condition> Function(
+                  ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition');
+  late final _cst_new_list_record_u_32_list_condition =
+      _cst_new_list_record_u_32_list_conditionPtr.asFunction<
+          ffi.Pointer<wire_cst_list_record_u_32_list_condition> Function(
+              int)>();
 
   ffi.Pointer<wire_cst_list_script_amount> cst_new_list_script_amount(
     int len,
@@ -6072,6 +7081,11 @@ final class wire_cst_bdk_script_buf extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> bytes;
 }
 
+final class wire_cst_bdk_policy extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ptr;
+}
+
 final class wire_cst_LockTime_Blocks extends ffi.Struct {
   @ffi.Uint32()
   external int field0;
@@ -6289,6 +7303,27 @@ final class wire_cst_rbf_value extends ffi.Struct {
   external RbfValueKind kind;
 }
 
+final class wire_cst_list_prim_u_32_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint32> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_record_string_list_prim_u_32_strict extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
+
+  external ffi.Pointer<wire_cst_list_prim_u_32_strict> field1;
+}
+
+final class wire_cst_list_record_string_list_prim_u_32_strict
+    extends ffi.Struct {
+  external ffi.Pointer<wire_cst_record_string_list_prim_u_32_strict> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 final class wire_cst_AddressError_Base58 extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
 }
@@ -6376,6 +7411,12 @@ final class wire_cst_block_time extends ffi.Struct {
 
   @ffi.Uint64()
   external int timestamp;
+}
+
+final class wire_cst_condition extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint32> csv;
+
+  external ffi.Pointer<wire_cst_lock_time> timelock;
 }
 
 final class wire_cst_ConsensusError_Io extends ffi.Struct {
@@ -6524,8 +7565,93 @@ final class wire_cst_hex_error extends ffi.Struct {
   external HexErrorKind kind;
 }
 
+final class wire_cst_PkOrF_Pubkey extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_PkOrF_XOnlyPubkey extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_PkOrF_Fingerprint extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class PkOrFKind extends ffi.Union {
+  external wire_cst_PkOrF_Pubkey Pubkey;
+
+  external wire_cst_PkOrF_XOnlyPubkey XOnlyPubkey;
+
+  external wire_cst_PkOrF_Fingerprint Fingerprint;
+}
+
+final class wire_cst_pk_or_f extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external PkOrFKind kind;
+}
+
+final class wire_cst_list_bdk_policy extends ffi.Struct {
+  external ffi.Pointer<wire_cst_bdk_policy> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_condition extends ffi.Struct {
+  external ffi.Pointer<wire_cst_condition> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 final class wire_cst_list_local_utxo extends ffi.Struct {
   external ffi.Pointer<wire_cst_local_utxo> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_pk_or_f extends ffi.Struct {
+  external ffi.Pointer<wire_cst_pk_or_f> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_prim_u_64_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint64> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_record_list_prim_u_32_strict_list_condition
+    extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_32_strict> field0;
+
+  external ffi.Pointer<wire_cst_list_condition> field1;
+}
+
+final class wire_cst_list_record_list_prim_u_32_strict_list_condition
+    extends ffi.Struct {
+  external ffi.Pointer<wire_cst_record_list_prim_u_32_strict_list_condition>
+      ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_record_u_32_list_condition extends ffi.Struct {
+  @ffi.Uint32()
+  external int field0;
+
+  external ffi.Pointer<wire_cst_list_condition> field1;
+}
+
+final class wire_cst_list_record_u_32_list_condition extends ffi.Struct {
+  external ffi.Pointer<wire_cst_record_u_32_list_condition> ptr;
 
   @ffi.Int32()
   external int len;
@@ -6856,4 +7982,135 @@ final class wire_cst_record_bdk_psbt_transaction_details extends ffi.Struct {
   external wire_cst_bdk_psbt field0;
 
   external wire_cst_transaction_details field1;
+}
+
+final class wire_cst_Satisfaction_Partial extends ffi.Struct {
+  @ffi.Uint64()
+  external int n;
+
+  @ffi.Uint64()
+  external int m;
+
+  external ffi.Pointer<wire_cst_list_prim_u_64_strict> items;
+
+  external ffi.Pointer<ffi.Bool> sorted;
+
+  external ffi.Pointer<wire_cst_list_record_u_32_list_condition> conditions;
+}
+
+final class wire_cst_Satisfaction_PartialComplete extends ffi.Struct {
+  @ffi.Uint64()
+  external int n;
+
+  @ffi.Uint64()
+  external int m;
+
+  external ffi.Pointer<wire_cst_list_prim_u_64_strict> items;
+
+  external ffi.Pointer<ffi.Bool> sorted;
+
+  external ffi
+      .Pointer<wire_cst_list_record_list_prim_u_32_strict_list_condition>
+      conditions;
+}
+
+final class wire_cst_Satisfaction_Complete extends ffi.Struct {
+  external ffi.Pointer<wire_cst_condition> condition;
+}
+
+final class wire_cst_Satisfaction_None extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> msg;
+}
+
+final class SatisfactionKind extends ffi.Union {
+  external wire_cst_Satisfaction_Partial Partial;
+
+  external wire_cst_Satisfaction_PartialComplete PartialComplete;
+
+  external wire_cst_Satisfaction_Complete Complete;
+
+  external wire_cst_Satisfaction_None None;
+}
+
+final class wire_cst_satisfaction extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SatisfactionKind kind;
+}
+
+final class wire_cst_SatisfiableItem_EcdsaSignature extends ffi.Struct {
+  external ffi.Pointer<wire_cst_pk_or_f> key;
+}
+
+final class wire_cst_SatisfiableItem_SchnorrSignature extends ffi.Struct {
+  external ffi.Pointer<wire_cst_pk_or_f> key;
+}
+
+final class wire_cst_SatisfiableItem_Sha256Preimage extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> hash;
+}
+
+final class wire_cst_SatisfiableItem_Hash256Preimage extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> hash;
+}
+
+final class wire_cst_SatisfiableItem_Ripemd160Preimage extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> hash;
+}
+
+final class wire_cst_SatisfiableItem_Hash160Preimage extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> hash;
+}
+
+final class wire_cst_SatisfiableItem_AbsoluteTimelock extends ffi.Struct {
+  external ffi.Pointer<wire_cst_lock_time> value;
+}
+
+final class wire_cst_SatisfiableItem_RelativeTimelock extends ffi.Struct {
+  @ffi.Uint32()
+  external int value;
+}
+
+final class wire_cst_SatisfiableItem_Multisig extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_pk_or_f> keys;
+
+  @ffi.Uint64()
+  external int threshold;
+}
+
+final class wire_cst_SatisfiableItem_Thresh extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_bdk_policy> items;
+
+  @ffi.Uint64()
+  external int threshold;
+}
+
+final class SatisfiableItemKind extends ffi.Union {
+  external wire_cst_SatisfiableItem_EcdsaSignature EcdsaSignature;
+
+  external wire_cst_SatisfiableItem_SchnorrSignature SchnorrSignature;
+
+  external wire_cst_SatisfiableItem_Sha256Preimage Sha256Preimage;
+
+  external wire_cst_SatisfiableItem_Hash256Preimage Hash256Preimage;
+
+  external wire_cst_SatisfiableItem_Ripemd160Preimage Ripemd160Preimage;
+
+  external wire_cst_SatisfiableItem_Hash160Preimage Hash160Preimage;
+
+  external wire_cst_SatisfiableItem_AbsoluteTimelock AbsoluteTimelock;
+
+  external wire_cst_SatisfiableItem_RelativeTimelock RelativeTimelock;
+
+  external wire_cst_SatisfiableItem_Multisig Multisig;
+
+  external wire_cst_SatisfiableItem_Thresh Thresh;
+}
+
+final class wire_cst_satisfiable_item extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SatisfiableItemKind kind;
 }

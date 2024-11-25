@@ -553,6 +553,15 @@ class MockWallet extends _i1.Mock implements _i3.Wallet {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
+  @override
+  _i3.Policy? policies(_i3.KeychainKind? keychain) => (super.noSuchMethod(
+        Invocation.method(
+          #policies,
+          [keychain],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i3.Policy?);
 }
 
 /// A class which mocks [Transaction].
@@ -1691,6 +1700,41 @@ class MockTxBuilder extends _i1.Mock implements _i3.TxBuilder {
           Invocation.method(
             #addUnSpendable,
             [unSpendable],
+          ),
+        ),
+      ) as _i3.TxBuilder);
+
+  @override
+  _i3.TxBuilder policyPath(
+    _i3.KeychainKind? keychain,
+    Map<String, _i7.Uint32List>? path,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #policyPath,
+          [
+            keychain,
+            path,
+          ],
+        ),
+        returnValue: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #policyPath,
+            [
+              keychain,
+              path,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _FakeTxBuilder_14(
+          this,
+          Invocation.method(
+            #policyPath,
+            [
+              keychain,
+              path,
+            ],
           ),
         ),
       ) as _i3.TxBuilder);

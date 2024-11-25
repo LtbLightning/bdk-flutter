@@ -742,6 +742,63 @@ class PartiallySignedTransaction extends BdkPsbt {
   }
 }
 
+class Policy extends BdkPolicy {
+  Policy._({required super.ptr});
+
+  ///Identifier for this policy node
+  @override
+  String id() {
+    return super.id();
+  }
+
+  @override
+  String toString() {
+    try {
+      return super.asString();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///Return whether or not a specific path in the policy tree is required to unambiguously create a transaction
+
+  ///What this means is that for some spending policies the user should select which paths in the tree it intends to satisfy while signing, because the transaction must be created differently based on that.
+  @override
+  bool requiresPath() {
+    return super.requiresPath();
+  }
+
+  ///Type of this policy node
+  @override
+  SatisfiableItem item() {
+    return super.item().when(
+          ecdsaSignature: (e) => SatisfiableItem.ecdsaSignature(key: e),
+          schnorrSignature: (e) => SatisfiableItem.ecdsaSignature(key: e),
+          sha256Preimage: (e) => SatisfiableItem.sha256Preimage(hash: e),
+          hash256Preimage: (e) => SatisfiableItem.hash256Preimage(hash: e),
+          ripemd160Preimage: (e) => SatisfiableItem.ripemd160Preimage(hash: e),
+          hash160Preimage: (e) => SatisfiableItem.hash160Preimage(hash: e),
+          absoluteTimelock: (e) => SatisfiableItem.absoluteTimelock(value: e),
+          relativeTimelock: (e) => SatisfiableItem.relativeTimelock(value: e),
+          multisig: (e, f) => SatisfiableItem.multisig(keys: e, threshold: f),
+          thresh: (e, f) => SatisfiableItem.thresh(
+              items: e.map((e) => Policy._(ptr: e.ptr)).toList(), threshold: f),
+        );
+  }
+
+  ///How much a given PSBT already satisfies this policy node in terms of signatures
+  @override
+  Satisfaction satisfaction() {
+    return super.satisfaction();
+  }
+
+  ///How the wallet's descriptor can satisfy this policy node
+  @override
+  Satisfaction contribution() {
+    return super.contribution();
+  }
+}
+
 ///Bitcoin script.
 class ScriptBuf extends BdkScriptBuf {
   /// [ScriptBuf] constructor
@@ -828,6 +885,8 @@ class TxBuilder {
   ScriptBuf? _drainTo;
   RbfValue? _rbfValue;
   List<int> _data = [];
+  Map<String, Uint32List>? _internalPolicyPath;
+  Map<String, Uint32List>? _externalPolicyPath;
 
   ///Add data as an output, using OP_RETURN
   TxBuilder addData({required List<int> data}) {
@@ -974,6 +1033,20 @@ class TxBuilder {
     return this;
   }
 
+  ///Set the policy path to use while creating the transaction for a given keychain.
+  ///This method accepts a map where the key is the policy node id (see policy.id()) and the value is the list of the indexes of the items that are intended to be satisfied from the policy node (see SatisfiableItem.Thresh.items).
+  TxBuilder policyPath(KeychainKind keychain, Map<String, Uint32List> path) {
+    switch (keychain) {
+      case KeychainKind.externalChain:
+        _externalPolicyPath = path;
+        break;
+      case KeychainKind.internalChain:
+        _internalPolicyPath = path;
+        break;
+    }
+    return this;
+  }
+
   ///Only spend change outputs
   ///
   /// This effectively adds all the non-change outputs to the “unspendable” list.
@@ -1000,6 +1073,8 @@ class TxBuilder {
           unSpendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           drainWallet: _drainWallet,
+          externalPolicyPath: _externalPolicyPath,
+          internalPolicyPath: _internalPolicyPath,
           rbf: _rbfValue,
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,
@@ -1185,6 +1260,17 @@ class Wallet extends BdkWallet {
     try {
       final res = await BdkWallet.sync(ptr: this, blockchain: blockchain);
       return res;
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///Return the spending policies for the wallet's descriptor
+  Policy? policies(KeychainKind keychain) {
+    try {
+      final res = BdkWallet.policies(ptr: this, keychain: keychain);
+      if (res == null) return null;
+      return Policy._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }

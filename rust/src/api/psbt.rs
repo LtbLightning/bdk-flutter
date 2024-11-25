@@ -8,7 +8,7 @@ use std::str::FromStr;
 
 use flutter_rust_bridge::frb;
 
-use super::handle_mutex;
+use super::execute_with_lock;
 
 #[derive(Debug)]
 pub struct BdkPsbt {
@@ -31,7 +31,7 @@ impl BdkPsbt {
 
     #[frb(sync)]
     pub fn as_string(&self) -> Result<String, BdkError> {
-        handle_mutex(&self.ptr, |psbt| psbt.to_string())
+        execute_with_lock(&self.ptr, |psbt| psbt.to_string())
     }
 
     ///Computes the `Txid`.
@@ -39,7 +39,7 @@ impl BdkPsbt {
     /// For non-segwit transactions which do not have any segwit data, this will be equal to transaction.wtxid().
     #[frb(sync)]
     pub fn txid(&self) -> Result<String, BdkError> {
-        handle_mutex(&self.ptr, |psbt| {
+        execute_with_lock(&self.ptr, |psbt| {
             psbt.to_owned().extract_tx().txid().to_string()
         })
     }
@@ -47,7 +47,7 @@ impl BdkPsbt {
     /// Return the transaction.
     #[frb(sync)]
     pub fn extract_tx(ptr: BdkPsbt) -> Result<BdkTransaction, BdkError> {
-        handle_mutex(&ptr.ptr, |psbt| {
+        execute_with_lock(&ptr.ptr, |psbt| {
             let tx = psbt.to_owned().extract_tx();
             tx.try_into()
         })?
@@ -74,7 +74,7 @@ impl BdkPsbt {
     /// If the PSBT is missing a TxOut for an input returns None.
     #[frb(sync)]
     pub fn fee_amount(&self) -> Result<Option<u64>, BdkError> {
-        handle_mutex(&self.ptr, |psbt| psbt.fee_amount())
+        execute_with_lock(&self.ptr, |psbt| psbt.fee_amount())
     }
 
     /// The transaction's fee rate. This value will only be accurate if calculated AFTER the
@@ -83,18 +83,18 @@ impl BdkPsbt {
     /// If the PSBT is missing a TxOut for an input returns None.
     #[frb(sync)]
     pub fn fee_rate(&self) -> Result<Option<FeeRate>, BdkError> {
-        handle_mutex(&self.ptr, |psbt| psbt.fee_rate().map(|e| e.into()))
+        execute_with_lock(&self.ptr, |psbt| psbt.fee_rate().map(|e| e.into()))
     }
 
     ///Serialize as raw binary data
     #[frb(sync)]
     pub fn serialize(&self) -> Result<Vec<u8>, BdkError> {
-        handle_mutex(&self.ptr, |psbt| psbt.serialize())
+        execute_with_lock(&self.ptr, |psbt| psbt.serialize())
     }
     /// Serialize the PSBT data structure as a String of JSON.
     #[frb(sync)]
     pub fn json_serialize(&self) -> Result<String, BdkError> {
-        handle_mutex(&self.ptr, |psbt| {
+        execute_with_lock(&self.ptr, |psbt| {
             serde_json::to_string(psbt.deref()).map_err(|e| BdkError::Generic(e.to_string()))
         })?
     }

@@ -1,22 +1,10 @@
 use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressIndex,
-    Balance,
-    BdkAddress,
-    BdkScriptBuf,
-    ChangeSpendPolicy,
-    DatabaseConfig,
-    Input,
-    KeychainKind,
-    LocalUtxo,
-    Network,
-    OutPoint,
-    PsbtSigHashType,
-    RbfValue,
-    ScriptAmount,
-    SignOptions,
-    TransactionDetails,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy, DatabaseConfig, Input,
+    KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount,
+    SignOptions, TransactionDetails,
 };
+use std::collections::{BTreeMap, HashMap};
 use std::ops::Deref;
 use std::str::FromStr;
 
@@ -25,13 +13,14 @@ use crate::api::error::BdkError;
 use crate::api::psbt::BdkPsbt;
 use crate::frb_generated::RustOpaque;
 use bdk::bitcoin::script::PushBytesBuf;
-use bdk::bitcoin::{ Sequence, Txid };
+use bdk::bitcoin::{Sequence, Txid};
 pub use bdk::blockchain::GetTx;
 
 use bdk::database::ConfigurableDatabase;
 use flutter_rust_bridge::frb;
 
-use super::handle_mutex;
+use super::execute_with_lock;
+use super::types::BdkPolicy;
 
 #[derive(Debug)]
 pub struct BdkWallet {
@@ -42,7 +31,7 @@ impl BdkWallet {
         descriptor: BdkDescriptor,
         change_descriptor: Option<BdkDescriptor>,
         network: Network,
-        database_config: DatabaseConfig
+        database_config: DatabaseConfig,
     ) -> Result<Self, BdkError> {
         let database = bdk::database::AnyDatabase::from_config(&database_config.into())?;
         let descriptor: String = descriptor.to_string_private();
@@ -52,7 +41,7 @@ impl BdkWallet {
             &descriptor,
             change_descriptor.as_ref(),
             network.into(),
-            database
+            database,
         )?;
         Ok(BdkWallet {
             ptr: RustOpaque::new(std::sync::Mutex::new(wallet)),
@@ -62,14 +51,13 @@ impl BdkWallet {
     /// Get the Bitcoin network the wallet is using.
     #[frb(sync)]
     pub fn network(&self) -> Result<Network, BdkError> {
-        handle_mutex(&self.ptr, |w| w.network().into())
+        execute_with_lock(&self.ptr, |w| w.network().into())
     }
     #[frb(sync)]
     pub fn is_mine(&self, script: BdkScriptBuf) -> Result<bool, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            w.is_mine(
-                <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script()
-            ).map_err(|e| e.into())
+        execute_with_lock(&self.ptr, |w| {
+            w.is_mine(<BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script())
+                .map_err(|e| e.into())
         })?
     }
     /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
@@ -78,9 +66,9 @@ impl BdkWallet {
     #[frb(sync)]
     pub fn get_address(
         ptr: BdkWallet,
-        address_index: AddressIndex
+        address_index: AddressIndex,
     ) -> Result<(BdkAddress, u32), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
+        execute_with_lock(&ptr.ptr, |w| {
             w.get_address(address_index.into())
                 .map(|e| (e.address.into(), e.index))
                 .map_err(|e| e.into())
@@ -97,9 +85,9 @@ impl BdkWallet {
     #[frb(sync)]
     pub fn get_internal_address(
         ptr: BdkWallet,
-        address_index: AddressIndex
+        address_index: AddressIndex,
     ) -> Result<(BdkAddress, u32), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
+        execute_with_lock(&ptr.ptr, |w| {
             w.get_internal_address(address_index.into())
                 .map(|e| (e.address.into(), e.index))
                 .map_err(|e| e.into())
@@ -110,19 +98,17 @@ impl BdkWallet {
     /// on the internal database, which first needs to be Wallet.sync manually.
     #[frb(sync)]
     pub fn get_balance(&self) -> Result<Balance, BdkError> {
-        handle_mutex(&self.ptr, |w| {
-            w.get_balance()
-                .map(|b| b.into())
-                .map_err(|e| e.into())
+        execute_with_lock(&self.ptr, |w| {
+            w.get_balance().map(|b| b.into()).map_err(|e| e.into())
         })?
     }
     /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
     #[frb(sync)]
     pub fn list_transactions(
         &self,
-        include_raw: bool
+        include_raw: bool,
     ) -> Result<Vec<TransactionDetails>, BdkError> {
-        handle_mutex(&self.ptr, |wallet| {
+        execute_with_lock(&self.ptr, |wallet| {
             let mut transaction_details = vec![];
 
             // List transactions and convert them using try_into
@@ -138,7 +124,7 @@ impl BdkWallet {
     /// which first needs to be Wallet.sync manually.
     #[frb(sync)]
     pub fn list_unspent(&self) -> Result<Vec<LocalUtxo>, BdkError> {
-        handle_mutex(&self.ptr, |w| {
+        execute_with_lock(&self.ptr, |w| {
             let unspent: Vec<bdk::LocalUtxo> = w.list_unspent()?;
             Ok(unspent.into_iter().map(LocalUtxo::from).collect())
         })?
@@ -154,19 +140,25 @@ impl BdkWallet {
     pub fn sign(
         ptr: BdkWallet,
         psbt: BdkPsbt,
-        sign_options: Option<SignOptions>
+        sign_options: Option<SignOptions>,
     ) -> Result<bool, BdkError> {
-        let mut psbt = psbt.ptr.lock().map_err(|_| BdkError::Generic("Poison Error!".to_string()))?;
-        handle_mutex(&ptr.ptr, |w| {
-            w.sign(&mut psbt, sign_options.map(SignOptions::into).unwrap_or_default()).map_err(|e|
-                e.into()
+        let mut psbt = psbt
+            .ptr
+            .lock()
+            .map_err(|_| BdkError::Generic("Poison Error!".to_string()))?;
+        execute_with_lock(&ptr.ptr, |w| {
+            w.sign(
+                &mut psbt,
+                sign_options.map(SignOptions::into).unwrap_or_default(),
             )
+            .map_err(|e| e.into())
         })?
     }
     /// Sync the internal database with the blockchain.
     pub fn sync(ptr: BdkWallet, blockchain: &BdkBlockchain) -> Result<(), BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
-            w.sync(blockchain.ptr.deref(), bdk::SyncOptions::default()).map_err(|e| e.into())
+        execute_with_lock(&ptr.ptr, |w| {
+            w.sync(blockchain.ptr.deref(), bdk::SyncOptions::default())
+                .map_err(|e| e.into())
         })?
     }
 
@@ -175,13 +167,13 @@ impl BdkWallet {
         &self,
         utxo: LocalUtxo,
         only_witness_utxo: bool,
-        sighash_type: Option<PsbtSigHashType>
+        sighash_type: Option<PsbtSigHashType>,
     ) -> anyhow::Result<Input, BdkError> {
-        handle_mutex(&self.ptr, |w| {
+        execute_with_lock(&self.ptr, |w| {
             let input = w.get_psbt_input(
                 utxo.try_into()?,
                 sighash_type.map(|e| e.into()),
-                only_witness_utxo
+                only_witness_utxo,
             )?;
             input.try_into()
         })?
@@ -190,11 +182,19 @@ impl BdkWallet {
     #[frb(sync)]
     pub fn get_descriptor_for_keychain(
         ptr: BdkWallet,
-        keychain: KeychainKind
+        keychain: KeychainKind,
     ) -> anyhow::Result<BdkDescriptor, BdkError> {
-        handle_mutex(&ptr.ptr, |w| {
+        execute_with_lock(&ptr.ptr, |w| {
             let extended_descriptor = w.get_descriptor_for_keychain(keychain.into());
             BdkDescriptor::new(extended_descriptor.to_string(), w.network().into())
+        })?
+    }
+    #[frb(sync)]
+    pub fn policies(ptr: BdkWallet, keychain: KeychainKind) -> Result<Option<BdkPolicy>, BdkError> {
+        execute_with_lock(&ptr.ptr, |w| {
+            w.policies(keychain.into())
+                .map_err(|e| e.into())
+                .map(|e| e.map(|f| f.into()))
         })?
     }
 }
@@ -205,10 +205,10 @@ pub fn finish_bump_fee_tx_builder(
     allow_shrinking: Option<BdkAddress>,
     wallet: BdkWallet,
     enable_rbf: bool,
-    n_sequence: Option<u32>
+    n_sequence: Option<u32>,
 ) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
     let txid = Txid::from_str(txid.as_str()).map_err(|e| BdkError::PsbtParse(e.to_string()))?;
-    handle_mutex(&wallet.ptr, |w| {
+    execute_with_lock(&wallet.ptr, |w| {
         let mut tx_builder = w.build_fee_bump(txid)?;
         tx_builder.fee_rate(bdk::FeeRate::from_sat_per_vb(fee_rate));
         if let Some(allow_shrinking) = &allow_shrinking {
@@ -242,11 +242,28 @@ pub fn tx_builder_finish(
     drain_wallet: bool,
     drain_to: Option<BdkScriptBuf>,
     rbf: Option<RbfValue>,
-    data: Vec<u8>
+    internal_policy_path: Option<HashMap<String, Vec<u32>>>,
+    external_policy_path: Option<HashMap<String, Vec<u32>>>,
+    data: Vec<u8>,
 ) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
-    handle_mutex(&wallet.ptr, |w| {
+    execute_with_lock(&wallet.ptr, |w| {
         let mut tx_builder = w.build_tx();
-
+        if let Some(path) = internal_policy_path {
+            tx_builder.policy_path(
+                path.into_iter()
+                    .map(|(key, value)| (key, value.into_iter().map(|x| x as usize).collect()))
+                    .collect::<BTreeMap<String, Vec<usize>>>(),
+                bdk::KeychainKind::Internal,
+            );
+        }
+        if let Some(path) = external_policy_path {
+            tx_builder.policy_path(
+                path.into_iter()
+                    .map(|(key, value)| (key, value.into_iter().map(|x| x as usize).collect()))
+                    .collect::<BTreeMap<String, Vec<usize>>>(),
+                bdk::KeychainKind::External,
+            );
+        }
         for e in recipients {
             tx_builder.add_recipient(e.script.into(), e.amount);
         }
