@@ -54,8 +54,8 @@ impl BdkWallet {
         execute_with_lock(&self.ptr, |w| w.network().into())
     }
     #[frb(sync)]
-    pub fn is_mine(&self, script: BdkScriptBuf) -> Result<bool, BdkError> {
-        execute_with_lock(&self.ptr, |w| {
+    pub fn is_mine(ptr: BdkWallet, script: BdkScriptBuf) -> Result<bool, BdkError> {
+        execute_with_lock(&ptr.ptr, |w| {
             w.is_mine(<BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script())
                 .map_err(|e| e.into())
         })?

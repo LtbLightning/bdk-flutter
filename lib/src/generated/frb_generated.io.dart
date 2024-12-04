@@ -3844,12 +3844,12 @@ class coreWire implements BaseWire {
 
   void wire__crate__api__blockchain__bdk_blockchain_broadcast(
     int port_,
-    ffi.Pointer<wire_cst_bdk_blockchain> that,
+    ffi.Pointer<wire_cst_bdk_blockchain> ptr,
     ffi.Pointer<wire_cst_bdk_transaction> transaction,
   ) {
     return _wire__crate__api__blockchain__bdk_blockchain_broadcast(
       port_,
-      that,
+      ptr,
       transaction,
     );
   }
@@ -5501,11 +5501,11 @@ class coreWire implements BaseWire {
               ffi.Pointer<wire_cst_psbt_sig_hash_type>)>();
 
   WireSyncRust2DartDco wire__crate__api__wallet__bdk_wallet_is_mine(
-    ffi.Pointer<wire_cst_bdk_wallet> that,
+    ffi.Pointer<wire_cst_bdk_wallet> ptr,
     ffi.Pointer<wire_cst_bdk_script_buf> script,
   ) {
     return _wire__crate__api__wallet__bdk_wallet_is_mine(
-      that,
+      ptr,
       script,
     );
   }

@@ -112,8 +112,8 @@ class BdkWallet {
           onlyWitnessUtxo: onlyWitnessUtxo,
           sighashType: sighashType);
 
-  bool isMine({required BdkScriptBuf script}) => core.instance.api
-      .crateApiWalletBdkWalletIsMine(that: this, script: script);
+  static bool isMine({required BdkWallet ptr, required BdkScriptBuf script}) =>
+      core.instance.api.crateApiWalletBdkWalletIsMine(ptr: ptr, script: script);
 
   /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
   List<TransactionDetails> listTransactions({required bool includeRaw}) =>
