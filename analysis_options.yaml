@@ -1,0 +1,31 @@
+include: package:lints/core.yaml
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
+
+linter:
+  rules:
+    prefer_single_quotes: false
+    avoid_void_async: false
+    prefer_interpolation_to_compose_strings: false
+    avoid_print: false
+    use_build_context_synchronously: false
+    unnecessary_string_escapes: false
+    avoid_dynamic_calls: false
+    non_constant_identifier_names: false
+
+analyzer:
+  exclude:
+    - lib/src/generated/frb_generated.dart
+    - lib/src/generated/frb_generated.io.dart
+    - lib/src/generated/frb_generated.dart
+    - lib/src/generated/api/types.freezed.dart
+    - lib/src/generated/api/types.dart
+    - lib/src/generated/api/descriptor.dart
+    - lib/src/generated/api/error.freezed.dart
+    - lib/src/generated/api/error.dart
+    - lib/src/generated/api/key.dart
+    - lib/src/generated/api/psbt.dart
+    - lib/src/generated/api/wallet.dart
+    - lib/src/generated/api/blockchain.freezed.dart
+    - README.md
+    - cargokit/

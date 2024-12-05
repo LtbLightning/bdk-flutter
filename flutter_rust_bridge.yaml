@@ -1,0 +1,10 @@
+rust_input: crate::api
+rust_root: rust/
+dart_output: lib/src/generated/
+full_dep: true
+web: false
+dart3: true
+enable_lifetime: true
+c_output: ios/Classes/frb_generated.h
+duplicated_c_output: [macos/Classes/frb_generated.h]
+dart_entrypoint_class_name: core
