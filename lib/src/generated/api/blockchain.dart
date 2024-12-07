@@ -44,9 +44,10 @@ class BdkBlockchain {
     required this.ptr,
   });
 
-  Future<String> broadcast({required BdkTransaction transaction}) =>
+  static Future<String> broadcast(
+          {required BdkBlockchain ptr, required BdkTransaction transaction}) =>
       core.instance.api.crateApiBlockchainBdkBlockchainBroadcast(
-          that: this, transaction: transaction);
+          ptr: ptr, transaction: transaction);
 
   static Future<BdkBlockchain> create(
           {required BlockchainConfig blockchainConfig}) =>

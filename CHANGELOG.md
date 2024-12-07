@@ -1,4 +1,11 @@
 ## [0.31.3]
+#### Upgrades
+- Updated `Flutter` dependencies to the latest version.
+- Upgraded `Gradle` to version 8.4 and `Java` to version 17.
+- Upgraded `android-ndk` to `25.1.8937393`.
+#### Fixed
+- Removed unnecessary class exports.
+- Resolved the `txBuilder.setRecipients` error.
 
 ## [0.31.2]
 Updated `flutter_rust_bridge` to `2.0.0`.

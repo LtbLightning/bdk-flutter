@@ -37,7 +37,7 @@ jobs:
         uses: android-actions/setup-android@v2 
       - name: Install Specific NDK
         if: (matrix.os == 'ubuntu-20.04')
-        run: sdkmanager --install "ndk;24.0.8215888"  
+        run: sdkmanager --install "ndk;25.1.8937393"  
       - name: Precompile (with iOS)
         if: (matrix.os == 'macOS-latest')
         run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter
@@ -47,7 +47,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.CARGOKIT_PRIVATE_KEY }}
       - name: Precompile (with Android)
         if: (matrix.os == 'ubuntu-20.04')
-        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=24.0.8215888 --android-min-sdk-version=23
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=LtbLightning/bdk-flutter --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=25.1.8937393 --android-min-sdk-version=23
         working-directory: cargokit/build_tool
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
