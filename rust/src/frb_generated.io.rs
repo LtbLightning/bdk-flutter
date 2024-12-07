@@ -2256,10 +2256,10 @@ impl Default for wire_cst_tx_out {
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__blockchain__bdk_blockchain_broadcast(
     port_: i64,
-    that: *mut wire_cst_bdk_blockchain,
+    ptr: *mut wire_cst_bdk_blockchain,
     transaction: *mut wire_cst_bdk_transaction,
 ) {
-    wire__crate__api__blockchain__bdk_blockchain_broadcast_impl(port_, that, transaction)
+    wire__crate__api__blockchain__bdk_blockchain_broadcast_impl(port_, ptr, transaction)
 }
 
 #[no_mangle]
@@ -2953,10 +2953,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_ps
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(
-    that: *mut wire_cst_bdk_wallet,
+    ptr: *mut wire_cst_bdk_wallet,
     script: *mut wire_cst_bdk_script_buf,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-    wire__crate__api__wallet__bdk_wallet_is_mine_impl(that, script)
+    wire__crate__api__wallet__bdk_wallet_is_mine_impl(ptr, script)
 }
 
 #[no_mangle]

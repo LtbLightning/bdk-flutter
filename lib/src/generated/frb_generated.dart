@@ -74,7 +74,7 @@ class core extends BaseEntrypoint<coreApi, coreApiImpl, coreWire> {
 
 abstract class coreApi extends BaseApi {
   Future<String> crateApiBlockchainBdkBlockchainBroadcast(
-      {required BdkBlockchain that, required BdkTransaction transaction});
+      {required BdkBlockchain ptr, required BdkTransaction transaction});
 
   Future<BdkBlockchain> crateApiBlockchainBdkBlockchainCreate(
       {required BlockchainConfig blockchainConfig});
@@ -316,7 +316,7 @@ abstract class coreApi extends BaseApi {
       PsbtSigHashType? sighashType});
 
   bool crateApiWalletBdkWalletIsMine(
-      {required BdkWallet that, required BdkScriptBuf script});
+      {required BdkWallet ptr, required BdkScriptBuf script});
 
   List<TransactionDetails> crateApiWalletBdkWalletListTransactions(
       {required BdkWallet that, required bool includeRaw});
@@ -467,10 +467,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   Future<String> crateApiBlockchainBdkBlockchainBroadcast(
-      {required BdkBlockchain that, required BdkTransaction transaction}) {
+      {required BdkBlockchain ptr, required BdkTransaction transaction}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        var arg0 = cst_encode_box_autoadd_bdk_blockchain(that);
+        var arg0 = cst_encode_box_autoadd_bdk_blockchain(ptr);
         var arg1 = cst_encode_box_autoadd_bdk_transaction(transaction);
         return wire.wire__crate__api__blockchain__bdk_blockchain_broadcast(
             port_, arg0, arg1);
@@ -480,7 +480,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiBlockchainBdkBlockchainBroadcastConstMeta,
-      argValues: [that, transaction],
+      argValues: [ptr, transaction],
       apiImpl: this,
     ));
   }
@@ -488,7 +488,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiBlockchainBdkBlockchainBroadcastConstMeta =>
       const TaskConstMeta(
         debugName: "bdk_blockchain_broadcast",
-        argNames: ["that", "transaction"],
+        argNames: ["ptr", "transaction"],
       );
 
   @override
@@ -2488,10 +2488,10 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
 
   @override
   bool crateApiWalletBdkWalletIsMine(
-      {required BdkWallet that, required BdkScriptBuf script}) {
+      {required BdkWallet ptr, required BdkScriptBuf script}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
-        var arg0 = cst_encode_box_autoadd_bdk_wallet(that);
+        var arg0 = cst_encode_box_autoadd_bdk_wallet(ptr);
         var arg1 = cst_encode_box_autoadd_bdk_script_buf(script);
         return wire.wire__crate__api__wallet__bdk_wallet_is_mine(arg0, arg1);
       },
@@ -2500,7 +2500,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         decodeErrorData: dco_decode_bdk_error,
       ),
       constMeta: kCrateApiWalletBdkWalletIsMineConstMeta,
-      argValues: [that, script],
+      argValues: [ptr, script],
       apiImpl: this,
     ));
   }
@@ -2508,7 +2508,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   TaskConstMeta get kCrateApiWalletBdkWalletIsMineConstMeta =>
       const TaskConstMeta(
         debugName: "bdk_wallet_is_mine",
-        argNames: ["that", "script"],
+        argNames: ["ptr", "script"],
       );
 
   @override

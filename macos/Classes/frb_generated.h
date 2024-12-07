@@ -906,7 +906,7 @@ typedef struct wire_cst_satisfiable_item {
 } wire_cst_satisfiable_item;
 
 void frbgen_bdk_flutter_wire__crate__api__blockchain__bdk_blockchain_broadcast(int64_t port_,
-                                                                               struct wire_cst_bdk_blockchain *that,
+                                                                               struct wire_cst_bdk_blockchain *ptr,
                                                                                struct wire_cst_bdk_transaction *transaction);
 
 void frbgen_bdk_flutter_wire__crate__api__blockchain__bdk_blockchain_create(int64_t port_,
@@ -1153,7 +1153,7 @@ void frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_psbt_input(int6
                                                                             bool only_witness_utxo,
                                                                             struct wire_cst_psbt_sig_hash_type *sighash_type);
 
-WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(struct wire_cst_bdk_wallet *that,
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_is_mine(struct wire_cst_bdk_wallet *ptr,
                                                                                      struct wire_cst_bdk_script_buf *script);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_list_transactions(struct wire_cst_bdk_wallet *that,

@@ -62,9 +62,9 @@ impl BdkBlockchain {
     pub(crate) fn get_blockchain(&self) -> RustOpaque<bdk::blockchain::AnyBlockchain> {
         self.ptr.clone()
     }
-    pub fn broadcast(&self, transaction: &BdkTransaction) -> Result<String, BdkError> {
+    pub fn broadcast(ptr: BdkBlockchain, transaction: &BdkTransaction) -> Result<String, BdkError> {
         let tx: Transaction = transaction.try_into()?;
-        self.get_blockchain().broadcast(&tx)?;
+        ptr.get_blockchain().broadcast(&tx)?;
         Ok(tx.txid().to_string())
     }
 

@@ -48,7 +48,7 @@ flutter_rust_bridge::frb_generated_default_handler!();
 
 fn wire__crate__api__blockchain__bdk_blockchain_broadcast_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::blockchain::BdkBlockchain>,
+    ptr: impl CstDecode<crate::api::blockchain::BdkBlockchain>,
     transaction: impl CstDecode<crate::api::types::BdkTransaction>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -58,12 +58,12 @@ fn wire__crate__api__blockchain__bdk_blockchain_broadcast_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_transaction = transaction.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
                     let output_ok = crate::api::blockchain::BdkBlockchain::broadcast(
-                        &api_that,
+                        api_ptr,
                         &api_transaction,
                     )?;
                     Ok(output_ok)
@@ -1809,7 +1809,7 @@ fn wire__crate__api__wallet__bdk_wallet_get_psbt_input_impl(
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_is_mine_impl(
-    that: impl CstDecode<crate::api::wallet::BdkWallet>,
+    ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     script: impl CstDecode<crate::api::types::BdkScriptBuf>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
@@ -1819,10 +1819,10 @@ fn wire__crate__api__wallet__bdk_wallet_is_mine_impl(
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_ptr = ptr.cst_decode();
             let api_script = script.cst_decode();
             transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                let output_ok = crate::api::wallet::BdkWallet::is_mine(&api_that, api_script)?;
+                let output_ok = crate::api::wallet::BdkWallet::is_mine(api_ptr, api_script)?;
                 Ok(output_ok)
             })())
         },
