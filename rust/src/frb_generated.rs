@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -321771070;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -418359953;
 
 // Section: executor
 
@@ -184,6 +184,27 @@ fn wire__crate__api__descriptor__bdk_descriptor_as_string_impl(
         },
     )
 }
+fn wire__crate__api__descriptor__bdk_descriptor_create_impl(
+    descriptor: impl CstDecode<String>,
+    network: impl CstDecode<crate::api::types::Network>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_descriptor_create",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_descriptor = descriptor.cst_decode();
+            let api_network = network.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::descriptor::BdkDescriptor::create(api_descriptor, api_network)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__descriptor__bdk_descriptor_max_satisfaction_weight_impl(
     that: impl CstDecode<crate::api::descriptor::BdkDescriptor>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -203,271 +224,223 @@ fn wire__crate__api__descriptor__bdk_descriptor_max_satisfaction_weight_impl(
         },
     )
 }
-fn wire__crate__api__descriptor__bdk_descriptor_new_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    descriptor: impl CstDecode<String>,
-    network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_descriptor_new",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_descriptor = descriptor.cst_decode();
-            let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::descriptor::BdkDescriptor::new(api_descriptor, api_network)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip44_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     secret_key: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip44",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_secret_key = secret_key.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip44(
-                        api_secret_key,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip44(
+                    api_secret_key,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip44_public_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     public_key: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip44_public",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_public_key = public_key.cst_decode();
             let api_fingerprint = fingerprint.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip44_public(
-                        api_public_key,
-                        api_fingerprint,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip44_public(
+                    api_public_key,
+                    api_fingerprint,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip49_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     secret_key: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip49",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_secret_key = secret_key.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip49(
-                        api_secret_key,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip49(
+                    api_secret_key,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip49_public_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     public_key: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip49_public",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_public_key = public_key.cst_decode();
             let api_fingerprint = fingerprint.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip49_public(
-                        api_public_key,
-                        api_fingerprint,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip49_public(
+                    api_public_key,
+                    api_fingerprint,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip84_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     secret_key: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip84",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_secret_key = secret_key.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip84(
-                        api_secret_key,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip84(
+                    api_secret_key,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip84_public_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     public_key: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip84_public",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_public_key = public_key.cst_decode();
             let api_fingerprint = fingerprint.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip84_public(
-                        api_public_key,
-                        api_fingerprint,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip84_public(
+                    api_public_key,
+                    api_fingerprint,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip86_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     secret_key: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip86",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_secret_key = secret_key.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip86(
-                        api_secret_key,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip86(
+                    api_secret_key,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__descriptor__bdk_descriptor_new_bip86_public_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     public_key: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     fingerprint: impl CstDecode<String>,
     keychain_kind: impl CstDecode<crate::api::types::KeychainKind>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_new_bip86_public",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_public_key = public_key.cst_decode();
             let api_fingerprint = fingerprint.cst_decode();
             let api_keychain_kind = keychain_kind.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::descriptor::BdkDescriptor::new_bip86_public(
-                        api_public_key,
-                        api_fingerprint,
-                        api_keychain_kind,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::descriptor::BdkDescriptor::new_bip86_public(
+                    api_public_key,
+                    api_fingerprint,
+                    api_keychain_kind,
+                    api_network,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -511,23 +484,20 @@ fn wire__crate__api__key__bdk_derivation_path_as_string_impl(
     )
 }
 fn wire__crate__api__key__bdk_derivation_path_from_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     path: impl CstDecode<String>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_derivation_path_from_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_path = path.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::key::BdkDerivationPath::from_string(api_path)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDerivationPath::from_string(api_path)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -552,72 +522,61 @@ fn wire__crate__api__key__bdk_descriptor_public_key_as_string_impl(
     )
 }
 fn wire__crate__api__key__bdk_descriptor_public_key_derive_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     path: impl CstDecode<crate::api::key::BdkDerivationPath>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_public_key_derive",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::key::BdkDescriptorPublicKey::derive(api_ptr, api_path)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDescriptorPublicKey::derive(api_ptr, api_path)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__key__bdk_descriptor_public_key_extend_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::key::BdkDescriptorPublicKey>,
     path: impl CstDecode<crate::api::key::BdkDerivationPath>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_public_key_extend",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::key::BdkDescriptorPublicKey::extend(api_ptr, api_path)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDescriptorPublicKey::extend(api_ptr, api_path)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__key__bdk_descriptor_public_key_from_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     public_key: impl CstDecode<String>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_public_key_from_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_public_key = public_key.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::key::BdkDescriptorPublicKey::from_string(api_public_key)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::key::BdkDescriptorPublicKey::from_string(api_public_key)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -660,79 +619,68 @@ fn wire__crate__api__key__bdk_descriptor_secret_key_as_string_impl(
     )
 }
 fn wire__crate__api__key__bdk_descriptor_secret_key_create_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     network: impl CstDecode<crate::api::types::Network>,
     mnemonic: impl CstDecode<crate::api::key::BdkMnemonic>,
     password: impl CstDecode<Option<String>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_secret_key_create",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_network = network.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             let api_password = password.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::key::BdkDescriptorSecretKey::create(
-                        api_network,
-                        api_mnemonic,
-                        api_password,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDescriptorSecretKey::create(
+                    api_network,
+                    api_mnemonic,
+                    api_password,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__key__bdk_descriptor_secret_key_derive_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     path: impl CstDecode<crate::api::key::BdkDerivationPath>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_secret_key_derive",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::key::BdkDescriptorSecretKey::derive(api_ptr, api_path)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDescriptorSecretKey::derive(api_ptr, api_path)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__key__bdk_descriptor_secret_key_extend_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::key::BdkDescriptorSecretKey>,
     path: impl CstDecode<crate::api::key::BdkDerivationPath>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_descriptor_secret_key_extend",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_path = path.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::key::BdkDescriptorSecretKey::extend(api_ptr, api_path)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkDescriptorSecretKey::extend(api_ptr, api_path)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -795,66 +743,57 @@ fn wire__crate__api__key__bdk_mnemonic_as_string_impl(
         },
     )
 }
+fn wire__crate__api__key__bdk_mnemonic_create_impl(
+    word_count: impl CstDecode<crate::api::types::WordCount>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_mnemonic_create",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_word_count = word_count.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkMnemonic::create(api_word_count)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__key__bdk_mnemonic_from_entropy_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     entropy: impl CstDecode<Vec<u8>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_mnemonic_from_entropy",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_entropy = entropy.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::key::BdkMnemonic::from_entropy(api_entropy)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkMnemonic::from_entropy(api_entropy)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__key__bdk_mnemonic_from_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     mnemonic: impl CstDecode<String>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_mnemonic_from_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_mnemonic = mnemonic.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::key::BdkMnemonic::from_string(api_mnemonic)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__key__bdk_mnemonic_new_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    word_count: impl CstDecode<crate::api::types::WordCount>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_mnemonic_new",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_word_count = word_count.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::key::BdkMnemonic::new(api_word_count)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::key::BdkMnemonic::from_string(api_mnemonic)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -877,25 +816,22 @@ fn wire__crate__api__psbt__bdk_psbt_as_string_impl(
     )
 }
 fn wire__crate__api__psbt__bdk_psbt_combine_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::psbt::BdkPsbt>,
     other: impl CstDecode<crate::api::psbt::BdkPsbt>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_psbt_combine",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_other = other.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::psbt::BdkPsbt::combine(api_ptr, api_other)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::combine(api_ptr, api_other)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -954,23 +890,20 @@ fn wire__crate__api__psbt__bdk_psbt_fee_rate_impl(
     )
 }
 fn wire__crate__api__psbt__bdk_psbt_from_str_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     psbt_base64: impl CstDecode<String>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_psbt_from_str",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_psbt_base64 = psbt_base64.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::psbt::BdkPsbt::from_str(api_psbt_base64)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::psbt::BdkPsbt::from_str(api_psbt_base64)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -1048,50 +981,44 @@ fn wire__crate__api__types__bdk_address_as_string_impl(
     )
 }
 fn wire__crate__api__types__bdk_address_from_script_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     script: impl CstDecode<crate::api::types::BdkScriptBuf>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_address_from_script",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_script = script.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::types::BdkAddress::from_script(api_script, api_network)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::types::BdkAddress::from_script(api_script, api_network)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_address_from_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     address: impl CstDecode<String>,
     network: impl CstDecode<crate::api::types::Network>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_address_from_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_address = address.cst_decode();
             let api_network = network.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::types::BdkAddress::from_string(api_address, api_network)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::types::BdkAddress::from_string(api_address, api_network)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -1340,351 +1267,333 @@ fn wire__crate__api__types__bdk_script_buf_empty_impl(
     )
 }
 fn wire__crate__api__types__bdk_script_buf_from_hex_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     s: impl CstDecode<String>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_script_buf_from_hex",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_s = s.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkScriptBuf::from_hex(api_s)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkScriptBuf::from_hex(api_s)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_script_buf_with_capacity_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     capacity: impl CstDecode<usize>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_script_buf_with_capacity",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_capacity = capacity.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::types::BdkScriptBuf::with_capacity(api_capacity),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::types::BdkScriptBuf::with_capacity(api_capacity),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
-fn wire__crate__api__types__bdk_transaction_from_bytes_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    transaction_bytes: impl CstDecode<Vec<u8>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_from_bytes",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_transaction_bytes = transaction_bytes.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::types::BdkTransaction::from_bytes(api_transaction_bytes)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_input_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_input",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::input(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_is_coin_base_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_is_coin_base",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::is_coin_base(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_is_explicitly_rbf_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_is_explicitly_rbf",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::types::BdkTransaction::is_explicitly_rbf(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_is_lock_time_enabled_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_is_lock_time_enabled",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::types::BdkTransaction::is_lock_time_enabled(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_lock_time_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_lock_time",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::lock_time(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__types__bdk_transaction_new_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
+fn wire__crate__api__types__bdk_transaction_create_impl(
     version: impl CstDecode<i32>,
     lock_time: impl CstDecode<crate::api::types::LockTime>,
-    input: impl CstDecode<Vec<crate::api::types::TxIn>>,
-    output: impl CstDecode<Vec<crate::api::types::TxOut>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+    input: impl CstDecode<Vec<crate::api::types::BdkTxIn>>,
+    output: impl CstDecode<Vec<crate::api::types::BdkTxOut>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_new",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            debug_name: "bdk_transaction_create",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_version = version.cst_decode();
             let api_lock_time = lock_time.cst_decode();
             let api_input = input.cst_decode();
             let api_output = output.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::new(
-                        api_version,
-                        api_lock_time,
-                        api_input,
-                        api_output,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::create(
+                    api_version,
+                    api_lock_time,
+                    api_input,
+                    api_output,
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_from_bytes_impl(
+    transaction_bytes: impl CstDecode<Vec<u8>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_from_bytes",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_transaction_bytes = transaction_bytes.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::types::BdkTransaction::from_bytes(api_transaction_bytes)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_input_impl(
+    that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_input",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::input(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_is_coin_base_impl(
+    that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_is_coin_base",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::is_coin_base(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_is_explicitly_rbf_impl(
+    that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_is_explicitly_rbf",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::is_explicitly_rbf(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_is_lock_time_enabled_impl(
+    that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_is_lock_time_enabled",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::is_lock_time_enabled(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__types__bdk_transaction_lock_time_impl(
+    that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_lock_time",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::lock_time(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_output_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_output",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::output(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::output(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_serialize_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_serialize",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::serialize(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::serialize(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_size_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_size",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::size(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::size(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_txid_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_txid",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::txid(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::txid(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_version_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_version",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::version(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::version(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_vsize_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_transaction_vsize",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::vsize(&api_that)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::vsize(&api_that)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
 fn wire__crate__api__types__bdk_transaction_weight_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::types::BdkTransaction>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "bdk_transaction_weight",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::types::BdkTransaction::weight(&api_that)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__wallet__bdk_wallet_create_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    descriptor: impl CstDecode<crate::api::descriptor::BdkDescriptor>,
+    change_descriptor: impl CstDecode<Option<crate::api::descriptor::BdkDescriptor>>,
+    network: impl CstDecode<crate::api::types::Network>,
+    database_config: impl CstDecode<crate::api::types::DatabaseConfig>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_transaction_weight",
+            debug_name: "bdk_wallet_create",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let api_that = that.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            let api_change_descriptor = change_descriptor.cst_decode();
+            let api_network = network.cst_decode();
+            let api_database_config = database_config.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::types::BdkTransaction::weight(&api_that)?;
+                    let output_ok = crate::api::wallet::BdkWallet::create(
+                        api_descriptor,
+                        api_change_descriptor,
+                        api_network,
+                        api_database_config,
+                    )?;
                     Ok(output_ok)
                 })())
             }
@@ -1777,34 +1686,31 @@ fn wire__crate__api__wallet__bdk_wallet_get_internal_address_impl(
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_get_psbt_input_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<crate::api::wallet::BdkWallet>,
     utxo: impl CstDecode<crate::api::types::LocalUtxo>,
     only_witness_utxo: impl CstDecode<bool>,
     sighash_type: impl CstDecode<Option<crate::api::types::PsbtSigHashType>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_get_psbt_input",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_that = that.cst_decode();
             let api_utxo = utxo.cst_decode();
             let api_only_witness_utxo = only_witness_utxo.cst_decode();
             let api_sighash_type = sighash_type.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::get_psbt_input(
-                        &api_that,
-                        api_utxo,
-                        api_only_witness_utxo,
-                        api_sighash_type,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok = crate::api::wallet::BdkWallet::get_psbt_input(
+                    &api_that,
+                    api_utxo,
+                    api_only_witness_utxo,
+                    api_sighash_type,
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -1885,38 +1791,6 @@ fn wire__crate__api__wallet__bdk_wallet_network_impl(
         },
     )
 }
-fn wire__crate__api__wallet__bdk_wallet_new_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    descriptor: impl CstDecode<crate::api::descriptor::BdkDescriptor>,
-    change_descriptor: impl CstDecode<Option<crate::api::descriptor::BdkDescriptor>>,
-    network: impl CstDecode<crate::api::types::Network>,
-    database_config: impl CstDecode<crate::api::types::DatabaseConfig>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bdk_wallet_new",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_descriptor = descriptor.cst_decode();
-            let api_change_descriptor = change_descriptor.cst_decode();
-            let api_network = network.cst_decode();
-            let api_database_config = database_config.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok = crate::api::wallet::BdkWallet::new(
-                        api_descriptor,
-                        api_change_descriptor,
-                        api_network,
-                        api_database_config,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
 fn wire__crate__api__wallet__bdk_wallet_policies_impl(
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     keychain: impl CstDecode<crate::api::types::KeychainKind>,
@@ -1938,28 +1812,25 @@ fn wire__crate__api__wallet__bdk_wallet_policies_impl(
     )
 }
 fn wire__crate__api__wallet__bdk_wallet_sign_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr: impl CstDecode<crate::api::wallet::BdkWallet>,
     psbt: impl CstDecode<crate::api::psbt::BdkPsbt>,
     sign_options: impl CstDecode<Option<crate::api::types::SignOptions>>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "bdk_wallet_sign",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let api_ptr = ptr.cst_decode();
             let api_psbt = psbt.cst_decode();
             let api_sign_options = sign_options.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
-                    let output_ok =
-                        crate::api::wallet::BdkWallet::sign(api_ptr, api_psbt, api_sign_options)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_dco::<_, _, crate::api::error::BdkError>((move || {
+                let output_ok =
+                    crate::api::wallet::BdkWallet::sign(api_ptr, api_psbt, api_sign_options)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -2775,6 +2646,56 @@ impl SseDecode for crate::api::types::BdkTransaction {
     }
 }
 
+impl SseDecode for crate::api::types::BdkTransactionDetails {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_transaction =
+            <Option<crate::api::types::BdkTransaction>>::sse_decode(deserializer);
+        let mut var_txid = <String>::sse_decode(deserializer);
+        let mut var_received = <u64>::sse_decode(deserializer);
+        let mut var_sent = <u64>::sse_decode(deserializer);
+        let mut var_fee = <Option<u64>>::sse_decode(deserializer);
+        let mut var_confirmationTime =
+            <Option<crate::api::types::BlockTime>>::sse_decode(deserializer);
+        return crate::api::types::BdkTransactionDetails {
+            transaction: var_transaction,
+            txid: var_txid,
+            received: var_received,
+            sent: var_sent,
+            fee: var_fee,
+            confirmation_time: var_confirmationTime,
+        };
+    }
+}
+
+impl SseDecode for crate::api::types::BdkTxIn {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_previousOutput = <crate::api::types::OutPoint>::sse_decode(deserializer);
+        let mut var_scriptSig = <Option<crate::api::types::BdkScriptBuf>>::sse_decode(deserializer);
+        let mut var_sequence = <u32>::sse_decode(deserializer);
+        let mut var_witness = <Vec<Vec<u8>>>::sse_decode(deserializer);
+        return crate::api::types::BdkTxIn {
+            previous_output: var_previousOutput,
+            script_sig: var_scriptSig,
+            sequence: var_sequence,
+            witness: var_witness,
+        };
+    }
+}
+
+impl SseDecode for crate::api::types::BdkTxOut {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_value = <u64>::sse_decode(deserializer);
+        let mut var_scriptPubkey = <crate::api::types::BdkScriptBuf>::sse_decode(deserializer);
+        return crate::api::types::BdkTxOut {
+            value: var_value,
+            script_pubkey: var_scriptPubkey,
+        };
+    }
+}
+
 impl SseDecode for crate::api::wallet::BdkWallet {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3099,6 +3020,44 @@ impl SseDecode for Vec<crate::api::types::BdkPolicy> {
     }
 }
 
+impl SseDecode for Vec<crate::api::types::BdkTransactionDetails> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::BdkTransactionDetails>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::types::BdkTxIn> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::BdkTxIn>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::types::BdkTxOut> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::types::BdkTxOut>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<crate::api::types::Condition> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -3247,49 +3206,11 @@ impl SseDecode for Vec<crate::api::types::ScriptAmount> {
     }
 }
 
-impl SseDecode for Vec<crate::api::types::TransactionDetails> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(<crate::api::types::TransactionDetails>::sse_decode(
-                deserializer,
-            ));
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::types::TxIn> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(<crate::api::types::TxIn>::sse_decode(deserializer));
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::types::TxOut> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(<crate::api::types::TxOut>::sse_decode(deserializer));
-        }
-        return ans_;
-    }
-}
-
 impl SseDecode for crate::api::types::LocalUtxo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_outpoint = <crate::api::types::OutPoint>::sse_decode(deserializer);
-        let mut var_txout = <crate::api::types::TxOut>::sse_decode(deserializer);
+        let mut var_txout = <crate::api::types::BdkTxOut>::sse_decode(deserializer);
         let mut var_keychain = <crate::api::types::KeychainKind>::sse_decode(deserializer);
         let mut var_isSpent = <bool>::sse_decode(deserializer);
         return crate::api::types::LocalUtxo {
@@ -3676,13 +3597,13 @@ impl SseDecode for (crate::api::types::BdkAddress, u32) {
 impl SseDecode
     for (
         crate::api::psbt::BdkPsbt,
-        crate::api::types::TransactionDetails,
+        crate::api::types::BdkTransactionDetails,
     )
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_field0 = <crate::api::psbt::BdkPsbt>::sse_decode(deserializer);
-        let mut var_field1 = <crate::api::types::TransactionDetails>::sse_decode(deserializer);
+        let mut var_field1 = <crate::api::types::BdkTransactionDetails>::sse_decode(deserializer);
         return (var_field0, var_field1);
     }
 }
@@ -3926,56 +3847,6 @@ impl SseDecode for crate::api::types::SqliteDbConfiguration {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_path = <String>::sse_decode(deserializer);
         return crate::api::types::SqliteDbConfiguration { path: var_path };
-    }
-}
-
-impl SseDecode for crate::api::types::TransactionDetails {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_transaction =
-            <Option<crate::api::types::BdkTransaction>>::sse_decode(deserializer);
-        let mut var_txid = <String>::sse_decode(deserializer);
-        let mut var_received = <u64>::sse_decode(deserializer);
-        let mut var_sent = <u64>::sse_decode(deserializer);
-        let mut var_fee = <Option<u64>>::sse_decode(deserializer);
-        let mut var_confirmationTime =
-            <Option<crate::api::types::BlockTime>>::sse_decode(deserializer);
-        return crate::api::types::TransactionDetails {
-            transaction: var_transaction,
-            txid: var_txid,
-            received: var_received,
-            sent: var_sent,
-            fee: var_fee,
-            confirmation_time: var_confirmationTime,
-        };
-    }
-}
-
-impl SseDecode for crate::api::types::TxIn {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_previousOutput = <crate::api::types::OutPoint>::sse_decode(deserializer);
-        let mut var_scriptSig = <crate::api::types::BdkScriptBuf>::sse_decode(deserializer);
-        let mut var_sequence = <u32>::sse_decode(deserializer);
-        let mut var_witness = <Vec<Vec<u8>>>::sse_decode(deserializer);
-        return crate::api::types::TxIn {
-            previous_output: var_previousOutput,
-            script_sig: var_scriptSig,
-            sequence: var_sequence,
-            witness: var_witness,
-        };
-    }
-}
-
-impl SseDecode for crate::api::types::TxOut {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_value = <u64>::sse_decode(deserializer);
-        let mut var_scriptPubkey = <crate::api::types::BdkScriptBuf>::sse_decode(deserializer);
-        return crate::api::types::TxOut {
-            value: var_value,
-            script_pubkey: var_scriptPubkey,
-        };
     }
 }
 
@@ -4560,6 +4431,67 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::BdkTransaction>
     for crate::api::types::BdkTransaction
 {
     fn into_into_dart(self) -> crate::api::types::BdkTransaction {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::BdkTransactionDetails {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.transaction.into_into_dart().into_dart(),
+            self.txid.into_into_dart().into_dart(),
+            self.received.into_into_dart().into_dart(),
+            self.sent.into_into_dart().into_dart(),
+            self.fee.into_into_dart().into_dart(),
+            self.confirmation_time.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::types::BdkTransactionDetails
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::BdkTransactionDetails>
+    for crate::api::types::BdkTransactionDetails
+{
+    fn into_into_dart(self) -> crate::api::types::BdkTransactionDetails {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::BdkTxIn {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.previous_output.into_into_dart().into_dart(),
+            self.script_sig.into_into_dart().into_dart(),
+            self.sequence.into_into_dart().into_dart(),
+            self.witness.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::BdkTxIn {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::BdkTxIn> for crate::api::types::BdkTxIn {
+    fn into_into_dart(self) -> crate::api::types::BdkTxIn {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::types::BdkTxOut {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.value.into_into_dart().into_dart(),
+            self.script_pubkey.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::BdkTxOut {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::types::BdkTxOut>
+    for crate::api::types::BdkTxOut
+{
+    fn into_into_dart(self) -> crate::api::types::BdkTxOut {
         self
     }
 }
@@ -5332,65 +5264,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::types::SqliteDbConfiguration>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::types::TransactionDetails {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.transaction.into_into_dart().into_dart(),
-            self.txid.into_into_dart().into_dart(),
-            self.received.into_into_dart().into_dart(),
-            self.sent.into_into_dart().into_dart(),
-            self.fee.into_into_dart().into_dart(),
-            self.confirmation_time.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::types::TransactionDetails
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::types::TransactionDetails>
-    for crate::api::types::TransactionDetails
-{
-    fn into_into_dart(self) -> crate::api::types::TransactionDetails {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::types::TxIn {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.previous_output.into_into_dart().into_dart(),
-            self.script_sig.into_into_dart().into_dart(),
-            self.sequence.into_into_dart().into_dart(),
-            self.witness.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::TxIn {}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::types::TxIn> for crate::api::types::TxIn {
-    fn into_into_dart(self) -> crate::api::types::TxIn {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::types::TxOut {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.value.into_into_dart().into_dart(),
-            self.script_pubkey.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::types::TxOut {}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::types::TxOut> for crate::api::types::TxOut {
-    fn into_into_dart(self) -> crate::api::types::TxOut {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::types::Variant {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -5996,6 +5869,36 @@ impl SseEncode for crate::api::types::BdkTransaction {
     }
 }
 
+impl SseEncode for crate::api::types::BdkTransactionDetails {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<crate::api::types::BdkTransaction>>::sse_encode(self.transaction, serializer);
+        <String>::sse_encode(self.txid, serializer);
+        <u64>::sse_encode(self.received, serializer);
+        <u64>::sse_encode(self.sent, serializer);
+        <Option<u64>>::sse_encode(self.fee, serializer);
+        <Option<crate::api::types::BlockTime>>::sse_encode(self.confirmation_time, serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::BdkTxIn {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <crate::api::types::OutPoint>::sse_encode(self.previous_output, serializer);
+        <Option<crate::api::types::BdkScriptBuf>>::sse_encode(self.script_sig, serializer);
+        <u32>::sse_encode(self.sequence, serializer);
+        <Vec<Vec<u8>>>::sse_encode(self.witness, serializer);
+    }
+}
+
+impl SseEncode for crate::api::types::BdkTxOut {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.value, serializer);
+        <crate::api::types::BdkScriptBuf>::sse_encode(self.script_pubkey, serializer);
+    }
+}
+
 impl SseEncode for crate::api::wallet::BdkWallet {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6282,6 +6185,36 @@ impl SseEncode for Vec<crate::api::types::BdkPolicy> {
     }
 }
 
+impl SseEncode for Vec<crate::api::types::BdkTransactionDetails> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::BdkTransactionDetails>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::types::BdkTxIn> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::BdkTxIn>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::types::BdkTxOut> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::types::BdkTxOut>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<crate::api::types::Condition> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6402,41 +6335,11 @@ impl SseEncode for Vec<crate::api::types::ScriptAmount> {
     }
 }
 
-impl SseEncode for Vec<crate::api::types::TransactionDetails> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::types::TransactionDetails>::sse_encode(item, serializer);
-        }
-    }
-}
-
-impl SseEncode for Vec<crate::api::types::TxIn> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::types::TxIn>::sse_encode(item, serializer);
-        }
-    }
-}
-
-impl SseEncode for Vec<crate::api::types::TxOut> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::types::TxOut>::sse_encode(item, serializer);
-        }
-    }
-}
-
 impl SseEncode for crate::api::types::LocalUtxo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <crate::api::types::OutPoint>::sse_encode(self.outpoint, serializer);
-        <crate::api::types::TxOut>::sse_encode(self.txout, serializer);
+        <crate::api::types::BdkTxOut>::sse_encode(self.txout, serializer);
         <crate::api::types::KeychainKind>::sse_encode(self.keychain, serializer);
         <bool>::sse_encode(self.is_spent, serializer);
     }
@@ -6772,13 +6675,13 @@ impl SseEncode for (crate::api::types::BdkAddress, u32) {
 impl SseEncode
     for (
         crate::api::psbt::BdkPsbt,
-        crate::api::types::TransactionDetails,
+        crate::api::types::BdkTransactionDetails,
     )
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <crate::api::psbt::BdkPsbt>::sse_encode(self.0, serializer);
-        <crate::api::types::TransactionDetails>::sse_encode(self.1, serializer);
+        <crate::api::types::BdkTransactionDetails>::sse_encode(self.1, serializer);
     }
 }
 
@@ -6971,36 +6874,6 @@ impl SseEncode for crate::api::types::SqliteDbConfiguration {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.path, serializer);
-    }
-}
-
-impl SseEncode for crate::api::types::TransactionDetails {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<crate::api::types::BdkTransaction>>::sse_encode(self.transaction, serializer);
-        <String>::sse_encode(self.txid, serializer);
-        <u64>::sse_encode(self.received, serializer);
-        <u64>::sse_encode(self.sent, serializer);
-        <Option<u64>>::sse_encode(self.fee, serializer);
-        <Option<crate::api::types::BlockTime>>::sse_encode(self.confirmation_time, serializer);
-    }
-}
-
-impl SseEncode for crate::api::types::TxIn {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <crate::api::types::OutPoint>::sse_encode(self.previous_output, serializer);
-        <crate::api::types::BdkScriptBuf>::sse_encode(self.script_sig, serializer);
-        <u32>::sse_encode(self.sequence, serializer);
-        <Vec<Vec<u8>>>::sse_encode(self.witness, serializer);
-    }
-}
-
-impl SseEncode for crate::api::types::TxOut {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <u64>::sse_encode(self.value, serializer);
-        <crate::api::types::BdkScriptBuf>::sse_encode(self.script_pubkey, serializer);
     }
 }
 
