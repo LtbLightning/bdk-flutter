@@ -18,7 +18,7 @@ all: init generate-bindings
 
 generate-bindings:
 	@echo "[GENERATING FRB CODE] $@"
-	flutter_rust_bridge_codegen generate
+	flutter_rust_bridge_codegen generate && flutter pub run build_runner build
 	@echo "[Done ✅]"
 
 
