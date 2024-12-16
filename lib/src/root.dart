@@ -881,6 +881,38 @@ class Transaction extends types.BdkTransaction {
   String toString() {
     return s;
   }
+
+  ///List of transaction inputs.
+  @override
+  Future<List<TxIn>> input({hint}) async {
+    try {
+      final res = await super.input();
+      return res
+          .map((e) => TxIn(
+              previousOutput: e.previousOutput,
+              scriptSig: ScriptBuf(bytes: e.scriptSig.bytes),
+              sequence: e.sequence,
+              witness: e.witness))
+          .toList();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///List of transaction outputs.
+  @override
+  Future<List<TxOut>> output({hint}) async {
+    try {
+      final res = await super.output();
+      return res
+          .map((e) => TxOut(
+              scriptPubkey: ScriptBuf(bytes: e.scriptPubkey.bytes),
+              value: e.value))
+          .toList();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
 }
 
 ///A transaction builder
