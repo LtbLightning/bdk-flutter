@@ -148,7 +148,7 @@ class Blockchain extends BdkBlockchain {
   @override
   Future<types.FeeRate> estimateFee({required BigInt target, hint}) async {
     try {
-      return super.estimateFee(target: target);
+      return await super.estimateFee(target: target);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -157,7 +157,7 @@ class Blockchain extends BdkBlockchain {
   ///The function for broadcasting a transaction
   Future<String> broadcast({required Transaction transaction, hint}) async {
     try {
-      return BdkBlockchain.broadcast(ptr: this, transaction: transaction);
+      return await BdkBlockchain.broadcast(ptr: this, transaction: transaction);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -167,7 +167,7 @@ class Blockchain extends BdkBlockchain {
   @override
   Future<String> getBlockHash({required int height, hint}) async {
     try {
-      return super.getBlockHash(height: height);
+      return await super.getBlockHash(height: height);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -175,9 +175,9 @@ class Blockchain extends BdkBlockchain {
 
   ///The function for getting the current height of the blockchain.
   @override
-  Future<int> getHeight({hint}) {
+  Future<int> getHeight({hint}) async {
     try {
-      return super.getHeight();
+      return await super.getHeight();
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -886,8 +886,7 @@ class Transaction extends types.BdkTransaction {
   @override
   Future<List<TxIn>> input({hint}) async {
     try {
-      final res = await super.input();
-      return res
+      return (await super.input())
           .map((e) => TxIn(
               previousOutput: e.previousOutput,
               scriptSig: ScriptBuf(bytes: e.scriptSig.bytes),
@@ -903,8 +902,7 @@ class Transaction extends types.BdkTransaction {
   @override
   Future<List<TxOut>> output({hint}) async {
     try {
-      final res = await super.output();
-      return res
+      return (await super.output())
           .map((e) => TxOut(
               scriptPubkey: ScriptBuf(bytes: e.scriptPubkey.bytes),
               value: e.value))
