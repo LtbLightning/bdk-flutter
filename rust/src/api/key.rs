@@ -22,8 +22,9 @@ impl From<keys::bip39::Mnemonic> for BdkMnemonic {
     }
 }
 impl BdkMnemonic {
+    #[frb(sync)]
     /// Generates Mnemonic with a random entropy
-    pub fn new(word_count: WordCount) -> Result<Self, BdkError> {
+    pub fn create(word_count: WordCount) -> Result<Self, BdkError> {
         let generated_key: keys::GeneratedKey<_, BareCtx> =
             (match keys::bip39::Mnemonic::generate((word_count.into(), Language::English)) {
                 Ok(value) => Ok(value),
@@ -35,14 +36,14 @@ impl BdkMnemonic {
             .map(|e| e.into())
             .map_err(|e| BdkError::Bip39(e.to_string()))
     }
-
+    #[frb(sync)]
     /// Parse a Mnemonic with given string
     pub fn from_string(mnemonic: String) -> Result<Self, BdkError> {
         keys::bip39::Mnemonic::from_str(&mnemonic)
             .map(|m| m.into())
             .map_err(|e| BdkError::Bip39(e.to_string()))
     }
-
+    #[frb(sync)]
     /// Create a new Mnemonic in the specified language from the given entropy.
     /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
     pub fn from_entropy(entropy: Vec<u8>) -> Result<Self, BdkError> {
@@ -50,7 +51,6 @@ impl BdkMnemonic {
             .map(|m| m.into())
             .map_err(|e| BdkError::Bip39(e.to_string()))
     }
-
     #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()
@@ -69,6 +69,7 @@ impl From<bitcoin::bip32::DerivationPath> for BdkDerivationPath {
 }
 
 impl BdkDerivationPath {
+    #[frb(sync)]
     pub fn from_string(path: String) -> Result<Self, BdkError> {
         bitcoin::bip32::DerivationPath::from_str(&path)
             .map(|e| e.into())
@@ -92,6 +93,7 @@ impl From<keys::DescriptorSecretKey> for BdkDescriptorSecretKey {
     }
 }
 impl BdkDescriptorSecretKey {
+    #[frb(sync)]
     pub fn create(
         network: Network,
         mnemonic: BdkMnemonic,
@@ -116,7 +118,7 @@ impl BdkDescriptorSecretKey {
         });
         Ok(descriptor_secret_key.into())
     }
-
+    #[frb(sync)]
     pub fn derive(ptr: BdkDescriptorSecretKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_secret_key = (*ptr.ptr).clone();
@@ -152,6 +154,7 @@ impl BdkDescriptorSecretKey {
             )),
         }
     }
+    #[frb(sync)]
     pub fn extend(ptr: BdkDescriptorSecretKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let descriptor_secret_key = (*ptr.ptr).clone();
         match descriptor_secret_key {
@@ -199,7 +202,6 @@ impl BdkDescriptorSecretKey {
             )),
         }
     }
-
     pub fn from_string(secret_key: String) -> Result<Self, BdkError> {
         let key = keys::DescriptorSecretKey::from_str(&*secret_key)
             .map_err(|e| BdkError::Generic(e.to_string()))?;
@@ -223,11 +225,13 @@ impl From<keys::DescriptorPublicKey> for BdkDescriptorPublicKey {
 }
 
 impl BdkDescriptorPublicKey {
+    #[frb(sync)]
     pub fn from_string(public_key: String) -> Result<Self, BdkError> {
         keys::DescriptorPublicKey::from_str(public_key.as_str())
             .map_err(|e| BdkError::Generic(e.to_string()))
             .map(|e| e.into())
     }
+    #[frb(sync)]
     pub fn derive(ptr: BdkDescriptorPublicKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let descriptor_public_key = (*ptr.ptr).clone();
@@ -262,7 +266,7 @@ impl BdkDescriptorPublicKey {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn extend(ptr: BdkDescriptorPublicKey, path: BdkDerivationPath) -> Result<Self, BdkError> {
         let descriptor_public_key = (*ptr.ptr).clone();
         match descriptor_public_key {
@@ -289,7 +293,6 @@ impl BdkDescriptorPublicKey {
             )),
         }
     }
-
     #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.ptr.to_string()

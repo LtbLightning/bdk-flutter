@@ -20,7 +20,8 @@ pub struct BdkDescriptor {
 }
 
 impl BdkDescriptor {
-    pub fn new(descriptor: String, network: Network) -> Result<Self, BdkError> {
+    #[frb(sync)]
+    pub fn create(descriptor: String, network: Network) -> Result<Self, BdkError> {
         let secp = Secp256k1::new();
         let (extended_descriptor, key_map) =
             descriptor.into_wallet_descriptor(&secp, network.into())?;
@@ -29,7 +30,7 @@ impl BdkDescriptor {
             key_map: RustOpaque::new(key_map),
         })
     }
-
+    #[frb(sync)]
     pub fn new_bip44(
         secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
@@ -54,7 +55,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip44_public(
         public_key: BdkDescriptorPublicKey,
         fingerprint: String,
@@ -84,7 +85,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip49(
         secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
@@ -109,7 +110,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip49_public(
         public_key: BdkDescriptorPublicKey,
         fingerprint: String,
@@ -140,7 +141,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip84(
         secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
@@ -165,7 +166,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip84_public(
         public_key: BdkDescriptorPublicKey,
         fingerprint: String,
@@ -196,7 +197,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip86(
         secret_key: BdkDescriptorSecretKey,
         keychain_kind: KeychainKind,
@@ -222,7 +223,7 @@ impl BdkDescriptor {
             )),
         }
     }
-
+    #[frb(sync)]
     pub fn new_bip86_public(
         public_key: BdkDescriptorPublicKey,
         fingerprint: String,
@@ -253,14 +254,12 @@ impl BdkDescriptor {
             )),
         }
     }
-
     #[frb(sync)]
     pub fn to_string_private(&self) -> String {
         let descriptor = &self.extended_descriptor;
         let key_map = &*self.key_map;
         descriptor.to_string_with_secret(key_map)
     }
-
     #[frb(sync)]
     pub fn as_string(&self) -> String {
         self.extended_descriptor.to_string()

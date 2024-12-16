@@ -26,25 +26,24 @@ class BdkDescriptor {
         that: this,
       );
 
+  static BdkDescriptor create(
+          {required String descriptor, required Network network}) =>
+      core.instance.api.crateApiDescriptorBdkDescriptorCreate(
+          descriptor: descriptor, network: network);
+
   BigInt maxSatisfactionWeight() =>
       core.instance.api.crateApiDescriptorBdkDescriptorMaxSatisfactionWeight(
         that: this,
       );
 
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<BdkDescriptor> newInstance(
-          {required String descriptor, required Network network}) =>
-      core.instance.api.crateApiDescriptorBdkDescriptorNew(
-          descriptor: descriptor, network: network);
-
-  static Future<BdkDescriptor> newBip44(
+  static BdkDescriptor newBip44(
           {required BdkDescriptorSecretKey secretKey,
           required KeychainKind keychainKind,
           required Network network}) =>
       core.instance.api.crateApiDescriptorBdkDescriptorNewBip44(
           secretKey: secretKey, keychainKind: keychainKind, network: network);
 
-  static Future<BdkDescriptor> newBip44Public(
+  static BdkDescriptor newBip44Public(
           {required BdkDescriptorPublicKey publicKey,
           required String fingerprint,
           required KeychainKind keychainKind,
@@ -55,14 +54,14 @@ class BdkDescriptor {
           keychainKind: keychainKind,
           network: network);
 
-  static Future<BdkDescriptor> newBip49(
+  static BdkDescriptor newBip49(
           {required BdkDescriptorSecretKey secretKey,
           required KeychainKind keychainKind,
           required Network network}) =>
       core.instance.api.crateApiDescriptorBdkDescriptorNewBip49(
           secretKey: secretKey, keychainKind: keychainKind, network: network);
 
-  static Future<BdkDescriptor> newBip49Public(
+  static BdkDescriptor newBip49Public(
           {required BdkDescriptorPublicKey publicKey,
           required String fingerprint,
           required KeychainKind keychainKind,
@@ -73,14 +72,14 @@ class BdkDescriptor {
           keychainKind: keychainKind,
           network: network);
 
-  static Future<BdkDescriptor> newBip84(
+  static BdkDescriptor newBip84(
           {required BdkDescriptorSecretKey secretKey,
           required KeychainKind keychainKind,
           required Network network}) =>
       core.instance.api.crateApiDescriptorBdkDescriptorNewBip84(
           secretKey: secretKey, keychainKind: keychainKind, network: network);
 
-  static Future<BdkDescriptor> newBip84Public(
+  static BdkDescriptor newBip84Public(
           {required BdkDescriptorPublicKey publicKey,
           required String fingerprint,
           required KeychainKind keychainKind,
@@ -91,14 +90,14 @@ class BdkDescriptor {
           keychainKind: keychainKind,
           network: network);
 
-  static Future<BdkDescriptor> newBip86(
+  static BdkDescriptor newBip86(
           {required BdkDescriptorSecretKey secretKey,
           required KeychainKind keychainKind,
           required Network network}) =>
       core.instance.api.crateApiDescriptorBdkDescriptorNewBip86(
           secretKey: secretKey, keychainKind: keychainKind, network: network);
 
-  static Future<BdkDescriptor> newBip86Public(
+  static BdkDescriptor newBip86Public(
           {required BdkDescriptorPublicKey publicKey,
           required String fingerprint,
           required KeychainKind keychainKind,

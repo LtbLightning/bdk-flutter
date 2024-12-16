@@ -14,7 +14,7 @@ import 'types.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`
 
-Future<(BdkPsbt, TransactionDetails)> finishBumpFeeTxBuilder(
+Future<(BdkPsbt, BdkTransactionDetails)> finishBumpFeeTxBuilder(
         {required String txid,
         required double feeRate,
         BdkAddress? allowShrinking,
@@ -29,7 +29,7 @@ Future<(BdkPsbt, TransactionDetails)> finishBumpFeeTxBuilder(
         enableRbf: enableRbf,
         nSequence: nSequence);
 
-Future<(BdkPsbt, TransactionDetails)> txBuilderFinish(
+Future<(BdkPsbt, BdkTransactionDetails)> txBuilderFinish(
         {required BdkWallet wallet,
         required List<ScriptAmount> recipients,
         required List<OutPoint> utxos,
@@ -69,6 +69,17 @@ class BdkWallet {
     required this.ptr,
   });
 
+  static Future<BdkWallet> create(
+          {required BdkDescriptor descriptor,
+          BdkDescriptor? changeDescriptor,
+          required Network network,
+          required DatabaseConfig databaseConfig}) =>
+      core.instance.api.crateApiWalletBdkWalletCreate(
+          descriptor: descriptor,
+          changeDescriptor: changeDescriptor,
+          network: network,
+          databaseConfig: databaseConfig);
+
   /// Return a derived address using the external descriptor, see AddressIndex for available address index selection
   /// strategies. If none of the keys in the descriptor are derivable (i.e. the descriptor does not end with a * character)
   /// then the same address will always be returned for any AddressIndex.
@@ -102,7 +113,7 @@ class BdkWallet {
           ptr: ptr, addressIndex: addressIndex);
 
   ///get the corresponding PSBT Input for a LocalUtxo
-  Future<Input> getPsbtInput(
+  Input getPsbtInput(
           {required LocalUtxo utxo,
           required bool onlyWitnessUtxo,
           PsbtSigHashType? sighashType}) =>
@@ -116,7 +127,7 @@ class BdkWallet {
       core.instance.api.crateApiWalletBdkWalletIsMine(ptr: ptr, script: script);
 
   /// Return the list of transactions made and received by the wallet. Note that this method only operate on the internal database, which first needs to be [Wallet.sync] manually.
-  List<TransactionDetails> listTransactions({required bool includeRaw}) =>
+  List<BdkTransactionDetails> listTransactions({required bool includeRaw}) =>
       core.instance.api.crateApiWalletBdkWalletListTransactions(
           that: this, includeRaw: includeRaw);
 
@@ -132,18 +143,6 @@ class BdkWallet {
         that: this,
       );
 
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<BdkWallet> newInstance(
-          {required BdkDescriptor descriptor,
-          BdkDescriptor? changeDescriptor,
-          required Network network,
-          required DatabaseConfig databaseConfig}) =>
-      core.instance.api.crateApiWalletBdkWalletNew(
-          descriptor: descriptor,
-          changeDescriptor: changeDescriptor,
-          network: network,
-          databaseConfig: databaseConfig);
-
   static BdkPolicy? policies(
           {required BdkWallet ptr, required KeychainKind keychain}) =>
       core.instance.api
@@ -156,7 +155,7 @@ class BdkWallet {
   /// the transaction is finalized at the end. Note that it can't be guaranteed that *every*
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
-  static Future<bool> sign(
+  static bool sign(
           {required BdkWallet ptr,
           required BdkPsbt psbt,
           SignOptions? signOptions}) =>

@@ -1,8 +1,8 @@
 use crate::api::descriptor::BdkDescriptor;
 use crate::api::types::{
-    AddressIndex, Balance, BdkAddress, BdkScriptBuf, ChangeSpendPolicy, DatabaseConfig, Input,
-    KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue, ScriptAmount,
-    SignOptions, TransactionDetails,
+    AddressIndex, Balance, BdkAddress, BdkScriptBuf, BdkTransactionDetails, ChangeSpendPolicy,
+    DatabaseConfig, Input, KeychainKind, LocalUtxo, Network, OutPoint, PsbtSigHashType, RbfValue,
+    ScriptAmount, SignOptions,
 };
 use std::collections::{BTreeMap, HashMap};
 use std::ops::Deref;
@@ -27,7 +27,7 @@ pub struct BdkWallet {
     pub ptr: RustOpaque<std::sync::Mutex<bdk::Wallet<bdk::database::AnyDatabase>>>,
 }
 impl BdkWallet {
-    pub fn new(
+    pub fn create(
         descriptor: BdkDescriptor,
         change_descriptor: Option<BdkDescriptor>,
         network: Network,
@@ -47,7 +47,6 @@ impl BdkWallet {
             ptr: RustOpaque::new(std::sync::Mutex::new(wallet)),
         })
     }
-
     /// Get the Bitcoin network the wallet is using.
     #[frb(sync)]
     pub fn network(&self) -> Result<Network, BdkError> {
@@ -74,7 +73,6 @@ impl BdkWallet {
                 .map_err(|e| e.into())
         })?
     }
-
     /// Return a derived address using the internal (change) descriptor.
     ///
     /// If the wallet doesn't have an internal descriptor it will use the external descriptor.
@@ -93,7 +91,6 @@ impl BdkWallet {
                 .map_err(|e| e.into())
         })?
     }
-
     /// Return the balance, meaning the sum of this wallet’s unspent outputs’ values. Note that this method only operates
     /// on the internal database, which first needs to be Wallet.sync manually.
     #[frb(sync)]
@@ -107,7 +104,7 @@ impl BdkWallet {
     pub fn list_transactions(
         &self,
         include_raw: bool,
-    ) -> Result<Vec<TransactionDetails>, BdkError> {
+    ) -> Result<Vec<BdkTransactionDetails>, BdkError> {
         execute_with_lock(&self.ptr, |wallet| {
             let mut transaction_details = vec![];
 
@@ -119,7 +116,6 @@ impl BdkWallet {
             Ok(transaction_details)
         })?
     }
-
     /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
     /// which first needs to be Wallet.sync manually.
     #[frb(sync)]
@@ -129,7 +125,7 @@ impl BdkWallet {
             Ok(unspent.into_iter().map(LocalUtxo::from).collect())
         })?
     }
-
+    #[frb(sync)]
     /// Sign a transaction with all the wallet's signers. This function returns an encapsulated bool that
     /// has the value true if the PSBT was finalized, or false otherwise.
     ///
@@ -161,7 +157,7 @@ impl BdkWallet {
                 .map_err(|e| e.into())
         })?
     }
-
+    #[frb(sync)]
     ///get the corresponding PSBT Input for a LocalUtxo
     pub fn get_psbt_input(
         &self,
@@ -186,7 +182,7 @@ impl BdkWallet {
     ) -> anyhow::Result<BdkDescriptor, BdkError> {
         execute_with_lock(&ptr.ptr, |w| {
             let extended_descriptor = w.get_descriptor_for_keychain(keychain.into());
-            BdkDescriptor::new(extended_descriptor.to_string(), w.network().into())
+            BdkDescriptor::create(extended_descriptor.to_string(), w.network().into())
         })?
     }
     #[frb(sync)]
@@ -206,7 +202,7 @@ pub fn finish_bump_fee_tx_builder(
     wallet: BdkWallet,
     enable_rbf: bool,
     n_sequence: Option<u32>,
-) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
+) -> anyhow::Result<(BdkPsbt, BdkTransactionDetails), BdkError> {
     let txid = Txid::from_str(txid.as_str()).map_err(|e| BdkError::PsbtParse(e.to_string()))?;
     execute_with_lock(&wallet.ptr, |w| {
         let mut tx_builder = w.build_fee_bump(txid)?;
@@ -223,7 +219,7 @@ pub fn finish_bump_fee_tx_builder(
             tx_builder.enable_rbf();
         }
         return match tx_builder.finish() {
-            Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(e.1)?)),
+            Ok(e) => Ok((e.0.into(), BdkTransactionDetails::try_from(e.1)?)),
             Err(e) => Err(e.into()),
         };
     })?
@@ -245,7 +241,7 @@ pub fn tx_builder_finish(
     internal_policy_path: Option<HashMap<String, Vec<u32>>>,
     external_policy_path: Option<HashMap<String, Vec<u32>>>,
     data: Vec<u8>,
-) -> anyhow::Result<(BdkPsbt, TransactionDetails), BdkError> {
+) -> anyhow::Result<(BdkPsbt, BdkTransactionDetails), BdkError> {
     execute_with_lock(&wallet.ptr, |w| {
         let mut tx_builder = w.build_tx();
         if let Some(path) = internal_policy_path {
@@ -322,7 +318,7 @@ pub fn tx_builder_finish(
         }
 
         return match tx_builder.finish() {
-            Ok(e) => Ok((e.0.into(), TransactionDetails::try_from(&e.1)?)),
+            Ok(e) => Ok((e.0.into(), BdkTransactionDetails::try_from(&e.1)?)),
             Err(e) => Err(e.into()),
         };
     })?
