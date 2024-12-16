@@ -40,19 +40,22 @@ impl From<bdk::bitcoin::OutPoint> for OutPoint {
     }
 }
 #[derive(Debug, Clone)]
-pub struct TxIn {
+pub struct BdkTxIn {
     pub previous_output: OutPoint,
-    pub script_sig: BdkScriptBuf,
+    pub script_sig: Option<BdkScriptBuf>,
     pub sequence: u32,
     pub witness: Vec<Vec<u8>>,
 }
-impl TryFrom<&TxIn> for bdk::bitcoin::TxIn {
+impl TryFrom<&BdkTxIn> for bdk::bitcoin::TxIn {
     type Error = BdkError;
 
-    fn try_from(x: &TxIn) -> Result<Self, Self::Error> {
+    fn try_from(x: &BdkTxIn) -> Result<Self, Self::Error> {
         Ok(bdk::bitcoin::TxIn {
             previous_output: (&x.previous_output).try_into()?,
-            script_sig: x.clone().script_sig.into(),
+            script_sig: x
+                .script_sig
+                .as_ref()
+                .map_or_else(|| BdkScriptBuf::empty().into(), |e| e.clone().into()),
             sequence: bdk::bitcoin::blockdata::transaction::Sequence::from_consensus(
                 x.sequence.clone(),
             ),
@@ -62,41 +65,43 @@ impl TryFrom<&TxIn> for bdk::bitcoin::TxIn {
         })
     }
 }
-impl From<&bdk::bitcoin::TxIn> for TxIn {
+impl From<&bdk::bitcoin::TxIn> for BdkTxIn {
     fn from(x: &bdk::bitcoin::TxIn) -> Self {
-        TxIn {
+        BdkTxIn {
             previous_output: x.previous_output.into(),
-            script_sig: x.clone().script_sig.into(),
+            script_sig: (!x.script_sig.is_empty())
+                .then(|| Some(x.script_sig.clone().into()))
+                .unwrap_or_else(|| None),
             sequence: x.clone().sequence.0,
             witness: x.witness.to_vec(),
         }
     }
 }
 ///A transaction output, which defines new coins to be created from old ones.
-pub struct TxOut {
+pub struct BdkTxOut {
     /// The value of the output, in satoshis.
     pub value: u64,
     /// The address of the output.
     pub script_pubkey: BdkScriptBuf,
 }
-impl From<TxOut> for bdk::bitcoin::TxOut {
-    fn from(value: TxOut) -> Self {
+impl From<BdkTxOut> for bdk::bitcoin::TxOut {
+    fn from(value: BdkTxOut) -> Self {
         Self {
             value: value.value,
             script_pubkey: value.script_pubkey.into(),
         }
     }
 }
-impl From<&bdk::bitcoin::TxOut> for TxOut {
+impl From<&bdk::bitcoin::TxOut> for BdkTxOut {
     fn from(x: &bdk::bitcoin::TxOut) -> Self {
-        TxOut {
+        BdkTxOut {
             value: x.clone().value,
             script_pubkey: x.clone().script_pubkey.into(),
         }
     }
 }
-impl From<&TxOut> for bdk::bitcoin::TxOut {
-    fn from(x: &TxOut) -> Self {
+impl From<&BdkTxOut> for bdk::bitcoin::TxOut {
+    fn from(x: &BdkTxOut) -> Self {
         Self {
             value: x.value,
             script_pubkey: x.script_pubkey.clone().into(),
@@ -125,11 +130,12 @@ impl BdkScriptBuf {
     pub fn empty() -> BdkScriptBuf {
         bdk::bitcoin::ScriptBuf::new().into()
     }
+    #[frb(sync)]
     ///Creates a new empty script with pre-allocated capacity.
     pub fn with_capacity(capacity: usize) -> BdkScriptBuf {
         bdk::bitcoin::ScriptBuf::with_capacity(capacity).into()
     }
-
+    #[frb(sync)]
     pub fn from_hex(s: String) -> Result<BdkScriptBuf, BdkError> {
         bdk::bitcoin::ScriptBuf::from_hex(s.as_str())
             .map(|e| e.into())
@@ -215,7 +221,7 @@ impl From<AddressIndex> for bdk::wallet::AddressIndex {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 ///A wallet transaction
-pub struct TransactionDetails {
+pub struct BdkTransactionDetails {
     pub transaction: Option<BdkTransaction>,
     /// Transaction id.
     pub txid: String,
@@ -235,7 +241,7 @@ pub struct TransactionDetails {
     pub confirmation_time: Option<BlockTime>,
 }
 /// A wallet transaction
-impl TryFrom<&bdk::TransactionDetails> for TransactionDetails {
+impl TryFrom<&bdk::TransactionDetails> for BdkTransactionDetails {
     type Error = BdkError;
 
     fn try_from(x: &bdk::TransactionDetails) -> Result<Self, Self::Error> {
@@ -244,7 +250,7 @@ impl TryFrom<&bdk::TransactionDetails> for TransactionDetails {
         } else {
             None
         };
-        Ok(TransactionDetails {
+        Ok(BdkTransactionDetails {
             transaction,
             fee: x.clone().fee,
             txid: x.clone().txid.to_string(),
@@ -254,7 +260,7 @@ impl TryFrom<&bdk::TransactionDetails> for TransactionDetails {
         })
     }
 }
-impl TryFrom<bdk::TransactionDetails> for TransactionDetails {
+impl TryFrom<bdk::TransactionDetails> for BdkTransactionDetails {
     type Error = BdkError;
 
     fn try_from(x: bdk::TransactionDetails) -> Result<Self, Self::Error> {
@@ -263,7 +269,7 @@ impl TryFrom<bdk::TransactionDetails> for TransactionDetails {
         } else {
             None
         };
-        Ok(TransactionDetails {
+        Ok(BdkTransactionDetails {
             transaction,
             fee: x.fee,
             txid: x.txid.to_string(),
@@ -465,6 +471,7 @@ impl From<&BdkAddress> for bdk::bitcoin::Address {
     }
 }
 impl BdkAddress {
+    #[frb(sync)]
     pub fn from_string(address: String, network: Network) -> Result<Self, BdkError> {
         match bdk::bitcoin::Address::from_str(address.as_str()) {
             Ok(e) => match e.require_network(network.into()) {
@@ -474,7 +481,7 @@ impl BdkAddress {
             Err(e) => Err(e.into()),
         }
     }
-
+    #[frb(sync)]
     pub fn from_script(script: BdkScriptBuf, network: Network) -> Result<Self, BdkError> {
         bdk::bitcoin::Address::from_script(
             <BdkScriptBuf as Into<bdk::bitcoin::ScriptBuf>>::into(script).as_script(),
@@ -499,12 +506,10 @@ impl BdkAddress {
             _ => unreachable!(),
         }
     }
-
     #[frb(sync)]
     pub fn to_qr_uri(&self) -> String {
         self.ptr.to_qr_uri()
     }
-
     #[frb(sync)]
     pub fn network(&self) -> Network {
         self.ptr.network.into()
@@ -513,7 +518,6 @@ impl BdkAddress {
     pub fn script(ptr: BdkAddress) -> BdkScriptBuf {
         ptr.ptr.script_pubkey().into()
     }
-
     #[frb(sync)]
     pub fn is_valid_for_network(&self, network: Network) -> bool {
         if let Ok(unchecked_address) = self
@@ -589,11 +593,12 @@ pub struct BdkTransaction {
     pub s: String,
 }
 impl BdkTransaction {
-    pub fn new(
+    #[frb(sync)]
+    pub fn create(
         version: i32,
         lock_time: LockTime,
-        input: Vec<TxIn>,
-        output: Vec<TxOut>,
+        input: Vec<BdkTxIn>,
+        output: Vec<BdkTxOut>,
     ) -> Result<BdkTransaction, BdkError> {
         let mut inputs: Vec<bdk::bitcoin::blockdata::transaction::TxIn> = vec![];
         for e in input.iter() {
@@ -601,7 +606,7 @@ impl BdkTransaction {
         }
         let output = output
             .into_iter()
-            .map(|e| <&TxOut as Into<bdk::bitcoin::blockdata::transaction::TxOut>>::into(&e))
+            .map(|e| <&BdkTxOut as Into<bdk::bitcoin::blockdata::transaction::TxOut>>::into(&e))
             .collect();
 
         (bdk::bitcoin::Transaction {
@@ -612,28 +617,33 @@ impl BdkTransaction {
         })
         .try_into()
     }
+    #[frb(sync)]
     pub fn from_bytes(transaction_bytes: Vec<u8>) -> Result<Self, BdkError> {
         let mut decoder = Cursor::new(transaction_bytes);
         let tx: bdk::bitcoin::transaction::Transaction =
             bdk::bitcoin::transaction::Transaction::consensus_decode(&mut decoder)?;
         tx.try_into()
     }
+    #[frb(sync)]
     ///Computes the txid. For non-segwit transactions this will be identical to the output of wtxid(),
     /// but for segwit transactions, this will give the correct txid (not including witnesses) while wtxid will also hash witnesses.
     pub fn txid(&self) -> Result<String, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.txid().to_string())
     }
+    #[frb(sync)]
     ///Returns the regular byte-wise consensus-serialized size of this transaction.
     pub fn weight(&self) -> Result<u64, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.weight().to_wu())
     }
+    #[frb(sync)]
     ///Returns the regular byte-wise consensus-serialized size of this transaction.
     pub fn size(&self) -> Result<u64, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.size() as u64)
     }
+    #[frb(sync)]
     ///Returns the “virtual size” (vsize) of this transaction.
     ///
     // Will be ceil(weight / 4.0). Note this implements the virtual size as per BIP141, which is different to what is implemented in Bitcoin Core.
@@ -642,44 +652,53 @@ impl BdkTransaction {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.vsize() as u64)
     }
+    #[frb(sync)]
     ///Encodes an object into a vector.
     pub fn serialize(&self) -> Result<Vec<u8>, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| serialize(&e))
     }
+    #[frb(sync)]
     ///Is this a coin base transaction?
     pub fn is_coin_base(&self) -> Result<bool, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.is_coin_base())
     }
+    #[frb(sync)]
     ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
     /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
     pub fn is_explicitly_rbf(&self) -> Result<bool, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.is_explicitly_rbf())
     }
+    #[frb(sync)]
     ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
     pub fn is_lock_time_enabled(&self) -> Result<bool, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.is_lock_time_enabled())
     }
+    #[frb(sync)]
     ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
     pub fn version(&self) -> Result<i32, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.version)
     }
+    #[frb(sync)]
     ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
     pub fn lock_time(&self) -> Result<LockTime, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.lock_time.into())
     }
+    #[frb(sync)]
     ///List of transaction inputs.
-    pub fn input(&self) -> Result<Vec<TxIn>, BdkError> {
+    pub fn input(&self) -> Result<Vec<BdkTxIn>, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.input.iter().map(|x| x.into()).collect())
     }
+
+    #[frb(sync)]
     ///List of transaction outputs.
-    pub fn output(&self) -> Result<Vec<TxOut>, BdkError> {
+    pub fn output(&self) -> Result<Vec<BdkTxOut>, BdkError> {
         self.try_into()
             .map(|e: bdk::bitcoin::Transaction| e.output.iter().map(|x| x.into()).collect())
     }
@@ -744,7 +763,6 @@ impl From<DatabaseConfig> for AnyDatabaseConfig {
         }
     }
 }
-
 #[derive(Debug, Clone)]
 ///Types of keychains
 pub enum KeychainKind {
@@ -771,7 +789,7 @@ impl From<KeychainKind> for bdk::KeychainKind {
 ///Unspent outputs of this wallet
 pub struct LocalUtxo {
     pub outpoint: OutPoint,
-    pub txout: TxOut,
+    pub txout: BdkTxOut,
     pub keychain: KeychainKind,
     pub is_spent: bool,
 }
@@ -782,7 +800,7 @@ impl From<bdk::LocalUtxo> for LocalUtxo {
                 txid: local_utxo.outpoint.txid.to_string(),
                 vout: local_utxo.outpoint.vout,
             },
-            txout: TxOut {
+            txout: BdkTxOut {
                 value: local_utxo.txout.value,
                 script_pubkey: BdkScriptBuf {
                     bytes: local_utxo.txout.script_pubkey.into_bytes(),
