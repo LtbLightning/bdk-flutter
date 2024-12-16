@@ -18,9 +18,9 @@ class Address extends types.BdkAddress {
       {required ScriptBuf script, required types.Network network}) async {
     try {
       await Api.initialize();
-      final res =
-          await types.BdkAddress.fromScript(script: script, network: network);
-      return Address._(ptr: res.ptr);
+      return Address._(
+          ptr: types.BdkAddress.fromScript(script: script, network: network)
+              .ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -31,9 +31,8 @@ class Address extends types.BdkAddress {
       {required String s, required types.Network network}) async {
     try {
       await Api.initialize();
-      final res =
-          await types.BdkAddress.fromString(address: s, network: network);
-      return Address._(ptr: res.ptr);
+      return Address._(
+          ptr: types.BdkAddress.fromString(address: s, network: network).ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -236,10 +235,8 @@ class BumpFeeTxBuilder {
           allowShrinking: _allowShrinking);
       return (
         PartiallySignedTransaction._(ptr: res.$1.ptr),
-        TransactionDetails(
-            transaction: (res.$2.transaction?.s == null)
-                ? null
-                : Transaction._(s: res.$2.transaction!.s),
+        TransactionDetails._(
+            transaction: res.$2.transaction,
             txid: res.$2.txid,
             received: res.$2.received,
             sent: res.$2.sent,
@@ -259,8 +256,8 @@ class DerivationPath extends BdkDerivationPath {
   static Future<DerivationPath> create({required String path}) async {
     try {
       await Api.initialize();
-      final res = await BdkDerivationPath.fromString(path: path);
-      return DerivationPath._(ptr: res.ptr);
+      return DerivationPath._(
+          ptr: BdkDerivationPath.fromString(path: path).ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -281,8 +278,8 @@ class Descriptor extends BdkDescriptor {
       {required String descriptor, required types.Network network}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newInstance(
-          descriptor: descriptor, network: network);
+      final res =
+          BdkDescriptor.create(descriptor: descriptor, network: network);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
     } on BdkError catch (e) {
@@ -299,7 +296,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip44(
+      final res = BdkDescriptor.newBip44(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -320,7 +317,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip44Public(
+      final res = BdkDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -341,7 +338,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip49(
+      final res = BdkDescriptor.newBip49(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -362,7 +359,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip49Public(
+      final res = BdkDescriptor.newBip49Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -383,7 +380,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip84(
+      final res = BdkDescriptor.newBip84(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -404,7 +401,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip84Public(
+      final res = BdkDescriptor.newBip84Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -425,7 +422,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip86(
+      final res = BdkDescriptor.newBip86(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -446,7 +443,7 @@ class Descriptor extends BdkDescriptor {
       required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptor.newBip86Public(
+      final res = BdkDescriptor.newBip86Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -493,7 +490,7 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
   static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptorPublicKey.fromString(publicKey: publicKey);
+      final res = BdkDescriptorPublicKey.fromString(publicKey: publicKey);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -507,10 +504,9 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
   }
 
   ///Derive a public descriptor at a given path.
-  Future<DescriptorPublicKey> derive(
-      {required DerivationPath path, hint}) async {
+  DescriptorPublicKey derive({required DerivationPath path, hint}) {
     try {
-      final res = await BdkDescriptorPublicKey.derive(ptr: this, path: path);
+      final res = BdkDescriptorPublicKey.derive(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -518,10 +514,9 @@ class DescriptorPublicKey extends BdkDescriptorPublicKey {
   }
 
   ///Extend the public descriptor with a custom path.
-  Future<DescriptorPublicKey> extend(
-      {required DerivationPath path, hint}) async {
+  DescriptorPublicKey extend({required DerivationPath path, hint}) {
     try {
-      final res = await BdkDescriptorPublicKey.extend(ptr: this, path: path);
+      final res = BdkDescriptorPublicKey.extend(ptr: this, path: path);
       return DescriptorPublicKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -551,7 +546,7 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
       String? password}) async {
     try {
       await Api.initialize();
-      final res = await BdkDescriptorSecretKey.create(
+      final res = BdkDescriptorSecretKey.create(
           network: network, mnemonic: mnemonic, password: password);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
@@ -560,9 +555,9 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
   }
 
   ///Derived the XPrv using the derivation path
-  Future<DescriptorSecretKey> derive(DerivationPath path) async {
+  DescriptorSecretKey derive(DerivationPath path) {
     try {
-      final res = await BdkDescriptorSecretKey.derive(ptr: this, path: path);
+      final res = BdkDescriptorSecretKey.derive(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -570,9 +565,9 @@ class DescriptorSecretKey extends BdkDescriptorSecretKey {
   }
 
   ///Extends the XPrv using the derivation path
-  Future<DescriptorSecretKey> extend(DerivationPath path) async {
+  DescriptorSecretKey extend(DerivationPath path) {
     try {
-      final res = await BdkDescriptorSecretKey.extend(ptr: this, path: path);
+      final res = BdkDescriptorSecretKey.extend(ptr: this, path: path);
       return DescriptorSecretKey._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -616,7 +611,7 @@ class Mnemonic extends BdkMnemonic {
   static Future<Mnemonic> create(types.WordCount wordCount) async {
     try {
       await Api.initialize();
-      final res = await BdkMnemonic.newInstance(wordCount: wordCount);
+      final res = BdkMnemonic.create(wordCount: wordCount);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -630,7 +625,7 @@ class Mnemonic extends BdkMnemonic {
   static Future<Mnemonic> fromEntropy(List<int> entropy) async {
     try {
       await Api.initialize();
-      final res = await BdkMnemonic.fromEntropy(entropy: entropy);
+      final res = BdkMnemonic.fromEntropy(entropy: entropy);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -643,7 +638,7 @@ class Mnemonic extends BdkMnemonic {
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
       await Api.initialize();
-      final res = await BdkMnemonic.fromString(mnemonic: mnemonic);
+      final res = BdkMnemonic.fromString(mnemonic: mnemonic);
       return Mnemonic._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -668,7 +663,7 @@ class PartiallySignedTransaction extends BdkPsbt {
       String psbtBase64) async {
     try {
       await Api.initialize();
-      final res = await BdkPsbt.fromStr(psbtBase64: psbtBase64);
+      final res = BdkPsbt.fromStr(psbtBase64: psbtBase64);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -730,10 +725,9 @@ class PartiallySignedTransaction extends BdkPsbt {
   }
 
   ///Combines this [PartiallySignedTransaction] with other PSBT as described by BIP 174.
-  Future<PartiallySignedTransaction> combine(
-      PartiallySignedTransaction other) async {
+  PartiallySignedTransaction combine(PartiallySignedTransaction other) {
     try {
-      final res = await BdkPsbt.combine(ptr: this, other: other);
+      final res = BdkPsbt.combine(ptr: this, other: other);
       return PartiallySignedTransaction._(ptr: res.ptr);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -833,8 +827,8 @@ class ScriptBuf extends types.BdkScriptBuf {
   static Future<ScriptBuf> withCapacity(BigInt capacity) async {
     try {
       await Api.initialize();
-      final res = await types.BdkScriptBuf.withCapacity(capacity: capacity);
-      return ScriptBuf(bytes: res.bytes);
+      return ScriptBuf(
+          bytes: types.BdkScriptBuf.withCapacity(capacity: capacity).bytes);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -844,8 +838,7 @@ class ScriptBuf extends types.BdkScriptBuf {
   static Future<ScriptBuf> fromHex(String s) async {
     try {
       await Api.initialize();
-      final res = await types.BdkScriptBuf.fromHex(s: s);
-      return ScriptBuf(bytes: res.bytes);
+      return ScriptBuf(bytes: types.BdkScriptBuf.fromHex(s: s).bytes);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -869,8 +862,8 @@ class Transaction extends types.BdkTransaction {
   }) async {
     try {
       await Api.initialize();
-      final res = await types.BdkTransaction.fromBytes(
-          transactionBytes: transactionBytes);
+      final res =
+          types.BdkTransaction.fromBytes(transactionBytes: transactionBytes);
       return Transaction._(s: res.s);
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -884,12 +877,13 @@ class Transaction extends types.BdkTransaction {
 
   ///List of transaction inputs.
   @override
-  Future<List<TxIn>> input({hint}) async {
+  List<TxIn> input({hint}) {
     try {
-      return (await super.input())
-          .map((e) => TxIn(
+      final res = super.input();
+      return res
+          .map((e) => TxIn._(
               previousOutput: e.previousOutput,
-              scriptSig: ScriptBuf(bytes: e.scriptSig.bytes),
+              scriptSig: e.scriptSig,
               sequence: e.sequence,
               witness: e.witness))
           .toList();
@@ -900,12 +894,11 @@ class Transaction extends types.BdkTransaction {
 
   ///List of transaction outputs.
   @override
-  Future<List<TxOut>> output({hint}) async {
+  List<TxOut> output({hint}) {
     try {
-      return (await super.output())
-          .map((e) => TxOut(
-              scriptPubkey: ScriptBuf(bytes: e.scriptPubkey.bytes),
-              value: e.value))
+      return super
+          .output()
+          .map((e) => TxOut._(scriptPubkey: e.scriptPubkey, value: e.value))
           .toList();
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1131,10 +1124,8 @@ class TxBuilder {
 
       return (
         PartiallySignedTransaction._(ptr: res.$1.ptr),
-        TransactionDetails(
-            transaction: (res.$2.transaction?.s == null)
-                ? null
-                : Transaction._(s: res.$2.transaction!.s),
+        TransactionDetails._(
+            transaction: res.$2.transaction,
             txid: res.$2.txid,
             received: res.$2.received,
             sent: res.$2.sent,
@@ -1166,7 +1157,7 @@ class Wallet extends BdkWallet {
   }) async {
     try {
       await Api.initialize();
-      final res = await BdkWallet.newInstance(
+      final res = await BdkWallet.create(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
         network: network,
@@ -1235,11 +1226,11 @@ class Wallet extends BdkWallet {
 
   ///get the corresponding PSBT Input for a LocalUtxo
   @override
-  Future<types.Input> getPsbtInput(
+  types.Input getPsbtInput(
       {required types.LocalUtxo utxo,
       required bool onlyWitnessUtxo,
       types.PsbtSigHashType? sighashType,
-      hint}) async {
+      hint}) {
     try {
       return super.getPsbtInput(
           utxo: utxo,
@@ -1265,10 +1256,8 @@ class Wallet extends BdkWallet {
     try {
       return super
           .listTransactions(includeRaw: includeRaw)
-          .map((e) => TransactionDetails(
-              transaction: (e.transaction?.s == null)
-                  ? null
-                  : Transaction._(s: e.transaction!.s),
+          .map((e) => TransactionDetails._(
+              transaction: e.transaction,
               txid: e.txid,
               received: e.received,
               sent: e.sent,
@@ -1281,11 +1270,20 @@ class Wallet extends BdkWallet {
 
   /// Return the list of unspent outputs of this wallet. Note that this method only operates on the internal database,
   /// which first needs to be Wallet.sync manually.
-  /// TODO; Update; create custom LocalUtxo
+  ///
   @override
-  List<types.LocalUtxo> listUnspent({hint}) {
+  List<LocalUtxo> listUnspent({hint}) {
     try {
-      return super.listUnspent();
+      return super
+          .listUnspent()
+          .map((e) => LocalUtxo(
+              outpoint: e.outpoint,
+              txout: TxOut(
+                  value: e.txout.value,
+                  scriptPubkey: ScriptBuf(bytes: e.txout.scriptPubkey.bytes)),
+              keychain: e.keychain,
+              isSpent: e.isSpent))
+          .toList();
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -1308,13 +1306,13 @@ class Wallet extends BdkWallet {
   /// the transaction is finalized at the end. Note that it can't be guaranteed that *every*
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
-  Future<bool> sign(
+  bool sign(
       {required PartiallySignedTransaction psbt,
       types.SignOptions? signOptions,
-      hint}) async {
+      hint}) {
     try {
       final res =
-          await BdkWallet.sign(ptr: this, psbt: psbt, signOptions: signOptions);
+          BdkWallet.sign(ptr: this, psbt: psbt, signOptions: signOptions);
       return res;
     } on BdkError catch (e) {
       throw mapBdkError(e);
@@ -1325,8 +1323,7 @@ class Wallet extends BdkWallet {
 
   Future<void> sync({required Blockchain blockchain, hint}) async {
     try {
-      final res = await BdkWallet.sync(ptr: this, blockchain: blockchain);
-      return res;
+      return await BdkWallet.sync(ptr: this, blockchain: blockchain);
     } on BdkError catch (e) {
       throw mapBdkError(e);
     }
@@ -1372,22 +1369,34 @@ class AddressInfo {
   AddressInfo(this.index, this.address);
 }
 
-class TxIn extends types.TxIn {
+class TxIn extends types.BdkTxIn {
   TxIn(
       {required super.previousOutput,
-      required ScriptBuf scriptSig,
+      ScriptBuf? scriptSig,
       required super.sequence,
       required super.witness})
       : super(scriptSig: scriptSig);
+  TxIn._(
+      {required super.previousOutput,
+      required super.scriptSig,
+      required super.sequence,
+      required super.witness});
+  @override
+  ScriptBuf? get scriptSig =>
+      super.scriptSig != null ? ScriptBuf(bytes: super.scriptSig!.bytes) : null;
 }
 
 ///A transaction output, which defines new coins to be created from old ones.
-class TxOut extends types.TxOut {
+class TxOut extends types.BdkTxOut {
   TxOut({required super.value, required ScriptBuf scriptPubkey})
       : super(scriptPubkey: scriptPubkey);
+
+  TxOut._({required super.value, required super.scriptPubkey});
+  @override
+  ScriptBuf get scriptPubkey => ScriptBuf(bytes: super.scriptPubkey.bytes);
 }
 
-class TransactionDetails extends types.TransactionDetails {
+class TransactionDetails extends types.BdkTransactionDetails {
   TransactionDetails(
       {Transaction? transaction,
       required super.txid,
@@ -1396,4 +1405,27 @@ class TransactionDetails extends types.TransactionDetails {
       super.confirmationTime,
       super.fee})
       : super(transaction: transaction);
+
+  TransactionDetails._(
+      {super.transaction,
+      required super.txid,
+      required super.received,
+      required super.sent,
+      super.confirmationTime,
+      super.fee});
+  @override
+  Transaction? get transaction =>
+      super.transaction != null ? Transaction._(s: super.transaction!.s) : null;
+}
+
+class LocalUtxo extends types.LocalUtxo {
+  LocalUtxo(
+      {required super.outpoint,
+      required TxOut txout,
+      required super.keychain,
+      required super.isSpent})
+      : super(txout: txout);
+  @override
+  TxOut get txout =>
+      TxOut._(value: super.txout.value, scriptPubkey: super.txout.scriptPubkey);
 }
