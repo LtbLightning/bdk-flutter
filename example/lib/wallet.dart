@@ -64,7 +64,7 @@ class _ExampleWalletState extends State<ExampleWallet> {
       displayText = "You have ${unConfirmed.length} unConfirmed transactions";
     });
     for (var e in unConfirmed) {
-      final txOut = await e.transaction!.output();
+      final txOut = e.transaction!.output();
       if (kDebugMode) {
         print(" txid: ${e.txid}");
         print(" fee: ${e.fee}");
@@ -86,10 +86,11 @@ class _ExampleWalletState extends State<ExampleWallet> {
         print(" txid: ${e.txid}");
         print(" confirmationTime: ${e.confirmationTime?.timestamp}");
         print(" confirmationTime Height: ${e.confirmationTime?.height}");
-        final txIn = await e.transaction!.input();
-        final txOut = await e.transaction!.output();
+        final txIn = e.transaction!.input();
+        final txOut = e.transaction!.output();
         print("=============TxIn==============");
         for (var e in txIn) {
+          print("         script: ${e.scriptSig}");
           print("         previousOutout Txid: ${e.previousOutput.txid}");
           print("         previousOutout vout: ${e.previousOutput.vout}");
           print("         witness: ${e.witness}");

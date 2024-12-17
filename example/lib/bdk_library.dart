@@ -52,7 +52,7 @@ class BdkLibrary {
   Future<Input> getPsbtInput(
       Wallet wallet, LocalUtxo utxo, bool onlyWitnessUtxo) async {
     final input =
-        await wallet.getPsbtInput(utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
+        wallet.getPsbtInput(utxo: utxo, onlyWitnessUtxo: onlyWitnessUtxo);
     return input;
   }
 
@@ -68,7 +68,6 @@ class BdkLibrary {
   List<TransactionDetails> getConfirmedTransactions(Wallet wallet) {
     List<TransactionDetails> confirmed = [];
     final res = wallet.listTransactions(includeRaw: true);
-
     for (var e in res) {
       if (e.confirmationTime != null) confirmed.add(e);
     }
@@ -103,7 +102,7 @@ class BdkLibrary {
           .addRecipient(script, BigInt.from(amountSat))
           .feeRate(feeRate.satPerVb)
           .finish(wallet);
-      final isFinalized = await wallet.sign(psbt: psbt);
+      final isFinalized = wallet.sign(psbt: psbt);
       if (isFinalized) {
         final tx = psbt.extractTx();
         final res = await blockchain.broadcast(transaction: tx);
