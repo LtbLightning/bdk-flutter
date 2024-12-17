@@ -21,7 +21,6 @@ export './src/generated/api/types.dart'
         FeeRate,
         Input,
         KeychainKind,
-        LocalUtxo,
         LockTime,
         Network,
         OutPoint,
