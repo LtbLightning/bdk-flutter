@@ -22,7 +22,7 @@ class BdkDerivationPath {
         that: this,
       );
 
-  static Future<BdkDerivationPath> fromString({required String path}) =>
+  static BdkDerivationPath fromString({required String path}) =>
       core.instance.api.crateApiKeyBdkDerivationPathFromString(path: path);
 
   @override
@@ -48,20 +48,19 @@ class BdkDescriptorPublicKey {
         that: this,
       );
 
-  static Future<BdkDescriptorPublicKey> derive(
+  static BdkDescriptorPublicKey derive(
           {required BdkDescriptorPublicKey ptr,
           required BdkDerivationPath path}) =>
       core.instance.api
           .crateApiKeyBdkDescriptorPublicKeyDerive(ptr: ptr, path: path);
 
-  static Future<BdkDescriptorPublicKey> extend(
+  static BdkDescriptorPublicKey extend(
           {required BdkDescriptorPublicKey ptr,
           required BdkDerivationPath path}) =>
       core.instance.api
           .crateApiKeyBdkDescriptorPublicKeyExtend(ptr: ptr, path: path);
 
-  static Future<BdkDescriptorPublicKey> fromString(
-          {required String publicKey}) =>
+  static BdkDescriptorPublicKey fromString({required String publicKey}) =>
       core.instance.api
           .crateApiKeyBdkDescriptorPublicKeyFromString(publicKey: publicKey);
 
@@ -92,20 +91,20 @@ class BdkDescriptorSecretKey {
         that: this,
       );
 
-  static Future<BdkDescriptorSecretKey> create(
+  static BdkDescriptorSecretKey create(
           {required Network network,
           required BdkMnemonic mnemonic,
           String? password}) =>
       core.instance.api.crateApiKeyBdkDescriptorSecretKeyCreate(
           network: network, mnemonic: mnemonic, password: password);
 
-  static Future<BdkDescriptorSecretKey> derive(
+  static BdkDescriptorSecretKey derive(
           {required BdkDescriptorSecretKey ptr,
           required BdkDerivationPath path}) =>
       core.instance.api
           .crateApiKeyBdkDescriptorSecretKeyDerive(ptr: ptr, path: path);
 
-  static Future<BdkDescriptorSecretKey> extend(
+  static BdkDescriptorSecretKey extend(
           {required BdkDescriptorSecretKey ptr,
           required BdkDerivationPath path}) =>
       core.instance.api
@@ -144,19 +143,18 @@ class BdkMnemonic {
         that: this,
       );
 
+  /// Generates Mnemonic with a random entropy
+  static BdkMnemonic create({required WordCount wordCount}) =>
+      core.instance.api.crateApiKeyBdkMnemonicCreate(wordCount: wordCount);
+
   /// Create a new Mnemonic in the specified language from the given entropy.
   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
-  static Future<BdkMnemonic> fromEntropy({required List<int> entropy}) =>
+  static BdkMnemonic fromEntropy({required List<int> entropy}) =>
       core.instance.api.crateApiKeyBdkMnemonicFromEntropy(entropy: entropy);
 
   /// Parse a Mnemonic with given string
-  static Future<BdkMnemonic> fromString({required String mnemonic}) =>
+  static BdkMnemonic fromString({required String mnemonic}) =>
       core.instance.api.crateApiKeyBdkMnemonicFromString(mnemonic: mnemonic);
-
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  /// Generates Mnemonic with a random entropy
-  static Future<BdkMnemonic> newInstance({required WordCount wordCount}) =>
-      core.instance.api.crateApiKeyBdkMnemonicNew(wordCount: wordCount);
 
   @override
   int get hashCode => ptr.hashCode;

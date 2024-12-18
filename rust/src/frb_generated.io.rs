@@ -503,6 +503,39 @@ impl CstDecode<crate::api::types::BdkTransaction> for wire_cst_bdk_transaction {
         }
     }
 }
+impl CstDecode<crate::api::types::BdkTransactionDetails> for wire_cst_bdk_transaction_details {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::BdkTransactionDetails {
+        crate::api::types::BdkTransactionDetails {
+            transaction: self.transaction.cst_decode(),
+            txid: self.txid.cst_decode(),
+            received: self.received.cst_decode(),
+            sent: self.sent.cst_decode(),
+            fee: self.fee.cst_decode(),
+            confirmation_time: self.confirmation_time.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::BdkTxIn> for wire_cst_bdk_tx_in {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::BdkTxIn {
+        crate::api::types::BdkTxIn {
+            previous_output: self.previous_output.cst_decode(),
+            script_sig: self.script_sig.cst_decode(),
+            sequence: self.sequence.cst_decode(),
+            witness: self.witness.cst_decode(),
+        }
+    }
+}
+impl CstDecode<crate::api::types::BdkTxOut> for wire_cst_bdk_tx_out {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::types::BdkTxOut {
+        crate::api::types::BdkTxOut {
+            value: self.value.cst_decode(),
+            script_pubkey: self.script_pubkey.cst_decode(),
+        }
+    }
+}
 impl CstDecode<crate::api::wallet::BdkWallet> for wire_cst_bdk_wallet {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::wallet::BdkWallet {
@@ -1022,6 +1055,38 @@ impl CstDecode<Vec<crate::api::types::BdkPolicy>> for *mut wire_cst_list_bdk_pol
         vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
+impl CstDecode<Vec<crate::api::types::BdkTransactionDetails>>
+    for *mut wire_cst_list_bdk_transaction_details
+{
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::BdkTransactionDetails> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<crate::api::types::BdkTxIn>> for *mut wire_cst_list_bdk_tx_in {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::BdkTxIn> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
+impl CstDecode<Vec<crate::api::types::BdkTxOut>> for *mut wire_cst_list_bdk_tx_out {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> Vec<crate::api::types::BdkTxOut> {
+        let vec = unsafe {
+            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(CstDecode::cst_decode).collect()
+    }
+}
 impl CstDecode<Vec<crate::api::types::Condition>> for *mut wire_cst_list_condition {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> Vec<crate::api::types::Condition> {
@@ -1152,38 +1217,6 @@ impl CstDecode<Vec<crate::api::types::ScriptAmount>> for *mut wire_cst_list_scri
         vec.into_iter().map(CstDecode::cst_decode).collect()
     }
 }
-impl CstDecode<Vec<crate::api::types::TransactionDetails>>
-    for *mut wire_cst_list_transaction_details
-{
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> Vec<crate::api::types::TransactionDetails> {
-        let vec = unsafe {
-            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
-            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
-        };
-        vec.into_iter().map(CstDecode::cst_decode).collect()
-    }
-}
-impl CstDecode<Vec<crate::api::types::TxIn>> for *mut wire_cst_list_tx_in {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> Vec<crate::api::types::TxIn> {
-        let vec = unsafe {
-            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
-            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
-        };
-        vec.into_iter().map(CstDecode::cst_decode).collect()
-    }
-}
-impl CstDecode<Vec<crate::api::types::TxOut>> for *mut wire_cst_list_tx_out {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> Vec<crate::api::types::TxOut> {
-        let vec = unsafe {
-            let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
-            flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
-        };
-        vec.into_iter().map(CstDecode::cst_decode).collect()
-    }
-}
 impl CstDecode<crate::api::types::LocalUtxo> for wire_cst_local_utxo {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> crate::api::types::LocalUtxo {
@@ -1303,15 +1336,15 @@ impl CstDecode<(crate::api::types::BdkAddress, u32)> for wire_cst_record_bdk_add
 impl
     CstDecode<(
         crate::api::psbt::BdkPsbt,
-        crate::api::types::TransactionDetails,
-    )> for wire_cst_record_bdk_psbt_transaction_details
+        crate::api::types::BdkTransactionDetails,
+    )> for wire_cst_record_bdk_psbt_bdk_transaction_details
 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(
         self,
     ) -> (
         crate::api::psbt::BdkPsbt,
-        crate::api::types::TransactionDetails,
+        crate::api::types::BdkTransactionDetails,
     ) {
         (self.field0.cst_decode(), self.field1.cst_decode())
     }
@@ -1521,39 +1554,6 @@ impl CstDecode<crate::api::types::SqliteDbConfiguration> for wire_cst_sqlite_db_
         }
     }
 }
-impl CstDecode<crate::api::types::TransactionDetails> for wire_cst_transaction_details {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::api::types::TransactionDetails {
-        crate::api::types::TransactionDetails {
-            transaction: self.transaction.cst_decode(),
-            txid: self.txid.cst_decode(),
-            received: self.received.cst_decode(),
-            sent: self.sent.cst_decode(),
-            fee: self.fee.cst_decode(),
-            confirmation_time: self.confirmation_time.cst_decode(),
-        }
-    }
-}
-impl CstDecode<crate::api::types::TxIn> for wire_cst_tx_in {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::api::types::TxIn {
-        crate::api::types::TxIn {
-            previous_output: self.previous_output.cst_decode(),
-            script_sig: self.script_sig.cst_decode(),
-            sequence: self.sequence.cst_decode(),
-            witness: self.witness.cst_decode(),
-        }
-    }
-}
-impl CstDecode<crate::api::types::TxOut> for wire_cst_tx_out {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> crate::api::types::TxOut {
-        crate::api::types::TxOut {
-            value: self.value.cst_decode(),
-            script_pubkey: self.script_pubkey.cst_decode(),
-        }
-    }
-}
 impl CstDecode<[u8; 4]> for *mut wire_cst_list_prim_u_8_strict {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> [u8; 4] {
@@ -1759,6 +1759,51 @@ impl NewWithNullPtr for wire_cst_bdk_transaction {
     }
 }
 impl Default for wire_cst_bdk_transaction {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_bdk_transaction_details {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            transaction: core::ptr::null_mut(),
+            txid: core::ptr::null_mut(),
+            received: Default::default(),
+            sent: Default::default(),
+            fee: core::ptr::null_mut(),
+            confirmation_time: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_bdk_transaction_details {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_bdk_tx_in {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            previous_output: Default::default(),
+            script_sig: core::ptr::null_mut(),
+            sequence: Default::default(),
+            witness: core::ptr::null_mut(),
+        }
+    }
+}
+impl Default for wire_cst_bdk_tx_in {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
+    }
+}
+impl NewWithNullPtr for wire_cst_bdk_tx_out {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            value: Default::default(),
+            script_pubkey: Default::default(),
+        }
+    }
+}
+impl Default for wire_cst_bdk_tx_out {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -2028,7 +2073,7 @@ impl Default for wire_cst_record_bdk_address_u_32 {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_record_bdk_psbt_transaction_details {
+impl NewWithNullPtr for wire_cst_record_bdk_psbt_bdk_transaction_details {
     fn new_with_null_ptr() -> Self {
         Self {
             field0: Default::default(),
@@ -2036,7 +2081,7 @@ impl NewWithNullPtr for wire_cst_record_bdk_psbt_transaction_details {
         }
     }
 }
-impl Default for wire_cst_record_bdk_psbt_transaction_details {
+impl Default for wire_cst_record_bdk_psbt_bdk_transaction_details {
     fn default() -> Self {
         Self::new_with_null_ptr()
     }
@@ -2207,51 +2252,6 @@ impl Default for wire_cst_sqlite_db_configuration {
         Self::new_with_null_ptr()
     }
 }
-impl NewWithNullPtr for wire_cst_transaction_details {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            transaction: core::ptr::null_mut(),
-            txid: core::ptr::null_mut(),
-            received: Default::default(),
-            sent: Default::default(),
-            fee: core::ptr::null_mut(),
-            confirmation_time: core::ptr::null_mut(),
-        }
-    }
-}
-impl Default for wire_cst_transaction_details {
-    fn default() -> Self {
-        Self::new_with_null_ptr()
-    }
-}
-impl NewWithNullPtr for wire_cst_tx_in {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            previous_output: Default::default(),
-            script_sig: Default::default(),
-            sequence: Default::default(),
-            witness: core::ptr::null_mut(),
-        }
-    }
-}
-impl Default for wire_cst_tx_in {
-    fn default() -> Self {
-        Self::new_with_null_ptr()
-    }
-}
-impl NewWithNullPtr for wire_cst_tx_out {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            value: Default::default(),
-            script_pubkey: Default::default(),
-        }
-    }
-}
-impl Default for wire_cst_tx_out {
-    fn default() -> Self {
-        Self::new_with_null_ptr()
-    }
-}
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__blockchain__bdk_blockchain_broadcast(
@@ -2304,6 +2304,14 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descripto
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_create(
+    descriptor: *mut wire_cst_list_prim_u_8_strict,
+    network: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__descriptor__bdk_descriptor_create_impl(descriptor, network)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_max_satisfaction_weight(
     that: *mut wire_cst_bdk_descriptor,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -2311,39 +2319,22 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descripto
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new(
-    port_: i64,
-    descriptor: *mut wire_cst_list_prim_u_8_strict,
-    network: i32,
-) {
-    wire__crate__api__descriptor__bdk_descriptor_new_impl(port_, descriptor, network)
-}
-
-#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip44(
-    port_: i64,
     secret_key: *mut wire_cst_bdk_descriptor_secret_key,
     keychain_kind: i32,
     network: i32,
-) {
-    wire__crate__api__descriptor__bdk_descriptor_new_bip44_impl(
-        port_,
-        secret_key,
-        keychain_kind,
-        network,
-    )
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__descriptor__bdk_descriptor_new_bip44_impl(secret_key, keychain_kind, network)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip44_public(
-    port_: i64,
     public_key: *mut wire_cst_bdk_descriptor_public_key,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
-) {
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     wire__crate__api__descriptor__bdk_descriptor_new_bip44_public_impl(
-        port_,
         public_key,
         fingerprint,
         keychain_kind,
@@ -2353,29 +2344,21 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descripto
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip49(
-    port_: i64,
     secret_key: *mut wire_cst_bdk_descriptor_secret_key,
     keychain_kind: i32,
     network: i32,
-) {
-    wire__crate__api__descriptor__bdk_descriptor_new_bip49_impl(
-        port_,
-        secret_key,
-        keychain_kind,
-        network,
-    )
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__descriptor__bdk_descriptor_new_bip49_impl(secret_key, keychain_kind, network)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip49_public(
-    port_: i64,
     public_key: *mut wire_cst_bdk_descriptor_public_key,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
-) {
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     wire__crate__api__descriptor__bdk_descriptor_new_bip49_public_impl(
-        port_,
         public_key,
         fingerprint,
         keychain_kind,
@@ -2385,29 +2368,21 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descripto
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip84(
-    port_: i64,
     secret_key: *mut wire_cst_bdk_descriptor_secret_key,
     keychain_kind: i32,
     network: i32,
-) {
-    wire__crate__api__descriptor__bdk_descriptor_new_bip84_impl(
-        port_,
-        secret_key,
-        keychain_kind,
-        network,
-    )
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__descriptor__bdk_descriptor_new_bip84_impl(secret_key, keychain_kind, network)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip84_public(
-    port_: i64,
     public_key: *mut wire_cst_bdk_descriptor_public_key,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
-) {
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     wire__crate__api__descriptor__bdk_descriptor_new_bip84_public_impl(
-        port_,
         public_key,
         fingerprint,
         keychain_kind,
@@ -2417,29 +2392,21 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descripto
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip86(
-    port_: i64,
     secret_key: *mut wire_cst_bdk_descriptor_secret_key,
     keychain_kind: i32,
     network: i32,
-) {
-    wire__crate__api__descriptor__bdk_descriptor_new_bip86_impl(
-        port_,
-        secret_key,
-        keychain_kind,
-        network,
-    )
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__descriptor__bdk_descriptor_new_bip86_impl(secret_key, keychain_kind, network)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__descriptor__bdk_descriptor_new_bip86_public(
-    port_: i64,
     public_key: *mut wire_cst_bdk_descriptor_public_key,
     fingerprint: *mut wire_cst_list_prim_u_8_strict,
     keychain_kind: i32,
     network: i32,
-) {
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     wire__crate__api__descriptor__bdk_descriptor_new_bip86_public_impl(
-        port_,
         public_key,
         fingerprint,
         keychain_kind,
@@ -2463,10 +2430,9 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_derivation_path_
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_derivation_path_from_string(
-    port_: i64,
     path: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__key__bdk_derivation_path_from_string_impl(port_, path)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_derivation_path_from_string_impl(path)
 }
 
 #[no_mangle]
@@ -2478,28 +2444,25 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_publi
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_public_key_derive(
-    port_: i64,
     ptr: *mut wire_cst_bdk_descriptor_public_key,
     path: *mut wire_cst_bdk_derivation_path,
-) {
-    wire__crate__api__key__bdk_descriptor_public_key_derive_impl(port_, ptr, path)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_public_key_derive_impl(ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_public_key_extend(
-    port_: i64,
     ptr: *mut wire_cst_bdk_descriptor_public_key,
     path: *mut wire_cst_bdk_derivation_path,
-) {
-    wire__crate__api__key__bdk_descriptor_public_key_extend_impl(port_, ptr, path)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_public_key_extend_impl(ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_public_key_from_string(
-    port_: i64,
     public_key: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__key__bdk_descriptor_public_key_from_string_impl(port_, public_key)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_public_key_from_string_impl(public_key)
 }
 
 #[no_mangle]
@@ -2518,30 +2481,27 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_secre
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_secret_key_create(
-    port_: i64,
     network: i32,
     mnemonic: *mut wire_cst_bdk_mnemonic,
     password: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__key__bdk_descriptor_secret_key_create_impl(port_, network, mnemonic, password)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_secret_key_create_impl(network, mnemonic, password)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_secret_key_derive(
-    port_: i64,
     ptr: *mut wire_cst_bdk_descriptor_secret_key,
     path: *mut wire_cst_bdk_derivation_path,
-) {
-    wire__crate__api__key__bdk_descriptor_secret_key_derive_impl(port_, ptr, path)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_secret_key_derive_impl(ptr, path)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_descriptor_secret_key_extend(
-    port_: i64,
     ptr: *mut wire_cst_bdk_descriptor_secret_key,
     path: *mut wire_cst_bdk_derivation_path,
-) {
-    wire__crate__api__key__bdk_descriptor_secret_key_extend_impl(port_, ptr, path)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_descriptor_secret_key_extend_impl(ptr, path)
 }
 
 #[no_mangle]
@@ -2567,27 +2527,24 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_mnemonic_as_stri
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_mnemonic_create(
+    word_count: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_mnemonic_create_impl(word_count)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_mnemonic_from_entropy(
-    port_: i64,
     entropy: *mut wire_cst_list_prim_u_8_loose,
-) {
-    wire__crate__api__key__bdk_mnemonic_from_entropy_impl(port_, entropy)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_mnemonic_from_entropy_impl(entropy)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_mnemonic_from_string(
-    port_: i64,
     mnemonic: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__key__bdk_mnemonic_from_string_impl(port_, mnemonic)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__key__bdk_mnemonic_new(
-    port_: i64,
-    word_count: i32,
-) {
-    wire__crate__api__key__bdk_mnemonic_new_impl(port_, word_count)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__key__bdk_mnemonic_from_string_impl(mnemonic)
 }
 
 #[no_mangle]
@@ -2599,11 +2556,10 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__psbt__bdk_psbt_as_string(
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__psbt__bdk_psbt_combine(
-    port_: i64,
     ptr: *mut wire_cst_bdk_psbt,
     other: *mut wire_cst_bdk_psbt,
-) {
-    wire__crate__api__psbt__bdk_psbt_combine_impl(port_, ptr, other)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__psbt__bdk_psbt_combine_impl(ptr, other)
 }
 
 #[no_mangle]
@@ -2629,10 +2585,9 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__psbt__bdk_psbt_fee_rate(
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__psbt__bdk_psbt_from_str(
-    port_: i64,
     psbt_base64: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__psbt__bdk_psbt_from_str_impl(port_, psbt_base64)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__psbt__bdk_psbt_from_str_impl(psbt_base64)
 }
 
 #[no_mangle]
@@ -2665,20 +2620,18 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_address_as_str
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_address_from_script(
-    port_: i64,
     script: *mut wire_cst_bdk_script_buf,
     network: i32,
-) {
-    wire__crate__api__types__bdk_address_from_script_impl(port_, script, network)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_address_from_script_impl(script, network)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_address_from_string(
-    port_: i64,
     address: *mut wire_cst_list_prim_u_8_strict,
     network: i32,
-) {
-    wire__crate__api__types__bdk_address_from_string_impl(port_, address, network)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_address_from_string_impl(address, network)
 }
 
 #[no_mangle]
@@ -2774,133 +2727,134 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_script_buf_emp
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_script_buf_from_hex(
-    port_: i64,
     s: *mut wire_cst_list_prim_u_8_strict,
-) {
-    wire__crate__api__types__bdk_script_buf_from_hex_impl(port_, s)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_script_buf_from_hex_impl(s)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_script_buf_with_capacity(
-    port_: i64,
     capacity: usize,
-) {
-    wire__crate__api__types__bdk_script_buf_with_capacity_impl(port_, capacity)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_script_buf_with_capacity_impl(capacity)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_create(
+    version: i32,
+    lock_time: *mut wire_cst_lock_time,
+    input: *mut wire_cst_list_bdk_tx_in,
+    output: *mut wire_cst_list_bdk_tx_out,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_create_impl(version, lock_time, input, output)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_from_bytes(
-    port_: i64,
     transaction_bytes: *mut wire_cst_list_prim_u_8_loose,
-) {
-    wire__crate__api__types__bdk_transaction_from_bytes_impl(port_, transaction_bytes)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_from_bytes_impl(transaction_bytes)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_input(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_input_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_input_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_is_coin_base(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_is_coin_base_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_is_coin_base_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_is_explicitly_rbf(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_is_explicitly_rbf_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_is_explicitly_rbf_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_is_lock_time_enabled(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_is_lock_time_enabled_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_is_lock_time_enabled_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_lock_time(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_lock_time_impl(port_, that)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_new(
-    port_: i64,
-    version: i32,
-    lock_time: *mut wire_cst_lock_time,
-    input: *mut wire_cst_list_tx_in,
-    output: *mut wire_cst_list_tx_out,
-) {
-    wire__crate__api__types__bdk_transaction_new_impl(port_, version, lock_time, input, output)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_lock_time_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_output(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_output_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_output_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_serialize(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_serialize_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_serialize_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_size(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_size_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_size_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_txid(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_txid_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_txid_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_version(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_version_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_version_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_vsize(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
-) {
-    wire__crate__api__types__bdk_transaction_vsize_impl(port_, that)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_vsize_impl(that)
 }
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__types__bdk_transaction_weight(
-    port_: i64,
     that: *mut wire_cst_bdk_transaction,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__types__bdk_transaction_weight_impl(that)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_create(
+    port_: i64,
+    descriptor: *mut wire_cst_bdk_descriptor,
+    change_descriptor: *mut wire_cst_bdk_descriptor,
+    network: i32,
+    database_config: *mut wire_cst_database_config,
 ) {
-    wire__crate__api__types__bdk_transaction_weight_impl(port_, that)
+    wire__crate__api__wallet__bdk_wallet_create_impl(
+        port_,
+        descriptor,
+        change_descriptor,
+        network,
+        database_config,
+    )
 }
 
 #[no_mangle]
@@ -2936,14 +2890,12 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_in
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_get_psbt_input(
-    port_: i64,
     that: *mut wire_cst_bdk_wallet,
     utxo: *mut wire_cst_local_utxo,
     only_witness_utxo: bool,
     sighash_type: *mut wire_cst_psbt_sig_hash_type,
-) {
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     wire__crate__api__wallet__bdk_wallet_get_psbt_input_impl(
-        port_,
         that,
         utxo,
         only_witness_utxo,
@@ -2982,23 +2934,6 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_networ
 }
 
 #[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_new(
-    port_: i64,
-    descriptor: *mut wire_cst_bdk_descriptor,
-    change_descriptor: *mut wire_cst_bdk_descriptor,
-    network: i32,
-    database_config: *mut wire_cst_database_config,
-) {
-    wire__crate__api__wallet__bdk_wallet_new_impl(
-        port_,
-        descriptor,
-        change_descriptor,
-        network,
-        database_config,
-    )
-}
-
-#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_policies(
     ptr: *mut wire_cst_bdk_wallet,
     keychain: i32,
@@ -3008,12 +2943,11 @@ pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_polici
 
 #[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_wire__crate__api__wallet__bdk_wallet_sign(
-    port_: i64,
     ptr: *mut wire_cst_bdk_wallet,
     psbt: *mut wire_cst_bdk_psbt,
     sign_options: *mut wire_cst_sign_options,
-) {
-    wire__crate__api__wallet__bdk_wallet_sign_impl(port_, ptr, psbt, sign_options)
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    wire__crate__api__wallet__bdk_wallet_sign_impl(ptr, psbt, sign_options)
 }
 
 #[no_mangle]
@@ -3566,6 +3500,48 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_bdk_policy(
 }
 
 #[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_bdk_transaction_details(
+    len: i32,
+) -> *mut wire_cst_list_bdk_transaction_details {
+    let wrap = wire_cst_list_bdk_transaction_details {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_bdk_transaction_details>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_bdk_tx_in(
+    len: i32,
+) -> *mut wire_cst_list_bdk_tx_in {
+    let wrap = wire_cst_list_bdk_tx_in {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_bdk_tx_in>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_bdk_flutter_cst_new_list_bdk_tx_out(
+    len: i32,
+) -> *mut wire_cst_list_bdk_tx_out {
+    let wrap = wire_cst_list_bdk_tx_out {
+        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+            <wire_cst_bdk_tx_out>::new_with_null_ptr(),
+            len,
+        ),
+        len,
+    };
+    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
 pub extern "C" fn frbgen_bdk_flutter_cst_new_list_condition(
     len: i32,
 ) -> *mut wire_cst_list_condition {
@@ -3726,44 +3702,6 @@ pub extern "C" fn frbgen_bdk_flutter_cst_new_list_script_amount(
     let wrap = wire_cst_list_script_amount {
         ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
             <wire_cst_script_amount>::new_with_null_ptr(),
-            len,
-        ),
-        len,
-    };
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_list_transaction_details(
-    len: i32,
-) -> *mut wire_cst_list_transaction_details {
-    let wrap = wire_cst_list_transaction_details {
-        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
-            <wire_cst_transaction_details>::new_with_null_ptr(),
-            len,
-        ),
-        len,
-    };
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_list_tx_in(len: i32) -> *mut wire_cst_list_tx_in {
-    let wrap = wire_cst_list_tx_in {
-        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
-            <wire_cst_tx_in>::new_with_null_ptr(),
-            len,
-        ),
-        len,
-    };
-    flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
-}
-
-#[no_mangle]
-pub extern "C" fn frbgen_bdk_flutter_cst_new_list_tx_out(len: i32) -> *mut wire_cst_list_tx_out {
-    let wrap = wire_cst_list_tx_out {
-        ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
-            <wire_cst_tx_out>::new_with_null_ptr(),
             len,
         ),
         len,
@@ -4184,6 +4122,30 @@ pub struct wire_cst_bdk_transaction {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_bdk_transaction_details {
+    transaction: *mut wire_cst_bdk_transaction,
+    txid: *mut wire_cst_list_prim_u_8_strict,
+    received: u64,
+    sent: u64,
+    fee: *mut u64,
+    confirmation_time: *mut wire_cst_block_time,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_bdk_tx_in {
+    previous_output: wire_cst_out_point,
+    script_sig: *mut wire_cst_bdk_script_buf,
+    sequence: u32,
+    witness: *mut wire_cst_list_list_prim_u_8_strict,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_bdk_tx_out {
+    value: u64,
+    script_pubkey: wire_cst_bdk_script_buf,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_bdk_wallet {
     ptr: usize,
 }
@@ -4420,6 +4382,24 @@ pub struct wire_cst_list_bdk_policy {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
+pub struct wire_cst_list_bdk_transaction_details {
+    ptr: *mut wire_cst_bdk_transaction_details,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_bdk_tx_in {
+    ptr: *mut wire_cst_bdk_tx_in,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct wire_cst_list_bdk_tx_out {
+    ptr: *mut wire_cst_bdk_tx_out,
+    len: i32,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
 pub struct wire_cst_list_condition {
     ptr: *mut wire_cst_condition,
     len: i32,
@@ -4498,27 +4478,9 @@ pub struct wire_cst_list_script_amount {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_list_transaction_details {
-    ptr: *mut wire_cst_transaction_details,
-    len: i32,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_list_tx_in {
-    ptr: *mut wire_cst_tx_in,
-    len: i32,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_list_tx_out {
-    ptr: *mut wire_cst_tx_out,
-    len: i32,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
 pub struct wire_cst_local_utxo {
     outpoint: wire_cst_out_point,
-    txout: wire_cst_tx_out,
+    txout: wire_cst_bdk_tx_out,
     keychain: i32,
     is_spent: bool,
 }
@@ -4640,9 +4602,9 @@ pub struct wire_cst_record_bdk_address_u_32 {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-pub struct wire_cst_record_bdk_psbt_transaction_details {
+pub struct wire_cst_record_bdk_psbt_bdk_transaction_details {
     field0: wire_cst_bdk_psbt,
-    field1: wire_cst_transaction_details,
+    field1: wire_cst_bdk_transaction_details,
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -4829,28 +4791,4 @@ pub struct wire_cst_sled_db_configuration {
 #[derive(Clone, Copy)]
 pub struct wire_cst_sqlite_db_configuration {
     path: *mut wire_cst_list_prim_u_8_strict,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_transaction_details {
-    transaction: *mut wire_cst_bdk_transaction,
-    txid: *mut wire_cst_list_prim_u_8_strict,
-    received: u64,
-    sent: u64,
-    fee: *mut u64,
-    confirmation_time: *mut wire_cst_block_time,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_tx_in {
-    previous_output: wire_cst_out_point,
-    script_sig: wire_cst_bdk_script_buf,
-    sequence: u32,
-    witness: *mut wire_cst_list_list_prim_u_8_strict,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct wire_cst_tx_out {
-    value: u64,
-    script_pubkey: wire_cst_bdk_script_buf,
 }

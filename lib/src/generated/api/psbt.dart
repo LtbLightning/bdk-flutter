@@ -25,8 +25,7 @@ class BdkPsbt {
   /// Combines this PartiallySignedTransaction with other PSBT as described by BIP 174.
   ///
   /// In accordance with BIP 174 this function is commutative i.e., `A.combine(B) == B.combine(A)`
-  static Future<BdkPsbt> combine(
-          {required BdkPsbt ptr, required BdkPsbt other}) =>
+  static BdkPsbt combine({required BdkPsbt ptr, required BdkPsbt other}) =>
       core.instance.api.crateApiPsbtBdkPsbtCombine(ptr: ptr, other: other);
 
   /// Return the transaction.
@@ -47,7 +46,7 @@ class BdkPsbt {
         that: this,
       );
 
-  static Future<BdkPsbt> fromStr({required String psbtBase64}) =>
+  static BdkPsbt fromStr({required String psbtBase64}) =>
       core.instance.api.crateApiPsbtBdkPsbtFromStr(psbtBase64: psbtBase64);
 
   /// Serialize the PSBT data structure as a String of JSON.

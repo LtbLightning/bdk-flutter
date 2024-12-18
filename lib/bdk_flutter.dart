@@ -21,7 +21,6 @@ export './src/generated/api/types.dart'
         FeeRate,
         Input,
         KeychainKind,
-        LocalUtxo,
         LockTime,
         Network,
         OutPoint,
@@ -37,8 +36,6 @@ export './src/generated/api/types.dart'
         Variant,
         WitnessVersion,
         WordCount;
-export './src/generated/api/wallet.dart'
-    hide BdkWallet, finishBumpFeeTxBuilder, txBuilderFinish;
 export './src/root.dart';
 export 'src/utils/exceptions.dart'
     hide

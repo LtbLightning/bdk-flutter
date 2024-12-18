@@ -104,12 +104,12 @@ class BdkAddress {
         that: this,
       );
 
-  static Future<BdkAddress> fromScript(
+  static BdkAddress fromScript(
           {required BdkScriptBuf script, required Network network}) =>
       core.instance.api
           .crateApiTypesBdkAddressFromScript(script: script, network: network);
 
-  static Future<BdkAddress> fromString(
+  static BdkAddress fromString(
           {required String address, required Network network}) =>
       core.instance.api.crateApiTypesBdkAddressFromString(
           address: address, network: network);
@@ -202,11 +202,11 @@ class BdkScriptBuf {
   static BdkScriptBuf empty() =>
       core.instance.api.crateApiTypesBdkScriptBufEmpty();
 
-  static Future<BdkScriptBuf> fromHex({required String s}) =>
+  static BdkScriptBuf fromHex({required String s}) =>
       core.instance.api.crateApiTypesBdkScriptBufFromHex(s: s);
 
   ///Creates a new empty script with pre-allocated capacity.
-  static Future<BdkScriptBuf> withCapacity({required BigInt capacity}) =>
+  static BdkScriptBuf withCapacity({required BigInt capacity}) =>
       core.instance.api
           .crateApiTypesBdkScriptBufWithCapacity(capacity: capacity);
 
@@ -228,88 +228,82 @@ class BdkTransaction {
     required this.s,
   });
 
-  static Future<BdkTransaction> fromBytes(
-          {required List<int> transactionBytes}) =>
-      core.instance.api.crateApiTypesBdkTransactionFromBytes(
-          transactionBytes: transactionBytes);
+  static BdkTransaction create(
+          {required int version,
+          required LockTime lockTime,
+          required List<BdkTxIn> input,
+          required List<BdkTxOut> output}) =>
+      core.instance.api.crateApiTypesBdkTransactionCreate(
+          version: version, lockTime: lockTime, input: input, output: output);
+
+  static BdkTransaction fromBytes({required List<int> transactionBytes}) => core
+      .instance.api
+      .crateApiTypesBdkTransactionFromBytes(transactionBytes: transactionBytes);
 
   ///List of transaction inputs.
-  Future<List<TxIn>> input() =>
-      core.instance.api.crateApiTypesBdkTransactionInput(
+  List<BdkTxIn> input() => core.instance.api.crateApiTypesBdkTransactionInput(
         that: this,
       );
 
   ///Is this a coin base transaction?
-  Future<bool> isCoinBase() =>
-      core.instance.api.crateApiTypesBdkTransactionIsCoinBase(
+  bool isCoinBase() => core.instance.api.crateApiTypesBdkTransactionIsCoinBase(
         that: this,
       );
 
   ///Returns true if the transaction itself opted in to be BIP-125-replaceable (RBF).
   /// This does not cover the case where a transaction becomes replaceable due to ancestors being RBF.
-  Future<bool> isExplicitlyRbf() =>
+  bool isExplicitlyRbf() =>
       core.instance.api.crateApiTypesBdkTransactionIsExplicitlyRbf(
         that: this,
       );
 
   ///Returns true if this transactions nLockTime is enabled (BIP-65 ).
-  Future<bool> isLockTimeEnabled() =>
+  bool isLockTimeEnabled() =>
       core.instance.api.crateApiTypesBdkTransactionIsLockTimeEnabled(
         that: this,
       );
 
   ///Block height or timestamp. Transaction cannot be included in a block until this height/time.
-  Future<LockTime> lockTime() =>
-      core.instance.api.crateApiTypesBdkTransactionLockTime(
+  LockTime lockTime() => core.instance.api.crateApiTypesBdkTransactionLockTime(
         that: this,
       );
 
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<BdkTransaction> newInstance(
-          {required int version,
-          required LockTime lockTime,
-          required List<TxIn> input,
-          required List<TxOut> output}) =>
-      core.instance.api.crateApiTypesBdkTransactionNew(
-          version: version, lockTime: lockTime, input: input, output: output);
-
   ///List of transaction outputs.
-  Future<List<TxOut>> output() =>
+  List<BdkTxOut> output() =>
       core.instance.api.crateApiTypesBdkTransactionOutput(
         that: this,
       );
 
   ///Encodes an object into a vector.
-  Future<Uint8List> serialize() =>
+  Uint8List serialize() =>
       core.instance.api.crateApiTypesBdkTransactionSerialize(
         that: this,
       );
 
   ///Returns the regular byte-wise consensus-serialized size of this transaction.
-  Future<BigInt> size() => core.instance.api.crateApiTypesBdkTransactionSize(
+  BigInt size() => core.instance.api.crateApiTypesBdkTransactionSize(
         that: this,
       );
 
   ///Computes the txid. For non-segwit transactions this will be identical to the output of wtxid(),
   /// but for segwit transactions, this will give the correct txid (not including witnesses) while wtxid will also hash witnesses.
-  Future<String> txid() => core.instance.api.crateApiTypesBdkTransactionTxid(
+  String txid() => core.instance.api.crateApiTypesBdkTransactionTxid(
         that: this,
       );
 
   ///The protocol version, is currently expected to be 1 or 2 (BIP 68).
-  Future<int> version() => core.instance.api.crateApiTypesBdkTransactionVersion(
+  int version() => core.instance.api.crateApiTypesBdkTransactionVersion(
         that: this,
       );
 
   ///Returns the “virtual size” (vsize) of this transaction.
   ///
-  Future<BigInt> vsize() => core.instance.api.crateApiTypesBdkTransactionVsize(
+  BigInt vsize() => core.instance.api.crateApiTypesBdkTransactionVsize(
         that: this,
       );
 
   ///Returns the regular byte-wise consensus-serialized size of this transaction.
-  Future<BigInt> weight() =>
-      core.instance.api.crateApiTypesBdkTransactionWeight(
+  BigInt weight() => core.instance.api.crateApiTypesBdkTransactionWeight(
         that: this,
       );
 
@@ -322,6 +316,118 @@ class BdkTransaction {
       other is BdkTransaction &&
           runtimeType == other.runtimeType &&
           s == other.s;
+}
+
+///A wallet transaction
+class BdkTransactionDetails {
+  final BdkTransaction? transaction;
+
+  /// Transaction id.
+  final String txid;
+
+  /// Received value (sats)
+  /// Sum of owned outputs of this transaction.
+  final BigInt received;
+
+  /// Sent value (sats)
+  /// Sum of owned inputs of this transaction.
+  final BigInt sent;
+
+  /// Fee value (sats) if confirmed.
+  /// The availability of the fee depends on the backend. It's never None with an Electrum
+  /// Server backend, but it could be None with a Bitcoin RPC node without txindex that receive
+  /// funds while offline.
+  final BigInt? fee;
+
+  /// If the transaction is confirmed, contains height and timestamp of the block containing the
+  /// transaction, unconfirmed transaction contains `None`.
+  final BlockTime? confirmationTime;
+
+  const BdkTransactionDetails({
+    this.transaction,
+    required this.txid,
+    required this.received,
+    required this.sent,
+    this.fee,
+    this.confirmationTime,
+  });
+
+  @override
+  int get hashCode =>
+      transaction.hashCode ^
+      txid.hashCode ^
+      received.hashCode ^
+      sent.hashCode ^
+      fee.hashCode ^
+      confirmationTime.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BdkTransactionDetails &&
+          runtimeType == other.runtimeType &&
+          transaction == other.transaction &&
+          txid == other.txid &&
+          received == other.received &&
+          sent == other.sent &&
+          fee == other.fee &&
+          confirmationTime == other.confirmationTime;
+}
+
+class BdkTxIn {
+  final OutPoint previousOutput;
+  final BdkScriptBuf? scriptSig;
+  final int sequence;
+  final List<Uint8List> witness;
+
+  const BdkTxIn({
+    required this.previousOutput,
+    this.scriptSig,
+    required this.sequence,
+    required this.witness,
+  });
+
+  @override
+  int get hashCode =>
+      previousOutput.hashCode ^
+      scriptSig.hashCode ^
+      sequence.hashCode ^
+      witness.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BdkTxIn &&
+          runtimeType == other.runtimeType &&
+          previousOutput == other.previousOutput &&
+          scriptSig == other.scriptSig &&
+          sequence == other.sequence &&
+          witness == other.witness;
+}
+
+///A transaction output, which defines new coins to be created from old ones.
+class BdkTxOut {
+  /// The value of the output, in satoshis.
+  final BigInt value;
+
+  /// The address of the output.
+  final BdkScriptBuf scriptPubkey;
+
+  const BdkTxOut({
+    required this.value,
+    required this.scriptPubkey,
+  });
+
+  @override
+  int get hashCode => value.hashCode ^ scriptPubkey.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BdkTxOut &&
+          runtimeType == other.runtimeType &&
+          value == other.value &&
+          scriptPubkey == other.scriptPubkey;
 }
 
 ///Block height and timestamp of a block
@@ -441,7 +547,7 @@ enum KeychainKind {
 ///Unspent outputs of this wallet
 class LocalUtxo {
   final OutPoint outpoint;
-  final TxOut txout;
+  final BdkTxOut txout;
   final KeychainKind keychain;
   final bool isSpent;
 
@@ -803,118 +909,6 @@ class SqliteDbConfiguration {
       other is SqliteDbConfiguration &&
           runtimeType == other.runtimeType &&
           path == other.path;
-}
-
-///A wallet transaction
-class TransactionDetails {
-  final BdkTransaction? transaction;
-
-  /// Transaction id.
-  final String txid;
-
-  /// Received value (sats)
-  /// Sum of owned outputs of this transaction.
-  final BigInt received;
-
-  /// Sent value (sats)
-  /// Sum of owned inputs of this transaction.
-  final BigInt sent;
-
-  /// Fee value (sats) if confirmed.
-  /// The availability of the fee depends on the backend. It's never None with an Electrum
-  /// Server backend, but it could be None with a Bitcoin RPC node without txindex that receive
-  /// funds while offline.
-  final BigInt? fee;
-
-  /// If the transaction is confirmed, contains height and timestamp of the block containing the
-  /// transaction, unconfirmed transaction contains `None`.
-  final BlockTime? confirmationTime;
-
-  const TransactionDetails({
-    this.transaction,
-    required this.txid,
-    required this.received,
-    required this.sent,
-    this.fee,
-    this.confirmationTime,
-  });
-
-  @override
-  int get hashCode =>
-      transaction.hashCode ^
-      txid.hashCode ^
-      received.hashCode ^
-      sent.hashCode ^
-      fee.hashCode ^
-      confirmationTime.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TransactionDetails &&
-          runtimeType == other.runtimeType &&
-          transaction == other.transaction &&
-          txid == other.txid &&
-          received == other.received &&
-          sent == other.sent &&
-          fee == other.fee &&
-          confirmationTime == other.confirmationTime;
-}
-
-class TxIn {
-  final OutPoint previousOutput;
-  final BdkScriptBuf scriptSig;
-  final int sequence;
-  final List<Uint8List> witness;
-
-  const TxIn({
-    required this.previousOutput,
-    required this.scriptSig,
-    required this.sequence,
-    required this.witness,
-  });
-
-  @override
-  int get hashCode =>
-      previousOutput.hashCode ^
-      scriptSig.hashCode ^
-      sequence.hashCode ^
-      witness.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TxIn &&
-          runtimeType == other.runtimeType &&
-          previousOutput == other.previousOutput &&
-          scriptSig == other.scriptSig &&
-          sequence == other.sequence &&
-          witness == other.witness;
-}
-
-///A transaction output, which defines new coins to be created from old ones.
-class TxOut {
-  /// The value of the output, in satoshis.
-  final BigInt value;
-
-  /// The address of the output.
-  final BdkScriptBuf scriptPubkey;
-
-  const TxOut({
-    required this.value,
-    required this.scriptPubkey,
-  });
-
-  @override
-  int get hashCode => value.hashCode ^ scriptPubkey.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TxOut &&
-          runtimeType == other.runtimeType &&
-          value == other.value &&
-          scriptPubkey == other.scriptPubkey;
 }
 
 enum Variant {
