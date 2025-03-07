@@ -35,8 +35,9 @@ class _BdkWalletState extends State<BdkWallet> {
   }
 
   restoreWallet() async {
+    //expire virus spare letter volcano opera dust cup fiber setup unfair equal  - Secondary wallet
     final aliceMnemonic = await Mnemonic.fromString(
-        'give rate trigger race embrace dream wish column upon steel wrist rice');
+        'cinnamon that remind material onion coast rule title disease collect eagle road');
     final aliceDescriptor = await lib.createDescriptor(aliceMnemonic);
     final connection = await Connection.createInMemory();
     wallet = await lib.crateOrLoadWallet(
@@ -137,8 +138,12 @@ class _BdkWalletState extends State<BdkWallet> {
   }
 
   sendBit(int amountSat) async {
-    await lib.sendBitcoin(blockchain!, wallet,
-        "tb1qyhssajdx5vfxuatt082m9tsfmxrxludgqwe52f", amountSat);
+    await lib.sendBitcoin(
+        blockchain!,
+        wallet,
+        //Secondary wallet address
+        "tb1qjf90yhm27h6rhu4hh94csyevf9ukxvanlywv0n",
+        amountSat);
   }
 
   @override
