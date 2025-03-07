@@ -120,7 +120,7 @@ impl FfiDescriptorSecretKey {
         });
         Ok(descriptor_secret_key.into())
     }
-
+    #[frb(sync)]
     pub fn derive(
         opaque: FfiDescriptorSecretKey,
         path: FfiDerivationPath
@@ -150,6 +150,7 @@ impl FfiDescriptorSecretKey {
             keys::DescriptorSecretKey::MultiXPrv(_) => Err(DescriptorKeyError::InvalidKeyType),
         }
     }
+    #[frb(sync)]
     pub fn extend(
         opaque: FfiDescriptorSecretKey,
         path: FfiDerivationPath
@@ -223,6 +224,7 @@ impl FfiDescriptorPublicKey {
             Err(e) => Err(e.into()),
         }
     }
+    #[frb(sync)]
     pub fn derive(
         opaque: FfiDescriptorPublicKey,
         path: FfiDerivationPath
@@ -254,7 +256,7 @@ impl FfiDescriptorPublicKey {
             keys::DescriptorPublicKey::MultiXPub(_) => Err(DescriptorKeyError::InvalidKeyType),
         }
     }
-
+    #[frb(sync)]
     pub fn extend(
         opaque: FfiDescriptorPublicKey,
         path: FfiDerivationPath

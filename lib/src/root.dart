@@ -174,8 +174,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip44(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip44(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -197,8 +197,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip44Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -220,8 +220,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip49(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip49(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -243,8 +243,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip49Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip49Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -266,8 +266,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip84(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip84(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -289,8 +289,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip84Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip84Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -312,8 +312,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip86(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip86(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -335,8 +335,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip86Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip86Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -386,7 +386,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   /// [DescriptorPublicKey] constructor
   static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorPublicKey.fromString(publicKey: publicKey);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
@@ -405,7 +405,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   ///Derive a public descriptor at a given path.
   DescriptorPublicKey derive({required DerivationPath path, hint}) {
     try {
-      final res = await FfiDescriptorPublicKey.derive(opaque: this, path: path);
+      final res = FfiDescriptorPublicKey.derive(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -417,7 +417,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   ///Extend the public descriptor with a custom path.
   DescriptorPublicKey extend({required DerivationPath path, hint}) {
     try {
-      final res = await FfiDescriptorPublicKey.extend(opaque: this, path: path);
+      final res = FfiDescriptorPublicKey.extend(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -434,7 +434,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> fromString(String secretKey) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorSecretKey.fromString(secretKey: secretKey);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
@@ -450,7 +450,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       required Mnemonic mnemonic,
       String? password}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorSecretKey.create(
           network: network, mnemonic: mnemonic, password: password);
       return DescriptorSecretKey._(opaque: res.opaque);
@@ -464,7 +464,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   ///Derived the XPrv using the derivation path
   DescriptorSecretKey derive(DerivationPath path) {
     try {
-      final res = await FfiDescriptorSecretKey.derive(opaque: this, path: path);
+      final res = FfiDescriptorSecretKey.derive(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -476,7 +476,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   ///Extends the XPrv using the derivation path
   DescriptorSecretKey extend(DerivationPath path) {
     try {
-      final res = await FfiDescriptorSecretKey.extend(opaque: this, path: path);
+      final res = FfiDescriptorSecretKey.extend(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -521,7 +521,7 @@ class EsploraClient extends FfiEsploraClient {
 
   static Future<EsploraClient> create(String url) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiEsploraClient.newInstance(url: url);
       return EsploraClient._(opaque: res.opaque);
     } on EsploraError catch (e) {
@@ -593,7 +593,7 @@ class ElectrumClient extends FfiElectrumClient {
   ElectrumClient._({required super.opaque});
   static Future<ElectrumClient> create(String url) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiElectrumClient.newInstance(url: url);
       return ElectrumClient._(opaque: res.opaque);
     } on ElectrumError catch (e) {
@@ -666,7 +666,7 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> create(types.WordCount wordCount) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiMnemonic.newInstance(wordCount: wordCount);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
@@ -682,8 +682,8 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromEntropy(List<int> entropy) async {
     try {
-      await Api.initialize();
-      final res = await FfiMnemonic.fromEntropy(entropy: entropy);
+      await LibBdk.initialize();
+      final res = FfiMnemonic.fromEntropy(entropy: entropy);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
@@ -697,8 +697,8 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
-      await Api.initialize();
-      final res = await FfiMnemonic.fromString(mnemonic: mnemonic);
+      await LibBdk.initialize();
+      final res = FfiMnemonic.fromString(mnemonic: mnemonic);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
@@ -723,7 +723,7 @@ class PSBT extends bitcoin.FfiPsbt {
   /// [PSBT] constructor
   static Future<PSBT> fromString(String psbtBase64) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiPsbt.fromStr(psbtBase64: psbtBase64);
       return PSBT._(opaque: res.opaque);
     } on PsbtParseError catch (e) {
@@ -862,7 +862,7 @@ class ScriptBuf extends bitcoin.FfiScriptBuf {
 
   ///Creates a new empty script with pre-allocated capacity.
   static Future<ScriptBuf> withCapacity(BigInt capacity) async {
-    await Api.initialize();
+    await LibBdk.initialize();
     final res = await bitcoin.FfiScriptBuf.withCapacity(capacity: capacity);
     return ScriptBuf(bytes: res.bytes);
   }
@@ -886,7 +886,7 @@ class Transaction extends bitcoin.FfiTransaction {
     required List<TxOut> output,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiTransaction.newInstance(
           version: version, lockTime: lockTime, input: input, output: output);
       return Transaction._(opaque: res.opaque);
@@ -899,7 +899,7 @@ class Transaction extends bitcoin.FfiTransaction {
 
   static Future<Transaction> fromBytes(List<int> transactionByte) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiTransaction.fromBytes(
           transactionBytes: transactionByte);
       return Transaction._(opaque: res.opaque);
@@ -916,7 +916,7 @@ class Transaction extends bitcoin.FfiTransaction {
     try {
       final res = super.input();
       return res
-          .map((e) => TxIn._(
+          .map((e) => TxIn(
               previousOutput: e.previousOutput,
               scriptSig: e.scriptSig,
               sequence: e.sequence,
@@ -1185,7 +1185,7 @@ class Wallet extends FfiWallet {
     required Connection connection,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiWallet.newInstance(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
@@ -1207,7 +1207,7 @@ class Wallet extends FfiWallet {
     required Connection connection,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiWallet.load(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
@@ -1396,7 +1396,7 @@ class FullScanRequestBuilder extends FfiFullScanRequestBuilder {
               KeychainKind keychain, int index, ScriptBuf script)
           inspector}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await super.inspectSpksForAllKeychains(
           inspector: (keychain, index, script) =>
               inspector(keychain, index, ScriptBuf(bytes: script.bytes)));
@@ -1430,7 +1430,7 @@ class Connection extends FfiConnection {
 
   static Future<Connection> createInMemory() async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiConnection.newInMemory();
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
@@ -1442,7 +1442,7 @@ class Connection extends FfiConnection {
 
   static Future<Connection> create(String path) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiConnection.newInstance(path: path);
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
