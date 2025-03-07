@@ -441,10 +441,12 @@ impl FfiSyncRequestBuilder {
 }
 
 //Todo; remove cloning the update
-pub struct FfiUpdate(pub RustOpaque<bdk_wallet::Update>);
+pub struct FfiUpdate {
+    pub opaque: RustOpaque<bdk_wallet::Update>,
+}
 impl From<FfiUpdate> for bdk_wallet::Update {
     fn from(value: FfiUpdate) -> Self {
-        (*value.0).clone()
+        (*value.opaque).clone()
     }
 }
 pub struct SentAndReceivedValues {

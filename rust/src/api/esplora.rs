@@ -53,7 +53,9 @@ impl FfiEsploraClient {
             chain: result.chain_update,
         };
 
-        Ok(FfiUpdate(RustOpaque::new(update)))
+        Ok(FfiUpdate {
+            opaque: RustOpaque::new(update),
+        })
     }
 
     pub fn sync(
@@ -78,7 +80,9 @@ impl FfiEsploraClient {
             chain: result.chain_update,
         };
 
-        Ok(FfiUpdate(RustOpaque::new(update)))
+        Ok(FfiUpdate {
+            opaque: RustOpaque::new(update),
+        })
     }
 
     pub fn broadcast(

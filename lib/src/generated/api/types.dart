@@ -327,21 +327,21 @@ class FfiSyncRequestBuilder {
 }
 
 class FfiUpdate {
-  final Update field0;
+  final Update opaque;
 
   const FfiUpdate({
-    required this.field0,
+    required this.opaque,
   });
 
   @override
-  int get hashCode => field0.hashCode;
+  int get hashCode => opaque.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FfiUpdate &&
           runtimeType == other.runtimeType &&
-          field0 == other.field0;
+          opaque == other.opaque;
 }
 
 ///Types of keychains
