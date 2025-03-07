@@ -786,8 +786,8 @@ class PSBT extends bitcoin.FfiPsbt {
   }
 }
 
-class Policy extends types.BdkPolicy {
-  Policy._({required super.ptr});
+class Policy extends types.FfiPolicy {
+  Policy._({required super.opaque});
 
   ///Identifier for this policy node
   @override
@@ -799,8 +799,9 @@ class Policy extends types.BdkPolicy {
   String toString() {
     try {
       return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on StringParseError catch (e) {
+      //TODO; Create a string parse exception
+      throw Exception(e.errorMessage);
     }
   }
 
@@ -832,7 +833,8 @@ class Policy extends types.BdkPolicy {
           multisig: (e, f) =>
               types.SatisfiableItem.multisig(keys: e, threshold: f),
           thresh: (e, f) => types.SatisfiableItem.thresh(
-              items: e.map((e) => Policy._(ptr: e.ptr)).toList(), threshold: f),
+              items: e.map((e) => Policy._(opaque: e.opaque)).toList(),
+              threshold: f),
         );
   }
 
@@ -1488,14 +1490,4 @@ class TxIn extends bitcoin.TxIn {
 class TxOut extends bitcoin.TxOut {
   TxOut({required super.value, required ScriptBuf scriptPubkey})
       : super(scriptPubkey: scriptPubkey);
-}
-
-class Policy extends FfiPolicy {
-  Policy._({required super.opaque});
-
-  ///Identifier for this policy node
-  @override
-  String id() {
-    return super.id();
-  }
 }

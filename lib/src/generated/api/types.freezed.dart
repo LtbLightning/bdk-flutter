@@ -715,6 +715,527 @@ abstract class LockTime_Seconds extends LockTime {
 }
 
 /// @nodoc
+mixin _$PkOrF {
+  String get value => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PkOrFCopyWith<PkOrF> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PkOrFCopyWith<$Res> {
+  factory $PkOrFCopyWith(PkOrF value, $Res Function(PkOrF) then) =
+      _$PkOrFCopyWithImpl<$Res, PkOrF>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class _$PkOrFCopyWithImpl<$Res, $Val extends PkOrF>
+    implements $PkOrFCopyWith<$Res> {
+  _$PkOrFCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_value.copyWith(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PkOrF_PubkeyImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_PubkeyImplCopyWith(
+          _$PkOrF_PubkeyImpl value, $Res Function(_$PkOrF_PubkeyImpl) then) =
+      __$$PkOrF_PubkeyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_PubkeyImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_PubkeyImpl>
+    implements _$$PkOrF_PubkeyImplCopyWith<$Res> {
+  __$$PkOrF_PubkeyImplCopyWithImpl(
+      _$PkOrF_PubkeyImpl _value, $Res Function(_$PkOrF_PubkeyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_PubkeyImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_PubkeyImpl extends PkOrF_Pubkey {
+  const _$PkOrF_PubkeyImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.pubkey(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_PubkeyImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
+      __$$PkOrF_PubkeyImplCopyWithImpl<_$PkOrF_PubkeyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return pubkey(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return pubkey?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (pubkey != null) {
+      return pubkey(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return pubkey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return pubkey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (pubkey != null) {
+      return pubkey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_Pubkey extends PkOrF {
+  const factory PkOrF_Pubkey({required final String value}) =
+      _$PkOrF_PubkeyImpl;
+  const PkOrF_Pubkey._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_XOnlyPubkeyImplCopyWith(_$PkOrF_XOnlyPubkeyImpl value,
+          $Res Function(_$PkOrF_XOnlyPubkeyImpl) then) =
+      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_XOnlyPubkeyImpl>
+    implements _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res> {
+  __$$PkOrF_XOnlyPubkeyImplCopyWithImpl(_$PkOrF_XOnlyPubkeyImpl _value,
+      $Res Function(_$PkOrF_XOnlyPubkeyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_XOnlyPubkeyImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_XOnlyPubkeyImpl extends PkOrF_XOnlyPubkey {
+  const _$PkOrF_XOnlyPubkeyImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.xOnlyPubkey(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_XOnlyPubkeyImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
+      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<_$PkOrF_XOnlyPubkeyImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return xOnlyPubkey(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return xOnlyPubkey?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (xOnlyPubkey != null) {
+      return xOnlyPubkey(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return xOnlyPubkey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return xOnlyPubkey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (xOnlyPubkey != null) {
+      return xOnlyPubkey(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_XOnlyPubkey extends PkOrF {
+  const factory PkOrF_XOnlyPubkey({required final String value}) =
+      _$PkOrF_XOnlyPubkeyImpl;
+  const PkOrF_XOnlyPubkey._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PkOrF_FingerprintImplCopyWith<$Res>
+    implements $PkOrFCopyWith<$Res> {
+  factory _$$PkOrF_FingerprintImplCopyWith(_$PkOrF_FingerprintImpl value,
+          $Res Function(_$PkOrF_FingerprintImpl) then) =
+      __$$PkOrF_FingerprintImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$PkOrF_FingerprintImplCopyWithImpl<$Res>
+    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_FingerprintImpl>
+    implements _$$PkOrF_FingerprintImplCopyWith<$Res> {
+  __$$PkOrF_FingerprintImplCopyWithImpl(_$PkOrF_FingerprintImpl _value,
+      $Res Function(_$PkOrF_FingerprintImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$PkOrF_FingerprintImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PkOrF_FingerprintImpl extends PkOrF_Fingerprint {
+  const _$PkOrF_FingerprintImpl({required this.value}) : super._();
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'PkOrF.fingerprint(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PkOrF_FingerprintImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
+      __$$PkOrF_FingerprintImplCopyWithImpl<_$PkOrF_FingerprintImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) pubkey,
+    required TResult Function(String value) xOnlyPubkey,
+    required TResult Function(String value) fingerprint,
+  }) {
+    return fingerprint(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String value)? pubkey,
+    TResult? Function(String value)? xOnlyPubkey,
+    TResult? Function(String value)? fingerprint,
+  }) {
+    return fingerprint?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? pubkey,
+    TResult Function(String value)? xOnlyPubkey,
+    TResult Function(String value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (fingerprint != null) {
+      return fingerprint(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PkOrF_Pubkey value) pubkey,
+    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
+    required TResult Function(PkOrF_Fingerprint value) fingerprint,
+  }) {
+    return fingerprint(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PkOrF_Pubkey value)? pubkey,
+    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
+  }) {
+    return fingerprint?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PkOrF_Pubkey value)? pubkey,
+    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
+    TResult Function(PkOrF_Fingerprint value)? fingerprint,
+    required TResult orElse(),
+  }) {
+    if (fingerprint != null) {
+      return fingerprint(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PkOrF_Fingerprint extends PkOrF {
+  const factory PkOrF_Fingerprint({required final String value}) =
+      _$PkOrF_FingerprintImpl;
+  const PkOrF_Fingerprint._() : super._();
+
+  @override
+  String get value;
+  @override
+  @JsonKey(ignore: true)
+  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$RbfValue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -1891,7 +2412,7 @@ mixin _$SatisfiableItem {
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1905,7 +2426,7 @@ mixin _$SatisfiableItem {
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1919,7 +2440,7 @@ mixin _$SatisfiableItem {
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2085,7 +2606,7 @@ class _$SatisfiableItem_EcdsaSignatureImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return ecdsaSignature(key);
   }
@@ -2102,7 +2623,7 @@ class _$SatisfiableItem_EcdsaSignatureImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return ecdsaSignature?.call(key);
   }
@@ -2119,7 +2640,7 @@ class _$SatisfiableItem_EcdsaSignatureImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (ecdsaSignature != null) {
@@ -2295,7 +2816,7 @@ class _$SatisfiableItem_SchnorrSignatureImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return schnorrSignature(key);
   }
@@ -2312,7 +2833,7 @@ class _$SatisfiableItem_SchnorrSignatureImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return schnorrSignature?.call(key);
   }
@@ -2329,7 +2850,7 @@ class _$SatisfiableItem_SchnorrSignatureImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (schnorrSignature != null) {
@@ -2495,7 +3016,7 @@ class _$SatisfiableItem_Sha256PreimageImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return sha256Preimage(hash);
   }
@@ -2512,7 +3033,7 @@ class _$SatisfiableItem_Sha256PreimageImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return sha256Preimage?.call(hash);
   }
@@ -2529,7 +3050,7 @@ class _$SatisfiableItem_Sha256PreimageImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (sha256Preimage != null) {
@@ -2695,7 +3216,7 @@ class _$SatisfiableItem_Hash256PreimageImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return hash256Preimage(hash);
   }
@@ -2712,7 +3233,7 @@ class _$SatisfiableItem_Hash256PreimageImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return hash256Preimage?.call(hash);
   }
@@ -2729,7 +3250,7 @@ class _$SatisfiableItem_Hash256PreimageImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (hash256Preimage != null) {
@@ -2896,7 +3417,7 @@ class _$SatisfiableItem_Ripemd160PreimageImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return ripemd160Preimage(hash);
   }
@@ -2913,7 +3434,7 @@ class _$SatisfiableItem_Ripemd160PreimageImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return ripemd160Preimage?.call(hash);
   }
@@ -2930,7 +3451,7 @@ class _$SatisfiableItem_Ripemd160PreimageImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (ripemd160Preimage != null) {
@@ -3096,7 +3617,7 @@ class _$SatisfiableItem_Hash160PreimageImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return hash160Preimage(hash);
   }
@@ -3113,7 +3634,7 @@ class _$SatisfiableItem_Hash160PreimageImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return hash160Preimage?.call(hash);
   }
@@ -3130,7 +3651,7 @@ class _$SatisfiableItem_Hash160PreimageImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (hash160Preimage != null) {
@@ -3307,7 +3828,7 @@ class _$SatisfiableItem_AbsoluteTimelockImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return absoluteTimelock(value);
   }
@@ -3324,7 +3845,7 @@ class _$SatisfiableItem_AbsoluteTimelockImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return absoluteTimelock?.call(value);
   }
@@ -3341,7 +3862,7 @@ class _$SatisfiableItem_AbsoluteTimelockImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (absoluteTimelock != null) {
@@ -3508,7 +4029,7 @@ class _$SatisfiableItem_RelativeTimelockImpl
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return relativeTimelock(value);
   }
@@ -3525,7 +4046,7 @@ class _$SatisfiableItem_RelativeTimelockImpl
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return relativeTimelock?.call(value);
   }
@@ -3542,7 +4063,7 @@ class _$SatisfiableItem_RelativeTimelockImpl
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (relativeTimelock != null) {
@@ -3724,7 +4245,7 @@ class _$SatisfiableItem_MultisigImpl extends SatisfiableItem_Multisig {
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return multisig(keys, threshold);
   }
@@ -3741,7 +4262,7 @@ class _$SatisfiableItem_MultisigImpl extends SatisfiableItem_Multisig {
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return multisig?.call(keys, threshold);
   }
@@ -3758,7 +4279,7 @@ class _$SatisfiableItem_MultisigImpl extends SatisfiableItem_Multisig {
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (multisig != null) {
@@ -3853,7 +4374,7 @@ abstract class _$$SatisfiableItem_ThreshImplCopyWith<$Res> {
           $Res Function(_$SatisfiableItem_ThreshImpl) then) =
       __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<BdkPolicy> items, BigInt threshold});
+  $Res call({List<FfiPolicy> items, BigInt threshold});
 }
 
 /// @nodoc
@@ -3875,7 +4396,7 @@ class __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<BdkPolicy>,
+              as List<FfiPolicy>,
       threshold: null == threshold
           ? _value.threshold
           : threshold // ignore: cast_nullable_to_non_nullable
@@ -3888,13 +4409,13 @@ class __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>
 
 class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
   const _$SatisfiableItem_ThreshImpl(
-      {required final List<BdkPolicy> items, required this.threshold})
+      {required final List<FfiPolicy> items, required this.threshold})
       : _items = items,
         super._();
 
-  final List<BdkPolicy> _items;
+  final List<FfiPolicy> _items;
   @override
-  List<BdkPolicy> get items {
+  List<FfiPolicy> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -3941,7 +4462,7 @@ class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
     required TResult Function(LockTime value) absoluteTimelock,
     required TResult Function(int value) relativeTimelock,
     required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
+    required TResult Function(List<FfiPolicy> items, BigInt threshold) thresh,
   }) {
     return thresh(items, threshold);
   }
@@ -3958,7 +4479,7 @@ class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
     TResult? Function(LockTime value)? absoluteTimelock,
     TResult? Function(int value)? relativeTimelock,
     TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult? Function(List<FfiPolicy> items, BigInt threshold)? thresh,
   }) {
     return thresh?.call(items, threshold);
   }
@@ -3975,7 +4496,7 @@ class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
     TResult Function(LockTime value)? absoluteTimelock,
     TResult Function(int value)? relativeTimelock,
     TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
+    TResult Function(List<FfiPolicy> items, BigInt threshold)? thresh,
     required TResult orElse(),
   }) {
     if (thresh != null) {
@@ -4052,11 +4573,11 @@ class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
 
 abstract class SatisfiableItem_Thresh extends SatisfiableItem {
   const factory SatisfiableItem_Thresh(
-      {required final List<BdkPolicy> items,
+      {required final List<FfiPolicy> items,
       required final BigInt threshold}) = _$SatisfiableItem_ThreshImpl;
   const SatisfiableItem_Thresh._() : super._();
 
-  List<BdkPolicy> get items;
+  List<FfiPolicy> get items;
   BigInt get threshold;
   @JsonKey(ignore: true)
   _$$SatisfiableItem_ThreshImplCopyWith<_$SatisfiableItem_ThreshImpl>

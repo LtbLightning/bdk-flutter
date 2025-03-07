@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{ collections::HashMap, sync::Arc };
 
 use crate::frb_generated::RustOpaque;
 
@@ -17,7 +17,7 @@ use super::{
         TxOut,
         // OutPoint, TxOut
     },
-    error::RequestBuilderError,
+    error::{ RequestBuilderError, StringParseError },
 };
 use flutter_rust_bridge::{
     // frb,
@@ -242,6 +242,7 @@ impl From<WordCount> for bdk_wallet::keys::bip39::WordCount {
         }
     }
 }
+#[derive(Debug, Clone)]
 pub enum LockTime {
     Blocks(u32),
     Seconds(u32),
@@ -536,6 +537,7 @@ impl From<bdk_core::spk_client::SyncProgress> for SyncProgress {
         }
     }
 }
+#[derive(Debug, Clone)]
 pub struct FfiPolicy {
     pub opaque: RustOpaque<bdk_wallet::descriptor::Policy>,
 }
@@ -544,48 +546,33 @@ impl FfiPolicy {
     pub fn id(&self) -> String {
         self.opaque.id.clone()
     }
+    #[frb(sync)]
+    pub fn as_string(&self) -> Result<String, StringParseError> {
+        serde_json::to_string(&*self.opaque).map_err(|e| StringParseError::Generic {
+            error_message: e.to_string(),
+        })
+    }
+    #[frb(sync)]
+    pub fn requires_path(&self) -> bool {
+        self.opaque.requires_path()
+    }
+    #[frb(sync)]
+    pub fn item(&self) -> SatisfiableItem {
+        self.opaque.item.clone().into()
+    }
+    #[frb(sync)]
+    pub fn satisfaction(&self) -> Satisfaction {
+        self.opaque.satisfaction.clone().into()
+    }
+    #[frb(sync)]
+    pub fn contribution(&self) -> Satisfaction {
+        self.opaque.contribution.clone().into()
+    }
 }
 impl From<bdk_wallet::descriptor::Policy> for FfiPolicy {
     fn from(value: bdk_wallet::descriptor::Policy) -> Self {
         FfiPolicy {
             opaque: RustOpaque::new(value),
-        }
-    }
-}
-#[derive(Debug, Clone)]
-pub struct BdkPolicy {
-    pub ptr: RustOpaque<bdk::descriptor::Policy>,
-}
-impl BdkPolicy {
-    #[frb(sync)]
-    pub fn id(&self) -> String {
-        self.ptr.id.clone()
-    }
-    #[frb(sync)]
-    pub fn as_string(&self) -> Result<String, BdkError> {
-        serde_json::to_string(&*self.ptr).map_err(|e| BdkError::Generic(e.to_string()))
-    }
-    #[frb(sync)]
-    pub fn requires_path(&self) -> bool {
-        self.ptr.requires_path()
-    }
-    #[frb(sync)]
-    pub fn item(&self) -> SatisfiableItem {
-        self.ptr.item.clone().into()
-    }
-    #[frb(sync)]
-    pub fn satisfaction(&self) -> Satisfaction {
-        self.ptr.satisfaction.clone().into()
-    }
-    #[frb(sync)]
-    pub fn contribution(&self) -> Satisfaction {
-        self.ptr.contribution.clone().into()
-    }
-}
-impl From<bdk::descriptor::Policy> for BdkPolicy {
-    fn from(value: bdk::descriptor::Policy) -> Self {
-        BdkPolicy {
-            ptr: RustOpaque::new(value),
         }
     }
 }
@@ -624,55 +611,55 @@ pub enum SatisfiableItem {
     },
 
     Thresh {
-        items: Vec<BdkPolicy>,
+        items: Vec<FfiPolicy>,
 
         threshold: u64,
     },
 }
-impl From<bdk::descriptor::policy::SatisfiableItem> for SatisfiableItem {
-    fn from(value: bdk::descriptor::policy::SatisfiableItem) -> Self {
+impl From<bdk_wallet::descriptor::policy::SatisfiableItem> for SatisfiableItem {
+    fn from(value: bdk_wallet::descriptor::policy::SatisfiableItem) -> Self {
         match value {
-            bdk::descriptor::policy::SatisfiableItem::EcdsaSignature(pk_or_f) => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::EcdsaSignature(pk_or_f) => {
                 SatisfiableItem::EcdsaSignature {
                     key: pk_or_f.into(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::SchnorrSignature(pk_or_f) => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::SchnorrSignature(pk_or_f) => {
                 SatisfiableItem::SchnorrSignature {
                     key: pk_or_f.into(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Sha256Preimage { hash } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Sha256Preimage { hash } => {
                 SatisfiableItem::Sha256Preimage {
                     hash: hash.to_string(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Hash256Preimage { hash } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Hash256Preimage { hash } => {
                 SatisfiableItem::Hash256Preimage {
                     hash: hash.to_string(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Ripemd160Preimage { hash } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Ripemd160Preimage { hash } => {
                 SatisfiableItem::Ripemd160Preimage {
                     hash: hash.to_string(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Hash160Preimage { hash } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Hash160Preimage { hash } => {
                 SatisfiableItem::Hash160Preimage {
                     hash: hash.to_string(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::AbsoluteTimelock { value } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::AbsoluteTimelock { value } => {
                 SatisfiableItem::AbsoluteTimelock {
                     value: value.into(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::RelativeTimelock { value } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::RelativeTimelock { value } => {
                 SatisfiableItem::RelativeTimelock {
                     value: value.to_consensus_u32(),
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Multisig { keys, threshold } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Multisig { keys, threshold } => {
                 SatisfiableItem::Multisig {
                     keys: keys
                         .iter()
@@ -681,7 +668,7 @@ impl From<bdk::descriptor::policy::SatisfiableItem> for SatisfiableItem {
                     threshold: threshold as u64,
                 }
             }
-            bdk::descriptor::policy::SatisfiableItem::Thresh { items, threshold } => {
+            bdk_wallet::descriptor::policy::SatisfiableItem::Thresh { items, threshold } => {
                 SatisfiableItem::Thresh {
                     items: items
                         .iter()
@@ -706,18 +693,19 @@ pub enum PkOrF {
         value: String,
     },
 }
-impl From<bdk::descriptor::policy::PkOrF> for PkOrF {
-    fn from(value: bdk::descriptor::policy::PkOrF) -> Self {
+impl From<bdk_wallet::descriptor::policy::PkOrF> for PkOrF {
+    fn from(value: bdk_wallet::descriptor::policy::PkOrF) -> Self {
         match value {
-            bdk::descriptor::policy::PkOrF::Pubkey(public_key) =>
+            bdk_wallet::descriptor::policy::PkOrF::Pubkey(public_key) =>
                 PkOrF::Pubkey {
                     value: public_key.to_string(),
                 },
-            bdk::descriptor::policy::PkOrF::XOnlyPubkey(xonly_public_key) =>
+            bdk_wallet::descriptor::policy::PkOrF::XOnlyPubkey(xonly_public_key) => {
                 PkOrF::XOnlyPubkey {
                     value: xonly_public_key.to_string(),
-                },
-            bdk::descriptor::policy::PkOrF::Fingerprint(fingerprint) =>
+                }
+            }
+            bdk_wallet::descriptor::policy::PkOrF::Fingerprint(fingerprint) =>
                 PkOrF::Fingerprint {
                     value: fingerprint.to_string(),
                 },
@@ -749,10 +737,16 @@ pub enum Satisfaction {
         msg: String,
     },
 }
-impl From<bdk::descriptor::policy::Satisfaction> for Satisfaction {
-    fn from(value: bdk::descriptor::policy::Satisfaction) -> Self {
+impl From<bdk_wallet::descriptor::policy::Satisfaction> for Satisfaction {
+    fn from(value: bdk_wallet::descriptor::policy::Satisfaction) -> Self {
         match value {
-            bdk::descriptor::policy::Satisfaction::Partial { n, m, items, sorted, conditions } =>
+            bdk_wallet::descriptor::policy::Satisfaction::Partial {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } =>
                 Satisfaction::Partial {
                     n: n as u64,
                     m: m as u64,
@@ -774,7 +768,7 @@ impl From<bdk::descriptor::policy::Satisfaction> for Satisfaction {
                         })
                         .collect(),
                 },
-            bdk::descriptor::policy::Satisfaction::PartialComplete {
+            bdk_wallet::descriptor::policy::Satisfaction::PartialComplete {
                 n,
                 m,
                 items,
@@ -805,12 +799,12 @@ impl From<bdk::descriptor::policy::Satisfaction> for Satisfaction {
                         })
                         .collect(),
                 },
-            bdk::descriptor::policy::Satisfaction::Complete { condition } => {
+            bdk_wallet::descriptor::policy::Satisfaction::Complete { condition } => {
                 Satisfaction::Complete {
                     condition: condition.into(),
                 }
             }
-            bdk::descriptor::policy::Satisfaction::None =>
+            bdk_wallet::descriptor::policy::Satisfaction::None =>
                 Satisfaction::None {
                     msg: "Cannot satisfy or contribute to the policy item".to_string(),
                 },
@@ -823,8 +817,8 @@ pub struct Condition {
     pub csv: Option<u32>,
     pub timelock: Option<LockTime>,
 }
-impl From<bdk::descriptor::policy::Condition> for Condition {
-    fn from(value: bdk::descriptor::policy::Condition) -> Self {
+impl From<bdk_wallet::descriptor::policy::Condition> for Condition {
+    fn from(value: bdk_wallet::descriptor::policy::Condition) -> Self {
         Condition {
             csv: value.csv.map(|e| e.to_consensus_u32()),
             timelock: value.timelock.map(|e| e.into()),
