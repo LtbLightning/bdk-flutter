@@ -120,7 +120,7 @@ impl FfiWallet {
         let bdk_balance = self.get_wallet().balance();
         Balance::from(bdk_balance)
     }
-
+    #[frb(sync)]
     pub fn sign(
         opaque: &FfiWallet,
         psbt: FfiPsbt,

@@ -1287,9 +1287,9 @@ class Wallet extends FfiWallet {
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
 
-  Future<bool> sign({required PSBT psbt, SignOptions? signOptions}) async {
+  bool sign({required PSBT psbt, SignOptions? signOptions}) {
     try {
-      final res = await FfiWallet.sign(
+      final res = FfiWallet.sign(
           opaque: this,
           psbt: psbt,
           signOptions: signOptions ??

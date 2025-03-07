@@ -108,7 +108,7 @@ class FfiWallet {
       core.instance.api.crateApiWalletFfiWalletRevealNextAddress(
           opaque: opaque, keychainKind: keychainKind);
 
-  static Future<bool> sign(
+  static bool sign(
           {required FfiWallet opaque,
           required FfiPsbt psbt,
           required SignOptions signOptions}) =>
