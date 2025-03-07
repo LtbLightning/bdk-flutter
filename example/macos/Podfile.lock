@@ -1,5 +1,5 @@
 PODS:
-  - bdk_flutter (1.0.0-alpha.11):
+  - bdk_flutter (1.0.0-beta.4):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
 
