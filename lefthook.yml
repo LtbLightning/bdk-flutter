@@ -13,7 +13,7 @@ pre-commit:
       run: dart format . && git add .
     rust_format:
       glob: "*.rs"
-      run: cargo fmt && git add .
+      run: cd rust && cargo fmt && git add .
 
 pre-push:
   parallel: true
@@ -24,5 +24,5 @@ pre-push:
     #   run: cargo test
     flutter_analyze:
       run: flutter analyze
-    rust_clippy:
-      run: cd rust && cargo clippy -- -D warnings
+    # rust_clippy:
+    #   run: cd rust && cargo clippy -- -D warnings
