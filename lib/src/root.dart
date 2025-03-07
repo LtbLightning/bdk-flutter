@@ -856,12 +856,6 @@ class ScriptBuf extends bitcoin.FfiScriptBuf {
   /// [ScriptBuf] constructor
   ScriptBuf({required super.bytes});
 
-  ///Creates a new empty script.
-  static Future<ScriptBuf> empty() async {
-    await Api.initialize();
-    return ScriptBuf(bytes: bitcoin.FfiScriptBuf.empty().bytes);
-  }
-
   ///Creates a new empty script with pre-allocated capacity.
   static Future<ScriptBuf> withCapacity(BigInt capacity) async {
     await LibBdk.initialize();
@@ -924,8 +918,8 @@ class Transaction extends bitcoin.FfiTransaction {
               sequence: e.sequence,
               witness: e.witness))
           .toList();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on TransactionError catch (e) {
+      throw mapTransactionError(e);
     }
   }
 
@@ -935,10 +929,12 @@ class Transaction extends bitcoin.FfiTransaction {
     try {
       return super
           .output()
-          .map((e) => TxOut._(scriptPubkey: e.scriptPubkey, value: e.value))
+          .map((e) => TxOut(
+              scriptPubkey: ScriptBuf(bytes: e.scriptPubkey.bytes),
+              value: e.value))
           .toList();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on TransactionError catch (e) {
+      throw mapTransactionError(e);
     }
   }
 }
@@ -977,7 +973,7 @@ class TxBuilder {
   ///
   /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo have priority over this.
   /// See the docs of the two linked methods for more details.
-  TxBuilder unSpendable(List<types.OutPoint> outpoints) {
+  TxBuilder unSpendable(List<bitcoin.OutPoint> outpoints) {
     for (var e in outpoints) {
       _unSpendable.add(e);
     }
@@ -987,7 +983,7 @@ class TxBuilder {
   ///Add a utxo to the internal list of utxos that must be spent
   ///
   /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-  TxBuilder addUtxo(types.OutPoint outpoint) {
+  TxBuilder addUtxo(bitcoin.OutPoint outpoint) {
     _utxos.add(outpoint);
     return this;
   }
@@ -997,7 +993,7 @@ class TxBuilder {
   ///If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
   ///
   /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-  TxBuilder addUtxos(List<types.OutPoint> outpoints) {
+  TxBuilder addUtxos(List<bitcoin.OutPoint> outpoints) {
     for (var e in outpoints) {
       _utxos.add(e);
     }
@@ -1075,7 +1071,7 @@ class TxBuilder {
   ///
   /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo
   /// have priority over this. See the docs of the two linked methods for more details.
-  TxBuilder addUnSpendable(types.OutPoint unSpendable) {
+  TxBuilder addUnSpendable(bitcoin.OutPoint unSpendable) {
     _unSpendable.add(unSpendable);
     return this;
   }
@@ -1150,8 +1146,6 @@ class TxBuilder {
           unSpendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           drainWallet: _drainWallet,
-          externalPolicyPath: _externalPolicyPath,
-          internalPolicyPath: _internalPolicyPath,
           rbf: _rbfValue,
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,
@@ -1464,7 +1458,7 @@ class CanonicalTx extends FfiCanonicalTx {
 }
 
 class Update extends FfiUpdate {
-  Update._({required super.field0});
+  Update._({required super.opaque});
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address
