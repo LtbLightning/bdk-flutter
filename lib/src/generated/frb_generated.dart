@@ -145,8 +145,8 @@ abstract class coreApi extends BaseApi {
   Future<FfiTransaction> crateApiBitcoinFfiTransactionNew(
       {required int version,
       required LockTime lockTime,
-      required List<TxIn> input,
-      required List<TxOut> output});
+      required List<BdkTxIn> input,
+      required List<BdkTxOut> output});
 
   List<TxOut> crateApiBitcoinFfiTransactionOutput(
       {required FfiTransaction that});
@@ -331,6 +331,8 @@ abstract class coreApi extends BaseApi {
       (Map<String, Uint64List>, KeychainKind)? policyPath,
       FfiScriptBuf? drainTo,
       RbfValue? rbf,
+      Map<String, Uint32List>? internalPolicyPath,
+      Map<String, Uint32List>? externalPolicyPath,
       required List<int> data});
 
   Future<ChangeSpendPolicy> crateApiTypesChangeSpendPolicyDefault();
@@ -634,8 +636,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   @override
   Future<FfiAddress> crateApiBitcoinFfiAddressFromString(
       {required String address, required Network network}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_String(address);
         var arg1 = cst_encode_network(network);
         return wire.wire__crate__api__bitcoin__ffi_address_from_string(
@@ -941,8 +943,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   @override
   Future<FfiScriptBuf> crateApiBitcoinFfiScriptBufWithCapacity(
       {required BigInt capacity}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_usize(capacity);
         return wire.wire__crate__api__bitcoin__ffi_script_buf_with_capacity(
             port_, arg0);
@@ -991,8 +993,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   @override
   Future<FfiTransaction> crateApiBitcoinFfiTransactionFromBytes(
       {required List<int> transactionBytes}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
         var arg0 = cst_encode_list_prim_u_8_loose(transactionBytes);
         return wire.wire__crate__api__bitcoin__ffi_transaction_from_bytes(
             port_, arg0);
@@ -2396,6 +2398,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       (Map<String, Uint64List>, KeychainKind)? policyPath,
       FfiScriptBuf? drainTo,
       RbfValue? rbf,
+      Map<String, Uint32List>? internalPolicyPath,
+      Map<String, Uint32List>? externalPolicyPath,
       required List<int> data}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -2428,7 +2432,9 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
             arg9,
             arg10,
             arg11,
-            arg12);
+            arg12,
+            arg13,
+            arg14);
       },
       codec: DcoCodec(
         decodeSuccessData: dco_decode_ffi_psbt,
@@ -2448,6 +2454,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
         policyPath,
         drainTo,
         rbf,
+        internalPolicyPath,
+        externalPolicyPath,
         data
       ],
       apiImpl: this,
@@ -2470,6 +2478,8 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
           "policyPath",
           "drainTo",
           "rbf",
+          "internalPolicyPath",
+          "externalPolicyPath",
           "data"
         ],
       );
@@ -3274,6 +3284,14 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   RustArcDecrementStrongCountFnType
       get rust_arc_decrement_strong_count_Policy => wire
           .rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicy;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_Policy =>
+          wire.rust_arc_increment_strong_count_RustOpaque_bdkdescriptorPolicy;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_Policy =>
+          wire.rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicy;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_DescriptorPublicKey => wire
@@ -4601,6 +4619,24 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<PkOrF> dco_decode_list_pk_or_f(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_pk_or_f).toList();
+  }
+
+  @protected
+  Uint32List dco_decode_list_prim_u_32_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint32List;
+  }
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeUint64List(raw);
+  }
+
+  @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as List<int>;
@@ -4675,7 +4711,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
       throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
     return LocalOutput(
       outpoint: dco_decode_out_point(arr[0]),
-      txout: dco_decode_tx_out(arr[1]),
+      txout: dco_decode_bdk_tx_out(arr[1]),
       keychain: dco_decode_keychain_kind(arr[2]),
       isSpent: dco_decode_bool(arr[3]),
     );
@@ -4702,6 +4738,15 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   Network dco_decode_network(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Network.values[raw as int];
+  }
+
+  @protected
+  Map<String, Uint32List>? dco_decode_opt_Map_String_list_prim_u_32_strict(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_Map_String_list_prim_u_32_strict(raw);
   }
 
   @protected
@@ -6346,6 +6391,32 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  List<PkOrF> sse_decode_list_pk_or_f(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PkOrF>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_pk_or_f(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  Uint32List sse_decode_list_prim_u_32_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint32List(len_);
+  }
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint64List(len_);
+  }
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
@@ -6442,7 +6513,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   LocalOutput sse_decode_local_output(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_outpoint = sse_decode_out_point(deserializer);
-    var var_txout = sse_decode_tx_out(deserializer);
+    var var_txout = sse_decode_bdk_tx_out(deserializer);
     var var_keychain = sse_decode_keychain_kind(deserializer);
     var var_isSpent = sse_decode_bool(deserializer);
     return LocalOutput(
@@ -6474,6 +6545,18 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return Network.values[inner];
+  }
+
+  @protected
+  Map<String, Uint32List>? sse_decode_opt_Map_String_list_prim_u_32_strict(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_Map_String_list_prim_u_32_strict(deserializer));
+    } else {
+      return null;
+    }
   }
 
   @protected
@@ -8355,6 +8438,31 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   }
 
   @protected
+  void sse_encode_list_pk_or_f(List<PkOrF> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_pk_or_f(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_32_strict(
+      Uint32List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint32List(self);
+  }
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint64List(self);
+  }
+
+  @protected
   void sse_encode_list_prim_u_8_loose(
       List<int> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -8441,7 +8549,7 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   void sse_encode_local_output(LocalOutput self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_out_point(self.outpoint, serializer);
-    sse_encode_tx_out(self.txout, serializer);
+    sse_encode_bdk_tx_out(self.txout, serializer);
     sse_encode_keychain_kind(self.keychain, serializer);
     sse_encode_bool(self.isSpent, serializer);
   }
@@ -8465,6 +8573,17 @@ class coreApiImpl extends coreApiImplPlatform implements coreApi {
   void sse_encode_network(Network self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_opt_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List>? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_Map_String_list_prim_u_32_strict(self, serializer);
+    }
   }
 
   @protected
@@ -9306,5 +9425,25 @@ class UpdateImpl extends RustOpaque implements Update {
         core.instance.api.rust_arc_decrement_strong_count_Update,
     rustArcDecrementStrongCountPtr:
         core.instance.api.rust_arc_decrement_strong_count_UpdatePtr,
+  );
+}
+
+@sealed
+class PolicyImpl extends RustOpaque implements Policy {
+  // Not to be used by end users
+  PolicyImpl.frbInternalDcoDecode(List<dynamic> wire)
+      : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PolicyImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        core.instance.api.rust_arc_increment_strong_count_Policy,
+    rustArcDecrementStrongCount:
+        core.instance.api.rust_arc_decrement_strong_count_Policy,
+    rustArcDecrementStrongCountPtr:
+        core.instance.api.rust_arc_decrement_strong_count_PolicyPtr,
   );
 }

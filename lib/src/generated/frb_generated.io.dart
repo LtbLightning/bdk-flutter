@@ -57,6 +57,9 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr => wire
       ._rust_arc_decrement_strong_count_RustOpaque_bdk_walletdescriptorPolicyPtr;
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PolicyPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_bdkdescriptorPolicyPtr;
+
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_DescriptorPublicKeyPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_bdk_walletkeysDescriptorPublicKeyPtr;
@@ -437,6 +440,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   List<OutPoint> dco_decode_list_out_point(dynamic raw);
 
   @protected
+  List<PkOrF> dco_decode_list_pk_or_f(dynamic raw);
+
+  @protected
+  Uint32List dco_decode_list_prim_u_32_strict(dynamic raw);
+
+  @protected
+  Uint64List dco_decode_list_prim_u_64_strict(dynamic raw);
+
+  @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
 
   @protected
@@ -470,6 +482,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   Network dco_decode_network(dynamic raw);
+
+  @protected
+  Map<String, Uint32List>? dco_decode_opt_Map_String_list_prim_u_32_strict(
+      dynamic raw);
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
@@ -935,6 +951,15 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer);
 
   @protected
+  List<PkOrF> sse_decode_list_pk_or_f(SseDeserializer deserializer);
+
+  @protected
+  Uint32List sse_decode_list_prim_u_32_strict(SseDeserializer deserializer);
+
+  @protected
+  Uint64List sse_decode_list_prim_u_64_strict(SseDeserializer deserializer);
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
@@ -970,6 +995,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   Network sse_decode_network(SseDeserializer deserializer);
+
+  @protected
+  Map<String, Uint32List>? sse_decode_opt_Map_String_list_prim_u_32_strict(
+      SseDeserializer deserializer);
 
   @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
@@ -1371,6 +1400,61 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_bdk_policy> cst_encode_list_bdk_policy(
+      List<BdkPolicy> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_bdk_policy(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_bdk_policy(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_bdk_transaction_details>
+      cst_encode_list_bdk_transaction_details(List<BdkTransactionDetails> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_bdk_transaction_details(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_bdk_transaction_details(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_bdk_tx_in> cst_encode_list_bdk_tx_in(
+      List<BdkTxIn> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_bdk_tx_in(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_bdk_tx_in(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_bdk_tx_out> cst_encode_list_bdk_tx_out(
+      List<BdkTxOut> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_bdk_tx_out(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_bdk_tx_out(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_condition> cst_encode_list_condition(
+      List<Condition> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_condition(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_condition(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_encode_list_list_prim_u_8_strict(List<Uint8List> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1400,6 +1484,34 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_out_point(raw[i], ans.ref.ptr[i]);
     }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_pk_or_f> cst_encode_list_pk_or_f(List<PkOrF> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_pk_or_f(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_pk_or_f(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_32_strict> cst_encode_list_prim_u_32_strict(
+      Uint32List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_32_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_encode_list_prim_u_64_strict(
+      Uint64List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_64_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw.inner);
     return ans;
   }
 
@@ -2646,7 +2758,7 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void cst_api_fill_to_wire_local_output(
       LocalOutput apiObj, wire_cst_local_output wireObj) {
     cst_api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
-    cst_api_fill_to_wire_tx_out(apiObj.txout, wireObj.txout);
+    cst_api_fill_to_wire_bdk_tx_out(apiObj.txout, wireObj.txout);
     wireObj.keychain = cst_encode_keychain_kind(apiObj.keychain);
     wireObj.is_spent = cst_encode_bool(apiObj.isSpent);
   }
@@ -3588,6 +3700,17 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
   void sse_encode_list_out_point(List<OutPoint> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_pk_or_f(List<PkOrF> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_32_strict(
+      Uint32List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_64_strict(
+      Uint64List self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
@@ -3624,6 +3747,10 @@ abstract class coreApiImplPlatform extends BaseApiImpl<coreWire> {
 
   @protected
   void sse_encode_network(Network self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_Map_String_list_prim_u_32_strict(
+      Map<String, Uint32List>? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
@@ -3829,7 +3956,7 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__bitcoin__ffi_address_from_stringPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64,
+              WireSyncRust2DartDco Function(
                   ffi.Pointer<wire_cst_list_prim_u_8_strict>, ffi.Int32)>>(
       'frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_address_from_string');
   late final _wire__crate__api__bitcoin__ffi_address_from_string =
@@ -4198,8 +4325,8 @@ class coreWire implements BaseWire {
     int port_,
     int version,
     ffi.Pointer<wire_cst_lock_time> lock_time,
-    ffi.Pointer<wire_cst_list_tx_in> input,
-    ffi.Pointer<wire_cst_list_tx_out> output,
+    ffi.Pointer<wire_cst_list_bdk_tx_in> input,
+    ffi.Pointer<wire_cst_list_bdk_tx_out> output,
   ) {
     return _wire__crate__api__bitcoin__ffi_transaction_new(
       port_,
@@ -4212,8 +4339,7 @@ class coreWire implements BaseWire {
 
   late final _wire__crate__api__bitcoin__ffi_transaction_newPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
+              WireSyncRust2DartDco Function(
                   ffi.Int32,
                   ffi.Pointer<wire_cst_lock_time>,
                   ffi.Pointer<wire_cst_list_tx_in>,
@@ -4225,8 +4351,8 @@ class coreWire implements BaseWire {
               int,
               int,
               ffi.Pointer<wire_cst_lock_time>,
-              ffi.Pointer<wire_cst_list_tx_in>,
-              ffi.Pointer<wire_cst_list_tx_out>)>();
+              ffi.Pointer<wire_cst_list_bdk_tx_in>,
+              ffi.Pointer<wire_cst_list_bdk_tx_out>)>();
 
   WireSyncRust2DartDco wire__crate__api__bitcoin__ffi_transaction_output(
     ffi.Pointer<wire_cst_ffi_transaction> that,
@@ -5303,6 +5429,10 @@ class coreWire implements BaseWire {
         policy_path,
     ffi.Pointer<wire_cst_ffi_script_buf> drain_to,
     ffi.Pointer<wire_cst_rbf_value> rbf,
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+        internal_policy_path,
+    ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>
+        external_policy_path,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
   ) {
     return _wire__crate__api__tx_builder__tx_builder_finish(
@@ -5319,6 +5449,8 @@ class coreWire implements BaseWire {
       policy_path,
       drain_to,
       rbf,
+      internal_policy_path,
+      external_policy_path,
       data,
     );
   }
@@ -5359,6 +5491,8 @@ class coreWire implements BaseWire {
                   wire_cst_record_map_string_list_prim_usize_strict_keychain_kind>,
               ffi.Pointer<wire_cst_ffi_script_buf>,
               ffi.Pointer<wire_cst_rbf_value>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
+              ffi.Pointer<wire_cst_list_record_string_list_prim_u_32_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_loose>)>();
 
   void wire__crate__api__types__change_spend_policy_default(
@@ -6849,6 +6983,84 @@ class coreWire implements BaseWire {
   late final _cst_new_list_ffi_canonical_tx = _cst_new_list_ffi_canonical_txPtr
       .asFunction<ffi.Pointer<wire_cst_list_ffi_canonical_tx> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_bdk_policy> cst_new_list_bdk_policy(
+    int len,
+  ) {
+    return _cst_new_list_bdk_policy(
+      len,
+    );
+  }
+
+  late final _cst_new_list_bdk_policyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_bdk_policy> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_bdk_policy');
+  late final _cst_new_list_bdk_policy = _cst_new_list_bdk_policyPtr
+      .asFunction<ffi.Pointer<wire_cst_list_bdk_policy> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_bdk_transaction_details>
+      cst_new_list_bdk_transaction_details(
+    int len,
+  ) {
+    return _cst_new_list_bdk_transaction_details(
+      len,
+    );
+  }
+
+  late final _cst_new_list_bdk_transaction_detailsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_list_bdk_transaction_details> Function(
+                  ffi.Int32)>>(
+      'frbgen_bdk_flutter_cst_new_list_bdk_transaction_details');
+  late final _cst_new_list_bdk_transaction_details =
+      _cst_new_list_bdk_transaction_detailsPtr.asFunction<
+          ffi.Pointer<wire_cst_list_bdk_transaction_details> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_bdk_tx_in> cst_new_list_bdk_tx_in(
+    int len,
+  ) {
+    return _cst_new_list_bdk_tx_in(
+      len,
+    );
+  }
+
+  late final _cst_new_list_bdk_tx_inPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_bdk_tx_in> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_bdk_tx_in');
+  late final _cst_new_list_bdk_tx_in = _cst_new_list_bdk_tx_inPtr
+      .asFunction<ffi.Pointer<wire_cst_list_bdk_tx_in> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_bdk_tx_out> cst_new_list_bdk_tx_out(
+    int len,
+  ) {
+    return _cst_new_list_bdk_tx_out(
+      len,
+    );
+  }
+
+  late final _cst_new_list_bdk_tx_outPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_bdk_tx_out> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_bdk_tx_out');
+  late final _cst_new_list_bdk_tx_out = _cst_new_list_bdk_tx_outPtr
+      .asFunction<ffi.Pointer<wire_cst_list_bdk_tx_out> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_condition> cst_new_list_condition(
+    int len,
+  ) {
+    return _cst_new_list_condition(
+      len,
+    );
+  }
+
+  late final _cst_new_list_conditionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_condition> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_condition');
+  late final _cst_new_list_condition = _cst_new_list_conditionPtr
+      .asFunction<ffi.Pointer<wire_cst_list_condition> Function(int)>();
+
   ffi.Pointer<wire_cst_list_list_prim_u_8_strict>
       cst_new_list_list_prim_u_8_strict(
     int len,
@@ -6896,6 +7108,51 @@ class coreWire implements BaseWire {
               ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_out_point');
   late final _cst_new_list_out_point = _cst_new_list_out_pointPtr
       .asFunction<ffi.Pointer<wire_cst_list_out_point> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_pk_or_f> cst_new_list_pk_or_f(
+    int len,
+  ) {
+    return _cst_new_list_pk_or_f(
+      len,
+    );
+  }
+
+  late final _cst_new_list_pk_or_fPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_pk_or_f> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_pk_or_f');
+  late final _cst_new_list_pk_or_f = _cst_new_list_pk_or_fPtr
+      .asFunction<ffi.Pointer<wire_cst_list_pk_or_f> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_32_strict> cst_new_list_prim_u_32_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_32_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_32_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_32_strict> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_32_strict');
+  late final _cst_new_list_prim_u_32_strict = _cst_new_list_prim_u_32_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_32_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_64_strict> cst_new_list_prim_u_64_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_64_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_64_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(
+              ffi.Int32)>>('frbgen_bdk_flutter_cst_new_list_prim_u_64_strict');
+  late final _cst_new_list_prim_u_64_strict = _cst_new_list_prim_u_64_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_64_strict> Function(int)>();
 
   ffi.Pointer<wire_cst_list_prim_u_8_loose> cst_new_list_prim_u_8_loose(
     int len,
@@ -7101,7 +7358,7 @@ final class wire_cst_list_list_prim_u_8_strict extends ffi.Struct {
   external int len;
 }
 
-final class wire_cst_tx_in extends ffi.Struct {
+final class wire_cst_bdk_tx_in extends ffi.Struct {
   external wire_cst_out_point previous_output;
 
   external wire_cst_ffi_script_buf script_sig;
@@ -7112,22 +7369,22 @@ final class wire_cst_tx_in extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_list_prim_u_8_strict> witness;
 }
 
-final class wire_cst_list_tx_in extends ffi.Struct {
-  external ffi.Pointer<wire_cst_tx_in> ptr;
+final class wire_cst_list_bdk_tx_in extends ffi.Struct {
+  external ffi.Pointer<wire_cst_bdk_tx_in> ptr;
 
   @ffi.Int32()
   external int len;
 }
 
-final class wire_cst_tx_out extends ffi.Struct {
+final class wire_cst_bdk_tx_out extends ffi.Struct {
   @ffi.Uint64()
   external int value;
 
   external wire_cst_ffi_script_buf script_pubkey;
 }
 
-final class wire_cst_list_tx_out extends ffi.Struct {
-  external ffi.Pointer<wire_cst_tx_out> ptr;
+final class wire_cst_list_bdk_tx_out extends ffi.Struct {
+  external ffi.Pointer<wire_cst_bdk_tx_out> ptr;
 
   @ffi.Int32()
   external int len;

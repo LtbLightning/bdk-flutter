@@ -118,6 +118,27 @@ class BlockId {
           hash == other.hash;
 }
 
+class Condition {
+  final int? csv;
+  final LockTime? timelock;
+
+  const Condition({
+    this.csv,
+    this.timelock,
+  });
+
+  @override
+  int get hashCode => csv.hashCode ^ timelock.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Condition &&
+          runtimeType == other.runtimeType &&
+          csv == other.csv &&
+          timelock == other.timelock;
+}
+
 @freezed
 sealed class ChainPosition with _$ChainPosition {
   const ChainPosition._();
@@ -334,7 +355,7 @@ enum KeychainKind {
 
 class LocalOutput {
   final OutPoint outpoint;
-  final TxOut txout;
+  final BdkTxOut txout;
   final KeychainKind keychain;
   final bool isSpent;
 

@@ -1,16 +1,26 @@
 ## [1.0.0-alpha.11]
+## [0.31.3]
+#### Upgrades
+- Updated `Flutter` dependencies to the latest version.
+- Upgraded `Gradle` to version 8.4 and `Java` to version 17.
+- Upgraded `android-ndk` to `25.1.8937393`.
+#### Fixed
+- Removed unnecessary class exports.
+- Resolved the `txBuilder.setRecipients` error.
 
 ## [0.31.2]
 Updated `flutter_rust_bridge` to `2.0.0`.
 #### APIs added
 - Exposed `createTestnet` & `createMutinynet` to `Blockchain`.
+- Exposed  `policies` in `Wallet`.
+- Exposed `policyPath` in `TxBuilder`.
+- Exposed `id`, `requiresPath`, `item`, `satisfaction`, `contribution` in `Policy` class.
 - Overrode `toString()` for `Address`, `DerivationPath`, `Descriptor`, `DescriptorPublicKey` , `DescriptorSecretKey`, `Mnemonic`,
-- `PartiallySignedTransaction`, `ScriptBuf` & `Transaction`. 
+- `PartiallySignedTransaction`, `ScriptBuf` & `Transaction`.
 #### Changed
 - `partiallySignedTransaction.serialize()` serialize the data as raw binary.
 #### Fixed
 - Thread `frb_workerpool` panicked on Sql database access.
-
 
 ## [0.31.2-dev.2]
 #### Fixed

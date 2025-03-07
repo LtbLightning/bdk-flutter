@@ -94,6 +94,7 @@ class _BdkWalletState extends State<BdkWallet> {
         final txOut = e.transaction.output();
         print("=============TxIn==============");
         for (var e in txIn) {
+          print("         script: ${e.scriptSig}");
           print("         previousOutout Txid: ${e.previousOutput.txid}");
           print("         previousOutout vout: ${e.previousOutput.vout}");
           print("         witness: ${e.witness}");

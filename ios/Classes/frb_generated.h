@@ -68,25 +68,25 @@ typedef struct wire_cst_list_list_prim_u_8_strict {
   int32_t len;
 } wire_cst_list_list_prim_u_8_strict;
 
-typedef struct wire_cst_tx_in {
+typedef struct wire_cst_bdk_tx_in {
   struct wire_cst_out_point previous_output;
   struct wire_cst_ffi_script_buf script_sig;
   uint32_t sequence;
   struct wire_cst_list_list_prim_u_8_strict *witness;
-} wire_cst_tx_in;
+} wire_cst_bdk_tx_in;
 
-typedef struct wire_cst_list_tx_in {
-  struct wire_cst_tx_in *ptr;
+typedef struct wire_cst_list_bdk_tx_in {
+  struct wire_cst_bdk_tx_in *ptr;
   int32_t len;
-} wire_cst_list_tx_in;
+} wire_cst_list_bdk_tx_in;
 
-typedef struct wire_cst_tx_out {
+typedef struct wire_cst_bdk_tx_out {
   uint64_t value;
   struct wire_cst_ffi_script_buf script_pubkey;
 } wire_cst_tx_out;
 
-typedef struct wire_cst_list_tx_out {
-  struct wire_cst_tx_out *ptr;
+typedef struct wire_cst_list_bdk_tx_out {
+  struct wire_cst_bdk_tx_out *ptr;
   int32_t len;
 } wire_cst_list_tx_out;
 
@@ -1414,11 +1414,27 @@ uint64_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_64(uint64_t value);
 
 struct wire_cst_list_ffi_canonical_tx *frbgen_bdk_flutter_cst_new_list_ffi_canonical_tx(int32_t len);
 
+struct wire_cst_list_bdk_policy *frbgen_bdk_flutter_cst_new_list_bdk_policy(int32_t len);
+
+struct wire_cst_list_bdk_transaction_details *frbgen_bdk_flutter_cst_new_list_bdk_transaction_details(int32_t len);
+
+struct wire_cst_list_bdk_tx_in *frbgen_bdk_flutter_cst_new_list_bdk_tx_in(int32_t len);
+
+struct wire_cst_list_bdk_tx_out *frbgen_bdk_flutter_cst_new_list_bdk_tx_out(int32_t len);
+
+struct wire_cst_list_condition *frbgen_bdk_flutter_cst_new_list_condition(int32_t len);
+
 struct wire_cst_list_list_prim_u_8_strict *frbgen_bdk_flutter_cst_new_list_list_prim_u_8_strict(int32_t len);
 
 struct wire_cst_list_local_output *frbgen_bdk_flutter_cst_new_list_local_output(int32_t len);
 
 struct wire_cst_list_out_point *frbgen_bdk_flutter_cst_new_list_out_point(int32_t len);
+
+struct wire_cst_list_pk_or_f *frbgen_bdk_flutter_cst_new_list_pk_or_f(int32_t len);
+
+struct wire_cst_list_prim_u_32_strict *frbgen_bdk_flutter_cst_new_list_prim_u_32_strict(int32_t len);
+
+struct wire_cst_list_prim_u_64_strict *frbgen_bdk_flutter_cst_new_list_prim_u_64_strict(int32_t len);
 
 struct wire_cst_list_prim_u_8_loose *frbgen_bdk_flutter_cst_new_list_prim_u_8_loose(int32_t len);
 
@@ -1467,6 +1483,9 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_list_prim_u_8_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_local_output);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_out_point);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_pk_or_f);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_32_strict);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_64_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_loose);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_usize_strict);
