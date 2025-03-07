@@ -10,6 +10,7 @@ import 'package:bdk_flutter/src/generated/api/key.dart';
 import 'package:bdk_flutter/src/generated/api/store.dart';
 import 'package:bdk_flutter/src/generated/api/tx_builder.dart';
 import 'package:bdk_flutter/src/generated/api/types.dart';
+import 'package:bdk_flutter/src/generated/api/types.dart' as types;
 import 'package:bdk_flutter/src/generated/api/wallet.dart';
 import 'package:bdk_flutter/src/utils/utils.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
@@ -22,7 +23,7 @@ class Address extends bitcoin.FfiAddress {
   static Future<Address> fromScript(
       {required ScriptBuf script, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res =
           await bitcoin.FfiAddress.fromScript(script: script, network: network);
       return Address._(field0: res.field0);
@@ -37,7 +38,7 @@ class Address extends bitcoin.FfiAddress {
   static Future<Address> fromString(
       {required String s, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res =
           await bitcoin.FfiAddress.fromString(address: s, network: network);
       return Address._(field0: res.field0);
@@ -130,7 +131,7 @@ class DerivationPath extends FfiDerivationPath {
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDerivationPath.fromString(path: path);
       return DerivationPath._(opaque: res.opaque);
     } on Bip32Error catch (e) {
@@ -154,7 +155,7 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> create(
       {required String descriptor, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptor.newInstance(
           descriptor: descriptor, network: network);
       return Descriptor._(
@@ -567,7 +568,7 @@ class EsploraClient extends FfiEsploraClient {
           request: request,
           stopGap: stopGap,
           parallelRequests: parallelRequests);
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
     } on PanicException catch (e) {
@@ -580,7 +581,7 @@ class EsploraClient extends FfiEsploraClient {
     try {
       final res = await FfiEsploraClient.sync_(
           opaque: this, request: request, parallelRequests: parallelRequests);
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
     } on PanicException catch (e) {
@@ -628,7 +629,7 @@ class ElectrumClient extends FfiElectrumClient {
         batchSize: batchSize,
         fetchPrevTxouts: fetchPrevTxouts,
       );
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
     } on PanicException catch (e) {
@@ -648,7 +649,7 @@ class ElectrumClient extends FfiElectrumClient {
         batchSize: batchSize,
         fetchPrevTxouts: fetchPrevTxouts,
       );
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
     } on PanicException catch (e) {
