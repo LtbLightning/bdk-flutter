@@ -68,25 +68,25 @@ typedef struct wire_cst_list_list_prim_u_8_strict {
   int32_t len;
 } wire_cst_list_list_prim_u_8_strict;
 
-typedef struct wire_cst_bdk_tx_in {
+typedef struct wire_cst_tx_in {
   struct wire_cst_out_point previous_output;
   struct wire_cst_ffi_script_buf script_sig;
   uint32_t sequence;
   struct wire_cst_list_list_prim_u_8_strict *witness;
-} wire_cst_bdk_tx_in;
+} wire_cst_tx_in;
 
-typedef struct wire_cst_list_bdk_tx_in {
-  struct wire_cst_bdk_tx_in *ptr;
+typedef struct wire_cst_list_tx_in {
+  struct wire_cst_tx_in *ptr;
   int32_t len;
-} wire_cst_list_bdk_tx_in;
+} wire_cst_list_tx_in;
 
-typedef struct wire_cst_bdk_tx_out {
+typedef struct wire_cst_tx_out {
   uint64_t value;
   struct wire_cst_ffi_script_buf script_pubkey;
 } wire_cst_tx_out;
 
-typedef struct wire_cst_list_bdk_tx_out {
-  struct wire_cst_bdk_tx_out *ptr;
+typedef struct wire_cst_list_tx_out {
+  struct wire_cst_tx_out *ptr;
   int32_t len;
 } wire_cst_list_tx_out;
 
@@ -196,7 +196,7 @@ typedef struct wire_cst_ffi_sync_request_builder {
 } wire_cst_ffi_sync_request_builder;
 
 typedef struct wire_cst_ffi_update {
-  uintptr_t field0;
+  uintptr_t opaque;
 } wire_cst_ffi_update;
 
 typedef struct wire_cst_ffi_connection {
@@ -211,6 +211,11 @@ typedef struct wire_cst_sign_options {
   bool sign_with_tap_internal_key;
   bool allow_grinding;
 } wire_cst_sign_options;
+
+typedef struct wire_cst_condition {
+  uint32_t *csv;
+  struct wire_cst_lock_time *timelock;
+} wire_cst_condition;
 
 typedef struct wire_cst_block_id {
   uint32_t height;
@@ -245,10 +250,43 @@ typedef struct wire_cst_ffi_canonical_tx {
   struct wire_cst_chain_position chain_position;
 } wire_cst_ffi_canonical_tx;
 
+typedef struct wire_cst_PkOrF_Pubkey {
+  struct wire_cst_list_prim_u_8_strict *value;
+} wire_cst_PkOrF_Pubkey;
+
+typedef struct wire_cst_PkOrF_XOnlyPubkey {
+  struct wire_cst_list_prim_u_8_strict *value;
+} wire_cst_PkOrF_XOnlyPubkey;
+
+typedef struct wire_cst_PkOrF_Fingerprint {
+  struct wire_cst_list_prim_u_8_strict *value;
+} wire_cst_PkOrF_Fingerprint;
+
+typedef union PkOrFKind {
+  struct wire_cst_PkOrF_Pubkey Pubkey;
+  struct wire_cst_PkOrF_XOnlyPubkey XOnlyPubkey;
+  struct wire_cst_PkOrF_Fingerprint Fingerprint;
+} PkOrFKind;
+
+typedef struct wire_cst_pk_or_f {
+  int32_t tag;
+  union PkOrFKind kind;
+} wire_cst_pk_or_f;
+
+typedef struct wire_cst_list_condition {
+  struct wire_cst_condition *ptr;
+  int32_t len;
+} wire_cst_list_condition;
+
 typedef struct wire_cst_list_ffi_canonical_tx {
   struct wire_cst_ffi_canonical_tx *ptr;
   int32_t len;
 } wire_cst_list_ffi_canonical_tx;
+
+typedef struct wire_cst_list_ffi_policy {
+  struct wire_cst_ffi_policy *ptr;
+  int32_t len;
+} wire_cst_list_ffi_policy;
 
 typedef struct wire_cst_local_output {
   struct wire_cst_out_point outpoint;
@@ -261,6 +299,41 @@ typedef struct wire_cst_list_local_output {
   struct wire_cst_local_output *ptr;
   int32_t len;
 } wire_cst_list_local_output;
+
+typedef struct wire_cst_list_pk_or_f {
+  struct wire_cst_pk_or_f *ptr;
+  int32_t len;
+} wire_cst_list_pk_or_f;
+
+typedef struct wire_cst_list_prim_u_32_strict {
+  uint32_t *ptr;
+  int32_t len;
+} wire_cst_list_prim_u_32_strict;
+
+typedef struct wire_cst_list_prim_u_64_strict {
+  uint64_t *ptr;
+  int32_t len;
+} wire_cst_list_prim_u_64_strict;
+
+typedef struct wire_cst_record_list_prim_u_32_strict_list_condition {
+  struct wire_cst_list_prim_u_32_strict *field0;
+  struct wire_cst_list_condition *field1;
+} wire_cst_record_list_prim_u_32_strict_list_condition;
+
+typedef struct wire_cst_list_record_list_prim_u_32_strict_list_condition {
+  struct wire_cst_record_list_prim_u_32_strict_list_condition *ptr;
+  int32_t len;
+} wire_cst_list_record_list_prim_u_32_strict_list_condition;
+
+typedef struct wire_cst_record_u_32_list_condition {
+  uint32_t field0;
+  struct wire_cst_list_condition *field1;
+} wire_cst_record_u_32_list_condition;
+
+typedef struct wire_cst_list_record_u_32_list_condition {
+  struct wire_cst_record_u_32_list_condition *ptr;
+  int32_t len;
+} wire_cst_list_record_u_32_list_condition;
 
 typedef struct wire_cst_address_info {
   uint32_t index;
@@ -864,6 +937,102 @@ typedef struct wire_cst_psbt_parse_error {
   union PsbtParseErrorKind kind;
 } wire_cst_psbt_parse_error;
 
+typedef struct wire_cst_Satisfaction_Partial {
+  uint64_t n;
+  uint64_t m;
+  struct wire_cst_list_prim_u_64_strict *items;
+  bool *sorted;
+  struct wire_cst_list_record_u_32_list_condition *conditions;
+} wire_cst_Satisfaction_Partial;
+
+typedef struct wire_cst_Satisfaction_PartialComplete {
+  uint64_t n;
+  uint64_t m;
+  struct wire_cst_list_prim_u_64_strict *items;
+  bool *sorted;
+  struct wire_cst_list_record_list_prim_u_32_strict_list_condition *conditions;
+} wire_cst_Satisfaction_PartialComplete;
+
+typedef struct wire_cst_Satisfaction_Complete {
+  struct wire_cst_condition *condition;
+} wire_cst_Satisfaction_Complete;
+
+typedef struct wire_cst_Satisfaction_None {
+  struct wire_cst_list_prim_u_8_strict *msg;
+} wire_cst_Satisfaction_None;
+
+typedef union SatisfactionKind {
+  struct wire_cst_Satisfaction_Partial Partial;
+  struct wire_cst_Satisfaction_PartialComplete PartialComplete;
+  struct wire_cst_Satisfaction_Complete Complete;
+  struct wire_cst_Satisfaction_None None;
+} SatisfactionKind;
+
+typedef struct wire_cst_satisfaction {
+  int32_t tag;
+  union SatisfactionKind kind;
+} wire_cst_satisfaction;
+
+typedef struct wire_cst_SatisfiableItem_EcdsaSignature {
+  struct wire_cst_pk_or_f *key;
+} wire_cst_SatisfiableItem_EcdsaSignature;
+
+typedef struct wire_cst_SatisfiableItem_SchnorrSignature {
+  struct wire_cst_pk_or_f *key;
+} wire_cst_SatisfiableItem_SchnorrSignature;
+
+typedef struct wire_cst_SatisfiableItem_Sha256Preimage {
+  struct wire_cst_list_prim_u_8_strict *hash;
+} wire_cst_SatisfiableItem_Sha256Preimage;
+
+typedef struct wire_cst_SatisfiableItem_Hash256Preimage {
+  struct wire_cst_list_prim_u_8_strict *hash;
+} wire_cst_SatisfiableItem_Hash256Preimage;
+
+typedef struct wire_cst_SatisfiableItem_Ripemd160Preimage {
+  struct wire_cst_list_prim_u_8_strict *hash;
+} wire_cst_SatisfiableItem_Ripemd160Preimage;
+
+typedef struct wire_cst_SatisfiableItem_Hash160Preimage {
+  struct wire_cst_list_prim_u_8_strict *hash;
+} wire_cst_SatisfiableItem_Hash160Preimage;
+
+typedef struct wire_cst_SatisfiableItem_AbsoluteTimelock {
+  struct wire_cst_lock_time *value;
+} wire_cst_SatisfiableItem_AbsoluteTimelock;
+
+typedef struct wire_cst_SatisfiableItem_RelativeTimelock {
+  uint32_t value;
+} wire_cst_SatisfiableItem_RelativeTimelock;
+
+typedef struct wire_cst_SatisfiableItem_Multisig {
+  struct wire_cst_list_pk_or_f *keys;
+  uint64_t threshold;
+} wire_cst_SatisfiableItem_Multisig;
+
+typedef struct wire_cst_SatisfiableItem_Thresh {
+  struct wire_cst_list_ffi_policy *items;
+  uint64_t threshold;
+} wire_cst_SatisfiableItem_Thresh;
+
+typedef union SatisfiableItemKind {
+  struct wire_cst_SatisfiableItem_EcdsaSignature EcdsaSignature;
+  struct wire_cst_SatisfiableItem_SchnorrSignature SchnorrSignature;
+  struct wire_cst_SatisfiableItem_Sha256Preimage Sha256Preimage;
+  struct wire_cst_SatisfiableItem_Hash256Preimage Hash256Preimage;
+  struct wire_cst_SatisfiableItem_Ripemd160Preimage Ripemd160Preimage;
+  struct wire_cst_SatisfiableItem_Hash160Preimage Hash160Preimage;
+  struct wire_cst_SatisfiableItem_AbsoluteTimelock AbsoluteTimelock;
+  struct wire_cst_SatisfiableItem_RelativeTimelock RelativeTimelock;
+  struct wire_cst_SatisfiableItem_Multisig Multisig;
+  struct wire_cst_SatisfiableItem_Thresh Thresh;
+} SatisfiableItemKind;
+
+typedef struct wire_cst_satisfiable_item {
+  int32_t tag;
+  union SatisfiableItemKind kind;
+} wire_cst_satisfiable_item;
+
 typedef struct wire_cst_SignerError_SighashP2wpkh {
   struct wire_cst_list_prim_u_8_strict *error_message;
 } wire_cst_SignerError_SighashP2wpkh;
@@ -914,6 +1083,19 @@ typedef struct wire_cst_sqlite_error {
   int32_t tag;
   union SqliteErrorKind kind;
 } wire_cst_sqlite_error;
+
+typedef struct wire_cst_StringParseError_Generic {
+  struct wire_cst_list_prim_u_8_strict *error_message;
+} wire_cst_StringParseError_Generic;
+
+typedef union StringParseErrorKind {
+  struct wire_cst_StringParseError_Generic Generic;
+} StringParseErrorKind;
+
+typedef struct wire_cst_string_parse_error {
+  int32_t tag;
+  union StringParseErrorKind kind;
+} wire_cst_string_parse_error;
 
 typedef struct wire_cst_sync_progress {
   uint64_t spks_consumed;
@@ -992,8 +1174,6 @@ WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_seri
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_as_string(struct wire_cst_ffi_script_buf *that);
 
-WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_empty(void);
-
 void frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_with_capacity(int64_t port_,
                                                                                 uintptr_t capacity);
 
@@ -1037,49 +1217,41 @@ void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new(int64_t
                                                                          struct wire_cst_list_prim_u_8_strict *descriptor,
                                                                          int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip44(int64_t port_,
-                                                                               struct wire_cst_ffi_descriptor_secret_key *secret_key,
-                                                                               int32_t keychain_kind,
-                                                                               int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip44(struct wire_cst_ffi_descriptor_secret_key *secret_key,
+                                                                                               int32_t keychain_kind,
+                                                                                               int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip44_public(int64_t port_,
-                                                                                      struct wire_cst_ffi_descriptor_public_key *public_key,
-                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
-                                                                                      int32_t keychain_kind,
-                                                                                      int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip44_public(struct wire_cst_ffi_descriptor_public_key *public_key,
+                                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
+                                                                                                      int32_t keychain_kind,
+                                                                                                      int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip49(int64_t port_,
-                                                                               struct wire_cst_ffi_descriptor_secret_key *secret_key,
-                                                                               int32_t keychain_kind,
-                                                                               int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip49(struct wire_cst_ffi_descriptor_secret_key *secret_key,
+                                                                                               int32_t keychain_kind,
+                                                                                               int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip49_public(int64_t port_,
-                                                                                      struct wire_cst_ffi_descriptor_public_key *public_key,
-                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
-                                                                                      int32_t keychain_kind,
-                                                                                      int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip49_public(struct wire_cst_ffi_descriptor_public_key *public_key,
+                                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
+                                                                                                      int32_t keychain_kind,
+                                                                                                      int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip84(int64_t port_,
-                                                                               struct wire_cst_ffi_descriptor_secret_key *secret_key,
-                                                                               int32_t keychain_kind,
-                                                                               int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip84(struct wire_cst_ffi_descriptor_secret_key *secret_key,
+                                                                                               int32_t keychain_kind,
+                                                                                               int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip84_public(int64_t port_,
-                                                                                      struct wire_cst_ffi_descriptor_public_key *public_key,
-                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
-                                                                                      int32_t keychain_kind,
-                                                                                      int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip84_public(struct wire_cst_ffi_descriptor_public_key *public_key,
+                                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
+                                                                                                      int32_t keychain_kind,
+                                                                                                      int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip86(int64_t port_,
-                                                                               struct wire_cst_ffi_descriptor_secret_key *secret_key,
-                                                                               int32_t keychain_kind,
-                                                                               int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip86(struct wire_cst_ffi_descriptor_secret_key *secret_key,
+                                                                                               int32_t keychain_kind,
+                                                                                               int32_t network);
 
-void frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip86_public(int64_t port_,
-                                                                                      struct wire_cst_ffi_descriptor_public_key *public_key,
-                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
-                                                                                      int32_t keychain_kind,
-                                                                                      int32_t network);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_new_bip86_public(struct wire_cst_ffi_descriptor_public_key *public_key,
+                                                                                                      struct wire_cst_list_prim_u_8_strict *fingerprint,
+                                                                                                      int32_t keychain_kind,
+                                                                                                      int32_t network);
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__descriptor__ffi_descriptor_to_string_with_secret(struct wire_cst_ffi_descriptor *that);
 
@@ -1128,13 +1300,11 @@ void frbgen_bdk_flutter_wire__crate__api__key__ffi_derivation_path_from_string(i
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_as_string(struct wire_cst_ffi_descriptor_public_key *that);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_derive(int64_t port_,
-                                                                                struct wire_cst_ffi_descriptor_public_key *opaque,
-                                                                                struct wire_cst_ffi_derivation_path *path);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_derive(struct wire_cst_ffi_descriptor_public_key *opaque,
+                                                                                                struct wire_cst_ffi_derivation_path *path);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_extend(int64_t port_,
-                                                                                struct wire_cst_ffi_descriptor_public_key *opaque,
-                                                                                struct wire_cst_ffi_derivation_path *path);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_extend(struct wire_cst_ffi_descriptor_public_key *opaque,
+                                                                                                struct wire_cst_ffi_derivation_path *path);
 
 void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_public_key_from_string(int64_t port_,
                                                                                      struct wire_cst_list_prim_u_8_strict *public_key);
@@ -1148,13 +1318,11 @@ void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_create(
                                                                                 struct wire_cst_ffi_mnemonic *mnemonic,
                                                                                 struct wire_cst_list_prim_u_8_strict *password);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_derive(int64_t port_,
-                                                                                struct wire_cst_ffi_descriptor_secret_key *opaque,
-                                                                                struct wire_cst_ffi_derivation_path *path);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_derive(struct wire_cst_ffi_descriptor_secret_key *opaque,
+                                                                                                struct wire_cst_ffi_derivation_path *path);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_extend(int64_t port_,
-                                                                                struct wire_cst_ffi_descriptor_secret_key *opaque,
-                                                                                struct wire_cst_ffi_derivation_path *path);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_extend(struct wire_cst_ffi_descriptor_secret_key *opaque,
+                                                                                                struct wire_cst_ffi_derivation_path *path);
 
 void frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_secret_key_from_string(int64_t port_,
                                                                                      struct wire_cst_list_prim_u_8_strict *secret_key);
@@ -1163,11 +1331,9 @@ WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_descriptor_se
 
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_as_string(struct wire_cst_ffi_mnemonic *that);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_from_entropy(int64_t port_,
-                                                                         struct wire_cst_list_prim_u_8_loose *entropy);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_from_entropy(struct wire_cst_list_prim_u_8_loose *entropy);
 
-void frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_from_string(int64_t port_,
-                                                                        struct wire_cst_list_prim_u_8_strict *mnemonic);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_from_string(struct wire_cst_list_prim_u_8_strict *mnemonic);
 
 void frbgen_bdk_flutter_wire__crate__api__key__ffi_mnemonic_new(int64_t port_, int32_t word_count);
 
@@ -1207,7 +1373,17 @@ void frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_i
                                                                                                               struct wire_cst_ffi_full_scan_request_builder *that,
                                                                                                               const void *inspector);
 
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_as_string(struct wire_cst_ffi_policy *that);
+
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_contribution(struct wire_cst_ffi_policy *that);
+
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_id(struct wire_cst_ffi_policy *that);
+
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_item(struct wire_cst_ffi_policy *that);
+
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_requires_path(struct wire_cst_ffi_policy *that);
+
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_satisfaction(struct wire_cst_ffi_policy *that);
 
 void frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_build(int64_t port_,
                                                                                 struct wire_cst_ffi_sync_request_builder *that);
@@ -1267,10 +1443,9 @@ WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_pol
 WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_reveal_next_address(struct wire_cst_ffi_wallet *opaque,
                                                                                                  int32_t keychain_kind);
 
-void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(int64_t port_,
-                                                                  struct wire_cst_ffi_wallet *opaque,
-                                                                  struct wire_cst_ffi_psbt *psbt,
-                                                                  struct wire_cst_sign_options *sign_options);
+WireSyncRust2DartDco frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_sign(struct wire_cst_ffi_wallet *opaque,
+                                                                                  struct wire_cst_ffi_psbt *psbt,
+                                                                                  struct wire_cst_sign_options *sign_options);
 
 void frbgen_bdk_flutter_wire__crate__api__wallet__ffi_wallet_start_full_scan(int64_t port_,
                                                                              struct wire_cst_ffi_wallet *that);
@@ -1356,6 +1531,10 @@ void frbgen_bdk_flutter_rust_arc_increment_strong_count_RustOpaque_stdsyncMutexb
 
 void frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_stdsyncMutexbdk_walletrusqliteConnection(const void *ptr);
 
+bool *frbgen_bdk_flutter_cst_new_box_autoadd_bool(bool value);
+
+struct wire_cst_condition *frbgen_bdk_flutter_cst_new_box_autoadd_condition(void);
+
 struct wire_cst_confirmation_block_time *frbgen_bdk_flutter_cst_new_box_autoadd_confirmation_block_time(void);
 
 struct wire_cst_fee_rate *frbgen_bdk_flutter_cst_new_box_autoadd_fee_rate(void);
@@ -1402,6 +1581,8 @@ struct wire_cst_ffi_wallet *frbgen_bdk_flutter_cst_new_box_autoadd_ffi_wallet(vo
 
 struct wire_cst_lock_time *frbgen_bdk_flutter_cst_new_box_autoadd_lock_time(void);
 
+struct wire_cst_pk_or_f *frbgen_bdk_flutter_cst_new_box_autoadd_pk_or_f(void);
+
 struct wire_cst_rbf_value *frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value(void);
 
 struct wire_cst_record_map_string_list_prim_usize_strict_keychain_kind *frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind(void);
@@ -1412,17 +1593,11 @@ uint32_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_32(uint32_t value);
 
 uint64_t *frbgen_bdk_flutter_cst_new_box_autoadd_u_64(uint64_t value);
 
+struct wire_cst_list_condition *frbgen_bdk_flutter_cst_new_list_condition(int32_t len);
+
 struct wire_cst_list_ffi_canonical_tx *frbgen_bdk_flutter_cst_new_list_ffi_canonical_tx(int32_t len);
 
-struct wire_cst_list_bdk_policy *frbgen_bdk_flutter_cst_new_list_bdk_policy(int32_t len);
-
-struct wire_cst_list_bdk_transaction_details *frbgen_bdk_flutter_cst_new_list_bdk_transaction_details(int32_t len);
-
-struct wire_cst_list_bdk_tx_in *frbgen_bdk_flutter_cst_new_list_bdk_tx_in(int32_t len);
-
-struct wire_cst_list_bdk_tx_out *frbgen_bdk_flutter_cst_new_list_bdk_tx_out(int32_t len);
-
-struct wire_cst_list_condition *frbgen_bdk_flutter_cst_new_list_condition(int32_t len);
+struct wire_cst_list_ffi_policy *frbgen_bdk_flutter_cst_new_list_ffi_policy(int32_t len);
 
 struct wire_cst_list_list_prim_u_8_strict *frbgen_bdk_flutter_cst_new_list_list_prim_u_8_strict(int32_t len);
 
@@ -1444,13 +1619,19 @@ struct wire_cst_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_prim_usi
 
 struct wire_cst_list_record_ffi_script_buf_u_64 *frbgen_bdk_flutter_cst_new_list_record_ffi_script_buf_u_64(int32_t len);
 
+struct wire_cst_list_record_list_prim_u_32_strict_list_condition *frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition(int32_t len);
+
 struct wire_cst_list_record_string_list_prim_usize_strict *frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict(int32_t len);
+
+struct wire_cst_list_record_u_32_list_condition *frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition(int32_t len);
 
 struct wire_cst_list_tx_in *frbgen_bdk_flutter_cst_new_list_tx_in(int32_t len);
 
 struct wire_cst_list_tx_out *frbgen_bdk_flutter_cst_new_list_tx_out(int32_t len);
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_bool);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_condition);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_confirmation_block_time);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_fee_rate);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_address);
@@ -1474,12 +1655,15 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_update);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_ffi_wallet);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_lock_time);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_pk_or_f);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_rbf_value);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_record_map_string_list_prim_usize_strict_keychain_kind);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_sign_options);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_32);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_box_autoadd_u_64);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_condition);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_ffi_canonical_tx);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_ffi_policy);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_list_prim_u_8_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_local_output);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_out_point);
@@ -1490,7 +1674,9 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_u_8_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_prim_usize_strict);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_ffi_script_buf_u_64);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_list_prim_u_32_strict_list_condition);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_string_list_prim_usize_strict);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_record_u_32_list_condition);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_tx_in);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_cst_new_list_tx_out);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_rust_arc_decrement_strong_count_RustOpaque_bdk_corebitcoinAddress);
@@ -1545,7 +1731,6 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_json_serialize);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_psbt_serialize);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_as_string);
-    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_empty);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_script_buf_with_capacity);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_compute_txid);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__bitcoin__ffi_transaction_from_bytes);
@@ -1604,7 +1789,12 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__change_spend_policy_default);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_build);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_full_scan_request_builder_inspect_spks_for_all_keychains);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_as_string);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_contribution);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_id);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_item);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_requires_path);
+    dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_policy_satisfaction);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_build);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__ffi_sync_request_builder_inspect_spks);
     dummy_var ^= ((int64_t) (void*) frbgen_bdk_flutter_wire__crate__api__types__network_default);
