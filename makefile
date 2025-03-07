@@ -11,7 +11,7 @@ help: makefile
 
 ## init: Install missing dependencies.
 init:
-	cargo install flutter_rust_bridge_codegen --version 2.4.0
+	cargo install flutter_rust_bridge_codegen --version 2.5.0
 ## :
 
 all: init native

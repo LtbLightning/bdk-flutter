@@ -56,7 +56,9 @@ impl FfiElectrumClient {
             chain: full_scan_result.chain_update,
         };
 
-        Ok(super::types::FfiUpdate(RustOpaque::new(update)))
+        Ok(super::types::FfiUpdate {
+            opaque: RustOpaque::new(update),
+        })
     }
     pub fn sync(
         opaque: FfiElectrumClient,
@@ -84,7 +86,9 @@ impl FfiElectrumClient {
             chain: sync_result.chain_update,
         };
 
-        Ok(super::types::FfiUpdate(RustOpaque::new(update)))
+        Ok(super::types::FfiUpdate {
+            opaque: RustOpaque::new(update),
+        })
     }
 
     pub fn broadcast(

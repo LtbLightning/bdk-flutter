@@ -34,7 +34,7 @@ void main() {
         final derivationPath =
             await DerivationPath.create(path: "m/84'/1'/0'/$e");
         final derivedDescriptorSecretKey =
-            await descriptorSecretKey.derive(derivationPath);
+            descriptorSecretKey.derive(derivationPath);
         debugPrint(derivedDescriptorSecretKey.toString());
         debugPrint(derivedDescriptorSecretKey.toPublic().toString());
         final descriptor = await Descriptor.create(

@@ -702,54 +702,50 @@ class MockDescriptorSecretKey extends _i1.Mock
       ) as _i3.DescriptorSecretKey);
 
   @override
-  _i10.Future<_i2.DescriptorSecretKey> derive(_i2.DerivationPath? path) =>
+  _i2.DescriptorSecretKey derive(_i2.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #derive,
           [path],
         ),
-        returnValue: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValue: _FakeDescriptorSecretKey_10(
           this,
           Invocation.method(
             #derive,
             [path],
           ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        ),
+        returnValueForMissingStub: _FakeDescriptorSecretKey_10(
           this,
           Invocation.method(
             #derive,
             [path],
           ),
-        )),
-      ) as _i10.Future<_i2.DescriptorSecretKey>);
+        ),
+      ) as _i2.DescriptorSecretKey);
 
   @override
-  _i10.Future<_i2.DescriptorSecretKey> extend(_i2.DerivationPath? path) =>
+  _i2.DescriptorSecretKey extend(_i2.DerivationPath? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #extend,
           [path],
         ),
-        returnValue: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        returnValue: _FakeDescriptorSecretKey_10(
           this,
           Invocation.method(
             #extend,
             [path],
           ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorSecretKey>.value(
-            _FakeDescriptorSecretKey_10(
+        ),
+        returnValueForMissingStub: _FakeDescriptorSecretKey_10(
           this,
           Invocation.method(
             #extend,
             [path],
           ),
-        )),
-      ) as _i10.Future<_i2.DescriptorSecretKey>);
+        ),
+      ) as _i2.DescriptorSecretKey);
 
   @override
   _i2.DescriptorPublicKey toPublic() => (super.noSuchMethod(
@@ -826,7 +822,7 @@ class MockDescriptorPublicKey extends _i1.Mock
       ) as _i3.DescriptorPublicKey);
 
   @override
-  _i10.Future<_i2.DescriptorPublicKey> derive({
+  _i2.DescriptorPublicKey derive({
     required _i2.DerivationPath? path,
     dynamic hint,
   }) =>
@@ -839,8 +835,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             #hint: hint,
           },
         ),
-        returnValue: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValue: _FakeDescriptorPublicKey_11(
           this,
           Invocation.method(
             #derive,
@@ -850,9 +845,8 @@ class MockDescriptorPublicKey extends _i1.Mock
               #hint: hint,
             },
           ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        ),
+        returnValueForMissingStub: _FakeDescriptorPublicKey_11(
           this,
           Invocation.method(
             #derive,
@@ -862,11 +856,11 @@ class MockDescriptorPublicKey extends _i1.Mock
               #hint: hint,
             },
           ),
-        )),
-      ) as _i10.Future<_i2.DescriptorPublicKey>);
+        ),
+      ) as _i2.DescriptorPublicKey);
 
   @override
-  _i10.Future<_i2.DescriptorPublicKey> extend({
+  _i2.DescriptorPublicKey extend({
     required _i2.DerivationPath? path,
     dynamic hint,
   }) =>
@@ -879,8 +873,7 @@ class MockDescriptorPublicKey extends _i1.Mock
             #hint: hint,
           },
         ),
-        returnValue: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        returnValue: _FakeDescriptorPublicKey_11(
           this,
           Invocation.method(
             #extend,
@@ -890,9 +883,8 @@ class MockDescriptorPublicKey extends _i1.Mock
               #hint: hint,
             },
           ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i2.DescriptorPublicKey>.value(
-            _FakeDescriptorPublicKey_11(
+        ),
+        returnValueForMissingStub: _FakeDescriptorPublicKey_11(
           this,
           Invocation.method(
             #extend,
@@ -902,8 +894,8 @@ class MockDescriptorPublicKey extends _i1.Mock
               #hint: hint,
             },
           ),
-        )),
-      ) as _i10.Future<_i2.DescriptorPublicKey>);
+        ),
+      ) as _i2.DescriptorPublicKey);
 
   @override
   String asString() => (super.noSuchMethod(
@@ -1647,6 +1639,28 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
       ) as _i3.Transaction);
 
   @override
+  List<_i2.TxIn> input({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #input,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: <_i2.TxIn>[],
+        returnValueForMissingStub: <_i2.TxIn>[],
+      ) as List<_i2.TxIn>);
+
+  @override
+  List<_i2.TxOut> output({dynamic hint}) => (super.noSuchMethod(
+        Invocation.method(
+          #output,
+          [],
+          {#hint: hint},
+        ),
+        returnValue: <_i2.TxOut>[],
+        returnValueForMissingStub: <_i2.TxOut>[],
+      ) as List<_i2.TxOut>);
+
+  @override
   String computeTxid() => (super.noSuchMethod(
         Invocation.method(
           #computeTxid,
@@ -1667,16 +1681,6 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
           ),
         ),
       ) as String);
-
-  @override
-  List<_i8.TxIn> input() => (super.noSuchMethod(
-        Invocation.method(
-          #input,
-          [],
-        ),
-        returnValue: <_i8.TxIn>[],
-        returnValueForMissingStub: <_i8.TxIn>[],
-      ) as List<_i8.TxIn>);
 
   @override
   bool isCoinbase() => (super.noSuchMethod(
@@ -1729,16 +1733,6 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
           ),
         ),
       ) as _i7.LockTime);
-
-  @override
-  List<_i8.TxOut> output() => (super.noSuchMethod(
-        Invocation.method(
-          #output,
-          [],
-        ),
-        returnValue: <_i8.TxOut>[],
-        returnValueForMissingStub: <_i8.TxOut>[],
-      ) as List<_i8.TxOut>);
 
   @override
   _i11.Uint8List serialize() => (super.noSuchMethod(
@@ -2137,6 +2131,41 @@ class MockTxBuilder extends _i1.Mock implements _i2.TxBuilder {
       ) as _i2.TxBuilder);
 
   @override
+  _i2.TxBuilder policyPath(
+    _i2.KeychainKind? keychain,
+    Map<String, List<BigInt>>? policies,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #policyPath,
+          [
+            keychain,
+            policies,
+          ],
+        ),
+        returnValue: _FakeTxBuilder_27(
+          this,
+          Invocation.method(
+            #policyPath,
+            [
+              keychain,
+              policies,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _FakeTxBuilder_27(
+          this,
+          Invocation.method(
+            #policyPath,
+            [
+              keychain,
+              policies,
+            ],
+          ),
+        ),
+      ) as _i2.TxBuilder);
+
+  @override
   _i2.TxBuilder onlySpendChange() => (super.noSuchMethod(
         Invocation.method(
           #onlySpendChange,
@@ -2301,7 +2330,7 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
       ) as _i2.Policy?);
 
   @override
-  _i10.Future<bool> sign({
+  bool sign({
     required _i2.PSBT? psbt,
     _i2.SignOptions? signOptions,
   }) =>
@@ -2314,9 +2343,9 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
             #signOptions: signOptions,
           },
         ),
-        returnValue: _i10.Future<bool>.value(false),
-        returnValueForMissingStub: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
   _i10.Future<BigInt> calculateFee({required _i2.Transaction? tx}) =>
@@ -2474,15 +2503,15 @@ class MockWallet extends _i1.Mock implements _i2.Wallet {
 /// See the documentation for Mockito's code generation for more information.
 class MockUpdate extends _i1.Mock implements _i2.Update {
   @override
-  _i6.Update get field0 => (super.noSuchMethod(
-        Invocation.getter(#field0),
+  _i6.Update get opaque => (super.noSuchMethod(
+        Invocation.getter(#opaque),
         returnValue: _FakeUpdate_32(
           this,
-          Invocation.getter(#field0),
+          Invocation.getter(#opaque),
         ),
         returnValueForMissingStub: _FakeUpdate_32(
           this,
-          Invocation.getter(#field0),
+          Invocation.getter(#opaque),
         ),
       ) as _i6.Update);
 }

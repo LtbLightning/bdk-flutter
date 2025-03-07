@@ -95,11 +95,6 @@ impl From<FfiScriptBuf> for bdk_core::bitcoin::ScriptBuf {
     }
 }
 impl FfiScriptBuf {
-    #[frb(sync)]
-    ///Creates a new empty script.
-    pub fn empty() -> FfiScriptBuf {
-        bdk_core::bitcoin::ScriptBuf::new().into()
-    }
     ///Creates a new empty script with pre-allocated capacity.
     pub fn with_capacity(capacity: usize) -> FfiScriptBuf {
         bdk_core::bitcoin::ScriptBuf::with_capacity(capacity).into()
@@ -424,15 +419,18 @@ impl From<&TxOut> for bdk_core::bitcoin::TxOut {
 
 #[derive(Copy, Clone)]
 pub struct FeeRate {
-    ///Constructs FeeRate from satoshis per 1000 weight units.
     pub sat_kwu: u64,
 }
+
 impl From<FeeRate> for bdk_core::bitcoin::FeeRate {
+    #[inline]
     fn from(value: FeeRate) -> Self {
-        bdk_core::bitcoin::FeeRate::from_sat_per_kwu(value.sat_kwu)
+        Self::from_sat_per_kwu(value.sat_kwu)
     }
 }
+
 impl From<bdk_core::bitcoin::FeeRate> for FeeRate {
+    #[inline]
     fn from(value: bdk_core::bitcoin::FeeRate) -> Self {
         Self {
             sat_kwu: value.to_sat_per_kwu(),
@@ -440,73 +438,6 @@ impl From<bdk_core::bitcoin::FeeRate> for FeeRate {
     }
 }
 
-// /// Parameters that influence chain consensus.
-// #[derive(Debug, Clone)]
-// pub struct Params {
-//     /// Network for which parameters are valid.
-//     pub network: Network,
-//     /// Time when BIP16 becomes active.
-//     pub bip16_time: u32,
-//     /// Block height at which BIP34 becomes active.
-//     pub bip34_height: u32,
-//     /// Block height at which BIP65 becomes active.
-//     pub bip65_height: u32,
-//     /// Block height at which BIP66 becomes active.
-//     pub bip66_height: u32,
-//     /// Minimum blocks including miner confirmation of the total of 2016 blocks in a retargeting period,
-//     /// (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
-//     /// Examples: 1916 for 95%, 1512 for testchains.
-//     pub rule_change_activation_threshold: u32,
-//     /// Number of blocks with the same set of rules.
-//     pub miner_confirmation_window: u32,
-//     /// The maximum **attainable** target value for these params.
-//     ///
-//     /// Not all target values are attainable because consensus code uses the compact format to
-//     /// represent targets (see [`CompactTarget`]).
-//     ///
-//     /// Note that this value differs from Bitcoin Core's powLimit field in that this value is
-//     /// attainable, but Bitcoin Core's is not. Specifically, because targets in Bitcoin are always
-//     /// rounded to the nearest float expressible in "compact form", not all targets are attainable.
-//     /// Still, this should not affect consensus as the only place where the non-compact form of
-//     /// this is used in Bitcoin Core's consensus algorithm is in comparison and there are no
-//     /// compact-expressible values between Bitcoin Core's and the limit expressed here.
-//     pub max_attainable_target: FfiTarget,
-//     /// Expected amount of time to mine one block.
-//     pub pow_target_spacing: u64,
-//     /// Difficulty recalculation interval.
-//     pub pow_target_timespan: u64,
-//     /// Determines whether minimal difficulty may be used for blocks or not.
-//     pub allow_min_difficulty_blocks: bool,
-//     /// Determines whether retargeting is disabled for this network or not.
-//     pub no_pow_retargeting: bool,
-// }
-// impl From<Params> for bdk_core::bitcoin::params::Params {
-//     fn from(value: Params) -> Self {
-
-//     }
-// }
-
-// ///A 256 bit integer representing target.
-// ///The SHA-256 hash of a block's header must be lower than or equal to the current target for the block to be accepted by the network. The lower the target, the more difficult it is to generate a block. (See also Work.)
-// ///ref: https://en.bitcoin.it/wiki/Target
-
-// #[derive(Debug, Clone)]
-// pub struct FfiTarget(pub u32);
-// impl From<FfiTarget> for bdk_core::bitcoin::pow::Target {
-//     fn from(value: FfiTarget) -> Self {
-//         let c_target = bdk_core::bitcoin::pow::CompactTarget::from_consensus(value.0);
-//         bdk_core::bitcoin::pow::Target::from_compact(c_target)
-//     }
-// }
-// impl FfiTarget {
-//     ///Creates `` from a prefixed hex string.
-//     pub fn from_hex(s: String) -> Result<FfiTarget, PrefixedHexError> {
-//         bdk_core::bitcoin::pow::Target
-//             ::from_hex(s.as_str())
-//             .map(|e| FfiTarget(e.to_compact_lossy().to_consensus()))
-//             .map_err(|e| e.into())
-//     }
-// }
 #[cfg(test)]
 mod tests {
     use crate::api::{bitcoin::FfiAddress, types::Network};

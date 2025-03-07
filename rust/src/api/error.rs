@@ -1,8 +1,7 @@
-use bdk_bitcoind_rpc::bitcoincore_rpc::bitcoin::address::ParseError;
 use bdk_electrum::electrum_client::Error as BdkElectrumError;
 use bdk_esplora::esplora_client::{Error as BdkEsploraError, Error};
 use bdk_wallet::bitcoin::address::FromScriptError as BdkFromScriptError;
-use bdk_wallet::bitcoin::address::ParseError as BdkParseError;
+use bdk_wallet::bitcoin::address::ParseError as BdkAddressParseError;
 use bdk_wallet::bitcoin::bip32::Error as BdkBip32Error;
 use bdk_wallet::bitcoin::consensus::encode::Error as BdkEncodeError;
 use bdk_wallet::bitcoin::hex::DisplayHex;
@@ -29,6 +28,12 @@ use std::convert::TryInto;
 // ------------------------------------------------------------------------
 // error definitions
 // ------------------------------------------------------------------------
+
+#[derive(Debug, thiserror::Error)]
+pub enum StringParseError {
+    #[error("string conversion/parsing error: {error_message}")]
+    Generic { error_message: String },
+}
 
 #[derive(Debug, thiserror::Error)]
 pub enum AddressParseError {
@@ -705,24 +710,26 @@ impl From<BdkElectrumError> for ElectrumError {
     }
 }
 
-impl From<BdkParseError> for AddressParseError {
-    fn from(error: BdkParseError) -> Self {
+impl From<BdkAddressParseError> for AddressParseError {
+    fn from(error: BdkAddressParseError) -> Self {
         match error {
-            BdkParseError::Base58(_) => AddressParseError::Base58,
-            BdkParseError::Bech32(_) => AddressParseError::Bech32,
-            BdkParseError::WitnessVersion(e) => AddressParseError::WitnessVersion {
+            BdkAddressParseError::Base58(_) => AddressParseError::Base58,
+            BdkAddressParseError::Bech32(_) => AddressParseError::Bech32,
+            BdkAddressParseError::WitnessVersion(e) => AddressParseError::WitnessVersion {
                 error_message: e.to_string(),
             },
-            BdkParseError::WitnessProgram(e) => AddressParseError::WitnessProgram {
+            BdkAddressParseError::WitnessProgram(e) => AddressParseError::WitnessProgram {
                 error_message: e.to_string(),
             },
-            ParseError::UnknownHrp(_) => AddressParseError::UnknownHrp,
-            ParseError::LegacyAddressTooLong(_) => AddressParseError::LegacyAddressTooLong,
-            ParseError::InvalidBase58PayloadLength(_) => {
+            BdkAddressParseError::UnknownHrp(_) => AddressParseError::UnknownHrp,
+            BdkAddressParseError::LegacyAddressTooLong(_) => {
+                AddressParseError::LegacyAddressTooLong
+            }
+            BdkAddressParseError::InvalidBase58PayloadLength(_) => {
                 AddressParseError::InvalidBase58PayloadLength
             }
-            ParseError::InvalidLegacyPrefix(_) => AddressParseError::InvalidLegacyPrefix,
-            ParseError::NetworkValidation(_) => AddressParseError::NetworkValidation,
+            BdkAddressParseError::InvalidLegacyPrefix(_) => AddressParseError::InvalidLegacyPrefix,
+            BdkAddressParseError::NetworkValidation(_) => AddressParseError::NetworkValidation,
             _ => AddressParseError::OtherAddressParseErr,
         }
     }

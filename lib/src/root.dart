@@ -10,6 +10,7 @@ import 'package:bdk_flutter/src/generated/api/key.dart';
 import 'package:bdk_flutter/src/generated/api/store.dart';
 import 'package:bdk_flutter/src/generated/api/tx_builder.dart';
 import 'package:bdk_flutter/src/generated/api/types.dart';
+import 'package:bdk_flutter/src/generated/api/types.dart' as types;
 import 'package:bdk_flutter/src/generated/api/wallet.dart';
 import 'package:bdk_flutter/src/utils/utils.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
@@ -22,7 +23,7 @@ class Address extends bitcoin.FfiAddress {
   static Future<Address> fromScript(
       {required ScriptBuf script, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res =
           await bitcoin.FfiAddress.fromScript(script: script, network: network);
       return Address._(field0: res.field0);
@@ -37,7 +38,7 @@ class Address extends bitcoin.FfiAddress {
   static Future<Address> fromString(
       {required String s, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res =
           await bitcoin.FfiAddress.fromString(address: s, network: network);
       return Address._(field0: res.field0);
@@ -130,7 +131,7 @@ class DerivationPath extends FfiDerivationPath {
   ///  [DerivationPath] constructor
   static Future<DerivationPath> create({required String path}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDerivationPath.fromString(path: path);
       return DerivationPath._(opaque: res.opaque);
     } on Bip32Error catch (e) {
@@ -154,7 +155,7 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> create(
       {required String descriptor, required types.Network network}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptor.newInstance(
           descriptor: descriptor, network: network);
       return Descriptor._(
@@ -174,8 +175,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip44(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip44(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -197,8 +198,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip44Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip44Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -220,8 +221,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip49(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip49(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -243,8 +244,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip49Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip49Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -266,8 +267,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip84(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip84(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -289,8 +290,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip84Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip84Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -312,8 +313,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip86(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip86(
           secretKey: secretKey, network: network, keychainKind: keychain);
       return Descriptor._(
           extendedDescriptor: res.extendedDescriptor, keyMap: res.keyMap);
@@ -335,8 +336,8 @@ class Descriptor extends FfiDescriptor {
       required types.Network network,
       required types.KeychainKind keychain}) async {
     try {
-      await Api.initialize();
-      final res = await FfiDescriptor.newBip86Public(
+      await LibBdk.initialize();
+      final res = FfiDescriptor.newBip86Public(
           network: network,
           keychainKind: keychain,
           publicKey: publicKey,
@@ -386,7 +387,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   /// [DescriptorPublicKey] constructor
   static Future<DescriptorPublicKey> fromString(String publicKey) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorPublicKey.fromString(publicKey: publicKey);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
@@ -405,7 +406,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   ///Derive a public descriptor at a given path.
   DescriptorPublicKey derive({required DerivationPath path, hint}) {
     try {
-      final res = await FfiDescriptorPublicKey.derive(opaque: this, path: path);
+      final res = FfiDescriptorPublicKey.derive(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -417,7 +418,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   ///Extend the public descriptor with a custom path.
   DescriptorPublicKey extend({required DerivationPath path, hint}) {
     try {
-      final res = await FfiDescriptorPublicKey.extend(opaque: this, path: path);
+      final res = FfiDescriptorPublicKey.extend(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -434,7 +435,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> fromString(String secretKey) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorSecretKey.fromString(secretKey: secretKey);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
@@ -450,7 +451,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
       required Mnemonic mnemonic,
       String? password}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiDescriptorSecretKey.create(
           network: network, mnemonic: mnemonic, password: password);
       return DescriptorSecretKey._(opaque: res.opaque);
@@ -464,7 +465,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   ///Derived the XPrv using the derivation path
   DescriptorSecretKey derive(DerivationPath path) {
     try {
-      final res = await FfiDescriptorSecretKey.derive(opaque: this, path: path);
+      final res = FfiDescriptorSecretKey.derive(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -476,7 +477,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   ///Extends the XPrv using the derivation path
   DescriptorSecretKey extend(DerivationPath path) {
     try {
-      final res = await FfiDescriptorSecretKey.extend(opaque: this, path: path);
+      final res = FfiDescriptorSecretKey.extend(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
     } on DescriptorKeyError catch (e) {
       throw mapDescriptorKeyError(e);
@@ -521,7 +522,7 @@ class EsploraClient extends FfiEsploraClient {
 
   static Future<EsploraClient> create(String url) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiEsploraClient.newInstance(url: url);
       return EsploraClient._(opaque: res.opaque);
     } on EsploraError catch (e) {
@@ -567,7 +568,7 @@ class EsploraClient extends FfiEsploraClient {
           request: request,
           stopGap: stopGap,
           parallelRequests: parallelRequests);
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
     } on PanicException catch (e) {
@@ -580,7 +581,7 @@ class EsploraClient extends FfiEsploraClient {
     try {
       final res = await FfiEsploraClient.sync_(
           opaque: this, request: request, parallelRequests: parallelRequests);
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on EsploraError catch (e) {
       throw mapEsploraError(e);
     } on PanicException catch (e) {
@@ -593,7 +594,7 @@ class ElectrumClient extends FfiElectrumClient {
   ElectrumClient._({required super.opaque});
   static Future<ElectrumClient> create(String url) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiElectrumClient.newInstance(url: url);
       return ElectrumClient._(opaque: res.opaque);
     } on ElectrumError catch (e) {
@@ -628,7 +629,7 @@ class ElectrumClient extends FfiElectrumClient {
         batchSize: batchSize,
         fetchPrevTxouts: fetchPrevTxouts,
       );
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
     } on PanicException catch (e) {
@@ -648,7 +649,7 @@ class ElectrumClient extends FfiElectrumClient {
         batchSize: batchSize,
         fetchPrevTxouts: fetchPrevTxouts,
       );
-      return Update._(field0: res.field0);
+      return Update._(opaque: res.opaque);
     } on ElectrumError catch (e) {
       throw mapElectrumError(e);
     } on PanicException catch (e) {
@@ -666,7 +667,7 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> create(types.WordCount wordCount) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiMnemonic.newInstance(wordCount: wordCount);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
@@ -682,8 +683,8 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromEntropy(List<int> entropy) async {
     try {
-      await Api.initialize();
-      final res = await FfiMnemonic.fromEntropy(entropy: entropy);
+      await LibBdk.initialize();
+      final res = FfiMnemonic.fromEntropy(entropy: entropy);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
@@ -697,8 +698,8 @@ class Mnemonic extends FfiMnemonic {
   /// [Mnemonic] constructor
   static Future<Mnemonic> fromString(String mnemonic) async {
     try {
-      await Api.initialize();
-      final res = await FfiMnemonic.fromString(mnemonic: mnemonic);
+      await LibBdk.initialize();
+      final res = FfiMnemonic.fromString(mnemonic: mnemonic);
       return Mnemonic._(opaque: res.opaque);
     } on Bip39Error catch (e) {
       throw mapBip39Error(e);
@@ -723,7 +724,7 @@ class PSBT extends bitcoin.FfiPsbt {
   /// [PSBT] constructor
   static Future<PSBT> fromString(String psbtBase64) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiPsbt.fromStr(psbtBase64: psbtBase64);
       return PSBT._(opaque: res.opaque);
     } on PsbtParseError catch (e) {
@@ -786,8 +787,8 @@ class PSBT extends bitcoin.FfiPsbt {
   }
 }
 
-class Policy extends types.BdkPolicy {
-  Policy._({required super.ptr});
+class Policy extends types.FfiPolicy {
+  Policy._({required super.opaque});
 
   ///Identifier for this policy node
   @override
@@ -799,8 +800,9 @@ class Policy extends types.BdkPolicy {
   String toString() {
     try {
       return super.asString();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on StringParseError catch (e) {
+      //TODO; Create a string parse exception
+      throw Exception(e.errorMessage);
     }
   }
 
@@ -832,7 +834,8 @@ class Policy extends types.BdkPolicy {
           multisig: (e, f) =>
               types.SatisfiableItem.multisig(keys: e, threshold: f),
           thresh: (e, f) => types.SatisfiableItem.thresh(
-              items: e.map((e) => Policy._(ptr: e.ptr)).toList(), threshold: f),
+              items: e.map((e) => Policy._(opaque: e.opaque)).toList(),
+              threshold: f),
         );
   }
 
@@ -854,15 +857,9 @@ class ScriptBuf extends bitcoin.FfiScriptBuf {
   /// [ScriptBuf] constructor
   ScriptBuf({required super.bytes});
 
-  ///Creates a new empty script.
-  static Future<ScriptBuf> empty() async {
-    await Api.initialize();
-    return ScriptBuf(bytes: bitcoin.FfiScriptBuf.empty().bytes);
-  }
-
   ///Creates a new empty script with pre-allocated capacity.
   static Future<ScriptBuf> withCapacity(BigInt capacity) async {
-    await Api.initialize();
+    await LibBdk.initialize();
     final res = await bitcoin.FfiScriptBuf.withCapacity(capacity: capacity);
     return ScriptBuf(bytes: res.bytes);
   }
@@ -886,7 +883,7 @@ class Transaction extends bitcoin.FfiTransaction {
     required List<TxOut> output,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiTransaction.newInstance(
           version: version, lockTime: lockTime, input: input, output: output);
       return Transaction._(opaque: res.opaque);
@@ -899,7 +896,7 @@ class Transaction extends bitcoin.FfiTransaction {
 
   static Future<Transaction> fromBytes(List<int> transactionByte) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await bitcoin.FfiTransaction.fromBytes(
           transactionBytes: transactionByte);
       return Transaction._(opaque: res.opaque);
@@ -916,14 +913,14 @@ class Transaction extends bitcoin.FfiTransaction {
     try {
       final res = super.input();
       return res
-          .map((e) => TxIn._(
+          .map((e) => TxIn(
               previousOutput: e.previousOutput,
               scriptSig: e.scriptSig,
               sequence: e.sequence,
               witness: e.witness))
           .toList();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on TransactionError catch (e) {
+      throw mapTransactionError(e);
     }
   }
 
@@ -933,10 +930,12 @@ class Transaction extends bitcoin.FfiTransaction {
     try {
       return super
           .output()
-          .map((e) => TxOut._(scriptPubkey: e.scriptPubkey, value: e.value))
+          .map((e) => TxOut(
+              scriptPubkey: ScriptBuf(bytes: e.scriptPubkey.bytes),
+              value: e.value))
           .toList();
-    } on BdkError catch (e) {
-      throw mapBdkError(e);
+    } on TransactionError catch (e) {
+      throw mapTransactionError(e);
     }
   }
 }
@@ -975,7 +974,7 @@ class TxBuilder {
   ///
   /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo have priority over this.
   /// See the docs of the two linked methods for more details.
-  TxBuilder unSpendable(List<types.OutPoint> outpoints) {
+  TxBuilder unSpendable(List<bitcoin.OutPoint> outpoints) {
     for (var e in outpoints) {
       _unSpendable.add(e);
     }
@@ -985,7 +984,7 @@ class TxBuilder {
   ///Add a utxo to the internal list of utxos that must be spent
   ///
   /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-  TxBuilder addUtxo(types.OutPoint outpoint) {
+  TxBuilder addUtxo(bitcoin.OutPoint outpoint) {
     _utxos.add(outpoint);
     return this;
   }
@@ -995,7 +994,7 @@ class TxBuilder {
   ///If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
   ///
   /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
-  TxBuilder addUtxos(List<types.OutPoint> outpoints) {
+  TxBuilder addUtxos(List<bitcoin.OutPoint> outpoints) {
     for (var e in outpoints) {
       _utxos.add(e);
     }
@@ -1073,7 +1072,7 @@ class TxBuilder {
   ///
   /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo
   /// have priority over this. See the docs of the two linked methods for more details.
-  TxBuilder addUnSpendable(types.OutPoint unSpendable) {
+  TxBuilder addUnSpendable(bitcoin.OutPoint unSpendable) {
     _unSpendable.add(unSpendable);
     return this;
   }
@@ -1148,8 +1147,6 @@ class TxBuilder {
           unSpendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           drainWallet: _drainWallet,
-          externalPolicyPath: _externalPolicyPath,
-          internalPolicyPath: _internalPolicyPath,
           rbf: _rbfValue,
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,
@@ -1185,7 +1182,7 @@ class Wallet extends FfiWallet {
     required Connection connection,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiWallet.newInstance(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
@@ -1207,7 +1204,7 @@ class Wallet extends FfiWallet {
     required Connection connection,
   }) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiWallet.load(
         descriptor: descriptor,
         changeDescriptor: changeDescriptor,
@@ -1287,9 +1284,9 @@ class Wallet extends FfiWallet {
   /// signers will follow the options, but the "software signers" (WIF keys and `xprv`) defined
   /// in this library will.
 
-  Future<bool> sign({required PSBT psbt, SignOptions? signOptions}) async {
+  bool sign({required PSBT psbt, SignOptions? signOptions}) {
     try {
-      final res = await FfiWallet.sign(
+      final res = FfiWallet.sign(
           opaque: this,
           psbt: psbt,
           signOptions: signOptions ??
@@ -1396,7 +1393,7 @@ class FullScanRequestBuilder extends FfiFullScanRequestBuilder {
               KeychainKind keychain, int index, ScriptBuf script)
           inspector}) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await super.inspectSpksForAllKeychains(
           inspector: (keychain, index, script) =>
               inspector(keychain, index, ScriptBuf(bytes: script.bytes)));
@@ -1430,7 +1427,7 @@ class Connection extends FfiConnection {
 
   static Future<Connection> createInMemory() async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiConnection.newInMemory();
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
@@ -1442,7 +1439,7 @@ class Connection extends FfiConnection {
 
   static Future<Connection> create(String path) async {
     try {
-      await Api.initialize();
+      await LibBdk.initialize();
       final res = await FfiConnection.newInstance(path: path);
       return Connection._(field0: res.field0);
     } on SqliteError catch (e) {
@@ -1462,7 +1459,7 @@ class CanonicalTx extends FfiCanonicalTx {
 }
 
 class Update extends FfiUpdate {
-  Update._({required super.field0});
+  Update._({required super.opaque});
 }
 
 ///A derived address and the index it was found at For convenience this automatically derefs to Address
@@ -1488,14 +1485,4 @@ class TxIn extends bitcoin.TxIn {
 class TxOut extends bitcoin.TxOut {
   TxOut({required super.value, required ScriptBuf scriptPubkey})
       : super(scriptPubkey: scriptPubkey);
-}
-
-class Policy extends FfiPolicy {
-  Policy._({required super.opaque});
-
-  ///Identifier for this policy node
-  @override
-  String id() {
-    return super.id();
-  }
 }

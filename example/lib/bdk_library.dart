@@ -24,7 +24,7 @@ class BdkLibrary {
   }
 
   Future<EsploraClient> initializeBlockchain() async {
-    return EsploraClient.createMutinynet();
+    return EsploraClient.create("https://mutinynet.com/api/");
   }
 
   Future<Wallet> crateOrLoadWallet(Descriptor descriptor,
@@ -124,11 +124,8 @@ class BdkLibrary {
       final txBuilder = TxBuilder();
       final address = await Address.fromString(
           s: receiverAddress, network: wallet.network());
-      final unspentUtxo =
-          wallet.listUnspent().firstWhere((e) => e.isSpent == false);
       final psbt = await txBuilder
           .addRecipient(address.script(), BigInt.from(amountSat))
-          .addUtxo(unspentUtxo.outpoint)
           .finish(wallet);
       final isFinalized = wallet.sign(psbt: psbt);
       if (isFinalized) {
