@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show debugPrint;
+
 import '../generated/frb_generated.dart';
 
 export 'exceptions.dart';
