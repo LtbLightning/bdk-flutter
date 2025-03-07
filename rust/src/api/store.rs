@@ -1,4 +1,4 @@
-use std::sync::MutexGuard;
+use std::{sync::MutexGuard, time::Duration};
 
 use crate::frb_generated::RustOpaque;
 
@@ -8,12 +8,14 @@ pub struct FfiConnection(pub RustOpaque<std::sync::Mutex<bdk_wallet::rusqlite::C
 
 impl FfiConnection {
     pub fn new(path: String) -> Result<Self, SqliteError> {
-        let connection = bdk_wallet::rusqlite::Connection::open(path)?;
+        let mut connection = bdk_wallet::rusqlite::Connection::open(path)?;
+        connection.busy_timeout(Duration::from_secs(30))?;
         Ok(Self(RustOpaque::new(std::sync::Mutex::new(connection))))
     }
 
     pub fn new_in_memory() -> Result<Self, SqliteError> {
-        let connection = bdk_wallet::rusqlite::Connection::open_in_memory()?;
+        let mut connection = bdk_wallet::rusqlite::Connection::open_in_memory()?;
+        connection.busy_timeout(Duration::from_secs(30))?;
         Ok(Self(RustOpaque::new(std::sync::Mutex::new(connection))))
     }
 
