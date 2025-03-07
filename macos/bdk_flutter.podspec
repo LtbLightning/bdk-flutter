@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
         s.name             = 'bdk_flutter'
-        s.version          = '1.0.0-alpha.11'
+        s.version          = '1.0.0-beta.4'
         s.summary          = 'A Flutter library for the Bitcoin Development Kit (https://bitcoindevkit.org/)'
         s.description      = <<-DESC
             A new Flutter plugin project.
