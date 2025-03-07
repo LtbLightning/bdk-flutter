@@ -44073,6 +44073,218 @@ abstract class SqliteError_Sqlite extends SqliteError {
 }
 
 /// @nodoc
+mixin _$StringParseError {
+  String get errorMessage => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String errorMessage) generic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String errorMessage)? generic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String errorMessage)? generic,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(StringParseError_Generic value) generic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(StringParseError_Generic value)? generic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(StringParseError_Generic value)? generic,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $StringParseErrorCopyWith<StringParseError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StringParseErrorCopyWith<$Res> {
+  factory $StringParseErrorCopyWith(
+          StringParseError value, $Res Function(StringParseError) then) =
+      _$StringParseErrorCopyWithImpl<$Res, StringParseError>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class _$StringParseErrorCopyWithImpl<$Res, $Val extends StringParseError>
+    implements $StringParseErrorCopyWith<$Res> {
+  _$StringParseErrorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_value.copyWith(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$StringParseError_GenericImplCopyWith<$Res>
+    implements $StringParseErrorCopyWith<$Res> {
+  factory _$$StringParseError_GenericImplCopyWith(
+          _$StringParseError_GenericImpl value,
+          $Res Function(_$StringParseError_GenericImpl) then) =
+      __$$StringParseError_GenericImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$StringParseError_GenericImplCopyWithImpl<$Res>
+    extends _$StringParseErrorCopyWithImpl<$Res, _$StringParseError_GenericImpl>
+    implements _$$StringParseError_GenericImplCopyWith<$Res> {
+  __$$StringParseError_GenericImplCopyWithImpl(
+      _$StringParseError_GenericImpl _value,
+      $Res Function(_$StringParseError_GenericImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$StringParseError_GenericImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StringParseError_GenericImpl extends StringParseError_Generic {
+  const _$StringParseError_GenericImpl({required this.errorMessage})
+      : super._();
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'StringParseError.generic(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StringParseError_GenericImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StringParseError_GenericImplCopyWith<_$StringParseError_GenericImpl>
+      get copyWith => __$$StringParseError_GenericImplCopyWithImpl<
+          _$StringParseError_GenericImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String errorMessage) generic,
+  }) {
+    return generic(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String errorMessage)? generic,
+  }) {
+    return generic?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String errorMessage)? generic,
+    required TResult orElse(),
+  }) {
+    if (generic != null) {
+      return generic(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(StringParseError_Generic value) generic,
+  }) {
+    return generic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(StringParseError_Generic value)? generic,
+  }) {
+    return generic?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(StringParseError_Generic value)? generic,
+    required TResult orElse(),
+  }) {
+    if (generic != null) {
+      return generic(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StringParseError_Generic extends StringParseError {
+  const factory StringParseError_Generic({required final String errorMessage}) =
+      _$StringParseError_GenericImpl;
+  const StringParseError_Generic._() : super._();
+
+  @override
+  String get errorMessage;
+  @override
+  @JsonKey(ignore: true)
+  _$$StringParseError_GenericImplCopyWith<_$StringParseError_GenericImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$TransactionError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
