@@ -17,6 +17,7 @@ dependencies:
   meta: ^1.10.0
   uuid: ^4.2.2
   collection: ^1.18.0
+  meta: ^1.15.0
 
 dev_dependencies:
   flutter_test:
@@ -24,7 +25,7 @@ dev_dependencies:
   ffigen: ^12.0.0
   freezed: ^2.5.2
   build_runner: ^2.4.8
-  lints: ^4.0.0
+  lints: ^5.0.0
 
 flutter:
   plugin:

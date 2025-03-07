@@ -145,6 +145,10 @@ class FfiMnemonic {
         that: this,
       );
 
+  /// Generates Mnemonic with a random entropy
+  static BdkMnemonic create({required WordCount wordCount}) =>
+      core.instance.api.crateApiKeyBdkMnemonicCreate(wordCount: wordCount);
+
   /// Create a new Mnemonic in the specified language from the given entropy.
   /// Entropy must be a multiple of 32 bits (4 bytes) and 128-256 bits in length.
   static Future<FfiMnemonic> fromEntropy({required List<int> entropy}) =>

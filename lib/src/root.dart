@@ -20,7 +20,7 @@ class Address extends bitcoin.FfiAddress {
 
   ///  [Address] constructor
   static Future<Address> fromScript(
-      {required ScriptBuf script, required Network network}) async {
+      {required ScriptBuf script, required types.Network network}) async {
     try {
       await Api.initialize();
       final res =
@@ -35,7 +35,7 @@ class Address extends bitcoin.FfiAddress {
 
   ///  [Address] constructor
   static Future<Address> fromString(
-      {required String s, required Network network}) async {
+      {required String s, required types.Network network}) async {
     try {
       await Api.initialize();
       final res =
@@ -152,7 +152,7 @@ class Descriptor extends FfiDescriptor {
 
   ///  [Descriptor] constructor
   static Future<Descriptor> create(
-      {required String descriptor, required Network network}) async {
+      {required String descriptor, required types.Network network}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newInstance(
@@ -171,8 +171,8 @@ class Descriptor extends FfiDescriptor {
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip44(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip44(
@@ -194,8 +194,8 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> newBip44Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip44Public(
@@ -217,8 +217,8 @@ class Descriptor extends FfiDescriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip49(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip49(
@@ -240,8 +240,8 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> newBip49Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip49Public(
@@ -263,8 +263,8 @@ class Descriptor extends FfiDescriptor {
   ///Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip84(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip84(
@@ -286,8 +286,8 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> newBip84Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip84Public(
@@ -309,8 +309,8 @@ class Descriptor extends FfiDescriptor {
   /// Since there are hardened derivation steps, this template requires a private derivable key (generally a xprv/tprv).
   static Future<Descriptor> newBip86(
       {required DescriptorSecretKey secretKey,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip86(
@@ -332,8 +332,8 @@ class Descriptor extends FfiDescriptor {
   static Future<Descriptor> newBip86Public(
       {required DescriptorPublicKey publicKey,
       required String fingerPrint,
-      required Network network,
-      required KeychainKind keychain}) async {
+      required types.Network network,
+      required types.KeychainKind keychain}) async {
     try {
       await Api.initialize();
       final res = await FfiDescriptor.newBip86Public(
@@ -403,8 +403,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   }
 
   ///Derive a public descriptor at a given path.
-  Future<DescriptorPublicKey> derive(
-      {required DerivationPath path, hint}) async {
+  DescriptorPublicKey derive({required DerivationPath path, hint}) {
     try {
       final res = await FfiDescriptorPublicKey.derive(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
@@ -416,8 +415,7 @@ class DescriptorPublicKey extends FfiDescriptorPublicKey {
   }
 
   ///Extend the public descriptor with a custom path.
-  Future<DescriptorPublicKey> extend(
-      {required DerivationPath path, hint}) async {
+  DescriptorPublicKey extend({required DerivationPath path, hint}) {
     try {
       final res = await FfiDescriptorPublicKey.extend(opaque: this, path: path);
       return DescriptorPublicKey._(opaque: res.opaque);
@@ -448,7 +446,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
 
   /// [DescriptorSecretKey] constructor
   static Future<DescriptorSecretKey> create(
-      {required Network network,
+      {required types.Network network,
       required Mnemonic mnemonic,
       String? password}) async {
     try {
@@ -464,7 +462,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   }
 
   ///Derived the XPrv using the derivation path
-  Future<DescriptorSecretKey> derive(DerivationPath path) async {
+  DescriptorSecretKey derive(DerivationPath path) {
     try {
       final res = await FfiDescriptorSecretKey.derive(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
@@ -476,7 +474,7 @@ class DescriptorSecretKey extends FfiDescriptorSecretKey {
   }
 
   ///Extends the XPrv using the derivation path
-  Future<DescriptorSecretKey> extend(DerivationPath path) async {
+  DescriptorSecretKey extend(DerivationPath path) {
     try {
       final res = await FfiDescriptorSecretKey.extend(opaque: this, path: path);
       return DescriptorSecretKey._(opaque: res.opaque);
@@ -666,7 +664,7 @@ class Mnemonic extends FfiMnemonic {
   /// Generates [Mnemonic] with given [WordCount]
   ///
   /// [Mnemonic] constructor
-  static Future<Mnemonic> create(WordCount wordCount) async {
+  static Future<Mnemonic> create(types.WordCount wordCount) async {
     try {
       await Api.initialize();
       final res = await FfiMnemonic.newInstance(wordCount: wordCount);
@@ -788,6 +786,69 @@ class PSBT extends bitcoin.FfiPsbt {
   }
 }
 
+class Policy extends types.BdkPolicy {
+  Policy._({required super.ptr});
+
+  ///Identifier for this policy node
+  @override
+  String id() {
+    return super.id();
+  }
+
+  @override
+  String toString() {
+    try {
+      return super.asString();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///Return whether or not a specific path in the policy tree is required to unambiguously create a transaction
+
+  ///What this means is that for some spending policies the user should select which paths in the tree it intends to satisfy while signing, because the transaction must be created differently based on that.
+  @override
+  bool requiresPath() {
+    return super.requiresPath();
+  }
+
+  ///Type of this policy node
+  @override
+  types.SatisfiableItem item() {
+    return super.item().when(
+          ecdsaSignature: (e) => types.SatisfiableItem.ecdsaSignature(key: e),
+          schnorrSignature: (e) => types.SatisfiableItem.ecdsaSignature(key: e),
+          sha256Preimage: (e) => types.SatisfiableItem.sha256Preimage(hash: e),
+          hash256Preimage: (e) =>
+              types.SatisfiableItem.hash256Preimage(hash: e),
+          ripemd160Preimage: (e) =>
+              types.SatisfiableItem.ripemd160Preimage(hash: e),
+          hash160Preimage: (e) =>
+              types.SatisfiableItem.hash160Preimage(hash: e),
+          absoluteTimelock: (e) =>
+              types.SatisfiableItem.absoluteTimelock(value: e),
+          relativeTimelock: (e) =>
+              types.SatisfiableItem.relativeTimelock(value: e),
+          multisig: (e, f) =>
+              types.SatisfiableItem.multisig(keys: e, threshold: f),
+          thresh: (e, f) => types.SatisfiableItem.thresh(
+              items: e.map((e) => Policy._(ptr: e.ptr)).toList(), threshold: f),
+        );
+  }
+
+  ///How much a given PSBT already satisfies this policy node in terms of signatures
+  @override
+  types.Satisfaction satisfaction() {
+    return super.satisfaction();
+  }
+
+  ///How the wallet's descriptor can satisfy this policy node
+  @override
+  types.Satisfaction contribution() {
+    return super.contribution();
+  }
+}
+
 ///Bitcoin script.
 class ScriptBuf extends bitcoin.FfiScriptBuf {
   /// [ScriptBuf] constructor
@@ -848,6 +909,36 @@ class Transaction extends bitcoin.FfiTransaction {
       throw TransactionException(code: "Unknown", errorMessage: e.message);
     }
   }
+
+  ///List of transaction inputs.
+  @override
+  List<TxIn> input({hint}) {
+    try {
+      final res = super.input();
+      return res
+          .map((e) => TxIn._(
+              previousOutput: e.previousOutput,
+              scriptSig: e.scriptSig,
+              sequence: e.sequence,
+              witness: e.witness))
+          .toList();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
+
+  ///List of transaction outputs.
+  @override
+  List<TxOut> output({hint}) {
+    try {
+      return super
+          .output()
+          .map((e) => TxOut._(scriptPubkey: e.scriptPubkey, value: e.value))
+          .toList();
+    } on BdkError catch (e) {
+      throw mapBdkError(e);
+    }
+  }
 }
 
 ///A transaction builder
@@ -864,7 +955,7 @@ class TxBuilder {
   BigInt? _feeAbsolute;
   bool _drainWallet = false;
   ScriptBuf? _drainTo;
-  RbfValue? _rbfValue;
+  types.RbfValue? _rbfValue;
   List<int> _data = [];
   (Map<String, Uint64List>, KeychainKind)? _policyPath;
 
@@ -882,9 +973,9 @@ class TxBuilder {
 
   ///Add a utxo to the internal list of unspendable utxos
   ///
-  /// It’s important to note that the “must-be-spent” utxos added with TxBuilder().addUtxo have priority over this.
+  /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo have priority over this.
   /// See the docs of the two linked methods for more details.
-  TxBuilder unSpendable(List<OutPoint> outpoints) {
+  TxBuilder unSpendable(List<types.OutPoint> outpoints) {
     for (var e in outpoints) {
       _unSpendable.add(e);
     }
@@ -893,8 +984,8 @@ class TxBuilder {
 
   ///Add a utxo to the internal list of utxos that must be spent
   ///
-  /// These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
-  TxBuilder addUtxo(OutPoint outpoint) {
+  /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
+  TxBuilder addUtxo(types.OutPoint outpoint) {
     _utxos.add(outpoint);
     return this;
   }
@@ -903,8 +994,8 @@ class TxBuilder {
   ///
   ///If an error occurs while adding any of the UTXOs then none of them are added and the error is returned.
   ///
-  /// These have priority over the “unspendable” utxos, meaning that if a utxo is present both in the “utxos” and the “unspendable” list, it will be spent.
-  TxBuilder addUtxos(List<OutPoint> outpoints) {
+  /// These have priority over the "unspendable" utxos, meaning that if a utxo is present both in the "utxos" and the "unspendable" list, it will be spent.
+  TxBuilder addUtxos(List<types.OutPoint> outpoints) {
     for (var e in outpoints) {
       _utxos.add(e);
     }
@@ -913,9 +1004,9 @@ class TxBuilder {
 
   ///Do not spend change outputs
   ///
-  /// This effectively adds all the change outputs to the “unspendable” list. See TxBuilder().addUtxos
+  /// This effectively adds all the change outputs to the "unspendable" list. See TxBuilder().addUtxos
   TxBuilder doNotSpendChange() {
-    _changeSpendPolicy = ChangeSpendPolicy.changeForbidden;
+    _changeSpendPolicy = types.ChangeSpendPolicy.changeForbidden;
     return this;
   }
 
@@ -942,11 +1033,11 @@ class TxBuilder {
 
   ///Enable signaling RBF with a specific nSequence value
   ///
-  /// This can cause conflicts if the wallet’s descriptors contain an “older” (OP_CSV) operator and the given nsequence is lower than the CSV value.
+  /// This can cause conflicts if the wallet's descriptors contain an "older" (OP_CSV) operator and the given nsequence is lower than the CSV value.
   ///
   ///If the nsequence is higher than 0xFFFFFFFD an error will be thrown, since it would not be a valid nSequence to signal RBF.
   TxBuilder enableRbfWithSequence(int nSequence) {
-    _rbfValue = RbfValue.value(nSequence);
+    _rbfValue = types.RbfValue.value(nSequence);
     return this;
   }
 
@@ -954,7 +1045,7 @@ class TxBuilder {
   ///
   /// This will use the default nSequence value of 0xFFFFFFFD.
   TxBuilder enableRbf() {
-    _rbfValue = RbfValue.rbfDefault();
+    _rbfValue = types.RbfValue.rbfDefault();
     return this;
   }
 
@@ -980,9 +1071,9 @@ class TxBuilder {
 
   ///Add a utxo to the internal list of unspendable utxos
   ///
-  /// It’s important to note that the “must-be-spent” utxos added with TxBuilder().addUtxo
+  /// It's important to note that the "must-be-spent" utxos added with TxBuilder().addUtxo
   /// have priority over this. See the docs of the two linked methods for more details.
-  TxBuilder addUnSpendable(OutPoint unSpendable) {
+  TxBuilder addUnSpendable(types.OutPoint unSpendable) {
     _unSpendable.add(unSpendable);
     return this;
   }
@@ -1037,9 +1128,9 @@ class TxBuilder {
 
   ///Only spend change outputs
   ///
-  /// This effectively adds all the non-change outputs to the “unspendable” list.
+  /// This effectively adds all the non-change outputs to the "unspendable" list.
   TxBuilder onlySpendChange() {
-    _changeSpendPolicy = ChangeSpendPolicy.onlyChange;
+    _changeSpendPolicy = types.ChangeSpendPolicy.onlyChange;
     return this;
   }
 
@@ -1057,6 +1148,8 @@ class TxBuilder {
           unSpendable: _unSpendable,
           manuallySelectedOnly: _manuallySelectedOnly,
           drainWallet: _drainWallet,
+          externalPolicyPath: _externalPolicyPath,
+          internalPolicyPath: _internalPolicyPath,
           rbf: _rbfValue,
           drainTo: _drainTo,
           feeAbsolute: _feeAbsolute,

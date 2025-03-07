@@ -88,7 +88,9 @@ pub enum AddressIndex {
     /// index used by `AddressIndex` and `AddressIndex.LastUsed`.
     /// Use with caution, if an index is given that is less than the current descriptor index
     /// then the returned address may have already been used.
-    Peek { index: u32 },
+    Peek {
+        index: u32,
+    },
     /// Return the address for a specific descriptor index and reset the current descriptor index
     /// used by `AddressIndex` and `AddressIndex.LastUsed` to this value.
     /// Use with caution, if an index is given that is less than the current descriptor index
@@ -96,7 +98,9 @@ pub enum AddressIndex {
     /// and `AddressIndex.LastUsed` may have already been used. Also if the index is reset to a
     /// value earlier than the Blockchain stopGap (default is 20) then a
     /// larger stopGap should be used to monitor for all possibly used addresses.
-    Reset { index: u32 },
+    Reset {
+        index: u32,
+    },
 }
 // impl From<AddressIndex> for bdk_core::bitcoin::address::AddressIndex {
 //     fn from(x: AddressIndex) -> bdk_core::bitcoin::AddressIndex {
@@ -135,21 +139,20 @@ pub struct FfiCanonicalTx {
     pub chain_position: ChainPosition,
 }
 //TODO; Replace From with TryFrom
-impl
-    From<
-        bdk_wallet::chain::tx_graph::CanonicalTx<
-            '_,
-            Arc<bdk_core::bitcoin::transaction::Transaction>,
-            bdk_wallet::chain::ConfirmationBlockTime,
-        >,
-    > for FfiCanonicalTx
-{
+impl From<
+    bdk_wallet::chain::tx_graph::CanonicalTx<
+        '_,
+        Arc<bdk_core::bitcoin::transaction::Transaction>,
+        bdk_wallet::chain::ConfirmationBlockTime
+    >
+>
+for FfiCanonicalTx {
     fn from(
         value: bdk_wallet::chain::tx_graph::CanonicalTx<
             '_,
             Arc<bdk_core::bitcoin::transaction::Transaction>,
-            bdk_wallet::chain::ConfirmationBlockTime,
-        >,
+            bdk_wallet::chain::ConfirmationBlockTime
+        >
     ) -> Self {
         let chain_position = match value.chain_position {
             bdk_wallet::chain::ChainPosition::Confirmed(anchor) => {
@@ -239,7 +242,6 @@ impl From<WordCount> for bdk_wallet::keys::bip39::WordCount {
         }
     }
 }
-
 pub enum LockTime {
     Blocks(u32),
     Seconds(u32),
@@ -348,23 +350,18 @@ impl From<SignOptions> for bdk_wallet::SignOptions {
 }
 
 pub struct FfiFullScanRequestBuilder(
-    pub  RustOpaque<
-        std::sync::Mutex<
-            Option<bdk_core::spk_client::FullScanRequestBuilder<bdk_wallet::KeychainKind>>,
-        >,
-    >,
+    pub RustOpaque<std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequestBuilder<bdk_wallet::KeychainKind>>>>,
 );
 
 impl FfiFullScanRequestBuilder {
     pub fn inspect_spks_for_all_keychains(
         &self,
-        inspector: impl (Fn(KeychainKind, u32, FfiScriptBuf) -> DartFnFuture<()>)
-            + Send
-            + 'static
-            + std::marker::Sync,
+        inspector: impl (Fn(KeychainKind, u32, FfiScriptBuf) -> DartFnFuture<()>) +
+            Send +
+            'static +
+            std::marker::Sync
     ) -> Result<Self, RequestBuilderError> {
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
@@ -378,42 +375,40 @@ impl FfiFullScanRequestBuilder {
             runtime.block_on(inspector(keychain.into(), index, script.to_owned().into()))
         });
 
-        Ok(FfiFullScanRequestBuilder(RustOpaque::new(
-            std::sync::Mutex::new(Some(full_scan_request_builder)),
-        )))
+        Ok(
+            FfiFullScanRequestBuilder(
+                RustOpaque::new(std::sync::Mutex::new(Some(full_scan_request_builder)))
+            )
+        )
     }
     pub fn build(&self) -> Result<FfiFullScanRequest, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
             .ok_or(RequestBuilderError::RequestAlreadyConsumed)?;
-        Ok(FfiFullScanRequest(RustOpaque::new(std::sync::Mutex::new(
-            Some(guard.build()),
-        ))))
+        Ok(FfiFullScanRequest(RustOpaque::new(std::sync::Mutex::new(Some(guard.build())))))
     }
 }
 pub struct FfiSyncRequestBuilder(
-    pub  RustOpaque<
+    pub RustOpaque<
         std::sync::Mutex<
-            Option<bdk_core::spk_client::SyncRequestBuilder<(bdk_wallet::KeychainKind, u32)>>,
-        >,
+            Option<bdk_core::spk_client::SyncRequestBuilder<(bdk_wallet::KeychainKind, u32)>>
+        >
     >,
 );
 
 impl FfiSyncRequestBuilder {
     pub fn inspect_spks(
         &self,
-        inspector: impl (Fn(FfiScriptBuf, SyncProgress) -> DartFnFuture<()>)
-            + Send
-            + 'static
-            + std::marker::Sync,
+        inspector: impl (Fn(FfiScriptBuf, SyncProgress) -> DartFnFuture<()>) +
+            Send +
+            'static +
+            std::marker::Sync
     ) -> Result<Self, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
@@ -427,22 +422,21 @@ impl FfiSyncRequestBuilder {
                 }
             }
         });
-        Ok(FfiSyncRequestBuilder(RustOpaque::new(
-            std::sync::Mutex::new(Some(sync_request_builder)),
-        )))
+        Ok(
+            FfiSyncRequestBuilder(
+                RustOpaque::new(std::sync::Mutex::new(Some(sync_request_builder)))
+            )
+        )
     }
 
     pub fn build(&self) -> Result<FfiSyncRequest, RequestBuilderError> {
         //todo; resolve unhandled unwrap()s
-        let guard = self
-            .0
+        let guard = self.0
             .lock()
             .unwrap()
             .take()
             .ok_or(RequestBuilderError::RequestAlreadyConsumed)?;
-        Ok(FfiSyncRequest(RustOpaque::new(std::sync::Mutex::new(
-            Some(guard.build()),
-        ))))
+        Ok(FfiSyncRequest(RustOpaque::new(std::sync::Mutex::new(Some(guard.build())))))
     }
 }
 
@@ -458,15 +452,11 @@ pub struct SentAndReceivedValues {
     pub received: u64,
 }
 pub struct FfiFullScanRequest(
-    pub  RustOpaque<
-        std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequest<bdk_wallet::KeychainKind>>>,
-    >,
+    pub RustOpaque<std::sync::Mutex<Option<bdk_core::spk_client::FullScanRequest<bdk_wallet::KeychainKind>>>>,
 );
 pub struct FfiSyncRequest(
-    pub  RustOpaque<
-        std::sync::Mutex<
-            Option<bdk_core::spk_client::SyncRequest<(bdk_wallet::KeychainKind, u32)>>,
-        >,
+    pub RustOpaque<
+        std::sync::Mutex<Option<bdk_core::spk_client::SyncRequest<(bdk_wallet::KeychainKind, u32)>>>
     >,
 );
 /// Policy regarding the use of change outputs when creating a transaction
@@ -557,6 +547,285 @@ impl From<bdk_wallet::descriptor::Policy> for FfiPolicy {
     fn from(value: bdk_wallet::descriptor::Policy) -> Self {
         FfiPolicy {
             opaque: RustOpaque::new(value),
+        }
+    }
+}
+#[derive(Debug, Clone)]
+pub struct BdkPolicy {
+    pub ptr: RustOpaque<bdk::descriptor::Policy>,
+}
+impl BdkPolicy {
+    #[frb(sync)]
+    pub fn id(&self) -> String {
+        self.ptr.id.clone()
+    }
+    #[frb(sync)]
+    pub fn as_string(&self) -> Result<String, BdkError> {
+        serde_json::to_string(&*self.ptr).map_err(|e| BdkError::Generic(e.to_string()))
+    }
+    #[frb(sync)]
+    pub fn requires_path(&self) -> bool {
+        self.ptr.requires_path()
+    }
+    #[frb(sync)]
+    pub fn item(&self) -> SatisfiableItem {
+        self.ptr.item.clone().into()
+    }
+    #[frb(sync)]
+    pub fn satisfaction(&self) -> Satisfaction {
+        self.ptr.satisfaction.clone().into()
+    }
+    #[frb(sync)]
+    pub fn contribution(&self) -> Satisfaction {
+        self.ptr.contribution.clone().into()
+    }
+}
+impl From<bdk::descriptor::Policy> for BdkPolicy {
+    fn from(value: bdk::descriptor::Policy) -> Self {
+        BdkPolicy {
+            ptr: RustOpaque::new(value),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum SatisfiableItem {
+    EcdsaSignature {
+        key: PkOrF,
+    },
+    SchnorrSignature {
+        key: PkOrF,
+    },
+    Sha256Preimage {
+        hash: String,
+    },
+    Hash256Preimage {
+        hash: String,
+    },
+    Ripemd160Preimage {
+        hash: String,
+    },
+    Hash160Preimage {
+        hash: String,
+    },
+    AbsoluteTimelock {
+        value: LockTime,
+    },
+    RelativeTimelock {
+        value: u32,
+    },
+
+    Multisig {
+        keys: Vec<PkOrF>,
+
+        threshold: u64,
+    },
+
+    Thresh {
+        items: Vec<BdkPolicy>,
+
+        threshold: u64,
+    },
+}
+impl From<bdk::descriptor::policy::SatisfiableItem> for SatisfiableItem {
+    fn from(value: bdk::descriptor::policy::SatisfiableItem) -> Self {
+        match value {
+            bdk::descriptor::policy::SatisfiableItem::EcdsaSignature(pk_or_f) => {
+                SatisfiableItem::EcdsaSignature {
+                    key: pk_or_f.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::SchnorrSignature(pk_or_f) => {
+                SatisfiableItem::SchnorrSignature {
+                    key: pk_or_f.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Sha256Preimage { hash } => {
+                SatisfiableItem::Sha256Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Hash256Preimage { hash } => {
+                SatisfiableItem::Hash256Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Ripemd160Preimage { hash } => {
+                SatisfiableItem::Ripemd160Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Hash160Preimage { hash } => {
+                SatisfiableItem::Hash160Preimage {
+                    hash: hash.to_string(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::AbsoluteTimelock { value } => {
+                SatisfiableItem::AbsoluteTimelock {
+                    value: value.into(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::RelativeTimelock { value } => {
+                SatisfiableItem::RelativeTimelock {
+                    value: value.to_consensus_u32(),
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Multisig { keys, threshold } => {
+                SatisfiableItem::Multisig {
+                    keys: keys
+                        .iter()
+                        .map(|e| e.to_owned().into())
+                        .collect(),
+                    threshold: threshold as u64,
+                }
+            }
+            bdk::descriptor::policy::SatisfiableItem::Thresh { items, threshold } => {
+                SatisfiableItem::Thresh {
+                    items: items
+                        .iter()
+                        .map(|e| e.to_owned().into())
+                        .collect(),
+                    threshold: threshold as u64,
+                }
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum PkOrF {
+    Pubkey {
+        value: String,
+    },
+    XOnlyPubkey {
+        value: String,
+    },
+    Fingerprint {
+        value: String,
+    },
+}
+impl From<bdk::descriptor::policy::PkOrF> for PkOrF {
+    fn from(value: bdk::descriptor::policy::PkOrF) -> Self {
+        match value {
+            bdk::descriptor::policy::PkOrF::Pubkey(public_key) =>
+                PkOrF::Pubkey {
+                    value: public_key.to_string(),
+                },
+            bdk::descriptor::policy::PkOrF::XOnlyPubkey(xonly_public_key) =>
+                PkOrF::XOnlyPubkey {
+                    value: xonly_public_key.to_string(),
+                },
+            bdk::descriptor::policy::PkOrF::Fingerprint(fingerprint) =>
+                PkOrF::Fingerprint {
+                    value: fingerprint.to_string(),
+                },
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum Satisfaction {
+    Partial {
+        n: u64,
+        m: u64,
+        items: Vec<u64>,
+        sorted: Option<bool>,
+        conditions: HashMap<u32, Vec<Condition>>,
+    },
+    PartialComplete {
+        n: u64,
+        m: u64,
+        items: Vec<u64>,
+        sorted: Option<bool>,
+        conditions: HashMap<Vec<u32>, Vec<Condition>>,
+    },
+    Complete {
+        condition: Condition,
+    },
+
+    None {
+        msg: String,
+    },
+}
+impl From<bdk::descriptor::policy::Satisfaction> for Satisfaction {
+    fn from(value: bdk::descriptor::policy::Satisfaction) -> Self {
+        match value {
+            bdk::descriptor::policy::Satisfaction::Partial { n, m, items, sorted, conditions } =>
+                Satisfaction::Partial {
+                    n: n as u64,
+                    m: m as u64,
+                    items: items
+                        .iter()
+                        .map(|e| e.to_owned() as u64)
+                        .collect(),
+                    sorted,
+                    conditions: conditions
+                        .into_iter()
+                        .map(|(index, conditions)| {
+                            (
+                                index as u32,
+                                conditions
+                                    .into_iter()
+                                    .map(|e| e.into())
+                                    .collect(),
+                            )
+                        })
+                        .collect(),
+                },
+            bdk::descriptor::policy::Satisfaction::PartialComplete {
+                n,
+                m,
+                items,
+                sorted,
+                conditions,
+            } =>
+                Satisfaction::PartialComplete {
+                    n: n as u64,
+                    m: m as u64,
+                    items: items
+                        .iter()
+                        .map(|e| e.to_owned() as u64)
+                        .collect(),
+                    sorted,
+                    conditions: conditions
+                        .into_iter()
+                        .map(|(index, conditions)| {
+                            (
+                                index
+                                    .iter()
+                                    .map(|e| e.to_owned() as u32)
+                                    .collect(),
+                                conditions
+                                    .into_iter()
+                                    .map(|e| e.into())
+                                    .collect(), // Convert each `Condition` to `YourType`
+                            )
+                        })
+                        .collect(),
+                },
+            bdk::descriptor::policy::Satisfaction::Complete { condition } => {
+                Satisfaction::Complete {
+                    condition: condition.into(),
+                }
+            }
+            bdk::descriptor::policy::Satisfaction::None =>
+                Satisfaction::None {
+                    msg: "Cannot satisfy or contribute to the policy item".to_string(),
+                },
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Condition {
+    pub csv: Option<u32>,
+    pub timelock: Option<LockTime>,
+}
+impl From<bdk::descriptor::policy::Condition> for Condition {
+    fn from(value: bdk::descriptor::policy::Condition) -> Self {
+        Condition {
+            csv: value.csv.map(|e| e.to_consensus_u32()),
+            timelock: value.timelock.map(|e| e.into()),
         }
     }
 }

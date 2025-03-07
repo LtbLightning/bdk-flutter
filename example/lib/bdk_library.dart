@@ -130,7 +130,7 @@ class BdkLibrary {
           .addRecipient(address.script(), BigInt.from(amountSat))
           .addUtxo(unspentUtxo.outpoint)
           .finish(wallet);
-      final isFinalized = await wallet.sign(psbt: psbt);
+      final isFinalized = wallet.sign(psbt: psbt);
       if (isFinalized) {
         final tx = psbt.extractTx();
         await blockchain.broadcast(transaction: tx);

@@ -18,7 +18,7 @@ all: init native
 
 native:
 	@echo "[GENERATING FRB CODE] $@"
-	flutter_rust_bridge_codegen generate
+	flutter_rust_bridge_codegen generate && flutter pub run build_runner build
 	@echo "[Done ✅]"
 
 
