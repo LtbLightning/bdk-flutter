@@ -1,16 +1,28 @@
+# EXAMPLE USAGE
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+
 pre-commit:
+  parallel: true
   commands:
-    lint_code:
-      glob: '*.dart'
+    dart_fix:
+      glob: "*.dart"
       run: dart fix lib --apply && git add .
-    format_code:
-      glob: '*.dart'
+    dart_format:
+      glob: "*.dart"
       run: dart format . && git add .
+    rust_format:
+      glob: "*.rs"
+      run: cd rust && cargo fmt && git add .
 
 pre-push:
   parallel: true
   commands:
-    tests:
-      run: flutter test
-    static_code_analysis:
+    # flutter_test:
+    #   run: flutter test
+    # rust_test:
+    #   run: cargo test
+    flutter_analyze:
       run: flutter analyze
+    # rust_clippy:
+    #   run: cd rust && cargo clippy -- -D warnings

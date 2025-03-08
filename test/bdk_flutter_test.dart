@@ -97,11 +97,9 @@ void main() {
 
   group('Descriptor Tests', () {
     late MockDescriptor mockDescriptor;
-    late MockDescriptorSecretKey mockSecretKey;
 
     setUp(() {
       mockDescriptor = MockDescriptor();
-      mockSecretKey = MockDescriptorSecretKey();
     });
 
     test('create() returns valid descriptor', () async {
@@ -114,12 +112,10 @@ void main() {
   group('EsploraClient Tests', () {
     late MockEsploraClient mockClient;
     late MockTransaction mockTx;
-    late MockUpdate mockUpdate;
 
     setUp(() {
       mockClient = MockEsploraClient();
       mockTx = MockTransaction();
-      mockUpdate = MockUpdate();
     });
 
     test('broadcast() succeeds', () async {
@@ -141,13 +137,11 @@ void main() {
   group('Wallet Tests', () {
     late MockWallet mockWallet;
     late MockAddressInfo mockAddressInfo;
-    late MockTransaction mockTx;
     late MockLocalOutput mockOutput;
 
     setUp(() {
       mockWallet = MockWallet();
       mockAddressInfo = MockAddressInfo();
-      mockTx = MockTransaction();
       mockOutput = MockLocalOutput();
     });
 
@@ -182,14 +176,6 @@ void main() {
   });
 
   group('PSBT Tests', () {
-    late MockPSBT mockPsbt;
-    late MockTransaction mockTx;
-
-    setUp(() {
-      mockPsbt = MockPSBT();
-      mockTx = MockTransaction();
-    });
-
     // test('fromString() creates valid PSBT', () async {
     //   const validPsbtBase64 =
     //       "cHNidP8BAHECAAAAAn+RHcVztpnXXtZyDLORWgd9IBgaRqjMz3L4oyfqelmLAAAAAAD+////kYv9zYwORLgUp2G/C2yT1G01c1KqgnBBdGz4vM7lbrcAAAAAAP7///8CYOMhAAAAAAAWABTQTaKJp3XepSAU6zRmKaWZNvam1/AiMQAAAAAAFgAUK4uLIPsZlZdP/ZL9QO3Xhh1o5OQAAAAAAAEBIIDDIQAAAAAACgAAAIABAIACAACAAAABASCAlpgAAAAAABYAFHI3ddhY4rGxBJNwSBPpztnjcIhUAQVHUiEDghdV1cgrVOiPqFqP5H0SmcPGA/MSLOa3F0Awk+JcCX4hA1Ds6R+JGvmh6rXnVFmXgY/8oIkuR0mD5BJVMgd2td9YUq4iBgOCF1XVyCtU6I+oWo/kfRKZw8YD8xIs5rcXQDCT4lwJfhirqOJUAACAAAAAgAAAAIACAACAAAAAAAAAAAAiBgNQ7OkfiRr5oeq151RZl4GP/KCJLkdJg+QSVTIHdrXfWBi7oqBUAACAAAAAgAAAAIACAACAAAAAAAAAAAABBUdSIQJf0d9flM3+BaCGIaGfeADYDj7kv6A/K3COquQmFaF+kyEDOyoxu8TcrHH7ZuXiAmEBxoKKaOTqZ0MZwCw9mRKJb7xSriICAl/R31+Uzf4FoIYhoZ94ANgOPuS/oD8rcI6q5CYVoX6TGNn1YlQAAIAAAACAAAAAgAIAAIAAAAAAAAAAACICAzsiMbvE3Kxx+2bl4gJhAcaCimjk6mdDGcAsPZkSiW+8GKeS71QAAIAAAACAAAAAgAIAAIAAAAAAAAAAAAEBR1IhAqIXv4yx8PKe8nez1E75MrLiB0qrKvZYIB3MU0TzqVlrIQK4YxHyyfboyQCHMzOCE1n5CwTKrVcFGzE4p1sRJr5wk1KuIgICohe/jLHw8p7yd7PUTvkysuIHSqsq9lggHcxTRPOpWWsY2fViVAAAgAAAAIAAAACAAgAAgAAAAAAAAAAAIgICuGMR8sn26MkAhzMzghNZ+QsEyq1XBRsxOKdbESa+cJMYp5LvVAAAgAAAAIAAAACAAgAAgAAAAAAAAAAA";
@@ -202,19 +188,6 @@ void main() {
     //     () => PSBT.fromString('invalid'),
     //     throwsA(isA<PsbtException>()),
     //   );
-    // });
-  });
-
-  group('ScriptBuf Tests', () {
-    late MockScriptBuf mockScript;
-
-    setUp(() {
-      mockScript = MockScriptBuf();
-    });
-
-    // test('withCapacity() creates script with capacity', () async {
-    //   final script = await ScriptBuf.withCapacity(BigInt.from(32));
-    //   expect(script, isA<ScriptBuf>());
     // });
   });
 
@@ -243,12 +216,10 @@ void main() {
   group('TxBuilder Tests', () {
     late MockTxBuilder mockBuilder;
     late MockWallet mockWallet;
-    late MockScriptBuf mockScript;
 
     setUp(() {
       mockBuilder = MockTxBuilder();
       mockWallet = MockWallet();
-      mockScript = MockScriptBuf();
     });
 
     test('finish() creates valid transaction', () async {
@@ -284,11 +255,9 @@ void main() {
 
   group('DescriptorSecretKey Tests', () {
     late MockDescriptorSecretKey mockSecretKey;
-    late MockDerivationPath mockPath;
 
     setUp(() {
       mockSecretKey = MockDescriptorSecretKey();
-      mockPath = MockDerivationPath();
     });
 
     test('fromString() parses a valid secret key', () async {
