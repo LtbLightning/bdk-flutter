@@ -292,168 +292,292 @@ class VerifyTransactionException extends BdkFfiException {
 }
 
 Exception mapHexError(HexError error) {
-  return error.when(
-      invalidChar: (e) => HexException(message: "Non-hexadecimal character $e"),
-      oddLengthString: (e) =>
-          HexException(message: "Purported hex string had odd length $e"),
-      invalidLength: (BigInt expected, BigInt found) => HexException(
-          message:
-              "Tried to parse fixed-length hash from a string with the wrong type; \n expected: ${expected.toString()}, found: ${found.toString()}."));
+  if (error is HexError_InvalidChar) {
+    return HexException(message: "Non-hexadecimal character ${error.field0}");
+  } else if (error is HexError_OddLengthString) {
+    return HexException(
+      message: "Purported hex string had odd length ${error.field0}",
+    );
+  } else if (error is HexError_InvalidLength) {
+    return HexException(
+      message:
+          "Tried to parse fixed-length hash from a string with the wrong type; \n expected: ${error.field0}, found: ${error.field1}.",
+    );
+  }
+  return HexException(message: "Unknown hex error");
 }
 
 Exception mapAddressError(AddressError error) {
-  return error.when(
-      base58: (e) => AddressException(message: "Base58 encoding error: $e"),
-      bech32: (e) => AddressException(message: "Bech32 encoding error: $e"),
-      emptyBech32Payload: () =>
-          AddressException(message: "The bech32 payload was empty."),
-      invalidBech32Variant: (e, f) => AddressException(
-          message:
-              "Invalid bech32 variant: The wrong checksum algorithm was used. See BIP-0350; \n expected:$e, found: $f "),
-      invalidWitnessVersion: (e) => AddressException(
-          message:
-              "Invalid witness version script: $e, version must be 0 to 16 inclusive."),
-      unparsableWitnessVersion: (e) => AddressException(
-          message: "Unable to parse witness version from string: $e"),
-      malformedWitnessVersion: () => AddressException(
-          message:
-              "Bitcoin script opcode does not match any known witness version, the script is malformed."),
-      invalidWitnessProgramLength: (e) => AddressException(
-          message:
-              "Invalid witness program length: $e, The witness program must be between 2 and 40 bytes in length."),
-      invalidSegwitV0ProgramLength: (e) => AddressException(
-          message:
-              "Invalid segwitV0 program length: $e, A v0 witness program must be either of length 20 or 32."),
-      uncompressedPubkey: () => AddressException(
-          message: "An uncompressed pubkey was used where it is not allowed."),
-      excessiveScriptSize: () => AddressException(
-          message: "Address size more than 520 bytes is not allowed."),
-      unrecognizedScript: () => AddressException(
-          message:
-              "Unrecognized script: Script is not a p2pkh, p2sh or witness program."),
-      unknownAddressType: (e) => AddressException(
-          message: "Unknown address type: $e, Address type is either invalid or not supported in rust-bitcoin."),
-      networkValidation: (required, found, _) => AddressException(message: "Address’s network differs from required one; \n required: $required, found: $found "));
+  if (error is AddressError_Base58) {
+    return AddressException(message: "Base58 encoding error: ${error.field0}");
+  } else if (error is AddressError_Bech32) {
+    return AddressException(message: "Bech32 encoding error: ${error.field0}");
+  } else if (error is AddressError_EmptyBech32Payload) {
+    return AddressException(message: "The bech32 payload was empty.");
+  } else if (error is AddressError_InvalidBech32Variant) {
+    return AddressException(
+      message:
+          "Invalid bech32 variant: The wrong checksum algorithm was used. See BIP-0350; \n expected: ${error.expected}, found: ${error.found}",
+    );
+  } else if (error is AddressError_InvalidWitnessVersion) {
+    return AddressException(
+      message:
+          "Invalid witness version script: ${error.field0}, version must be 0 to 16 inclusive.",
+    );
+  } else if (error is AddressError_UnparsableWitnessVersion) {
+    return AddressException(
+      message: "Unable to parse witness version from string: ${error.field0}",
+    );
+  } else if (error is AddressError_MalformedWitnessVersion) {
+    return AddressException(
+      message:
+          "Bitcoin script opcode does not match any known witness version, the script is malformed.",
+    );
+  } else if (error is AddressError_InvalidWitnessProgramLength) {
+    return AddressException(
+      message:
+          "Invalid witness program length: ${error.field0}, The witness program must be between 2 and 40 bytes in length.",
+    );
+  } else if (error is AddressError_InvalidSegwitV0ProgramLength) {
+    return AddressException(
+      message:
+          "Invalid segwitV0 program length: ${error.field0}, A v0 witness program must be either of length 20 or 32.",
+    );
+  } else if (error is AddressError_UncompressedPubkey) {
+    return AddressException(
+      message: "An uncompressed pubkey was used where it is not allowed.",
+    );
+  } else if (error is AddressError_ExcessiveScriptSize) {
+    return AddressException(
+      message: "Address size more than 520 bytes is not allowed.",
+    );
+  } else if (error is AddressError_UnrecognizedScript) {
+    return AddressException(
+      message:
+          "Unrecognized script: Script is not a p2pkh, p2sh or witness program.",
+    );
+  } else if (error is AddressError_UnknownAddressType) {
+    return AddressException(
+      message:
+          "Unknown address type: ${error.field0}, Address type is either invalid or not supported in rust-bitcoin.",
+    );
+  } else if (error is AddressError_NetworkValidation) {
+    return AddressException(
+      message:
+          "Address's network differs from required one; \n required: ${error.networkRequired}, found: ${error.networkFound}",
+    );
+  }
+  return AddressException(message: "Unknown address error");
 }
 
 Exception mapDescriptorError(DescriptorError error) {
-  return error.when(
-    invalidHdKeyPath: () => DescriptorException(
-        message:
-            "Invalid HD Key path, such as having a wildcard but a length != 1"),
-    invalidDescriptorChecksum: () => DescriptorException(
-        message: "The provided descriptor doesn’t match its checksum"),
-    hardenedDerivationXpub: () => DescriptorException(
-        message: "The provided descriptor doesn’t match its checksum"),
-    multiPath: () =>
-        DescriptorException(message: "The descriptor contains multipath keys"),
-    key: (e) => KeyException(message: e),
-    policy: (e) => DescriptorException(
-        message: "Error while extracting and manipulating policies: $e"),
-    bip32: (e) => Bip32Exception(message: e),
-    base58: (e) =>
-        DescriptorException(message: "Error during base58 decoding: $e"),
-    pk: (e) => KeyException(message: e),
-    miniscript: (e) => MiniscriptException(message: e),
-    hex: (e) => HexException(message: e),
-    invalidDescriptorCharacter: (e) => DescriptorException(
-        message: "Invalid byte found in the descriptor checksum: $e"),
-  );
+  if (error is DescriptorError_InvalidHdKeyPath) {
+    return DescriptorException(
+      message:
+          "Invalid HD Key path, such as having a wildcard but a length != 1",
+    );
+  } else if (error is DescriptorError_InvalidDescriptorChecksum) {
+    return DescriptorException(
+      message: "The provided descriptor doesn't match its checksum",
+    );
+  } else if (error is DescriptorError_HardenedDerivationXpub) {
+    return DescriptorException(message: "Hardened derivation with xpub");
+  } else if (error is DescriptorError_MultiPath) {
+    return DescriptorException(
+      message: "The descriptor contains multipath keys",
+    );
+  } else if (error is DescriptorError_Key) {
+    return KeyException(message: error.field0);
+  } else if (error is DescriptorError_Policy) {
+    return DescriptorException(
+      message:
+          "Error while extracting and manipulating policies: ${error.field0}",
+    );
+  } else if (error is DescriptorError_Bip32) {
+    return Bip32Exception(message: error.field0);
+  } else if (error is DescriptorError_Base58) {
+    return DescriptorException(
+      message: "Error during base58 decoding: ${error.field0}",
+    );
+  } else if (error is DescriptorError_Pk) {
+    return KeyException(message: error.field0);
+  } else if (error is DescriptorError_Miniscript) {
+    return MiniscriptException(message: error.field0);
+  } else if (error is DescriptorError_Hex) {
+    return HexException(message: error.field0);
+  } else if (error is DescriptorError_InvalidDescriptorCharacter) {
+    return DescriptorException(
+      message: "Invalid byte found in the descriptor checksum: ${error.field0}",
+    );
+  }
+  return DescriptorException(message: "Unknown descriptor error");
 }
 
 Exception mapConsensusError(ConsensusError error) {
-  return error.when(
-      io: (e) => ConsensusException(message: "I/O error: $e"),
-      oversizedVectorAllocation: (e, f) => ConsensusException(
-          message:
-              "Tried to allocate an oversized vector. The capacity requested: $e, found: $f "),
-      invalidChecksum: (e, f) => ConsensusException(
-          message:
-              "Checksum was invalid, expected: ${e.toString()}, actual:${f.toString()}"),
-      nonMinimalVarInt: () => ConsensusException(
-          message: "VarInt was encoded in a non-minimal way."),
-      parseFailed: (e) => ConsensusException(message: "Parsing error: $e"),
-      unsupportedSegwitFlag: (e) =>
-          ConsensusException(message: "Unsupported segwit flag $e"));
+  if (error is ConsensusError_Io) {
+    return ConsensusException(message: "I/O error: ${error.field0}");
+  } else if (error is ConsensusError_OversizedVectorAllocation) {
+    return ConsensusException(
+      message:
+          "Tried to allocate an oversized vector. The capacity requested: ${error.requested}, found: ${error.max}",
+    );
+  } else if (error is ConsensusError_InvalidChecksum) {
+    return ConsensusException(
+      message:
+          "Checksum was invalid, expected: ${error.expected}, actual: ${error.actual}",
+    );
+  } else if (error is ConsensusError_NonMinimalVarInt) {
+    return ConsensusException(
+      message: "VarInt was encoded in a non-minimal way.",
+    );
+  } else if (error is ConsensusError_ParseFailed) {
+    return ConsensusException(message: "Parsing error: ${error.field0}");
+  } else if (error is ConsensusError_UnsupportedSegwitFlag) {
+    return ConsensusException(
+      message: "Unsupported segwit flag ${error.field0}",
+    );
+  }
+  return ConsensusException(message: "Unknown consensus error");
 }
 
 Exception mapBdkError(BdkError error) {
-  return error.when(
-    noUtxosSelected: () => NoUtxosSelectedException(
-        message:
-            "manuallySelectedOnly option is selected but no utxo has been passed"),
-    invalidU32Bytes: (e) => InvalidByteException(
-        message:
-            'Wrong number of bytes found when trying to convert the bytes, ${e.toString()}'),
-    generic: (e) => GenericException(message: e),
-    scriptDoesntHaveAddressForm: () => ScriptDoesntHaveAddressFormException(),
-    noRecipients: () => NoRecipientsException(
-        message: "Failed to build a transaction without recipients"),
-    outputBelowDustLimit: (e) => OutputBelowDustLimitException(
-        message:
-            'Output created is under the dust limit (546 sats). Output value: ${e.toString()}'),
-    insufficientFunds: (needed, available) => InsufficientFundsException(
-        message:
-            "Wallet's UTXO set is not enough to cover recipient's requested plus fee; \n Needed: $needed, Available: $available"),
-    bnBTotalTriesExceeded: () => BnBTotalTriesExceededException(
-        message:
-            "Utxo branch and bound coin selection attempts have reached its limit"),
-    bnBNoExactMatch: () => BnBNoExactMatchException(
-        message:
-            "Utxo branch and bound coin selection failed to find the correct inputs for the desired outputs."),
-    unknownUtxo: () => UnknownUtxoException(
-        message: "Utxo not found in the internal database"),
-    transactionNotFound: () => TransactionNotFoundException(),
-    transactionConfirmed: () => TransactionConfirmedException(),
-    irreplaceableTransaction: () => IrreplaceableTransactionException(
-        message:
-            "Trying to replace the transaction that has a sequence >= 0xFFFFFFFE"),
-    feeRateTooLow: (e) => FeeRateTooLowException(
-        message:
-            "The Fee rate requested is lower than required. Required: ${e.toString()}"),
-    feeTooLow: (e) => FeeTooLowException(
-        message:
-            "The absolute fee requested is lower than replaced tx's absolute fee; \n Required: ${e.toString()}"),
-    feeRateUnavailable: () => FeeRateUnavailableException(
-        message: "Node doesn't have data to estimate a fee rate"),
-    missingKeyOrigin: (e) => MissingKeyOriginException(message: e.toString()),
-    key: (e) => KeyException(message: e.toString()),
-    checksumMismatch: () => ChecksumMismatchException(),
-    spendingPolicyRequired: (e) => SpendingPolicyRequiredException(
-        message: "Spending policy is not compatible with: ${e.toString()}"),
-    invalidPolicyPathError: (e) =>
-        InvalidPolicyPathException(message: e.toString()),
-    signer: (e) => SignerException(message: e.toString()),
-    invalidNetwork: (requested, found) => InvalidNetworkException(
-        message: 'Requested; $requested, Found: $found'),
-    invalidOutpoint: (e) => InvalidOutpointException(
-        message:
-            "${e.toString()} doesn’t exist in the tx (vout greater than available outputs)"),
-    descriptor: (e) => mapDescriptorError(e),
-    encode: (e) => EncodeException(message: e.toString()),
-    miniscript: (e) => MiniscriptException(message: e.toString()),
-    miniscriptPsbt: (e) => MiniscriptPsbtException(message: e.toString()),
-    bip32: (e) => Bip32Exception(message: e.toString()),
-    secp256K1: (e) => Secp256k1Exception(message: e.toString()),
-    missingCachedScripts: (missingCount, lastCount) =>
-        MissingCachedScriptsException(
-            message:
-                'Sync attempt failed due to missing scripts in cache which are needed to satisfy stop_gap; \n MissingCount: $missingCount, LastCount: $lastCount '),
-    json: (e) => JsonException(message: e.toString()),
-    hex: (e) => mapHexError(e),
-    psbt: (e) => PsbtException(message: e.toString()),
-    psbtParse: (e) => PsbtParseException(message: e.toString()),
-    electrum: (e) => ElectrumException(message: e.toString()),
-    esplora: (e) => EsploraException(message: e.toString()),
-    sled: (e) => SledException(message: e.toString()),
-    rpc: (e) => RpcException(message: e.toString()),
-    rusqlite: (e) => RusqliteException(message: e.toString()),
-    consensus: (e) => mapConsensusError(e),
-    address: (e) => mapAddressError(e),
-    bip39: (e) => Bip39Exception(message: e.toString()),
-    invalidInput: (e) => InvalidInputException(message: e),
-    invalidLockTime: (e) => InvalidLockTimeException(message: e),
-    invalidTransaction: (e) => InvalidTransactionException(message: e),
-    verifyTransaction: (e) => VerifyTransactionException(message: e),
-  );
+  if (error is BdkError_NoUtxosSelected) {
+    return NoUtxosSelectedException(
+      message:
+          "manuallySelectedOnly option is selected but no utxo has been passed",
+    );
+  } else if (error is BdkError_InvalidU32Bytes) {
+    return InvalidByteException(
+      message:
+          'Wrong number of bytes found when trying to convert the bytes, ${error.field0}',
+    );
+  } else if (error is BdkError_Generic) {
+    return GenericException(message: error.field0);
+  } else if (error is BdkError_ScriptDoesntHaveAddressForm) {
+    return ScriptDoesntHaveAddressFormException();
+  } else if (error is BdkError_NoRecipients) {
+    return NoRecipientsException(
+      message: "Failed to build a transaction without recipients",
+    );
+  } else if (error is BdkError_OutputBelowDustLimit) {
+    return OutputBelowDustLimitException(
+      message:
+          'Output created is under the dust limit (546 sats). Output value: ${error.field0}',
+    );
+  } else if (error is BdkError_InsufficientFunds) {
+    return InsufficientFundsException(
+      message:
+          "Wallet's UTXO set is not enough to cover recipient's requested plus fee; \n Needed: ${error.needed}, Available: ${error.available}",
+    );
+  } else if (error is BdkError_BnBTotalTriesExceeded) {
+    return BnBTotalTriesExceededException(
+      message:
+          "Utxo branch and bound coin selection attempts have reached its limit",
+    );
+  } else if (error is BdkError_BnBNoExactMatch) {
+    return BnBNoExactMatchException(
+      message:
+          "Utxo branch and bound coin selection failed to find the correct inputs for the desired outputs.",
+    );
+  } else if (error is BdkError_UnknownUtxo) {
+    return UnknownUtxoException(
+      message: "Utxo not found in the internal database",
+    );
+  } else if (error is BdkError_TransactionNotFound) {
+    return TransactionNotFoundException();
+  } else if (error is BdkError_TransactionConfirmed) {
+    return TransactionConfirmedException();
+  } else if (error is BdkError_IrreplaceableTransaction) {
+    return IrreplaceableTransactionException(
+      message:
+          "Trying to replace the transaction that has a sequence >= 0xFFFFFFFE",
+    );
+  } else if (error is BdkError_FeeRateTooLow) {
+    return FeeRateTooLowException(
+      message:
+          "The Fee rate requested is lower than required. Required: ${error.needed}",
+    );
+  } else if (error is BdkError_FeeTooLow) {
+    return FeeTooLowException(
+      message:
+          "The absolute fee requested is lower than replaced tx's absolute fee; \n Required: ${error.needed}",
+    );
+  } else if (error is BdkError_FeeRateUnavailable) {
+    return FeeRateUnavailableException(
+      message: "Node doesn't have data to estimate a fee rate",
+    );
+  } else if (error is BdkError_MissingKeyOrigin) {
+    return MissingKeyOriginException(message: error.field0);
+  } else if (error is BdkError_Key) {
+    return KeyException(message: error.field0);
+  } else if (error is BdkError_ChecksumMismatch) {
+    return ChecksumMismatchException();
+  } else if (error is BdkError_SpendingPolicyRequired) {
+    return SpendingPolicyRequiredException(
+      message: "Spending policy is not compatible with: ${error.field0}",
+    );
+  } else if (error is BdkError_InvalidPolicyPathError) {
+    return InvalidPolicyPathException(message: error.field0);
+  } else if (error is BdkError_Signer) {
+    return SignerException(message: error.field0);
+  } else if (error is BdkError_InvalidNetwork) {
+    return InvalidNetworkException(
+      message: 'Requested: ${error.requested}, Found: ${error.found}',
+    );
+  } else if (error is BdkError_InvalidOutpoint) {
+    return InvalidOutpointException(
+      message:
+          "${error.field0} doesn't exist in the tx (vout greater than available outputs)",
+    );
+  } else if (error is BdkError_Descriptor) {
+    return mapDescriptorError(error.field0);
+  } else if (error is BdkError_Encode) {
+    return EncodeException(message: error.field0);
+  } else if (error is BdkError_Miniscript) {
+    return MiniscriptException(message: error.field0);
+  } else if (error is BdkError_MiniscriptPsbt) {
+    return MiniscriptPsbtException(message: error.field0);
+  } else if (error is BdkError_Bip32) {
+    return Bip32Exception(message: error.field0);
+  } else if (error is BdkError_Secp256k1) {
+    return Secp256k1Exception(message: error.field0);
+  } else if (error is BdkError_MissingCachedScripts) {
+    return MissingCachedScriptsException(
+      message:
+          'Sync attempt failed due to missing scripts in cache which are needed to satisfy stop_gap; \n MissingCount: ${error.field0}, LastCount: ${error.field1}',
+    );
+  } else if (error is BdkError_Json) {
+    return JsonException(message: error.field0);
+  } else if (error is BdkError_Hex) {
+    return mapHexError(error.field0);
+  } else if (error is BdkError_Psbt) {
+    return PsbtException(message: error.field0);
+  } else if (error is BdkError_PsbtParse) {
+    return PsbtParseException(message: error.field0);
+  } else if (error is BdkError_Electrum) {
+    return ElectrumException(message: error.field0);
+  } else if (error is BdkError_Esplora) {
+    return EsploraException(message: error.field0);
+  } else if (error is BdkError_Sled) {
+    return SledException(message: error.field0);
+  } else if (error is BdkError_Rpc) {
+    return RpcException(message: error.field0);
+  } else if (error is BdkError_Rusqlite) {
+    return RusqliteException(message: error.field0);
+  } else if (error is BdkError_Consensus) {
+    return mapConsensusError(error.field0);
+  } else if (error is BdkError_Address) {
+    return mapAddressError(error.field0);
+  } else if (error is BdkError_Bip39) {
+    return Bip39Exception(message: error.field0);
+  } else if (error is BdkError_InvalidInput) {
+    return InvalidInputException(message: error.field0);
+  } else if (error is BdkError_InvalidLockTime) {
+    return InvalidLockTimeException(message: error.field0);
+  } else if (error is BdkError_InvalidTransaction) {
+    return InvalidTransactionException(message: error.field0);
+  } else if (error is BdkError_VerifyTransaction) {
+    return VerifyTransactionException(message: error.field0);
+  }
+  return GenericException(message: "Unknown BDK error");
 }

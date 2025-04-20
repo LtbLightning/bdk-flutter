@@ -6,6 +6,7 @@
 #### Fixed
 - Removed unnecessary class exports.
 - Resolved the `txBuilder.setRecipients` error.
+- Resolved class incompatibility issues and renamed conflicting classes.
 
 ## [0.31.2]
 Updated `flutter_rust_bridge` to `2.0.0`.

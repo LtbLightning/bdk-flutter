@@ -102,14 +102,14 @@ final bdkWallet = .....
 final txBuilder  = TxBuilder();
 final address = await Address.fromString(s: "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB", network: Network.testnet);
 
-final script = await address.scriptPubkey();
+final script =  address.scriptPubkey();
 final feeRate = await blockchain.estimateFee(target: 25);
 
 final (psbt, transactionDetails) = await txBuilder.feeRate( feeRate.satPerVb )
                                        .addRecipient( script, 2000 )
                                        .finish( bdkWallet );
 
-final serializedPsbt = await psbt.jsonSerialize();
+final serializedPsbt =  psbt.jsonSerialize();
 final jsonObject = json.decode(serializedPsbt);
 final outputs = jsonObject['unsigned_tx']['output'] as List;
 final inputs = jsonObject['inputs'][0]['non_witness_utxo']['output'] as List;
@@ -141,7 +141,7 @@ final descriptorSecretKey = await DescriptorSecretKey.create(
 // create external descriptor
 final derivationPath = await DerivationPath.create(path: "m/44h/1h/0h/0");
 final descriptorPrivateKey =
-        await descriptorSecretKey.derive(derivationPath);
+         descriptorSecretKey.derive(derivationPath);
 final Descriptor descriptorPrivate = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKey.toString()})",
       network: Network.testnet,
@@ -151,7 +151,7 @@ final Descriptor descriptorPrivate = await Descriptor.create(
 final derivationPathInt =
         await DerivationPath.create(path: "m/44h/1h/0h/1");
 final descriptorPrivateKeyInt =
-        await descriptorSecretKey.derive(derivationPathInt);
+         descriptorSecretKey.derive(derivationPathInt);
 final Descriptor descriptorPrivateInt = await Descriptor.create(
       descriptor: "pkh(${descriptorPrivateKeyInt.toString()})",
       network: Network.testnet,
@@ -165,9 +165,9 @@ final bdkWallet = await Wallet.create(
     );
 
 final address =
-        await bdkWallet.getAddress(addressIndex: const AddressIndex.increase());
+        bdkWallet.getAddress(addressIndex: const AddressIndex.increase());
 final internalAddress =
-        await bdkWallet.getInternalAddress(addressIndex: const AddressIndex.increase());
+        bdkWallet.getInternalAddress(addressIndex: const AddressIndex.increase());
 
 ```
 
