@@ -2,7 +2,7 @@
 
 #### Upgrades
 
-- Updated `Flutter` dependencies to the latest version.
+- Updated `Flutter` and `Rust` dependencies to the latest version.
 - Upgraded `Gradle` to version 8.4.0 and `Java` to version 17.
 - Upgraded `android-ndk` to `26.3.11579264`.
 
