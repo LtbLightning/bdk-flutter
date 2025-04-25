@@ -1,47 +1,42 @@
 ///A Flutter library for the [Bitcoin Development Kit](https://bitcoindevkit.org/).
 library bdk_flutter;
 
-export './src/generated/api/blockchain.dart'
-    show
-        Auth,
-        BlockchainConfig,
-        ElectrumConfig,
-        EsploraConfig,
-        RpcConfig,
-        RpcSyncParams;
-
 export './src/generated/api/types.dart'
     show
-        AddressIndex,
         Balance,
-        BlockTime,
+        BlockId,
+        ChainPosition,
         ChangeSpendPolicy,
-        Condition,
-        DatabaseConfig,
-        FeeRate,
-        Input,
         KeychainKind,
-        LockTime,
+        LocalOutput,
         Network,
-        OutPoint,
-        Payload,
-        PkOrF,
-        PsbtSigHashType,
         RbfValue,
-        Satisfaction,
-        SatisfiableItem,
         SignOptions,
-        SledDbConfiguration,
-        SqliteDbConfiguration,
-        Variant,
-        WitnessVersion,
-        WordCount;
+        WordCount,
+        ConfirmationBlockTime;
+export './src/generated/api/bitcoin.dart' show FeeRate, OutPoint;
 export './src/root.dart';
 export 'src/utils/exceptions.dart'
     hide
-        mapBdkError,
-        mapAddressError,
-        mapConsensusError,
+        mapCreateTxError,
+        mapAddressParseError,
+        mapBip32Error,
+        mapBip39Error,
+        mapCalculateFeeError,
+        mapCannotConnectError,
+        mapCreateWithPersistError,
         mapDescriptorError,
-        mapHexError,
+        mapDescriptorKeyError,
+        mapElectrumError,
+        mapEsploraError,
+        mapExtractTxError,
+        mapFromScriptError,
+        mapLoadWithPersistError,
+        mapPsbtError,
+        mapPsbtParseError,
+        mapRequestBuilderError,
+        mapSignerError,
+        mapSqliteError,
+        mapTransactionError,
+        mapTxidParseError,
         BdkFfiException;

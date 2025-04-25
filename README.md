@@ -39,7 +39,7 @@ To use the `bdk_flutter` package in your project, add it as a dependency in your
 
 ```dart
 dependencies:
-  bdk_flutter: ^0.31.3
+  bdk_flutter: "1.0.0-beta.4"
 ```
 
 ### Examples

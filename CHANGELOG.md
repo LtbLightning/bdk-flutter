@@ -1,3 +1,7 @@
+## [1.0.0-beta.4]
+#### Upgrades
+- Updated `flutter_rust_bridge` to `2.5.0`.
+
 ## [0.31.3]
 #### Upgrades
 - Updated `Flutter` dependencies to the latest version.

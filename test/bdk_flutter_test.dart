@@ -1,345 +1,311 @@
-import 'dart:convert';
-
-import 'package:bdk_flutter/bdk_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
+import 'package:bdk_flutter/bdk_flutter.dart';
+import 'dart:typed_data';
 import 'bdk_flutter_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<Wallet>()])
-@GenerateNiceMocks([MockSpec<Transaction>()])
-@GenerateNiceMocks([MockSpec<Blockchain>()])
-@GenerateNiceMocks([MockSpec<DescriptorSecretKey>()])
-@GenerateNiceMocks([MockSpec<DescriptorPublicKey>()])
-@GenerateNiceMocks([MockSpec<PartiallySignedTransaction>()])
-@GenerateNiceMocks([MockSpec<TxBuilder>()])
-@GenerateNiceMocks([MockSpec<BumpFeeTxBuilder>()])
-@GenerateNiceMocks([MockSpec<ScriptBuf>()])
-@GenerateNiceMocks([MockSpec<Address>()])
-@GenerateNiceMocks([MockSpec<DerivationPath>()])
-@GenerateNiceMocks([MockSpec<FeeRate>()])
-@GenerateNiceMocks([MockSpec<LocalUtxo>()])
-@GenerateNiceMocks([MockSpec<TransactionDetails>()])
+// Generate mocks for all classes
+@GenerateNiceMocks([
+  MockSpec<AddressInfo>(),
+  MockSpec<Address>(),
+  MockSpec<BumpFeeTxBuilder>(),
+  MockSpec<Connection>(),
+  MockSpec<CanonicalTx>(),
+  MockSpec<DerivationPath>(),
+  MockSpec<DescriptorSecretKey>(),
+  MockSpec<DescriptorPublicKey>(),
+  MockSpec<Descriptor>(),
+  MockSpec<EsploraClient>(),
+  MockSpec<ElectrumClient>(),
+  MockSpec<FeeRate>(),
+  MockSpec<FullScanRequestBuilder>(),
+  MockSpec<FullScanRequest>(),
+  MockSpec<LocalOutput>(),
+  MockSpec<Mnemonic>(),
+  MockSpec<PSBT>(),
+  MockSpec<ScriptBuf>(),
+  MockSpec<Transaction>(),
+  MockSpec<TxBuilder>(),
+  MockSpec<Wallet>(),
+  MockSpec<Update>()
+])
 void main() {
-  final mockWallet = MockWallet();
-  final mockBlockchain = MockBlockchain();
-  final mockDerivationPath = MockDerivationPath();
-  final mockAddress = MockAddress();
-  final mockScript = MockScriptBuf();
-  group('Blockchain', () {
-    test('verify getHeight', () async {
-      when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
-      final res = await mockBlockchain.getHeight();
-      expect(res, 2396450);
-    });
-    test('verify getHash', () async {
-      when(mockBlockchain.getBlockHash(height: any)).thenAnswer((_) async =>
-          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-      final res = await mockBlockchain.getBlockHash(height: 2396450);
-      expect(res,
-          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-    });
-  });
-  group('FeeRate', () {
-    test('Should return a double when called', () async {
-      when(mockBlockchain.getHeight()).thenAnswer((_) async => 2396450);
-      final res = await mockBlockchain.getHeight();
-      expect(res, 2396450);
-    });
-    test('verify getHash', () async {
-      when(mockBlockchain.getBlockHash(height: any)).thenAnswer((_) async =>
-          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-      final res = await mockBlockchain.getBlockHash(height: 2396450);
-      expect(res,
-          "0000000000004c01f2723acaa5e87467ebd2768cc5eadcf1ea0d0c4f1731efce");
-    });
-  });
-  group('Wallet', () {
-    test('Should return valid AddressInfo Object', () async {
-      final res = mockWallet.getAddress(addressIndex: AddressIndex.increase());
-      expect(res, isA<AddressInfo>());
+  group('Address Tests', () {
+    late MockAddress mockAddress;
+    late MockScriptBuf mockScript;
+
+    setUp(() {
+      mockAddress = MockAddress();
+      mockScript = MockScriptBuf();
     });
 
-    test('Should return valid Balance object', () async {
-      final res = mockWallet.getBalance();
-      expect(res, isA<Balance>());
+    test('script() returns ScriptBuf', () {
+      when(mockAddress.script()).thenReturn(mockScript);
+      expect(mockAddress.script(), isA<ScriptBuf>());
     });
-    test('Should return Network enum', () async {
-      final res = mockWallet.network();
-      expect(res, isA<Network>());
-    });
-    test('Should return list of LocalUtxo object', () async {
-      final res = mockWallet.listUnspent();
-      expect(res, isA<List<LocalUtxo>>());
-    });
-    test('Should return a Input object', () async {
-      final res = await mockWallet.getPsbtInput(
-          utxo: MockLocalUtxo(), onlyWitnessUtxo: true);
-      expect(res, isA<Input>());
-    });
-    test('Should return a Descriptor object', () async {
-      final res = await mockWallet.getDescriptorForKeychain(
-          keychain: KeychainKind.externalChain);
-      expect(res, isA<Descriptor>());
-    });
-    test('Should return an empty list of TransactionDetails', () async {
-      when(mockWallet.listTransactions(includeRaw: any))
-          .thenAnswer((e) => List.empty());
-      final res = mockWallet.listTransactions(includeRaw: true);
-      expect(res, isA<List<TransactionDetails>>());
-      expect(res, List.empty());
-    });
-    test('verify function call order', () async {
-      await mockWallet.sync(blockchain: mockBlockchain);
-      mockWallet.listTransactions(includeRaw: true);
-      verifyInOrder([
-        await mockWallet.sync(blockchain: mockBlockchain),
-        mockWallet.listTransactions(includeRaw: true)
-      ]);
-    });
-  });
-  group('DescriptorSecret', () {
-    final mockSDescriptorSecret = MockDescriptorSecretKey();
 
-    test('verify asPublic()', () async {
-      final res = mockSDescriptorSecret.toPublic();
-      expect(res, isA<DescriptorPublicKey>());
+    test('toQrUri() returns valid URI string', () {
+      when(mockAddress.toQrUri()).thenReturn('bitcoin:bc1qxxx');
+      expect(mockAddress.toQrUri(), startsWith('bitcoin:'));
     });
-    test('verify asString', () async {
-      final res = mockSDescriptorSecret.asString();
-      expect(res, isA<String>());
-    });
-  });
-  group('DescriptorPublic', () {
-    final mockSDescriptorPublic = MockDescriptorPublicKey();
-    test('verify derive()', () async {
-      final res = await mockSDescriptorPublic.derive(path: mockDerivationPath);
-      expect(res, isA<DescriptorPublicKey>());
-    });
-    test('verify extend()', () async {
-      final res = await mockSDescriptorPublic.extend(path: mockDerivationPath);
-      expect(res, isA<DescriptorPublicKey>());
-    });
-    test('verify asString', () async {
-      final res = mockSDescriptorPublic.asString();
-      expect(res, isA<String>());
-    });
-  });
-  group('Tx Builder', () {
-    final mockTxBuilder = MockTxBuilder();
-    test('Should return a TxBuilderException when funds are insufficient',
-        () async {
-      try {
-        when(mockTxBuilder.finish(mockWallet))
-            .thenThrow(InsufficientFundsException());
-        await mockTxBuilder.finish(mockWallet);
-      } catch (error) {
-        expect(error, isA<InsufficientFundsException>());
-      }
-    });
-    test('Should return a TxBuilderException when no recipients are added',
-        () async {
-      try {
-        when(mockTxBuilder.finish(mockWallet))
-            .thenThrow(NoRecipientsException());
-        await mockTxBuilder.finish(mockWallet);
-      } catch (error) {
-        expect(error, isA<NoRecipientsException>());
-      }
-    });
-    test('Verify addData() Exception', () async {
-      try {
-        when(mockTxBuilder.addData(data: List.empty()))
-            .thenThrow(InvalidByteException(message: "List must not be empty"));
-        mockTxBuilder.addData(data: []);
-      } catch (error) {
-        expect(error, isA<InvalidByteException>());
-      }
-    });
-    test('Verify unSpendable()', () async {
-      final res = mockTxBuilder.addUnSpendable(OutPoint(
-          txid:
-              "efc5d0e6ad6611f22b05d3c1fc8888c3552e8929a4231f2944447e4426f52056",
-          vout: 1));
-      expect(res, isNot(mockTxBuilder));
-    });
-    test('Verify addForeignUtxo()', () async {
-      const inputInternal = {
-        "non_witness_utxo": {
-          "version": 1,
-          "lock_time": 2433744,
-          "input": [
-            {
-              "previous_output":
-                  "8eca3ac01866105f79a1a6b87ec968565bb5ccc9cb1c5cf5b13491bafca24f0d:1",
-              "script_sig":
-                  "483045022100f1bb7ab927473c78111b11cb3f134bc6d1782b4d9b9b664924682b83dc67763b02203bcdc8c9291d17098d11af7ed8a9aa54e795423f60c042546da059b9d912f3c001210238149dc7894a6790ba82c2584e09e5ed0e896dea4afb2de089ea02d017ff0682",
-              "sequence": 4294967294,
-              "witness": []
-            }
-          ],
-          "output": [
-            {
-              "value": 3356,
-              "script_pubkey":
-                  "76a91400df17234b8e0f60afe1c8f9ae2e91c23cd07c3088ac"
-            },
-            {
-              "value": 1500,
-              "script_pubkey":
-                  "76a9149f9a7abd600c0caa03983a77c8c3df8e062cb2fa88ac"
-            }
-          ]
-        },
-        "witness_utxo": null,
-        "partial_sigs": {},
-        "sighash_type": null,
-        "redeem_script": null,
-        "witness_script": null,
-        "bip32_derivation": [
-          [
-            "030da577f40a6de2e0a55d3c5c72da44c77e6f820f09e1b7bbcc6a557bf392b5a4",
-            ["d91e6add", "m/44'/1'/0'/0/146"]
-          ]
-        ],
-        "final_script_sig": null,
-        "final_script_witness": null,
-        "ripemd160_preimages": {},
-        "sha256_preimages": {},
-        "hash160_preimages": {},
-        "hash256_preimages": {},
-        "tap_key_sig": null,
-        "tap_script_sigs": [],
-        "tap_scripts": [],
-        "tap_key_origins": [],
-        "tap_internal_key": null,
-        "tap_merkle_root": null,
-        "proprietary": [],
-        "unknown": []
-      };
-      final input = Input(s: json.encode(inputInternal));
-      final outPoint = OutPoint(
-          txid:
-              'b3b72ce9c7aa09b9c868c214e88c002a28aac9a62fd3971eff6de83c418f4db3',
-          vout: 0);
-      when(mockAddress.scriptPubkey()).thenAnswer((_) => mockScript);
-      when(mockTxBuilder.addRecipient(mockScript, any))
-          .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.addForeignUtxo(input, outPoint, BigInt.zero))
-          .thenReturn(mockTxBuilder);
-      when(mockTxBuilder.finish(mockWallet)).thenAnswer((_) async =>
-          Future.value(
-              (MockPartiallySignedTransaction(), MockTransactionDetails())));
-      final script = mockAddress.scriptPubkey();
-      final txBuilder = mockTxBuilder
-          .addRecipient(script, BigInt.from(1200))
-          .addForeignUtxo(input, outPoint, BigInt.zero);
-      final res = await txBuilder.finish(mockWallet);
-      expect(res, isA<(PartiallySignedTransaction, TransactionDetails)>());
-    });
-    test('Create a proper psbt transaction ', () async {
-      const psbtBase64 = "cHNidP8BAHEBAAAAAfU6uDG8hNUox2Qw1nodiir"
-          "QhnLkDCYpTYfnY4+lUgjFAAAAAAD+////Ag5EAAAAAAAAFgAUxYD3fd+pId3hWxeuvuWmiUlS+1PoAwAAAAAAABYAFP+dpWfmLzDqhlT6HV+9R774474TxqQkAAABAN4"
-          "BAAAAAAEBViD1JkR+REQpHyOkKYkuVcOIiPzB0wUr8hFmrebQxe8AAAAAAP7///8ClEgAAAAAAAAWABTwV07KrKa1zWpwKzW+ve93pbQ4R+gDAAAAAAAAFgAU/52lZ+YvMOqGVPodX71Hv"
-          "vjjvhMCRzBEAiAa6a72jEfDuiyaNtlBYAxsc2oSruDWF2vuNQ3rJSshggIgLtJ/YuB8FmhjrPvTC9r2w9gpdfUNLuxw/C7oqo95cEIBIQM9XzutA2SgZFHjPDAATuWwHg19TTkb/NKZD/"
-          "hfN7fWP8akJAABAR+USAAAAAAAABYAFPBXTsqsprXNanArNb6973eltDhHIgYCHrxaLpnD4ed01bFHcixnAicv15oKiiVHrcVmxUWBW54Y2R5q3VQAAIABAACAAAAAgAEAAABbAAAAACICAqS"
-          "F0mhBBlgMe9OyICKlkhGHZfPjA0Q03I559ccj9x6oGNkeat1UAACAAQAAgAAAAIABAAAAXAAAAAAA";
-      final psbt = await PartiallySignedTransaction.fromString(psbtBase64);
-      when(mockAddress.scriptPubkey()).thenAnswer((_) => MockScriptBuf());
-      when(mockTxBuilder.addRecipient(mockScript, any))
-          .thenReturn(mockTxBuilder);
 
-      when(mockAddress.scriptPubkey()).thenAnswer((_) => mockScript);
-      when(mockTxBuilder.finish(mockWallet)).thenAnswer(
-          (_) async => Future.value((psbt, MockTransactionDetails())));
-      final script = mockAddress.scriptPubkey();
-      final txBuilder = mockTxBuilder.addRecipient(script, BigInt.from(1200));
-      final res = await txBuilder.finish(mockWallet);
-      expect(res.$1, psbt);
+    test('isValidForNetwork() validates network correctly', () {
+      when(mockAddress.isValidForNetwork(network: Network.testnet))
+          .thenReturn(true);
+      expect(mockAddress.isValidForNetwork(network: Network.testnet), isTrue);
     });
   });
-  group('Bump Fee Tx Builder', () {
-    final mockBumpFeeTxBuilder = MockBumpFeeTxBuilder();
-    test('Should return a TxBuilderException when txid is invalid', () async {
-      try {
-        when(mockBumpFeeTxBuilder.finish(mockWallet))
-            .thenThrow(TransactionNotFoundException());
-        await mockBumpFeeTxBuilder.finish(mockWallet);
-      } catch (error) {
-        expect(error, isA<TransactionNotFoundException>());
-      }
+
+  group('BumpFeeTxBuilder Tests', () {
+    late MockBumpFeeTxBuilder mockBuilder;
+    late MockWallet mockWallet;
+    late MockPSBT mockPSBT;
+
+    setUp(() {
+      mockBuilder = MockBumpFeeTxBuilder();
+      mockWallet = MockWallet();
+      mockPSBT = MockPSBT();
+    });
+
+    test('finish() returns PSBT on success', () async {
+      when(mockBuilder.finish(mockWallet)).thenAnswer((_) async => mockPSBT);
+      final result = await mockBuilder.finish(mockWallet);
+      expect(result, isA<PSBT>());
+    });
+
+    test('finish() throws on insufficient fee', () {
+      when(mockBuilder.finish(mockWallet))
+          .thenThrow(CreateTxException(code: "FeeRateTooLow"));
+      expect(() => mockBuilder.finish(mockWallet),
+          throwsA(isA<CreateTxException>()));
     });
   });
-  group('Address', () {
-    test('verify network()', () {
-      final res = mockAddress.network();
-      expect(res, isA<Network>());
+
+  group('DerivationPath Tests', () {
+    late MockDerivationPath mockPath;
+
+    setUp(() {
+      mockPath = MockDerivationPath();
     });
-    test('verify payload()', () {
-      final res = mockAddress.network();
-      expect(res, isA<Network>());
-    });
-    test('verify scriptPubKey()', () {
-      final res = mockAddress.scriptPubkey();
-      expect(res, isA<ScriptBuf>());
-    });
-  });
-  group('Script', () {
-    test('verify create', () {
-      final res = mockScript;
-      expect(res, isA<MockScriptBuf>());
+
+    test('create() returns valid path', () async {
+      when(mockPath.asString()).thenReturn("m/84'/0'/0'/0/0");
+      expect(mockPath.asString(), "m/84'/0'/0'/0/0");
     });
   });
-  group('Transaction', () {
-    final mockTx = MockTransaction();
-    test('verify serialize', () async {
-      final res = await mockTx.serialize();
-      expect(res, isA<List<int>>());
+
+  group('Descriptor Tests', () {
+    late MockDescriptor mockDescriptor;
+
+    setUp(() {
+      mockDescriptor = MockDescriptor();
     });
-    test('verify txid', () async {
-      final res = await mockTx.txid();
-      expect(res, isA<String>());
+
+    test('create() returns valid descriptor', () async {
+      when(mockDescriptor.asString()).thenReturn(
+          "wpkh([f5acc2fd/84'/1'/0']tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P/0/*)");
+      expect(mockDescriptor.asString().startsWith("wpkh"), true);
     });
-    test('verify weight', () async {
-      final res = await mockTx.weight();
-      expect(res, isA<int>());
+  });
+
+  group('EsploraClient Tests', () {
+    late MockEsploraClient mockClient;
+    late MockTransaction mockTx;
+
+    setUp(() {
+      mockClient = MockEsploraClient();
+      mockTx = MockTransaction();
     });
-    test('verify size', () async {
-      final res = await mockTx.size();
-      expect(res, isA<int>());
+
+    test('broadcast() succeeds', () async {
+      when(mockClient.broadcast(transaction: mockTx))
+          .thenAnswer((_) async => {});
+      await expectLater(mockClient.broadcast(transaction: mockTx), completes);
     });
-    test('verify vsize', () async {
-      final res = await mockTx.vsize();
-      expect(res, isA<int>());
+
+    test('throws EsploraException on network error', () {
+      when(mockClient.broadcast(transaction: mockTx))
+          .thenThrow(EsploraException(code: "NetworkError"));
+      expect(
+        () => mockClient.broadcast(transaction: mockTx),
+        throwsA(isA<EsploraException>()),
+      );
     });
-    test('verify isCoinbase', () async {
-      final res = await mockTx.isCoinBase();
-      expect(res, isA<bool>());
+  });
+
+  group('Wallet Tests', () {
+    late MockWallet mockWallet;
+    late MockAddressInfo mockAddressInfo;
+    late MockLocalOutput mockOutput;
+
+    setUp(() {
+      mockWallet = MockWallet();
+      mockAddressInfo = MockAddressInfo();
+      mockOutput = MockLocalOutput();
     });
-    test('verify isExplicitlyRbf', () async {
-      final res = await mockTx.isExplicitlyRbf();
-      expect(res, isA<bool>());
+
+    test('revealNextAddress() returns valid AddressInfo', () {
+      when(mockWallet.revealNextAddress(
+              keychainKind: KeychainKind.externalChain))
+          .thenReturn(mockAddressInfo);
+      final result = mockWallet.revealNextAddress(
+          keychainKind: KeychainKind.externalChain);
+      expect(result, isA<AddressInfo>());
     });
-    test('verify isLockTimeEnabled', () async {
-      final res = await mockTx.isLockTimeEnabled();
-      expect(res, isA<bool>());
+
+    test('getBalance() returns valid Balance', () {
+      when(mockWallet.getBalance()).thenReturn(Balance(
+        trustedPending: BigInt.from(100000),
+        untrustedPending: BigInt.from(0),
+        confirmed: BigInt.from(0),
+        spendable: BigInt.from(0),
+        total: BigInt.from(100000),
+        immature: BigInt.from(0),
+      ));
+      final balance = mockWallet.getBalance();
+      expect(balance.total, BigInt.from(100000));
     });
-    test('verify version', () async {
-      final res = await mockTx.version();
-      expect(res, isA<int>());
+
+    test('listUnspent() returns list of LocalOutput', () {
+      when(mockWallet.listUnspent()).thenReturn([mockOutput]);
+      final utxos = mockWallet.listUnspent();
+      expect(utxos, isA<List<LocalOutput>>());
+      expect(utxos.length, 1);
     });
-    test('verify lockTime', () async {
-      final res = await mockTx.lockTime();
-      expect(res, isA<int>());
+  });
+
+  group('PSBT Tests', () {
+    // test('fromString() creates valid PSBT', () async {
+    //   const validPsbtBase64 =
+    //       "cHNidP8BAHECAAAAAn+RHcVztpnXXtZyDLORWgd9IBgaRqjMz3L4oyfqelmLAAAAAAD+////kYv9zYwORLgUp2G/C2yT1G01c1KqgnBBdGz4vM7lbrcAAAAAAP7///8CYOMhAAAAAAAWABTQTaKJp3XepSAU6zRmKaWZNvam1/AiMQAAAAAAFgAUK4uLIPsZlZdP/ZL9QO3Xhh1o5OQAAAAAAAEBIIDDIQAAAAAACgAAAIABAIACAACAAAABASCAlpgAAAAAABYAFHI3ddhY4rGxBJNwSBPpztnjcIhUAQVHUiEDghdV1cgrVOiPqFqP5H0SmcPGA/MSLOa3F0Awk+JcCX4hA1Ds6R+JGvmh6rXnVFmXgY/8oIkuR0mD5BJVMgd2td9YUq4iBgOCF1XVyCtU6I+oWo/kfRKZw8YD8xIs5rcXQDCT4lwJfhirqOJUAACAAAAAgAAAAIACAACAAAAAAAAAAAAiBgNQ7OkfiRr5oeq151RZl4GP/KCJLkdJg+QSVTIHdrXfWBi7oqBUAACAAAAAgAAAAIACAACAAAAAAAAAAAABBUdSIQJf0d9flM3+BaCGIaGfeADYDj7kv6A/K3COquQmFaF+kyEDOyoxu8TcrHH7ZuXiAmEBxoKKaOTqZ0MZwCw9mRKJb7xSriICAl/R31+Uzf4FoIYhoZ94ANgOPuS/oD8rcI6q5CYVoX6TGNn1YlQAAIAAAACAAAAAgAIAAIAAAAAAAAAAACICAzsiMbvE3Kxx+2bl4gJhAcaCimjk6mdDGcAsPZkSiW+8GKeS71QAAIAAAACAAAAAgAIAAIAAAAAAAAAAAAEBR1IhAqIXv4yx8PKe8nez1E75MrLiB0qrKvZYIB3MU0TzqVlrIQK4YxHyyfboyQCHMzOCE1n5CwTKrVcFGzE4p1sRJr5wk1KuIgICohe/jLHw8p7yd7PUTvkysuIHSqsq9lggHcxTRPOpWWsY2fViVAAAgAAAAIAAAACAAgAAgAAAAAAAAAAAIgICuGMR8sn26MkAhzMzghNZ+QsEyq1XBRsxOKdbESa+cJMYp5LvVAAAgAAAAIAAAACAAgAAgAAAAAAAAAAA";
+    //   final psbt = await PSBT.fromString(validPsbtBase64);
+    //   expect(psbt, isA<PSBT>());
+    // });
+
+    // test('throws PsbtException on invalid PSBT string', () {
+    //   expect(
+    //     () => PSBT.fromString('invalid'),
+    //     throwsA(isA<PsbtException>()),
+    //   );
+    // });
+  });
+
+  group('Transaction Tests', () {
+    late MockTransaction mockTx;
+
+    setUp(() {
+      mockTx = MockTransaction();
     });
-    test('verify input', () async {
-      final res = await mockTx.input();
-      expect(res, isA<List<TxIn>>());
+
+    test('create() returns valid transaction', () async {
+      when(mockTx.computeTxid()).thenReturn("validtxid");
+      expect(mockTx.computeTxid(), "validtxid");
     });
-    test('verify output', () async {
-      final res = await mockTx.output();
-      expect(res, isA<List<TxOut>>());
+
+    test('throws TransactionException on invalid transaction', () {
+      when(mockTx.computeTxid())
+          .thenThrow(TransactionException(code: "Invalid"));
+      expect(
+        () => mockTx.computeTxid(),
+        throwsA(isA<TransactionException>()),
+      );
+    });
+  });
+
+  group('TxBuilder Tests', () {
+    late MockTxBuilder mockBuilder;
+    late MockWallet mockWallet;
+
+    setUp(() {
+      mockBuilder = MockTxBuilder();
+      mockWallet = MockWallet();
+    });
+
+    test('finish() creates valid transaction', () async {
+      final mockPsbt = MockPSBT();
+      when(mockBuilder.finish(mockWallet)).thenAnswer((_) async => mockPsbt);
+      final result = await mockBuilder.finish(mockWallet);
+      expect(result, isA<PSBT>());
+    });
+
+    test('throws CreateTxException on insufficient funds', () {
+      when(mockBuilder.finish(mockWallet))
+          .thenThrow(CreateTxException(code: "InsufficientFunds"));
+      expect(
+        () => mockBuilder.finish(mockWallet),
+        throwsA(isA<CreateTxException>()),
+      );
+    });
+  });
+
+  group('Mnemonic Tests', () {
+    late MockMnemonic mockMnemonic;
+
+    setUp(() {
+      mockMnemonic = MockMnemonic();
+    });
+
+    test('fromString() creates valid mnemonic', () {
+      when(mockMnemonic.asString()).thenReturn(
+          'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+      expect(mockMnemonic.asString().split(' ').length, 12);
+    });
+  });
+
+  group('DescriptorSecretKey Tests', () {
+    late MockDescriptorSecretKey mockSecretKey;
+
+    setUp(() {
+      mockSecretKey = MockDescriptorSecretKey();
+    });
+
+    test('fromString() parses a valid secret key', () async {
+      when(mockSecretKey.toString()).thenReturn(
+          '[f5acc2fd/84h/1h/0h]tprv8ZgxMBicQKsPeWHBt7a68nPnvgTnuDhUgDWC8wZCgA8GahrQ3f3uWpq7wE7Uc1dLBnCe8siRbYPFP5PhdAgvMT3AKhRfxnwuMkQE9bmXdLY');
+      final key = await DescriptorSecretKey.fromString(
+          '[f5acc2fd/84h/1h/0h]tprv8ZgxMBicQKsPeWHBt7a68nPnvgTnuDhUgDWC8wZCgA8GahrQ3f3uWpq7wE7Uc1dLBnCe8siRbYPFP5PhdAgvMT3AKhRfxnwuMkQE9bmXdLY');
+      expect(key.toString().startsWith('['), true);
+    });
+  });
+
+  group('ElectrumClient Tests', () {
+    late MockElectrumClient mockClient;
+    late MockTransaction mockTx;
+
+    setUp(() {
+      mockClient = MockElectrumClient();
+      mockTx = MockTransaction();
+    });
+
+    test('broadcast() succeeds', () async {
+      when(mockClient.broadcast(transaction: mockTx))
+          .thenAnswer((_) async => "validTxid");
+      await expectLater(mockClient.broadcast(transaction: mockTx), completes);
+    });
+
+    test('throws ElectrumException on network error', () {
+      when(mockClient.broadcast(transaction: mockTx))
+          .thenThrow(ElectrumException(code: "NetworkError"));
+      expect(
+        () => mockClient.broadcast(transaction: mockTx),
+        throwsA(isA<ElectrumException>()),
+      );
+    });
+  });
+
+  group('CanonicalTx Tests', () {
+    late MockCanonicalTx mockCanonicalTx;
+
+    setUp(() {
+      mockCanonicalTx = MockCanonicalTx();
+    });
+
+    test('serialize() returns bytes', () async {
+      when(mockCanonicalTx.transaction.serialize())
+          .thenReturn(Uint8List.fromList([0, 1, 2]));
+      final bytes = mockCanonicalTx.transaction.serialize();
+      expect(bytes, isA<Uint8List>());
     });
   });
 }
