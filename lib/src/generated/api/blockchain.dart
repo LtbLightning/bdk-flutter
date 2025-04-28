@@ -152,7 +152,7 @@ class EsploraConfig {
   final String baseUrl;
 
   /// Optional URL of the proxy to use to make requests to the Esplora server
-  /// The string should be formatted as: <protocol>://<user>:<password>@host:<port>.
+  /// The string should be formatted as: `<`protocol`>`://`<`user`>`:`<`password`>`@host:`<`port`>`.
   /// Note that the format of this value and the supported protocols change slightly between the
   /// sync version of esplora (using ureq) and the async version (using reqwest). For more
   /// details check with the documentation of the two crates. Both of them are compiled with
