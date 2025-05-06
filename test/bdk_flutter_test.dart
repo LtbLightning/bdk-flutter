@@ -74,8 +74,8 @@ void main() {
       expect(res, isA<List<LocalUtxo>>());
     });
     test('Should return a Input object', () async {
-      final res = await mockWallet.getPsbtInput(
-          utxo: MockLocalUtxo(), onlyWitnessUtxo: true);
+      final res =
+          mockWallet.getPsbtInput(utxo: MockLocalUtxo(), onlyWitnessUtxo: true);
       expect(res, isA<Input>());
     });
     test('Should return a Descriptor object', () async {
@@ -114,11 +114,11 @@ void main() {
   group('DescriptorPublic', () {
     final mockSDescriptorPublic = MockDescriptorPublicKey();
     test('verify derive()', () async {
-      final res = await mockSDescriptorPublic.derive(path: mockDerivationPath);
+      final res = mockSDescriptorPublic.derive(path: mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify extend()', () async {
-      final res = await mockSDescriptorPublic.extend(path: mockDerivationPath);
+      final res = mockSDescriptorPublic.extend(path: mockDerivationPath);
       expect(res, isA<DescriptorPublicKey>());
     });
     test('verify asString', () async {
@@ -133,7 +133,7 @@ void main() {
       try {
         when(mockTxBuilder.finish(mockWallet))
             .thenThrow(InsufficientFundsException());
-        await mockTxBuilder.finish(mockWallet);
+        mockTxBuilder.finish(mockWallet);
       } catch (error) {
         expect(error, isA<InsufficientFundsException>());
       }
@@ -143,7 +143,7 @@ void main() {
       try {
         when(mockTxBuilder.finish(mockWallet))
             .thenThrow(NoRecipientsException());
-        await mockTxBuilder.finish(mockWallet);
+        mockTxBuilder.finish(mockWallet);
       } catch (error) {
         expect(error, isA<NoRecipientsException>());
       }
@@ -294,51 +294,51 @@ void main() {
   group('Transaction', () {
     final mockTx = MockTransaction();
     test('verify serialize', () async {
-      final res = await mockTx.serialize();
+      final res = mockTx.serialize();
       expect(res, isA<List<int>>());
     });
     test('verify txid', () async {
-      final res = await mockTx.txid();
+      final res = mockTx.txid();
       expect(res, isA<String>());
     });
     test('verify weight', () async {
-      final res = await mockTx.weight();
+      final res = mockTx.weight();
       expect(res, isA<int>());
     });
     test('verify size', () async {
-      final res = await mockTx.size();
+      final res = mockTx.size();
       expect(res, isA<int>());
     });
     test('verify vsize', () async {
-      final res = await mockTx.vsize();
+      final res = mockTx.vsize();
       expect(res, isA<int>());
     });
     test('verify isCoinbase', () async {
-      final res = await mockTx.isCoinBase();
+      final res = mockTx.isCoinBase();
       expect(res, isA<bool>());
     });
     test('verify isExplicitlyRbf', () async {
-      final res = await mockTx.isExplicitlyRbf();
+      final res = mockTx.isExplicitlyRbf();
       expect(res, isA<bool>());
     });
     test('verify isLockTimeEnabled', () async {
-      final res = await mockTx.isLockTimeEnabled();
+      final res = mockTx.isLockTimeEnabled();
       expect(res, isA<bool>());
     });
     test('verify version', () async {
-      final res = await mockTx.version();
+      final res = mockTx.version();
       expect(res, isA<int>());
     });
     test('verify lockTime', () async {
-      final res = await mockTx.lockTime();
+      final res = mockTx.lockTime();
       expect(res, isA<int>());
     });
     test('verify input', () async {
-      final res = await mockTx.input();
+      final res = mockTx.input();
       expect(res, isA<List<TxIn>>());
     });
     test('verify output', () async {
-      final res = await mockTx.output();
+      final res = mockTx.output();
       expect(res, isA<List<TxOut>>());
     });
   });

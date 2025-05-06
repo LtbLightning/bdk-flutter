@@ -1,4 +1,4 @@
-use crate::api::types::{BdkTransaction, FeeRate, Network};
+use crate::api::types::{ BdkTransaction, FeeRate, Network };
 
 use crate::api::error::BdkError;
 use crate::frb_generated::RustOpaque;
@@ -7,8 +7,12 @@ use bdk::bitcoin::Transaction;
 use bdk::blockchain::esplora::EsploraBlockchainConfig;
 
 pub use bdk::blockchain::{
-    AnyBlockchainConfig, Blockchain, ConfigurableBlockchain, ElectrumBlockchainConfig,
-    GetBlockHash, GetHeight,
+    AnyBlockchainConfig,
+    Blockchain,
+    ConfigurableBlockchain,
+    ElectrumBlockchainConfig,
+    GetBlockHash,
+    GetHeight,
 };
 
 use std::path::PathBuf;
@@ -76,7 +80,9 @@ impl BdkBlockchain {
     }
 
     pub fn get_height(&self) -> Result<u32, BdkError> {
-        self.get_blockchain().get_height().map_err(|e| e.into())
+        self.get_blockchain()
+            .get_height()
+            .map_err(|e| e.into())
     }
 
     pub fn get_block_hash(&self, height: u32) -> Result<String, BdkError> {
@@ -109,7 +115,7 @@ pub struct EsploraConfig {
     /// e.g. https://blockstream.info/api/
     pub base_url: String,
     /// Optional URL of the proxy to use to make requests to the Esplora server
-    /// The string should be formatted as: <protocol>://<user>:<password>@host:<port>.
+    /// The string should be formatted as: `<`protocol`>`://`<`user`>`:`<`password`>`@host:`<`port`>`.
     /// Note that the format of this value and the supported protocols change slightly between the
     /// sync version of esplora (using ureq) and the async version (using reqwest). For more
     /// details check with the documentation of the two crates. Both of them are compiled with
@@ -148,9 +154,10 @@ impl From<Auth> for bdk::blockchain::rpc::Auth {
             Auth::UserPass { username, password } => {
                 bdk::blockchain::rpc::Auth::UserPass { username, password }
             }
-            Auth::Cookie { file } => bdk::blockchain::rpc::Auth::Cookie {
-                file: PathBuf::from(file),
-            },
+            Auth::Cookie { file } =>
+                bdk::blockchain::rpc::Auth::Cookie {
+                    file: PathBuf::from(file),
+                },
         }
     }
 }
@@ -199,9 +206,15 @@ pub struct RpcConfig {
 /// Type that can contain any of the blockchain configurations defined by the library.
 pub enum BlockchainConfig {
     /// Electrum client
-    Electrum { config: ElectrumConfig },
+    Electrum {
+        config: ElectrumConfig,
+    },
     /// Esplora client
-    Esplora { config: EsploraConfig },
+    Esplora {
+        config: EsploraConfig,
+    },
     /// Bitcoin Core RPC client
-    Rpc { config: RpcConfig },
+    Rpc {
+        config: RpcConfig,
+    },
 }

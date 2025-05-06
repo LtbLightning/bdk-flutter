@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,5822 +10,2293 @@ part of 'types.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$AddressIndex {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressIndex);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AddressIndex()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AddressIndexCopyWith<$Res> {
-  factory $AddressIndexCopyWith(
-          AddressIndex value, $Res Function(AddressIndex) then) =
-      _$AddressIndexCopyWithImpl<$Res, AddressIndex>;
+class $AddressIndexCopyWith<$Res>  {
+$AddressIndexCopyWith(AddressIndex _, $Res Function(AddressIndex) __);
 }
 
-/// @nodoc
-class _$AddressIndexCopyWithImpl<$Res, $Val extends AddressIndex>
-    implements $AddressIndexCopyWith<$Res> {
-  _$AddressIndexCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$AddressIndex_IncreaseImplCopyWith<$Res> {
-  factory _$$AddressIndex_IncreaseImplCopyWith(
-          _$AddressIndex_IncreaseImpl value,
-          $Res Function(_$AddressIndex_IncreaseImpl) then) =
-      __$$AddressIndex_IncreaseImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AddressIndex_IncreaseImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_IncreaseImpl>
-    implements _$$AddressIndex_IncreaseImplCopyWith<$Res> {
-  __$$AddressIndex_IncreaseImplCopyWithImpl(_$AddressIndex_IncreaseImpl _value,
-      $Res Function(_$AddressIndex_IncreaseImpl) _then)
-      : super(_value, _then);
-}
 
 /// @nodoc
 
-class _$AddressIndex_IncreaseImpl extends AddressIndex_Increase {
-  const _$AddressIndex_IncreaseImpl() : super._();
 
-  @override
-  String toString() {
-    return 'AddressIndex.increase()';
-  }
+class AddressIndex_Increase extends AddressIndex {
+  const AddressIndex_Increase(): super._();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_IncreaseImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return increase();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return increase?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (increase != null) {
-      return increase();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return increase(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return increase?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (increase != null) {
-      return increase(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressIndex_Increase);
 }
 
-abstract class AddressIndex_Increase extends AddressIndex {
-  const factory AddressIndex_Increase() = _$AddressIndex_IncreaseImpl;
-  const AddressIndex_Increase._() : super._();
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AddressIndex.increase()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class AddressIndex_LastUnused extends AddressIndex {
+  const AddressIndex_LastUnused(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressIndex_LastUnused);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AddressIndex.lastUnused()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class AddressIndex_Peek extends AddressIndex {
+  const AddressIndex_Peek({required this.index}): super._();
+  
+
+ final  int index;
+
+/// Create a copy of AddressIndex
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AddressIndex_PeekCopyWith<AddressIndex_Peek> get copyWith => _$AddressIndex_PeekCopyWithImpl<AddressIndex_Peek>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressIndex_Peek&&(identical(other.index, index) || other.index == index));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,index);
+
+@override
+String toString() {
+  return 'AddressIndex.peek(index: $index)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
-  factory _$$AddressIndex_LastUnusedImplCopyWith(
-          _$AddressIndex_LastUnusedImpl value,
-          $Res Function(_$AddressIndex_LastUnusedImpl) then) =
-      __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>;
+abstract mixin class $AddressIndex_PeekCopyWith<$Res> implements $AddressIndexCopyWith<$Res> {
+  factory $AddressIndex_PeekCopyWith(AddressIndex_Peek value, $Res Function(AddressIndex_Peek) _then) = _$AddressIndex_PeekCopyWithImpl;
+@useResult
+$Res call({
+ int index
+});
+
+
+
+
+}
+/// @nodoc
+class _$AddressIndex_PeekCopyWithImpl<$Res>
+    implements $AddressIndex_PeekCopyWith<$Res> {
+  _$AddressIndex_PeekCopyWithImpl(this._self, this._then);
+
+  final AddressIndex_Peek _self;
+  final $Res Function(AddressIndex_Peek) _then;
+
+/// Create a copy of AddressIndex
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? index = null,}) {
+  return _then(AddressIndex_Peek(
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-class __$$AddressIndex_LastUnusedImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_LastUnusedImpl>
-    implements _$$AddressIndex_LastUnusedImplCopyWith<$Res> {
-  __$$AddressIndex_LastUnusedImplCopyWithImpl(
-      _$AddressIndex_LastUnusedImpl _value,
-      $Res Function(_$AddressIndex_LastUnusedImpl) _then)
-      : super(_value, _then);
+
 }
 
 /// @nodoc
 
-class _$AddressIndex_LastUnusedImpl extends AddressIndex_LastUnused {
-  const _$AddressIndex_LastUnusedImpl() : super._();
 
-  @override
-  String toString() {
-    return 'AddressIndex.lastUnused()';
-  }
+class AddressIndex_Reset extends AddressIndex {
+  const AddressIndex_Reset({required this.index}): super._();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_LastUnusedImpl);
-  }
+ final  int index;
 
-  @override
-  int get hashCode => runtimeType.hashCode;
+/// Create a copy of AddressIndex
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AddressIndex_ResetCopyWith<AddressIndex_Reset> get copyWith => _$AddressIndex_ResetCopyWithImpl<AddressIndex_Reset>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return lastUnused();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return lastUnused?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (lastUnused != null) {
-      return lastUnused();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return lastUnused(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return lastUnused?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (lastUnused != null) {
-      return lastUnused(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressIndex_Reset&&(identical(other.index, index) || other.index == index));
 }
 
-abstract class AddressIndex_LastUnused extends AddressIndex {
-  const factory AddressIndex_LastUnused() = _$AddressIndex_LastUnusedImpl;
-  const AddressIndex_LastUnused._() : super._();
+
+@override
+int get hashCode => Object.hash(runtimeType,index);
+
+@override
+String toString() {
+  return 'AddressIndex.reset(index: $index)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$AddressIndex_PeekImplCopyWith<$Res> {
-  factory _$$AddressIndex_PeekImplCopyWith(_$AddressIndex_PeekImpl value,
-          $Res Function(_$AddressIndex_PeekImpl) then) =
-      __$$AddressIndex_PeekImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int index});
-}
+abstract mixin class $AddressIndex_ResetCopyWith<$Res> implements $AddressIndexCopyWith<$Res> {
+  factory $AddressIndex_ResetCopyWith(AddressIndex_Reset value, $Res Function(AddressIndex_Reset) _then) = _$AddressIndex_ResetCopyWithImpl;
+@useResult
+$Res call({
+ int index
+});
 
+
+
+
+}
 /// @nodoc
-class __$$AddressIndex_PeekImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_PeekImpl>
-    implements _$$AddressIndex_PeekImplCopyWith<$Res> {
-  __$$AddressIndex_PeekImplCopyWithImpl(_$AddressIndex_PeekImpl _value,
-      $Res Function(_$AddressIndex_PeekImpl) _then)
-      : super(_value, _then);
+class _$AddressIndex_ResetCopyWithImpl<$Res>
+    implements $AddressIndex_ResetCopyWith<$Res> {
+  _$AddressIndex_ResetCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = null,
-  }) {
-    return _then(_$AddressIndex_PeekImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
+  final AddressIndex_Reset _self;
+  final $Res Function(AddressIndex_Reset) _then;
+
+/// Create a copy of AddressIndex
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? index = null,}) {
+  return _then(AddressIndex_Reset(
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
 
-class _$AddressIndex_PeekImpl extends AddressIndex_Peek {
-  const _$AddressIndex_PeekImpl({required this.index}) : super._();
-
-  @override
-  final int index;
-
-  @override
-  String toString() {
-    return 'AddressIndex.peek(index: $index)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_PeekImpl &&
-            (identical(other.index, index) || other.index == index));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
-      __$$AddressIndex_PeekImplCopyWithImpl<_$AddressIndex_PeekImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return peek(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return peek?.call(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (peek != null) {
-      return peek(index);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return peek(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return peek?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (peek != null) {
-      return peek(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddressIndex_Peek extends AddressIndex {
-  const factory AddressIndex_Peek({required final int index}) =
-      _$AddressIndex_PeekImpl;
-  const AddressIndex_Peek._() : super._();
-
-  int get index;
-  @JsonKey(ignore: true)
-  _$$AddressIndex_PeekImplCopyWith<_$AddressIndex_PeekImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AddressIndex_ResetImplCopyWith<$Res> {
-  factory _$$AddressIndex_ResetImplCopyWith(_$AddressIndex_ResetImpl value,
-          $Res Function(_$AddressIndex_ResetImpl) then) =
-      __$$AddressIndex_ResetImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int index});
-}
-
-/// @nodoc
-class __$$AddressIndex_ResetImplCopyWithImpl<$Res>
-    extends _$AddressIndexCopyWithImpl<$Res, _$AddressIndex_ResetImpl>
-    implements _$$AddressIndex_ResetImplCopyWith<$Res> {
-  __$$AddressIndex_ResetImplCopyWithImpl(_$AddressIndex_ResetImpl _value,
-      $Res Function(_$AddressIndex_ResetImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = null,
-  }) {
-    return _then(_$AddressIndex_ResetImpl(
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AddressIndex_ResetImpl extends AddressIndex_Reset {
-  const _$AddressIndex_ResetImpl({required this.index}) : super._();
-
-  @override
-  final int index;
-
-  @override
-  String toString() {
-    return 'AddressIndex.reset(index: $index)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddressIndex_ResetImpl &&
-            (identical(other.index, index) || other.index == index));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
-      __$$AddressIndex_ResetImplCopyWithImpl<_$AddressIndex_ResetImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() increase,
-    required TResult Function() lastUnused,
-    required TResult Function(int index) peek,
-    required TResult Function(int index) reset,
-  }) {
-    return reset(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? increase,
-    TResult? Function()? lastUnused,
-    TResult? Function(int index)? peek,
-    TResult? Function(int index)? reset,
-  }) {
-    return reset?.call(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? increase,
-    TResult Function()? lastUnused,
-    TResult Function(int index)? peek,
-    TResult Function(int index)? reset,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(index);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AddressIndex_Increase value) increase,
-    required TResult Function(AddressIndex_LastUnused value) lastUnused,
-    required TResult Function(AddressIndex_Peek value) peek,
-    required TResult Function(AddressIndex_Reset value) reset,
-  }) {
-    return reset(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AddressIndex_Increase value)? increase,
-    TResult? Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult? Function(AddressIndex_Peek value)? peek,
-    TResult? Function(AddressIndex_Reset value)? reset,
-  }) {
-    return reset?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AddressIndex_Increase value)? increase,
-    TResult Function(AddressIndex_LastUnused value)? lastUnused,
-    TResult Function(AddressIndex_Peek value)? peek,
-    TResult Function(AddressIndex_Reset value)? reset,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddressIndex_Reset extends AddressIndex {
-  const factory AddressIndex_Reset({required final int index}) =
-      _$AddressIndex_ResetImpl;
-  const AddressIndex_Reset._() : super._();
-
-  int get index;
-  @JsonKey(ignore: true)
-  _$$AddressIndex_ResetImplCopyWith<_$AddressIndex_ResetImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$DatabaseConfig {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseConfig);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DatabaseConfig()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DatabaseConfigCopyWith<$Res> {
-  factory $DatabaseConfigCopyWith(
-          DatabaseConfig value, $Res Function(DatabaseConfig) then) =
-      _$DatabaseConfigCopyWithImpl<$Res, DatabaseConfig>;
+class $DatabaseConfigCopyWith<$Res>  {
+$DatabaseConfigCopyWith(DatabaseConfig _, $Res Function(DatabaseConfig) __);
 }
 
-/// @nodoc
-class _$DatabaseConfigCopyWithImpl<$Res, $Val extends DatabaseConfig>
-    implements $DatabaseConfigCopyWith<$Res> {
-  _$DatabaseConfigCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_MemoryImplCopyWith(
-          _$DatabaseConfig_MemoryImpl value,
-          $Res Function(_$DatabaseConfig_MemoryImpl) then) =
-      __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DatabaseConfig_MemoryImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_MemoryImpl>
-    implements _$$DatabaseConfig_MemoryImplCopyWith<$Res> {
-  __$$DatabaseConfig_MemoryImplCopyWithImpl(_$DatabaseConfig_MemoryImpl _value,
-      $Res Function(_$DatabaseConfig_MemoryImpl) _then)
-      : super(_value, _then);
-}
 
 /// @nodoc
 
-class _$DatabaseConfig_MemoryImpl extends DatabaseConfig_Memory {
-  const _$DatabaseConfig_MemoryImpl() : super._();
 
-  @override
-  String toString() {
-    return 'DatabaseConfig.memory()';
-  }
+class DatabaseConfig_Memory extends DatabaseConfig {
+  const DatabaseConfig_Memory(): super._();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_MemoryImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) {
-    return memory();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) {
-    return memory?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) {
-    if (memory != null) {
-      return memory();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) {
-    return memory(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) {
-    return memory?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) {
-    if (memory != null) {
-      return memory(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseConfig_Memory);
 }
 
-abstract class DatabaseConfig_Memory extends DatabaseConfig {
-  const factory DatabaseConfig_Memory() = _$DatabaseConfig_MemoryImpl;
-  const DatabaseConfig_Memory._() : super._();
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DatabaseConfig.memory()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class DatabaseConfig_Sqlite extends DatabaseConfig {
+  const DatabaseConfig_Sqlite({required this.config}): super._();
+  
+
+ final  SqliteDbConfiguration config;
+
+/// Create a copy of DatabaseConfig
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DatabaseConfig_SqliteCopyWith<DatabaseConfig_Sqlite> get copyWith => _$DatabaseConfig_SqliteCopyWithImpl<DatabaseConfig_Sqlite>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseConfig_Sqlite&&(identical(other.config, config) || other.config == config));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,config);
+
+@override
+String toString() {
+  return 'DatabaseConfig.sqlite(config: $config)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_SqliteImplCopyWith(
-          _$DatabaseConfig_SqliteImpl value,
-          $Res Function(_$DatabaseConfig_SqliteImpl) then) =
-      __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({SqliteDbConfiguration config});
+abstract mixin class $DatabaseConfig_SqliteCopyWith<$Res> implements $DatabaseConfigCopyWith<$Res> {
+  factory $DatabaseConfig_SqliteCopyWith(DatabaseConfig_Sqlite value, $Res Function(DatabaseConfig_Sqlite) _then) = _$DatabaseConfig_SqliteCopyWithImpl;
+@useResult
+$Res call({
+ SqliteDbConfiguration config
+});
+
+
+
+
+}
+/// @nodoc
+class _$DatabaseConfig_SqliteCopyWithImpl<$Res>
+    implements $DatabaseConfig_SqliteCopyWith<$Res> {
+  _$DatabaseConfig_SqliteCopyWithImpl(this._self, this._then);
+
+  final DatabaseConfig_Sqlite _self;
+  final $Res Function(DatabaseConfig_Sqlite) _then;
+
+/// Create a copy of DatabaseConfig
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? config = null,}) {
+  return _then(DatabaseConfig_Sqlite(
+config: null == config ? _self.config : config // ignore: cast_nullable_to_non_nullable
+as SqliteDbConfiguration,
+  ));
 }
 
-/// @nodoc
-class __$$DatabaseConfig_SqliteImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SqliteImpl>
-    implements _$$DatabaseConfig_SqliteImplCopyWith<$Res> {
-  __$$DatabaseConfig_SqliteImplCopyWithImpl(_$DatabaseConfig_SqliteImpl _value,
-      $Res Function(_$DatabaseConfig_SqliteImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? config = null,
-  }) {
-    return _then(_$DatabaseConfig_SqliteImpl(
-      config: null == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as SqliteDbConfiguration,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$DatabaseConfig_SqliteImpl extends DatabaseConfig_Sqlite {
-  const _$DatabaseConfig_SqliteImpl({required this.config}) : super._();
 
-  @override
-  final SqliteDbConfiguration config;
+class DatabaseConfig_Sled extends DatabaseConfig {
+  const DatabaseConfig_Sled({required this.config}): super._();
+  
 
-  @override
-  String toString() {
-    return 'DatabaseConfig.sqlite(config: $config)';
-  }
+ final  SledDbConfiguration config;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_SqliteImpl &&
-            (identical(other.config, config) || other.config == config));
-  }
+/// Create a copy of DatabaseConfig
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DatabaseConfig_SledCopyWith<DatabaseConfig_Sled> get copyWith => _$DatabaseConfig_SledCopyWithImpl<DatabaseConfig_Sled>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, config);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
-      get copyWith => __$$DatabaseConfig_SqliteImplCopyWithImpl<
-          _$DatabaseConfig_SqliteImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) {
-    return sqlite(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) {
-    return sqlite?.call(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) {
-    if (sqlite != null) {
-      return sqlite(config);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) {
-    return sqlite(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) {
-    return sqlite?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) {
-    if (sqlite != null) {
-      return sqlite(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DatabaseConfig_Sled&&(identical(other.config, config) || other.config == config));
 }
 
-abstract class DatabaseConfig_Sqlite extends DatabaseConfig {
-  const factory DatabaseConfig_Sqlite(
-          {required final SqliteDbConfiguration config}) =
-      _$DatabaseConfig_SqliteImpl;
-  const DatabaseConfig_Sqlite._() : super._();
 
-  SqliteDbConfiguration get config;
-  @JsonKey(ignore: true)
-  _$$DatabaseConfig_SqliteImplCopyWith<_$DatabaseConfig_SqliteImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,config);
+
+@override
+String toString() {
+  return 'DatabaseConfig.sled(config: $config)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$DatabaseConfig_SledImplCopyWith<$Res> {
-  factory _$$DatabaseConfig_SledImplCopyWith(_$DatabaseConfig_SledImpl value,
-          $Res Function(_$DatabaseConfig_SledImpl) then) =
-      __$$DatabaseConfig_SledImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({SledDbConfiguration config});
-}
+abstract mixin class $DatabaseConfig_SledCopyWith<$Res> implements $DatabaseConfigCopyWith<$Res> {
+  factory $DatabaseConfig_SledCopyWith(DatabaseConfig_Sled value, $Res Function(DatabaseConfig_Sled) _then) = _$DatabaseConfig_SledCopyWithImpl;
+@useResult
+$Res call({
+ SledDbConfiguration config
+});
 
+
+
+
+}
 /// @nodoc
-class __$$DatabaseConfig_SledImplCopyWithImpl<$Res>
-    extends _$DatabaseConfigCopyWithImpl<$Res, _$DatabaseConfig_SledImpl>
-    implements _$$DatabaseConfig_SledImplCopyWith<$Res> {
-  __$$DatabaseConfig_SledImplCopyWithImpl(_$DatabaseConfig_SledImpl _value,
-      $Res Function(_$DatabaseConfig_SledImpl) _then)
-      : super(_value, _then);
+class _$DatabaseConfig_SledCopyWithImpl<$Res>
+    implements $DatabaseConfig_SledCopyWith<$Res> {
+  _$DatabaseConfig_SledCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? config = null,
-  }) {
-    return _then(_$DatabaseConfig_SledImpl(
-      config: null == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as SledDbConfiguration,
-    ));
-  }
+  final DatabaseConfig_Sled _self;
+  final $Res Function(DatabaseConfig_Sled) _then;
+
+/// Create a copy of DatabaseConfig
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? config = null,}) {
+  return _then(DatabaseConfig_Sled(
+config: null == config ? _self.config : config // ignore: cast_nullable_to_non_nullable
+as SledDbConfiguration,
+  ));
 }
 
-/// @nodoc
 
-class _$DatabaseConfig_SledImpl extends DatabaseConfig_Sled {
-  const _$DatabaseConfig_SledImpl({required this.config}) : super._();
-
-  @override
-  final SledDbConfiguration config;
-
-  @override
-  String toString() {
-    return 'DatabaseConfig.sled(config: $config)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseConfig_SledImpl &&
-            (identical(other.config, config) || other.config == config));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, config);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
-      __$$DatabaseConfig_SledImplCopyWithImpl<_$DatabaseConfig_SledImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() memory,
-    required TResult Function(SqliteDbConfiguration config) sqlite,
-    required TResult Function(SledDbConfiguration config) sled,
-  }) {
-    return sled(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? memory,
-    TResult? Function(SqliteDbConfiguration config)? sqlite,
-    TResult? Function(SledDbConfiguration config)? sled,
-  }) {
-    return sled?.call(config);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? memory,
-    TResult Function(SqliteDbConfiguration config)? sqlite,
-    TResult Function(SledDbConfiguration config)? sled,
-    required TResult orElse(),
-  }) {
-    if (sled != null) {
-      return sled(config);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(DatabaseConfig_Memory value) memory,
-    required TResult Function(DatabaseConfig_Sqlite value) sqlite,
-    required TResult Function(DatabaseConfig_Sled value) sled,
-  }) {
-    return sled(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(DatabaseConfig_Memory value)? memory,
-    TResult? Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult? Function(DatabaseConfig_Sled value)? sled,
-  }) {
-    return sled?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(DatabaseConfig_Memory value)? memory,
-    TResult Function(DatabaseConfig_Sqlite value)? sqlite,
-    TResult Function(DatabaseConfig_Sled value)? sled,
-    required TResult orElse(),
-  }) {
-    if (sled != null) {
-      return sled(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DatabaseConfig_Sled extends DatabaseConfig {
-  const factory DatabaseConfig_Sled(
-      {required final SledDbConfiguration config}) = _$DatabaseConfig_SledImpl;
-  const DatabaseConfig_Sled._() : super._();
-
-  SledDbConfiguration get config;
-  @JsonKey(ignore: true)
-  _$$DatabaseConfig_SledImplCopyWith<_$DatabaseConfig_SledImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$LockTime {
-  int get field0 => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int field0) blocks,
-    required TResult Function(int field0) seconds,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int field0)? blocks,
-    TResult? Function(int field0)? seconds,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int field0)? blocks,
-    TResult Function(int field0)? seconds,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LockTime_Blocks value) blocks,
-    required TResult Function(LockTime_Seconds value) seconds,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LockTime_Blocks value)? blocks,
-    TResult? Function(LockTime_Seconds value)? seconds,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LockTime_Blocks value)? blocks,
-    TResult Function(LockTime_Seconds value)? seconds,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $LockTimeCopyWith<LockTime> get copyWith =>
-      throw _privateConstructorUsedError;
+ int get field0;
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LockTimeCopyWith<LockTime> get copyWith => _$LockTimeCopyWithImpl<LockTime>(this as LockTime, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LockTime&&(identical(other.field0, field0) || other.field0 == field0));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,field0);
+
+@override
+String toString() {
+  return 'LockTime(field0: $field0)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $LockTimeCopyWith<$Res> {
-  factory $LockTimeCopyWith(LockTime value, $Res Function(LockTime) then) =
-      _$LockTimeCopyWithImpl<$Res, LockTime>;
-  @useResult
-  $Res call({int field0});
-}
+abstract mixin class $LockTimeCopyWith<$Res>  {
+  factory $LockTimeCopyWith(LockTime value, $Res Function(LockTime) _then) = _$LockTimeCopyWithImpl;
+@useResult
+$Res call({
+ int field0
+});
 
+
+
+
+}
 /// @nodoc
-class _$LockTimeCopyWithImpl<$Res, $Val extends LockTime>
+class _$LockTimeCopyWithImpl<$Res>
     implements $LockTimeCopyWith<$Res> {
-  _$LockTimeCopyWithImpl(this._value, this._then);
+  _$LockTimeCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final LockTime _self;
+  final $Res Function(LockTime) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? field0 = null,
-  }) {
-    return _then(_value.copyWith(
-      field0: null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? field0 = null,}) {
+  return _then(_self.copyWith(
+field0: null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-abstract class _$$LockTime_BlocksImplCopyWith<$Res>
-    implements $LockTimeCopyWith<$Res> {
-  factory _$$LockTime_BlocksImplCopyWith(_$LockTime_BlocksImpl value,
-          $Res Function(_$LockTime_BlocksImpl) then) =
-      __$$LockTime_BlocksImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int field0});
 }
 
-/// @nodoc
-class __$$LockTime_BlocksImplCopyWithImpl<$Res>
-    extends _$LockTimeCopyWithImpl<$Res, _$LockTime_BlocksImpl>
-    implements _$$LockTime_BlocksImplCopyWith<$Res> {
-  __$$LockTime_BlocksImplCopyWithImpl(
-      _$LockTime_BlocksImpl _value, $Res Function(_$LockTime_BlocksImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? field0 = null,
-  }) {
-    return _then(_$LockTime_BlocksImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$LockTime_BlocksImpl extends LockTime_Blocks {
-  const _$LockTime_BlocksImpl(this.field0) : super._();
 
-  @override
-  final int field0;
+class LockTime_Blocks extends LockTime {
+  const LockTime_Blocks(this.field0): super._();
+  
 
-  @override
-  String toString() {
-    return 'LockTime.blocks(field0: $field0)';
-  }
+@override final  int field0;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LockTime_BlocksImpl &&
-            (identical(other.field0, field0) || other.field0 == field0));
-  }
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LockTime_BlocksCopyWith<LockTime_Blocks> get copyWith => _$LockTime_BlocksCopyWithImpl<LockTime_Blocks>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LockTime_BlocksImplCopyWith<_$LockTime_BlocksImpl> get copyWith =>
-      __$$LockTime_BlocksImplCopyWithImpl<_$LockTime_BlocksImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int field0) blocks,
-    required TResult Function(int field0) seconds,
-  }) {
-    return blocks(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int field0)? blocks,
-    TResult? Function(int field0)? seconds,
-  }) {
-    return blocks?.call(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int field0)? blocks,
-    TResult Function(int field0)? seconds,
-    required TResult orElse(),
-  }) {
-    if (blocks != null) {
-      return blocks(field0);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LockTime_Blocks value) blocks,
-    required TResult Function(LockTime_Seconds value) seconds,
-  }) {
-    return blocks(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LockTime_Blocks value)? blocks,
-    TResult? Function(LockTime_Seconds value)? seconds,
-  }) {
-    return blocks?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LockTime_Blocks value)? blocks,
-    TResult Function(LockTime_Seconds value)? seconds,
-    required TResult orElse(),
-  }) {
-    if (blocks != null) {
-      return blocks(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LockTime_Blocks&&(identical(other.field0, field0) || other.field0 == field0));
 }
 
-abstract class LockTime_Blocks extends LockTime {
-  const factory LockTime_Blocks(final int field0) = _$LockTime_BlocksImpl;
-  const LockTime_Blocks._() : super._();
 
-  @override
-  int get field0;
-  @override
-  @JsonKey(ignore: true)
-  _$$LockTime_BlocksImplCopyWith<_$LockTime_BlocksImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,field0);
+
+@override
+String toString() {
+  return 'LockTime.blocks(field0: $field0)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$LockTime_SecondsImplCopyWith<$Res>
-    implements $LockTimeCopyWith<$Res> {
-  factory _$$LockTime_SecondsImplCopyWith(_$LockTime_SecondsImpl value,
-          $Res Function(_$LockTime_SecondsImpl) then) =
-      __$$LockTime_SecondsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int field0});
+abstract mixin class $LockTime_BlocksCopyWith<$Res> implements $LockTimeCopyWith<$Res> {
+  factory $LockTime_BlocksCopyWith(LockTime_Blocks value, $Res Function(LockTime_Blocks) _then) = _$LockTime_BlocksCopyWithImpl;
+@override @useResult
+$Res call({
+ int field0
+});
+
+
+
+
+}
+/// @nodoc
+class _$LockTime_BlocksCopyWithImpl<$Res>
+    implements $LockTime_BlocksCopyWith<$Res> {
+  _$LockTime_BlocksCopyWithImpl(this._self, this._then);
+
+  final LockTime_Blocks _self;
+  final $Res Function(LockTime_Blocks) _then;
+
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? field0 = null,}) {
+  return _then(LockTime_Blocks(
+null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-class __$$LockTime_SecondsImplCopyWithImpl<$Res>
-    extends _$LockTimeCopyWithImpl<$Res, _$LockTime_SecondsImpl>
-    implements _$$LockTime_SecondsImplCopyWith<$Res> {
-  __$$LockTime_SecondsImplCopyWithImpl(_$LockTime_SecondsImpl _value,
-      $Res Function(_$LockTime_SecondsImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? field0 = null,
-  }) {
-    return _then(_$LockTime_SecondsImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$LockTime_SecondsImpl extends LockTime_Seconds {
-  const _$LockTime_SecondsImpl(this.field0) : super._();
 
-  @override
-  final int field0;
+class LockTime_Seconds extends LockTime {
+  const LockTime_Seconds(this.field0): super._();
+  
 
-  @override
-  String toString() {
-    return 'LockTime.seconds(field0: $field0)';
-  }
+@override final  int field0;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LockTime_SecondsImpl &&
-            (identical(other.field0, field0) || other.field0 == field0));
-  }
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LockTime_SecondsCopyWith<LockTime_Seconds> get copyWith => _$LockTime_SecondsCopyWithImpl<LockTime_Seconds>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LockTime_SecondsImplCopyWith<_$LockTime_SecondsImpl> get copyWith =>
-      __$$LockTime_SecondsImplCopyWithImpl<_$LockTime_SecondsImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int field0) blocks,
-    required TResult Function(int field0) seconds,
-  }) {
-    return seconds(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int field0)? blocks,
-    TResult? Function(int field0)? seconds,
-  }) {
-    return seconds?.call(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int field0)? blocks,
-    TResult Function(int field0)? seconds,
-    required TResult orElse(),
-  }) {
-    if (seconds != null) {
-      return seconds(field0);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LockTime_Blocks value) blocks,
-    required TResult Function(LockTime_Seconds value) seconds,
-  }) {
-    return seconds(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LockTime_Blocks value)? blocks,
-    TResult? Function(LockTime_Seconds value)? seconds,
-  }) {
-    return seconds?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LockTime_Blocks value)? blocks,
-    TResult Function(LockTime_Seconds value)? seconds,
-    required TResult orElse(),
-  }) {
-    if (seconds != null) {
-      return seconds(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LockTime_Seconds&&(identical(other.field0, field0) || other.field0 == field0));
 }
 
-abstract class LockTime_Seconds extends LockTime {
-  const factory LockTime_Seconds(final int field0) = _$LockTime_SecondsImpl;
-  const LockTime_Seconds._() : super._();
 
-  @override
-  int get field0;
-  @override
-  @JsonKey(ignore: true)
-  _$$LockTime_SecondsImplCopyWith<_$LockTime_SecondsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,field0);
+
+@override
+String toString() {
+  return 'LockTime.seconds(field0: $field0)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LockTime_SecondsCopyWith<$Res> implements $LockTimeCopyWith<$Res> {
+  factory $LockTime_SecondsCopyWith(LockTime_Seconds value, $Res Function(LockTime_Seconds) _then) = _$LockTime_SecondsCopyWithImpl;
+@override @useResult
+$Res call({
+ int field0
+});
+
+
+
+
+}
+/// @nodoc
+class _$LockTime_SecondsCopyWithImpl<$Res>
+    implements $LockTime_SecondsCopyWith<$Res> {
+  _$LockTime_SecondsCopyWithImpl(this._self, this._then);
+
+  final LockTime_Seconds _self;
+  final $Res Function(LockTime_Seconds) _then;
+
+/// Create a copy of LockTime
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? field0 = null,}) {
+  return _then(LockTime_Seconds(
+null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$Payload {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'Payload()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
-      _$PayloadCopyWithImpl<$Res, Payload>;
+class $PayloadCopyWith<$Res>  {
+$PayloadCopyWith(Payload _, $Res Function(Payload) __);
+}
+
+
+/// @nodoc
+
+
+class Payload_PubkeyHash extends Payload {
+  const Payload_PubkeyHash({required this.pubkeyHash}): super._();
+  
+
+ final  String pubkeyHash;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Payload_PubkeyHashCopyWith<Payload_PubkeyHash> get copyWith => _$Payload_PubkeyHashCopyWithImpl<Payload_PubkeyHash>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload_PubkeyHash&&(identical(other.pubkeyHash, pubkeyHash) || other.pubkeyHash == pubkeyHash));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,pubkeyHash);
+
+@override
+String toString() {
+  return 'Payload.pubkeyHash(pubkeyHash: $pubkeyHash)';
+}
+
+
 }
 
 /// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
-    implements $PayloadCopyWith<$Res> {
-  _$PayloadCopyWithImpl(this._value, this._then);
+abstract mixin class $Payload_PubkeyHashCopyWith<$Res> implements $PayloadCopyWith<$Res> {
+  factory $Payload_PubkeyHashCopyWith(Payload_PubkeyHash value, $Res Function(Payload_PubkeyHash) _then) = _$Payload_PubkeyHashCopyWithImpl;
+@useResult
+$Res call({
+ String pubkeyHash
+});
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+
+
+
+}
+/// @nodoc
+class _$Payload_PubkeyHashCopyWithImpl<$Res>
+    implements $Payload_PubkeyHashCopyWith<$Res> {
+  _$Payload_PubkeyHashCopyWithImpl(this._self, this._then);
+
+  final Payload_PubkeyHash _self;
+  final $Res Function(Payload_PubkeyHash) _then;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? pubkeyHash = null,}) {
+  return _then(Payload_PubkeyHash(
+pubkeyHash: null == pubkeyHash ? _self.pubkeyHash : pubkeyHash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$Payload_PubkeyHashImplCopyWith<$Res> {
-  factory _$$Payload_PubkeyHashImplCopyWith(_$Payload_PubkeyHashImpl value,
-          $Res Function(_$Payload_PubkeyHashImpl) then) =
-      __$$Payload_PubkeyHashImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String pubkeyHash});
-}
 
-/// @nodoc
-class __$$Payload_PubkeyHashImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_PubkeyHashImpl>
-    implements _$$Payload_PubkeyHashImplCopyWith<$Res> {
-  __$$Payload_PubkeyHashImplCopyWithImpl(_$Payload_PubkeyHashImpl _value,
-      $Res Function(_$Payload_PubkeyHashImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? pubkeyHash = null,
-  }) {
-    return _then(_$Payload_PubkeyHashImpl(
-      pubkeyHash: null == pubkeyHash
-          ? _value.pubkeyHash
-          : pubkeyHash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$Payload_PubkeyHashImpl extends Payload_PubkeyHash {
-  const _$Payload_PubkeyHashImpl({required this.pubkeyHash}) : super._();
 
-  @override
-  final String pubkeyHash;
+class Payload_ScriptHash extends Payload {
+  const Payload_ScriptHash({required this.scriptHash}): super._();
+  
 
-  @override
-  String toString() {
-    return 'Payload.pubkeyHash(pubkeyHash: $pubkeyHash)';
-  }
+ final  String scriptHash;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_PubkeyHashImpl &&
-            (identical(other.pubkeyHash, pubkeyHash) ||
-                other.pubkeyHash == pubkeyHash));
-  }
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Payload_ScriptHashCopyWith<Payload_ScriptHash> get copyWith => _$Payload_ScriptHashCopyWithImpl<Payload_ScriptHash>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, pubkeyHash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
-      __$$Payload_PubkeyHashImplCopyWithImpl<_$Payload_PubkeyHashImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return pubkeyHash(this.pubkeyHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return pubkeyHash?.call(this.pubkeyHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (pubkeyHash != null) {
-      return pubkeyHash(this.pubkeyHash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return pubkeyHash(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return pubkeyHash?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (pubkeyHash != null) {
-      return pubkeyHash(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload_ScriptHash&&(identical(other.scriptHash, scriptHash) || other.scriptHash == scriptHash));
 }
 
-abstract class Payload_PubkeyHash extends Payload {
-  const factory Payload_PubkeyHash({required final String pubkeyHash}) =
-      _$Payload_PubkeyHashImpl;
-  const Payload_PubkeyHash._() : super._();
 
-  String get pubkeyHash;
-  @JsonKey(ignore: true)
-  _$$Payload_PubkeyHashImplCopyWith<_$Payload_PubkeyHashImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,scriptHash);
+
+@override
+String toString() {
+  return 'Payload.scriptHash(scriptHash: $scriptHash)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$Payload_ScriptHashImplCopyWith<$Res> {
-  factory _$$Payload_ScriptHashImplCopyWith(_$Payload_ScriptHashImpl value,
-          $Res Function(_$Payload_ScriptHashImpl) then) =
-      __$$Payload_ScriptHashImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String scriptHash});
+abstract mixin class $Payload_ScriptHashCopyWith<$Res> implements $PayloadCopyWith<$Res> {
+  factory $Payload_ScriptHashCopyWith(Payload_ScriptHash value, $Res Function(Payload_ScriptHash) _then) = _$Payload_ScriptHashCopyWithImpl;
+@useResult
+$Res call({
+ String scriptHash
+});
+
+
+
+
+}
+/// @nodoc
+class _$Payload_ScriptHashCopyWithImpl<$Res>
+    implements $Payload_ScriptHashCopyWith<$Res> {
+  _$Payload_ScriptHashCopyWithImpl(this._self, this._then);
+
+  final Payload_ScriptHash _self;
+  final $Res Function(Payload_ScriptHash) _then;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? scriptHash = null,}) {
+  return _then(Payload_ScriptHash(
+scriptHash: null == scriptHash ? _self.scriptHash : scriptHash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$Payload_ScriptHashImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_ScriptHashImpl>
-    implements _$$Payload_ScriptHashImplCopyWith<$Res> {
-  __$$Payload_ScriptHashImplCopyWithImpl(_$Payload_ScriptHashImpl _value,
-      $Res Function(_$Payload_ScriptHashImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? scriptHash = null,
-  }) {
-    return _then(_$Payload_ScriptHashImpl(
-      scriptHash: null == scriptHash
-          ? _value.scriptHash
-          : scriptHash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$Payload_ScriptHashImpl extends Payload_ScriptHash {
-  const _$Payload_ScriptHashImpl({required this.scriptHash}) : super._();
 
-  @override
-  final String scriptHash;
+class Payload_WitnessProgram extends Payload {
+  const Payload_WitnessProgram({required this.version, required this.program}): super._();
+  
 
-  @override
-  String toString() {
-    return 'Payload.scriptHash(scriptHash: $scriptHash)';
-  }
+/// The witness program version.
+ final  WitnessVersion version;
+/// The witness program.
+ final  Uint8List program;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_ScriptHashImpl &&
-            (identical(other.scriptHash, scriptHash) ||
-                other.scriptHash == scriptHash));
-  }
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Payload_WitnessProgramCopyWith<Payload_WitnessProgram> get copyWith => _$Payload_WitnessProgramCopyWithImpl<Payload_WitnessProgram>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, scriptHash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
-      __$$Payload_ScriptHashImplCopyWithImpl<_$Payload_ScriptHashImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return scriptHash(this.scriptHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return scriptHash?.call(this.scriptHash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (scriptHash != null) {
-      return scriptHash(this.scriptHash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return scriptHash(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return scriptHash?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (scriptHash != null) {
-      return scriptHash(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload_WitnessProgram&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.program, program));
 }
 
-abstract class Payload_ScriptHash extends Payload {
-  const factory Payload_ScriptHash({required final String scriptHash}) =
-      _$Payload_ScriptHashImpl;
-  const Payload_ScriptHash._() : super._();
 
-  String get scriptHash;
-  @JsonKey(ignore: true)
-  _$$Payload_ScriptHashImplCopyWith<_$Payload_ScriptHashImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,version,const DeepCollectionEquality().hash(program));
+
+@override
+String toString() {
+  return 'Payload.witnessProgram(version: $version, program: $program)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$Payload_WitnessProgramImplCopyWith<$Res> {
-  factory _$$Payload_WitnessProgramImplCopyWith(
-          _$Payload_WitnessProgramImpl value,
-          $Res Function(_$Payload_WitnessProgramImpl) then) =
-      __$$Payload_WitnessProgramImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({WitnessVersion version, Uint8List program});
-}
+abstract mixin class $Payload_WitnessProgramCopyWith<$Res> implements $PayloadCopyWith<$Res> {
+  factory $Payload_WitnessProgramCopyWith(Payload_WitnessProgram value, $Res Function(Payload_WitnessProgram) _then) = _$Payload_WitnessProgramCopyWithImpl;
+@useResult
+$Res call({
+ WitnessVersion version, Uint8List program
+});
 
+
+
+
+}
 /// @nodoc
-class __$$Payload_WitnessProgramImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$Payload_WitnessProgramImpl>
-    implements _$$Payload_WitnessProgramImplCopyWith<$Res> {
-  __$$Payload_WitnessProgramImplCopyWithImpl(
-      _$Payload_WitnessProgramImpl _value,
-      $Res Function(_$Payload_WitnessProgramImpl) _then)
-      : super(_value, _then);
+class _$Payload_WitnessProgramCopyWithImpl<$Res>
+    implements $Payload_WitnessProgramCopyWith<$Res> {
+  _$Payload_WitnessProgramCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? version = null,
-    Object? program = null,
-  }) {
-    return _then(_$Payload_WitnessProgramImpl(
-      version: null == version
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as WitnessVersion,
-      program: null == program
-          ? _value.program
-          : program // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-    ));
-  }
+  final Payload_WitnessProgram _self;
+  final $Res Function(Payload_WitnessProgram) _then;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? version = null,Object? program = null,}) {
+  return _then(Payload_WitnessProgram(
+version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as WitnessVersion,program: null == program ? _self.program : program // ignore: cast_nullable_to_non_nullable
+as Uint8List,
+  ));
 }
 
-/// @nodoc
 
-class _$Payload_WitnessProgramImpl extends Payload_WitnessProgram {
-  const _$Payload_WitnessProgramImpl(
-      {required this.version, required this.program})
-      : super._();
-
-  /// The witness program version.
-  @override
-  final WitnessVersion version;
-
-  /// The witness program.
-  @override
-  final Uint8List program;
-
-  @override
-  String toString() {
-    return 'Payload.witnessProgram(version: $version, program: $program)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Payload_WitnessProgramImpl &&
-            (identical(other.version, version) || other.version == version) &&
-            const DeepCollectionEquality().equals(other.program, program));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, version, const DeepCollectionEquality().hash(program));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
-      get copyWith => __$$Payload_WitnessProgramImplCopyWithImpl<
-          _$Payload_WitnessProgramImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String pubkeyHash) pubkeyHash,
-    required TResult Function(String scriptHash) scriptHash,
-    required TResult Function(WitnessVersion version, Uint8List program)
-        witnessProgram,
-  }) {
-    return witnessProgram(version, program);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String pubkeyHash)? pubkeyHash,
-    TResult? Function(String scriptHash)? scriptHash,
-    TResult? Function(WitnessVersion version, Uint8List program)?
-        witnessProgram,
-  }) {
-    return witnessProgram?.call(version, program);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String pubkeyHash)? pubkeyHash,
-    TResult Function(String scriptHash)? scriptHash,
-    TResult Function(WitnessVersion version, Uint8List program)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (witnessProgram != null) {
-      return witnessProgram(version, program);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Payload_PubkeyHash value) pubkeyHash,
-    required TResult Function(Payload_ScriptHash value) scriptHash,
-    required TResult Function(Payload_WitnessProgram value) witnessProgram,
-  }) {
-    return witnessProgram(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult? Function(Payload_ScriptHash value)? scriptHash,
-    TResult? Function(Payload_WitnessProgram value)? witnessProgram,
-  }) {
-    return witnessProgram?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Payload_PubkeyHash value)? pubkeyHash,
-    TResult Function(Payload_ScriptHash value)? scriptHash,
-    TResult Function(Payload_WitnessProgram value)? witnessProgram,
-    required TResult orElse(),
-  }) {
-    if (witnessProgram != null) {
-      return witnessProgram(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Payload_WitnessProgram extends Payload {
-  const factory Payload_WitnessProgram(
-      {required final WitnessVersion version,
-      required final Uint8List program}) = _$Payload_WitnessProgramImpl;
-  const Payload_WitnessProgram._() : super._();
-
-  /// The witness program version.
-  WitnessVersion get version;
-
-  /// The witness program.
-  Uint8List get program;
-  @JsonKey(ignore: true)
-  _$$Payload_WitnessProgramImplCopyWith<_$Payload_WitnessProgramImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$PkOrF {
-  String get value => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String value) pubkey,
-    required TResult Function(String value) xOnlyPubkey,
-    required TResult Function(String value) fingerprint,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? pubkey,
-    TResult? Function(String value)? xOnlyPubkey,
-    TResult? Function(String value)? fingerprint,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? pubkey,
-    TResult Function(String value)? xOnlyPubkey,
-    TResult Function(String value)? fingerprint,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PkOrF_Pubkey value) pubkey,
-    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
-    required TResult Function(PkOrF_Fingerprint value) fingerprint,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF_Pubkey value)? pubkey,
-    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PkOrF_Pubkey value)? pubkey,
-    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult Function(PkOrF_Fingerprint value)? fingerprint,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $PkOrFCopyWith<PkOrF> get copyWith => throw _privateConstructorUsedError;
+ String get value;
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PkOrFCopyWith<PkOrF> get copyWith => _$PkOrFCopyWithImpl<PkOrF>(this as PkOrF, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PkOrF&&(identical(other.value, value) || other.value == value));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'PkOrF(value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PkOrFCopyWith<$Res> {
-  factory $PkOrFCopyWith(PkOrF value, $Res Function(PkOrF) then) =
-      _$PkOrFCopyWithImpl<$Res, PkOrF>;
-  @useResult
-  $Res call({String value});
-}
+abstract mixin class $PkOrFCopyWith<$Res>  {
+  factory $PkOrFCopyWith(PkOrF value, $Res Function(PkOrF) _then) = _$PkOrFCopyWithImpl;
+@useResult
+$Res call({
+ String value
+});
 
+
+
+
+}
 /// @nodoc
-class _$PkOrFCopyWithImpl<$Res, $Val extends PkOrF>
+class _$PkOrFCopyWithImpl<$Res>
     implements $PkOrFCopyWith<$Res> {
-  _$PkOrFCopyWithImpl(this._value, this._then);
+  _$PkOrFCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PkOrF _self;
+  final $Res Function(PkOrF) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_value.copyWith(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,}) {
+  return _then(_self.copyWith(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PkOrF_PubkeyImplCopyWith<$Res>
-    implements $PkOrFCopyWith<$Res> {
-  factory _$$PkOrF_PubkeyImplCopyWith(
-          _$PkOrF_PubkeyImpl value, $Res Function(_$PkOrF_PubkeyImpl) then) =
-      __$$PkOrF_PubkeyImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String value});
 }
 
-/// @nodoc
-class __$$PkOrF_PubkeyImplCopyWithImpl<$Res>
-    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_PubkeyImpl>
-    implements _$$PkOrF_PubkeyImplCopyWith<$Res> {
-  __$$PkOrF_PubkeyImplCopyWithImpl(
-      _$PkOrF_PubkeyImpl _value, $Res Function(_$PkOrF_PubkeyImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$PkOrF_PubkeyImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$PkOrF_PubkeyImpl extends PkOrF_Pubkey {
-  const _$PkOrF_PubkeyImpl({required this.value}) : super._();
 
-  @override
-  final String value;
+class PkOrF_Pubkey extends PkOrF {
+  const PkOrF_Pubkey({required this.value}): super._();
+  
 
-  @override
-  String toString() {
-    return 'PkOrF.pubkey(value: $value)';
-  }
+@override final  String value;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PkOrF_PubkeyImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PkOrF_PubkeyCopyWith<PkOrF_Pubkey> get copyWith => _$PkOrF_PubkeyCopyWithImpl<PkOrF_Pubkey>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
-      __$$PkOrF_PubkeyImplCopyWithImpl<_$PkOrF_PubkeyImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String value) pubkey,
-    required TResult Function(String value) xOnlyPubkey,
-    required TResult Function(String value) fingerprint,
-  }) {
-    return pubkey(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? pubkey,
-    TResult? Function(String value)? xOnlyPubkey,
-    TResult? Function(String value)? fingerprint,
-  }) {
-    return pubkey?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? pubkey,
-    TResult Function(String value)? xOnlyPubkey,
-    TResult Function(String value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (pubkey != null) {
-      return pubkey(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PkOrF_Pubkey value) pubkey,
-    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
-    required TResult Function(PkOrF_Fingerprint value) fingerprint,
-  }) {
-    return pubkey(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF_Pubkey value)? pubkey,
-    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
-  }) {
-    return pubkey?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PkOrF_Pubkey value)? pubkey,
-    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult Function(PkOrF_Fingerprint value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (pubkey != null) {
-      return pubkey(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PkOrF_Pubkey&&(identical(other.value, value) || other.value == value));
 }
 
-abstract class PkOrF_Pubkey extends PkOrF {
-  const factory PkOrF_Pubkey({required final String value}) =
-      _$PkOrF_PubkeyImpl;
-  const PkOrF_Pubkey._() : super._();
 
-  @override
-  String get value;
-  @override
-  @JsonKey(ignore: true)
-  _$$PkOrF_PubkeyImplCopyWith<_$PkOrF_PubkeyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'PkOrF.pubkey(value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res>
-    implements $PkOrFCopyWith<$Res> {
-  factory _$$PkOrF_XOnlyPubkeyImplCopyWith(_$PkOrF_XOnlyPubkeyImpl value,
-          $Res Function(_$PkOrF_XOnlyPubkeyImpl) then) =
-      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String value});
+abstract mixin class $PkOrF_PubkeyCopyWith<$Res> implements $PkOrFCopyWith<$Res> {
+  factory $PkOrF_PubkeyCopyWith(PkOrF_Pubkey value, $Res Function(PkOrF_Pubkey) _then) = _$PkOrF_PubkeyCopyWithImpl;
+@override @useResult
+$Res call({
+ String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$PkOrF_PubkeyCopyWithImpl<$Res>
+    implements $PkOrF_PubkeyCopyWith<$Res> {
+  _$PkOrF_PubkeyCopyWithImpl(this._self, this._then);
+
+  final PkOrF_Pubkey _self;
+  final $Res Function(PkOrF_Pubkey) _then;
+
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(PkOrF_Pubkey(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<$Res>
-    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_XOnlyPubkeyImpl>
-    implements _$$PkOrF_XOnlyPubkeyImplCopyWith<$Res> {
-  __$$PkOrF_XOnlyPubkeyImplCopyWithImpl(_$PkOrF_XOnlyPubkeyImpl _value,
-      $Res Function(_$PkOrF_XOnlyPubkeyImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$PkOrF_XOnlyPubkeyImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$PkOrF_XOnlyPubkeyImpl extends PkOrF_XOnlyPubkey {
-  const _$PkOrF_XOnlyPubkeyImpl({required this.value}) : super._();
 
-  @override
-  final String value;
+class PkOrF_XOnlyPubkey extends PkOrF {
+  const PkOrF_XOnlyPubkey({required this.value}): super._();
+  
 
-  @override
-  String toString() {
-    return 'PkOrF.xOnlyPubkey(value: $value)';
-  }
+@override final  String value;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PkOrF_XOnlyPubkeyImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PkOrF_XOnlyPubkeyCopyWith<PkOrF_XOnlyPubkey> get copyWith => _$PkOrF_XOnlyPubkeyCopyWithImpl<PkOrF_XOnlyPubkey>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
-      __$$PkOrF_XOnlyPubkeyImplCopyWithImpl<_$PkOrF_XOnlyPubkeyImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String value) pubkey,
-    required TResult Function(String value) xOnlyPubkey,
-    required TResult Function(String value) fingerprint,
-  }) {
-    return xOnlyPubkey(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? pubkey,
-    TResult? Function(String value)? xOnlyPubkey,
-    TResult? Function(String value)? fingerprint,
-  }) {
-    return xOnlyPubkey?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? pubkey,
-    TResult Function(String value)? xOnlyPubkey,
-    TResult Function(String value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (xOnlyPubkey != null) {
-      return xOnlyPubkey(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PkOrF_Pubkey value) pubkey,
-    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
-    required TResult Function(PkOrF_Fingerprint value) fingerprint,
-  }) {
-    return xOnlyPubkey(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF_Pubkey value)? pubkey,
-    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
-  }) {
-    return xOnlyPubkey?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PkOrF_Pubkey value)? pubkey,
-    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult Function(PkOrF_Fingerprint value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (xOnlyPubkey != null) {
-      return xOnlyPubkey(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PkOrF_XOnlyPubkey&&(identical(other.value, value) || other.value == value));
 }
 
-abstract class PkOrF_XOnlyPubkey extends PkOrF {
-  const factory PkOrF_XOnlyPubkey({required final String value}) =
-      _$PkOrF_XOnlyPubkeyImpl;
-  const PkOrF_XOnlyPubkey._() : super._();
 
-  @override
-  String get value;
-  @override
-  @JsonKey(ignore: true)
-  _$$PkOrF_XOnlyPubkeyImplCopyWith<_$PkOrF_XOnlyPubkeyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'PkOrF.xOnlyPubkey(value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$PkOrF_FingerprintImplCopyWith<$Res>
-    implements $PkOrFCopyWith<$Res> {
-  factory _$$PkOrF_FingerprintImplCopyWith(_$PkOrF_FingerprintImpl value,
-          $Res Function(_$PkOrF_FingerprintImpl) then) =
-      __$$PkOrF_FingerprintImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String value});
+abstract mixin class $PkOrF_XOnlyPubkeyCopyWith<$Res> implements $PkOrFCopyWith<$Res> {
+  factory $PkOrF_XOnlyPubkeyCopyWith(PkOrF_XOnlyPubkey value, $Res Function(PkOrF_XOnlyPubkey) _then) = _$PkOrF_XOnlyPubkeyCopyWithImpl;
+@override @useResult
+$Res call({
+ String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$PkOrF_XOnlyPubkeyCopyWithImpl<$Res>
+    implements $PkOrF_XOnlyPubkeyCopyWith<$Res> {
+  _$PkOrF_XOnlyPubkeyCopyWithImpl(this._self, this._then);
+
+  final PkOrF_XOnlyPubkey _self;
+  final $Res Function(PkOrF_XOnlyPubkey) _then;
+
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(PkOrF_XOnlyPubkey(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$PkOrF_FingerprintImplCopyWithImpl<$Res>
-    extends _$PkOrFCopyWithImpl<$Res, _$PkOrF_FingerprintImpl>
-    implements _$$PkOrF_FingerprintImplCopyWith<$Res> {
-  __$$PkOrF_FingerprintImplCopyWithImpl(_$PkOrF_FingerprintImpl _value,
-      $Res Function(_$PkOrF_FingerprintImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$PkOrF_FingerprintImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$PkOrF_FingerprintImpl extends PkOrF_Fingerprint {
-  const _$PkOrF_FingerprintImpl({required this.value}) : super._();
 
-  @override
-  final String value;
+class PkOrF_Fingerprint extends PkOrF {
+  const PkOrF_Fingerprint({required this.value}): super._();
+  
 
-  @override
-  String toString() {
-    return 'PkOrF.fingerprint(value: $value)';
-  }
+@override final  String value;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PkOrF_FingerprintImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PkOrF_FingerprintCopyWith<PkOrF_Fingerprint> get copyWith => _$PkOrF_FingerprintCopyWithImpl<PkOrF_Fingerprint>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
-      __$$PkOrF_FingerprintImplCopyWithImpl<_$PkOrF_FingerprintImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String value) pubkey,
-    required TResult Function(String value) xOnlyPubkey,
-    required TResult Function(String value) fingerprint,
-  }) {
-    return fingerprint(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? pubkey,
-    TResult? Function(String value)? xOnlyPubkey,
-    TResult? Function(String value)? fingerprint,
-  }) {
-    return fingerprint?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? pubkey,
-    TResult Function(String value)? xOnlyPubkey,
-    TResult Function(String value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (fingerprint != null) {
-      return fingerprint(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PkOrF_Pubkey value) pubkey,
-    required TResult Function(PkOrF_XOnlyPubkey value) xOnlyPubkey,
-    required TResult Function(PkOrF_Fingerprint value) fingerprint,
-  }) {
-    return fingerprint(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF_Pubkey value)? pubkey,
-    TResult? Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult? Function(PkOrF_Fingerprint value)? fingerprint,
-  }) {
-    return fingerprint?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PkOrF_Pubkey value)? pubkey,
-    TResult Function(PkOrF_XOnlyPubkey value)? xOnlyPubkey,
-    TResult Function(PkOrF_Fingerprint value)? fingerprint,
-    required TResult orElse(),
-  }) {
-    if (fingerprint != null) {
-      return fingerprint(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PkOrF_Fingerprint&&(identical(other.value, value) || other.value == value));
 }
 
-abstract class PkOrF_Fingerprint extends PkOrF {
-  const factory PkOrF_Fingerprint({required final String value}) =
-      _$PkOrF_FingerprintImpl;
-  const PkOrF_Fingerprint._() : super._();
 
-  @override
-  String get value;
-  @override
-  @JsonKey(ignore: true)
-  _$$PkOrF_FingerprintImplCopyWith<_$PkOrF_FingerprintImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'PkOrF.fingerprint(value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PkOrF_FingerprintCopyWith<$Res> implements $PkOrFCopyWith<$Res> {
+  factory $PkOrF_FingerprintCopyWith(PkOrF_Fingerprint value, $Res Function(PkOrF_Fingerprint) _then) = _$PkOrF_FingerprintCopyWithImpl;
+@override @useResult
+$Res call({
+ String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$PkOrF_FingerprintCopyWithImpl<$Res>
+    implements $PkOrF_FingerprintCopyWith<$Res> {
+  _$PkOrF_FingerprintCopyWithImpl(this._self, this._then);
+
+  final PkOrF_Fingerprint _self;
+  final $Res Function(PkOrF_Fingerprint) _then;
+
+/// Create a copy of PkOrF
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(PkOrF_Fingerprint(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$RbfValue {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() rbfDefault,
-    required TResult Function(int field0) value,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? rbfDefault,
-    TResult? Function(int field0)? value,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? rbfDefault,
-    TResult Function(int field0)? value,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RbfValue_RbfDefault value) rbfDefault,
-    required TResult Function(RbfValue_Value value) value,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult? Function(RbfValue_Value value)? value,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult Function(RbfValue_Value value)? value,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RbfValue);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RbfValue()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RbfValueCopyWith<$Res> {
-  factory $RbfValueCopyWith(RbfValue value, $Res Function(RbfValue) then) =
-      _$RbfValueCopyWithImpl<$Res, RbfValue>;
+class $RbfValueCopyWith<$Res>  {
+$RbfValueCopyWith(RbfValue _, $Res Function(RbfValue) __);
 }
 
-/// @nodoc
-class _$RbfValueCopyWithImpl<$Res, $Val extends RbfValue>
-    implements $RbfValueCopyWith<$Res> {
-  _$RbfValueCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$RbfValue_RbfDefaultImplCopyWith<$Res> {
-  factory _$$RbfValue_RbfDefaultImplCopyWith(_$RbfValue_RbfDefaultImpl value,
-          $Res Function(_$RbfValue_RbfDefaultImpl) then) =
-      __$$RbfValue_RbfDefaultImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$RbfValue_RbfDefaultImplCopyWithImpl<$Res>
-    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_RbfDefaultImpl>
-    implements _$$RbfValue_RbfDefaultImplCopyWith<$Res> {
-  __$$RbfValue_RbfDefaultImplCopyWithImpl(_$RbfValue_RbfDefaultImpl _value,
-      $Res Function(_$RbfValue_RbfDefaultImpl) _then)
-      : super(_value, _then);
-}
 
 /// @nodoc
 
-class _$RbfValue_RbfDefaultImpl extends RbfValue_RbfDefault {
-  const _$RbfValue_RbfDefaultImpl() : super._();
 
-  @override
-  String toString() {
-    return 'RbfValue.rbfDefault()';
-  }
+class RbfValue_RbfDefault extends RbfValue {
+  const RbfValue_RbfDefault(): super._();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RbfValue_RbfDefaultImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() rbfDefault,
-    required TResult Function(int field0) value,
-  }) {
-    return rbfDefault();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? rbfDefault,
-    TResult? Function(int field0)? value,
-  }) {
-    return rbfDefault?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? rbfDefault,
-    TResult Function(int field0)? value,
-    required TResult orElse(),
-  }) {
-    if (rbfDefault != null) {
-      return rbfDefault();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RbfValue_RbfDefault value) rbfDefault,
-    required TResult Function(RbfValue_Value value) value,
-  }) {
-    return rbfDefault(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult? Function(RbfValue_Value value)? value,
-  }) {
-    return rbfDefault?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult Function(RbfValue_Value value)? value,
-    required TResult orElse(),
-  }) {
-    if (rbfDefault != null) {
-      return rbfDefault(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RbfValue_RbfDefault);
 }
 
-abstract class RbfValue_RbfDefault extends RbfValue {
-  const factory RbfValue_RbfDefault() = _$RbfValue_RbfDefaultImpl;
-  const RbfValue_RbfDefault._() : super._();
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RbfValue.rbfDefault()';
 }
 
-/// @nodoc
-abstract class _$$RbfValue_ValueImplCopyWith<$Res> {
-  factory _$$RbfValue_ValueImplCopyWith(_$RbfValue_ValueImpl value,
-          $Res Function(_$RbfValue_ValueImpl) then) =
-      __$$RbfValue_ValueImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int field0});
+
 }
 
-/// @nodoc
-class __$$RbfValue_ValueImplCopyWithImpl<$Res>
-    extends _$RbfValueCopyWithImpl<$Res, _$RbfValue_ValueImpl>
-    implements _$$RbfValue_ValueImplCopyWith<$Res> {
-  __$$RbfValue_ValueImplCopyWithImpl(
-      _$RbfValue_ValueImpl _value, $Res Function(_$RbfValue_ValueImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? field0 = null,
-  }) {
-    return _then(_$RbfValue_ValueImpl(
-      null == field0
-          ? _value.field0
-          : field0 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
+
 
 /// @nodoc
 
-class _$RbfValue_ValueImpl extends RbfValue_Value {
-  const _$RbfValue_ValueImpl(this.field0) : super._();
 
-  @override
-  final int field0;
+class RbfValue_Value extends RbfValue {
+  const RbfValue_Value(this.field0): super._();
+  
 
-  @override
-  String toString() {
-    return 'RbfValue.value(field0: $field0)';
-  }
+ final  int field0;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RbfValue_ValueImpl &&
-            (identical(other.field0, field0) || other.field0 == field0));
-  }
+/// Create a copy of RbfValue
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RbfValue_ValueCopyWith<RbfValue_Value> get copyWith => _$RbfValue_ValueCopyWithImpl<RbfValue_Value>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RbfValue_ValueImplCopyWith<_$RbfValue_ValueImpl> get copyWith =>
-      __$$RbfValue_ValueImplCopyWithImpl<_$RbfValue_ValueImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() rbfDefault,
-    required TResult Function(int field0) value,
-  }) {
-    return value(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? rbfDefault,
-    TResult? Function(int field0)? value,
-  }) {
-    return value?.call(field0);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? rbfDefault,
-    TResult Function(int field0)? value,
-    required TResult orElse(),
-  }) {
-    if (value != null) {
-      return value(field0);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(RbfValue_RbfDefault value) rbfDefault,
-    required TResult Function(RbfValue_Value value) value,
-  }) {
-    return value(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult? Function(RbfValue_Value value)? value,
-  }) {
-    return value?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(RbfValue_RbfDefault value)? rbfDefault,
-    TResult Function(RbfValue_Value value)? value,
-    required TResult orElse(),
-  }) {
-    if (value != null) {
-      return value(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RbfValue_Value&&(identical(other.field0, field0) || other.field0 == field0));
 }
 
-abstract class RbfValue_Value extends RbfValue {
-  const factory RbfValue_Value(final int field0) = _$RbfValue_ValueImpl;
-  const RbfValue_Value._() : super._();
 
-  int get field0;
-  @JsonKey(ignore: true)
-  _$$RbfValue_ValueImplCopyWith<_$RbfValue_ValueImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,field0);
+
+@override
+String toString() {
+  return 'RbfValue.value(field0: $field0)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RbfValue_ValueCopyWith<$Res> implements $RbfValueCopyWith<$Res> {
+  factory $RbfValue_ValueCopyWith(RbfValue_Value value, $Res Function(RbfValue_Value) _then) = _$RbfValue_ValueCopyWithImpl;
+@useResult
+$Res call({
+ int field0
+});
+
+
+
+
+}
+/// @nodoc
+class _$RbfValue_ValueCopyWithImpl<$Res>
+    implements $RbfValue_ValueCopyWith<$Res> {
+  _$RbfValue_ValueCopyWithImpl(this._self, this._then);
+
+  final RbfValue_Value _self;
+  final $Res Function(RbfValue_Value) _then;
+
+/// Create a copy of RbfValue
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? field0 = null,}) {
+  return _then(RbfValue_Value(
+null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$Satisfaction {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<int, List<Condition>> conditions)
-        partial,
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<Uint32List, List<Condition>> conditions)
-        partialComplete,
-    required TResult Function(Condition condition) complete,
-    required TResult Function(String msg) none,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult? Function(Condition condition)? complete,
-    TResult? Function(String msg)? none,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult Function(Condition condition)? complete,
-    TResult Function(String msg)? none,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Satisfaction_Partial value) partial,
-    required TResult Function(Satisfaction_PartialComplete value)
-        partialComplete,
-    required TResult Function(Satisfaction_Complete value) complete,
-    required TResult Function(Satisfaction_None value) none,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Satisfaction_Partial value)? partial,
-    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult? Function(Satisfaction_Complete value)? complete,
-    TResult? Function(Satisfaction_None value)? none,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Satisfaction_Partial value)? partial,
-    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult Function(Satisfaction_Complete value)? complete,
-    TResult Function(Satisfaction_None value)? none,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Satisfaction);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'Satisfaction()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SatisfactionCopyWith<$Res> {
-  factory $SatisfactionCopyWith(
-          Satisfaction value, $Res Function(Satisfaction) then) =
-      _$SatisfactionCopyWithImpl<$Res, Satisfaction>;
+class $SatisfactionCopyWith<$Res>  {
+$SatisfactionCopyWith(Satisfaction _, $Res Function(Satisfaction) __);
+}
+
+
+/// @nodoc
+
+
+class Satisfaction_Partial extends Satisfaction {
+  const Satisfaction_Partial({required this.n, required this.m, required this.items, this.sorted, required final  Map<int, List<Condition>> conditions}): _conditions = conditions,super._();
+  
+
+ final  BigInt n;
+ final  BigInt m;
+ final  Uint64List items;
+ final  bool? sorted;
+ final  Map<int, List<Condition>> _conditions;
+ Map<int, List<Condition>> get conditions {
+  if (_conditions is EqualUnmodifiableMapView) return _conditions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_conditions);
+}
+
+
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Satisfaction_PartialCopyWith<Satisfaction_Partial> get copyWith => _$Satisfaction_PartialCopyWithImpl<Satisfaction_Partial>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Satisfaction_Partial&&(identical(other.n, n) || other.n == n)&&(identical(other.m, m) || other.m == m)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.sorted, sorted) || other.sorted == sorted)&&const DeepCollectionEquality().equals(other._conditions, _conditions));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,n,m,const DeepCollectionEquality().hash(items),sorted,const DeepCollectionEquality().hash(_conditions));
+
+@override
+String toString() {
+  return 'Satisfaction.partial(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
+}
+
+
 }
 
 /// @nodoc
-class _$SatisfactionCopyWithImpl<$Res, $Val extends Satisfaction>
-    implements $SatisfactionCopyWith<$Res> {
-  _$SatisfactionCopyWithImpl(this._value, this._then);
+abstract mixin class $Satisfaction_PartialCopyWith<$Res> implements $SatisfactionCopyWith<$Res> {
+  factory $Satisfaction_PartialCopyWith(Satisfaction_Partial value, $Res Function(Satisfaction_Partial) _then) = _$Satisfaction_PartialCopyWithImpl;
+@useResult
+$Res call({
+ BigInt n, BigInt m, Uint64List items, bool? sorted, Map<int, List<Condition>> conditions
+});
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+
+
+
+}
+/// @nodoc
+class _$Satisfaction_PartialCopyWithImpl<$Res>
+    implements $Satisfaction_PartialCopyWith<$Res> {
+  _$Satisfaction_PartialCopyWithImpl(this._self, this._then);
+
+  final Satisfaction_Partial _self;
+  final $Res Function(Satisfaction_Partial) _then;
+
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? n = null,Object? m = null,Object? items = null,Object? sorted = freezed,Object? conditions = null,}) {
+  return _then(Satisfaction_Partial(
+n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
+as BigInt,m: null == m ? _self.m : m // ignore: cast_nullable_to_non_nullable
+as BigInt,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as Uint64List,sorted: freezed == sorted ? _self.sorted : sorted // ignore: cast_nullable_to_non_nullable
+as bool?,conditions: null == conditions ? _self._conditions : conditions // ignore: cast_nullable_to_non_nullable
+as Map<int, List<Condition>>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$Satisfaction_PartialImplCopyWith<$Res> {
-  factory _$$Satisfaction_PartialImplCopyWith(_$Satisfaction_PartialImpl value,
-          $Res Function(_$Satisfaction_PartialImpl) then) =
-      __$$Satisfaction_PartialImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {BigInt n,
-      BigInt m,
-      Uint64List items,
-      bool? sorted,
-      Map<int, List<Condition>> conditions});
-}
 
-/// @nodoc
-class __$$Satisfaction_PartialImplCopyWithImpl<$Res>
-    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_PartialImpl>
-    implements _$$Satisfaction_PartialImplCopyWith<$Res> {
-  __$$Satisfaction_PartialImplCopyWithImpl(_$Satisfaction_PartialImpl _value,
-      $Res Function(_$Satisfaction_PartialImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? n = null,
-    Object? m = null,
-    Object? items = null,
-    Object? sorted = freezed,
-    Object? conditions = null,
-  }) {
-    return _then(_$Satisfaction_PartialImpl(
-      n: null == n
-          ? _value.n
-          : n // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-      m: null == m
-          ? _value.m
-          : m // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-      items: null == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as Uint64List,
-      sorted: freezed == sorted
-          ? _value.sorted
-          : sorted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      conditions: null == conditions
-          ? _value._conditions
-          : conditions // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<Condition>>,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$Satisfaction_PartialImpl extends Satisfaction_Partial {
-  const _$Satisfaction_PartialImpl(
-      {required this.n,
-      required this.m,
-      required this.items,
-      this.sorted,
-      required final Map<int, List<Condition>> conditions})
-      : _conditions = conditions,
-        super._();
 
-  @override
-  final BigInt n;
-  @override
-  final BigInt m;
-  @override
-  final Uint64List items;
-  @override
-  final bool? sorted;
-  final Map<int, List<Condition>> _conditions;
-  @override
-  Map<int, List<Condition>> get conditions {
-    if (_conditions is EqualUnmodifiableMapView) return _conditions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_conditions);
-  }
+class Satisfaction_PartialComplete extends Satisfaction {
+  const Satisfaction_PartialComplete({required this.n, required this.m, required this.items, this.sorted, required final  Map<Uint32List, List<Condition>> conditions}): _conditions = conditions,super._();
+  
 
-  @override
-  String toString() {
-    return 'Satisfaction.partial(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Satisfaction_PartialImpl &&
-            (identical(other.n, n) || other.n == n) &&
-            (identical(other.m, m) || other.m == m) &&
-            const DeepCollectionEquality().equals(other.items, items) &&
-            (identical(other.sorted, sorted) || other.sorted == sorted) &&
-            const DeepCollectionEquality()
-                .equals(other._conditions, _conditions));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      n,
-      m,
-      const DeepCollectionEquality().hash(items),
-      sorted,
-      const DeepCollectionEquality().hash(_conditions));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Satisfaction_PartialImplCopyWith<_$Satisfaction_PartialImpl>
-      get copyWith =>
-          __$$Satisfaction_PartialImplCopyWithImpl<_$Satisfaction_PartialImpl>(
-              this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<int, List<Condition>> conditions)
-        partial,
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<Uint32List, List<Condition>> conditions)
-        partialComplete,
-    required TResult Function(Condition condition) complete,
-    required TResult Function(String msg) none,
-  }) {
-    return partial(n, m, items, sorted, conditions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult? Function(Condition condition)? complete,
-    TResult? Function(String msg)? none,
-  }) {
-    return partial?.call(n, m, items, sorted, conditions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult Function(Condition condition)? complete,
-    TResult Function(String msg)? none,
-    required TResult orElse(),
-  }) {
-    if (partial != null) {
-      return partial(n, m, items, sorted, conditions);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Satisfaction_Partial value) partial,
-    required TResult Function(Satisfaction_PartialComplete value)
-        partialComplete,
-    required TResult Function(Satisfaction_Complete value) complete,
-    required TResult Function(Satisfaction_None value) none,
-  }) {
-    return partial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Satisfaction_Partial value)? partial,
-    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult? Function(Satisfaction_Complete value)? complete,
-    TResult? Function(Satisfaction_None value)? none,
-  }) {
-    return partial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Satisfaction_Partial value)? partial,
-    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult Function(Satisfaction_Complete value)? complete,
-    TResult Function(Satisfaction_None value)? none,
-    required TResult orElse(),
-  }) {
-    if (partial != null) {
-      return partial(this);
-    }
-    return orElse();
-  }
+ final  BigInt n;
+ final  BigInt m;
+ final  Uint64List items;
+ final  bool? sorted;
+ final  Map<Uint32List, List<Condition>> _conditions;
+ Map<Uint32List, List<Condition>> get conditions {
+  if (_conditions is EqualUnmodifiableMapView) return _conditions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_conditions);
 }
 
-abstract class Satisfaction_Partial extends Satisfaction {
-  const factory Satisfaction_Partial(
-          {required final BigInt n,
-          required final BigInt m,
-          required final Uint64List items,
-          final bool? sorted,
-          required final Map<int, List<Condition>> conditions}) =
-      _$Satisfaction_PartialImpl;
-  const Satisfaction_Partial._() : super._();
 
-  BigInt get n;
-  BigInt get m;
-  Uint64List get items;
-  bool? get sorted;
-  Map<int, List<Condition>> get conditions;
-  @JsonKey(ignore: true)
-  _$$Satisfaction_PartialImplCopyWith<_$Satisfaction_PartialImpl>
-      get copyWith => throw _privateConstructorUsedError;
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Satisfaction_PartialCompleteCopyWith<Satisfaction_PartialComplete> get copyWith => _$Satisfaction_PartialCompleteCopyWithImpl<Satisfaction_PartialComplete>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Satisfaction_PartialComplete&&(identical(other.n, n) || other.n == n)&&(identical(other.m, m) || other.m == m)&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.sorted, sorted) || other.sorted == sorted)&&const DeepCollectionEquality().equals(other._conditions, _conditions));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,n,m,const DeepCollectionEquality().hash(items),sorted,const DeepCollectionEquality().hash(_conditions));
+
+@override
+String toString() {
+  return 'Satisfaction.partialComplete(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$Satisfaction_PartialCompleteImplCopyWith<$Res> {
-  factory _$$Satisfaction_PartialCompleteImplCopyWith(
-          _$Satisfaction_PartialCompleteImpl value,
-          $Res Function(_$Satisfaction_PartialCompleteImpl) then) =
-      __$$Satisfaction_PartialCompleteImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {BigInt n,
-      BigInt m,
-      Uint64List items,
-      bool? sorted,
-      Map<Uint32List, List<Condition>> conditions});
+abstract mixin class $Satisfaction_PartialCompleteCopyWith<$Res> implements $SatisfactionCopyWith<$Res> {
+  factory $Satisfaction_PartialCompleteCopyWith(Satisfaction_PartialComplete value, $Res Function(Satisfaction_PartialComplete) _then) = _$Satisfaction_PartialCompleteCopyWithImpl;
+@useResult
+$Res call({
+ BigInt n, BigInt m, Uint64List items, bool? sorted, Map<Uint32List, List<Condition>> conditions
+});
+
+
+
+
+}
+/// @nodoc
+class _$Satisfaction_PartialCompleteCopyWithImpl<$Res>
+    implements $Satisfaction_PartialCompleteCopyWith<$Res> {
+  _$Satisfaction_PartialCompleteCopyWithImpl(this._self, this._then);
+
+  final Satisfaction_PartialComplete _self;
+  final $Res Function(Satisfaction_PartialComplete) _then;
+
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? n = null,Object? m = null,Object? items = null,Object? sorted = freezed,Object? conditions = null,}) {
+  return _then(Satisfaction_PartialComplete(
+n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
+as BigInt,m: null == m ? _self.m : m // ignore: cast_nullable_to_non_nullable
+as BigInt,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as Uint64List,sorted: freezed == sorted ? _self.sorted : sorted // ignore: cast_nullable_to_non_nullable
+as bool?,conditions: null == conditions ? _self._conditions : conditions // ignore: cast_nullable_to_non_nullable
+as Map<Uint32List, List<Condition>>,
+  ));
 }
 
-/// @nodoc
-class __$$Satisfaction_PartialCompleteImplCopyWithImpl<$Res>
-    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_PartialCompleteImpl>
-    implements _$$Satisfaction_PartialCompleteImplCopyWith<$Res> {
-  __$$Satisfaction_PartialCompleteImplCopyWithImpl(
-      _$Satisfaction_PartialCompleteImpl _value,
-      $Res Function(_$Satisfaction_PartialCompleteImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? n = null,
-    Object? m = null,
-    Object? items = null,
-    Object? sorted = freezed,
-    Object? conditions = null,
-  }) {
-    return _then(_$Satisfaction_PartialCompleteImpl(
-      n: null == n
-          ? _value.n
-          : n // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-      m: null == m
-          ? _value.m
-          : m // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-      items: null == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as Uint64List,
-      sorted: freezed == sorted
-          ? _value.sorted
-          : sorted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      conditions: null == conditions
-          ? _value._conditions
-          : conditions // ignore: cast_nullable_to_non_nullable
-              as Map<Uint32List, List<Condition>>,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$Satisfaction_PartialCompleteImpl extends Satisfaction_PartialComplete {
-  const _$Satisfaction_PartialCompleteImpl(
-      {required this.n,
-      required this.m,
-      required this.items,
-      this.sorted,
-      required final Map<Uint32List, List<Condition>> conditions})
-      : _conditions = conditions,
-        super._();
 
-  @override
-  final BigInt n;
-  @override
-  final BigInt m;
-  @override
-  final Uint64List items;
-  @override
-  final bool? sorted;
-  final Map<Uint32List, List<Condition>> _conditions;
-  @override
-  Map<Uint32List, List<Condition>> get conditions {
-    if (_conditions is EqualUnmodifiableMapView) return _conditions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_conditions);
-  }
+class Satisfaction_Complete extends Satisfaction {
+  const Satisfaction_Complete({required this.condition}): super._();
+  
 
-  @override
-  String toString() {
-    return 'Satisfaction.partialComplete(n: $n, m: $m, items: $items, sorted: $sorted, conditions: $conditions)';
-  }
+ final  Condition condition;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Satisfaction_PartialCompleteImpl &&
-            (identical(other.n, n) || other.n == n) &&
-            (identical(other.m, m) || other.m == m) &&
-            const DeepCollectionEquality().equals(other.items, items) &&
-            (identical(other.sorted, sorted) || other.sorted == sorted) &&
-            const DeepCollectionEquality()
-                .equals(other._conditions, _conditions));
-  }
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Satisfaction_CompleteCopyWith<Satisfaction_Complete> get copyWith => _$Satisfaction_CompleteCopyWithImpl<Satisfaction_Complete>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      n,
-      m,
-      const DeepCollectionEquality().hash(items),
-      sorted,
-      const DeepCollectionEquality().hash(_conditions));
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Satisfaction_PartialCompleteImplCopyWith<
-          _$Satisfaction_PartialCompleteImpl>
-      get copyWith => __$$Satisfaction_PartialCompleteImplCopyWithImpl<
-          _$Satisfaction_PartialCompleteImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<int, List<Condition>> conditions)
-        partial,
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<Uint32List, List<Condition>> conditions)
-        partialComplete,
-    required TResult Function(Condition condition) complete,
-    required TResult Function(String msg) none,
-  }) {
-    return partialComplete(n, m, items, sorted, conditions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult? Function(Condition condition)? complete,
-    TResult? Function(String msg)? none,
-  }) {
-    return partialComplete?.call(n, m, items, sorted, conditions);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult Function(Condition condition)? complete,
-    TResult Function(String msg)? none,
-    required TResult orElse(),
-  }) {
-    if (partialComplete != null) {
-      return partialComplete(n, m, items, sorted, conditions);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Satisfaction_Partial value) partial,
-    required TResult Function(Satisfaction_PartialComplete value)
-        partialComplete,
-    required TResult Function(Satisfaction_Complete value) complete,
-    required TResult Function(Satisfaction_None value) none,
-  }) {
-    return partialComplete(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Satisfaction_Partial value)? partial,
-    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult? Function(Satisfaction_Complete value)? complete,
-    TResult? Function(Satisfaction_None value)? none,
-  }) {
-    return partialComplete?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Satisfaction_Partial value)? partial,
-    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult Function(Satisfaction_Complete value)? complete,
-    TResult Function(Satisfaction_None value)? none,
-    required TResult orElse(),
-  }) {
-    if (partialComplete != null) {
-      return partialComplete(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Satisfaction_Complete&&(identical(other.condition, condition) || other.condition == condition));
 }
 
-abstract class Satisfaction_PartialComplete extends Satisfaction {
-  const factory Satisfaction_PartialComplete(
-          {required final BigInt n,
-          required final BigInt m,
-          required final Uint64List items,
-          final bool? sorted,
-          required final Map<Uint32List, List<Condition>> conditions}) =
-      _$Satisfaction_PartialCompleteImpl;
-  const Satisfaction_PartialComplete._() : super._();
 
-  BigInt get n;
-  BigInt get m;
-  Uint64List get items;
-  bool? get sorted;
-  Map<Uint32List, List<Condition>> get conditions;
-  @JsonKey(ignore: true)
-  _$$Satisfaction_PartialCompleteImplCopyWith<
-          _$Satisfaction_PartialCompleteImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,condition);
+
+@override
+String toString() {
+  return 'Satisfaction.complete(condition: $condition)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$Satisfaction_CompleteImplCopyWith<$Res> {
-  factory _$$Satisfaction_CompleteImplCopyWith(
-          _$Satisfaction_CompleteImpl value,
-          $Res Function(_$Satisfaction_CompleteImpl) then) =
-      __$$Satisfaction_CompleteImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Condition condition});
+abstract mixin class $Satisfaction_CompleteCopyWith<$Res> implements $SatisfactionCopyWith<$Res> {
+  factory $Satisfaction_CompleteCopyWith(Satisfaction_Complete value, $Res Function(Satisfaction_Complete) _then) = _$Satisfaction_CompleteCopyWithImpl;
+@useResult
+$Res call({
+ Condition condition
+});
+
+
+
+
+}
+/// @nodoc
+class _$Satisfaction_CompleteCopyWithImpl<$Res>
+    implements $Satisfaction_CompleteCopyWith<$Res> {
+  _$Satisfaction_CompleteCopyWithImpl(this._self, this._then);
+
+  final Satisfaction_Complete _self;
+  final $Res Function(Satisfaction_Complete) _then;
+
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? condition = null,}) {
+  return _then(Satisfaction_Complete(
+condition: null == condition ? _self.condition : condition // ignore: cast_nullable_to_non_nullable
+as Condition,
+  ));
 }
 
-/// @nodoc
-class __$$Satisfaction_CompleteImplCopyWithImpl<$Res>
-    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_CompleteImpl>
-    implements _$$Satisfaction_CompleteImplCopyWith<$Res> {
-  __$$Satisfaction_CompleteImplCopyWithImpl(_$Satisfaction_CompleteImpl _value,
-      $Res Function(_$Satisfaction_CompleteImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? condition = null,
-  }) {
-    return _then(_$Satisfaction_CompleteImpl(
-      condition: null == condition
-          ? _value.condition
-          : condition // ignore: cast_nullable_to_non_nullable
-              as Condition,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$Satisfaction_CompleteImpl extends Satisfaction_Complete {
-  const _$Satisfaction_CompleteImpl({required this.condition}) : super._();
 
-  @override
-  final Condition condition;
+class Satisfaction_None extends Satisfaction {
+  const Satisfaction_None({required this.msg}): super._();
+  
 
-  @override
-  String toString() {
-    return 'Satisfaction.complete(condition: $condition)';
-  }
+ final  String msg;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Satisfaction_CompleteImpl &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
-  }
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$Satisfaction_NoneCopyWith<Satisfaction_None> get copyWith => _$Satisfaction_NoneCopyWithImpl<Satisfaction_None>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, condition);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Satisfaction_CompleteImplCopyWith<_$Satisfaction_CompleteImpl>
-      get copyWith => __$$Satisfaction_CompleteImplCopyWithImpl<
-          _$Satisfaction_CompleteImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<int, List<Condition>> conditions)
-        partial,
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<Uint32List, List<Condition>> conditions)
-        partialComplete,
-    required TResult Function(Condition condition) complete,
-    required TResult Function(String msg) none,
-  }) {
-    return complete(condition);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult? Function(Condition condition)? complete,
-    TResult? Function(String msg)? none,
-  }) {
-    return complete?.call(condition);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult Function(Condition condition)? complete,
-    TResult Function(String msg)? none,
-    required TResult orElse(),
-  }) {
-    if (complete != null) {
-      return complete(condition);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Satisfaction_Partial value) partial,
-    required TResult Function(Satisfaction_PartialComplete value)
-        partialComplete,
-    required TResult Function(Satisfaction_Complete value) complete,
-    required TResult Function(Satisfaction_None value) none,
-  }) {
-    return complete(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Satisfaction_Partial value)? partial,
-    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult? Function(Satisfaction_Complete value)? complete,
-    TResult? Function(Satisfaction_None value)? none,
-  }) {
-    return complete?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Satisfaction_Partial value)? partial,
-    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult Function(Satisfaction_Complete value)? complete,
-    TResult Function(Satisfaction_None value)? none,
-    required TResult orElse(),
-  }) {
-    if (complete != null) {
-      return complete(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Satisfaction_None&&(identical(other.msg, msg) || other.msg == msg));
 }
 
-abstract class Satisfaction_Complete extends Satisfaction {
-  const factory Satisfaction_Complete({required final Condition condition}) =
-      _$Satisfaction_CompleteImpl;
-  const Satisfaction_Complete._() : super._();
 
-  Condition get condition;
-  @JsonKey(ignore: true)
-  _$$Satisfaction_CompleteImplCopyWith<_$Satisfaction_CompleteImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,msg);
+
+@override
+String toString() {
+  return 'Satisfaction.none(msg: $msg)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$Satisfaction_NoneImplCopyWith<$Res> {
-  factory _$$Satisfaction_NoneImplCopyWith(_$Satisfaction_NoneImpl value,
-          $Res Function(_$Satisfaction_NoneImpl) then) =
-      __$$Satisfaction_NoneImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String msg});
-}
+abstract mixin class $Satisfaction_NoneCopyWith<$Res> implements $SatisfactionCopyWith<$Res> {
+  factory $Satisfaction_NoneCopyWith(Satisfaction_None value, $Res Function(Satisfaction_None) _then) = _$Satisfaction_NoneCopyWithImpl;
+@useResult
+$Res call({
+ String msg
+});
 
+
+
+
+}
 /// @nodoc
-class __$$Satisfaction_NoneImplCopyWithImpl<$Res>
-    extends _$SatisfactionCopyWithImpl<$Res, _$Satisfaction_NoneImpl>
-    implements _$$Satisfaction_NoneImplCopyWith<$Res> {
-  __$$Satisfaction_NoneImplCopyWithImpl(_$Satisfaction_NoneImpl _value,
-      $Res Function(_$Satisfaction_NoneImpl) _then)
-      : super(_value, _then);
+class _$Satisfaction_NoneCopyWithImpl<$Res>
+    implements $Satisfaction_NoneCopyWith<$Res> {
+  _$Satisfaction_NoneCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? msg = null,
-  }) {
-    return _then(_$Satisfaction_NoneImpl(
-      msg: null == msg
-          ? _value.msg
-          : msg // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+  final Satisfaction_None _self;
+  final $Res Function(Satisfaction_None) _then;
+
+/// Create a copy of Satisfaction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? msg = null,}) {
+  return _then(Satisfaction_None(
+msg: null == msg ? _self.msg : msg // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
 
-class _$Satisfaction_NoneImpl extends Satisfaction_None {
-  const _$Satisfaction_NoneImpl({required this.msg}) : super._();
-
-  @override
-  final String msg;
-
-  @override
-  String toString() {
-    return 'Satisfaction.none(msg: $msg)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Satisfaction_NoneImpl &&
-            (identical(other.msg, msg) || other.msg == msg));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, msg);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$Satisfaction_NoneImplCopyWith<_$Satisfaction_NoneImpl> get copyWith =>
-      __$$Satisfaction_NoneImplCopyWithImpl<_$Satisfaction_NoneImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<int, List<Condition>> conditions)
-        partial,
-    required TResult Function(BigInt n, BigInt m, Uint64List items,
-            bool? sorted, Map<Uint32List, List<Condition>> conditions)
-        partialComplete,
-    required TResult Function(Condition condition) complete,
-    required TResult Function(String msg) none,
-  }) {
-    return none(msg);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult? Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult? Function(Condition condition)? complete,
-    TResult? Function(String msg)? none,
-  }) {
-    return none?.call(msg);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<int, List<Condition>> conditions)?
-        partial,
-    TResult Function(BigInt n, BigInt m, Uint64List items, bool? sorted,
-            Map<Uint32List, List<Condition>> conditions)?
-        partialComplete,
-    TResult Function(Condition condition)? complete,
-    TResult Function(String msg)? none,
-    required TResult orElse(),
-  }) {
-    if (none != null) {
-      return none(msg);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Satisfaction_Partial value) partial,
-    required TResult Function(Satisfaction_PartialComplete value)
-        partialComplete,
-    required TResult Function(Satisfaction_Complete value) complete,
-    required TResult Function(Satisfaction_None value) none,
-  }) {
-    return none(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Satisfaction_Partial value)? partial,
-    TResult? Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult? Function(Satisfaction_Complete value)? complete,
-    TResult? Function(Satisfaction_None value)? none,
-  }) {
-    return none?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Satisfaction_Partial value)? partial,
-    TResult Function(Satisfaction_PartialComplete value)? partialComplete,
-    TResult Function(Satisfaction_Complete value)? complete,
-    TResult Function(Satisfaction_None value)? none,
-    required TResult orElse(),
-  }) {
-    if (none != null) {
-      return none(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Satisfaction_None extends Satisfaction {
-  const factory Satisfaction_None({required final String msg}) =
-      _$Satisfaction_NoneImpl;
-  const Satisfaction_None._() : super._();
-
-  String get msg;
-  @JsonKey(ignore: true)
-  _$$Satisfaction_NoneImplCopyWith<_$Satisfaction_NoneImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$SatisfiableItem {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SatisfiableItem()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SatisfiableItemCopyWith<$Res> {
-  factory $SatisfiableItemCopyWith(
-          SatisfiableItem value, $Res Function(SatisfiableItem) then) =
-      _$SatisfiableItemCopyWithImpl<$Res, SatisfiableItem>;
+class $SatisfiableItemCopyWith<$Res>  {
+$SatisfiableItemCopyWith(SatisfiableItem _, $Res Function(SatisfiableItem) __);
+}
+
+
+/// @nodoc
+
+
+class SatisfiableItem_EcdsaSignature extends SatisfiableItem {
+  const SatisfiableItem_EcdsaSignature({required this.key}): super._();
+  
+
+ final  PkOrF key;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_EcdsaSignatureCopyWith<SatisfiableItem_EcdsaSignature> get copyWith => _$SatisfiableItem_EcdsaSignatureCopyWithImpl<SatisfiableItem_EcdsaSignature>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_EcdsaSignature&&(identical(other.key, key) || other.key == key));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,key);
+
+@override
+String toString() {
+  return 'SatisfiableItem.ecdsaSignature(key: $key)';
+}
+
+
 }
 
 /// @nodoc
-class _$SatisfiableItemCopyWithImpl<$Res, $Val extends SatisfiableItem>
-    implements $SatisfiableItemCopyWith<$Res> {
-  _$SatisfiableItemCopyWithImpl(this._value, this._then);
+abstract mixin class $SatisfiableItem_EcdsaSignatureCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_EcdsaSignatureCopyWith(SatisfiableItem_EcdsaSignature value, $Res Function(SatisfiableItem_EcdsaSignature) _then) = _$SatisfiableItem_EcdsaSignatureCopyWithImpl;
+@useResult
+$Res call({
+ PkOrF key
+});
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+
+$PkOrFCopyWith<$Res> get key;
+
+}
+/// @nodoc
+class _$SatisfiableItem_EcdsaSignatureCopyWithImpl<$Res>
+    implements $SatisfiableItem_EcdsaSignatureCopyWith<$Res> {
+  _$SatisfiableItem_EcdsaSignatureCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_EcdsaSignature _self;
+  final $Res Function(SatisfiableItem_EcdsaSignature) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? key = null,}) {
+  return _then(SatisfiableItem_EcdsaSignature(
+key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as PkOrF,
+  ));
 }
 
-/// @nodoc
-abstract class _$$SatisfiableItem_EcdsaSignatureImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_EcdsaSignatureImplCopyWith(
-          _$SatisfiableItem_EcdsaSignatureImpl value,
-          $Res Function(_$SatisfiableItem_EcdsaSignatureImpl) then) =
-      __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({PkOrF key});
-
-  $PkOrFCopyWith<$Res> get key;
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PkOrFCopyWith<$Res> get key {
+  
+  return $PkOrFCopyWith<$Res>(_self.key, (value) {
+    return _then(_self.copyWith(key: value));
+  });
 }
-
-/// @nodoc
-class __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_EcdsaSignatureImpl>
-    implements _$$SatisfiableItem_EcdsaSignatureImplCopyWith<$Res> {
-  __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl(
-      _$SatisfiableItem_EcdsaSignatureImpl _value,
-      $Res Function(_$SatisfiableItem_EcdsaSignatureImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? key = null,
-  }) {
-    return _then(_$SatisfiableItem_EcdsaSignatureImpl(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as PkOrF,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PkOrFCopyWith<$Res> get key {
-    return $PkOrFCopyWith<$Res>(_value.key, (value) {
-      return _then(_value.copyWith(key: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_EcdsaSignatureImpl
-    extends SatisfiableItem_EcdsaSignature {
-  const _$SatisfiableItem_EcdsaSignatureImpl({required this.key}) : super._();
 
-  @override
-  final PkOrF key;
+class SatisfiableItem_SchnorrSignature extends SatisfiableItem {
+  const SatisfiableItem_SchnorrSignature({required this.key}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.ecdsaSignature(key: $key)';
-  }
+ final  PkOrF key;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_EcdsaSignatureImpl &&
-            (identical(other.key, key) || other.key == key));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_SchnorrSignatureCopyWith<SatisfiableItem_SchnorrSignature> get copyWith => _$SatisfiableItem_SchnorrSignatureCopyWithImpl<SatisfiableItem_SchnorrSignature>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, key);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_EcdsaSignatureImplCopyWith<
-          _$SatisfiableItem_EcdsaSignatureImpl>
-      get copyWith => __$$SatisfiableItem_EcdsaSignatureImplCopyWithImpl<
-          _$SatisfiableItem_EcdsaSignatureImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return ecdsaSignature(key);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return ecdsaSignature?.call(key);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (ecdsaSignature != null) {
-      return ecdsaSignature(key);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return ecdsaSignature(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return ecdsaSignature?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (ecdsaSignature != null) {
-      return ecdsaSignature(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_SchnorrSignature&&(identical(other.key, key) || other.key == key));
 }
 
-abstract class SatisfiableItem_EcdsaSignature extends SatisfiableItem {
-  const factory SatisfiableItem_EcdsaSignature({required final PkOrF key}) =
-      _$SatisfiableItem_EcdsaSignatureImpl;
-  const SatisfiableItem_EcdsaSignature._() : super._();
 
-  PkOrF get key;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_EcdsaSignatureImplCopyWith<
-          _$SatisfiableItem_EcdsaSignatureImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,key);
+
+@override
+String toString() {
+  return 'SatisfiableItem.schnorrSignature(key: $key)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_SchnorrSignatureImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_SchnorrSignatureImplCopyWith(
-          _$SatisfiableItem_SchnorrSignatureImpl value,
-          $Res Function(_$SatisfiableItem_SchnorrSignatureImpl) then) =
-      __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({PkOrF key});
+abstract mixin class $SatisfiableItem_SchnorrSignatureCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_SchnorrSignatureCopyWith(SatisfiableItem_SchnorrSignature value, $Res Function(SatisfiableItem_SchnorrSignature) _then) = _$SatisfiableItem_SchnorrSignatureCopyWithImpl;
+@useResult
+$Res call({
+ PkOrF key
+});
 
-  $PkOrFCopyWith<$Res> get key;
+
+$PkOrFCopyWith<$Res> get key;
+
+}
+/// @nodoc
+class _$SatisfiableItem_SchnorrSignatureCopyWithImpl<$Res>
+    implements $SatisfiableItem_SchnorrSignatureCopyWith<$Res> {
+  _$SatisfiableItem_SchnorrSignatureCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_SchnorrSignature _self;
+  final $Res Function(SatisfiableItem_SchnorrSignature) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? key = null,}) {
+  return _then(SatisfiableItem_SchnorrSignature(
+key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as PkOrF,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_SchnorrSignatureImpl>
-    implements _$$SatisfiableItem_SchnorrSignatureImplCopyWith<$Res> {
-  __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl(
-      _$SatisfiableItem_SchnorrSignatureImpl _value,
-      $Res Function(_$SatisfiableItem_SchnorrSignatureImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? key = null,
-  }) {
-    return _then(_$SatisfiableItem_SchnorrSignatureImpl(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as PkOrF,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PkOrFCopyWith<$Res> get key {
-    return $PkOrFCopyWith<$Res>(_value.key, (value) {
-      return _then(_value.copyWith(key: value));
-    });
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PkOrFCopyWith<$Res> get key {
+  
+  return $PkOrFCopyWith<$Res>(_self.key, (value) {
+    return _then(_self.copyWith(key: value));
+  });
+}
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_SchnorrSignatureImpl
-    extends SatisfiableItem_SchnorrSignature {
-  const _$SatisfiableItem_SchnorrSignatureImpl({required this.key}) : super._();
 
-  @override
-  final PkOrF key;
+class SatisfiableItem_Sha256Preimage extends SatisfiableItem {
+  const SatisfiableItem_Sha256Preimage({required this.hash}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.schnorrSignature(key: $key)';
-  }
+ final  String hash;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_SchnorrSignatureImpl &&
-            (identical(other.key, key) || other.key == key));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_Sha256PreimageCopyWith<SatisfiableItem_Sha256Preimage> get copyWith => _$SatisfiableItem_Sha256PreimageCopyWithImpl<SatisfiableItem_Sha256Preimage>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, key);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_SchnorrSignatureImplCopyWith<
-          _$SatisfiableItem_SchnorrSignatureImpl>
-      get copyWith => __$$SatisfiableItem_SchnorrSignatureImplCopyWithImpl<
-          _$SatisfiableItem_SchnorrSignatureImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return schnorrSignature(key);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return schnorrSignature?.call(key);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (schnorrSignature != null) {
-      return schnorrSignature(key);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return schnorrSignature(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return schnorrSignature?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (schnorrSignature != null) {
-      return schnorrSignature(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Sha256Preimage&&(identical(other.hash, hash) || other.hash == hash));
 }
 
-abstract class SatisfiableItem_SchnorrSignature extends SatisfiableItem {
-  const factory SatisfiableItem_SchnorrSignature({required final PkOrF key}) =
-      _$SatisfiableItem_SchnorrSignatureImpl;
-  const SatisfiableItem_SchnorrSignature._() : super._();
 
-  PkOrF get key;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_SchnorrSignatureImplCopyWith<
-          _$SatisfiableItem_SchnorrSignatureImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,hash);
+
+@override
+String toString() {
+  return 'SatisfiableItem.sha256Preimage(hash: $hash)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_Sha256PreimageImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_Sha256PreimageImplCopyWith(
-          _$SatisfiableItem_Sha256PreimageImpl value,
-          $Res Function(_$SatisfiableItem_Sha256PreimageImpl) then) =
-      __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String hash});
+abstract mixin class $SatisfiableItem_Sha256PreimageCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_Sha256PreimageCopyWith(SatisfiableItem_Sha256Preimage value, $Res Function(SatisfiableItem_Sha256Preimage) _then) = _$SatisfiableItem_Sha256PreimageCopyWithImpl;
+@useResult
+$Res call({
+ String hash
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_Sha256PreimageCopyWithImpl<$Res>
+    implements $SatisfiableItem_Sha256PreimageCopyWith<$Res> {
+  _$SatisfiableItem_Sha256PreimageCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_Sha256Preimage _self;
+  final $Res Function(SatisfiableItem_Sha256Preimage) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? hash = null,}) {
+  return _then(SatisfiableItem_Sha256Preimage(
+hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_Sha256PreimageImpl>
-    implements _$$SatisfiableItem_Sha256PreimageImplCopyWith<$Res> {
-  __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl(
-      _$SatisfiableItem_Sha256PreimageImpl _value,
-      $Res Function(_$SatisfiableItem_Sha256PreimageImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hash = null,
-  }) {
-    return _then(_$SatisfiableItem_Sha256PreimageImpl(
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_Sha256PreimageImpl
-    extends SatisfiableItem_Sha256Preimage {
-  const _$SatisfiableItem_Sha256PreimageImpl({required this.hash}) : super._();
 
-  @override
-  final String hash;
+class SatisfiableItem_Hash256Preimage extends SatisfiableItem {
+  const SatisfiableItem_Hash256Preimage({required this.hash}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.sha256Preimage(hash: $hash)';
-  }
+ final  String hash;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_Sha256PreimageImpl &&
-            (identical(other.hash, hash) || other.hash == hash));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_Hash256PreimageCopyWith<SatisfiableItem_Hash256Preimage> get copyWith => _$SatisfiableItem_Hash256PreimageCopyWithImpl<SatisfiableItem_Hash256Preimage>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, hash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_Sha256PreimageImplCopyWith<
-          _$SatisfiableItem_Sha256PreimageImpl>
-      get copyWith => __$$SatisfiableItem_Sha256PreimageImplCopyWithImpl<
-          _$SatisfiableItem_Sha256PreimageImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return sha256Preimage(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return sha256Preimage?.call(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (sha256Preimage != null) {
-      return sha256Preimage(hash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return sha256Preimage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return sha256Preimage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (sha256Preimage != null) {
-      return sha256Preimage(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Hash256Preimage&&(identical(other.hash, hash) || other.hash == hash));
 }
 
-abstract class SatisfiableItem_Sha256Preimage extends SatisfiableItem {
-  const factory SatisfiableItem_Sha256Preimage({required final String hash}) =
-      _$SatisfiableItem_Sha256PreimageImpl;
-  const SatisfiableItem_Sha256Preimage._() : super._();
 
-  String get hash;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_Sha256PreimageImplCopyWith<
-          _$SatisfiableItem_Sha256PreimageImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,hash);
+
+@override
+String toString() {
+  return 'SatisfiableItem.hash256Preimage(hash: $hash)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_Hash256PreimageImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_Hash256PreimageImplCopyWith(
-          _$SatisfiableItem_Hash256PreimageImpl value,
-          $Res Function(_$SatisfiableItem_Hash256PreimageImpl) then) =
-      __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String hash});
+abstract mixin class $SatisfiableItem_Hash256PreimageCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_Hash256PreimageCopyWith(SatisfiableItem_Hash256Preimage value, $Res Function(SatisfiableItem_Hash256Preimage) _then) = _$SatisfiableItem_Hash256PreimageCopyWithImpl;
+@useResult
+$Res call({
+ String hash
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_Hash256PreimageCopyWithImpl<$Res>
+    implements $SatisfiableItem_Hash256PreimageCopyWith<$Res> {
+  _$SatisfiableItem_Hash256PreimageCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_Hash256Preimage _self;
+  final $Res Function(SatisfiableItem_Hash256Preimage) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? hash = null,}) {
+  return _then(SatisfiableItem_Hash256Preimage(
+hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_Hash256PreimageImpl>
-    implements _$$SatisfiableItem_Hash256PreimageImplCopyWith<$Res> {
-  __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl(
-      _$SatisfiableItem_Hash256PreimageImpl _value,
-      $Res Function(_$SatisfiableItem_Hash256PreimageImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hash = null,
-  }) {
-    return _then(_$SatisfiableItem_Hash256PreimageImpl(
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_Hash256PreimageImpl
-    extends SatisfiableItem_Hash256Preimage {
-  const _$SatisfiableItem_Hash256PreimageImpl({required this.hash}) : super._();
 
-  @override
-  final String hash;
+class SatisfiableItem_Ripemd160Preimage extends SatisfiableItem {
+  const SatisfiableItem_Ripemd160Preimage({required this.hash}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.hash256Preimage(hash: $hash)';
-  }
+ final  String hash;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_Hash256PreimageImpl &&
-            (identical(other.hash, hash) || other.hash == hash));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_Ripemd160PreimageCopyWith<SatisfiableItem_Ripemd160Preimage> get copyWith => _$SatisfiableItem_Ripemd160PreimageCopyWithImpl<SatisfiableItem_Ripemd160Preimage>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, hash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_Hash256PreimageImplCopyWith<
-          _$SatisfiableItem_Hash256PreimageImpl>
-      get copyWith => __$$SatisfiableItem_Hash256PreimageImplCopyWithImpl<
-          _$SatisfiableItem_Hash256PreimageImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return hash256Preimage(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return hash256Preimage?.call(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (hash256Preimage != null) {
-      return hash256Preimage(hash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return hash256Preimage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return hash256Preimage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (hash256Preimage != null) {
-      return hash256Preimage(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Ripemd160Preimage&&(identical(other.hash, hash) || other.hash == hash));
 }
 
-abstract class SatisfiableItem_Hash256Preimage extends SatisfiableItem {
-  const factory SatisfiableItem_Hash256Preimage({required final String hash}) =
-      _$SatisfiableItem_Hash256PreimageImpl;
-  const SatisfiableItem_Hash256Preimage._() : super._();
 
-  String get hash;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_Hash256PreimageImplCopyWith<
-          _$SatisfiableItem_Hash256PreimageImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,hash);
+
+@override
+String toString() {
+  return 'SatisfiableItem.ripemd160Preimage(hash: $hash)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_Ripemd160PreimageImplCopyWith(
-          _$SatisfiableItem_Ripemd160PreimageImpl value,
-          $Res Function(_$SatisfiableItem_Ripemd160PreimageImpl) then) =
-      __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String hash});
+abstract mixin class $SatisfiableItem_Ripemd160PreimageCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_Ripemd160PreimageCopyWith(SatisfiableItem_Ripemd160Preimage value, $Res Function(SatisfiableItem_Ripemd160Preimage) _then) = _$SatisfiableItem_Ripemd160PreimageCopyWithImpl;
+@useResult
+$Res call({
+ String hash
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_Ripemd160PreimageCopyWithImpl<$Res>
+    implements $SatisfiableItem_Ripemd160PreimageCopyWith<$Res> {
+  _$SatisfiableItem_Ripemd160PreimageCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_Ripemd160Preimage _self;
+  final $Res Function(SatisfiableItem_Ripemd160Preimage) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? hash = null,}) {
+  return _then(SatisfiableItem_Ripemd160Preimage(
+hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_Ripemd160PreimageImpl>
-    implements _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<$Res> {
-  __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl(
-      _$SatisfiableItem_Ripemd160PreimageImpl _value,
-      $Res Function(_$SatisfiableItem_Ripemd160PreimageImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hash = null,
-  }) {
-    return _then(_$SatisfiableItem_Ripemd160PreimageImpl(
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_Ripemd160PreimageImpl
-    extends SatisfiableItem_Ripemd160Preimage {
-  const _$SatisfiableItem_Ripemd160PreimageImpl({required this.hash})
-      : super._();
 
-  @override
-  final String hash;
+class SatisfiableItem_Hash160Preimage extends SatisfiableItem {
+  const SatisfiableItem_Hash160Preimage({required this.hash}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.ripemd160Preimage(hash: $hash)';
-  }
+ final  String hash;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_Ripemd160PreimageImpl &&
-            (identical(other.hash, hash) || other.hash == hash));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_Hash160PreimageCopyWith<SatisfiableItem_Hash160Preimage> get copyWith => _$SatisfiableItem_Hash160PreimageCopyWithImpl<SatisfiableItem_Hash160Preimage>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, hash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<
-          _$SatisfiableItem_Ripemd160PreimageImpl>
-      get copyWith => __$$SatisfiableItem_Ripemd160PreimageImplCopyWithImpl<
-          _$SatisfiableItem_Ripemd160PreimageImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return ripemd160Preimage(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return ripemd160Preimage?.call(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (ripemd160Preimage != null) {
-      return ripemd160Preimage(hash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return ripemd160Preimage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return ripemd160Preimage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (ripemd160Preimage != null) {
-      return ripemd160Preimage(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Hash160Preimage&&(identical(other.hash, hash) || other.hash == hash));
 }
 
-abstract class SatisfiableItem_Ripemd160Preimage extends SatisfiableItem {
-  const factory SatisfiableItem_Ripemd160Preimage(
-      {required final String hash}) = _$SatisfiableItem_Ripemd160PreimageImpl;
-  const SatisfiableItem_Ripemd160Preimage._() : super._();
 
-  String get hash;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_Ripemd160PreimageImplCopyWith<
-          _$SatisfiableItem_Ripemd160PreimageImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,hash);
+
+@override
+String toString() {
+  return 'SatisfiableItem.hash160Preimage(hash: $hash)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_Hash160PreimageImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_Hash160PreimageImplCopyWith(
-          _$SatisfiableItem_Hash160PreimageImpl value,
-          $Res Function(_$SatisfiableItem_Hash160PreimageImpl) then) =
-      __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String hash});
+abstract mixin class $SatisfiableItem_Hash160PreimageCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_Hash160PreimageCopyWith(SatisfiableItem_Hash160Preimage value, $Res Function(SatisfiableItem_Hash160Preimage) _then) = _$SatisfiableItem_Hash160PreimageCopyWithImpl;
+@useResult
+$Res call({
+ String hash
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_Hash160PreimageCopyWithImpl<$Res>
+    implements $SatisfiableItem_Hash160PreimageCopyWith<$Res> {
+  _$SatisfiableItem_Hash160PreimageCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_Hash160Preimage _self;
+  final $Res Function(SatisfiableItem_Hash160Preimage) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? hash = null,}) {
+  return _then(SatisfiableItem_Hash160Preimage(
+hash: null == hash ? _self.hash : hash // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_Hash160PreimageImpl>
-    implements _$$SatisfiableItem_Hash160PreimageImplCopyWith<$Res> {
-  __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl(
-      _$SatisfiableItem_Hash160PreimageImpl _value,
-      $Res Function(_$SatisfiableItem_Hash160PreimageImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? hash = null,
-  }) {
-    return _then(_$SatisfiableItem_Hash160PreimageImpl(
-      hash: null == hash
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_Hash160PreimageImpl
-    extends SatisfiableItem_Hash160Preimage {
-  const _$SatisfiableItem_Hash160PreimageImpl({required this.hash}) : super._();
 
-  @override
-  final String hash;
+class SatisfiableItem_AbsoluteTimelock extends SatisfiableItem {
+  const SatisfiableItem_AbsoluteTimelock({required this.value}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.hash160Preimage(hash: $hash)';
-  }
+ final  LockTime value;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_Hash160PreimageImpl &&
-            (identical(other.hash, hash) || other.hash == hash));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_AbsoluteTimelockCopyWith<SatisfiableItem_AbsoluteTimelock> get copyWith => _$SatisfiableItem_AbsoluteTimelockCopyWithImpl<SatisfiableItem_AbsoluteTimelock>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, hash);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_Hash160PreimageImplCopyWith<
-          _$SatisfiableItem_Hash160PreimageImpl>
-      get copyWith => __$$SatisfiableItem_Hash160PreimageImplCopyWithImpl<
-          _$SatisfiableItem_Hash160PreimageImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return hash160Preimage(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return hash160Preimage?.call(hash);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (hash160Preimage != null) {
-      return hash160Preimage(hash);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return hash160Preimage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return hash160Preimage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (hash160Preimage != null) {
-      return hash160Preimage(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_AbsoluteTimelock&&(identical(other.value, value) || other.value == value));
 }
 
-abstract class SatisfiableItem_Hash160Preimage extends SatisfiableItem {
-  const factory SatisfiableItem_Hash160Preimage({required final String hash}) =
-      _$SatisfiableItem_Hash160PreimageImpl;
-  const SatisfiableItem_Hash160Preimage._() : super._();
 
-  String get hash;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_Hash160PreimageImplCopyWith<
-          _$SatisfiableItem_Hash160PreimageImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'SatisfiableItem.absoluteTimelock(value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_AbsoluteTimelockImplCopyWith(
-          _$SatisfiableItem_AbsoluteTimelockImpl value,
-          $Res Function(_$SatisfiableItem_AbsoluteTimelockImpl) then) =
-      __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({LockTime value});
+abstract mixin class $SatisfiableItem_AbsoluteTimelockCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_AbsoluteTimelockCopyWith(SatisfiableItem_AbsoluteTimelock value, $Res Function(SatisfiableItem_AbsoluteTimelock) _then) = _$SatisfiableItem_AbsoluteTimelockCopyWithImpl;
+@useResult
+$Res call({
+ LockTime value
+});
 
-  $LockTimeCopyWith<$Res> get value;
+
+$LockTimeCopyWith<$Res> get value;
+
+}
+/// @nodoc
+class _$SatisfiableItem_AbsoluteTimelockCopyWithImpl<$Res>
+    implements $SatisfiableItem_AbsoluteTimelockCopyWith<$Res> {
+  _$SatisfiableItem_AbsoluteTimelockCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_AbsoluteTimelock _self;
+  final $Res Function(SatisfiableItem_AbsoluteTimelock) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(SatisfiableItem_AbsoluteTimelock(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as LockTime,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_AbsoluteTimelockImpl>
-    implements _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<$Res> {
-  __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl(
-      _$SatisfiableItem_AbsoluteTimelockImpl _value,
-      $Res Function(_$SatisfiableItem_AbsoluteTimelockImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$SatisfiableItem_AbsoluteTimelockImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as LockTime,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LockTimeCopyWith<$Res> get value {
-    return $LockTimeCopyWith<$Res>(_value.value, (value) {
-      return _then(_value.copyWith(value: value));
-    });
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LockTimeCopyWith<$Res> get value {
+  
+  return $LockTimeCopyWith<$Res>(_self.value, (value) {
+    return _then(_self.copyWith(value: value));
+  });
+}
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_AbsoluteTimelockImpl
-    extends SatisfiableItem_AbsoluteTimelock {
-  const _$SatisfiableItem_AbsoluteTimelockImpl({required this.value})
-      : super._();
 
-  @override
-  final LockTime value;
+class SatisfiableItem_RelativeTimelock extends SatisfiableItem {
+  const SatisfiableItem_RelativeTimelock({required this.value}): super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.absoluteTimelock(value: $value)';
-  }
+ final  int value;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_AbsoluteTimelockImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_RelativeTimelockCopyWith<SatisfiableItem_RelativeTimelock> get copyWith => _$SatisfiableItem_RelativeTimelockCopyWithImpl<SatisfiableItem_RelativeTimelock>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<
-          _$SatisfiableItem_AbsoluteTimelockImpl>
-      get copyWith => __$$SatisfiableItem_AbsoluteTimelockImplCopyWithImpl<
-          _$SatisfiableItem_AbsoluteTimelockImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return absoluteTimelock(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return absoluteTimelock?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (absoluteTimelock != null) {
-      return absoluteTimelock(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return absoluteTimelock(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return absoluteTimelock?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (absoluteTimelock != null) {
-      return absoluteTimelock(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_RelativeTimelock&&(identical(other.value, value) || other.value == value));
 }
 
-abstract class SatisfiableItem_AbsoluteTimelock extends SatisfiableItem {
-  const factory SatisfiableItem_AbsoluteTimelock(
-      {required final LockTime value}) = _$SatisfiableItem_AbsoluteTimelockImpl;
-  const SatisfiableItem_AbsoluteTimelock._() : super._();
 
-  LockTime get value;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_AbsoluteTimelockImplCopyWith<
-          _$SatisfiableItem_AbsoluteTimelockImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,value);
+
+@override
+String toString() {
+  return 'SatisfiableItem.relativeTimelock(value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_RelativeTimelockImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_RelativeTimelockImplCopyWith(
-          _$SatisfiableItem_RelativeTimelockImpl value,
-          $Res Function(_$SatisfiableItem_RelativeTimelockImpl) then) =
-      __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int value});
+abstract mixin class $SatisfiableItem_RelativeTimelockCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_RelativeTimelockCopyWith(SatisfiableItem_RelativeTimelock value, $Res Function(SatisfiableItem_RelativeTimelock) _then) = _$SatisfiableItem_RelativeTimelockCopyWithImpl;
+@useResult
+$Res call({
+ int value
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_RelativeTimelockCopyWithImpl<$Res>
+    implements $SatisfiableItem_RelativeTimelockCopyWith<$Res> {
+  _$SatisfiableItem_RelativeTimelockCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_RelativeTimelock _self;
+  final $Res Function(SatisfiableItem_RelativeTimelock) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(SatisfiableItem_RelativeTimelock(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res,
-        _$SatisfiableItem_RelativeTimelockImpl>
-    implements _$$SatisfiableItem_RelativeTimelockImplCopyWith<$Res> {
-  __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl(
-      _$SatisfiableItem_RelativeTimelockImpl _value,
-      $Res Function(_$SatisfiableItem_RelativeTimelockImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$SatisfiableItem_RelativeTimelockImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_RelativeTimelockImpl
-    extends SatisfiableItem_RelativeTimelock {
-  const _$SatisfiableItem_RelativeTimelockImpl({required this.value})
-      : super._();
 
-  @override
-  final int value;
+class SatisfiableItem_Multisig extends SatisfiableItem {
+  const SatisfiableItem_Multisig({required final  List<PkOrF> keys, required this.threshold}): _keys = keys,super._();
+  
 
-  @override
-  String toString() {
-    return 'SatisfiableItem.relativeTimelock(value: $value)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_RelativeTimelockImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_RelativeTimelockImplCopyWith<
-          _$SatisfiableItem_RelativeTimelockImpl>
-      get copyWith => __$$SatisfiableItem_RelativeTimelockImplCopyWithImpl<
-          _$SatisfiableItem_RelativeTimelockImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return relativeTimelock(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return relativeTimelock?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (relativeTimelock != null) {
-      return relativeTimelock(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return relativeTimelock(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return relativeTimelock?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (relativeTimelock != null) {
-      return relativeTimelock(this);
-    }
-    return orElse();
-  }
+ final  List<PkOrF> _keys;
+ List<PkOrF> get keys {
+  if (_keys is EqualUnmodifiableListView) return _keys;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_keys);
 }
 
-abstract class SatisfiableItem_RelativeTimelock extends SatisfiableItem {
-  const factory SatisfiableItem_RelativeTimelock({required final int value}) =
-      _$SatisfiableItem_RelativeTimelockImpl;
-  const SatisfiableItem_RelativeTimelock._() : super._();
+ final  BigInt threshold;
 
-  int get value;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_RelativeTimelockImplCopyWith<
-          _$SatisfiableItem_RelativeTimelockImpl>
-      get copyWith => throw _privateConstructorUsedError;
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_MultisigCopyWith<SatisfiableItem_Multisig> get copyWith => _$SatisfiableItem_MultisigCopyWithImpl<SatisfiableItem_Multisig>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Multisig&&const DeepCollectionEquality().equals(other._keys, _keys)&&(identical(other.threshold, threshold) || other.threshold == threshold));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_keys),threshold);
+
+@override
+String toString() {
+  return 'SatisfiableItem.multisig(keys: $keys, threshold: $threshold)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_MultisigImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_MultisigImplCopyWith(
-          _$SatisfiableItem_MultisigImpl value,
-          $Res Function(_$SatisfiableItem_MultisigImpl) then) =
-      __$$SatisfiableItem_MultisigImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<PkOrF> keys, BigInt threshold});
+abstract mixin class $SatisfiableItem_MultisigCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_MultisigCopyWith(SatisfiableItem_Multisig value, $Res Function(SatisfiableItem_Multisig) _then) = _$SatisfiableItem_MultisigCopyWithImpl;
+@useResult
+$Res call({
+ List<PkOrF> keys, BigInt threshold
+});
+
+
+
+
+}
+/// @nodoc
+class _$SatisfiableItem_MultisigCopyWithImpl<$Res>
+    implements $SatisfiableItem_MultisigCopyWith<$Res> {
+  _$SatisfiableItem_MultisigCopyWithImpl(this._self, this._then);
+
+  final SatisfiableItem_Multisig _self;
+  final $Res Function(SatisfiableItem_Multisig) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? keys = null,Object? threshold = null,}) {
+  return _then(SatisfiableItem_Multisig(
+keys: null == keys ? _self._keys : keys // ignore: cast_nullable_to_non_nullable
+as List<PkOrF>,threshold: null == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as BigInt,
+  ));
 }
 
-/// @nodoc
-class __$$SatisfiableItem_MultisigImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res, _$SatisfiableItem_MultisigImpl>
-    implements _$$SatisfiableItem_MultisigImplCopyWith<$Res> {
-  __$$SatisfiableItem_MultisigImplCopyWithImpl(
-      _$SatisfiableItem_MultisigImpl _value,
-      $Res Function(_$SatisfiableItem_MultisigImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? keys = null,
-    Object? threshold = null,
-  }) {
-    return _then(_$SatisfiableItem_MultisigImpl(
-      keys: null == keys
-          ? _value._keys
-          : keys // ignore: cast_nullable_to_non_nullable
-              as List<PkOrF>,
-      threshold: null == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SatisfiableItem_MultisigImpl extends SatisfiableItem_Multisig {
-  const _$SatisfiableItem_MultisigImpl(
-      {required final List<PkOrF> keys, required this.threshold})
-      : _keys = keys,
-        super._();
 
-  final List<PkOrF> _keys;
-  @override
-  List<PkOrF> get keys {
-    if (_keys is EqualUnmodifiableListView) return _keys;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_keys);
-  }
+class SatisfiableItem_Thresh extends SatisfiableItem {
+  const SatisfiableItem_Thresh({required final  List<BdkPolicy> items, required this.threshold}): _items = items,super._();
+  
 
-  @override
-  final BigInt threshold;
-
-  @override
-  String toString() {
-    return 'SatisfiableItem.multisig(keys: $keys, threshold: $threshold)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_MultisigImpl &&
-            const DeepCollectionEquality().equals(other._keys, _keys) &&
-            (identical(other.threshold, threshold) ||
-                other.threshold == threshold));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_keys), threshold);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_MultisigImplCopyWith<_$SatisfiableItem_MultisigImpl>
-      get copyWith => __$$SatisfiableItem_MultisigImplCopyWithImpl<
-          _$SatisfiableItem_MultisigImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return multisig(keys, threshold);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return multisig?.call(keys, threshold);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (multisig != null) {
-      return multisig(keys, threshold);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return multisig(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return multisig?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (multisig != null) {
-      return multisig(this);
-    }
-    return orElse();
-  }
+ final  List<BdkPolicy> _items;
+ List<BdkPolicy> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
 }
 
-abstract class SatisfiableItem_Multisig extends SatisfiableItem {
-  const factory SatisfiableItem_Multisig(
-      {required final List<PkOrF> keys,
-      required final BigInt threshold}) = _$SatisfiableItem_MultisigImpl;
-  const SatisfiableItem_Multisig._() : super._();
+ final  BigInt threshold;
 
-  List<PkOrF> get keys;
-  BigInt get threshold;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_MultisigImplCopyWith<_$SatisfiableItem_MultisigImpl>
-      get copyWith => throw _privateConstructorUsedError;
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SatisfiableItem_ThreshCopyWith<SatisfiableItem_Thresh> get copyWith => _$SatisfiableItem_ThreshCopyWithImpl<SatisfiableItem_Thresh>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatisfiableItem_Thresh&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.threshold, threshold) || other.threshold == threshold));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items),threshold);
+
+@override
+String toString() {
+  return 'SatisfiableItem.thresh(items: $items, threshold: $threshold)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SatisfiableItem_ThreshImplCopyWith<$Res> {
-  factory _$$SatisfiableItem_ThreshImplCopyWith(
-          _$SatisfiableItem_ThreshImpl value,
-          $Res Function(_$SatisfiableItem_ThreshImpl) then) =
-      __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<BdkPolicy> items, BigInt threshold});
-}
+abstract mixin class $SatisfiableItem_ThreshCopyWith<$Res> implements $SatisfiableItemCopyWith<$Res> {
+  factory $SatisfiableItem_ThreshCopyWith(SatisfiableItem_Thresh value, $Res Function(SatisfiableItem_Thresh) _then) = _$SatisfiableItem_ThreshCopyWithImpl;
+@useResult
+$Res call({
+ List<BdkPolicy> items, BigInt threshold
+});
 
+
+
+
+}
 /// @nodoc
-class __$$SatisfiableItem_ThreshImplCopyWithImpl<$Res>
-    extends _$SatisfiableItemCopyWithImpl<$Res, _$SatisfiableItem_ThreshImpl>
-    implements _$$SatisfiableItem_ThreshImplCopyWith<$Res> {
-  __$$SatisfiableItem_ThreshImplCopyWithImpl(
-      _$SatisfiableItem_ThreshImpl _value,
-      $Res Function(_$SatisfiableItem_ThreshImpl) _then)
-      : super(_value, _then);
+class _$SatisfiableItem_ThreshCopyWithImpl<$Res>
+    implements $SatisfiableItem_ThreshCopyWith<$Res> {
+  _$SatisfiableItem_ThreshCopyWithImpl(this._self, this._then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? items = null,
-    Object? threshold = null,
-  }) {
-    return _then(_$SatisfiableItem_ThreshImpl(
-      items: null == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<BdkPolicy>,
-      threshold: null == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as BigInt,
-    ));
-  }
+  final SatisfiableItem_Thresh _self;
+  final $Res Function(SatisfiableItem_Thresh) _then;
+
+/// Create a copy of SatisfiableItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? items = null,Object? threshold = null,}) {
+  return _then(SatisfiableItem_Thresh(
+items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<BdkPolicy>,threshold: null == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as BigInt,
+  ));
 }
 
-/// @nodoc
 
-class _$SatisfiableItem_ThreshImpl extends SatisfiableItem_Thresh {
-  const _$SatisfiableItem_ThreshImpl(
-      {required final List<BdkPolicy> items, required this.threshold})
-      : _items = items,
-        super._();
-
-  final List<BdkPolicy> _items;
-  @override
-  List<BdkPolicy> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
-  }
-
-  @override
-  final BigInt threshold;
-
-  @override
-  String toString() {
-    return 'SatisfiableItem.thresh(items: $items, threshold: $threshold)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SatisfiableItem_ThreshImpl &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.threshold, threshold) ||
-                other.threshold == threshold));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_items), threshold);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SatisfiableItem_ThreshImplCopyWith<_$SatisfiableItem_ThreshImpl>
-      get copyWith => __$$SatisfiableItem_ThreshImplCopyWithImpl<
-          _$SatisfiableItem_ThreshImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PkOrF key) ecdsaSignature,
-    required TResult Function(PkOrF key) schnorrSignature,
-    required TResult Function(String hash) sha256Preimage,
-    required TResult Function(String hash) hash256Preimage,
-    required TResult Function(String hash) ripemd160Preimage,
-    required TResult Function(String hash) hash160Preimage,
-    required TResult Function(LockTime value) absoluteTimelock,
-    required TResult Function(int value) relativeTimelock,
-    required TResult Function(List<PkOrF> keys, BigInt threshold) multisig,
-    required TResult Function(List<BdkPolicy> items, BigInt threshold) thresh,
-  }) {
-    return thresh(items, threshold);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(PkOrF key)? ecdsaSignature,
-    TResult? Function(PkOrF key)? schnorrSignature,
-    TResult? Function(String hash)? sha256Preimage,
-    TResult? Function(String hash)? hash256Preimage,
-    TResult? Function(String hash)? ripemd160Preimage,
-    TResult? Function(String hash)? hash160Preimage,
-    TResult? Function(LockTime value)? absoluteTimelock,
-    TResult? Function(int value)? relativeTimelock,
-    TResult? Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult? Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-  }) {
-    return thresh?.call(items, threshold);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PkOrF key)? ecdsaSignature,
-    TResult Function(PkOrF key)? schnorrSignature,
-    TResult Function(String hash)? sha256Preimage,
-    TResult Function(String hash)? hash256Preimage,
-    TResult Function(String hash)? ripemd160Preimage,
-    TResult Function(String hash)? hash160Preimage,
-    TResult Function(LockTime value)? absoluteTimelock,
-    TResult Function(int value)? relativeTimelock,
-    TResult Function(List<PkOrF> keys, BigInt threshold)? multisig,
-    TResult Function(List<BdkPolicy> items, BigInt threshold)? thresh,
-    required TResult orElse(),
-  }) {
-    if (thresh != null) {
-      return thresh(items, threshold);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SatisfiableItem_EcdsaSignature value)
-        ecdsaSignature,
-    required TResult Function(SatisfiableItem_SchnorrSignature value)
-        schnorrSignature,
-    required TResult Function(SatisfiableItem_Sha256Preimage value)
-        sha256Preimage,
-    required TResult Function(SatisfiableItem_Hash256Preimage value)
-        hash256Preimage,
-    required TResult Function(SatisfiableItem_Ripemd160Preimage value)
-        ripemd160Preimage,
-    required TResult Function(SatisfiableItem_Hash160Preimage value)
-        hash160Preimage,
-    required TResult Function(SatisfiableItem_AbsoluteTimelock value)
-        absoluteTimelock,
-    required TResult Function(SatisfiableItem_RelativeTimelock value)
-        relativeTimelock,
-    required TResult Function(SatisfiableItem_Multisig value) multisig,
-    required TResult Function(SatisfiableItem_Thresh value) thresh,
-  }) {
-    return thresh(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult? Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult? Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult? Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult? Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult? Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult? Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult? Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult? Function(SatisfiableItem_Multisig value)? multisig,
-    TResult? Function(SatisfiableItem_Thresh value)? thresh,
-  }) {
-    return thresh?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SatisfiableItem_EcdsaSignature value)? ecdsaSignature,
-    TResult Function(SatisfiableItem_SchnorrSignature value)? schnorrSignature,
-    TResult Function(SatisfiableItem_Sha256Preimage value)? sha256Preimage,
-    TResult Function(SatisfiableItem_Hash256Preimage value)? hash256Preimage,
-    TResult Function(SatisfiableItem_Ripemd160Preimage value)?
-        ripemd160Preimage,
-    TResult Function(SatisfiableItem_Hash160Preimage value)? hash160Preimage,
-    TResult Function(SatisfiableItem_AbsoluteTimelock value)? absoluteTimelock,
-    TResult Function(SatisfiableItem_RelativeTimelock value)? relativeTimelock,
-    TResult Function(SatisfiableItem_Multisig value)? multisig,
-    TResult Function(SatisfiableItem_Thresh value)? thresh,
-    required TResult orElse(),
-  }) {
-    if (thresh != null) {
-      return thresh(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class SatisfiableItem_Thresh extends SatisfiableItem {
-  const factory SatisfiableItem_Thresh(
-      {required final List<BdkPolicy> items,
-      required final BigInt threshold}) = _$SatisfiableItem_ThreshImpl;
-  const SatisfiableItem_Thresh._() : super._();
-
-  List<BdkPolicy> get items;
-  BigInt get threshold;
-  @JsonKey(ignore: true)
-  _$$SatisfiableItem_ThreshImplCopyWith<_$SatisfiableItem_ThreshImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on
