@@ -298,10 +298,7 @@ class CargokitUserOptions {
       }
       userProjectDir = userProjectDir.parent;
     }
-    return CargokitUserOptions(
-      usePrecompiledBinaries: true,
-      verboseLogging: false,
-    );
+    return CargokitUserOptions._();
   }
 
   final bool usePrecompiledBinaries;
