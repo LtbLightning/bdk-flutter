@@ -1,0 +1,16 @@
+# Ensure 16KB page alignment for Android targets.
+# Required by Google Play for Android 15+ (API 35+) compatibility.
+# NDK r28+ defaults to this, but explicit flags ensure alignment
+# regardless of NDK version or manual build configuration.
+
+[target.aarch64-linux-android]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
+
+[target.armv7-linux-androideabi]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
+
+[target.i686-linux-android]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
+
+[target.x86_64-linux-android]
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
